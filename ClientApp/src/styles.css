@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Pacifico&display=swap');/*'Chewy'*/
+@import url("./assets/Fonts/Chewy/stylesheet.css");
+/*'Fredoka One'*/
+@import url("./assets/Fonts/Fredoka_One/stylesheet.css");
+/*'Jomhuria'*/
+@import url("./assets/Fonts/Jomhuria/stylesheet.css");
+/*'Patrick Hand'*/
+@import url("./assets/Fonts/Patrick_Hand/stylesheet.css");
+/*'Scheherazade New'*/
+@import url("./assets/Fonts/Scheherazade_New/stylesheet.css");
+/*'Paytone One'*/
+@import url("./assets/Fonts/Paytone_One/stylesheet.css");
+/*'Titan One'*/
+@import url("./assets/Fonts/Titan_One/stylesheet.css");
+/*Lalezar*/
+@import url("./assets/Fonts/Lalezar/stylesheet.css");
+/*'Almarai'*/
+@import url("./assets/Fonts/Almarai/stylesheet.css");
+/*'Noto Sans Arabic'*/
+@import url("./assets/Fonts/Noto_Sans_Arabic/stylesheet.css");
+/*'Calibri'*/
+@import url("./assets/Fonts/calibri/stylesheet.css");
+/*'HacenCasablancaHeavy'*/
+@import url("./assets/Fonts/HacenCasablancaHeavy/stylesheet.css");
+:root {
+  /*.....................................Fonts.........................*/
+  --Almarai: "Almarai";
+  --Chewy: "Chewy";
+  --Fredoka: "Fredoka One";
+  --Jomhuria: "Jomhuria";
+  --Patrick: "Patrick Hand";
+  --Scheherazade: "Scheherazade New";
+  --Paytone: "Paytone One";
+  --Titan: "Titan One";
+  --NotoSansArabic: "Noto Sans Arabic";
+  --Lalezar: "Lalezar";
+  --Calibri: "Calibri";
+  --Hacen: "Hacen Casablanca";
+  /*......................................colors..........................*/
+  --sucessColor: #2dce89;
+  --infoColor: #11cdef;
+  --WarningCOlor: #fa3a0e;
+  --DangerColor: #f5365c;
+  --PrimaryColor_Active: #324cdd;
+  --PrimaryColor: #5e72e4;
+}
+.calibri-font{
+  font-family: var(--Calibri) !important;
+}
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+.table-outer-container{
+  border-radius: 10px;
+}
+.LightRowSelection{
+  background: #efefef;
+}
+.SwalHtmlContent{
+  font:inherit;
+  font-weight: normal;
+  font-size:1.9rem !important;
+}
+.SwalErrorTitle{
+  color: #f44336 !important;
+}
+.SwalWarningTitle{
+  color: #ffc107 !important;
+}
+
+.mat-dialog-container{
+  padding: 0 !important;
+}
+.BusinessName{
+  font-size: 30px;
+  margin:20px !important;
+  font-family: fantasy;
+  cursor: pointer;
+}
+.font-Almarai{
+  font-family: var(--Almarai) !important;
+}
+  .font-titan{
+    font-family: var(--Titan);
+  }
+
+.font-Scheherazade{
+  font-family: var(--Scheherazade);
+}

@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Scheherazade New';
+    src: url('ScheherazadeNew-Bold.eot');
+    src: local('Scheherazade New Bold'), local('ScheherazadeNew-Bold'),
+        url('ScheherazadeNew-Bold.eot?#iefix') format('embedded-opentype'),
+        url('ScheherazadeNew-Bold.woff2') format('woff2'),
+        url('ScheherazadeNew-Bold.woff') format('woff'),
+        url('ScheherazadeNew-Bold.ttf') format('truetype'),
+        url('ScheherazadeNew-Bold.svg#ScheherazadeNew-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Scheherazade New';
+    src: url('ScheherazadeNew-Regular.eot');
+    src: local('Scheherazade New'), local('ScheherazadeNew-Regular'),
+        url('ScheherazadeNew-Regular.eot?#iefix') format('embedded-opentype'),
+        url('ScheherazadeNew-Regular.woff2') format('woff2'),
+        url('ScheherazadeNew-Regular.woff') format('woff'),
+        url('ScheherazadeNew-Regular.ttf') format('truetype'),
+        url('ScheherazadeNew-Regular.svg#ScheherazadeNew-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

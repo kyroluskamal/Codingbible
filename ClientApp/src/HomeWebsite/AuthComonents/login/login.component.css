@@ -1,0 +1,13 @@
+mat-card{
+    width: 288px;
+  }
+  
+  mat-card-title, .BusinessName, mat-card-subtitle{
+    text-align: center;
+  }
+  
+  [dir="rtl"] mat-card-title,[dir="rtl"] mat-card-subtitle{
+    font-family: var(--Scheherazade);
+    font-weight: bold;
+  
+  }

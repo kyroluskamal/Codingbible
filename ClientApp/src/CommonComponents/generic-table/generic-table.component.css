@@ -1,0 +1,43 @@
+.btn{
+  padding: 0 !important;
+}
+*:not(.material-icons){
+  font-weight: bold !important;
+}
+.details-Row{
+  height: 0px !important;
+}
+.element-detail {
+  overflow: hidden;
+
+}
+.mat-paginator-outer-container{
+  font-weight: normal;
+}
+.mat-column-expand{
+  width: 5px !important;
+}
+section{
+  padding: 5px;
+}
+section p:first-child{
+  text-align: center;
+  padding: 5px;
+  font-family: "Scheherazade New";
+  font-size: 18px;
+}
+
+.DetailsTable tr:nth-child(odd){
+  background-color: rgb(209, 209, 209);
+}
+
+.DarkTableBg .DetailsTable tr:nth-child(odd){
+  background-color: black;
+}
+
+.DetailsTable td{
+  padding: 6px !important;
+}
+.mat-column-id{
+  width:100px !important;
+  }

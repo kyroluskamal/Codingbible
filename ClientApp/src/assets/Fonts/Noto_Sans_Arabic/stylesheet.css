@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Regular.eot');
+    src: url('NotoSansArabic-Regular.eot?#iefix') format('embedded-opentype'),
+        url('NotoSansArabic-Regular.woff2') format('woff2'),
+        url('NotoSansArabic-Regular.woff') format('woff'),
+        url('NotoSansArabic-Regular.ttf') format('truetype'),
+        url('NotoSansArabic-Regular.svg#NotoSansArabic-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-SemiBold.eot');
+    src: url('NotoSansArabic-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('NotoSansArabic-SemiBold.woff2') format('woff2'),
+        url('NotoSansArabic-SemiBold.woff') format('woff'),
+        url('NotoSansArabic-SemiBold.ttf') format('truetype'),
+        url('NotoSansArabic-SemiBold.svg#NotoSansArabic-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Thin.eot');
+    src: url('NotoSansArabic-Thin.eot?#iefix') format('embedded-opentype'),
+        url('NotoSansArabic-Thin.woff2') format('woff2'),
+        url('NotoSansArabic-Thin.woff') format('woff'),
+        url('NotoSansArabic-Thin.ttf') format('truetype'),
+        url('NotoSansArabic-Thin.svg#NotoSansArabic-Thin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Noto Sans Arabic';
+    src: url('NotoSansArabic-Regular_1.eot');
+    src: url('NotoSansArabic-Regular_1.eot?#iefix') format('embedded-opentype'),
+        url('NotoSansArabic-Regular_1.woff2') format('woff2'),
+        url('NotoSansArabic-Regular_1.woff') format('woff'),
+        url('NotoSansArabic-Regular_1.ttf') format('truetype'),
+        url('NotoSansArabic-Regular_1.svg#NotoSansArabic-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

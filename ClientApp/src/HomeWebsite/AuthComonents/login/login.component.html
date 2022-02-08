@@ -1,0 +1,118 @@
+<mat-card class="d-flex flex-column align-items-center p-0">
+    <button mat-icon-button
+            class="position-absolute top-0 end-0"
+            color="warn"
+            *ngIf="!CloseIconHide"
+            (click)="dialogHandler.CloseDialog();">
+        <mat-icon class="mat-18">close</mat-icon>
+    </button>
+    <div class="bg-primary w-100 text-center text-white rounded-top">
+        <p class="BusinessName"
+           [routerLink]="['']">Coding Bible</p>
+        <p style="font-family: 'Pacifico', cursive;"
+           class="fs-5">Welcome back</p>
+    </div>
+    <!-- <mat-card-subtitle>Sign in to our store</mat-card-subtitle> -->
+
+    <form [formGroup]="loginForm"
+          (ngSubmit)="loginForm.valid">
+        <div class="form-container calibri-font p-3">
+            <mat-error class="alert alert-danger"
+                       *ngIf="ValidationErrors.length>0">
+                <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
+                <ul>
+                    <li *ngFor="let error of ValidationErrors">
+                        {{error}}
+                    </li>
+                </ul>
+            </mat-error>
+            <!-- ----------------------------------------------------------------------------------
+            ||                                 Email                                             ||  
+            --------------------------------------------------------------------------------------->
+            <mat-form-field [appearance]="FormFieldAppear.fill"
+                            class="w-100">
+                <mat-label><span>{{Constants.FormFieldsNames.Email}}</span></mat-label>
+                <input matInput
+                       [type]="Constants.InputFieldTypes.email"
+                       value=""
+                       [errorStateMatcher]="customErrorStateMatcher"
+                       [formControlName]="Constants.FormControlNames.email" />
+                <mat-icon matSuffix>email</mat-icon>
+
+                <mat-error
+                           *ngIf="loginForm.get(Constants.FormControlNames.email)?.hasError(Constants.FormValidationErrorsNames.pattern)">
+                    {{Constants.FormValidationErrors.EnterValidEmail}}
+                </mat-error>
+                <mat-error
+                           *ngIf="
+                           loginForm.get(Constants.FormControlNames.email)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    {{Constants.FormValidationErrors.EnterValidEmail}}
+                </mat-error>
+            </mat-form-field>
+            <!-- ----------------------------------------------------------------------------------
+            ||                                Password                                            ||  
+            --------------------------------------------------------------------------------------->
+            <mat-form-field [appearance]="FormFieldAppear.fill"
+                            class="w-100">
+                <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
+                <input matInput
+                       #password
+                       [type]="Constants.InputFieldTypes.password"
+                       value=""
+                       [errorStateMatcher]="customErrorStateMatcher"
+                       [formControlName]="Constants.FormControlNames.password" />
+                <mat-icon matSuffix
+                          (click)="password.type===Constants.InputFieldTypes.password?
+                          password.type=Constants.InputFieldTypes.text:password.type===Constants.InputFieldTypes.text?
+                          password.type=Constants.InputFieldTypes.password:''">
+                    <span class="material-icons">
+                        {{password.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
+                    </span>
+                </mat-icon>
+
+                <mat-error
+                           *ngIf="loginForm.get(Constants.FormControlNames.password)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    {{Constants.FormValidationErrors.RequiredField}}
+                </mat-error>
+                fdf
+            </mat-form-field>
+            <!-- ----------------------------------------------------------------------------------
+            ||                               Forget password                                      ||  
+            --------------------------------------------------------------------------------------->
+            <div>
+                <div>
+
+                </div>
+                <a [routerLink]="['']"
+                   class="buttonLink text-decoration-none fw-bold">Forget password?</a>
+            </div>
+            <!------------------------Mat-Dialog-actions--------------------------->
+            <div>
+                <button mat-raised-button
+                        color="primary"
+                        dir="ltr"
+                        [disabled]="loginForm.invalid || (loginForm.valid && loading)"
+                        class="w-100"
+                        aria-label="press to login"
+                        style="margin-top: 10px;"
+                        (click)="Login()">
+                    <mat-icon>
+                        <mat-spinner diameter="20"
+                                     color="warn"
+                                     *ngIf="loading"></mat-spinner><span *ngIf="!loading">login</span>
+                    </mat-icon>
+                    {{(loginForm.valid || loginForm.invalid) && !loading?Constants.FormConstants.Login:''}}
+                </button>
+            </div>
+            <!--End Mat-Dialog-actions-->
+        </div>
+
+    </form>
+</mat-card>
+<p class="calibri-font mt-3 fs-5 d-flex justify-content-center">
+    {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold"
+       (click)="dialogHandler.CloseDialog();"
+       [routerLink]="['',Routes.AuthRoutes.Register]">
+        {{Constants.FormConstants.JoinNow}}
+    </a>
+</p>

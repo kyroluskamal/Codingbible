@@ -1,0 +1,295 @@
+<div [class]="Constants.css.table_outer_container + ' '+ 'mat-elevation-z2'">
+  <!-- Filter div -->
+
+  <div fxLayout="row"
+       fxLayout.sm="column"
+       fxLayout.lt-sm="column"
+       fxLayoutAlign.gt-xs="space-between center"
+       fxLayoutAlign.sm="space-evenly center"
+       fxLayoutAlign.lt-sm="space-evenly center"
+       [style.height]="FilterSectionHeight"
+       *ngIf="ShowFilterSection">
+    <div fxLayout="row">
+      <!-- ................................................. Search table -->
+      <div fxLayout="row"
+           fxLayoutAlign="center center"
+           class="SearchTable">
+        <input #searchInput
+               [placeholder]="Constants.FormConstants.PlaceHolders.Search_table"
+               (input)="Filter(searchInput.value)"
+               type="text"
+               value="" />
+        <mat-icon class="mat-18"
+                  matSuffix>
+          search
+        </mat-icon>
+      </div>
+      <span *ngIf="searchInput.value!==''"
+            fxLayoutAlign="center center">
+        {{dataSource.filteredData.length===0?
+        (Constants.FormErrors.NoMatchedData_inSelection)
+        :dataSource.filteredData.length!==0?
+        (Constants.FormConstants.Found ) + ' '+ dataSource.filteredData.length + '
+        '+(Constants.FormConstants.Results)
+        :''}}
+      </span>
+    </div>
+    <!-- ....................................................Settings button -->
+    <div fxLayout="row">
+      <button mat-icon-button
+              [matTooltip]="Constants.ToolTip.Delete"
+              *ngIf="this.SelectedRows[0] && !isLoadingRes && !noData &&this.SelectedRows[0][PreventDeleteForKey]!==PreventDelFor"
+              color="warn"
+              (click)="Delete()">
+        <mat-icon class="mat-18"><span class="material-icons">delete</span></mat-icon>
+      </button>
+      <button mat-icon-button
+              [matTooltip]="Constants.ToolTip.Edit"
+              *ngIf="this.SelectedRows[0] && !isLoadingRes && !noData &&this.SelectedRows[0][PreventEditForKey]!==PreventEditForValue"
+              color="primary"
+              fxLayoutAlign="center"
+              (click)="Edit()">
+        <mat-icon class="mat-18">
+          <span class="material-icons">
+            edit
+          </span>
+        </mat-icon>
+      </button>
+      <button mat-icon-button
+              *ngIf="!isLoadingRes && !DisableAddButton"
+              [matTooltip]="ToolTipText"
+              fxLayoutAlign="center"
+              color="primary"
+              (click)="AddClicked()">
+        <mat-icon><span class="material-icons">
+            add_box
+          </span></mat-icon>
+      </button>
+
+      <button mat-icon-button
+              (click)="TableSettingClick()"
+              #tableSettingsButton
+              [matMenuTriggerFor]="TableSettings">
+        <mat-icon class="mat-18">settings</mat-icon>
+        <mat-menu #TableSettings
+                  [overlapTrigger]="false">
+          <span mat-menu-item
+                (click)="  $event.stopPropagation()"
+                *ngFor="let col of columns; let i = index">
+            <mat-checkbox color="primary"
+                          (change)="SettingChange(col, i)"
+                          [checked]="col.field!==''">
+              <mat-icon class="mat-18"
+                        *ngIf="col.HeaderfaIcon">
+                <fa-icon [icon]="col.HeaderfaIcon"></fa-icon>
+              </mat-icon>
+              <mat-icon class="mat-18"
+                        *ngIf="col.HeaderGoogleIcon">{{col.HeaderGoogleIcon}}</mat-icon>
+              <span *ngIf="!col.HeaderGoogleIcon&&!col.HeaderfaIcon">
+                {{col.display}}
+              </span>
+            </mat-checkbox>
+          </span>
+        </mat-menu>
+      </button>
+    </div>
+  </div>
+  <div>
+    <mat-progress-bar mode="indeterminate"
+                      *ngIf="ShowProgressbar"></mat-progress-bar>
+    <div style="min-height: 200px;"
+         *ngIf="isLoadingRes">
+      <ngx-spinner name="inside">
+
+      </ngx-spinner>
+    </div>
+    <ng-template [ngIf]="NoData&& !isLoadingRes">
+      <div style="min-height: 100px;"
+           style="font-family:'Almarai'">
+        <span *ngIf="NoDataMessage.length>0">
+          <span *ngFor="let t of NoDataMessage">
+            {{t.text + " "}}
+          </span>
+        </span>
+        <span *ngIf="NoDataMessage.length===0">
+          "No data is found. Add new data"
+        </span>
+      </div>
+    </ng-template>
+    <table mat-table
+           [hidden]="items.length!==0"
+           multiTemplateDataRows
+           [dataSource]="dataSource"
+           cdkDropList
+           matSort
+           cdkDropListOrientation="horizontal"
+           (cdkDropListDropped)="dropListDropped($event)">
+      <ng-container matColumnDef="expand"
+                    *ngIf="HasCollabsableRow && CollabsableDataSections.length>0">
+        <th mat-header-cell
+            fxFlexAlign="center"
+            *matHeaderCellDef
+            cdkDrag
+            cdkDragLockAxis="x"
+            mat-sort-header></th>
+        <td mat-cell
+            *matCellDef="let element">
+          <mat-icon class="mat-18"><span class="material-icons">
+              {{element === expandedElement && SelectedRows[0] &&
+              expandedElement===SelectedRows[0]?'arrow_drop_down':'arrow_right'}}
+            </span></mat-icon>
+        </td>
+      </ng-container>
+      <ng-container *ngFor="let column of columns; let i = index"
+                    [matColumnDef]="column.field">
+        <th mat-header-cell
+            fxFlexAlign="center"
+            *matHeaderCellDef
+            cdkDrag
+            cdkDragLockAxis="x"
+            mat-sort-header>
+
+          <ng-template [ngIf]="column.HeaderfaIcon || column.HeaderGoogleIcon">
+            <mat-icon class="mat-18"
+                      *ngIf="column.HeaderfaIcon">
+              <fa-icon [icon]="column.HeaderfaIcon"></fa-icon>
+            </mat-icon>
+            <mat-icon class="mat-18"
+                      *ngIf="column.HeaderGoogleIcon">
+              {{column.HeaderGoogleIcon}}
+            </mat-icon>
+          </ng-template>
+          <ng-template [ngIf]="!column.HeaderfaIcon && !column.HeaderGoogleIcon">
+            {{column.display}}
+          </ng-template>
+        </th>
+
+        <td mat-cell
+            *matCellDef="let row">
+          <img *ngIf="column.field.includes('logo')||column.field.includes('image')"
+               [src]="row[column.field]"
+               width="100px" />
+          <span
+                *ngIf="!column.IsTrueOrFlase && column.field !== RefField &&(!column.field.includes('logo')&&!column.field.includes('image'))">
+            {{column.field.includes('date')||column.field.includes('Date')?(row[column.field]|date:'longDate'):
+            column.field.includes('Balance')&&!column.field.includes('Date')?(row[column.field]|number:'1.2-2'):row[column.field]}}
+          </span>
+          <span *ngIf="!column.IsTrueOrFlase && column.field === RefField">
+            {{row[RefField]}}
+            <br *ngIf="row[RefField]">
+            <button mat-button
+                    *ngIf="row[RefField]===''"
+                    class="btn buttonLink"
+                    (click)="AddReferencialData(row)">{{Constants.FormConstants.Add}}</button>
+            <button mat-button
+                    *ngIf="row[RefField]!==''"
+                    class="btn buttonLink"
+                    (click)="EditReferencialData(row)">{{Constants.FormConstants.Edit}}</button>
+            <button mat-button
+                    *ngIf="row[RefField]!==''"
+                    class="btn buttonLink"
+                    (click)="DeleteReferencialData(row)">{{Constants.FormConstants.Delete}}</button>
+          </span>
+
+          <span *ngIf="column.IsTrueOrFlase">
+            <span *ngIf="column.True_faIcon || column.False_faIcon">
+              <mat-icon class="mat-18"
+                        [class]="Constants.css.green"
+                        *ngIf="row[column.field]===true ">
+                <fa-icon [icon]="column.True_faIcon"></fa-icon>
+              </mat-icon>
+              <mat-icon class="mat-18"
+                        [class]="Constants.css.red"
+                        *ngIf="row[column.field]===false">
+                <fa-icon [icon]="column.False_faIcon"></fa-icon>
+              </mat-icon>
+            </span>
+            <span *ngIf="column.True_GoogleIcon || column.False_GoogleIcon">
+              <mat-icon class="mat-18"
+                        [class]="Constants.css.green"
+                        *ngIf="row[column.field]===true ">
+                {{column.True_GoogleIcon }}
+              </mat-icon>
+              <mat-icon class="mat-18"
+                        [class]="Constants.css.red"
+                        *ngIf="row[column.field]===false">
+                {{column.False_GoogleIcon}}
+              </mat-icon>
+            </span>
+          </span>
+
+        </td>
+      </ng-container>
+      <!-- ............................................ expanded element -->
+      <ng-container matColumnDef="expandedDetail"
+                    *ngIf="HasCollabsableRow && CollabsableDataSections.length>0">
+        <td mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="displayedColumns.length">
+          <div class="element-detail"
+               [@detailExpand]="element === expandedElement && SelectedRows[0] && expandedElement===SelectedRows[0]? 'expanded' : 'collapsed'">
+            <div fxLayout="row wrap"
+                 fxLayoutGap.sm="10px"
+                 style="text-align: justify; margin:10px"
+                 fxLayout.xs="column"
+                 fxLayoutAlign="space-between">
+              <section *ngFor="let section of CollabsableDataSections"
+                       class="mat-elevation-z3"
+                       [fxFlex.gt-xs]="section.fxFlex"
+                       [fxFlex.sm]="section.fxFlex_sm"
+                       fxFlex.xs="100%"
+                       fxLayout="column">
+                <p class="mat-elevation-z2"
+                   [ngStyle]="{'display':NoData&& !isLoadingRes?'none':''}">
+                  <span *ngFor="let t of section.sectionName">
+                    {{t.text + " "}}
+                  </span>
+                </p>
+                <table class="DetailsTable"
+                       style="width: 100%;">
+                  <tr *ngFor="let key of section.keys">
+                    <td style="width:30%; text-align: justify;">{{key}}</td>
+                    <td style="width:70%; text-align: justify;">
+                      {{key.includes('date')||key.includes('Date')?(element[key]|date:'longDate'):
+                      key.includes('Balance')&&(!key.includes('Date')||key.includes('date'))?(element[key]|
+                      number:'1.2-2'):element[key]}}</td>
+                  </tr>
+                </table>
+                <!-- <p *ngFor="let key of section.keys"
+                   [dir]="translate.isRightToLeft(translate.GetCurrentLang())?'rtl':'ltr'">
+                  {{key.toLowerCase()|translate}}
+                  :
+                </p> -->
+              </section>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row
+          [hidden]="isLoadingRes===true || noData===true"
+          [ngStyle]="{'display':NoData&& !isLoadingRes?'none':''}"
+          *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row
+          (click)="SelectRow(row) ; expandedElement=expandedElement === SelectedRows[0] ? null : SelectedRows[0]"
+          (dblclick)="Dbclick(row)"
+          [class]="Constants.css.LightRowSelection"
+          *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container *ngIf="HasCollabsableRow">
+        <tr mat-row
+            *matRowDef="let row; columns: ['expandedDetail']"
+            class="details-Row"></tr>
+      </ng-container>
+    </table>
+    <mat-divider style="max-width: 100%;"></mat-divider>
+
+  </div>
+  <mat-paginator [length]="items.length"
+                 fixed
+                 *ngIf="ShowPaginator"
+                 style-paginator
+                 [hidden]="!isLoadingResults"
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10, 15, 20]"
+                 showFirstLastButtons
+                 [showTotalPages]="3"></mat-paginator>
+</div>

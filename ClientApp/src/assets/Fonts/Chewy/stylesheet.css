@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Chewy';
+    src: url('Chewy-Regular.eot');
+    src: url('Chewy-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Chewy-Regular.woff2') format('woff2'),
+        url('Chewy-Regular.woff') format('woff'),
+        url('Chewy-Regular.ttf') format('truetype'),
+        url('Chewy-Regular.svg#Chewy-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

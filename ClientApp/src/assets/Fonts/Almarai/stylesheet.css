@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Almarai';
+    src: url('Almarai-ExtraBold.eot');
+    src: local('Almarai Extrabold'), local('Almarai-ExtraBold'),
+        url('Almarai-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('Almarai-ExtraBold.woff2') format('woff2'),
+        url('Almarai-ExtraBold.woff') format('woff'),
+        url('Almarai-ExtraBold.ttf') format('truetype'),
+        url('Almarai-ExtraBold.svg#Almarai-ExtraBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('Almarai-Light.eot');
+    src: local('Almarai Light'), local('Almarai-Light'),
+        url('Almarai-Light.eot?#iefix') format('embedded-opentype'),
+        url('Almarai-Light.woff2') format('woff2'),
+        url('Almarai-Light.woff') format('woff'),
+        url('Almarai-Light.ttf') format('truetype'),
+        url('Almarai-Light.svg#Almarai-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('Almarai-Bold.eot');
+    src: local('Almarai Bold'), local('Almarai-Bold'),
+        url('Almarai-Bold.eot?#iefix') format('embedded-opentype'),
+        url('Almarai-Bold.woff2') format('woff2'),
+        url('Almarai-Bold.woff') format('woff'),
+        url('Almarai-Bold.ttf') format('truetype'),
+        url('Almarai-Bold.svg#Almarai-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Almarai';
+    src: url('Almarai-Regular.eot');
+    src: local('Almarai'), local('Almarai-Regular'),
+        url('Almarai-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Almarai-Regular.woff2') format('woff2'),
+        url('Almarai-Regular.woff') format('woff'),
+        url('Almarai-Regular.ttf') format('truetype'),
+        url('Almarai-Regular.svg#Almarai-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

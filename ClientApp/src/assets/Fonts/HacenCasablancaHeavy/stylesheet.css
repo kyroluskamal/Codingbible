@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Hacen Casablanca';
+    src: url('HacenCasablancaHeavy.eot');
+    src: local('Hacen Casablanca Heavy'), local('HacenCasablancaHeavy'),
+        url('HacenCasablancaHeavy.eot?#iefix') format('embedded-opentype'),
+        url('HacenCasablancaHeavy.woff2') format('woff2'),
+        url('HacenCasablancaHeavy.woff') format('woff'),
+        url('HacenCasablancaHeavy.ttf') format('truetype'),
+        url('HacenCasablancaHeavy.svg#HacenCasablancaHeavy') format('svg');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
