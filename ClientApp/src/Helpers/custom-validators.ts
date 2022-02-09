@@ -1,9 +1,14 @@
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn } from "@angular/forms";
+import * as Constants from '../Helpers/constants';
 
-export class CustomValidators {
-  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!control.value) {
+export class CustomValidators
+{
+  static patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn
+  {
+    return (control: AbstractControl): { [key: string]: any; } | null =>
+    {
+      if (!control.value)
+      {
         // if control is empty return no error
         return null;
       }
@@ -17,9 +22,12 @@ export class CustomValidators {
   }
 
 
-  static validateError(error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!control.value) {
+  static validateError(error: ValidationErrors): ValidatorFn
+  {
+    return (control: AbstractControl): { [key: string]: any; } | null =>
+    {
+      if (!control.value)
+      {
         // if control is empty return no error
         return null;
       }
@@ -28,9 +36,12 @@ export class CustomValidators {
       return control.invalid ? error : null;
     };
   }
-  static OnlyTouched(error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (control.touched) {
+  static OnlyTouched(error: ValidationErrors): ValidatorFn
+  {
+    return (control: AbstractControl): { [key: string]: any; } | null =>
+    {
+      if (control.touched)
+      {
         // if control is empty return no error
         return null;
       }
@@ -40,22 +51,29 @@ export class CustomValidators {
     };
   }
 
-  static ServerErrorValidations(validationError: any, FormGroup: FormGroup) {
-    if (validationError.length > 0) {
+  static ServerErrorValidations(validationError: any, FormGroup: FormGroup)
+  {
+    if (validationError.length > 0)
+    {
       validationError = JSON.stringify(validationError);
-      for (let key in validationError) {
+      for (let key in validationError)
+      {
         FormGroup.get(key)?.setErrors({ key: true });
       }
     }
   }
   static BadRequestCustomValidation(validationError: any, controlName: string,
-    error: ValidationErrors): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      if (!control.value) {
+    error: ValidationErrors): ValidatorFn
+  {
+    return (control: AbstractControl): { [key: string]: any; } | null =>
+    {
+      if (!control.value)
+      {
         // if control is empty return no error
         return null;
       }
-      if (validationError.length != 0) {
+      if (validationError.length != 0)
+      {
         control.get(controlName)?.setErrors(error);
       }
       // if true, return no error (no error), else return error passed in the second parameter
@@ -63,25 +81,30 @@ export class CustomValidators {
     };
   }
 
-  static passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password: string = control.get('Password')?.value; // get password from our password form control
-    const confirmPassword: string = control.get('ConfirmPassword')?.value; // get password from our confirmPassword form control
+  static passwordMatchValidator(control: AbstractControl): { [key: string]: boolean; } | null
+  {
+    const password: string = control.get(Constants.FormControlNames.password)?.value; // get password from our password form control
+    const confirmPassword: string = control.get(Constants.FormControlNames.confirmpassword)?.value; // get password from our confirmPassword form control
     // compare is the password math
-    if (password !== confirmPassword) {
+    if (password !== confirmPassword)
+    {
       // if they don't match, set an error in our confirmPassword form control
-      control.get('ConfirmPassword')?.setErrors({ NoPassswordMatch: true });
+      control.get(Constants.FormControlNames.confirmpassword)?.setErrors({ NoPassswordMatch: true });
       return { 'NoPassswordMatch': true };
     }
-    return null
+    return null;
 
   }
 
-  getFormControl(controlName: string, formGroup: FormGroup): FormControl {
+  getFormControl(controlName: string, formGroup: FormGroup): FormControl
+  {
     return formGroup.get(controlName) as FormControl;
   }
 
-  getErrorMessage(controlName: string, errorType: string) {
-    switch (controlName) {
+  getErrorMessage(controlName: string, errorType: string)
+  {
+    switch (controlName)
+    {
       case "Email": {
         if (errorType == "required") return "<strong>Email</strong> is required";
         else if (errorType == "email") return "You have to <strong>enter valid Email</strong>";

@@ -102,3 +102,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 .font-Scheherazade{
   font-family: var(--Scheherazade);
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}

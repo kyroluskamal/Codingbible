@@ -1,7 +1,5 @@
 <mat-card class="d-flex flex-column align-items-center p-0 ">
-    <button mat-icon-button
-            class="position-absolute top-0 end-0"
-            color="warn"
+    <button class="btn btn-link position-absolute top-0 end-0 text-light"
             *ngIf="!CloseIconHide"
             (click)="dialogHandler.CloseDialog();">
         <mat-icon class="mat-18">close</mat-icon>
@@ -32,7 +30,8 @@
                        [type]="Constants.InputFieldTypes.email"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.email" />
+                       [formControlName]="Constants.FormControlNames.email"
+                       [placeholder]="Constants.FormConstants.PlaceHolders.emailExample" />
                 <mat-icon matSuffix>email</mat-icon>
 
                 <mat-error
@@ -64,6 +63,7 @@
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
+
             <!-- ----------------------------------------------------------------------------------
             ||                                Password                                            ||  
             --------------------------------------------------------------------------------------->
@@ -84,7 +84,7 @@
                           (click)="password.type===Constants.InputFieldTypes.password?
                           password.type=Constants.InputFieldTypes.text:password.type===Constants.InputFieldTypes.text?
                           password.type=Constants.InputFieldTypes.password:''">
-                    <span class="material-icons">
+                    <span class="material-icons cursor-pointer">
                         {{password.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
                     </span>
                 </mat-icon>
@@ -136,7 +136,35 @@
                         </li>
                     </ul>
                 </ng-template>
-
+            </mat-form-field>
+            <!-- ----------------------------------------------------------------------------------
+            ||                                Confirm Password                                    ||  
+            --------------------------------------------------------------------------------------->
+            <mat-form-field [appearance]="FormFieldAppear.fill"
+                            class="w-100">
+                <mat-label><span>{{Constants.FormFieldsNames.ConfirmPassword}}</span></mat-label>
+                <input matInput
+                       #ConfirmPassword
+                       [type]="Constants.InputFieldTypes.password"
+                       value=""
+                       [errorStateMatcher]="customErrorStateMatcher"
+                       [formControlName]="Constants.FormControlNames.confirmpassword" />
+                <mat-icon matSuffix
+                          (click)="ConfirmPassword.type===Constants.InputFieldTypes.password?
+                          ConfirmPassword.type=Constants.InputFieldTypes.text:ConfirmPassword.type===Constants.InputFieldTypes.text?
+                          ConfirmPassword.type=Constants.InputFieldTypes.password:''">
+                    <span class="material-icons cursor-pointer">
+                        {{password.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
+                    </span>
+                </mat-icon>
+                <mat-error
+                           *ngIf="RegisterForm.get(Constants.FormControlNames.confirmpassword)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    {{Constants.FormValidationErrors.RequiredField}}
+                </mat-error>
+                <mat-error
+                           *ngIf="RegisterForm.get(Constants.FormControlNames.confirmpassword)?.hasError(Constants.FormValidationErrorsNames.password.NoPassswordMatch)">
+                    {{Constants.FormValidationErrors.Password.NoPassswordMatch}}
+                </mat-error>
             </mat-form-field>
             <!------------------------Mat-Dialog-actions--------------------------->
             <div>
@@ -160,11 +188,20 @@
         </div>
 
     </form>
+    <p *ngIf="ShowCardFooter"
+       class="calibri-font m-3 fs-6 d-flex justify-content-center">
+        {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a
+           class="text-decoration-none btn-link fw-bold cursor-pointer"
+           (click)="dialogHandler.CloseDialog();dialogHandler.OpenLogin()">
+            {{Constants.FormConstants.Login}}.
+        </a>
+    </p>
 </mat-card>
-<p class="calibri-font mt-3 fs-5 d-flex justify-content-center">
-    {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none buttonLink fw-bold"
+<p *ngIf="!ShowCardFooter"
+   class="calibri-font mt-3 fs-6 d-flex justify-content-center">
+    {{Constants.FormConstants.AlreadyHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
        (click)="dialogHandler.CloseDialog();"
        [routerLink]="['',Routes.AuthRoutes.Login]">
-        {{Constants.FormConstants.Login}}
+        {{Constants.FormConstants.Login}}.
     </a>
 </p>

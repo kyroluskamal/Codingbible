@@ -10,6 +10,5 @@ namespace CodingBible.Models
         public string Lastname { get; set; }
         public bool IsActive { get; set; }
         public bool RememberMe { get; set; }
-        public bool Gender { get; set; }
     }
 }

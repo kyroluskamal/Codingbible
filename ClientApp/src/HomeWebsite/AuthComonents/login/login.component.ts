@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit
   {
   }
   @Input() CloseIconHide: boolean = false;
+  @Input() ShowCardFooter: boolean = true;
 
   ngOnInit(): void
   {

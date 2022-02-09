@@ -10,13 +10,15 @@ export const FormConstants = {
     Add: "Add",
     Edit: "Edit",
     PlaceHolders: {
-        Search_table: "Search Table"
+        Search_table: "Search Table",
+        emailExample: "ex: Jhon@gmail.com"
     },
     JoinNow: "Join now",
     DontHaveAccount: "Don't have Account?",
     Login: "Login",
     Register: "Register",
-    AlreadyHaveAccount: "Already have account?"
+    AlreadyHaveAccount: "Already have account?",
+    RememberMe: "Remember me"
 };
 
 export const FormErrors = {
@@ -80,7 +82,9 @@ export const FormControlNames = {
     email: "email",
     phonenumber: "phonenumber",
     username: "username",
-    confirmpassword: "confirmpassword"
+    confirmpassword: "confirmpassword",
+    firstname: "firstname",
+    lastname: "lastname"
 };
 
 export const FormFieldsNames = {
@@ -89,7 +93,9 @@ export const FormFieldsNames = {
     RememberMe: "Remember Me",
     PhoneNumber: "Phone Number",
     Username: "Username",
-    ConfirmPassword: "Confirm password"
+    ConfirmPassword: "Confirm password",
+    FirstName: "First name",
+    LastName: "Last name"
 };
 export const FormValidationErrors = {
     PleaseCorrectErrors: "Please, correct the following errors",
@@ -100,7 +106,8 @@ export const FormValidationErrors = {
         hasSpecialCharacters: "At least one special character",
         hasSmallCase: "At least one small case letter",
         hasCapitalCase: "At least one capital letter",
-        hasNumber: "At least one number"
+        hasNumber: "At least one number",
+        NoPassswordMatch: "Both passwords are not matching."
     }
 
 };
@@ -113,7 +120,8 @@ export const FormValidationErrorsNames = {
         minLength: "minlength",
         hasSpecialCharacters: "hasSpecialCharacters",
         hasCapitalCase: "hasCapitalCase",
-        hasNumber: "hasNumber"
+        hasNumber: "hasNumber",
+        NoPassswordMatch: "NoPassswordMatch"
     }
 };
 
@@ -121,7 +129,8 @@ export const InputFieldTypes =
 {
     text: "text",
     email: "email",
-    password: "password"
+    password: "password",
+    checkbox: "checkbox"
 };
 
 export class FormFiledAppearance

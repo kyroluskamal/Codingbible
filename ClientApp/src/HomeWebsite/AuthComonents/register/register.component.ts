@@ -29,6 +29,8 @@ export class RegisterComponent implements OnInit
     public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,
     private ServerResponse: ServerResponseHandelerService, public dialogHandler: DialogHandlerService) { }
   @Input() CloseIconHide: boolean = false;
+  @Input() ShowCardFooter: boolean = true;
+
   ngOnInit(): void
   {
     this.RegisterForm = this.formBuilder.group({
@@ -43,6 +45,8 @@ export class RegisterComponent implements OnInit
       ],
       confirmpassword: [null, [Validators.required]],
       username: [null, [Validators.required]],
+      firstname: [null, [Validators.required]],
+      lastname: [null, Validators.required],
       phonenumber: [null, [Validators.required, Validators.pattern(Constants.ConstRegex.PhoneRegex)]],
     },
       {

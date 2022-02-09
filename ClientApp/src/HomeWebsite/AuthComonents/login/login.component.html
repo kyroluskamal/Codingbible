@@ -1,7 +1,5 @@
 <mat-card class="d-flex flex-column align-items-center p-0">
-    <button mat-icon-button
-            class="position-absolute top-0 end-0"
-            color="warn"
+    <button class="btn btn-link position-absolute top-0 end-0 text-light"
             *ngIf="!CloseIconHide"
             (click)="dialogHandler.CloseDialog();">
         <mat-icon class="mat-18">close</mat-icon>
@@ -74,17 +72,21 @@
                            *ngIf="loginForm.get(Constants.FormControlNames.password)?.hasError(Constants.FormValidationErrorsNames.required)">
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
-                fdf
             </mat-form-field>
             <!-- ----------------------------------------------------------------------------------
             ||                               Forget password                                      ||  
             --------------------------------------------------------------------------------------->
-            <div>
-                <div>
-
+            <div class="d-flex flex-row justify-content-between">
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           [type]="Constants.InputFieldTypes.checkbox"
+                           [formControlName]="Constants.FormControlNames.rememberMe"
+                           id="flexSwitchCheckChecked">
+                    <label class="form-check-label"
+                           for="flexSwitchCheckChecked">{{Constants.FormConstants.RememberMe}}</label>
                 </div>
                 <a [routerLink]="['']"
-                   class="buttonLink text-decoration-none fw-bold">Forget password?</a>
+                   class="btn-link text-decoration-none fw-bold">Forget password?</a>
             </div>
             <!------------------------Mat-Dialog-actions--------------------------->
             <div>
@@ -108,11 +110,20 @@
         </div>
 
     </form>
+    <p *ngIf="ShowCardFooter"
+       class="calibri-font m-3 fs-6 d-flex justify-content-center">
+        {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a
+           class="text-decoration-none btn-link fw-bold cursor-pointer"
+           (click)="dialogHandler.CloseDialog(); dialogHandler.OpenRegister();">
+            {{Constants.FormConstants.JoinNow}}.
+        </a>
+    </p>
 </mat-card>
-<p class="calibri-font mt-3 fs-5 d-flex justify-content-center">
-    {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold"
+<p *ngIf="!ShowCardFooter"
+   class="calibri-font mt-3 fs-6 d-flex justify-content-center">
+    {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
        (click)="dialogHandler.CloseDialog();"
        [routerLink]="['',Routes.AuthRoutes.Register]">
-        {{Constants.FormConstants.JoinNow}}
+        {{Constants.FormConstants.JoinNow}}.
     </a>
 </p>
