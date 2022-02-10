@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginViewModel, RegisterViewModel } from "../models.model";
+import { ForgetPasswordModel, LoginViewModel, RegisterViewModel } from "../models.model";
 import { AccountController } from '../Helpers/apiconstants';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -30,6 +30,10 @@ export class AccountService
   {
     if (!email) return;
     return this.httpClient.get(`${AccountController.IsUserFoundByEmail}?email=${email}`);
+  }
 
+  ForgetPassword(model: ForgetPasswordModel): Observable<any>
+  {
+    return this.httpClient.post<ForgetPasswordModel>(AccountController.ForgetPassword, model);
   }
 }

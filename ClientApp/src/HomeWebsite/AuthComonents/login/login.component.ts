@@ -81,13 +81,7 @@ export class LoginComponent implements OnInit
       {
         this.ValidationErrors = [];
         this.loading = false;
-        //add ModelStateErrors
-        if (e.error.errors)
-          this.ValidationErrors = this.ServerResponse.GetModelStateErrors(e.error.errors);
-        else
-        {
-          this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
-        }
+        this.ValidationErrors = this.ServerResponse.GetServerSideValidationErrors(e);
       },
     });
   }

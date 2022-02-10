@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -32,6 +32,11 @@ import { environment } from '../environments/environment';
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     BrowserAnimationsModule,
     FontAwesomeModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'scfD1z5dp2',
+    }),
+
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

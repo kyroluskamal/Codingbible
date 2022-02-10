@@ -134,8 +134,8 @@
                     <label class="form-check-label"
                            for="flexSwitchCheckChecked">{{Constants.FormConstants.RememberMe}}</label>
                 </div>
-                <a [routerLink]="['']"
-                   class="btn-link text-decoration-none fw-bold">Forget password?</a>
+                <a class="btn-link text-decoration-none fw-bold cursor-pointer"
+                   (click)="dialogHandler.CloseDialog(); dialogHandler.OpenForgetPassword()">Forget password?</a>
             </div>
             <!------------------------Mat-Dialog-actions--------------------------->
             <div>

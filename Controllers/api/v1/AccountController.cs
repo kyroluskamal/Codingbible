@@ -182,6 +182,68 @@ namespace CodingBible.Controllers.api.v1
             return StatusCode(201);
         }
 
+        [HttpPost(nameof(ForgetPassword))]
+        public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordModel model)
+        {
+            if (ModelState.IsValid) {
+                try
+                {
+                    var user = await UserManager.FindByEmailAsync(model.Email);
+                    if (user == null)
+                        return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
+                    var code = await UserManager.GeneratePasswordResetTokenAsync(user);
+                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                    var param = new Dictionary<string, string>
+                    {
+                        {"token", code },
+                        {"email", model.Email }
+                    };
+                    var callbackUrl = QueryHelpers.AddQueryString(model.ClientUrl, param);
+
+                    var mailRequest = new MailRequest
+                    {
+                        ToEmail = model.Email,
+                        Subject = Constants.EmailSettings.ResetPasswordEmailSubject,
+                        Body = Constants.EmailSettings.ResetPasswordEmail_Body(HtmlEncoder.Default.Encode(callbackUrl))
+                    };
+                    MailService.SendMail(mailRequest, await ApplicationDbContext.MailProviders.FirstOrDefaultAsync(x => x.IsDefault == true));
+                    return Ok(Constants.HttpResponses.ResetPasswordLink_Send_Success());
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("An error occurred at ForgotPassword {Error} {StackTrace} {InnerException} {Source}",
+                   ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                    return BadRequest(Constants.HttpResponses.ResetPasswordLink_Send_ERROR());
+                }
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        // Post api/<IdentityController>/ResetPassword
+        [HttpPost(nameof(ResetPassword))]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var user = await UserManager.FindByEmailAsync(model.Email);
+                    if (user == null)
+                        return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
+                    var token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.Token));
+                    var confirmResult = await UserManager.ResetPasswordAsync(user, token, model.Password);
+                    if (!confirmResult.Succeeded)
+                        return BadRequest(Constants.HttpResponses.IdentityRegults_Errors(confirmResult.Errors));
+                    return Ok(Constants.HttpResponses.ResetPassword_Success());
+                }
+                catch(Exception ex)
+                {
+                    Log.Error("An error occurred at RESET PASSWORD {Error} {StackTrace} {InnerException} {Source}",
+                   ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                    return BadRequest(Constants.HttpResponses.ResetPassword_ERROR());
+                }
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
         [AllowAnonymous]
         [HttpPost(nameof(IsLoggedIn))]
         public async Task<bool> IsLoggedIn()
@@ -246,5 +308,9 @@ namespace CodingBible.Controllers.api.v1
             //    ? (IActionResult)Redirect(returnUrl)
             //    : RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+
     }
+
+
 }

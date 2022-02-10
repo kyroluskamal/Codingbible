@@ -1,18 +1,13 @@
 ﻿using CodingBible.Services.ConstantsService;
 using System.ComponentModel.DataAnnotations;
 
-namespace CodingBible.ViewModels
+namespace CodingBible.Models
 {
-    public class LoginViewModel
+    public class ForgetPasswordModel
     {
         [Required]
         [EmailAddress(ErrorMessage = Constants.DataAnotationErrorMessages.Email_notValid)]
         public string Email { get; set; }
-
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        public bool RememberMe { get; set; }
+        public string ClientUrl { get; set; }
     }
 }

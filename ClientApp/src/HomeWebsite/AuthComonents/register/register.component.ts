@@ -12,7 +12,7 @@ import { ServerResponseHandelerService } from '../../../CommonServices/server-re
 import { ClientSideValidationService } from '../../../CommonServices/client-side-validation.service';
 import { CustomValidators } from '../../../Helpers/custom-validators';
 import { ModelStateErrors } from 'src/Interfaces/interfaces';
-
+import { IconNamesEnum } from 'ngx-bootstrap-icons';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,6 +20,7 @@ import { ModelStateErrors } from 'src/Interfaces/interfaces';
 })
 export class RegisterComponent implements OnInit
 {
+  BootstrapIcons = IconNamesEnum;
   Constants = Constants;
   RegisterForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
@@ -59,10 +60,10 @@ export class RegisterComponent implements OnInit
   }
   Register()
   {
+    this.loading = true;
     let registerObj: RegisterViewModel = new RegisterViewModel();
     this.ClientSideValidationService.FillObjectFromForm(registerObj, this.RegisterForm);
     registerObj.clientUrl = `https://${window.location.host}/${Routes.AuthRoutes.emailConfirmation}`;
-    console.log(registerObj);
     this.accountService.Register(registerObj).subscribe({
       next: r => { console.log(r); },
       error: e =>
@@ -70,13 +71,7 @@ export class RegisterComponent implements OnInit
         this.ValidationErrors = [];
         this.loading = false;
         //add ModelStateErrors
-        if (e.error.errors)
-          this.ValidationErrors = this.ServerResponse.GetModelStateErrors(e.error.errors);
-        else
-        {
-          this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
-        }
-        console.log(e);
+        this.ValidationErrors = this.ServerResponse.GetServerSideValidationErrors(e);
       }
     });
   }

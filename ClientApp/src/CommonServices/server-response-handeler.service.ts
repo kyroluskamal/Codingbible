@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MaxMinLengthValidation } from '../Interfaces/interfaces';
+import { IdentityErrors, MaxMinLengthValidation } from '../Interfaces/interfaces';
 import { NotificationsService } from './notifications.service';
 import * as Constants from '../Helpers/constants';
 import { ModelStateErrors } from '../Interfaces/interfaces';
@@ -38,7 +38,7 @@ export class ServerResponseHandelerService
   }
   GetModelStateErrors(ModelStateErrors: any): ModelStateErrors[]
   {
-    let errors: { key: string, message: string; }[] = [];
+    let errors: ModelStateErrors[] = [];
     let keys = Object.keys(ModelStateErrors);
     for (let k of keys)
     {
@@ -46,6 +46,34 @@ export class ServerResponseHandelerService
       {
         errors.push({ key: k, message: e });
       }
+    }
+    return errors;
+  }
+
+  GetIdentityErrors(identityErrors: any[]): ModelStateErrors[]
+  {
+    let errors: ModelStateErrors[] = [];
+
+    for (let e of identityErrors)
+    {
+      errors.push({ key: e.code, message: e.description });
+    }
+
+    return errors;
+  }
+
+  GetServerSideValidationErrors(e: any): ModelStateErrors[]
+  {
+    let errors: ModelStateErrors[] = [];
+    if (e.error.errors)
+      errors.push(...this.GetModelStateErrors(e.error.errors));
+    else if (e.error.status === Constants.HTTPResponseStatus.identityErrors)
+    {
+      errors.push(...this.GetIdentityErrors(e.error.message));
+    }
+    else
+    {
+      errors.push({ key: e.error.status, message: e.error.message });
     }
     return errors;
   }

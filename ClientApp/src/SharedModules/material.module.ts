@@ -29,12 +29,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { alarm, alarmFill, alignBottom, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { personFill, penFill, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 const icons = {
-  alarm,
-  alarmFill,
-  alignBottom
+  personFill, penFill
 };
 const MaterialComponents = [TooltipModule.forRoot(),
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,

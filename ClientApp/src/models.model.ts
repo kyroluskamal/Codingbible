@@ -9,6 +9,7 @@ export class RegisterViewModel
     email: string = "";
     username: string = "";
     password: string = "";
+    confirmpassword: string = "";
     firstname: string = "";
     lastname: string = "";
     isActive: boolean = false;
@@ -19,4 +20,10 @@ export class HttpResponsesObject
 {
     status: string = "";
     message: any;
+}
+
+export class ForgetPasswordModel
+{
+    email: string = "";
+    clientUrl: string = "";
 }

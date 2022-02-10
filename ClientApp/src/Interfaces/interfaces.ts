@@ -295,3 +295,8 @@ export interface ModelStateErrors
   key: string;
   message: string;
 }
+export interface IdentityErrors
+{
+  code: string;
+  description: string;
+}

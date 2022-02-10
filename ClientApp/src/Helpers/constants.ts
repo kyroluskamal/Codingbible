@@ -18,7 +18,8 @@ export const FormConstants = {
     Login: "Login",
     Register: "Register",
     AlreadyHaveAccount: "Already have account?",
-    RememberMe: "Remember me"
+    RememberMe: "Remember me",
+    Send: "Send"
 };
 
 export const FormErrors = {
@@ -148,4 +149,8 @@ export const ConstRegex =
 export const AuthConstants = {
     email: "email",
     token: "token"
+};
+
+export const HTTPResponseStatus = {
+    identityErrors: "identityErrors"
 };

@@ -77,9 +77,14 @@ namespace CodingBible.Services.ConstantsService
         public static class EmailSettings
         {
             public const string ConfirmationEmailSubject = "Confirm your email";
+            public const string ResetPasswordEmailSubject = "Reset Password";
             public static string ConfirmationEmail_Body(string emailbody)
             {
                 return $"Please confirm your account by <a href='{emailbody}'>clicking here</a>.";
+            }
+            public static string ResetPasswordEmail_Body(string emailbody)
+            {
+                return $"To reset your password <a href='{emailbody}'>clicking here</a>.";
             }
         }
         
@@ -88,6 +93,11 @@ namespace CodingBible.Services.ConstantsService
             public const string Admin = "Admin";
         }
 
+        public static class DataAnotationErrorMessages
+        {
+            public const string Email_notValid = "Please, Enter a valid email";
+            public const string Confirm_Password_error = "Password and confirmed password don't match";
+        }
         public static class HttpResponses
         {
             public static object RegisterResponse_Success()
@@ -104,15 +114,15 @@ namespace CodingBible.Services.ConstantsService
             }
             public static object NullUser_Error_Response()
             {
-                return new HttpResponsesObject("Wrong email", "There is no user registered with this email");
+                return new HttpResponsesObject("Wrong email", "There is no user registered with this email.");
             }
             public static object EmailAlreadyConfirmed_Error_Response()
             {
-                return new HttpResponsesObject("EMAIL_ALREADY_CONFIRMED", "This email is already confirmed");
+                return new HttpResponsesObject("EMAIL_ALREADY_CONFIRMED", "This email is already confirmed.");
             }
             public static object EmailConfirmed_Success()
             {
-                return new HttpResponsesObject("EMAIL_CONFIRM_SUCCESS", "Email is confirmed successfully");
+                return new HttpResponsesObject("EMAIL_CONFIRM_SUCCESS", "Email is confirmed successfully.");
             }
             public static object WrongPassword_Response()
             {
@@ -124,7 +134,24 @@ namespace CodingBible.Services.ConstantsService
             }
             public static object Loggin_success()
             {
-                return new HttpResponsesObject("LOGGIN_SUCCESS", "You logged in successfully");
+                return new HttpResponsesObject("LOGGIN_SUCCESS", "You logged in successfully.");
+            }
+            public static object ResetPasswordLink_Send_Success()
+            {
+                return new HttpResponsesObject("RESET_PASSWORD_LINK_SEND_SUCCESS", "Reset password link is send successfully. Please, check your email.");
+            }
+            public static object ResetPasswordLink_Send_ERROR()
+            {
+                return new HttpResponsesObject("RESET_PASSWORD_LINK_SEND_failed", "Failed to send Reset password link. Please, try again.");
+            }
+
+            public static object ResetPassword_ERROR()
+            {
+                return new HttpResponsesObject("RESET_PASSWORD_ERROR", "Failed to reset password.");
+            }
+            public static object ResetPassword_Success()
+            {
+                return new HttpResponsesObject("RESET_PASSWORD_Sucess", "Password is reset successfully.");
             }
         }
     }

@@ -55,7 +55,12 @@
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="Constants.FormControlNames.username" />
-                <mat-icon matSuffix>email</mat-icon>
+                <mat-icon matSuffix>
+                    <i-bs [name]="BootstrapIcons.PersonFill"
+                          width="30"
+                          height="30">
+                    </i-bs>
+                </mat-icon>
 
                 <mat-error
                            *ngIf="
@@ -75,7 +80,12 @@
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="Constants.FormControlNames.firstname" />
-                <mat-icon matSuffix>email</mat-icon>
+                <mat-icon matSuffix>
+                    <i-bs [name]="BootstrapIcons.PenFill"
+                          width="25"
+                          height="25">
+                    </i-bs>
+                </mat-icon>
 
                 <mat-error
                            *ngIf="
@@ -91,7 +101,12 @@
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="Constants.FormControlNames.lastname" />
-                <mat-icon matSuffix>email</mat-icon>
+                <mat-icon matSuffix>
+                    <i-bs [name]="BootstrapIcons.PenFill"
+                          width="25"
+                          height="25">
+                    </i-bs>
+                </mat-icon>
 
                 <mat-error
                            *ngIf="
@@ -212,10 +227,9 @@
                         aria-label="press to login"
                         style="margin-top: 10px;"
                         (click)="Register()">
-                    <mat-icon>
+                    <mat-icon *ngIf="loading">
                         <mat-spinner diameter="20"
-                                     color="warn"
-                                     *ngIf="loading"></mat-spinner><span *ngIf="!loading">login</span>
+                                     color="warn"></mat-spinner>
                     </mat-icon>
                     {{(RegisterForm.valid || RegisterForm.invalid) && !loading?Constants.FormConstants.Register:''}}
                 </button>

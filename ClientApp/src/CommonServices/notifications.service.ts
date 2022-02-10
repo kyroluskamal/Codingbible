@@ -68,7 +68,7 @@ export class NotificationsService
       allowEscapeKey: true,
       allowOutsideClick: true,
       scrollbarPadding: false,
-      timer: 2000,
+      timer: 3500,
       customClass: { htmlContainer: this.Constants.css.SwalHtmlContent },
     });
   }
