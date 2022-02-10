@@ -22,7 +22,7 @@ namespace CodingBible.Services.MailService
             {
                 NotServiceProvider(mailRequest, provider);
             }
-            if (provider.Name.ToLower() != "sendgrid")
+            if (provider.Name.ToLower() == "sendgrid" && provider.IsService)
             {
                 SendGridProvider(mailRequest, provider);
             }

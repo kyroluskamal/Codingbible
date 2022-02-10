@@ -1,4 +1,4 @@
-div.containter{
+div{
     background: linear-gradient(
       135deg,#fafafa 22px,rgba(0,0,0,.04) 22px,rgba(0,0,0,.04) 24px,transparent 24px,transparent 67px,rgba(0,0,0,.04) 67px,rgba(0,0,0,.04) 69px,transparent 69px),linear-gradient(
       225deg,#fafafa 22px,rgba(0,0,0,.04) 22px,rgba(0,0,0,.04) 24px,transparent 24px,transparent 67px,rgba(0,0,0,.04) 67px,rgba(0,0,0,.04) 69px,transparent 69px) 0 64px;;

@@ -15,15 +15,15 @@
     <form [formGroup]="loginForm"
           (ngSubmit)="loginForm.valid">
         <div class="form-container calibri-font p-3">
-            <mat-error class="alert alert-danger"
-                       *ngIf="ValidationErrors.length>0">
+            <div class="alert alert-danger"
+                 *ngIf="ValidationErrors.length>0">
                 <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
                 <ul>
                     <li *ngFor="let error of ValidationErrors">
-                        {{error}}
+                        <strong>{{error.key}}</strong> : {{error.message}}
                     </li>
                 </ul>
-            </mat-error>
+            </div>
             <!-- ----------------------------------------------------------------------------------
             ||                                 Email                                             ||  
             --------------------------------------------------------------------------------------->
@@ -33,6 +33,7 @@
                 <input matInput
                        [type]="Constants.InputFieldTypes.email"
                        value=""
+                       (blur)="CheckIfEmailIsNotFound()"
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="Constants.FormControlNames.email" />
                 <mat-icon matSuffix>email</mat-icon>
@@ -55,6 +56,10 @@
                 <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
                 <input matInput
                        #password
+                       [tooltip]="PasswordValidations"
+                       tooltipPlacement="right"
+                       [tooltipIsOpen]="loginForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
+                       tooltipTrigger="focus"
                        [type]="Constants.InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
@@ -72,11 +77,55 @@
                            *ngIf="loginForm.get(Constants.FormControlNames.password)?.hasError(Constants.FormValidationErrorsNames.required)">
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
+                <ng-template #PasswordValidations>
+                    <ul class="text-start"
+                        *ngIf="!loginForm.get(Constants.FormControlNames.password)?.value">
+                        <li>
+                            {{Constants.FormValidationErrors.Password.minLength}}
+                        </li>
+                        <li>
+                            {{Constants.FormValidationErrors.Password.hasCapitalCase}}
+                        </li>
+                        <li>
+                            {{Constants.FormValidationErrors.Password.hasNumber}}
+                        </li>
+                        <li>
+                            {{Constants.FormValidationErrors.Password.hasSmallCase}}
+                        </li>
+                        <li>
+                            {{Constants.FormValidationErrors.Password.hasSpecialCharacters}}
+                        </li>
+                    </ul>
+                    <ul class="text-start"
+                        *ngIf="loginForm.get(Constants.FormControlNames.password)?.value">
+                        <li *ngIf="
+                        loginForm.get(Constants.FormControlNames.password)?.
+                             hasError(Constants.FormValidationErrorsNames.password.minLength)">
+                            {{Constants.FormValidationErrors.Password.minLength}}
+                        </li>
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        hasError(Constants.FormValidationErrorsNames.password.hasCapitalCase)">
+                            {{Constants.FormValidationErrors.Password.hasCapitalCase}}
+                        </li>
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        hasError(Constants.FormValidationErrorsNames.password.hasNumber)">
+                            {{Constants.FormValidationErrors.Password.hasNumber}}
+                        </li>
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        hasError(Constants.FormValidationErrorsNames.password.hasSmallCase)">
+                            {{Constants.FormValidationErrors.Password.hasSmallCase}}
+                        </li>
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        hasError(Constants.FormValidationErrorsNames.password.hasSpecialCharacters)">
+                            {{Constants.FormValidationErrors.Password.hasSpecialCharacters}}
+                        </li>
+                    </ul>
+                </ng-template>
             </mat-form-field>
             <!-- ----------------------------------------------------------------------------------
             ||                               Forget password                                      ||  
             --------------------------------------------------------------------------------------->
-            <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-row flex-wrap justify-content-between">
                 <div class="form-check form-switch">
                     <input class="form-check-input"
                            [type]="Constants.InputFieldTypes.checkbox"

@@ -14,8 +14,8 @@ namespace CodingBible.Models
         public string Firstname { get; set; }
         [Required]
         public string Lastname { get; set; }
-        public bool IsActive = true;
-        public bool RememberMe = false;
+        public bool IsActive  { get; set; }
+        public bool RememberMe  { get; set; }
         public string ClientUrl { get; set; }
     }
 }

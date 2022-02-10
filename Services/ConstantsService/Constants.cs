@@ -102,6 +102,30 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("identityErrors", errors);
             }
+            public static object NullUser_Error_Response()
+            {
+                return new HttpResponsesObject("Wrong email", "There is no user registered with this email");
+            }
+            public static object EmailAlreadyConfirmed_Error_Response()
+            {
+                return new HttpResponsesObject("EMAIL_ALREADY_CONFIRMED", "This email is already confirmed");
+            }
+            public static object EmailConfirmed_Success()
+            {
+                return new HttpResponsesObject("EMAIL_CONFIRM_SUCCESS", "Email is confirmed successfully");
+            }
+            public static object WrongPassword_Response()
+            {
+                return new HttpResponsesObject("Wrong Password", "Correct email, but Wrong password.");
+            }
+            public static object EmailNotConfirmed_pleaseConfirm()
+            {
+                return new HttpResponsesObject("Email not confirmed", "Please, check your email. Check spam if you don't find it in the inbex.");
+            }
+            public static object Loggin_success()
+            {
+                return new HttpResponsesObject("LOGGIN_SUCCESS", "You logged in successfully");
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MaxMinLengthValidation } from '../Interfaces/interfaces';
 import { NotificationsService } from './notifications.service';
 import * as Constants from '../Helpers/constants';
+import { ModelStateErrors } from '../Interfaces/interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -31,11 +32,23 @@ export class ServerResponseHandelerService
   {
     this.NotificationService.success(SuncessResponse.status);
   }
-  GeneralSuccessResponse_Swal(SuncessResponse: any)
+  GeneralSuccessResponse_Swal(SuncessResponse: string)
   {
-    this.NotificationService.Success_Swal(SuncessResponse.status);
+    this.NotificationService.Success_Swal(SuncessResponse);
   }
-
+  GetModelStateErrors(ModelStateErrors: any): ModelStateErrors[]
+  {
+    let errors: { key: string, message: string; }[] = [];
+    let keys = Object.keys(ModelStateErrors);
+    for (let k of keys)
+    {
+      for (let e of ModelStateErrors[k])
+      {
+        errors.push({ key: k, message: e });
+      }
+    }
+    return errors;
+  }
   // GetErrorNotification(e: any, MaxMinLenth: MaxMinLengthValidation[] = [])
   // {
   //   let translatedError: string = "";

@@ -1,4 +1,4 @@
-<mat-card class="d-flex flex-column align-items-center p-0 ">
+<mat-card class="d-flex flex-column align-items-center p-0">
     <button class="btn btn-link position-absolute top-0 end-0 text-light"
             *ngIf="!CloseIconHide"
             (click)="dialogHandler.CloseDialog();">
@@ -10,21 +10,21 @@
     </div>
     <form [formGroup]="RegisterForm"
           (ngSubmit)="RegisterForm.valid">
-        <div class="form-container calibri-font p-3">
-            <mat-error class="alert alert-danger"
-                       *ngIf="ValidationErrors.length>0">
+        <div class="form-container calibri-font p-3 row overflow-hidden">
+            <div class="alert alert-danger"
+                 *ngIf="ValidationErrors.length>0">
                 <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
                 <ul>
                     <li *ngFor="let error of ValidationErrors">
-                        {{error}}
+                        <strong>{{error.key}}</strong> : {{error.message}}
                     </li>
                 </ul>
-            </mat-error>
+            </div>
             <!-- ----------------------------------------------------------------------------------
             ||                                 Email                                             ||  
             --------------------------------------------------------------------------------------->
             <mat-form-field [appearance]="FormFieldAppear.fill"
-                            class="w-100">
+                            class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Email}}</span></mat-label>
                 <input matInput
                        [type]="Constants.InputFieldTypes.email"
@@ -48,7 +48,7 @@
             ||                                 UserName                                             ||  
             --------------------------------------------------------------------------------------->
             <mat-form-field [appearance]="FormFieldAppear.fill"
-                            class="w-100">
+                            class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Username}}</span></mat-label>
                 <input matInput
                        [type]="Constants.InputFieldTypes.text"
@@ -63,19 +63,55 @@
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
+            <!-- ----------------------------------------------------------------------------------
+            ||                                First name and last name                           ||  
+            --------------------------------------------------------------------------------------->
+
+            <mat-form-field [appearance]="FormFieldAppear.fill"
+                            class="col">
+                <mat-label><span>{{Constants.FormFieldsNames.FirstName}}</span></mat-label>
+                <input matInput
+                       [type]="Constants.InputFieldTypes.text"
+                       value=""
+                       [errorStateMatcher]="customErrorStateMatcher"
+                       [formControlName]="Constants.FormControlNames.firstname" />
+                <mat-icon matSuffix>email</mat-icon>
+
+                <mat-error
+                           *ngIf="
+                       RegisterForm.get(Constants.FormControlNames.firstname)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    {{Constants.FormValidationErrors.RequiredField}}
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field [appearance]="FormFieldAppear.fill"
+                            class="col">
+                <mat-label><span>{{Constants.FormFieldsNames.LastName}}</span></mat-label>
+                <input matInput
+                       [type]="Constants.InputFieldTypes.text"
+                       value=""
+                       [errorStateMatcher]="customErrorStateMatcher"
+                       [formControlName]="Constants.FormControlNames.lastname" />
+                <mat-icon matSuffix>email</mat-icon>
+
+                <mat-error
+                           *ngIf="
+                       RegisterForm.get(Constants.FormControlNames.lastname)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    {{Constants.FormValidationErrors.RequiredField}}
+                </mat-error>
+            </mat-form-field>
 
             <!-- ----------------------------------------------------------------------------------
             ||                                Password                                            ||  
             --------------------------------------------------------------------------------------->
             <mat-form-field [appearance]="FormFieldAppear.fill"
-                            [tooltip]="PasswordValidations"
-                            tooltipPlacement="right"
-                            [tooltipIsOpen]="RegisterForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
-                            tooltipTrigger="focus"
-                            class="w-100">
+                            class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
                 <input matInput
                        #password
+                       [tooltip]="PasswordValidations"
+                       tooltipPlacement="right"
+                       [tooltipIsOpen]="RegisterForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
+                       tooltipTrigger="focus"
                        [type]="Constants.InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
@@ -141,7 +177,7 @@
             ||                                Confirm Password                                    ||  
             --------------------------------------------------------------------------------------->
             <mat-form-field [appearance]="FormFieldAppear.fill"
-                            class="w-100">
+                            class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.ConfirmPassword}}</span></mat-label>
                 <input matInput
                        #ConfirmPassword

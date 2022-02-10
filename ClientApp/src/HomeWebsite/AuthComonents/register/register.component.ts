@@ -6,10 +6,12 @@ import { DialogHandlerService } from '../../../CommonServices/dialog-handler.ser
 import { ValidationErrorMessagesService } from '../../../CommonServices/ValidationErrorMessagesService/validation-error-messages.service';
 import * as Constants from '../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../Helpers/custom-error-state-matcher';
-import { LoginViewModel } from '../../../models.model';
+import { LoginViewModel, RegisterViewModel } from '../../../models.model';
 import { AccountService } from '../../../Services/account.service';
 import { ServerResponseHandelerService } from '../../../CommonServices/server-response-handeler.service';
+import { ClientSideValidationService } from '../../../CommonServices/client-side-validation.service';
 import { CustomValidators } from '../../../Helpers/custom-validators';
+import { ModelStateErrors } from 'src/Interfaces/interfaces';
 
 @Component({
   selector: 'app-register',
@@ -21,11 +23,12 @@ export class RegisterComponent implements OnInit
   Constants = Constants;
   RegisterForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
-  ValidationErrors: any[] = [];
+  ValidationErrors: ModelStateErrors[] = [];
   loading: boolean = false;
   Routes = Routes;
   FormFieldAppear = new Constants.FormFiledAppearance();
   constructor(public formBuilder: FormBuilder, private accountService: AccountService,
+    private ClientSideValidationService: ClientSideValidationService,
     public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,
     private ServerResponse: ServerResponseHandelerService, public dialogHandler: DialogHandlerService) { }
   @Input() CloseIconHide: boolean = false;
@@ -35,26 +38,46 @@ export class RegisterComponent implements OnInit
   {
     this.RegisterForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email, Validators.pattern(Constants.ConstRegex.EmailRegex)]],
-      password: [null, Validators.compose([
-        Validators.required,
-        CustomValidators.patternValidator(/\d/, { hasNumber: true }),
-        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-        CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-        CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true }),
-        Validators.minLength(8)])
+      password: [null,
+        Validators.compose([
+          Validators.required,
+          CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+          CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+          CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+          CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true }),
+          Validators.minLength(8)])
       ],
       confirmpassword: [null, [Validators.required]],
       username: [null, [Validators.required]],
       firstname: [null, [Validators.required]],
-      lastname: [null, Validators.required],
-      phonenumber: [null, [Validators.required, Validators.pattern(Constants.ConstRegex.PhoneRegex)]],
+      lastname: [null, [Validators.required]],
     },
       {
         validators: CustomValidators.passwordMatchValidator
-      });
+      }
+    );
   }
   Register()
   {
-
+    let registerObj: RegisterViewModel = new RegisterViewModel();
+    this.ClientSideValidationService.FillObjectFromForm(registerObj, this.RegisterForm);
+    registerObj.clientUrl = `https://${window.location.host}/${Routes.AuthRoutes.emailConfirmation}`;
+    console.log(registerObj);
+    this.accountService.Register(registerObj).subscribe({
+      next: r => { console.log(r); },
+      error: e =>
+      {
+        this.ValidationErrors = [];
+        this.loading = false;
+        //add ModelStateErrors
+        if (e.error.errors)
+          this.ValidationErrors = this.ServerResponse.GetModelStateErrors(e.error.errors);
+        else
+        {
+          this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
+        }
+        console.log(e);
+      }
+    });
   }
 }

@@ -126,10 +126,14 @@ namespace CodingBible
             /* We use the option patterm to configure the Antiforgery feature through the AntiForgeryOptions Class                */
             /* The HeaderName property is used to specify the name of the header through which antiforgery token will be accepted */
             /*--------------------------------------------------------------------------------------------------------------------*/
-            //builder.Services.AddAntiforgery(options =>
-            //{
-            //    options.HeaderName = "X-XSRF-TOKEN";
-            //});
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "XSRF-TOKEN";
+                options.HeaderName = "scfD1z5dp2";
+                options.Cookie.HttpOnly = false;
+                options.Cookie.MaxAge = TimeSpan.FromDays(10);
+                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+            });
 
 
             /*---------------------------------------------------------------------------------------------------*/

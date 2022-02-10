@@ -7,7 +7,8 @@ namespace CodingBible.Services.AutoMapperService
     {
         public AppUserMapper()
         {
-            CreateMap<ApplicationUser, RegisterViewModel>();
+            CreateMap<RegisterViewModel, ApplicationUser>();
+              
         }
     }
 }

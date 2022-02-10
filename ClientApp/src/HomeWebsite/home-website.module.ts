@@ -13,6 +13,7 @@ import { SharedModule } from '../SharedModules/shared.module';
 import { MaterialModule } from '../SharedModules/material.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { EmailConfirmationComponent } from './AuthComonents/email-confirmation/email-confirmation.component';
 
 
 
@@ -20,11 +21,11 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 
 const Commponents = [
   HomeComponent, LoginComponent, RegisterComponent, SendCodeComponent, ValidateCodeComponent,
-  HomeNavMenuComponent, ResetPasswordComponent, ForgetPasswordComponent,
-  LoginPageComponent
+  HomeNavMenuComponent, ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
+  LoginPageComponent, RegisterPageComponent
 ];
 @NgModule({
-  declarations: [Commponents, RegisterPageComponent],
+  declarations: [Commponents],
   imports: [
     CommonModule,
     SharedModule, MaterialModule,

@@ -10,6 +10,8 @@ import { LoginViewModel } from '../../../models.model';
 import { AccountService } from '../../../Services/account.service';
 import { ServerResponseHandelerService } from '../../../CommonServices/server-response-handeler.service';
 import { CustomValidators } from 'src/Helpers/custom-validators';
+import { ModelStateErrors } from 'src/Interfaces/interfaces';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +22,7 @@ export class LoginComponent implements OnInit
   Constants = Constants;
   loginForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
-  ValidationErrors: any[] = [];
+  ValidationErrors: ModelStateErrors[] = [];
   loading: boolean = false;
   Routes = Routes;
   FormFieldAppear = new Constants.FormFiledAppearance();
@@ -36,8 +38,18 @@ export class LoginComponent implements OnInit
   ngOnInit(): void
   {
     this.loginForm = this.formBuilder.group({
-      email: [null, [Validators.pattern(Constants.ConstRegex.EmailRegex), Validators.required]],
-      password: [null, [Validators.required]],
+      email: [null,
+        [Validators.pattern(Constants.ConstRegex.EmailRegex), Validators.required]
+      ],
+      password: [null,
+        [Validators.required, Validators.compose([
+          Validators.required,
+          CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+          CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+          CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+          CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true }),
+          Validators.minLength(8)])]
+      ],
       rememberme: [false]
     });
     // this.rememberMeOnClick();
@@ -51,28 +63,50 @@ export class LoginComponent implements OnInit
     let Model: LoginViewModel = {
       email: this.loginForm.get(Constants.FormControlNames.email)?.value,
       password: this.loginForm.get(Constants.FormControlNames.password)?.value,
-      rememberMe: this.loginForm.get(Constants.FormControlNames.rememberMe)?.value
+      rememberMe: Boolean(this.loginForm.get(Constants.FormControlNames.rememberMe)?.value)
     };
+    console.log("Login");
     this.accountService.Login(Model).subscribe({
+
       next: r =>
       {
         console.log(r);
-        this.ServerResponse.GeneralSuccessResponse_Swal(Constants.NotificationMessage.Success.Logged_In_Success);
+        this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
         this.dialogHandler.CloseDialog();
         this.loading = false;
         if (this.router.url.includes(Routes.AuthRoutes.Login))
           this.router.navigateByUrl(Routes.HomeRoutes.Dashboard);
       },
-      error: error =>
+      error: (e) =>
       {
+        this.ValidationErrors = [];
         this.loading = false;
-        // this.ServerResponse.Error_Swal(errors.);
-        console.log(error);
-        this.ValidationErrors = error;
+        //add ModelStateErrors
+        if (e.error.errors)
+          this.ValidationErrors = this.ServerResponse.GetModelStateErrors(e.error.errors);
+        else
+        {
+          this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
+        }
       },
     });
   }
-
+  CheckIfEmailIsNotFound()
+  {
+    this.ValidationErrors = [];
+    this.accountService.IsUserFoundByEmail(this.loginForm.get(Constants.AuthConstants.email)?.value)?.subscribe(
+      {
+        next: r => { },
+        error: e =>
+        {
+          this.ValidationErrors = [];
+          if (e.error)
+            this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
+          console.log(e);
+        }
+      }
+    );
+  }
   // SendConfirmationAgain()
   // {
   //   const sendEmailConfirmationAgian: SendEmailConfirmationAgian = {

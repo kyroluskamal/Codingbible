@@ -289,3 +289,9 @@ export class KikoStepper
   orientation: StepperOrientation = "horizontal";
   formDef?: FormDefs[] = [];
 }
+
+export interface ModelStateErrors
+{
+  key: string;
+  message: string;
+}
