@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit
   ValidationErrors: ModelStateErrors[] = [];
   loading: boolean = false;
   Routes = Routes;
-  FormFieldAppear = new Constants.FormFiledAppearance();
+
   //constructor
   constructor(public formBuilder: FormBuilder, private accountService: AccountService,
     public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,

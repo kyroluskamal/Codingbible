@@ -49,13 +49,17 @@ export class ServerResponseHandelerService
     }
     return errors;
   }
-
+  GetGeneralError_Swal(title: string, confirmText: string, message: string)
+  {
+    this.NotificationService.Error_Swal(title, confirmText, message);
+  }
   GetIdentityErrors(identityErrors: any[]): ModelStateErrors[]
   {
     let errors: ModelStateErrors[] = [];
 
     for (let e of identityErrors)
     {
+      if (e.code === "InvalidToken") continue;
       errors.push({ key: e.code, message: e.description });
     }
 

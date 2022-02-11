@@ -7,7 +7,8 @@ const controllers = {
             Register: "Register",
             emailConfrimation: "EmailConfirmation",
             IsUserFoundByEmail: "IsUserFoundByEmail",
-            ForgetPassword: "ForgetPassword"
+            ForgetPassword: "ForgetPassword",
+            ResetPassword: "ResetPassword"
         }
     }
 };
@@ -16,7 +17,8 @@ export const AccountController = {
     Register: getApiUrl(version, controllers.account.name, controllers.account.Actions.Register),
     emailConfirm: getApiUrl(version, controllers.account.name, controllers.account.Actions.emailConfrimation),
     IsUserFoundByEmail: getApiUrl(version, controllers.account.name, controllers.account.Actions.IsUserFoundByEmail),
-    ForgetPassword: getApiUrl(version, controllers.account.name, controllers.account.Actions.ForgetPassword)
+    ForgetPassword: getApiUrl(version, controllers.account.name, controllers.account.Actions.ForgetPassword),
+    ResetPassword: getApiUrl(version, controllers.account.name, controllers.account.Actions.ResetPassword)
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

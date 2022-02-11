@@ -23,7 +23,7 @@ export class ForgetPasswordComponent implements OnInit
   ValidationErrors: ModelStateErrors[] = [];
   loading: boolean = false;
   Routes = Routes;
-  FormFieldAppear = new Constants.FormFiledAppearance();
+
   //Constructor
   constructor(public formBuilder: FormBuilder, private accountService: AccountService,
     public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,
@@ -45,12 +45,11 @@ export class ForgetPasswordComponent implements OnInit
     this.loading = true;
     const ForgetPasswordModel: ForgetPasswordModel = {
       email: this.ForgetPassworForm.get(Constants.FormControlNames.email)?.value,
-      clientUrl: `https://${window.location.host}/${Routes.AuthRoutes.ResetPassword}`
+      clientUrl: Constants.ClientUrl(Routes.AuthRoutes.ResetPassword)
     };
     this.accountService.ForgetPassword(ForgetPasswordModel).subscribe({
       next: (r) =>
       {
-        console.log(r);
         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
         this.dialogHandler.CloseDialog();
         this.loading = false;

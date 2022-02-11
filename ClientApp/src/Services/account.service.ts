@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ForgetPasswordModel, LoginViewModel, RegisterViewModel } from "../models.model";
+import { ForgetPasswordModel, LoginViewModel, RegisterViewModel, ResetPasswordModel } from "../models.model";
 import { AccountController } from '../Helpers/apiconstants';
 import { Observable } from 'rxjs';
 @Injectable({
@@ -35,5 +35,10 @@ export class AccountService
   ForgetPassword(model: ForgetPasswordModel): Observable<any>
   {
     return this.httpClient.post<ForgetPasswordModel>(AccountController.ForgetPassword, model);
+  }
+
+  ResetPassword(model: ResetPasswordModel): Observable<any>
+  {
+    return this.httpClient.post<ResetPasswordModel>(AccountController.ResetPassword, model);
   }
 }

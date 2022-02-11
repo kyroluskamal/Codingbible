@@ -19,7 +19,8 @@ export const FormConstants = {
     Register: "Register",
     AlreadyHaveAccount: "Already have account?",
     RememberMe: "Remember me",
-    Send: "Send"
+    Send: "Send",
+    ResetPassword: "Reset password"
 };
 
 export const FormErrors = {
@@ -61,7 +62,8 @@ export const NotificationMessage = {
         Logged_In_Success: "You successfully logged in"
     },
     Error: {
-        Unique_Field_ERROR: "You can't repeat values in this field. Add UNIQUE value."
+        Unique_Field_ERROR: "You can't repeat values in this field. Add UNIQUE value.",
+        ResetPasswordFail_InvalidToken: "This reset link is used before, or the token expired. Try to reset password again"
     }
 };
 
@@ -133,12 +135,15 @@ export const InputFieldTypes =
     password: "password",
     checkbox: "checkbox"
 };
+//#region Form Appearnce
+/************************************************************************
+ *                      Form Appearance
+ ************************************************************************/
+const outlineFormAppearance: MatFormFieldAppearance = "outline";
+const fillFormAppearance: MatFormFieldAppearance = "fill";
 
-export class FormFiledAppearance
-{
-    outline: MatFormFieldAppearance = "outline";
-    fill: MatFormFieldAppearance = "fill";
-};
+export const defaultFormAppearance = fillFormAppearance;
+//#endregion
 
 export const ConstRegex =
 {
@@ -154,3 +159,8 @@ export const AuthConstants = {
 export const HTTPResponseStatus = {
     identityErrors: "identityErrors"
 };
+
+export function ClientUrl(url: string): string
+{
+    return "https://" + window.location.host + "/" + url;
+}

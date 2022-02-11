@@ -27,7 +27,7 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                 Email                                             ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="w-100">
                 <mat-label><span>{{Constants.FormFieldsNames.Email}}</span></mat-label>
                 <input matInput
@@ -51,15 +51,14 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                Password                                            ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
-                            class="w-100">
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+                            class="w-100"
+                            [tooltip]="PasswordValidations"
+                            [tooltipIsOpen]="loginForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
+                            tooltipTrigger="focus">
                 <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
                 <input matInput
                        #password
-                       [tooltip]="PasswordValidations"
-                       tooltipPlacement="right"
-                       [tooltipIsOpen]="loginForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
-                       tooltipTrigger="focus"
                        [type]="Constants.InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"

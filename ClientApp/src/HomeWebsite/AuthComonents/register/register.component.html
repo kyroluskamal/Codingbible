@@ -23,7 +23,7 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                 Email                                             ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Email}}</span></mat-label>
                 <input matInput
@@ -47,7 +47,7 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                 UserName                                             ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Username}}</span></mat-label>
                 <input matInput
@@ -72,7 +72,7 @@
             ||                                First name and last name                           ||  
             --------------------------------------------------------------------------------------->
 
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.FirstName}}</span></mat-label>
                 <input matInput
@@ -93,7 +93,7 @@
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.LastName}}</span></mat-label>
                 <input matInput
@@ -118,7 +118,7 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                Password                                            ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
                 <input matInput
@@ -191,7 +191,7 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                Confirm Password                                    ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="FormFieldAppear.fill"
+            <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="col">
                 <mat-label><span>{{Constants.FormFieldsNames.ConfirmPassword}}</span></mat-label>
                 <input matInput
@@ -205,7 +205,7 @@
                           ConfirmPassword.type=Constants.InputFieldTypes.text:ConfirmPassword.type===Constants.InputFieldTypes.text?
                           ConfirmPassword.type=Constants.InputFieldTypes.password:''">
                     <span class="material-icons cursor-pointer">
-                        {{password.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
+                        {{ConfirmPassword.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
                     </span>
                 </mat-icon>
                 <mat-error

@@ -27,10 +27,8 @@ export class RegisterComponent implements OnInit
   ValidationErrors: ModelStateErrors[] = [];
   loading: boolean = false;
   Routes = Routes;
-  FormFieldAppear = new Constants.FormFiledAppearance();
   constructor(public formBuilder: FormBuilder, private accountService: AccountService,
     private ClientSideValidationService: ClientSideValidationService,
-    public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,
     private ServerResponse: ServerResponseHandelerService, public dialogHandler: DialogHandlerService) { }
   @Input() CloseIconHide: boolean = false;
   @Input() ShowCardFooter: boolean = true;
@@ -63,9 +61,14 @@ export class RegisterComponent implements OnInit
     this.loading = true;
     let registerObj: RegisterViewModel = new RegisterViewModel();
     this.ClientSideValidationService.FillObjectFromForm(registerObj, this.RegisterForm);
-    registerObj.clientUrl = `https://${window.location.host}/${Routes.AuthRoutes.emailConfirmation}`;
+    registerObj.clientUrl = Constants.ClientUrl(Routes.AuthRoutes.emailConfirmation);
     this.accountService.Register(registerObj).subscribe({
-      next: r => { console.log(r); },
+      next: r =>
+      {
+        this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
+        this.dialogHandler.CloseDialog();
+        this.loading = false;
+      },
       error: e =>
       {
         this.ValidationErrors = [];

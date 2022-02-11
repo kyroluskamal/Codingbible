@@ -27,3 +27,11 @@ export class ForgetPasswordModel
     email: string = "";
     clientUrl: string = "";
 }
+
+export class ResetPasswordModel
+{
+    email: string = "";
+    token: string = "";
+    password: string = "";
+    confirmPassword: string = "";
+}
