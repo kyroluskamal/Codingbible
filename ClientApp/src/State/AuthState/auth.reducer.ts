@@ -1,4 +1,5 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { CookieNames, LocalStorageKeys } from "src/Helpers/constants";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
 import { ApplicationUser } from "src/models.model";
 import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, LoginFailure, LoginSuccess, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
@@ -17,7 +18,8 @@ export const initialState: AuthState = {
     roles: [],
     InProgress: false,
     ValidationErrors: [],
-    isLoggedIn: false
+    isLoggedIn: document.cookie.includes(CookieNames.XSRF_TOKEN) ||
+        document.cookie.includes(CookieNames.username)
 };
 export const AuthReducer = createReducer(
     initialState,
@@ -27,9 +29,11 @@ export const AuthReducer = createReducer(
     }),
     on(LoginSuccess, (state, res) =>
     {
+        let isLoggedIn = document.cookie.includes(CookieNames.XSRF_TOKEN) ||
+            document.cookie.includes(CookieNames.username);
         return {
             ...state, user: res.data.user, roles: res.data.roles, LoggingIsInProgress: false,
-            ValidationErrors: [], isLoggedIn: true, InProgress: false
+            ValidationErrors: [], isLoggedIn: isLoggedIn, InProgress: false
         };
     }),
     on(LoginFailure, (state, { error, validationErrors }) =>
@@ -99,4 +103,8 @@ export const selectIsInProgress = createSelector(
 export const selectValidationErrors = createSelector(
     selectAuthState,
     (state) => state.ValidationErrors
+);
+export const selectIsLoggedIn = createSelector(
+    selectAuthState,
+    (state) => state.isLoggedIn
 );

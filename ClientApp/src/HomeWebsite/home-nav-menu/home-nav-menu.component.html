@@ -50,6 +50,7 @@
                 </ul>
             </div>
             <div class="btn-group"
+                 *ngIf="!(IsLoggedIn|async)"
                  role="group"
                  aria-label="First group">
                 <button type="button"
@@ -58,6 +59,13 @@
                 <button type="button"
                         (click)="dialogHandler.OpenLogin()"
                         class="btn btn-outline-primary">Login</button>
+            </div>
+            <div *ngIf="(IsLoggedIn|async)">
+
+                {{(User|async)?.firstname}} {{(User|async)?.lastname}}
+                <img class="img-thumbnail rounded-circle"
+                     src="..."
+                     alt="">
             </div>
         </div>
     </div>

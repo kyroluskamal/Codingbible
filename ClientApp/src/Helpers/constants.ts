@@ -128,6 +128,14 @@ export const FormValidationErrorsNames = {
     }
 };
 
+export const LocalStorageKeys = {
+    isLoggedIn: "isLoggedIn"
+};
+export const CookieNames = {
+    XSRF_TOKEN: "XSRF-TOKEN",
+    user_id: "XSRF-TOKEN",
+    username: "username"
+};
 export const InputFieldTypes =
 {
     text: "text",
@@ -188,7 +196,7 @@ export const actionNames = {
         CheckLoginOnServer: '[Auth] Check Login',
         Logout: '[Auth] Confirm Logout',
         LogoutCancelled: '[Auth] Logout Cancelled',
-        LogoutConfirmed: '[Auth] Logout Confirmed'
+        LogoutConfirmed: '[Auth] Logout Confirmed',
     }
 };
 //#endregion

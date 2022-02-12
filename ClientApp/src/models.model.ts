@@ -41,7 +41,7 @@ export interface ApplicationUser
 {
     id: number;
     userName: string;
-    Firstname: string;
-    Lastname: string;
+    firstname: string;
+    lastname: string;
     email: string;
 }
