@@ -12,14 +12,15 @@ export class RegisterViewModel
     confirmpassword: string = "";
     firstname: string = "";
     lastname: string = "";
-    isActive: boolean = false;
-    rememberMe: boolean = true;
+    isActive: boolean = true;
+    rememberMe: boolean = false;
     clientUrl: string = "";
 }
 export class HttpResponsesObject
 {
     status: string = "";
     message: any;
+    data: any;
 }
 
 export class ForgetPasswordModel
@@ -34,4 +35,13 @@ export class ResetPasswordModel
     token: string = "";
     password: string = "";
     confirmPassword: string = "";
+}
+
+export interface ApplicationUser
+{
+    id: number;
+    userName: string;
+    Firstname: string;
+    Lastname: string;
+    email: string;
 }

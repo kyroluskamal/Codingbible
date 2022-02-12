@@ -9,6 +9,7 @@ using CodingBible.Services.CookieService;
 using CodingBible.Services.FunctionalService;
 using CodingBible.Services.MailService;
 using CodingBible.Services.TokenService;
+using CodingBible.UnitOfWork;
 using DataService;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -120,6 +121,7 @@ namespace CodingBible
             services.AddTransient<IEMailService, EMailService>();
             services.AddTransient<ITokenServ, TokenServ>();
             services.AddScoped<IDbContextInitializer, DbContextInitializer>();
+            services.AddScoped<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
             /*--------------------------------------------------------------------------------------------------------------------*/
             /*                      Anti Forgery Token Validation Service                                                         */
@@ -192,8 +194,8 @@ namespace CodingBible
                 if (context.Request.Path.Value.IndexOf("/api", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     var tokens = antiForgery.GetAndStoreTokens(context);
-                    //context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                    //    new CookieOptions() { HttpOnly = false, Secure = false });
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() { HttpOnly = false, Secure = false, IsEssential=true, SameSite=SameSiteMode.Strict });
                 }
 
                 return next(context);
@@ -218,7 +220,7 @@ namespace CodingBible
 
             app.UseAuthentication();
             app.UseAuthorization();
-            dbContextInitializer.Initialize();
+            dbContextInitializer.Initialize().GetAwaiter().GetResult();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

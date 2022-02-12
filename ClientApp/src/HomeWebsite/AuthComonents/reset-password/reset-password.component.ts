@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import * as Routes from '../../../Helpers/router-constants';
-
 import * as Constants from '../../../Helpers/constants';
-import { ModelStateErrors } from 'src/Interfaces/interfaces';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from 'src/Services/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomValidators } from 'src/Helpers/custom-validators';
 import { ResetPasswordModel } from 'src/models.model';
-import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
+import { Store } from '@ngrx/store';
+import { selectIsInProgress, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
+import { IsInProgress, ResetPassword } from 'src/State/AuthState/auth.actions';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -20,13 +18,13 @@ export class ResetPasswordComponent implements OnInit
   Constants = Constants;
   Form: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
-  ValidationErrors: ModelStateErrors[] = [];
-  loading: boolean = false;
-  Routes = Routes;
+  ValidationErrors = this.store.select(selectValidationErrors);
+  loading = this.store.select(selectIsInProgress);
+
   email: string | null = "";
   token: string | null = "";
-  constructor(private accountService: AccountService, private route: ActivatedRoute,
-    private router: Router, public formBuilder: FormBuilder, private ServerResponse: ServerResponseHandelerService) { }
+  constructor(private route: ActivatedRoute, private store: Store,
+    private router: Router, public formBuilder: FormBuilder) { }
 
   ngOnInit(): void
   {
@@ -40,7 +38,9 @@ export class ResetPasswordComponent implements OnInit
           CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true }),
           Validators.minLength(8)])
       ],
-      confirmpassword: [null, [Validators.required]],
+      confirmpassword: [null,
+        [Validators.required]
+      ],
     },
       {
         validators: CustomValidators.passwordMatchValidator
@@ -68,39 +68,7 @@ export class ResetPasswordComponent implements OnInit
       password: this.Form.get(Constants.FormControlNames.password)?.value,
       confirmPassword: this.Form.get(Constants.FormControlNames.confirmpassword)?.value
     };
-    this.accountService.ResetPassword(ResetPasswordModel).subscribe({
-      next: (r: any) =>
-      {
-        this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-        this.router.navigate(['', Routes.AuthRoutes.Login]);
-      },
-      error: (e: any) =>
-      {
-        console.log(e);
-        if (e.error.status === Constants.HTTPResponseStatus.identityErrors)
-        {
-          for (let error of e.error.message)
-          {
-            if (error.code === "InvalidToken")
-            {
-              this.ServerResponse.GetGeneralError_Swal("Failed", "OK", Constants.NotificationMessage.Error.ResetPasswordFail_InvalidToken);
-              this.router.navigateByUrl("/");
-              break;
-            }
-          }
-          return;
-        }
-        if (e.error.errors.Email)
-        {
-          this.ServerResponse.GetGeneralError_Swal("Failed", "OK", "Not a valid email. Try to reset password again");
-          this.router.navigateByUrl("/");
-          return;
-        }
-        this.ValidationErrors = [];
-        this.loading = false;
-        //add ModelStateErrors
-        this.ValidationErrors = this.ServerResponse.GetServerSideValidationErrors(e);
-      }
-    });
+    this.store.dispatch(IsInProgress({ isLoading: true }));
+    this.store.dispatch(ResetPassword(ResetPasswordModel));
   }
 }

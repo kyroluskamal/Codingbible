@@ -16,10 +16,10 @@
           (ngSubmit)="loginForm.valid">
         <div class="form-container calibri-font p-3">
             <div class="alert alert-danger"
-                 *ngIf="ValidationErrors.length>0">
+                 *ngIf="(ValidationErrors$|async)?.length!>0">
                 <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
                 <ul>
-                    <li *ngFor="let error of ValidationErrors">
+                    <li *ngFor="let error of (ValidationErrors$|async)">
                         <strong>{{error.key}}</strong> : {{error.message}}
                     </li>
                 </ul>
@@ -33,7 +33,6 @@
                 <input matInput
                        [type]="Constants.InputFieldTypes.email"
                        value=""
-                       (blur)="CheckIfEmailIsNotFound()"
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="Constants.FormControlNames.email" />
                 <mat-icon matSuffix>email</mat-icon>
@@ -141,17 +140,17 @@
                 <button mat-raised-button
                         color="primary"
                         dir="ltr"
-                        [disabled]="loginForm.invalid || (loginForm.valid && loading)"
-                        class="w-100"
+                        [disabled]="loginForm.invalid || (loginForm.valid && (loading$ | async))"
+                        class="w-100 mt-3"
                         aria-label="press to login"
-                        style="margin-top: 10px;"
                         (click)="Login()">
                     <mat-icon>
                         <mat-spinner diameter="20"
                                      color="warn"
-                                     *ngIf="loading"></mat-spinner><span *ngIf="!loading">login</span>
+                                     *ngIf="(loading$ | async)"></mat-spinner><span
+                              *ngIf="!(loading$ | async)">login</span>
                     </mat-icon>
-                    {{(loginForm.valid || loginForm.invalid) && !loading?Constants.FormConstants.Login:''}}
+                    {{(loginForm.valid || loginForm.invalid) && !(loading$ | async)?Constants.FormConstants.Login:''}}
                 </button>
             </div>
             <!--End Mat-Dialog-actions-->

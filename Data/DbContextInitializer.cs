@@ -1,5 +1,6 @@
 ﻿using CodingBible.Models;
 using CodingBible.Models.Identity;
+using CodingBible.Services.ConstantsService;
 using CodingBible.Services.FunctionalService;
 using DataService;
 using Microsoft.EntityFrameworkCore;
@@ -12,23 +13,23 @@ namespace CodingBible.Data
     public class DbContextInitializer : IDbContextInitializer
     {
 
-        private readonly DataProtectionKeysContext DataProtectionKeysContext;
         private readonly ApplicationDbContext ApplicationDbContext;
-        private readonly IFunctionalService FunctionalService;
         private readonly ApplicationUserManager ApplicationUserManager;
-        public DbContextInitializer(DataProtectionKeysContext dataProtectionKeysContext, ApplicationDbContext applicationDbContext, IFunctionalService functionalService, ApplicationUserManager applicationUserManager)
+        private readonly ApplicationUserRoleManager RoleManager;
+        private readonly IFunctionalService FunctionalService;
+        public DbContextInitializer(ApplicationDbContext applicationDbContext, ApplicationUserManager applicationUserManager, ApplicationUserRoleManager roleManager, IFunctionalService functionalService)
         {
-            DataProtectionKeysContext = dataProtectionKeysContext;
             ApplicationDbContext = applicationDbContext;
-            FunctionalService = functionalService;
             ApplicationUserManager = applicationUserManager;
+            RoleManager = roleManager;
+            FunctionalService = functionalService;
         }
 
         public async Task Initialize()
         {
-           
 
-            
+
+
             if (!ApplicationDbContext.MailProviders.Any())
             {
                 MailProviders[] MailProviders =
@@ -56,37 +57,20 @@ namespace CodingBible.Data
                 await ApplicationDbContext.MailProviders.AddRangeAsync(MailProviders);
                 await ApplicationDbContext.SaveChangesAsync();
             }
+
+            //if (!RoleManager.Roles.Any())
+            //{
+            //    ApplicationUserRole role1 = new ApplicationUserRole() { Id = 1, Name = "Administrator", NormalizedName = "ADMINISTRATOR", Handle = "administrator", RoleIcon = "/uploads/roles/icons/default/role.png", IsActive = true };
+            //    ApplicationUserRole role2 = new ApplicationUserRole() { Id = 2, Name = "Reader", NormalizedName = "READER", Handle = "reader", RoleIcon = "/uploads/roles/icons/default/role.png", IsActive = true };
+            //    await RoleManager.CreateAsync(role1);
+            //    await RoleManager.CreateAsync(role2);
+            //}
             // Check, if db contains any users. If db is not empty, then db has been already seeded
             if (!ApplicationDbContext.Users.Any())
             {
-                var adminUser = new ApplicationUser
-                {
-                    Email = "kyroluskamal@gmail.com",
-                    UserName = "kyroluskamal",
-                    EmailConfirmed = true,
-                    PhoneNumber = "1234567890",
-                    PhoneNumberConfirmed = true,
-                    Firstname = "Kyrolus",
-                    Lastname = "Fahim",
-
-                    IsActive = true,
-                };
-
-
-                var result = await ApplicationUserManager.CreateAsync(adminUser, "Kiko@2009");
-
-                if (result.Succeeded)
-                {
-                    await ApplicationUserManager.AddToRoleAsync(adminUser, "Administrator");
-                    Log.Information("Admin User Created {UserName}", adminUser.UserName);
-                }
-                else
-                {
-                    var errorString = string.Join(",", result.Errors);
-                    Log.Error("Error while creating user {Error}", errorString);
-                }
+                await FunctionalService.CreateDefaultAdminUser();
             }
-
+            
             //// If empty create Admin User and App User
             
             //await functionalSvc.CreateDefaultUser();

@@ -17,7 +17,10 @@ import { CommonComponentsModule } from '../CommonComponents/common-components.mo
 import { CookieService } from 'ngx-cookie-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-
+import { StoreModule } from '@ngrx/store';
+import * as reducer from '../State/AuthState/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from 'src/State/AuthState/auth.effects';
 
 @NgModule({
   declarations: [
@@ -29,8 +32,10 @@ import { environment } from '../environments/environment';
     AppRoutingModule, DashboardModule, CommonComponentsModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     //BrowserModule,
-    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     BrowserAnimationsModule,
+    StoreModule.forRoot({ auth: reducer.AuthReducer }),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({ logOnly: false }),
     FontAwesomeModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',

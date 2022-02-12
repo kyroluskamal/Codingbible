@@ -164,3 +164,31 @@ export function ClientUrl(url: string): string
 {
     return "https://" + window.location.host + "/" + url;
 }
+//#region
+/************************************************************************
+ *                          State mangement constants                   *
+ ************************************************************************/
+export const actionNames = {
+    AuthenticationActions: {
+        Login: '[Login Page] Login request',
+        InProgress: '[Auth] InProgress',
+        LoginSuccess: '[Auth API] Login Success',
+        LoginFailure: '[Auth API] Login Failure',
+        Register: '[Register Page] Register request',
+        RegisterSuccess: '[Auth API] Register Success',
+        RegisterFailure: '[Auth API] Register Failure',
+        ForgetPassword: '[ForgetPassword] request',
+        ForgetPasswordSuccess: '[Auth API] ForgetPassword Success',
+        ForgetPasswordFailure: '[Auth API] ForgetPassword Failure',
+        ResetPassword: '[ResetPassword] request',
+        ResetPasswordSuccess: '[Auth API] ResetPassword Success',
+        ResetPasswordFailure: '[Auth API] ResetPassword Failure',
+        LoginValidationErrors: '[Auth API] Login Validation errors',
+        SetValidationErrors: '[Auth API] Set Validation errors',
+        CheckLoginOnServer: '[Auth] Check Login',
+        Logout: '[Auth] Confirm Logout',
+        LogoutCancelled: '[Auth] Logout Cancelled',
+        LogoutConfirmed: '[Auth] Logout Confirmed'
+    }
+};
+//#endregion

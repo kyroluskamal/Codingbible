@@ -132,9 +132,9 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("Email not confirmed", "Please, check your email. Check spam if you don't find it in the inbex.");
             }
-            public static object Loggin_success()
+            public static object Loggin_success(dynamic data)
             {
-                return new HttpResponsesObject("LOGGIN_SUCCESS", "You logged in successfully.");
+                return new HttpResponsesObject("LOGGIN_SUCCESS", "You logged in successfully.", data);
             }
             public static object ResetPasswordLink_Send_Success()
             {

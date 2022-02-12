@@ -1,17 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import * as Routes from '../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../CommonServices/dialog-handler.service';
-import { ValidationErrorMessagesService } from '../../../CommonServices/ValidationErrorMessagesService/validation-error-messages.service';
 import * as Constants from '../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../Helpers/custom-error-state-matcher';
 import { LoginViewModel } from '../../../models.model';
-import { AccountService } from '../../../Services/account.service';
-import { ServerResponseHandelerService } from '../../../CommonServices/server-response-handeler.service';
 import { CustomValidators } from 'src/Helpers/custom-validators';
-import { ModelStateErrors } from 'src/Interfaces/interfaces';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { IsInProgress, Login } from 'src/State/AuthState/auth.actions';
+import * as selectors from 'src/State/AuthState/auth.reducer';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,14 +19,14 @@ export class LoginComponent implements OnInit
   Constants = Constants;
   loginForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
-  ValidationErrors: ModelStateErrors[] = [];
-  loading: boolean = false;
+  ValidationErrors$ = this.store.select(selectors.selectValidationErrors);
+  loading$ = this.store.select(selectors.selectIsInProgress);
+
   Routes = Routes;
 
   //constructor
-  constructor(public formBuilder: FormBuilder, private accountService: AccountService,
-    public ValidationErrorMessage: ValidationErrorMessagesService, private router: Router,
-    private ServerResponse: ServerResponseHandelerService, public dialogHandler: DialogHandlerService)
+  constructor(public formBuilder: FormBuilder, public dialogHandler: DialogHandlerService,
+    private store: Store<selectors.AuthState>)
   {
   }
   @Input() CloseIconHide: boolean = false;
@@ -52,55 +49,23 @@ export class LoginComponent implements OnInit
       ],
       rememberme: [false]
     });
-    // this.rememberMeOnClick();
   }
 
 
   Login()
   {
-    this.loading = true;
+    // this.loading = true;
     if (this.loginForm.invalid) return;
     let Model: LoginViewModel = {
       email: this.loginForm.get(Constants.FormControlNames.email)?.value,
       password: this.loginForm.get(Constants.FormControlNames.password)?.value,
       rememberMe: Boolean(this.loginForm.get(Constants.FormControlNames.rememberMe)?.value)
     };
-    console.log("Login");
-    this.accountService.Login(Model).subscribe({
+    localStorage.setItem(Constants.FormControlNames.rememberMe, this.loginForm.get(Constants.FormControlNames.rememberMe)?.value);
+    this.store.dispatch(IsInProgress({ isLoading: true }));
+    this.store.dispatch(Login(Model));
+  }
 
-      next: r =>
-      {
-        console.log(r);
-        this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-        this.dialogHandler.CloseDialog();
-        this.loading = false;
-        if (this.router.url.includes(Routes.AuthRoutes.Login))
-          this.router.navigateByUrl(Routes.HomeRoutes.Dashboard);
-      },
-      error: (e) =>
-      {
-        this.ValidationErrors = [];
-        this.loading = false;
-        this.ValidationErrors = this.ServerResponse.GetServerSideValidationErrors(e);
-      },
-    });
-  }
-  CheckIfEmailIsNotFound()
-  {
-    this.ValidationErrors = [];
-    this.accountService.IsUserFoundByEmail(this.loginForm.get(Constants.AuthConstants.email)?.value)?.subscribe(
-      {
-        next: r => { },
-        error: e =>
-        {
-          this.ValidationErrors = [];
-          if (e.error)
-            this.ValidationErrors.push({ key: e.error.status, message: e.error.message });
-          console.log(e);
-        }
-      }
-    );
-  }
   // SendConfirmationAgain()
   // {
   //   const sendEmailConfirmationAgian: SendEmailConfirmationAgian = {

@@ -176,26 +176,6 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Handle = "administrator",
-                            IsActive = true,
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR",
-                            RoleIcon = "/uploads/roles/icons/default/role.png"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Handle = "customer",
-                            IsActive = true,
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER",
-                            RoleIcon = "/uploads/roles/icons/default/role.png"
-                        });
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserTokens", b =>

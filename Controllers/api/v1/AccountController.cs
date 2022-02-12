@@ -99,8 +99,13 @@ namespace CodingBible.Controllers.api.v1
                     CookieService.SetCookie(Constants.CookieName.User_id, authToken.UserId, expireTime);
                     CookieService.SetCookie(Constants.CookieName.Username, authToken.Username, expireTime);
                     Log.Information($"User {model.Email} logged in.");
-
-                    return Ok(Constants.HttpResponses.Loggin_success());
+                    user.PasswordHash = null;
+                    var data = new
+                    {
+                        user = user,
+                        roles = await UserManager.GetRolesAsync(user)
+                    };
+                    return Ok(Constants.HttpResponses.Loggin_success(data));
 
                 }
                 catch (Exception ex)
@@ -137,7 +142,12 @@ namespace CodingBible.Controllers.api.v1
                 {
                     if(!await RoleManager.RoleExistsAsync(Constants.Roles.Reader))
                     {
-                        await RoleManager.CreateAsync(new ApplicationUserRole(Constants.Roles.Reader));
+                        var newrole = new ApplicationUserRole(Constants.Roles.Reader);
+                        newrole.RoleIcon = "";
+                        newrole.IsActive = true;
+                        newrole.NormalizedName = Constants.Roles.Reader.ToUpper();
+                        newrole.Handle = Constants.Roles.Reader.ToLower();
+                        await RoleManager.CreateAsync(newrole);
                     }
                     await UserManager.AddToRoleAsync(newUser, Constants.Roles.Reader);
 

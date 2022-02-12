@@ -12,10 +12,10 @@
           (ngSubmit)="RegisterForm.valid">
         <div class="form-container calibri-font p-3 row overflow-hidden">
             <div class="alert alert-danger"
-                 *ngIf="ValidationErrors.length>0">
+                 *ngIf="(ValidationErrors|async)?.length!>0">
                 <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
                 <ul>
-                    <li *ngFor="let error of ValidationErrors">
+                    <li *ngFor="let error of (ValidationErrors|async)">
                         <strong>{{error.key}}</strong> : {{error.message}}
                     </li>
                 </ul>
@@ -222,16 +222,16 @@
                 <button mat-raised-button
                         color="primary"
                         dir="ltr"
-                        [disabled]="RegisterForm.invalid || (RegisterForm.valid && loading)"
-                        class="w-100"
+                        [disabled]="RegisterForm.invalid || (RegisterForm.valid && (loading|async))"
+                        class="w-100 mt-3"
                         aria-label="press to login"
-                        style="margin-top: 10px;"
                         (click)="Register()">
-                    <mat-icon *ngIf="loading">
+                    <mat-icon *ngIf="(loading|async)">
                         <mat-spinner diameter="20"
                                      color="warn"></mat-spinner>
                     </mat-icon>
-                    {{(RegisterForm.valid || RegisterForm.invalid) && !loading?Constants.FormConstants.Register:''}}
+                    {{(RegisterForm.valid || RegisterForm.invalid) &&
+                    !(loading|async)?Constants.FormConstants.Register:''}}
                 </button>
             </div>
             <!--End Mat-Dialog-actions-->
