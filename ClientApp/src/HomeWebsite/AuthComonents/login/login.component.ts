@@ -26,9 +26,10 @@ export class LoginComponent implements OnInit
 
   //constructor
   constructor(public formBuilder: FormBuilder, public dialogHandler: DialogHandlerService,
-    private store: Store<selectors.AuthState>)
+    private store: Store)
   {
   }
+
   @Input() CloseIconHide: boolean = false;
   @Input() ShowCardFooter: boolean = true;
 

@@ -90,11 +90,7 @@ namespace CodingBible
 
 
 
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-
-            });
+       
 
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Cookie Helper SERVICE                                                */
@@ -123,6 +119,11 @@ namespace CodingBible
             services.AddScoped<IDbContextInitializer, DbContextInitializer>();
             services.AddScoped<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
             /*--------------------------------------------------------------------------------------------------------------------*/
             /*                      Anti Forgery Token Validation Service                                                         */
             /* We use the option patterm to configure the Antiforgery feature through the AntiForgeryOptions Class                */
@@ -130,10 +131,10 @@ namespace CodingBible
             /*--------------------------------------------------------------------------------------------------------------------*/
             services.AddAntiforgery(options =>
             {
-                options.Cookie.Name = "XSRF-TOKEN";
                 options.HeaderName = "scfD1z5dp2";
-                options.Cookie.HttpOnly = false;
                 options.Cookie.MaxAge = TimeSpan.FromDays(10);
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
             });
 
@@ -191,11 +192,18 @@ namespace CodingBible
             }
             app.Use(next => context =>
             {
-                if (context.Request.Path.Value.IndexOf("/api", StringComparison.OrdinalIgnoreCase) != -1)
+                if (context.Request.Path.Value.IndexOf("/api", StringComparison.OrdinalIgnoreCase) != -1 || context.Request.Path.Value.IndexOf("/", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     var tokens = antiForgery.GetAndStoreTokens(context);
                     context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                        new CookieOptions() { HttpOnly = false, Secure = false, IsEssential=true, SameSite=SameSiteMode.Strict });
+                        new CookieOptions()
+                        {
+                            HttpOnly = false,
+                            Secure = false,
+                            IsEssential = true,
+                            SameSite = SameSiteMode.Strict,
+                            MaxAge = TimeSpan.FromDays(10)
+                        });
                 }
 
                 return next(context);
@@ -209,6 +217,7 @@ namespace CodingBible
             }
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseCookiePolicy();
             app.UseCors(policy =>

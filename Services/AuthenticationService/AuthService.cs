@@ -30,11 +30,7 @@ namespace CodingBible.Services.AuthenticationService
         private readonly IActivityServ ActivityServ;
         private readonly ITokenServ TokenService;
         //private IDataProtector Protector;
-        private string[] UserRoles = new[] { Constants.Roles.admin, Constants.Roles.Reader };
-        private TokenValidationParameters validationParameters;
-        private JwtSecurityTokenHandler handler;
-        private string unProtectedToken;
-        private ClaimsPrincipal validateToken;
+       
 
         public AuthService(UserManager<ApplicationUser> userManager,
             ApplicationDbContext applicationDbContext,
@@ -48,99 +44,78 @@ namespace CodingBible.Services.AuthenticationService
             TokenService = tokenService;
         }
 
-        // These method will be called by Client or application Users => Angular/REST API app
-        public async Task<TokenResponseModel> Auth(TokenRequestModel model)
-        {
-            // We will return Generic 500 HTTP Server Status Error
-            // If we receive an invalid payload
-            if (model == null)
-            {
-                return TokenService.CreateErrorResponseToken("Model State is Invalid", HttpStatusCode.InternalServerError);
-            }
-
-            switch (model.GrantType)
-            {
-                case "password":
-                    return await TokenService.GenerateNewToken(model);
-                case "refresh_token":
-                    return await TokenService.RefreshToken(model);
-                default:
-                    // not supported - return a HTTP 401 (Unauthorized)
-                    return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
-            }
-        }
 
         // Will be used for authenticating the Admin
-        public async Task<TokenResponseModel> Auth(LoginViewModel model)
-        {
-            ActivityModel activityModel = new ActivityModel();
-            activityModel.Date = DateTime.UtcNow;
-            activityModel.IpAddress = CookieServ.GetUserIP();
-            activityModel.Location = CookieServ.GetUserCountry();
-            activityModel.OperatingSystem = CookieServ.GetUserOS();
+        //public async Task<TokenResponseModel> Auth(LoginViewModel model)
+        //{
+        //    ActivityModel activityModel = new ActivityModel();
+        //    activityModel.Date = DateTime.UtcNow;
+        //    activityModel.IpAddress = CookieServ.GetUserIP();
+        //    activityModel.Location = CookieServ.GetUserCountry();
+        //    activityModel.OperatingSystem = CookieServ.GetUserOS();
 
-            try
-            {
-                // Get the User from Database
-                var user = await UserManager.FindByEmailAsync(model.Email);
+        //    try
+        //    {
+        //        // Get the User from Database
+        //        var user = await UserManager.FindByEmailAsync(model.Email);
 
-                if (user == null) return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
+        //        if (user == null) return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
 
-                // Get the role of the user - validate if he is admin - dont bother to go ahead if returned false
+        //        // Get the role of the user - validate if he is admin - dont bother to go ahead if returned false
 
 
-                if (await UserManager.IsInRoleAsync(user, Constants.Roles.admin))
-                {
-                    /****** You can send email that Admin is logged in ******/
-                    activityModel.UserId = user.Id;
-                    activityModel.Type = "Amin login";
-                    activityModel.Icon = "fas fa-user-secret";
-                    activityModel.Color = "danger";
-                    await ActivityServ.AddUserActivity(activityModel);
-                    Log.Information("Admin is logged in");
-                    return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
-                }
+        //        if (await UserManager.IsInRoleAsync(user, Constants.Roles.admin))
+        //        {
+        //            /****** You can send email that Admin is logged in ******/
+        //            activityModel.UserId = user.Id;
+        //            activityModel.Type = "Amin login";
+        //            activityModel.Icon = "fas fa-user-secret";
+        //            activityModel.Color = "danger";
+        //            await ActivityServ.AddUserActivity(activityModel);
+        //            Log.Information("Admin is logged in");
+        //            return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
+        //        }
 
-                // If user is admin continue to execute the code
-                if (!await UserManager.CheckPasswordAsync(user, model.Password))
-                {
-                    activityModel.UserId = user.Id;
-                    activityModel.Type = "Login attempt failed";
-                    activityModel.Icon = "far fa-times-circle";
-                    activityModel.Color = "danger";
-                    await ActivityServ.AddUserActivity(activityModel);
-                    Log.Error("Error : Invalid Password for Admin");
-                    return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
-                }
+        //        // If user is admin continue to execute the code
+        //        if (!await UserManager.CheckPasswordAsync(user, model.Password))
+        //        {
+        //            activityModel.UserId = user.Id;
+        //            activityModel.Type = "Login attempt failed";
+        //            activityModel.Icon = "far fa-times-circle";
+        //            activityModel.Color = "danger";
+        //            await ActivityServ.AddUserActivity(activityModel);
+        //            Log.Error("Error : Invalid Password for Admin");
+        //            return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
+        //        }
 
-                // Then Check If Email Is confirmed
-                if (!await UserManager.IsEmailConfirmedAsync(user))
-                {
-                    activityModel.Type = "Login attempt Success - Email Not Verified";
-                    activityModel.UserId = user.Id;
-                    activityModel.Icon = "far fa-envelope";
-                    activityModel.Color = "warning";
-                    await ActivityServ.AddUserActivity(activityModel);
-                    Log.Error("Error : Email Not Confirmed for {user}", user.UserName);
-                    return TokenService.CreateErrorResponseToken("Email Not Confirmed", HttpStatusCode.BadRequest);
-                }
+        //        // Then Check If Email Is confirmed
+        //        if (!await UserManager.IsEmailConfirmedAsync(user))
+        //        {
+        //            activityModel.Type = "Login attempt Success - Email Not Verified";
+        //            activityModel.UserId = user.Id;
+        //            activityModel.Icon = "far fa-envelope";
+        //            activityModel.Color = "warning";
+        //            await ActivityServ.AddUserActivity(activityModel);
+        //            Log.Error("Error : Email Not Confirmed for {user}", user.UserName);
+        //            return TokenService.CreateErrorResponseToken("Email Not Confirmed", HttpStatusCode.BadRequest);
+        //        }
 
-                activityModel.UserId = user.Id;
-                activityModel.Type = "Login attempt successful";
-                activityModel.Icon = "fas fa-thumbs-up";
-                activityModel.Color = "success";
-                await ActivityServ.AddUserActivity(activityModel);
-                var authToken = await TokenService.GenerateNewToken(user, model);
-                return authToken;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                   ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-            }
+        //        activityModel.UserId = user.Id;
+        //        activityModel.Type = "Login attempt successful";
+        //        activityModel.Icon = "fas fa-thumbs-up";
+        //        activityModel.Color = "success";
+        //        await ActivityServ.AddUserActivity(activityModel);
+        //        var authToken = await TokenService.GenerateNewToken(user);
+        //        return authToken;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+        //           ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+        //    }
 
-            return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
-        }
+        //    return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
+        //}
 
         public async Task<bool> LogoutUserAsync()
         {
@@ -172,7 +147,7 @@ namespace CodingBible.Services.AuthenticationService
                         await ApplicationDbContext.SaveChangesAsync();
                     }
 
-                    CookieServ.DeleteAllCookies(cookiesToDelete);
+                    CookieServ.DeleteAllCookies();
 
                     return true;
                 }
@@ -182,7 +157,7 @@ namespace CodingBible.Services.AuthenticationService
                 Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                     ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
             }
-            CookieServ.DeleteAllCookies(cookiesToDelete);
+            CookieServ.DeleteAllCookies();
             return false;
         }
     }

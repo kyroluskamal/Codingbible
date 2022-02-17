@@ -13,7 +13,6 @@ import { HTTPResponseStatus, NotificationMessage } from 'src/Helpers/constants';
 @Injectable()
 export class AuthEffects
 {
-
     loginRequest$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AuthActions.Login),
@@ -26,6 +25,19 @@ export class AuthEffects
             )
         )
     );
+    logoutRequest$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(AuthActions.Logout),
+            exhaustMap(() =>
+                this.accoutnService.logout()
+                    .pipe(
+                        map((r) => AuthActions.LogoutConfirmed()),
+                        catchError((e) => of(AuthActions.LogoutCancelled()))
+                    )
+            )
+        )
+    );
+
 
     loginSuccess$ = createEffect(
         () =>

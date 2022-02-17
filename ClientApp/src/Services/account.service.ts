@@ -13,23 +13,23 @@ export class AccountService
 
   Login(LoginViewModel: LoginViewModel): Observable<any>
   {
-    return this.httpClient.post<LoginViewModel>(AccountController.Login, LoginViewModel);
+    return this.httpClient.post<LoginViewModel>(AccountController.Login, LoginViewModel, { headers: { 'No-Auth': 'True' } });
   }
 
   Register(RegisterViewModel: RegisterViewModel): Observable<any>
   {
-    return this.httpClient.post<RegisterViewModel>(AccountController.Register, RegisterViewModel);
+    return this.httpClient.post<RegisterViewModel>(AccountController.Register, RegisterViewModel, { headers: { 'No-Auth': 'True' } });
   }
 
   EmailConfirmations(email: string, token: string)
   {
-    return this.httpClient.get(`${AccountController.emailConfirm}?token=${token}&email=${email}`);
+    return this.httpClient.get(`${AccountController.emailConfirm}?token=${token}&email=${email}`, { headers: { 'No-Auth': 'True' } });
   }
 
-  IsUserFoundByEmail(email: string): Observable<any>
+  IsLoggedIn(): Observable<any>
   {
-    if (email === '') return new Observable();
-    return this.httpClient.get(`${AccountController.IsUserFoundByEmail}?email=${email}`);
+
+    return this.httpClient.get(`${AccountController.IsLoggedIn}`);
   }
 
   ForgetPassword(model: ForgetPasswordModel): Observable<any>
@@ -40,5 +40,9 @@ export class AccountService
   ResetPassword(model: ResetPasswordModel): Observable<any>
   {
     return this.httpClient.post<ResetPasswordModel>(AccountController.ResetPassword, model);
+  }
+  logout()
+  {
+    return this.httpClient.get(AccountController.Logout);
   }
 }

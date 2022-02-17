@@ -21,6 +21,7 @@ export class HttpResponsesObject
     status: string = "";
     message: any;
     data: any;
+    tokenExpire: string = "";
 }
 
 export class ForgetPasswordModel

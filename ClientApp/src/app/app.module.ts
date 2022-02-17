@@ -21,13 +21,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { DatePipe } from '@angular/common';
 
 
 function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState>
 {
   return localStorageSync({
     keys: [
-      { auth: ['isLoggedIn', 'user', 'roles'] }
+      { auth: ['user', 'roles'] }
     ],
     rehydrate: true,
     removeOnUndefined: true
@@ -57,7 +58,7 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer
     }),
 
   ],
-  providers: [CookieService],
+  providers: [CookieService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

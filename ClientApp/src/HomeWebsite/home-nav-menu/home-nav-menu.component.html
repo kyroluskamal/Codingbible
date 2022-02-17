@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
+<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex mat-elevation-z3 p-0">
     <div class="container">
         <a class="navbar-brand"
            href="#">Navbar</a>
@@ -49,8 +49,8 @@
                     </li>
                 </ul>
             </div>
-            <div class="btn-group"
-                 *ngIf="!(IsLoggedIn|async)"
+            <div class="btn-group p-2"
+                 *ngIf="!(IsLoggedIn|async)?.isLoggedIn"
                  role="group"
                  aria-label="First group">
                 <button type="button"
@@ -60,13 +60,57 @@
                         (click)="dialogHandler.OpenLogin()"
                         class="btn btn-outline-primary">Login</button>
             </div>
-            <div *ngIf="(IsLoggedIn|async)">
+            <div class="dropdown h-100 border-end border-start"
+                 *ngIf="(IsLoggedIn|async)?.isLoggedIn">
+                <div class="dropdown-toggle p-2 d-flex flex-row gap-2 cursor-pointer align-items-center"
+                     data-bs-toggle="dropdown"
+                     matRipple
+                     aria-expanded="false">
+                    <span class="rounded-circle p-2 d-flex justify-content-center align-items-center img-thumbnail mat-elevation-z2"
+                          style="width: 40px; height: 40px;">
+                        <span class="fs-6 fw-bold">
+                            KK
+                        </span>
+                    </span>
+                    <span class="d-flex flex-column">
+                        <span class="text-nowrap">{{(User|async)?.firstname}} {{(User|async)?.lastname}}</span>
+                        <span class="text-muted small">
+                            <ng-container *ngFor="let role of (UserRoles|async); let i =index">
+                                {{i===(UserRoles|async)?.length!-1?role:role+','}}
+                            </ng-container>
+                        </span>
+                    </span>
 
-                {{(User|async)?.firstname}} {{(User|async)?.lastname}}
-                <img class="img-thumbnail rounded-circle"
-                     src="..."
-                     alt="">
+                </div>
+                <ul class="dropdown-menu w-100"
+                    aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item cursor-pointer">
+                            <i-bs [name]="BootstrapIcons.PersonFill"
+                                  width="20"
+                                  height="20">
+                            </i-bs><span class="ms-3">Profile</span>
+                        </a>
+                    </li>
+                    <li><a class="dropdown-item cursor-pointer">
+                            <i-bs [name]="BootstrapIcons.GearFill"
+                                  width="20"
+                                  height="20">
+                            </i-bs><span class="ms-3">Settings</span>
+                        </a>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item cursor-pointer"
+                           (click)="logout()">
+                            <i-bs [name]="BootstrapIcons.BoxArrowRight"
+                                  width="20"
+                                  height="20">
+                            </i-bs><span class="ms-3">Logout</span>
+                        </a></li>
+                </ul>
             </div>
         </div>
+
     </div>
 </nav>

@@ -29,12 +29,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { personFill, penFill, NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
+import { personFill, penFill, NgxBootstrapIconsModule, boxArrowRight, gearFill } from 'ngx-bootstrap-icons';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatRippleModule } from '@angular/material/core';
+
 const icons = {
-  personFill, penFill
+  personFill, penFill, boxArrowRight, gearFill
 };
-const MaterialComponents = [TooltipModule.forRoot(),
+const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
   MatBottomSheetModule, MatInputModule, MatFormFieldModule, MatStepperModule,
   MatCheckboxModule, MatSidenavModule, MatNativeDateModule, NgxSpinnerModule,

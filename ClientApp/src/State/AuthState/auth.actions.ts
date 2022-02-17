@@ -58,6 +58,12 @@ export const ResetPasswordSuccess = createAction(actionNames.AuthenticationActio
 export const ResetPasswordFailure = createAction(actionNames.AuthenticationActions.ResetPasswordFailure,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>()
 );
+/***********************************************************************************
+ *                              IsLoggedIn actions
+ ***********************************************************************************/
+export const IsLoggedIn = createAction(actionNames.AuthenticationActions.IsLoggedIn,
+    props<{ isLoggedIn: boolean; checked: boolean; }>());
+
 export const Logout = createAction(actionNames.AuthenticationActions.Logout);
 export const LogoutCancelled = createAction(actionNames.AuthenticationActions.LogoutCancelled);
 export const LogoutConfirmed = createAction(actionNames.AuthenticationActions.LogoutConfirmed);

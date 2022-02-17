@@ -133,8 +133,16 @@ export const LocalStorageKeys = {
 };
 export const CookieNames = {
     XSRF_TOKEN: "XSRF-TOKEN",
-    user_id: "XSRF-TOKEN",
-    username: "username"
+    TwoFactorToken: "twoFactorToken",
+    MemberId: "memberId",
+    RememberDevice: "rememberDevice",
+    User_id: "user_id",
+    Access_token: "access_token",
+    userRole: "userRole",
+    Username: "username",
+    refreshToken: "refreshToken",
+    loginStatus: "loginStatus",
+    refershTokenExpire: "refershTokenExpire",
 };
 export const InputFieldTypes =
 {
@@ -185,6 +193,8 @@ export const actionNames = {
         Register: '[Register Page] Register request',
         RegisterSuccess: '[Auth API] Register Success',
         RegisterFailure: '[Auth API] Register Failure',
+        IsLoggedIn: '[Auth API] IsLoggedIn',
+        IsLoggedInSuccess: '[Auth API] IsLoggedInSuccess',
         ForgetPassword: '[ForgetPassword] request',
         ForgetPasswordSuccess: '[Auth API] ForgetPassword Success',
         ForgetPasswordFailure: '[Auth API] ForgetPassword Failure',

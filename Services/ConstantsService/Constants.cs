@@ -15,10 +15,10 @@ namespace CodingBible.Services.ConstantsService
 
         public static class AppSettings
         {
-            public const string Site = "http://coding-bible.com";
-            public const string Audience = "http://coding-bible.com";
-            public const string ExpireTime = "60";
-            public const string RtExpireTime = "120";
+            public const string Site = "localhost:5001";
+            public const string Audience = "localhost:5001";
+            public const string ExpireTime = "180";
+            public const string RtExpireTime = "240";
             public const string Secret = "tq4btuyjvF7QyX%m-*DW+weK&38RW?S!f#xW36gzC3CmXxQX_PVqBvx+_Mr2t=xqHYQW+PNYen8uteDfe@LNv_4My@U$CCrYqEhhGW%VFe#C!e&q4_4hZE!rj";
             public const bool ValidateIssuerSigningKey = true;
             public const bool ValidateIssuer = true;
@@ -65,7 +65,11 @@ namespace CodingBible.Services.ConstantsService
             public const string RememberDevice = "rememberDevice";
             public const string User_id = "user_id";
             public const string Access_token = "access_token";
+            public const string userRole = "userRole";
             public const string Username = "username";
+            public const string refreshToken = "refreshToken";
+            public const string loginStatus = "loginStatus";
+            public const string refershTokenExpire = "refershTokenExpire";
         }
 
         public static class TokensName

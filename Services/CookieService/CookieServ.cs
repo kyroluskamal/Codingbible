@@ -6,6 +6,8 @@ using Serilog;
 using System.Globalization;
 using System.Net;
 using System.Net.Http;
+using CodingBible.Services.ConstantsService;
+using CodingBible.Models;
 
 namespace CodingBible.Services.CookieService
 {
@@ -25,44 +27,53 @@ namespace CodingBible.Services.CookieService
             return _httpContextAccessor.HttpContext.Request.Cookies[key];
         }
 
-        public void SetCookie(string key, string value, int? expireTime, bool isSecure, bool isHttpOnly)
-        {
-            _cookieOptions.Expires = expireTime.HasValue ? DateTime.Now.AddMinutes(expireTime.Value) : DateTime.Now.AddMilliseconds(10);
-            _cookieOptions.Secure = isSecure;
-            _cookieOptions.HttpOnly = isHttpOnly;
-            _cookieOptions.IsEssential = true;
-            _cookieOptions.SameSite = SameSiteMode.None;
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
-        }
-
-        public void SetCookie(string key, string value, int? expireTime)
+        public void SetCookie(string key, string value, TimeSpan? expireTime, bool isSecure=true, bool isHttpOnly=true)
         {
             if (expireTime.HasValue)
             {
-                _cookieOptions.Secure = true;
-                _cookieOptions.Expires = DateTime.Now.AddMinutes(expireTime.Value);
+                _cookieOptions.MaxAge = expireTime;
             }
-            else
-            {
-                _cookieOptions.Secure = true;
-                _cookieOptions.Expires = DateTime.Now.AddMilliseconds(10);
-            }
-            _cookieOptions.HttpOnly = true;
-            _cookieOptions.SameSite = SameSiteMode.None;
+            _cookieOptions.Secure = isSecure;
+            _cookieOptions.HttpOnly = isHttpOnly;
+            _cookieOptions.IsEssential = true;
+            _cookieOptions.SameSite = SameSiteMode.Strict;
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
+        } 
+        public void SetCookie(string key, string value, bool isSecure=true, bool isHttpOnly=true)
+        {
+            _cookieOptions.Secure = isSecure;
+            _cookieOptions.HttpOnly = isHttpOnly;
+            _cookieOptions.IsEssential = true;
+            _cookieOptions.SameSite = SameSiteMode.Strict;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
+
+   
 
         public void DeleteCookie(string key)
         {
             _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
         }
-
-        public void DeleteAllCookies(IEnumerable<string> cookiesToDelete)
+        public void SetSession(string key, string value)
         {
+            _cookieOptions.Secure = true;
+            _cookieOptions.HttpOnly = true;
+            _cookieOptions.SameSite = SameSiteMode.Strict;
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
+        }
+        public void DeleteAllCookies()
+        {
+            string[] cookiesToDelete = { Constants.CookieName.TwoFactorToken,
+            Constants.CookieName.MemberId, Constants.CookieName.RememberDevice,
+            Constants.CookieName.User_id, Constants.CookieName.Access_token,Constants.CookieName.TwoFactorToken,
+            Constants.CookieName.userRole,Constants.CookieName.refreshToken, Constants.CookieName.Username};
             foreach (var key in cookiesToDelete)
             {
+                if(_httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key))
                 _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
             }
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.loginStatus, "0", new CookieOptions() { HttpOnly=false, Secure=false});
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.refershTokenExpire, "0", new CookieOptions() { HttpOnly = false, Secure=false });
         }
 
         public string GetUserIP()
@@ -96,8 +107,6 @@ namespace CodingBible.Services.CookieService
                 {
                     return ipInfo.Country;
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -107,7 +116,32 @@ namespace CodingBible.Services.CookieService
 
             return "unknown";
         }
+        public void setRequiredCookies(TokenResponseModel accessToken, ApplicationUser user, List<string> roles, TimeSpan expireTime, bool rememberMe)
+        {
+            var exp = (DateTime.Now + accessToken.RefreshTokenExpiration);
+            var refExp = $"{exp.Year}-{exp.Month}-{exp.Day} {exp.Hour}:{exp.Minute}:{exp.Second}";
+           
+            if (rememberMe) { 
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token.ToString(), expireTime);
+                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, accessToken.RefreshTokenExpiration);
+                SetCookie(Constants.CookieName.loginStatus, "1", accessToken.RefreshTokenExpiration, false, false);
+                SetCookie(Constants.CookieName.Username, user.UserName, accessToken.RefreshTokenExpiration);
+                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), accessToken.RefreshTokenExpiration);
+                SetCookie(Constants.CookieName.User_id, accessToken.UserId, accessToken.RefreshTokenExpiration);
+                SetCookie(Constants.CookieName.refershTokenExpire, refExp, accessToken.RefreshTokenExpiration, true, false);
+            }
+            else
+            {
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token.ToString());
+                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken);
+                SetCookie(Constants.CookieName.loginStatus, "1", false, false);
+                SetCookie(Constants.CookieName.Username, user.UserName, true, true);
+                SetCookie(Constants.CookieName.userRole, string.Join(",", roles),  true, true);
+                SetCookie(Constants.CookieName.User_id, accessToken.UserId);
+                SetCookie(Constants.CookieName.refershTokenExpire, "0", true, false);
+            }
 
+        }
         public string GetUserOS()
         {
             string userOs = "unknown";
