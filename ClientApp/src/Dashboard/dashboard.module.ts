@@ -7,15 +7,16 @@ import { MaterialModule } from '../SharedModules/material.module';
 import { SharedModule } from '../SharedModules/shared.module';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 
-
+const components = [
+  DashboardHomeComponent
+];
 @NgModule({
-  declarations: [
-    DashboardHomeComponent
-  ],
+  declarations: [components],
   imports: [
     CommonModule, MaterialModule, SharedModule,
     DashboardRoutingModule,
     CommonComponentsModule
-  ]
+  ],
+  exports: [components]
 })
 export class DashboardModule { }

@@ -11,11 +11,11 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
-  { path: HomeRoutes.Home, component: HomeComponent },
-  { path: AuthRoutes.Login, component: LoginPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.Register, component: RegisterPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.ResetPassword, component: ResetPasswordComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.emailConfirmation, component: EmailConfirmationComponent, canActivate: [PreventLoadIfLoggedInGuard] }
+  { path: HomeRoutes.Home.toLowerCase(), component: HomeComponent },
+  { path: AuthRoutes.Login.toLowerCase(), component: LoginPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+  { path: AuthRoutes.Register.toLowerCase(), component: RegisterPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+  { path: AuthRoutes.ResetPassword.toLowerCase(), component: ResetPasswordComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+  { path: AuthRoutes.emailConfirmation.toLowerCase(), component: EmailConfirmationComponent, canActivate: [PreventLoadIfLoggedInGuard] }
 ];
 
 @NgModule({

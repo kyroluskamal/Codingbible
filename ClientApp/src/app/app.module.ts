@@ -16,7 +16,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
-import * as reducer from '../State/AuthState/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { AppReducers, AppState } from 'src/State/app.state';
@@ -39,7 +38,7 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     HomeWebsiteModule, SharedModule,
@@ -50,7 +49,7 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer
     BrowserAnimationsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: false }),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     FontAwesomeModule,
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',

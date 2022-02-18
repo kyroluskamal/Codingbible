@@ -4,7 +4,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, of, exhaustMap, map, tap, mergeMap } from 'rxjs';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
-import { AuthRoutes, HomeRoutes } from 'src/Helpers/router-constants';
+import { AuthRoutes, DashboardRoutes, HomeRoutes } from 'src/Helpers/router-constants';
 import { AccountService } from 'src/Services/account.service';
 import * as AuthActions from './auth.actions';
 import { ClientSideValidationService } from '../../CommonServices/client-side-validation.service';
@@ -48,7 +48,7 @@ export class AuthEffects
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                     this.dialogHandler.CloseDialog();
                     if (this.router.url.includes(AuthRoutes.Login))
-                        this.router.navigateByUrl(HomeRoutes.Dashboard);
+                        this.router.navigateByUrl(DashboardRoutes.Home);
                 })
             ),
         { dispatch: false }

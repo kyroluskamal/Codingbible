@@ -26,7 +26,9 @@ export const FormConstants = {
 export const FormErrors = {
     NoMatchedData_inSelection: "No matched data found"
 };
-
+/****************************************************************************************
+ *                                          CSS                                     
+ ****************************************************************************************/
 export const css = {
     blue: "",
     red: "",
@@ -37,7 +39,23 @@ export const css = {
     SwalWarningTitle: "SwalWarningTitle",
     SwalErrorTitle: "SwalErrorTitle",
     Width100: "Width100",
-    calibri_font: "calibri-font"
+    calibri_font: "calibri-font",
+    Dashboard: {
+        SidNav: {
+            fullOpend: "SideNav-FullOpened",
+            halfClosed: "SideNav-HalfClosed",
+            content: {
+                ltr: {
+                    pinned: "mat-sidenav-content-pin-LTR",
+                    nonPinned: "mat-sidenav-content-nonPinned-LTR"
+                },
+                rtl: {
+                    pinned: "mat-sidenav-content-pin-RTL",
+                    nonPinned: "mat-sidenav-content-nonPinned-RTL"
+                }
+            }
+        }
+    }
 };
 
 export const ToolTip = {
@@ -63,7 +81,9 @@ export const NotificationMessage = {
     },
     Error: {
         Unique_Field_ERROR: "You can't repeat values in this field. Add UNIQUE value.",
-        ResetPasswordFail_InvalidToken: "This reset link is used before, or the token expired. Try to reset password again"
+        ResetPasswordFail_InvalidToken: "This reset link is used before, or the token expired. Try to reset password again",
+        BrowserDontSupportFullscreen: "Your browser doesn't support fullscreen mode. Use latest version of Chrome.",
+
     }
 };
 
@@ -129,7 +149,8 @@ export const FormValidationErrorsNames = {
 };
 
 export const LocalStorageKeys = {
-    isLoggedIn: "isLoggedIn"
+    isLoggedIn: "isLoggedIn",
+    FixedSidnav: "FixedSidnav "
 };
 export const CookieNames = {
     XSRF_TOKEN: "XSRF-TOKEN",

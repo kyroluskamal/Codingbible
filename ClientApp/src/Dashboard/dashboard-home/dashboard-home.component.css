@@ -1,0 +1,165 @@
+.SideNav-HalfClosed {
+    width: 60px !important;
+    transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  /* .SideNav-HalfClosed:hover {
+    width: 20vw !important;
+    transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  } */
+.SideNav-FullOpened {
+    width: 20vw !important;
+    transition: width 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .mat-sidenav-content-nonPinned-LTR {
+    margin-left: 60px !important;
+    transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .mat-sidenav-content-nonPinned-RTL {
+    margin-right: 60px !important;
+    transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .mat-sidenav-content-pin-LTR {
+    margin-left: 20vw !important;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .mat-sidenav-content-pin-RTL {
+    margin-right: 20vw !important;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .Openned-pin {
+    transform: rotate(45deg);
+  }
+  @media screen and (max-width: 599.98px) {
+    .WidthForSmallScreens {
+      width: 80vw !important;
+    }
+    .menuSideNav {
+      display: none;
+      width: 80vw !important;
+    }
+    .sideNavContent {
+      margin: 0 !important;
+    }
+    .FullscreenButton {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    .menuSideNav {
+      display: flex !important;
+      visibility: visible !important;
+    }
+    .FullscreenButton {
+      display: inline-block;
+    }
+  }
+  /* body {
+  background-color: #f1f2f7;
+  transition: all 0.5s;
+  font-size: 13px;
+} */
+mat-sidenav.dark-for-others div h3 {
+    font-weight: bold;
+    border-bottom: #e6e6e6 solid 1px;
+  }
+  mat-sidenav.light-for-others div h3 {
+    font-weight: bold;
+    border-bottom: #333 solid 1px;
+  }
+  .mat-button-toggle-checked {
+    color: white !important;
+    background-color: violet !important;
+  }
+  
+  /*This part is to style the buttons for theme colors settings*/
+  p button {
+    padding: 0px !important;
+  }
+  p button mat-icon {
+    color: white !important;
+  }
+  mat-toolbar {
+    transform: translate(0, -1px);
+  }
+  [dir="rtl"] .mat-drawer.mat-drawer-end {
+    font-size: 1rem;
+  }
+  [dir="rtl"] .mat-drawer.mat-drawer-end h3 {
+    font-size: 1.2rem;
+    font-family: var(--Hacen) !important;
+  }
+  button {
+    font-family: var(--Almarai) !important;
+    font-weight: bold;
+  }
+  @media screen and (max-width: 599.98px) {
+    .WidthForSmallScreens {
+      width: 80vw !important;
+    }
+    .menuSideNav {
+      display: none;
+      width: 80vw !important;
+    }
+    .sideNavContent {
+      margin: 0 !important;
+    }
+    .FullscreenButton {
+      display: none !important;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    .menuSideNav {
+      display: flex !important;
+      visibility: visible !important;
+    }
+    .FullscreenButton {
+      display: inline-block;
+    }
+  }
+  /*........................................................................................
+  ...............................Expansion Stypes .......................................
+  ........................................................................................*/
+  mat-accordion,
+  mat-accordion *:not(mat-icon) {
+    background-color: inherit !important;
+    color: inherit !important;
+    font: inherit !important;
+  }
+  
+  
+   .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    font-family: var(--Almarai) !important;
+    font-size: 1.0rem !important;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #9d9d9d;
+  }
+ 
+  .mat-card-title{
+    font-family: cursive !important;
+  }
+  .mat-expansion-panel-content{
+    font-size: 0.9rem !important;
+  }
+  .mat-expansion-panel:not([class*=mat-elevation-z]){
+      box-shadow: none;
+  }
+
+mat-expansion-panel-header:hover,
+.expansionIsExpanded,
+.mat-expansion-panel-body a:hover {
+  color: white !important;
+  background-color: #11151e !important;
+  font-weight: bold !important;
+}
+::ng-deep .cdk-overlay-connected-position-bounding-box{
+  transform: translate(60px, -36px);
+}
+mat-toolbar{
+  height: 50px;
+}
+.bootstrapToolTip{
+  z-index: 5000;
+  transform: translateX(60px);
+}

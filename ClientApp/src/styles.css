@@ -110,3 +110,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 body{
   background: transparent;
 }
+.userIconImage {
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.dark-bg{
+  background-color: #232b3e;
+  color: #e6e6e6 !important;
+}
+.border-bottom-forDark{
+  border-bottom:solid 1px #e6e6e6 !important;
+  border-radius: 0% !important;
+}
+.mat-tooltip{
+  margin: 0 !important;
+}
