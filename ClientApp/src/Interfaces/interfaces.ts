@@ -1,11 +1,9 @@
 import { Direction } from "@angular/cdk/bidi";
 import { ComponentType } from "@angular/cdk/portal";
 import { StepperOrientation } from "@angular/cdk/stepper";
-import { Type } from "@angular/core";
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
 import { MatTableDataSource } from "@angular/material/table";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { SweetAlertIcon, SweetAlertOptions } from "sweetalert2";
 
 export interface ExpansionPanel
@@ -15,6 +13,7 @@ export interface ExpansionPanel
   links: { link: string, LinkText: string, state: boolean; }[];
   GoogleIconName?: string;
   faIcon?: any;
+  boostrapIcon?: any;
 }
 
 export interface ThemeColor

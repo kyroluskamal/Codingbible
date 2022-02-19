@@ -29,12 +29,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { personFill, penFill, NgxBootstrapIconsModule, boxArrowRight, gearFill } from 'ngx-bootstrap-icons';
+import
+{
+  personFill, penFill, NgxBootstrapIconsModule, speedometer2,
+  boxArrowRight, gearFill, pinFill, plusSquareFill
+} from 'ngx-bootstrap-icons';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
+import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
 const icons = {
-  personFill, penFill, boxArrowRight, gearFill
+  personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill
 };
 const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
@@ -43,7 +48,7 @@ const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule, MatSnackBarModule,
   MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule,
   MatButtonToggleModule, MatSlideToggleModule, MatTableModule, MatDividerModule,
-NgxBootstrapIconsModule.pick(icons),
+NgxBootstrapIconsModule.pick(icons), NgbModule,
   MatCardModule, MatPaginatorModule, MatSortModule, FontAwesomeModule, MatProgressSpinnerModule
 ];
 @NgModule({

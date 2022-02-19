@@ -6,44 +6,41 @@
     <mat-sidenav [mode]="SideNav_mode"
                  [opened]="SideNav_openingStatus"
                  #SideNav
-                 (mouseover)="OnMouseOver()"
-                 (mouseleave)="OnMouseLeave()"
                  [ngClass]="ToggleClass+ ' ' +'menuSideNav'+' dark-bg'"
                  fxLayout="column">
-        <mat-nav-list fxLayout="row"
-                      [class]="!pinned?'justify-content-center':''"
-                      fxLayoutAlign="space-between center">
-            <a [class]="Display"
-               fxFlex="1 2 90%"
-               [routerLink]="['','app']">KH-ERP</a>
-            <button fxLayout="column"
-                    fxLayoutAlign="center center"
-                    matTooltip="Close Sidebar"
-                    matTooltipPosition="right"
-                    mat-icon-button
-                    (click)="PinSideNav()"
-                    [class]="pinned?'':'Openned-pin'"
-                    #pinButton>
-                <mat-icon>
-                    push_pin
-                </mat-icon>
-            </button>
-        </mat-nav-list>
+
         <!-- ------------------------------------------------------------------------------------
     ----------------------------- Menus of the sidebar -------------------------------------
     ------------------------------------------------------------------------------------- -->
         <div *ngIf="!pinned"
              class="d-flex flex-column justify-content-center">
+            <div class="d-flex justify-content-center align-items-center cursor-pointer"
+                 style="min-height: 50px;">
+                <a [routerLink]="['','dashboard']"><img src="../../assets/logo 3.png"
+                         alt="logo"
+                         width="35px"
+                         height="35px"></a>
+            </div>
             <ng-container *ngFor="let item of SideNavItems; let i = index">
                 <button mat-button
-                        placement="top"
-                        ngbTooltip="Tooltip on top"
+                        [tooltip]="item.title"
+                        placement="right"
+                        boundariesElement="window"
+                        [tooltipAppendToBody]="true"
                         style="min-width: 0;"
+                        #matMenuTrigger
                         [matMenuTriggerFor]="submenu"
-                        class="p-0">
-                    <mat-icon><span class="material-icons">
+                        class="p-0 mh-50">
+                    <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
                             {{item.GoogleIconName}}
                         </span></mat-icon>
+                    <fa-icon *ngIf="item.faIcon"
+                             [icon]="item.faIcon"></fa-icon>
+                    <i-bs *ngIf="item.boostrapIcon"
+                          [name]="item.boostrapIcon"
+                          width="24"
+                          height="24">
+                    </i-bs>
                 </button>
                 <mat-menu #submenu="matMenu">
                     <a mat-menu-item
@@ -54,7 +51,20 @@
             </ng-container>
 
         </div>
+        <!-- -------------------------------------------------------------------------------
+                                        Expanded sidenav
+        ------------------------------------------------------------------------------------>
         <mat-accordion *ngIf="pinned">
+            <div style="min-height: 50px;"
+                 class="d-flex justify-content-center align-items-center">
+                <a [class]="Display"
+                   class="text-decoration-none fs-3 fw-bold text-center"
+                   fxFlex="1 2 90%"
+                   [routerLink]="['','dashboard']"><img src="../../assets/logo 3.png"
+                         alt="logo"
+                         width="35px"
+                         height="35px"> KH-ERP</a>
+            </div>
             <mat-expansion-panel hideToggle
                                  class="border-bottom-forDark"
                                  *ngFor="let item of SideNavItems; let i = index"
@@ -66,10 +76,13 @@
                         <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
                                 {{item.GoogleIconName}}
                             </span></mat-icon>
-                        <mat-icon class="mat-18"
-                                  *ngIf="item.faIcon">
-                            <fa-icon [icon]="item.faIcon"></fa-icon>
-                        </mat-icon>
+                        <fa-icon *ngIf="item.faIcon"
+                                 [icon]="item.faIcon"></fa-icon>
+                        <i-bs *ngIf="item.boostrapIcon"
+                              [name]="item.boostrapIcon"
+                              width="24"
+                              height="24">
+                        </i-bs>
                         <span *ngIf="Display!=='d-none'"
                               class="ps-2">{{item.title}}</span>
                     </mat-panel-title>
@@ -81,8 +94,6 @@
                 <a *ngFor="let link of item.links let x = index"
                    [routerLink]="['','dashboard',link.link]"
                    [ngClass]="{expansionIsExpanded:link.state}">{{link.LinkText}}</a>
-
-
             </mat-expansion-panel>
         </mat-accordion>
     </mat-sidenav>
@@ -94,50 +105,78 @@
                          [class]="SideNav_Content_class + ' ' + 'sideNavContent'">
 
         <!-- Toolbar -->
-        <mat-toolbar class="mat-elevation-z3"
+        <mat-toolbar class="mat-elevation-z3 sticky-top bg-white"
                      fxLayout="row"
                      fxLayoutAlign="space-between center">
             <!-- First Div -->
+            <!-- ----------------------------------------------------
+                                     Add Button
+             -------------------------------------------------------->
+            <div fxLayoutAlign="center center"
+                 class="h-100">
+                <div class="cursor-pointer border-end h-100 d-flex align-items-center justify-content-center mw-50"
+                     tooltip="Close Sidebar"
+                     boundariesElement="window"
+                     [adaptivePosition]="true"
+                     [tooltipAppendToBody]="true"
+                     (click)="PinSideNav()"
+                     #pinButton>
+                    <mat-icon class="mat-18"><span class="material-icons-outlined">
+                            menu
+                        </span>
+                    </mat-icon>
+                </div>
+                <div class="cursor-pointer border-end h-100 d-flex align-items-center justify-content-center mw-50"
+                     tooltip="Add"
+                     boundariesElement="window"
+                     matRipple
+                     [adaptivePosition]="true"
+                     [tooltipAppendToBody]="true">
+                    <i-bs name="plus-square-fill"
+                          width="24"
+                          height="24">
+                    </i-bs>
+                </div>
 
-            <div fxLayoutAlign="center center">
-                <button mat-icon-button
-                        #SideNavToggleButtonOnSmallScreen>
-                    <mat-icon class="mat-18"
-                              (click)="SideNav.toggle()">menu</mat-icon>
-                </button>
-                <button mat-raised-button
-                        [matMenuTriggerFor]="animals">Add</button>
-                <mat-menu #animals="matMenu">
-                    <button mat-menu-item>Vertebrates</button>
-                    <button mat-menu-item>Invertebrates</button>
-                </mat-menu>
             </div>
+
             <!-- second Div -->
             <div fxLayoutAlign="center center"
-                 fxLayoutGap="3px">
-                <button mat-icon-button
-                        (click)="ToggleFullscreen()"
-                        [tooltip]="FullscreenEnabled?'Exit fullscreen mode':'Fullscreen mode'"
-                        #FullscreenButton>
+                 class="h-100">
+                <div class="cursor-pointer border-start h-100 align-items-center justify-content-center mw-50"
+                     (click)="ToggleFullscreen()"
+                     [tooltip]="FullscreenEnabled?'Exit fullscreen mode':'Fullscreen mode'"
+                     boundariesElement="window"
+                     matRipple
+                     [adaptivePosition]="true"
+                     [tooltipAppendToBody]="true"
+                     #FullscreenButton>
                     <mat-icon><span class="material-icons-outlined">
                             {{FullscreenEnabled?'fullscreen_exit':'fullscreen'}}
                         </span></mat-icon>
-                </button>
-                <button mat-icon-button>
+                </div>
+                <div class="cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50"
+                     tooltip="see notifications"
+                     boundariesElement="window"
+                     matRipple
+                     [adaptivePosition]="true"
+                     [tooltipAppendToBody]="true">
                     <mat-icon><span class="material-icons-outlined">
                             notifications_active
                         </span></mat-icon>
-                </button>
+                </div>
 
-                <button mat-icon-button><img class="mat-elevation-z5"
+                <div matRipple
+                     class="cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50">
+                    <img class="mat-elevation-z5"
                          class="userIconImage"
                          src="../../../../../assets/user.jpg"
                          width="32"
                          height="32" />
-                </button>
+                </div>
             </div>
         </mat-toolbar>
-        <div class="py-1 ps-1">
+        <div class="py-1 ps-1 bg-light vh-100">
             <xng-breadcrumb></xng-breadcrumb>
             <ngx-spinner name="general"></ngx-spinner>
             <router-outlet #DashBoardOutlet="outlet"></router-outlet>

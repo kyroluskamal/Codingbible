@@ -123,7 +123,6 @@ mat-sidenav.dark-for-others div h3 {
   mat-accordion *:not(mat-icon) {
     background-color: inherit !important;
     color: inherit !important;
-    font: inherit !important;
   }
   
   
@@ -159,7 +158,9 @@ mat-expansion-panel-header:hover,
 mat-toolbar{
   height: 50px;
 }
-.bootstrapToolTip{
-  z-index: 5000;
-  transform: translateX(60px);
-}
+/* ::ng-deep .MenuToolTips .cdk-overlay-connected-position-bounding-box{
+  margin: 0% !important;
+  background: black !important;
+  color: white !important;
+  transform: translate(0,0) !important;
+} */

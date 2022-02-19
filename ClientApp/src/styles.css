@@ -123,6 +123,16 @@ body{
   border-bottom:solid 1px #e6e6e6 !important;
   border-radius: 0% !important;
 }
-.mat-tooltip{
-  margin: 0 !important;
+
+.MenuToolTips{
+  background: black !important;
+  color: white !important;
+  transform: translate(-75px,34px) !important;
+  z-index: 2000;
+}
+.mw-50{
+  min-width: 50px;
+}
+.mh-50{
+  min-height: 50px;
 }

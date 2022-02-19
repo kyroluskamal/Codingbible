@@ -3,6 +3,7 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MenuPositionX, MenuPositionY } from '@angular/material/menu';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { IconNamesEnum } from 'ngx-bootstrap-icons';
 import { filter, Subscription } from 'rxjs';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { css, LocalStorageKeys, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
@@ -18,6 +19,7 @@ export class DashboardHomeComponent implements OnInit
 {
   //#region Properties
   //Properties ............................................................................
+  BootstrapIcons = IconNamesEnum;
 
   choosenColor: boolean = false;
   SideNav_openingStatus: boolean = true;
