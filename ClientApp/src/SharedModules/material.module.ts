@@ -28,27 +28,32 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 import
 {
-  personFill, penFill, NgxBootstrapIconsModule, speedometer2,
-  boxArrowRight, gearFill, pinFill, plusSquareFill
+  personFill, penFill, NgxBootstrapIconsModule, speedometer2, typeItalic, typeUnderline,
+  boxArrowRight, gearFill, pinFill, plusSquareFill, pinAngleFill, typeBold
 } from 'ngx-bootstrap-icons';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { MatCardTitleOnlyComponent } from 'src/app/CommonComponents/mat-card-title-only/mat-card-title-only.component';
 
 const icons = {
-  personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill
+  personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill, pinAngleFill,
+  typeBold, typeItalic, typeUnderline
 };
 const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
   MatBottomSheetModule, MatInputModule, MatFormFieldModule, MatStepperModule,
   MatCheckboxModule, MatSidenavModule, MatNativeDateModule, NgxSpinnerModule,
   MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule, MatSnackBarModule,
-  MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule,
+  MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule, MatCardModule,
   MatButtonToggleModule, MatSlideToggleModule, MatTableModule, MatDividerModule,
-NgxBootstrapIconsModule.pick(icons), NgbModule,
+NgxBootstrapIconsModule.pick(icons), NgbModule, BsDropdownModule.forRoot(), TabsModule.forRoot(),
   MatCardModule, MatPaginatorModule, MatSortModule, FontAwesomeModule, MatProgressSpinnerModule
 ];
 @NgModule({

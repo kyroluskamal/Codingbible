@@ -9,18 +9,12 @@ using CodingBible.Services.MailService;
 using CodingBible.Services.TokenService;
 using CodingBible.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using System;
-using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 
 namespace CodingBible.Controllers.api.v1
 {

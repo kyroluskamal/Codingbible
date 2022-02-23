@@ -5,13 +5,13 @@ import { HttpClientXsrfModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeWebsiteModule } from '../HomeWebsite/home-website.module';
-import { DashboardModule } from '../Dashboard/dashboard.module';
+import { HomeWebsiteModule } from './HomeWebsite/home-website.module';
+import { DashboardModule } from './Dashboard/dashboard.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from '../SharedModules/shared.module';
 import { MaterialModule } from '../SharedModules/material.module';
-import { CommonComponentsModule } from '../CommonComponents/common-components.module';
+import { CommonComponentsModule } from './CommonComponents/common-components.module';
 import { CookieService } from 'ngx-cookie-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';

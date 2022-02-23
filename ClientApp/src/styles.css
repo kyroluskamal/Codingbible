@@ -136,3 +136,22 @@ body{
 .mh-50{
   min-height: 50px;
 }
+.mat-menu-item{
+  line-height: 30px !important;
+  height: 30px !important;
+}
+.mat-menu-panel{
+  min-height: 0 !important;
+}
+.mat-menu-panel::after{
+  right: 0;
+    border: solid 8px transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-right-color: #f0f0f1;
+    top: 50%;
+    margin-top: -8px;
+}

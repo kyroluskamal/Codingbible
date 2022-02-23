@@ -7,7 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace CodingBible.UnitOfWork.Repository.ApplicationUser
+namespace CodingBible.UnitOfWork.Repository
 {
     public class ApplicationUserRepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {

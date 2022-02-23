@@ -6,6 +6,7 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { AnimateOnScrollDirective } from '../Directives/animate-on-scroll.directive';
 import { StylePaginatorDirective } from '../Directives/style-paginator.directive';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { MatCardTitleOnlyComponent } from 'src/app/CommonComponents/mat-card-title-only/mat-card-title-only.component';
 const SharedModules = [
   ReactiveFormsModule, FormsModule,
   HttpClientModule, BidiModule,

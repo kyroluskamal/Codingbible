@@ -39,7 +39,6 @@ namespace CodingBible.Services.FunctionalService
                     IsActive = true,
                 };
 
-                
                 var result = await _userManager.CreateAsync(adminUser, "Kiko@2009");
 
                 if (result.Succeeded)

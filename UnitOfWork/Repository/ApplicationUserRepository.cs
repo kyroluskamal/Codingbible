@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace CodingBible.UnitOfWork.Repository.ApplicationUser
+namespace CodingBible.UnitOfWork.Repository
 {
     public class ApplicationUserRepository<T> : IRepository<T> where T : class
     {

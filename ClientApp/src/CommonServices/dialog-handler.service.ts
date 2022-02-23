@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ForgetPasswordComponent } from 'src/HomeWebsite/AuthComonents/forget-password/forget-password.component';
-import { LoginComponent } from '../HomeWebsite/AuthComonents/login/login.component';
-import { RegisterComponent } from '../HomeWebsite/AuthComonents/register/register.component';
+import { ForgetPasswordComponent } from 'src/app/HomeWebsite/AuthComonents/forget-password/forget-password.component';
+import { LoginComponent } from 'src/app/HomeWebsite/AuthComonents/login/login.component';
+import { RegisterComponent } from 'src/app/HomeWebsite/AuthComonents/register/register.component';
 
 @Injectable({
   providedIn: 'root'

@@ -101,6 +101,10 @@ namespace CodingBible.Services.ConstantsService
         {
             public const string Email_notValid = "Please, Enter a valid email";
             public const string Confirm_Password_error = "Password and confirmed password don't match";
+            public const string Field_required_error = "This field is required";
+            public static string RangeError(int min, int max){
+                return $"Enter from {min} to {max}";
+            }
         }
         public static class HttpResponses
         {
@@ -156,6 +160,26 @@ namespace CodingBible.Services.ConstantsService
             public static object ResetPassword_Success()
             {
                 return new HttpResponsesObject("RESET_PASSWORD_Sucess", "Password is reset successfully.");
+            }
+            public static object Addition_Failed(string op)
+            {
+                return new HttpResponsesObject($"{op}_ADDITION_FAILED", $"{op} addition failed");
+            }
+            public static object Update_Failed(string op)
+            {
+                return new HttpResponsesObject($"{op}_UPDATE_FAILED", $"{op} update failed");
+            }
+            public static object Update_Sucess(string op)
+            {
+                return new HttpResponsesObject($"{op}_UPDATE_SUCCESS", $"{op} update success");
+            }
+            public static object Delete_Failed(string op)
+            {
+                return new HttpResponsesObject($"{op}_DELETE_FAILED", $"{op} deletion is failed");
+            }
+            public static object Delete_Sucess(string op)
+            {
+                return new HttpResponsesObject($"{op}_DELETE_SUCCESS", $"{op} Deletion is succeeded");
             }
         }
     }

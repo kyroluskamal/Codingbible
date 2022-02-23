@@ -1,0 +1,20 @@
+.Editor {
+    resize: none !important;
+    width: 100% !important;
+    height: 400px !important;
+    border: none !important;
+  }
+
+  .edito-icons{
+    color: #50575e;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    text-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+i.bold-icon:before {
+    content: "\f200";
+}

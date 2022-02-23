@@ -29,7 +29,7 @@ namespace CodingBible.Data
         {
 
 
-
+            await ApplicationDbContext.Database.EnsureCreatedAsync();
             if (!ApplicationDbContext.MailProviders.Any())
             {
                 MailProviders[] MailProviders =

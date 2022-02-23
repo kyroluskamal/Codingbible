@@ -13,19 +13,12 @@ using CodingBible.UnitOfWork;
 using DataService;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace CodingBible
@@ -84,13 +77,9 @@ namespace CodingBible
             services.AddScoped<ApplicationUserRoleStore>();
             services.AddScoped<ApplicationUserStore>();
             services.AddDbContext<DataProtectionKeysContext>(options =>
-    options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
+                    options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
 
             services.AddControllers();
-
-
-
-       
 
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Cookie Helper SERVICE                                                */
@@ -102,7 +91,7 @@ namespace CodingBible
             /*                                 AuthenticationSchemes SERVICE                                     */
             /*---------------------------------------------------------------------------------------------------*/
             services.AddAuthentication();
-            services.AddAuthentication(Constants.Roles.admin).AddScheme<AdminAuthenticationOptions, AdminAuthenticationHandler>(Constants.Roles.admin, null);
+            services.AddAuthentication("Custom").AddScheme<CustomAuthenticationOptions, CustomAuthenticationHandler>("Custom", null);
 
             services.AddControllersWithViews();
             services.AddRazorPages();

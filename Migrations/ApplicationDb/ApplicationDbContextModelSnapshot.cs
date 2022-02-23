@@ -294,6 +294,97 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.ToTable("MailProviders");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Sulg")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("parentKey")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("parentKey");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.Post", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CommentCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CommentStatus")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Excerpt")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HtmlContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.PostsCategory", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("PostsCategory");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
@@ -398,6 +489,43 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("ApplicationUserRole");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
+                {
+                    b.HasOne("CodingBible.Models.Posts.Category", "Parent")
+                        .WithMany()
+                        .HasForeignKey("parentKey");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.Post", b =>
+                {
+                    b.HasOne("CodingBible.Models.ApplicationUser", "Author")
+                        .WithMany("Post")
+                        .HasForeignKey("AuthorId");
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.PostsCategory", b =>
+                {
+                    b.HasOne("CodingBible.Models.Posts.Category", "Categories")
+                        .WithMany("PostsCategories")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.Posts.Post", "Posts")
+                        .WithMany("PostsCategories")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Categories");
+
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("CodingBible.Models.Identity.ApplicationUserRole", null)
@@ -440,9 +568,24 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CodingBible.Models.ApplicationUser", b =>
+                {
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>
                 {
                     b.Navigation("RolePermission");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
+                {
+                    b.Navigation("PostsCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.Post", b =>
+                {
+                    b.Navigation("PostsCategories");
                 });
 #pragma warning restore 612, 618
         }

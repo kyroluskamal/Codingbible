@@ -10,7 +10,7 @@ export interface ExpansionPanel
 {
   title: string;
   expanded: boolean;
-  links: { link: string, LinkText: string, state: boolean; }[];
+  links: { link: string[], LinkText: string, state: boolean; }[];
   GoogleIconName?: string;
   faIcon?: any;
   boostrapIcon?: any;
@@ -298,4 +298,13 @@ export interface IdentityErrors
 {
   code: string;
   description: string;
+}
+
+export interface SelectedTextData
+{
+  text: string;
+  start: number;
+  end: number;
+  anchorNode: Node | null | undefined;
+  focusNode: Node | null | undefined;
 }

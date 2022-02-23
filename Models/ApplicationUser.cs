@@ -1,4 +1,4 @@
-﻿using CodingBible.Models.Identity;
+﻿using CodingBible.Models.Posts;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,5 +10,6 @@ namespace CodingBible.Models
         public string Lastname { get; set; }
         public bool IsActive { get; set; }
         public bool RememberMe { get; set; }
+        public virtual ICollection<Post> Post{get; set;}
     }
 }

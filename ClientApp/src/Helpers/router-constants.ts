@@ -12,5 +12,18 @@ export const AuthRoutes = {
 };
 
 export const DashboardRoutes = {
-    Home: "dashboard"
+    Home: "dashboard",
+    Posts: {
+        Home: "posts",
+        AddPost: "add-post"
+    }
+};
+export const DashboardRoutesText = {
+    DashBoard: "Dashboard",
+    Home: "Dashboard",
+    Posts: {
+        Main: "Posts",
+        All: "All posts",
+        AddPost: "Add New"
+    }
 };
