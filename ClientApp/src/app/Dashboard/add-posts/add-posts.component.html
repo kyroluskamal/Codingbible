@@ -3,7 +3,7 @@
       class="mt-2 mx-2">
     <h1>Add new Post</h1>
     <div fxLayout="row"
-         fxLayout.lt-sm="column"
+         fxLayout.lt-md="column"
          fxLayoutAlign="space-between">
         <div fxFlex="79%"
              fxLayout="column">
@@ -17,6 +17,33 @@
                    #slug
                    class="form-control mb-2"
                    placeholder="sulg" />
+            <tabset>
+                <tab heading="View"
+                     id="tab1"
+                     class="border">
+                    <CodingBible-editor [view]="view"
+                                        [html]="html"
+                                        [selectedText]="selectedText">
+                    </CodingBible-editor>
+                    <div #view
+                         (input)="UpdateHtml(html,view)"
+                         class="Editor bg-white p-2 "
+                         (mouseup)="GetSelectedText(view)"
+                         (keyup)="GetSelectedText(view)"
+                         contenteditable="true">
+
+                    </div>
+                </tab>
+                <tab heading="Html">
+                    <textarea name=""
+                              class="Editor border border-top-0 p-2"
+                              id=""
+                              #html
+                              (input)="UpdateView(html, view)">
+                    </textarea>
+                </tab>
+            </tabset>
+
             <editor formControlName="content"
                     (onSelectionChange)="GetData()"
                     plugins=" autolink lists media anchor autolink pagebreak visualblocks lists nonbreaking table wordcount autoresize autosave charmap fullscreen importcss link

@@ -2,10 +2,9 @@
     resize: none !important;
     width: 100% !important;
     height: 400px !important;
-    border: none !important;
   }
 
-  .edito-icons{
+  .editor-icons{
     color: #50575e;
     line-height: 1;
     width: 20px;

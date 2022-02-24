@@ -53,8 +53,8 @@ export class AddPostsComponent implements OnInit
       var selection = window.getSelection();
       var start = selection?.anchorOffset;
       var end = selection?.focusOffset;
-      console.log('start at postion', start, 'in node', selection?.anchorNode);
-      console.log('stop at position', end, 'in node', selection?.focusNode);
+      // console.log('start at postion', start, 'in node', selection?.anchorNode);
+      // console.log('stop at position', end, 'in node', selection?.focusNode);
 
       this.selectedText = {
         text: selection!?.toString(),
@@ -63,6 +63,7 @@ export class AddPostsComponent implements OnInit
         anchorNode: selection?.anchorNode,
         focusNode: selection?.focusNode
       };
+      console.log(this.selectedText.anchorNode?.parentElement?.outerHTML);
     }
     else if (document.getSelection())
     {
@@ -81,7 +82,5 @@ export class AddPostsComponent implements OnInit
         focusNode: selection?.focusNode
       };
     }
-    console.log(this.selectedText);
-
   }
 }

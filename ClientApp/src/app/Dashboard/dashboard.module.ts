@@ -9,6 +9,7 @@ import { SharedModule } from '../../SharedModules/shared.module';
 import { PostsDashboardComponent } from './posts-dashboard/posts-dashboard.component';
 import { AddPostsComponent } from './add-posts/add-posts.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { CodingBibleEditorModule } from '../CodingBible_editor/coding-bible-editor.module';
 
 const components = [
   DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent
@@ -18,7 +19,7 @@ const components = [
   imports: [
     CommonModule, MaterialModule, SharedModule,
     DashboardRoutingModule, EditorModule,
-    CommonComponentsModule
+    CommonComponentsModule, CodingBibleEditorModule
   ],
   exports: [components]
   ,

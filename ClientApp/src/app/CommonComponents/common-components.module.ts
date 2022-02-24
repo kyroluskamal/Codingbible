@@ -7,11 +7,9 @@ import { SharedModule } from '../../SharedModules/shared.module';
 import { GenericTableComponent } from './generic-table/generic-table.component';
 import { GenericStepperComponent } from './generic-stepper/generic-stepper.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { EditorComponent } from './editor/editor.component';
 
 const commonComponents = [NotFoundComponent,
   MatCardTitleOnlyComponent, GenericFormComponent, GenericTableComponent, GenericStepperComponent,
-  EditorComponent
 ];
 
 @NgModule({

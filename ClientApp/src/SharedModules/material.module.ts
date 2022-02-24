@@ -35,7 +35,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import
 {
   personFill, penFill, NgxBootstrapIconsModule, speedometer2, typeItalic, typeUnderline,
-  boxArrowRight, gearFill, pinFill, plusSquareFill, pinAngleFill, typeBold
+  boxArrowRight, gearFill, pinFill, plusSquareFill, pinAngleFill, typeBold, eraserFill,
+  typeStrikethrough
 } from 'ngx-bootstrap-icons';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
@@ -44,7 +45,7 @@ import { MatCardTitleOnlyComponent } from 'src/app/CommonComponents/mat-card-tit
 
 const icons = {
   personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill, pinAngleFill,
-  typeBold, typeItalic, typeUnderline
+  typeBold, typeItalic, typeUnderline, eraserFill, typeStrikethrough
 };
 const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
