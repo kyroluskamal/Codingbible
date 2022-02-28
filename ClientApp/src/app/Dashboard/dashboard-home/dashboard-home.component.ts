@@ -1,13 +1,17 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MenuPositionX, MenuPositionY } from '@angular/material/menu';
-import { MatDrawerMode } from '@angular/material/sidenav';
+import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { IconNamesEnum } from 'ngx-bootstrap-icons';
 import { filter, Subscription } from 'rxjs';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { css, LocalStorageKeys, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { ExpansionPanel } from 'src/Interfaces/interfaces';
+import { PinnedMenu } from 'src/State/DesignState/design.actions';
+import { selectPinned } from 'src/State/DesignState/design.reducer';
+import { LoadPOSTs } from 'src/State/PostState/post.actions';
 import { SideNav_items } from '../SideNavItems';
 
 @Component({
@@ -19,84 +23,98 @@ export class DashboardHomeComponent implements OnInit
 {
   //#region Properties
   //Properties ............................................................................
-  BootstrapIcons = IconNamesEnum;
-
+  FullscreenEnabled: boolean = false;
+  Display: string = "";
+  SideNav_Content_class: string = "";
+  ToggleClass: string = "";
+  preventMouseLeave: boolean = false;
   choosenColor: boolean = false;
   SideNav_openingStatus: boolean = true;
   SideNav_mode: MatDrawerMode = "side";
   pinned: boolean = false;
   hasBackDrop: boolean = false;
-  FullscreenEnabled: boolean = false;
-  Display: string;
-  SideNav_Content_class: string;
-  ToggleClass: string;
-  preventMouseLeave: boolean;
-
   //#endregion
   /** Subscription to the Directionality change EventEmitter. */
 
+
+  //#endregion
+  SidenavThemeClass: any;
+  ToolbarThemeClass: any;
+  BodyThemeClass: any;
+  SelectedLanguage: any;
+  ChoosenThemeColor: any;
   MediaSubscription: Subscription = new Subscription();
   CurrentUrl: string = "";
-  @ViewChild("pinButton", { read: ElementRef }) pinButton: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
   @ViewChild("FullscreenButton", { read: ElementRef }) FullscreenButton: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
   SideNavItems: ExpansionPanel[] = SideNav_items;
-
+  pinned$ = this.store.select(selectPinned);
   //#region Constructor
   //Constructor............................................................................
-  constructor(private mediaObserver: MediaObserver, private router: Router,
-    private Notifications: NotificationsService)
+  constructor(
+    private Notifications: NotificationsService, private mediaObserver: MediaObserver,
+    private router: Router, private store: Store)
   {
-    if (!localStorage.getItem(LocalStorageKeys.FixedSidnav))
-    {
-      localStorage.setItem(LocalStorageKeys.FixedSidnav, String(this.pinned));
-    } else
-      this.pinned = Boolean(localStorage.getItem(LocalStorageKeys.FixedSidnav));
-    if (this.pinned)
-    {
-      this.Display = "d-inline";
-      this.preventMouseLeave = true;
-      this.ToggleClass = css.Dashboard.SidNav.fullOpend;
-      this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.pinned;
-    } else
-    {
-      this.Display = "d-none";
-      this.preventMouseLeave = false;
-      this.ToggleClass = css.Dashboard.SidNav.halfClosed;
-      this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.nonPinned;
-    }
-    if (!this.pinned) this.SideNavItems.forEach(i => i.expanded = false);
-    else
-    {
-      // for (let item of this.SideNavItems)
-      // {
-      //   for (let link of item.links)
-      //   {
-      //     if (link.link.includes(this.CurrentUrl))
-      //     {
-      //       item.expanded = true;
-      //     }
-      //   }
-      // }
-    }
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    )
-      .subscribe((event: any) =>
+    // //set the fixed ot non fixed sidenav
+    // if (localStorage.getItem(LocalStorageKeys.FixedSidnav))
+    // {
+    //   this.pinned = localStorage.getItem(LocalStorageKeys.FixedSidnav) === "false" ? false : true;
+    // } else
+    // {
+    //   this.pinned = false;
+    //   localStorage.setItem(LocalStorageKeys.FixedSidnav, String(this.pinned));
+    // }
+    this.pinned$.subscribe(
+      r =>
       {
-        for (let item of this.SideNavItems)
+        this.pinned = r;
+        if (r)
         {
-          for (let link of item.links)
+          this.Display = "d-inline";
+          this.preventMouseLeave = true;
+          this.ToggleClass = css.Dashboard.SidNav.fullOpend;
+          this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.pinned;
+        } else
+        {
+          this.Display = "d-none";
+          this.preventMouseLeave = false;
+          this.ToggleClass = css.Dashboard.SidNav.halfClosed;
+          this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.nonPinned;
+        }
+        if (!r) this.SideNavItems.forEach(i => i.expanded = false);
+        else
+        {
+          for (let item of this.SideNavItems)
           {
-            if (event.url.split("/").pop() === link.link.join('/').split('/').pop())
+            for (let link of item.links)
             {
-              // if (!this.pinned) item.expanded = false;
-              // else item.expanded = true;
-              // link.state = true;
+              // if (this.CurrentUrl.includes(link.link))
+              // {
+              //   item.expanded = true;
+              // }
             }
-            // else link.state = false;
           }
         }
-      });
+        this.router.events.pipe(
+          filter(event => event instanceof NavigationEnd)
+        )
+          .subscribe((event: any) =>
+          {
+            for (let item of this.SideNavItems)
+            {
+              for (let link of item.links)
+              {
+                // if (event.url.split("/").pop() === link.link.split('/').pop())
+                // {
+                //   if (!this.pinned) item.expanded = false;
+                //   else item.expanded = true;
+                //   link.state = true;
+                // }
+                // else link.state = false;
+              }
+            }
+          });
+      }
+    );
   }
 
   //#endregion
@@ -104,53 +122,39 @@ export class DashboardHomeComponent implements OnInit
   //NgOn it .....................................................................
   ngOnInit(): void
   {
-
+    this.store.dispatch(LoadPOSTs());
   }
 
-  //Events to toggle the left sidenav
-  OnMouseOver()
+  close()
   {
-    // this.ToggleClass = css.Dashboard.SidNav.fullOpend;
-    // this.Display = "d-inline";
-  }
-  OnMouseLeave()
-  {
-    // if (!this.preventMouseLeave)
-    // {
-    //   this.ToggleClass = css.Dashboard.SidNav.halfClosed;
-    //   this.Display = "d-none";
-    //   for (let item of this.SideNavItems)
-    //   {
-    //     item.expanded = false;
-    //   }
-    // }
+
   }
 
   PinSideNav()
   {
     this.pinned = !this.pinned;
+    this.store.dispatch(PinnedMenu({ pinned: this.pinned }));
     this.pinnedRTLClassSettings();
-    localStorage.setItem(LocalStorageKeys.FixedSidnav, String(this.pinned));
 
-    if (this.pinned === false)
-    {
-      for (let item of this.SideNavItems)
-      {
-        item.expanded = false;
-      }
-    } else
-    {
-      for (let item of this.SideNavItems)
-      {
-        for (let link of item.links)
-        {
-          if (link.link.includes(this.CurrentUrl))
-          {
-            item.expanded = true;
-          }
-        }
-      }
-    }
+    // if (this.pinned === false)
+    // {
+    //   for (let item of this.SideNavItems)
+    //   {
+    //     item.expanded = false;
+    //   }
+    // } else
+    // {
+    //   for (let item of this.SideNavItems)
+    //   {
+    //     for (let link of item.links)
+    //     {
+    //       // if (this.CurrentUrl.includes(link.link))
+    //       // {
+    //       //   item.expanded = true;
+    //       // }
+    //     }
+    //   }
+    // }
   }
 
   ToggleFullscreen()
@@ -174,19 +178,19 @@ export class DashboardHomeComponent implements OnInit
   {
     if (this.pinned)
     {
-      // this.Display = "d-inline";
-      // this.preventMouseLeave = true;
+      this.Display = "d-inline";
+      this.preventMouseLeave = true;
       this.ToggleClass = css.Dashboard.SidNav.fullOpend;
       this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.pinned;
-
     } else
     {
-      // this.Display = "d-none";
-      // this.preventMouseLeave = false;
-      this.ToggleClass = css.Dashboard.SidNav.halfClosed;
+      this.Display = "d-none";
+      this.preventMouseLeave = false;
+      this.ToggleClass = css.Dashboard.SidNav.fullOpend;
       this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.nonPinned;
     }
   }
+
 
   /****************************************************************************************
   * ..................................... SidNav at small screens......................
@@ -196,9 +200,11 @@ export class DashboardHomeComponent implements OnInit
     this.MediaSubscription = this.mediaObserver.asObservable().subscribe(
       (response: MediaChange[]) =>
       {
+        console.log(response);
         var matRangLanble = document.getElementsByClassName("mat-paginator-range-label");
         if (response.some(x => x.mqAlias === 'xs'))
         {
+
           this.SideNav_mode = "over";
           this.hasBackDrop = true;
           this.SideNav_openingStatus = false;
@@ -246,5 +252,6 @@ export class DashboardHomeComponent implements OnInit
       };
     }
   }
+
 
 }

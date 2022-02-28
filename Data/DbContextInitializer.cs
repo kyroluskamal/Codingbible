@@ -12,23 +12,16 @@ namespace CodingBible.Data
 {
     public class DbContextInitializer : IDbContextInitializer
     {
-
         private readonly ApplicationDbContext ApplicationDbContext;
-        private readonly ApplicationUserManager ApplicationUserManager;
-        private readonly ApplicationUserRoleManager RoleManager;
         private readonly IFunctionalService FunctionalService;
-        public DbContextInitializer(ApplicationDbContext applicationDbContext, ApplicationUserManager applicationUserManager, ApplicationUserRoleManager roleManager, IFunctionalService functionalService)
+        public DbContextInitializer(ApplicationDbContext applicationDbContext, IFunctionalService functionalService)
         {
             ApplicationDbContext = applicationDbContext;
-            ApplicationUserManager = applicationUserManager;
-            RoleManager = roleManager;
             FunctionalService = functionalService;
         }
 
         public async Task Initialize()
         {
-
-
             await ApplicationDbContext.Database.EnsureCreatedAsync();
             if (!ApplicationDbContext.MailProviders.Any())
             {
@@ -39,8 +32,8 @@ namespace CodingBible.Data
                        IsService = false,
                        FromEmail= "codingbi@coding-bible.com",
                        DisplayName = "Coding Bible",
-                       Password = "kiko@codbib2020", 
-                       Host = "webhosting4000.is.cc", 
+                       Password = "kiko@codbib2020",
+                       Host = "webhosting4000.is.cc",
                        Port = 587,
                        IsDefault = true
                     },
@@ -70,9 +63,7 @@ namespace CodingBible.Data
             {
                 await FunctionalService.CreateDefaultAdminUser();
             }
-            
             //// If empty create Admin User and App User
-            
             //await functionalSvc.CreateDefaultUser();
 
             //// Populate Country database 

@@ -30,7 +30,6 @@ namespace CodingBible.Services.AuthenticationService
         private readonly IActivityServ ActivityServ;
         private readonly ITokenServ TokenService;
         //private IDataProtector Protector;
-       
 
         public AuthService(UserManager<ApplicationUser> userManager,
             ApplicationDbContext applicationDbContext,
@@ -43,7 +42,6 @@ namespace CodingBible.Services.AuthenticationService
             ActivityServ = activityServ;
             TokenService = tokenService;
         }
-
 
         // Will be used for authenticating the Admin
         //public async Task<TokenResponseModel> Auth(LoginViewModel model)
@@ -62,8 +60,6 @@ namespace CodingBible.Services.AuthenticationService
         //        if (user == null) return TokenService.CreateErrorResponseToken("Request Not Supported", HttpStatusCode.Unauthorized);
 
         //        // Get the role of the user - validate if he is admin - dont bother to go ahead if returned false
-
-
         //        if (await UserManager.IsInRoleAsync(user, Constants.Roles.admin))
         //        {
         //            /****** You can send email that Admin is logged in ******/

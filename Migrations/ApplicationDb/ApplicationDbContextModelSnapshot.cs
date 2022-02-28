@@ -17,7 +17,7 @@ namespace CodingBible.Migrations.ApplicationDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("ProductVersion", "6.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -309,6 +309,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("ParentKey")
+                        .HasColumnType("int");
+
                     b.Property<int>("PostCount")
                         .HasColumnType("int");
 
@@ -316,12 +319,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("parentKey")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("parentKey");
+                    b.HasIndex("ParentKey");
 
                     b.ToTable("Categories");
                 });
@@ -346,26 +346,43 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
                     b.Property<string>("Excerpt")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HtmlContent")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LasModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.ToTable("Posts");
                 });
@@ -493,7 +510,7 @@ namespace CodingBible.Migrations.ApplicationDb
                 {
                     b.HasOne("CodingBible.Models.Posts.Category", "Parent")
                         .WithMany()
-                        .HasForeignKey("parentKey");
+                        .HasForeignKey("ParentKey");
 
                     b.Navigation("Parent");
                 });

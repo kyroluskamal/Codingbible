@@ -4,10 +4,7 @@ using CodingBible.Models.Identity;
 using CodingBible.Services.ActivityService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
-using CodingBible.ViewModels;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Globalization;
@@ -20,31 +17,23 @@ namespace CodingBible.Services.TokenService
 {
     public class TokenServ : ITokenServ
     {
-        private readonly ApplicationUserManager UserManager;
         private readonly ApplicationDbContext ApplicationDbContext;
         private readonly ICookieServ CookieServ;
         private readonly IServiceProvider Provider;
-        private readonly IActivityServ ActivityServ;
-        private readonly ApplicationUserSignIngManager SignIngManager;
-
 
         //private IDataProtector Protector;
-        private string[] UserRoles = new[] { Constants.Roles.admin, Constants.Roles.Reader };
         private TokenValidationParameters validationParameters;
         private JwtSecurityTokenHandler handler;
         private string unProtectedToken;
         private ClaimsPrincipal validateToken;
 
-        public TokenServ(ApplicationUserManager userManager,
+        public TokenServ(
             ApplicationDbContext applicationDbContext,
-            ICookieServ cookieServ, IServiceProvider provider, IActivityServ activityServ, ApplicationUserSignIngManager signIngManager)
+            ICookieServ cookieServ, IServiceProvider provider)
         {
-            UserManager = userManager;
             ApplicationDbContext = applicationDbContext;
             CookieServ = cookieServ;
             Provider = provider;
-            ActivityServ = activityServ;
-            SignIngManager = signIngManager;
         }
 
         public TokenServ()
@@ -62,8 +51,6 @@ namespace CodingBible.Services.TokenService
                 tokenExpiryTime = 1440; // 1 day
                 rtTokenExpiryTime = 1560; // + 2hours
             }
-
-
             // Check if two-factor authentication has been enabled by user
             // If enables - we will increase the token expiry time by 5 minutes so user can - Login to email/Phone 
             // Security Code and token both should expire at same time
@@ -115,7 +102,7 @@ namespace CodingBible.Services.TokenService
             var encryptedToken = protectorJwt.Protect(tokenHandler.WriteToken(token));
 
             /* Create and update the token table */
-            ApplicationUserTokens newRtoken = new ApplicationUserTokens();
+            ApplicationUserTokens newRtoken = new ();
 
             /* Create refresh token instance */
             newRtoken = CreateRefreshToken(Constants.AppSettings.ClientId, user, Convert.ToInt32(rtTokenExpiryTime));
@@ -182,17 +169,14 @@ namespace CodingBible.Services.TokenService
                         var protectorProvider = Provider.GetService<IDataProtectionProvider>();
                         /* Create a protector instance */
                         var protectorRt = protectorProvider.CreateProtector(RtFromDb.EncryptionKeyRt);
-                        var unprotectedToken = protectorRt.Unprotect(CookieServ.Get("refreshToken"));
-                        var decryptedToken = unprotectedToken.ToString();
+                        var decryptedToken =  protectorRt.Unprotect(CookieServ.Get("refreshToken"));
 
                         if (RtFromDb.Value != decryptedToken)
                             return null;
 
                         var accessToken = await GenerateNewToken(user,roles);
-                        
                         accessToken.Principal = validateToken;
                         return accessToken;
-                    
                 }
             }
             catch (Exception ex)
@@ -254,9 +238,7 @@ namespace CodingBible.Services.TokenService
                             response.Message = "Token Valid";
                             return response;
                         }
-
                     }
-                    
                 }
             }
             catch (Exception ex)
@@ -269,7 +251,7 @@ namespace CodingBible.Services.TokenService
                         validateToken = handler.ValidateToken(unProtectedToken, validationParameters, out var securityToken);
 
                         /* This is called pattern matching => is */
-                        if (!(securityToken is JwtSecurityToken jwtSecurityToken) ||
+                        if ((securityToken is not JwtSecurityToken jwtSecurityToken) ||
                             !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                                 StringComparison.InvariantCultureIgnoreCase))
                         {
@@ -294,7 +276,6 @@ namespace CodingBible.Services.TokenService
 
         public ApplicationUserTokens CreateRefreshToken(string clientId, ApplicationUser user, int expireTime)
         {
-
             return new ApplicationUserTokens()
             {
                 ClientId = clientId,
@@ -324,7 +305,6 @@ namespace CodingBible.Services.TokenService
             }
 
             return null;
-
         }
     }
 }

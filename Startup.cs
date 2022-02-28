@@ -1,4 +1,3 @@
-
 using CodingBible.Data;
 using CodingBible.Models;
 using CodingBible.Models.Identity;
@@ -36,7 +35,9 @@ namespace CodingBible
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
@@ -61,10 +62,8 @@ namespace CodingBible
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(Constants.IdentityDefaultOptions.LockoutDefaultLockoutTimeSpanInMinutes);
                 options.Lockout.MaxFailedAccessAttempts = Constants.IdentityDefaultOptions.LockoutMaxFailedAccessAttempts;
                 options.Lockout.AllowedForNewUsers = Constants.IdentityDefaultOptions.LockoutAllowedForNewUsers;
-
                 // User settings
                 options.User.RequireUniqueEmail = true;
-                
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddRoles<ApplicationUserRole>().AddRoleManager<ApplicationUserRoleManager>()
@@ -78,9 +77,7 @@ namespace CodingBible
             services.AddScoped<ApplicationUserStore>();
             services.AddDbContext<DataProtectionKeysContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
-
             services.AddControllers();
-
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Cookie Helper SERVICE                                                */
             /*---------------------------------------------------------------------------------------------------*/
@@ -127,7 +124,6 @@ namespace CodingBible
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
             });
 
-
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
             /*---------------------------------------------------------------------------------------------------*/
@@ -148,7 +144,6 @@ namespace CodingBible
                     ValidAudience = Constants.AppSettings.Audience,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ClockSkew = TimeSpan.Zero
-
                 };
             });
 
@@ -179,25 +174,6 @@ namespace CodingBible
                 //The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.Use(next => context =>
-            {
-                if (context.Request.Path.Value.IndexOf("/api", StringComparison.OrdinalIgnoreCase) != -1 || context.Request.Path.Value.IndexOf("/", StringComparison.OrdinalIgnoreCase) != -1)
-                {
-                    var tokens = antiForgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                        new CookieOptions()
-                        {
-                            HttpOnly = false,
-                            Secure = false,
-                            IsEssential = true,
-                            SameSite = SameSiteMode.Strict,
-                            MaxAge = TimeSpan.FromDays(10)
-                        });
-                }
-
-                return next(context);
-            });
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
@@ -216,8 +192,25 @@ namespace CodingBible
                 policy.AllowAnyMethod();
             });
 
-            app.UseAuthentication();
             app.UseAuthorization();
+            app.Use(next => context =>
+            {
+                if (context.Request.Path.Value.IndexOf("/api", StringComparison.OrdinalIgnoreCase) != -1 || context.Request.Path.Value.IndexOf("/", StringComparison.OrdinalIgnoreCase) != -1)
+                {
+                    var tokens = antiForgery.GetAndStoreTokens(context);
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions()
+                        {
+                            HttpOnly = false,
+                            Secure = false,
+                            IsEssential = true,
+                            SameSite = SameSiteMode.Strict,
+                            MaxAge = TimeSpan.FromDays(10)
+                        });
+                }
+
+                return next(context);
+            });
             dbContextInitializer.Initialize().GetAwaiter().GetResult();
             app.UseEndpoints(endpoints =>
             {

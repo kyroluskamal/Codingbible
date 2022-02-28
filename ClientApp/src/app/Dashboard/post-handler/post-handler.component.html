@@ -1,0 +1,233 @@
+<form fxLayout="column"
+      [formGroup]="form"
+      class="mt-2 mx-2 needs-validation"
+      novalidate>
+    <h1>Add new Post</h1>
+    <div class="alert alert-danger"
+         *ngIf="(ValidationErrors$!|async)?.length!>0">
+        <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
+        <ul>
+            <li *ngFor="let error of (ValidationErrors$|async)">
+                <strong>{{error.key}}</strong> : {{error.message}}
+            </li>
+        </ul>
+    </div>
+    <div class="alert alert-info mb-0 small"
+         style="position: fixed; bottom: 10px; z-index: 1030;"
+         [ngStyle]="(pinned$|async)?{'left':'16vw'}:{'left':'10px' }"
+         *ngIf="form.invalid">
+        <p><strong>You have to do the following</strong></p>
+        <ul class="mb-0">
+            <li
+                *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.required)">
+                Add post title
+            </li>
+            <li
+                *ngIf="
+                form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.minlength)
+                || 
+                form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.maxlength)">
+                Title shuold be 60 to 70 character long. <span class="text-danger">You entered {{title.value.length}}
+                    characters only</span>
+            </li>
+            <li *ngIf="form.get(Constants.FormControlNames.postForm.slug)?.hasError('notUnique')">
+                Slug should be unique. If you see this, this means that you have a post with the same title
+            </li>
+            <li
+                *ngIf="form.get(Constants.FormControlNames.postForm.htmlContent)?.hasError(Constants.FormValidationErrorsNames.required)">
+                Write post body
+            </li>
+            <li
+                *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.required)">
+                Write decription used by search engines for SEO.
+            </li>
+            <li
+                *ngIf="
+                form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.minlength)
+                || 
+                form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.maxlength)">
+                Title shuold be 50 to 160 character long. <span class="text-danger">You entered {{desc.value.length}}
+                    characters only</span>
+            </li>
+            <li
+                *ngIf="form.get(Constants.FormControlNames.postForm.excerpt)?.hasError(Constants.FormValidationErrorsNames.required)">
+                Write excerpt to be shown for post in the home page.
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="form.valid"
+         class="alert alert-success">
+        <span>You are ready to add the post</span>
+    </div>
+    <div fxLayout="row"
+         fxLayout.lt-md="column"
+         fxLayoutAlign="space-between">
+        <div fxFlex="77%"
+             fxLayout="column">
+            <mat-form-field appearance="legacy"
+                            class="customMatFormField">
+
+                <div class="input-group">
+                    <span class="input-group-text">{{Constants.FormFieldsNames.Post.title}}
+                        <span class="ps-1 text-danger"
+                              *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasValidator(validators.required)">*</span>
+                    </span>
+                    <input type="text"
+                           matNativeControl
+                           [errorStateMatcher]="CustoErrorStateMatcher"
+                           [formControlName]="Constants.FormControlNames.postForm.title"
+                           #title
+                           class="form-control"
+                           minlength="60"
+                           maxlength="70"
+                           (input)="CreateSlug(title, slug)"
+                           (blur)="CheckIfSulgNotUnique(slug)" />
+                </div>
+                <mat-error
+                           *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.required)">
+                    Please, add title.
+                </mat-error>
+                <mat-error
+                           *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.maxlength)
+                           ||form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.minlength)||title.value.length<=70">
+                    Post should be 60 to 70 character long.
+                </mat-error>
+                <span matSuffix
+                      class="ps-1">{{title.value.length}} characters</span>
+            </mat-form-field>
+            <div class="
+                          input-group
+                          mb-3">
+                <span class="input-group-text">{{Constants.FormFieldsNames.Post.slug}}</span>
+                <input type="text"
+                       disabled
+                       #slug
+                       class="form-control" />
+            </div>
+            <tabset class="h-50">
+                <tab heading="View"
+                     id="tab1"
+                     style="max-height: 500px;"
+                     class="border ">
+                    <CodingBible-editor [view]="view"
+                                        [html]="html"
+                                        [selectedText]="selectedText">
+                    </CodingBible-editor>
+
+                    <div #view
+                         (input)="UpdateHtml(html,view)"
+                         class="Editor bg-white p-2 "
+                         (mouseup)="GetSelectedText(view)"
+                         (keyup)="GetSelectedText(view)"
+                         contenteditable="true">
+
+                    </div>
+                </tab>
+                <tab heading="Html"
+                     style="max-height: 500px;">
+                    <textarea name=""
+                              formControlName="htmlContent"
+                              class="Editor border border-top-0 p-2"
+                              id=""
+                              #html
+                              (input)="UpdateView(html, view)">
+                    </textarea>
+                </tab>
+            </tabset>
+
+
+            <editor (onSelectionChange)="GetData()"
+                    plugins=" autolink lists media anchor autolink pagebreak visualblocks lists nonbreaking table wordcount autoresize autosave charmap fullscreen importcss link
+            code codesample  directionality emoticons help hr image insertdatetime preview searchreplace template"
+                    toolbar="'undo redo anchor | formatselect | bold italic underline| table template|ltr rtl link| forecolor backcolor|subscript superscript charmap|
+                        alignleft aligncenter alignright alignjustify | codesample nonbreaking pagebreak preview searchreplace
+                        | bullist numlist | outdent indent |code emoticons fullpage fullscreen image help visualblocks| insertdatetime'
+                       "
+                    [init]="{
+                height : 1000,
+                base_url: '/tinymce',
+                suffix: '.min'
+            }">
+            </editor>
+        </div>
+        <div fxFlex="22%"
+             fxLayout="column"
+             fxLayoutGap="3px">
+            <div class="card">
+                <div class="card-header">
+                    Publish
+                </div>
+                <div class="card-body">
+
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#"
+                       class="btn btn-primary">Go somewhere</a>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between">
+                    <button type="button"
+                            (click)="SaveClicked(view)"
+                            [disabled]="form.invalid"
+                            class="btn btn-outline-primary btn-sm">Save</button>
+                    <button type="button"
+                            class="btn btn-outline-primary btn-sm">Publish</button>
+                    <button type="button"
+                            class="btn btn-danger btn-sm">Delete</button>
+                </div>
+            </div>
+            <div class="card h-25">
+                <div class="card-header">
+                    Excerpt
+                </div>
+                <div class="card-body pb-1">
+                    <mat-form-field appearance="legacy"
+                                    class="customMatFormField textarea h-100 w-100">
+                        <div class="h-100 w-100 form-control">
+                            <textarea matNativeControl
+                                      [errorStateMatcher]="CustoErrorStateMatcher"
+                                      [formControlName]="Constants.FormControlNames.postForm.excerpt"
+                                      style="resize: none;"></textarea>
+                        </div>
+                        <mat-error
+                                   *ngIf="form.get(Constants.FormControlNames.postForm.excerpt)?.hasError(Constants.FormValidationErrorsNames.required)">
+                            Please, write the excerpt.
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="card h-50">
+                <div class="card-header">
+                    Description (for SEO)
+                </div>
+                <div class="card-body">
+                    <mat-form-field appearance="legacy"
+                                    class="customMatFormField textarea h-100 w-100">
+                        <div class="h-100 w-100 form-control">
+                            <textarea matNativeControl
+                                      #desc
+                                      [errorStateMatcher]="CustoErrorStateMatcher"
+                                      [formControlName]="Constants.FormControlNames.postForm.description"
+                                      minlength="50"
+                                      maxlength="160"
+                                      class="h-100"
+                                      style="resize: none;"></textarea>
+                        </div>
+                        <mat-error
+                                   *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.required)">
+                            Please, write the the description.
+                        </mat-error>
+                        <mat-error
+                                   *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.maxlength)
+                           ||form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.minlength)||desc.value.length<=160">
+                            <span>Post should be 50 to 160 character long.</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between">
+                    <span class="text-primary small">Character count: {{desc.value.length}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

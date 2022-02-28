@@ -19,12 +19,9 @@ namespace CodingBible.Models.Identity
 
         [Required]
         public DateTime ExpiryTime { get; set; }
-
         [Required]
         public string EncryptionKeyRt { get; set; }
-
         [Required]
         public string EncryptionKeyJwt { get; set; }
-   
     }
 }

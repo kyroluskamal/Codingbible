@@ -76,8 +76,11 @@ export class Post
     authorId: number = 0;
     author: any;
     dateCreated: Date = new Date();
+    lasModified: Date = new Date();
+    publishedDate: Date = new Date();
     status: number = 0;
     excerpt: string = "";
+    description: string = "";
     commentStatus: boolean = false;
     commentCount: number = 0;
     postsCategories: PostsCategory[] = [];

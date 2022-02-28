@@ -25,7 +25,6 @@ namespace CodingBible.Services.AuthenticationService
         private readonly ITokenServ TokenService;
         private readonly ICookieServ CookieService;
 
-
         public CustomAuthenticationHandler(IOptionsMonitor<CustomAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock
             , IServiceProvider provider, ITokenServ tokenService, ApplicationDbContext applicationDbContext, ICookieServ cookieService, ApplicationUserManager userManager) : base(options, logger, encoder, clock)
         {
@@ -37,7 +36,6 @@ namespace CodingBible.Services.AuthenticationService
         }
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-
             if (!Request.Cookies.ContainsKey(Constants.CookieName.Access_token) || !Request.Cookies.ContainsKey(Constants.CookieName.User_id))
             {
                 Log.Error("No Access Token or User Id found.");
@@ -68,7 +66,7 @@ namespace CodingBible.Services.AuthenticationService
 
                 /* STEP 3. Create an instance of Jwt token  validation parameters */
                 TokenValidationParameters validationParameters =
-                   new TokenValidationParameters
+                   new ()
                    {
                        ValidateIssuerSigningKey = true,
                        ValidateIssuer = true,
@@ -93,7 +91,7 @@ namespace CodingBible.Services.AuthenticationService
                 var decryptedToken = protector.Unprotect(headerValue.Parameter);
 
                 /* STEP 8. Create an instance of the user tokenModel */
-                ApplicationUserTokens tokenModel = new ApplicationUserTokens();
+                ApplicationUserTokens tokenModel = new ();
 
                 /* STEP 9 Get the existing token for the user from Database using a scoped request */
 
@@ -116,14 +114,11 @@ namespace CodingBible.Services.AuthenticationService
                 /* IMPORTANT - If no key exists or key is invalid - exception will be thrown */
                 IDataProtector layerTwoProtector = protectorProvider.CreateProtector(tokenModel?.EncryptionKeyJwt);
                 string decryptedTokenLayerTwo = layerTwoProtector.Unprotect(decryptedToken);
-
-
                 /* STEP 13. Validate the token we received - using validation parameters set in step 3 */
                 /* IMPORTANT - If the validation fails - the method ValidateToken will throw exception */
                 var validateToken = handler.ValidateToken(decryptedTokenLayerTwo, validationParameters, out var securityToken);
-
                 /* STEP 14. Checking Token Signature */
-                if (!(securityToken is JwtSecurityToken jwtSecurityToken) ||
+                if ((securityToken is not JwtSecurityToken jwtSecurityToken) ||
                     !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                         StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -137,8 +132,6 @@ namespace CodingBible.Services.AuthenticationService
                 {
                     return await Task.FromResult(AuthenticateResult.Fail("You are not authorized to View this Page"));
                 }
-
-
                 /* STEP 16. Get User by their email */
                 var user = await UserManager.FindByNameAsync(username);
                 var userRoles = await UserManager.GetRolesAsync(user);
@@ -153,10 +146,11 @@ namespace CodingBible.Services.AuthenticationService
                 var principal = new ClaimsPrincipal(identity);
                 var ticket = new AuthenticationTicket(principal, Scheme.Name);
                 return await Task.FromResult(AuthenticateResult.Success(ticket));
-
             }
             catch (Exception ex)
             {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                   ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
                 if (ex.GetType() == typeof(SecurityTokenExpiredException))
                 {
                     if (Constants.AppSettings.AllowSiteWideTokenRefresh)
@@ -166,7 +160,6 @@ namespace CodingBible.Services.AuthenticationService
                         var userId = Request.Cookies[Constants.CookieName.User_id];
                         var username = Request.Cookies[Constants.CookieName.Username];
                         var role = Request.Cookies[Constants.CookieName.userRole];
-
 
                         if (accessToken != null && userId != null&&username!=null)
                         {
@@ -183,7 +176,7 @@ namespace CodingBible.Services.AuthenticationService
                                     var expireTime = roles.Contains(Constants.Roles.admin) ? TimeSpan.FromMinutes(180) : NewAccessToken.Expiration;
 
                                     // set cookie for jwt and refresh token
-                                    CookieService.setRequiredCookies(NewAccessToken, user, roles.ToList(), expireTime, user.RememberMe);
+                                    CookieService.SetRequiredCookies(NewAccessToken, user, roles.ToList(), expireTime, user.RememberMe);
                                 }
                                 var identity = new ClaimsIdentity(NewAccessToken.Principal.Claims, Scheme.Name);
                                 var principal = new ClaimsPrincipal(identity);
@@ -191,13 +184,11 @@ namespace CodingBible.Services.AuthenticationService
                                return await Task.FromResult(AuthenticateResult.Success(ticket));
                         }
                     }
-
                 }
                 Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                    ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
                 return await Task.FromResult(AuthenticateResult.Fail("Your are not authorized"));
             }
-
         }
 
         /* The purpose of this method is to handle the situation when the authentication fails. */
@@ -207,11 +198,9 @@ namespace CodingBible.Services.AuthenticationService
 
             // Delete any invalid cookies
             CookieService.DeleteAllCookies();
-            Response.Headers["WWW-Authenticate"] = $"Not Authorized";
+            Response.Headers["WWW-Authenticate"] = "Not Authorized";
             Response.Redirect(Constants.IdentityDefaultOptions.AccessDeniedPath);
-
             return Task.CompletedTask;
         }
-
     }
 }

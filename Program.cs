@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace CodingBible
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -17,7 +17,9 @@ namespace CodingBible
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
+                    webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://*.localhost:5000", "https://*.localhost:5001");
+                }).UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration
                                   .Enrich.FromLogContext()
                                   .Enrich.WithProperty("Application", "Coding Bible")
                                   .Enrich.WithProperty("MachineName", Environment.MachineName)
@@ -30,8 +32,5 @@ namespace CodingBible
                                   .WriteTo.Console(theme: CustomConsoleTheme.VisualStudioMacLight)
                                   .WriteTo.File(formatter: new CustomTextFormatter(), path: Path.Combine(hostingContext.HostingEnvironment.ContentRootPath + $"{Path.DirectorySeparatorChar}Logs{Path.DirectorySeparatorChar}", $"codingBible{DateTime.Now:yyyyMMdd}.txt"))
                                  .ReadFrom.Configuration(hostingContext.Configuration));
-                    webBuilder.UseStartup<Startup>();
-                    webBuilder.UseUrls("http://*.localhost:5000", "https://*.localhost:5001");
-                });
     }
 }

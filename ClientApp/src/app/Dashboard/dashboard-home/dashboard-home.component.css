@@ -1,29 +1,26 @@
 .SideNav-HalfClosed {
-    width: 60px !important;
+    width: 0 !important;
     transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
-  /* .SideNav-HalfClosed:hover {
-    width: 20vw !important;
-    transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  } */
+
 .SideNav-FullOpened {
-    width: 20vw !important;
+    width: 15vw !important;
     transition: width 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .mat-sidenav-content-nonPinned-LTR {
-    margin-left: 60px !important;
+    margin-left: 0px !important;
     transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .mat-sidenav-content-nonPinned-RTL {
-    margin-right: 60px !important;
+    margin-right: 0px !important;
     transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .mat-sidenav-content-pin-LTR {
-    margin-left: 20vw !important;
+    margin-left: 15vw !important;
     transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .mat-sidenav-content-pin-RTL {
-    margin-right: 20vw !important;
+    margin-right: 15vw !important;
     transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .Openned-pin {
@@ -31,11 +28,11 @@
   }
   @media screen and (max-width: 599.98px) {
     .WidthForSmallScreens {
-      width: 80vw !important;
+      width: 60vw !important;
     }
     .menuSideNav {
       display: none;
-      width: 80vw !important;
+      width: 60vw !important;
     }
     .sideNavContent {
       margin: 0 !important;
@@ -48,6 +45,7 @@
     .menuSideNav {
       display: flex !important;
       visibility: visible !important;
+      min-width: 15vw !important;
     }
     .FullscreenButton {
       display: inline-block;
@@ -153,7 +151,7 @@ mat-expansion-panel-header:hover,
   font-weight: bold !important;
 }
 ::ng-deep .cdk-overlay-connected-position-bounding-box{
-  transform: translate(60px, -36px);
+  transform: translate(15vw, -36px);
 }
 mat-toolbar{
   height: 50px;

@@ -27,6 +27,5 @@ namespace LoggingService
 			[ConsoleThemeStyle.LevelError] = "\u001b[41;1m\u001b[37;1m",
 			[ConsoleThemeStyle.LevelFatal] = "\u001b[46;1m\u001b[37;1m"
 		});
-
 	}
 }

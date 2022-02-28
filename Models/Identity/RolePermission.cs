@@ -10,6 +10,5 @@
         public string Type { get; set; }
         public ApplicationUserRole ApplicationUserRole { get; set; }
         public int ApplicationUserRoleId { get; set; }
-
     }
 }

@@ -7,7 +7,7 @@ namespace CodingBible.Services.AutoMapperService
     {
         public PostsMapper()
         {
-            CreateMap<Post, Post>(); 
+            CreateMap<Post, Post>();
         }
     }
 }

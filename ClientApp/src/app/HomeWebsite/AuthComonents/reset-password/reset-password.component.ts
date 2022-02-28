@@ -65,8 +65,8 @@ export class ResetPasswordComponent implements OnInit
     let ResetPasswordModel: ResetPasswordModel = {
       email: this.email!,
       token: this.token!,
-      password: this.Form.get(Constants.FormControlNames.password)?.value,
-      confirmPassword: this.Form.get(Constants.FormControlNames.confirmpassword)?.value
+      password: this.Form.get(Constants.FormControlNames.authForm.password)?.value,
+      confirmPassword: this.Form.get(Constants.FormControlNames.authForm.confirmpassword)?.value
     };
     this.store.dispatch(IsInProgress({ isLoading: true }));
     this.store.dispatch(ResetPassword(ResetPasswordModel));

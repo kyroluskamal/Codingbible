@@ -10,7 +10,6 @@ namespace CodingBible.UnitOfWork.Repository
 {
     public class ApplicationUserRepository<T> : IRepository<T> where T : class
     {
-
         private readonly ApplicationDbContext ApplicationDbContext;
         internal DbSet<T> dbSet;
 
@@ -74,8 +73,6 @@ namespace CodingBible.UnitOfWork.Repository
                     query = query.Include(includeProp);
                 }
             }
-
-
             return query.FirstOrDefault();
         }
 

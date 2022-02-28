@@ -27,19 +27,17 @@ namespace CodingBible.Services.ActivityService
                 await ApplicationDbContext.SaveChangesAsync();
                 await dbContextTransaction.CommitAsync();
             }
-
             catch (Exception ex)
             {
                 Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                    ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-
                 await dbContextTransaction.RollbackAsync();
             }
         }
 
         public async Task<List<ActivityModel>> GetUserActivity(int userId)
         {
-            List<ActivityModel> userActivities = new List<ActivityModel>();
+            List<ActivityModel> userActivities = new ();
 
             try
             {

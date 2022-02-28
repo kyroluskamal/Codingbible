@@ -40,7 +40,7 @@ export class ForgetPasswordComponent implements OnInit
   OnSubmit()
   {
     const ForgetPasswordModel: ForgetPasswordModel = {
-      email: this.ForgetPassworForm.get(Constants.FormControlNames.email)?.value,
+      email: this.ForgetPassworForm.get(Constants.FormControlNames.authForm.email)?.value,
       clientUrl: Constants.ClientUrl(AuthRoutes.ResetPassword)
     };
     this.store.dispatch(IsInProgress({ isLoading: true }));

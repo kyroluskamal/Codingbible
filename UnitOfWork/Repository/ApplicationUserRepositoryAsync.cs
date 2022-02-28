@@ -11,7 +11,6 @@ namespace CodingBible.UnitOfWork.Repository
 {
     public class ApplicationUserRepositoryAsync<T> : IRepositoryAsync<T> where T : class
     {
-
         private readonly ApplicationDbContext ApplicationDbContext;
         internal DbSet<T> dbSet;
 
@@ -71,7 +70,6 @@ namespace CodingBible.UnitOfWork.Repository
                     query = query.Include(includeProp);
                 }
             }
-
 
             return await query.FirstOrDefaultAsync();
         }

@@ -68,6 +68,7 @@ export class ServerResponseHandelerService
 
   GetServerSideValidationErrors(e: any): ModelStateErrors[]
   {
+    console.log(e);
     let errors: ModelStateErrors[] = [];
     if (e.error.errors)
       errors.push(...this.GetModelStateErrors(e.error.errors));

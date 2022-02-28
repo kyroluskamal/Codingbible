@@ -11,6 +11,14 @@ const controllers = {
             ResetPassword: "ResetPassword",
             Logout: "Logout"
         }
+    },
+    posts: {
+        name: "Posts",
+        Actions: {
+            GetPosts: "GetPosts",
+            AddPost: "AddPost",
+            IsSlugUnique: "IsSlugUnique"
+        }
     }
 };
 export const AccountController = {
@@ -21,6 +29,11 @@ export const AccountController = {
     ForgetPassword: getApiUrl(version, controllers.account.name, controllers.account.Actions.ForgetPassword),
     ResetPassword: getApiUrl(version, controllers.account.name, controllers.account.Actions.ResetPassword),
     Logout: getApiUrl(version, controllers.account.name, controllers.account.Actions.Logout)
+};
+export const PostsController = {
+    GetPosts: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetPosts),
+    AddPost: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.AddPost),
+    IsSlugUnique: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.IsSlugUnique),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

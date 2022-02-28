@@ -1,19 +1,17 @@
 <mat-sidenav-container [hasBackdrop]="hasBackDrop"
+                       (backdropClick)="PinSideNav()"
                        class="vh-100">
-    <!-- --------------------------------------------------------------------------------------
-     ----------------------------------- Half Closed ----------------------------
-     ------------------------------------------------------------------------------------->
     <mat-sidenav [mode]="SideNav_mode"
-                 [opened]="SideNav_openingStatus"
+                 [opened]="pinned"
                  #SideNav
-                 [ngClass]="ToggleClass+ ' ' +'menuSideNav'+' dark-bg'"
+                 (keydown.escape)="close()"
+                 [ngClass]="'menuSideNav'+' dark-bg'"
                  fxLayout="column">
 
         <!-- ------------------------------------------------------------------------------------
     ----------------------------- Menus of the sidebar -------------------------------------
     ------------------------------------------------------------------------------------- -->
-        <div *ngIf="!pinned"
-             class="d-flex flex-column justify-content-center">
+        <div class="d-flex flex-column justify-content-center">
             <div class="d-flex justify-content-center align-items-center cursor-pointer"
                  style="min-height: 50px;">
                 <a [routerLink]="['','dashboard']"><img src="../../assets/logo 3.png"
@@ -24,14 +22,9 @@
             <div *ngFor="let item of SideNavItems; let i = index"
                  fxLayout="column">
                 <button mat-button
-                        [tooltip]="item.title"
-                        placement="right"
-                        boundariesElement="window"
-                        [tooltipAppendToBody]="true"
-                        style="min-width: 0;"
                         #matMenuTrigger
                         [matMenuTriggerFor]="submenu"
-                        class="p-0 mh-50 active">
+                        class="px-2 text-start">
                     <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
                             {{item.GoogleIconName}}
                         </span></mat-icon>
@@ -42,6 +35,7 @@
                           width="24"
                           height="24">
                     </i-bs>
+                    <span class="ps-2 ">{{item.title}}</span>
                 </button>
                 <mat-menu #submenu="matMenu">
                     <a mat-menu-item
@@ -50,53 +44,7 @@
                 </mat-menu>
             </div>
         </div>
-        <!-- -------------------------------------------------------------------------------
-                                        Expanded sidenav
-        ------------------------------------------------------------------------------------>
-        <mat-accordion *ngIf="pinned">
-            <div style="min-height: 50px;"
-                 class="d-flex justify-content-center align-items-center">
-                <a [class]="Display"
-                   class="text-decoration-none fs-3 fw-bold text-center"
-                   fxFlex="1 2 90%"
-                   [routerLink]="['','dashboard']"><img src="../../assets/logo 3.png"
-                         alt="logo"
-                         width="35px"
-                         height="35px"> KH-ERP</a>
-            </div>
 
-            <mat-expansion-panel hideToggle
-                                 class="border-bottom-forDark d-flex flex-column"
-                                 *ngFor="let item of SideNavItems; let i = index">
-                <mat-expansion-panel-header (click)="OpenExpAndCloseAll(i)"
-                                            class="justify-content-center px-0"
-                                            [ngClass]="{'expansionIsExpanded': item.expanded}">
-                    <mat-panel-title>
-                        <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
-                                {{item.GoogleIconName}}
-                            </span></mat-icon>
-                        <fa-icon *ngIf="item.faIcon"
-                                 [icon]="item.faIcon"></fa-icon>
-                        <i-bs *ngIf="item.boostrapIcon"
-                              [name]="item.boostrapIcon"
-                              width="24"
-                              height="24">
-                        </i-bs>
-                        <span class="ps-2 ">{{item.title}}</span>
-                    </mat-panel-title>
-
-
-                    <mat-icon *ngIf="Display!=='d-none'">add</mat-icon>
-                </mat-expansion-panel-header>
-                <!-- Fill the sideNav Items  -->
-                <div class="d-flex flex-column">
-                    <a *ngFor="let link of item.links; let x = index"
-                       class="text-decoration-none"
-                       [routerLink]="link.link">{{link.LinkText}}</a>
-                </div>
-            </mat-expansion-panel>
-
-        </mat-accordion>
     </mat-sidenav>
 
     <!-- --------------------------------------------------------------------------------------
@@ -120,8 +68,7 @@
                      boundariesElement="window"
                      [adaptivePosition]="true"
                      [tooltipAppendToBody]="true"
-                     (click)="PinSideNav()"
-                     #pinButton>
+                     (click)="PinSideNav();SideNav.toggle()">
                     <mat-icon class="mat-18"><span class="material-icons-outlined">
                             menu
                         </span>

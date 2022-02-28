@@ -34,7 +34,7 @@ namespace CodingBible.Data
             builder.Entity<Category>()
                 .HasOne(e=>e.Parent)
                 .WithMany()
-                .HasForeignKey(e=>e.parentKey);
+                .HasForeignKey(e=>e.ParentKey);
             /*********************************************************************************
             *                               One to one relationship
             **********************************************************************************/
@@ -55,7 +55,7 @@ namespace CodingBible.Data
                 .HasOne(x=>x.Categories)
                 .WithMany(x=>x.PostsCategories)
                 .HasForeignKey(x=>x.CategoryId);
-                
+            builder.Entity<Post>().HasIndex(x => x.Slug).IsUnique();
             base.OnModelCreating(builder);
         }
     }

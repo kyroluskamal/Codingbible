@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
+import { FormControlNames } from 'src/Helpers/constants';
 import { CardTitle, SelectedTextData } from 'src/Interfaces/interfaces';
+import { Post } from 'src/models.model';
+import { AddPOST } from 'src/State/PostState/post.actions';
 
 @Component({
   selector: 'app-add-posts',
@@ -18,69 +23,27 @@ export class AddPostsComponent implements OnInit
     focusNode: null
   };
   form: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private store: Store,
+    private cliendSideService: ClientSideValidationService) { }
 
   ngOnInit(): void
   {
     this.form = this.fb.group({
-      content: [null]
+      title: [null, [Validators.required, Validators.minLength(60), Validators.maxLength(70)]],
+      slug: [null],
+      excerpt: [null, [Validators.required]],
+      description: [null, [Validators.required, Validators.minLength(50), Validators.maxLength(160)]],
+      htmlContent: [null, [Validators.required]]
     });
   }
-  UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
+  Save(event: FormGroup)
   {
-    view.innerHTML = html.value;
-  }
+    console.log("from add post");
 
-  UpdateHtml(html: HTMLTextAreaElement, view: HTMLDivElement)
-  {
-    html.value = view.innerHTML;
+    let newPost = new Post();
+    this.cliendSideService.FillObjectFromForm(newPost, event);
+    newPost.slug = String(event.get(FormControlNames.postForm.slug)?.value).split(' ').join('-');
+    this.store.dispatch(AddPOST(newPost));
 
-  }
-  GetData()
-  {
-    console.log(this.form.get('content')?.value);
-  }
-
-  CreateSlug(title: HTMLInputElement, slug: HTMLInputElement)
-  {
-    slug.value = title.value.trim().split(' ').join("-");
-  }
-  GetSelectedText(view: HTMLDivElement)
-  {
-    if (window.getSelection)
-    {
-      var txt = view.innerText;
-      var selection = window.getSelection();
-      var start = selection?.anchorOffset;
-      var end = selection?.focusOffset;
-      // console.log('start at postion', start, 'in node', selection?.anchorNode);
-      // console.log('stop at position', end, 'in node', selection?.focusNode);
-
-      this.selectedText = {
-        text: selection!?.toString(),
-        start: start!,
-        end: end!,
-        anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode
-      };
-      console.log(this.selectedText.anchorNode?.parentElement?.outerHTML);
-    }
-    else if (document.getSelection())
-    {
-      var txt = view.innerText;
-      var selection = document.getSelection();
-      var start = selection?.anchorOffset;
-      var end = selection?.focusOffset;
-      console.log('start at postion', start, 'in node', selection?.anchorNode);
-      console.log('stop at position', end, 'in node', selection?.anchorNode);
-      console.log('stop at position 222222', end, 'in node', selection?.focusNode);
-      this.selectedText = {
-        text: selection!?.toString(),
-        start: start!,
-        end: end!,
-        anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode
-      };
-    }
   }
 }

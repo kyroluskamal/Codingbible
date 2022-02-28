@@ -7,7 +7,7 @@ namespace CodingBible.UnitOfWork
 {
     public class ApplicationUserUnitOfWork : IUnitOfWork_ApplicationUser
     {
-        public IPostsRepositoryAsync Posts { get; private set; }
+        public IPostsRepositoryAsync Posts { get; }
         public ApplicationDbContext ApplicationDbContext { get; }
         public ApplicationUserRoleManager RoleManager { get; set; }
 
@@ -18,8 +18,6 @@ namespace CodingBible.UnitOfWork
             RoleManager = roleManager;
             Posts = new PostsRepoAsync(applicationDbContext);
         }
-
-        
         public async void Dispose()
         {
             await ApplicationDbContext.DisposeAsync();
@@ -34,6 +32,5 @@ namespace CodingBible.UnitOfWork
         {
             return ApplicationDbContext.SaveChanges();
         }
-
     }
 }

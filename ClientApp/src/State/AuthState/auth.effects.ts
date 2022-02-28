@@ -179,7 +179,6 @@ export class AuthEffects
         private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
         public dialogHandler: DialogHandlerService,
         private accoutnService: AccountService,
-        private router: Router,
-        private ClientSideValidationService: ClientSideValidationService,
+        private router: Router
     ) { }
 }

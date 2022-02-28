@@ -7,7 +7,7 @@ namespace CodingBible.Services.CookieService
     {
         void SetCookie(string key, string value, TimeSpan? expireTime, bool isSecure=true, bool isHttpOnly=true);
         void SetCookie(string key, string value, bool isSecure = true, bool isHttpOnly = true);
-        void setRequiredCookies(TokenResponseModel accessToken, ApplicationUser user, List<string> roles, TimeSpan expireTime, bool rememberMe);
+        void SetRequiredCookies(TokenResponseModel accessToken, ApplicationUser user, List<string> roles, TimeSpan expireTime, bool rememberMe);
         void DeleteCookie(string key);
         void DeleteAllCookies();
         string Get(string key);
@@ -15,5 +15,6 @@ namespace CodingBible.Services.CookieService
         string GetUserIP();
         string GetUserCountry();
         string GetUserOS();
+        string GetUserID();
     }
 }

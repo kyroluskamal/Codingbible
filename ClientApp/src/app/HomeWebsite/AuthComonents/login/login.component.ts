@@ -58,11 +58,11 @@ export class LoginComponent implements OnInit
     // this.loading = true;
     if (this.loginForm.invalid) return;
     let Model: LoginViewModel = {
-      email: this.loginForm.get(Constants.FormControlNames.email)?.value,
-      password: this.loginForm.get(Constants.FormControlNames.password)?.value,
-      rememberMe: Boolean(this.loginForm.get(Constants.FormControlNames.rememberMe)?.value)
+      email: this.loginForm.get(Constants.FormControlNames.authForm.email)?.value,
+      password: this.loginForm.get(Constants.FormControlNames.authForm.password)?.value,
+      rememberMe: Boolean(this.loginForm.get(Constants.FormControlNames.authForm.rememberMe)?.value)
     };
-    localStorage.setItem(Constants.FormControlNames.rememberMe, this.loginForm.get(Constants.FormControlNames.rememberMe)?.value);
+    localStorage.setItem(Constants.FormControlNames.authForm.rememberMe, this.loginForm.get(Constants.FormControlNames.authForm.rememberMe)?.value);
     this.store.dispatch(IsInProgress({ isLoading: true }));
     this.store.dispatch(Login(Model));
   }

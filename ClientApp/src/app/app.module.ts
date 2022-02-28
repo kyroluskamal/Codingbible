@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientXsrfModule } from '@angular/common/http';
+import { HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,13 +21,16 @@ import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { DatePipe } from '@angular/common';
+import { PostEffects } from 'src/State/PostState/post-effects';
+import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
 
 
-function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<AppState>
+function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 {
   return localStorageSync({
     keys: [
-      { auth: ['user', 'roles'] }
+      { auth: ['user', 'roles'] },
+      { design: ['pinned'] },
     ],
     rehydrate: true,
     removeOnUndefined: true
@@ -48,7 +51,7 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer
     //BrowserModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, PostEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     FontAwesomeModule,
     HttpClientXsrfModule.withOptions({
@@ -57,7 +60,8 @@ const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer
     }),
 
   ],
-  providers: [CookieService, DatePipe],
+  providers: [CookieService, DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

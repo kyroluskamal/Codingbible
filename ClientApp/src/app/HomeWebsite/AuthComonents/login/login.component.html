@@ -29,21 +29,21 @@
             --------------------------------------------------------------------------------------->
             <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="w-100">
-                <mat-label><span>{{Constants.FormFieldsNames.Email}}</span></mat-label>
+                <mat-label><span>{{Constants.FormFieldsNames.authForm.Email}}</span></mat-label>
                 <input matInput
                        [type]="Constants.InputFieldTypes.email"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.email" />
+                       [formControlName]="Constants.FormControlNames.authForm.email" />
                 <mat-icon matSuffix>email</mat-icon>
 
                 <mat-error
-                           *ngIf="loginForm.get(Constants.FormControlNames.email)?.hasError(Constants.FormValidationErrorsNames.pattern)">
+                           *ngIf="loginForm.get(Constants.FormControlNames.authForm.email)?.hasError(Constants.FormValidationErrorsNames.pattern)">
                     {{Constants.FormValidationErrors.EnterValidEmail}}
                 </mat-error>
                 <mat-error
                            *ngIf="
-                           loginForm.get(Constants.FormControlNames.email)?.hasError(Constants.FormValidationErrorsNames.required)">
+                           loginForm.get(Constants.FormControlNames.authForm.email)?.hasError(Constants.FormValidationErrorsNames.required)">
                     {{Constants.FormValidationErrors.EnterValidEmail}}
                 </mat-error>
             </mat-form-field>
@@ -53,15 +53,15 @@
             <mat-form-field [appearance]="Constants.defaultFormAppearance"
                             class="w-100"
                             [tooltip]="PasswordValidations"
-                            [tooltipIsOpen]="loginForm.get(Constants.FormControlNames.password)?.errors&&password.value?true:false"
+                            [tooltipIsOpen]="loginForm.get(Constants.FormControlNames.authForm.password)?.errors&&password.value?true:false"
                             tooltipTrigger="focus">
-                <mat-label><span>{{Constants.FormFieldsNames.Passowrd}}</span></mat-label>
+                <mat-label><span>{{Constants.FormFieldsNames.authForm.Passowrd}}</span></mat-label>
                 <input matInput
                        #password
                        [type]="Constants.InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.password" />
+                       [formControlName]="Constants.FormControlNames.authForm.password" />
                 <mat-icon matSuffix
                           (click)="password.type===Constants.InputFieldTypes.password?
                           password.type=Constants.InputFieldTypes.text:password.type===Constants.InputFieldTypes.text?
@@ -72,12 +72,12 @@
                 </mat-icon>
 
                 <mat-error
-                           *ngIf="loginForm.get(Constants.FormControlNames.password)?.hasError(Constants.FormValidationErrorsNames.required)">
+                           *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.hasError(Constants.FormValidationErrorsNames.required)">
                     {{Constants.FormValidationErrors.RequiredField}}
                 </mat-error>
                 <ng-template #PasswordValidations>
                     <ul class="text-start"
-                        *ngIf="!loginForm.get(Constants.FormControlNames.password)?.value">
+                        *ngIf="!loginForm.get(Constants.FormControlNames.authForm.password)?.value">
                         <li>
                             {{Constants.FormValidationErrors.Password.minLength}}
                         </li>
@@ -95,25 +95,25 @@
                         </li>
                     </ul>
                     <ul class="text-start"
-                        *ngIf="loginForm.get(Constants.FormControlNames.password)?.value">
+                        *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.value">
                         <li *ngIf="
-                        loginForm.get(Constants.FormControlNames.password)?.
+                        loginForm.get(Constants.FormControlNames.authForm.password)?.
                              hasError(Constants.FormValidationErrorsNames.password.minLength)">
                             {{Constants.FormValidationErrors.Password.minLength}}
                         </li>
-                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.
                         hasError(Constants.FormValidationErrorsNames.password.hasCapitalCase)">
                             {{Constants.FormValidationErrors.Password.hasCapitalCase}}
                         </li>
-                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.
                         hasError(Constants.FormValidationErrorsNames.password.hasNumber)">
                             {{Constants.FormValidationErrors.Password.hasNumber}}
                         </li>
-                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.
                         hasError(Constants.FormValidationErrorsNames.password.hasSmallCase)">
                             {{Constants.FormValidationErrors.Password.hasSmallCase}}
                         </li>
-                        <li *ngIf="loginForm.get(Constants.FormControlNames.password)?.
+                        <li *ngIf="loginForm.get(Constants.FormControlNames.authForm.password)?.
                         hasError(Constants.FormValidationErrorsNames.password.hasSpecialCharacters)">
                             {{Constants.FormValidationErrors.Password.hasSpecialCharacters}}
                         </li>
@@ -127,7 +127,7 @@
                 <div class="form-check form-switch">
                     <input class="form-check-input"
                            [type]="Constants.InputFieldTypes.checkbox"
-                           [formControlName]="Constants.FormControlNames.rememberMe"
+                           [formControlName]="Constants.FormControlNames.authForm.rememberMe"
                            id="flexSwitchCheckChecked">
                     <label class="form-check-label"
                            for="flexSwitchCheckChecked">{{Constants.FormConstants.RememberMe}}</label>

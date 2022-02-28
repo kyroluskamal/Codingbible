@@ -24,7 +24,5 @@ namespace CodingBible.UnitOfWork.IRepository
         void Remove(int id);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
-
-
     }
 }

@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using Serilog;
 using System.Globalization;
-using System.Net;
-using System.Net.Http;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Models;
+using Microsoft.AspNetCore.DataProtection;
+using CodingBible.Models.Identity;
+using CodingBible.Data;
 
 namespace CodingBible.Services.CookieService
 {
@@ -15,11 +13,13 @@ namespace CodingBible.Services.CookieService
     {
         private readonly CookieOptions _cookieOptions;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IServiceProvider Provider;
 
-        public CookieServ(CookieOptions cookieOptions, IHttpContextAccessor httpContextAccessor)
+        public CookieServ(CookieOptions cookieOptions, IHttpContextAccessor httpContextAccessor, IServiceProvider provider)
         {
             _cookieOptions = cookieOptions;
             _httpContextAccessor = httpContextAccessor;
+            Provider = provider;
         }
 
         public string Get(string key)
@@ -38,7 +38,7 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.IsEssential = true;
             _cookieOptions.SameSite = SameSiteMode.Strict;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
-        } 
+        }
         public void SetCookie(string key, string value, bool isSecure=true, bool isHttpOnly=true)
         {
             _cookieOptions.Secure = isSecure;
@@ -47,8 +47,6 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.SameSite = SameSiteMode.Strict;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
-
-   
 
         public void DeleteCookie(string key)
         {
@@ -79,7 +77,6 @@ namespace CodingBible.Services.CookieService
         public string GetUserIP()
         {
             string userIp = "unknown";
-
             try
             {
                 userIp = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
@@ -92,7 +89,17 @@ namespace CodingBible.Services.CookieService
 
             return userIp;
         }
+        public string GetUserID(){
+            var protectedUserId = Get(Constants.CookieName.User_id);
+             var protectorProvider = Provider.GetService<IDataProtectionProvider>();
 
+                /* STEP 5. create a protector instance */
+                var protector = protectorProvider.CreateProtector(Constants.DataProtectionKeys.ApplicationUserKey);
+
+                /* STEP 6. Layer One Unprotect the user id */
+                var decryptedUid = protector.Unprotect(protectedUserId);
+                return decryptedUid;
+        }
         public string GetUserCountry()
         {
             try
@@ -100,7 +107,7 @@ namespace CodingBible.Services.CookieService
                 string userIp = GetUserIP();
                 string info = new HttpClient().GetAsync("http://ipinfo.io/" + userIp).GetAwaiter().GetResult().ToString();
                 var ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
-                RegionInfo regionalInfo = new RegionInfo(ipInfo.Country);
+                RegionInfo regionalInfo = new (ipInfo.Country);
                 ipInfo.Country = regionalInfo.EnglishName;
 
                 if (!string.IsNullOrEmpty(userIp))
@@ -116,13 +123,12 @@ namespace CodingBible.Services.CookieService
 
             return "unknown";
         }
-        public void setRequiredCookies(TokenResponseModel accessToken, ApplicationUser user, List<string> roles, TimeSpan expireTime, bool rememberMe)
+        public void SetRequiredCookies(TokenResponseModel accessToken, ApplicationUser user, List<string> roles, TimeSpan expireTime, bool rememberMe)
         {
             var exp = (DateTime.Now + accessToken.RefreshTokenExpiration);
             var refExp = $"{exp.Year}-{exp.Month}-{exp.Day} {exp.Hour}:{exp.Minute}:{exp.Second}";
-           
-            if (rememberMe) { 
-                SetCookie(Constants.CookieName.Access_token, accessToken.Token.ToString(), expireTime);
+            if (rememberMe) {
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token, expireTime);
                 SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, accessToken.RefreshTokenExpiration);
                 SetCookie(Constants.CookieName.loginStatus, "1", accessToken.RefreshTokenExpiration, false, false);
                 SetCookie(Constants.CookieName.Username, user.UserName, accessToken.RefreshTokenExpiration);
@@ -132,7 +138,7 @@ namespace CodingBible.Services.CookieService
             }
             else
             {
-                SetCookie(Constants.CookieName.Access_token, accessToken.Token.ToString());
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token);
                 SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken);
                 SetCookie(Constants.CookieName.loginStatus, "1", false, false);
                 SetCookie(Constants.CookieName.Username, user.UserName, true, true);
@@ -140,7 +146,6 @@ namespace CodingBible.Services.CookieService
                 SetCookie(Constants.CookieName.User_id, accessToken.UserId);
                 SetCookie(Constants.CookieName.refershTokenExpire, "0", true, false);
             }
-
         }
         public string GetUserOS()
         {

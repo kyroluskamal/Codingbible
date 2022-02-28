@@ -34,8 +34,7 @@ namespace LoggingService
 
         public override int Set(TextWriter output, ConsoleThemeStyle style)
         {
-            string str;
-            if (!this._styles.TryGetValue(style, out str))
+            if (!this._styles.TryGetValue(style, out string str))
                 return 0;
             output.Write(str);
             return str.Length;

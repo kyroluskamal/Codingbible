@@ -100,25 +100,41 @@ export const sweetAlert = {
 };
 
 export const FormControlNames = {
-    rememberMe: "rememberme",
-    password: "password",
-    email: "email",
-    phonenumber: "phonenumber",
-    username: "username",
-    confirmpassword: "confirmpassword",
-    firstname: "firstname",
-    lastname: "lastname"
+    authForm: {
+        rememberMe: "rememberme",
+        password: "password",
+        email: "email",
+        phonenumber: "phonenumber",
+        username: "username",
+        confirmpassword: "confirmpassword",
+        firstname: "firstname",
+        lastname: "lastname",
+    },
+    postForm: {
+        title: "title",
+        slug: "slug",
+        htmlContent: "htmlContent",
+        description: "description",
+        excerpt: "excerpt"
+    }
 };
 
 export const FormFieldsNames = {
-    Email: "Email",
-    Passowrd: "Password",
-    RememberMe: "Remember Me",
-    PhoneNumber: "Phone Number",
-    Username: "Username",
-    ConfirmPassword: "Confirm password",
-    FirstName: "First name",
-    LastName: "Last name"
+    authForm: {
+        Email: "Email",
+        Passowrd: "Password",
+        RememberMe: "Remember Me",
+        PhoneNumber: "Phone Number",
+        Username: "Username",
+        ConfirmPassword: "Confirm password",
+        FirstName: "First name",
+        LastName: "Last name"
+    },
+    Post: {
+        title: "Title",
+        slug: "Sulg",
+        excerpt: "Excerpt"
+    }
 };
 export const FormValidationErrors = {
     PleaseCorrectErrors: "Please, correct the following errors",
@@ -132,12 +148,16 @@ export const FormValidationErrors = {
         hasNumber: "At least one number",
         NoPassswordMatch: "Both passwords are not matching."
     }
-
 };
+
 export const FormValidationErrorsNames = {
     email: "email",
     required: "required",
     pattern: "pattern",
+    minlength: "minlength",
+    maxlength: "maxlength",
+    min: "min",
+    max: "max",
     password: {
         hasSmallCase: "hasSmallCase",
         minLength: "minlength",
@@ -228,6 +248,24 @@ export const actionNames = {
         Logout: '[Auth] Confirm Logout',
         LogoutCancelled: '[Auth] Logout Cancelled',
         LogoutConfirmed: '[Auth] Logout Confirmed',
+    },
+    PostActions: {
+        ADD_POST: '[ADD POST] Request',
+        ADD_POST_Success: '[ADD POST] SUCCESS',
+        ADD_POST_Failed: '[ADD POST] FAILED',
+        ADD_POSTS: '[POST] Add POSTs',
+        UPDATE_POST: '[POST] Update POST',
+        UPDATE_POSTS: '[POST] Update POSTs',
+        REMOVE_POST: '[POST] Remove POST',
+        REMOVE_POSTS: '[POST] Remove POSTs',
+        CLEAR_POSTS: '[POST] Clear POSTs',
+        LOAD_ALL_POSTS: '[POST] Load All POSTs',
+        LOAD_ALL_POSTS_SUCCESS: '[Load POSTs] Success',
+        LOAD_ALL_POSTS_FAILED: '[Load POSTs] FAILED',
+        SELECT_POST: '[POST] POST By Id'
+    },
+    designActions: {
+        pinned: '[Pinnded menu]'
     }
 };
 //#endregion

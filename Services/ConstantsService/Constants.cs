@@ -32,8 +32,6 @@ namespace CodingBible.Services.ConstantsService
             public const string ApplicationUserKey = "mY@c3vvxYfFa8YT__XQ@R";
         }
 
-
-
         public static class IdentityDefaultOptions {
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Password Properties                                                  */
@@ -91,7 +89,6 @@ namespace CodingBible.Services.ConstantsService
                 return $"To reset your password <a href='{emailbody}'>clicking here</a>.";
             }
         }
-        
         public static class AuthenticationSchemes
         {
             public const string Admin = "Admin";
@@ -152,7 +149,6 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("RESET_PASSWORD_LINK_SEND_failed", "Failed to send Reset password link. Please, try again.");
             }
-
             public static object ResetPassword_ERROR()
             {
                 return new HttpResponsesObject("RESET_PASSWORD_ERROR", "Failed to reset password.");
@@ -180,6 +176,10 @@ namespace CodingBible.Services.ConstantsService
             public static object Delete_Sucess(string op)
             {
                 return new HttpResponsesObject($"{op}_DELETE_SUCCESS", $"{op} Deletion is succeeded");
+            }
+            public static object NotUnique_ERROR_Response(string prop)
+            {
+                return new HttpResponsesObject($"{prop}", "should be unique");
             }
         }
     }

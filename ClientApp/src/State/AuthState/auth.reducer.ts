@@ -1,21 +1,8 @@
-import { PLATFORM_ID } from "@angular/core";
-import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { CookieService } from "ngx-cookie-service";
-import { CookieNames, LocalStorageKeys } from "src/Helpers/constants";
-import { ModelStateErrors } from "src/Interfaces/interfaces";
-import { ApplicationUser } from "src/models.model";
+import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { CookieNames } from "src/Helpers/constants";
+import { AuthState } from "../app.state";
 import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, LoginFailure, LoginSuccess, LogoutCancelled, LogoutConfirmed, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
-export interface AuthState
-{
-    user: ApplicationUser | null;
-    loginError: string | null;
-    roles: string[];
-    InProgress: boolean;
-    ValidationErrors: ModelStateErrors[];
-    isLoggedIn: boolean;
-    refershTokenExpire: string;
-    isLoggedInChecked: boolean;
-}
+
 function GetCookie(key: string)
 {
     let cookie = document.cookie;
