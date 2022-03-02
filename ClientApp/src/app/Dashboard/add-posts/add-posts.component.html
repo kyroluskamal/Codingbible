@@ -1,3 +1,4 @@
 <app-post-handler [inputForm]="form"
-                  [Title]="Title"
-                  (Save)="Save($event)"></app-post-handler>
+                  [postType]="PostType.Add"
+                  (Draft)="SaveOrPublish($event,'draft')"
+                  (Publish)="SaveOrPublish($event, 'publish')"></app-post-handler>

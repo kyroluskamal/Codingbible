@@ -6,6 +6,7 @@ import { DashboardHomeComponent } from './dashboard-home/dashboard-home.componen
 import { AuthGuard } from 'src/guards/auth.guard';
 import { PostsDashboardComponent } from './posts-dashboard/posts-dashboard.component';
 import { AddPostsComponent } from './add-posts/add-posts.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,8 @@ const routes: Routes = [
       {
         path: DashboardRoutes.Posts.Home, children: [
           { path: '', component: PostsDashboardComponent },
-          { path: DashboardRoutes.Posts.AddPost, component: AddPostsComponent }
+          { path: DashboardRoutes.Posts.AddPost, component: AddPostsComponent },
+          { path: DashboardRoutes.Posts.EditPost, component: EditPostComponent }
         ]
       }
     ], canActivate: [AuthGuard]

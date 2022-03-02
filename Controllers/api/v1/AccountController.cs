@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text;
 using System.Text.Encodings.Web;
+using CodingBible.UnitOfWork;
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -26,8 +27,9 @@ namespace CodingBible.Controllers.api.v1
     public class AccountController : ControllerBase
     {
         private readonly IMapper Mapper;
+        public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
+
         private readonly IServiceProvider ServiceProvider;
-        private readonly ApplicationDbContext ApplicationDbContext;
         private readonly IAuthService AuthService;
         private readonly ICookieServ CookieService;
         private readonly IEMailService MailService;
@@ -38,10 +40,9 @@ namespace CodingBible.Controllers.api.v1
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFunctionalService FunctionalService;
 
-        public AccountController(IServiceProvider serviceProvider, ApplicationDbContext applicationDbContext, IAuthService authService, ICookieServ cookieService, IMapper mapper, ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, IEMailService emailService, ITokenServ tokenService, ApplicationUserSignIngManager signInManager, IHttpContextAccessor httpContextAccessor, IFunctionalService functionalService)
+        public AccountController(IServiceProvider serviceProvider, IAuthService authService, ICookieServ cookieService, IMapper mapper, ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, IEMailService emailService, ITokenServ tokenService, ApplicationUserSignIngManager signInManager, IHttpContextAccessor httpContextAccessor, IFunctionalService functionalService, IUnitOfWork_ApplicationUser unitOfWork)
         {
             ServiceProvider = serviceProvider;
-            ApplicationDbContext = applicationDbContext;
             AuthService = authService;
             CookieService = cookieService;
             Mapper = mapper;
@@ -52,6 +53,7 @@ namespace CodingBible.Controllers.api.v1
             SignInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
             FunctionalService = functionalService;
+            UnitOfWork = unitOfWork;
         }
         /**************************************************************************************
          *                                  Login action
@@ -172,7 +174,7 @@ namespace CodingBible.Controllers.api.v1
                         Body = Constants.EmailSettings.ConfirmationEmail_Body(HtmlEncoder.Default.Encode(callbackUrl))
                     };
 
-                    MailService.SendMail(MailRequest, await ApplicationDbContext.MailProviders.FirstOrDefaultAsync(x=>x.IsDefault));
+                    MailService.SendMail(MailRequest, await UnitOfWork.MailProviders.GetFirstOrDefaultAsync(x=>x.IsDefault));
 
                     return Ok(Constants.HttpResponses.RegisterResponse_Success());
                 }
@@ -224,7 +226,7 @@ namespace CodingBible.Controllers.api.v1
                         Subject = Constants.EmailSettings.ResetPasswordEmailSubject,
                         Body = Constants.EmailSettings.ResetPasswordEmail_Body(HtmlEncoder.Default.Encode(callbackUrl))
                     };
-                    MailService.SendMail(mailRequest, await ApplicationDbContext.MailProviders.FirstOrDefaultAsync(x => x.IsDefault));
+                    MailService.SendMail(mailRequest, await UnitOfWork.MailProviders.GetFirstOrDefaultAsync(x => x.IsDefault));
                     return Ok(Constants.HttpResponses.ResetPasswordLink_Send_Success());
                 }
                 catch (Exception ex)
@@ -280,7 +282,7 @@ namespace CodingBible.Controllers.api.v1
                     var userName = CookieService.Get(Constants.CookieName.Username);
                     var user = await UserManager.FindByNameAsync(userName);
                     var roles = await UserManager.GetRolesAsync(user);
-                    var userOldToken = await ApplicationDbContext.UserTokens.Where(x => x.UserId == user.Id).FirstOrDefaultAsync();
+                    var userOldToken = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(x => x.UserId == user.Id);
                     var tokenValidations = await TokenService.ValidateAuthTokenAsync(user, userOldToken, userName);
 
                      if(tokenValidations.IsValid && userOldToken.ExpiryTime > DateTime.Now)

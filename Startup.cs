@@ -39,8 +39,11 @@ namespace CodingBible
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                );
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.EnableDetailedErrors();
+                options.EnableSensitiveDataLogging();
+            });
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddTransient<IRoleStore<ApplicationUserRole>, ApplicationUserRoleStore>();
             services.AddTransient<UserManager<ApplicationUser>, ApplicationUserManager>();
@@ -73,8 +76,8 @@ namespace CodingBible
             //.AddTokenProvider<CustomEmailConfirmationTokenProvider<ApplicationUser>>("ClientCustomEmailConfirmation");
             services.Configure<DataProtectionTokenProviderOptions>(o =>
                     o.TokenLifespan = TimeSpan.FromHours(5));
-            services.AddScoped<ApplicationUserRoleStore>();
-            services.AddScoped<ApplicationUserStore>();
+            services.AddTransient<ApplicationUserRoleStore>();
+            services.AddTransient<ApplicationUserStore>();
             services.AddDbContext<DataProtectionKeysContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
             services.AddControllers();
@@ -102,8 +105,8 @@ namespace CodingBible
             services.AddTransient<IActivityServ, ActivityServ>();
             services.AddTransient<IEMailService, EMailService>();
             services.AddTransient<ITokenServ, TokenServ>();
-            services.AddScoped<IDbContextInitializer, DbContextInitializer>();
-            services.AddScoped<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
+            services.AddTransient<IDbContextInitializer, DbContextInitializer>();
+            services.AddTransient<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromMinutes(60);

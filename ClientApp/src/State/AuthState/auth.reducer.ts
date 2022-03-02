@@ -124,7 +124,6 @@ export const selectIsLoggedIn = createSelector(
     selectAuthState,
     (state) =>
     {
-
         let isLoggedIn = Boolean(Number(GetCookie(CookieNames.loginStatus))) && state.user !== null;
         return { isLoggedIn: isLoggedIn, Checked: state.isLoggedInChecked, tokenExpire: state.refershTokenExpire };
     }

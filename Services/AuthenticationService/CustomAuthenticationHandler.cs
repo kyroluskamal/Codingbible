@@ -15,24 +15,26 @@ using System.Text.Encodings.Web;
 using CodingBible.Services.TokenService;
 using CodingBible.Services.CookieService;
 using Microsoft.EntityFrameworkCore;
+using CodingBible.UnitOfWork;
+
 namespace CodingBible.Services.AuthenticationService
 {
     public class CustomAuthenticationHandler : AuthenticationHandler<CustomAuthenticationOptions>
     {
-        private readonly ApplicationDbContext AppDbContext;
         private readonly ApplicationUserManager UserManager;
+        public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
         private readonly IServiceProvider Provider;
         private readonly ITokenServ TokenService;
         private readonly ICookieServ CookieService;
 
         public CustomAuthenticationHandler(IOptionsMonitor<CustomAuthenticationOptions> options, ILoggerFactory logger, UrlEncoder encoder, ISystemClock clock
-            , IServiceProvider provider, ITokenServ tokenService, ApplicationDbContext applicationDbContext, ICookieServ cookieService, ApplicationUserManager userManager) : base(options, logger, encoder, clock)
+            , IServiceProvider provider, ITokenServ tokenService, ICookieServ cookieService, ApplicationUserManager userManager, IUnitOfWork_ApplicationUser unitOfWork) : base(options, logger, encoder, clock)
         {
             Provider = provider;
             TokenService = tokenService;
-            AppDbContext = applicationDbContext;
             CookieService = cookieService;
             UserManager = userManager;
+            UnitOfWork = unitOfWork;
         }
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -95,10 +97,9 @@ namespace CodingBible.Services.AuthenticationService
 
                 /* STEP 9 Get the existing token for the user from Database using a scoped request */
 
-                    var userFromDb = await AppDbContext.Users.FirstOrDefaultAsync(x => x.Id.ToString() == decryptedUid);
+                var userFromDb = await UserManager.FindByIdAsync(decryptedUid);
 
-                   tokenModel = await AppDbContext.UserTokens
-                        .FirstOrDefaultAsync(ut => ut.UserId.ToString() == decryptedUid
+                tokenModel = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(ut => ut.UserId.ToString() == decryptedUid
                                          && userFromDb.UserName == Request.Cookies[Constants.CookieName.Username]
                                          && userFromDb.Id.ToString() == decryptedUid
                                          );
@@ -165,7 +166,7 @@ namespace CodingBible.Services.AuthenticationService
                         {
                             var user = await UserManager.FindByNameAsync(username);
                             var roles = await UserManager.GetRolesAsync(user);
-                            var OldToken = await AppDbContext.UserTokens.FirstOrDefaultAsync(x=>x.Name == username);
+                            var OldToken = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(x=>x.Name == username);
                             // Call the refresh token method if it is valid
                             var tokenValidations = await TokenService.ValidateAuthTokenAsync(user, OldToken, username);
                                 var NewAccessToken = new TokenResponseModel();

@@ -11,12 +11,13 @@ import { AddPostsComponent } from './add-posts/add-posts.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { CodingBibleEditorModule } from '../CodingBible_editor/coding-bible-editor.module';
 import { PostHandlerComponent } from './post-handler/post-handler.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
 
 const components = [
   DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent
 ];
 @NgModule({
-  declarations: [components, PostHandlerComponent],
+  declarations: [components, PostHandlerComponent, EditPostComponent],
   imports: [
     CommonModule, MaterialModule, SharedModule,
     DashboardRoutingModule, EditorModule,

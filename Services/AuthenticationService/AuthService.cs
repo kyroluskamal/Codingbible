@@ -18,29 +18,29 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using CodingBible.Services.TokenService;
+using CodingBible.UnitOfWork;
 
 namespace CodingBible.Services.AuthenticationService
 {
     public class AuthService : IAuthService
     {
         private readonly UserManager<ApplicationUser> UserManager;
-        private readonly ApplicationDbContext ApplicationDbContext;
         private readonly ICookieServ CookieServ;
+        public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
         //private readonly IServiceProvider Provider;
         private readonly IActivityServ ActivityServ;
         private readonly ITokenServ TokenService;
         //private IDataProtector Protector;
 
         public AuthService(UserManager<ApplicationUser> userManager,
-            ApplicationDbContext applicationDbContext,
-            ICookieServ cookieServ, IActivityServ activityServ, ITokenServ tokenService)
+
+            ICookieServ cookieServ, IActivityServ activityServ, ITokenServ tokenService, IUnitOfWork_ApplicationUser unitOfWork)
         {
             UserManager = userManager;
-            ApplicationDbContext = applicationDbContext;
             CookieServ = cookieServ;
-
             ActivityServ = activityServ;
             TokenService = tokenService;
+            UnitOfWork = unitOfWork;
         }
 
         // Will be used for authenticating the Admin
@@ -135,12 +135,12 @@ namespace CodingBible.Services.AuthenticationService
                 if (username != null)
                 {
                     var user = await UserManager.FindByNameAsync(username);
-                    var memberToken = await ApplicationDbContext.UserTokens.Where(x => x.UserId == user.Id).ToListAsync();
+                    var memberToken = await UnitOfWork.UserTokens.GetAllAsync(x => x.UserId == user.Id);
 
-                    if (memberToken.Count > 0)
+                    if (memberToken.ToList().Count > 0)
                     {
-                        ApplicationDbContext.UserTokens.RemoveRange(memberToken);
-                        await ApplicationDbContext.SaveChangesAsync();
+                        UnitOfWork.UserTokens.RemoveRange(memberToken);
+                        await UnitOfWork.SaveAsync();
                     }
 
                     CookieServ.DeleteAllCookies();

@@ -4,6 +4,7 @@ using CodingBible.Models.Identity;
 using CodingBible.Services.ActivityService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
+using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
@@ -17,27 +18,20 @@ namespace CodingBible.Services.TokenService
 {
     public class TokenServ : ITokenServ
     {
-        private readonly ApplicationDbContext ApplicationDbContext;
         private readonly ICookieServ CookieServ;
         private readonly IServiceProvider Provider;
-
+        public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
         //private IDataProtector Protector;
         private TokenValidationParameters validationParameters;
         private JwtSecurityTokenHandler handler;
         private string unProtectedToken;
         private ClaimsPrincipal validateToken;
 
-        public TokenServ(
-            ApplicationDbContext applicationDbContext,
-            ICookieServ cookieServ, IServiceProvider provider)
+        public TokenServ(ICookieServ cookieServ, IServiceProvider provider, IUnitOfWork_ApplicationUser unitOfWork)
         {
-            ApplicationDbContext = applicationDbContext;
             CookieServ = cookieServ;
             Provider = provider;
-        }
-
-        public TokenServ()
-        {
+            UnitOfWork = unitOfWork;
         }
 
         public async Task<TokenResponseModel> GenerateNewToken(ApplicationUser user, List<string> roles)
@@ -116,23 +110,22 @@ namespace CodingBible.Services.TokenService
             try
             {
                 // First we need to check if the user has already logged in and has tokens in DB
-                var rt = ApplicationDbContext.UserTokens
-                    .FirstOrDefault(t => t.UserId == user.Id);
+                var rt = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(t => t.UserId == user.Id);
 
                 if (rt != null)
                 {
                     // invalidate the old refresh token (by deleting it)
-                    ApplicationDbContext.UserTokens.Remove(rt);
+                    UnitOfWork.UserTokens.Remove(rt);
 
                     // add the new refresh token
-                    ApplicationDbContext.UserTokens.Add(newRtoken);
+                    await UnitOfWork.UserTokens.AddAsync(newRtoken);
                 }
                 else
                 {
-                    await ApplicationDbContext.UserTokens.AddAsync(newRtoken);
+                    await UnitOfWork.UserTokens.AddAsync(newRtoken);
                 }
                 // persist changes in the DB
-                object p = await ApplicationDbContext.SaveChangesAsync();
+                object p = await UnitOfWork.SaveAsync();
             }
             catch (Exception ex)
             {

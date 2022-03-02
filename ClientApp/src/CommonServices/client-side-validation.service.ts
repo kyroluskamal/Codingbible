@@ -36,6 +36,8 @@ export class ClientSideValidationService
     {
       for (let el of array)
       {
+        console.log(el[keyToCheck]);
+
         if (el[keyToCheck] && el['id'] !== id)
           if (el[keyToCheck] === value)
           {

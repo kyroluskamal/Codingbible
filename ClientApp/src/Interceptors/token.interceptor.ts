@@ -18,11 +18,11 @@ export class TokenInterceptor implements HttpInterceptor
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>>
   {
-    // request = request.clone({
-    //   setHeaders: {
-    //     Authorization: `Bearer ${this.CookieService.get(CookieNames.XSRF_TOKEN)}`
-    //   }
-    // });
+    request = request.clone({
+      setHeaders: {
+        Authorization: `Bearer ${this.CookieService.get(CookieNames.XSRF_TOKEN)}`
+      }
+    });
     return next.handle(request);
   }
 }

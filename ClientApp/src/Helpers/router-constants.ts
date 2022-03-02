@@ -15,7 +15,8 @@ export const DashboardRoutes = {
     Home: "dashboard",
     Posts: {
         Home: "posts",
-        AddPost: "add-post"
+        AddPost: "add-post",
+        EditPost: "edit-post",
     }
 };
 export const DashboardRoutesText = {

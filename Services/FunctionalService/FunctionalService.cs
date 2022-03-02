@@ -5,6 +5,7 @@ using CodingBible.Models.Identity;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
 using Microsoft.EntityFrameworkCore;
+using CodingBible.UnitOfWork;
 
 namespace CodingBible.Services.FunctionalService
 {
@@ -12,15 +13,16 @@ namespace CodingBible.Services.FunctionalService
     {
         private readonly ApplicationUserManager _userManager;
         private readonly ApplicationUserRoleManager RoleManager;
-        private ApplicationDbContext Db{get;}
+        public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
+
         private ICookieServ CookieService{get;}
 
-        public FunctionalService(ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, ICookieServ cookieService, ApplicationDbContext db)
+        public FunctionalService(ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, ICookieServ cookieService, IUnitOfWork_ApplicationUser unitOfWork)
         {
             _userManager = userManager;
             RoleManager = roleManager;
             CookieService = cookieService;
-            Db = db;
+            UnitOfWork = unitOfWork;
         }
 
         public async Task CreateDefaultAdminUser()
@@ -78,16 +80,14 @@ namespace CodingBible.Services.FunctionalService
                 if (username != null)
                 {
                     var user = await _userManager.FindByNameAsync(username);
-                    var memberToken = await Db.UserTokens.Where(x => x.UserId == user.Id).ToListAsync();
+                    var memberToken = await UnitOfWork.UserTokens.GetAllAsync(x => x.UserId == user.Id);
 
-                    if (memberToken.Count > 0)
+                    if (memberToken.ToList().Count > 0)
                     {
-                        Db.UserTokens.RemoveRange(memberToken);
-                        await Db.SaveChangesAsync();
+                        UnitOfWork.UserTokens.RemoveRange(memberToken);
+                        await UnitOfWork.SaveAsync();
                     }
-
                     CookieService.DeleteAllCookies();
-
                     return true;
                 }
             }

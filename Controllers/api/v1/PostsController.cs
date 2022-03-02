@@ -45,6 +45,15 @@ namespace CodingBible.Controllers.api.v1
         public async Task<ActionResult<Post>> GetPostBySlug([FromRoute] string slug){
             return await UnitOfWork.Posts.GetBySlug(slug);
         }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
+        [Route(nameof(GetPostById)+"/{id}")]
+        public async Task<ActionResult<Post>> GetPostById([FromRoute] int id){
+            var post = await UnitOfWork.Posts.GetAsync(id);
+            if (post == null) return NotFound();
+            return post;
+        }
 
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Custom")]
@@ -67,7 +76,6 @@ namespace CodingBible.Controllers.api.v1
                     newPost = Mapper.Map(Post, newPost);
                     newPost.DateCreated = DateTime.Now;
                     newPost.LasModified = DateTime.Now;
-                    newPost.Status = 0;
                     newPost.AuthorId = user.Id;
                     newPost.CommentCount = 0;
                     newPost.CommentStatus = true;
@@ -86,27 +94,40 @@ namespace CodingBible.Controllers.api.v1
             }
         }
         [HttpPut]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
         [Route(nameof(UpdatePost))]
         public async Task<IActionResult> UpdatePost([FromBody] Post Post){
-            if(ModelState.IsValid)
+            try
             {
-                var getPost =await UnitOfWork.Posts.GetAsync(Post.Id);
-                if(getPost==null){
-                    return NotFound();
+                if (ModelState.IsValid)
+                {
+                    var getPost = await UnitOfWork.Posts.GetAsync(Post.Id);
+                    if (getPost == null)
+                    {
+                        return NotFound();
+                    }
+                    getPost = Mapper.Map(Post, getPost);
+                    UnitOfWork.Posts.Update(getPost);
+                    var result = await UnitOfWork.SaveAsync();
+                    if (result > 0)
+                    {
+                        return Ok(Constants.HttpResponses.Update_Sucess($"{getPost.Title}"));
+                    }
+                    return BadRequest(Constants.HttpResponses.Update_Failed($"{getPost.Title}"));
                 }
-                UnitOfWork.Posts.Update(Mapper.Map<Post, Post>(Post, getPost));
-                var result = await UnitOfWork.SaveAsync();
-                if(result>0){
-                    return Ok(Constants.HttpResponses.Update_Sucess($"{getPost.Title}"));
-                }
-                return BadRequest(Constants.HttpResponses.Update_Failed($"{getPost.Title}"));
+                return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
             }
-            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+            catch (Exception ex) {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                return BadRequest(ex);
+            }
         }
 
         [HttpDelete]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
         [Route(nameof(DeletePost)+"/{id}")]
         public async Task<IActionResult> DeletePost([FromRoute] int id){
             if(ModelState.IsValid)

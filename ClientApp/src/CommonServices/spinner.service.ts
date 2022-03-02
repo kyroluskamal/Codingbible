@@ -13,7 +13,7 @@ export class SpinnerService
   {
     return this.spinner.show('general', {
       fullScreen: true,
-      type: "ball-clip-rotate-pulse",
+      type: "ball-scale-multiple",
       size: "large",
       bdColor: "rgba(0, 0, 0, 0.25)",
       color: "white",
@@ -24,7 +24,7 @@ export class SpinnerService
   {
     return this.spinner.show('form', {
       fullScreen: true,
-      type: "ball-clip-rotate-pulse",
+      type: "ball-scale-multiple",
       size: "large",
       bdColor: "rgba(0, 0, 0, 0.25)",
       color: "white",

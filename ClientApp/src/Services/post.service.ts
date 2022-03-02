@@ -18,12 +18,22 @@ export class PostService
   }
   AddPost(post: Post): Observable<Post>
   {
-    console.log("from Service");
-
     return this.httpClient.post<Post>(PostsController.AddPost, post);
+  }
+  UpdatePost(post: Post): Observable<Post>
+  {
+    return this.httpClient.put<Post>(PostsController.UpdatePost, post);
   }
   IsSlugUnique(slug: string): Observable<boolean>
   {
     return this.httpClient.get<boolean>(`${PostsController.IsSlugUnique}/${slug}`);
+  }
+  DeletePost(id: number)
+  {
+    return this.httpClient.delete(`${PostsController.DeletePost}/${id}`);
+  }
+  GetPostById(id: number): Observable<Post>
+  {
+    return this.httpClient.get<Post>(`${PostsController.GetPostById}/${id}`);
   }
 }

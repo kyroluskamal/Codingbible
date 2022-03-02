@@ -2,10 +2,13 @@
       [formGroup]="form"
       class="mt-2 mx-2 needs-validation"
       novalidate>
-    <h1>Add new Post</h1>
+    <h1>
+        <span *ngIf="Type===PostType.Add">Add new Post</span>
+        <span *ngIf="Type===PostType.Edit">Edit Post : #{{(postById|async)?.id}}</span>
+    </h1>
     <div class="alert alert-danger"
          *ngIf="(ValidationErrors$!|async)?.length!>0">
-        <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
+        <p><strong>{{FormValidationErrors.PleaseCorrectErrors}}</strong></p>
         <ul>
             <li *ngFor="let error of (ValidationErrors$|async)">
                 <strong>{{error.key}}</strong> : {{error.message}}
@@ -18,44 +21,39 @@
          *ngIf="form.invalid">
         <p><strong>You have to do the following</strong></p>
         <ul class="mb-0">
-            <li
-                *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.required)">
+            <li *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.required)">
                 Add post title
             </li>
-            <li
-                *ngIf="
-                form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.minlength)
+            <li *ngIf="
+                form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.minlength)
                 || 
-                form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.maxlength)">
+                form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.maxlength)">
                 Title shuold be 60 to 70 character long. <span class="text-danger">You entered {{title.value.length}}
                     characters only</span>
             </li>
-            <li *ngIf="form.get(Constants.FormControlNames.postForm.slug)?.hasError('notUnique')">
+            <li *ngIf="form.get(FormControlNames.postForm.slug)?.hasError('notUnique')"
+                class="text-danger">
                 Slug should be unique. If you see this, this means that you have a post with the same title
             </li>
-            <li
-                *ngIf="form.get(Constants.FormControlNames.postForm.htmlContent)?.hasError(Constants.FormValidationErrorsNames.required)">
+            <li *ngIf="form.get(FormControlNames.postForm.htmlContent)?.hasError(FormValidationErrorsNames.required)">
                 Write post body
             </li>
-            <li
-                *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.required)">
+            <li *ngIf="form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.required)">
                 Write decription used by search engines for SEO.
             </li>
-            <li
-                *ngIf="
-                form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.minlength)
-                || 
-                form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.maxlength)">
+            <li *ngIf="
+                form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                ||
+                form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.maxlength)">
                 Title shuold be 50 to 160 character long. <span class="text-danger">You entered {{desc.value.length}}
                     characters only</span>
             </li>
-            <li
-                *ngIf="form.get(Constants.FormControlNames.postForm.excerpt)?.hasError(Constants.FormValidationErrorsNames.required)">
+            <li *ngIf="form.get(FormControlNames.postForm.excerpt)?.hasError(FormValidationErrorsNames.required)">
                 Write excerpt to be shown for post in the home page.
             </li>
         </ul>
     </div>
-    <div *ngIf="form.valid"
+    <div *ngIf="form.valid && Type===PostType.Add"
          class="alert alert-success">
         <span>You are ready to add the post</span>
     </div>
@@ -68,39 +66,39 @@
                             class="customMatFormField">
 
                 <div class="input-group">
-                    <span class="input-group-text">{{Constants.FormFieldsNames.Post.title}}
+                    <span class="input-group-text">{{FormFieldsNames.Post.title}}
                         <span class="ps-1 text-danger"
-                              *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasValidator(validators.required)">*</span>
+                              *ngIf="form.get(FormControlNames.postForm.title)?.hasValidator(validators.required)">*</span>
                     </span>
                     <input type="text"
                            matNativeControl
                            [errorStateMatcher]="CustoErrorStateMatcher"
-                           [formControlName]="Constants.FormControlNames.postForm.title"
+                           [formControlName]="FormControlNames.postForm.title"
                            #title
                            class="form-control"
                            minlength="60"
                            maxlength="70"
+                           [value]="Type===PostType.Edit?(postById|async)?.title:''"
                            (input)="CreateSlug(title, slug)"
                            (blur)="CheckIfSulgNotUnique(slug)" />
                 </div>
                 <mat-error
-                           *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.required)">
+                           *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.required)">
                     Please, add title.
                 </mat-error>
                 <mat-error
-                           *ngIf="form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.maxlength)
-                           ||form.get(Constants.FormControlNames.postForm.title)?.hasError(Constants.FormValidationErrorsNames.minlength)||title.value.length<=70">
+                           *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                           ||form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.minlength)||title.value.length<=70">
                     Post should be 60 to 70 character long.
                 </mat-error>
                 <span matSuffix
                       class="ps-1">{{title.value.length}} characters</span>
             </mat-form-field>
-            <div class="
-                          input-group
-                          mb-3">
-                <span class="input-group-text">{{Constants.FormFieldsNames.Post.slug}}</span>
+            <div class="input-group mb-3">
+                <span class="input-group-text">{{FormFieldsNames.Post.slug}}</span>
                 <input type="text"
                        disabled
+                       [value]="Type===PostType.Edit?(postById|async)?.slug:''"
                        #slug
                        class="form-control" />
             </div>
@@ -115,12 +113,12 @@
                     </CodingBible-editor>
 
                     <div #view
+                         [innerHtml]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                          (input)="UpdateHtml(html,view)"
                          class="Editor bg-white p-2 "
                          (mouseup)="GetSelectedText(view)"
                          (keyup)="GetSelectedText(view)"
                          contenteditable="true">
-
                     </div>
                 </tab>
                 <tab heading="Html"
@@ -129,13 +127,12 @@
                               formControlName="htmlContent"
                               class="Editor border border-top-0 p-2"
                               id=""
+                              [value]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                               #html
                               (input)="UpdateView(html, view)">
                     </textarea>
                 </tab>
             </tabset>
-
-
             <editor (onSelectionChange)="GetData()"
                     plugins=" autolink lists media anchor autolink pagebreak visualblocks lists nonbreaking table wordcount autoresize autosave charmap fullscreen importcss link
             code codesample  directionality emoticons help hr image insertdatetime preview searchreplace template"
@@ -157,21 +154,48 @@
                 <div class="card-header">
                     Publish
                 </div>
-                <div class="card-body">
-
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#"
-                       class="btn btn-primary">Go somewhere</a>
+                <div class="card-body d-flex flex-column small">
+                    <span><strong>Author: </strong>{{(user$|async)?.firstname}}</span>
+                    <span *ngIf="(postById|async)"><strong>Status: </strong>
+                        <span *ngIf="(postById|async)?.status===0">Draft</span>
+                        <span *ngIf="(postById|async)?.status===1">Published</span>
+                    </span>
+                    <span *ngIf="(postById|async)"><strong>Created At: </strong>
+                        <span>{{(postById|async)?.dateCreated|date}}</span>
+                    </span>
+                    <span *ngIf="(postById|async)"><strong>Last modified: </strong>
+                        <span>{{(postById|async)?.lasModified|date}}</span>
+                    </span>
+                    <span *ngIf="(postById|async)"><strong>Published At: </strong>
+                        <span>{{(postById|async)?.publishedDate|date}}</span>
+                    </span>
                 </div>
-                <div class="card-footer text-muted d-flex justify-content-between">
+                <div class="card-footer text-muted"
+                     fxLayout="row"
+                     fxLayoutAlign="start"
+                     fxLayoutGap="10px"
+                     *ngIf="Type == PostType.Edit">
                     <button type="button"
-                            (click)="SaveClicked(view)"
-                            [disabled]="form.invalid"
-                            class="btn btn-outline-primary btn-sm">Save</button>
+                            (click)="UpdateClicked()"
+                            [disabled]="form.invalid || !ClientSideService.isUpdated(post, form)"
+                            class="btn btn-outline-primary btn-sm">Update</button>
                     <button type="button"
-                            class="btn btn-outline-primary btn-sm">Publish</button>
-                    <button type="button"
+                            (click)="DeleteClicked()"
                             class="btn btn-danger btn-sm">Delete</button>
+                </div>
+                <div class="card-footer text-muted "
+                     fxLayout="row"
+                     fxLayoutAlign="start"
+                     fxLayoutGap="10px"
+                     *ngIf="Type == PostType.Add">
+                    <button type="button"
+                            (click)="DraftOrPublish(view)"
+                            [disabled]="form.invalid"
+                            class="btn btn-outline-primary btn-sm">Save as Draft</button>
+                    <button type="button"
+                            [disabled]="form.invalid"
+                            class="btn btn-outline-primary btn-sm"
+                            (click)="DraftOrPublish(view)">Publish</button>
                 </div>
             </div>
             <div class="card h-25">
@@ -183,12 +207,14 @@
                                     class="customMatFormField textarea h-100 w-100">
                         <div class="h-100 w-100 form-control">
                             <textarea matNativeControl
+                                      class="h-100"
+                                      [value]="Type===PostType.Edit?(postById|async)?.excerpt:''"
                                       [errorStateMatcher]="CustoErrorStateMatcher"
-                                      [formControlName]="Constants.FormControlNames.postForm.excerpt"
+                                      [formControlName]="FormControlNames.postForm.excerpt"
                                       style="resize: none;"></textarea>
                         </div>
                         <mat-error
-                                   *ngIf="form.get(Constants.FormControlNames.postForm.excerpt)?.hasError(Constants.FormValidationErrorsNames.required)">
+                                   *ngIf="form.get(FormControlNames.postForm.excerpt)?.hasError(FormValidationErrorsNames.required)">
                             Please, write the excerpt.
                         </mat-error>
                     </mat-form-field>
@@ -205,20 +231,21 @@
                             <textarea matNativeControl
                                       #desc
                                       [errorStateMatcher]="CustoErrorStateMatcher"
-                                      [formControlName]="Constants.FormControlNames.postForm.description"
+                                      [formControlName]="FormControlNames.postForm.description"
                                       minlength="50"
                                       maxlength="160"
                                       class="h-100"
+                                      [value]="Type===PostType.Edit?(postById|async)?.description:''"
                                       style="resize: none;"></textarea>
                         </div>
                         <mat-error
-                                   *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.required)">
+                                   *ngIf="form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.required)">
                             Please, write the the description.
                         </mat-error>
                         <mat-error
-                                   *ngIf="form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.maxlength)
-                           ||form.get(Constants.FormControlNames.postForm.description)?.hasError(Constants.FormValidationErrorsNames.minlength)||desc.value.length<=160">
-                            <span>Post should be 50 to 160 character long.</span>
+                                   *ngIf="form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                           ||form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.minlength)||desc.value.length<=160">
+                            <span>50 to 160 character long.</span>
                         </mat-error>
                     </mat-form-field>
                 </div>

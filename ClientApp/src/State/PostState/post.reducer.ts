@@ -1,22 +1,33 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Post } from "src/models.model";
 import { PostState } from "../app.state";
 import * as postActions from './post.actions';
 import * as adpater from "./post.adapter";
-import { ModelStateErrors } from "src/Interfaces/interfaces";
 
 export const initialState: PostState = adpater.PostAdapter.getInitialState({
-    ValidationErrors: []
+    ValidationErrors: [],
+    CurrentPostById: new Post(),
+    CurrentPostBySlug: new Post()
 });
 // Creating reducer                        
 export const PostReducer = createReducer(
     initialState,
-    on(postActions.AddPOST_Success, (state, post) => 
-    {
-        console.log(post);
-
-        return adpater.PostAdapter.addOne(post, state);
-    }),
+    on(postActions.AddPOST_Success, (state, post) => adpater.PostAdapter.addOne(post, state)),
     on(postActions.AddPOST_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(postActions.GetPostById_Success, (state, post) => 
+    {
+        return {
+            ...state,
+            CurrentPostById: post
+        };
+    }),
+    on(postActions.GetPostById_Failed, (state, res) =>
     {
         console.log(res);
 
@@ -25,12 +36,22 @@ export const PostReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(postActions.AddPOSTs, (state, { payload }) => adpater.PostAdapter.addMany(payload.POSTs, state)),
-    on(postActions.UpdatePOST, (state, { payload }) => adpater.PostAdapter.updateOne(payload.POST, state)),
-    on(postActions.UpdatePOSTs, (state, { payload }) => adpater.PostAdapter.updateMany(payload.POSTs, state)),
-    on(postActions.RemovePOST, (state, { payload }) => adpater.PostAdapter.removeOne(payload.id, state)),
-    on(postActions.RemovePOSTs, (state, { payload }) => adpater.PostAdapter.removeMany(payload.ids, state)),
-    on(postActions.ClearPOSTs, (state) => adpater.PostAdapter.removeAll({ ...state })),
+    on(postActions.UpdatePOST_Sucess, (state, res) => adpater.PostAdapter.updateOne(res.POST, state)),
+    on(postActions.RemovePOST_Success, (state, { id }) => adpater.PostAdapter.removeOne(id, state)),
+    on(postActions.RemovePOST_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(postActions.UpdatePOST_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
     on(postActions.LoadPOSTsSuccess, (state, { payload }) =>
     {
         state = adpater.PostAdapter.removeAll({ ...state });
@@ -43,7 +64,6 @@ export const PostReducer = createReducer(
             initialState
         };
     }),
-    on(postActions.SelectPOST, (state, { payload }) => Object.assign({ ...state, selectedArticleId: payload.POSTId })),
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -55,6 +75,10 @@ export function prticleReducer(state: any, action: Action)
 
 export const selectPostState = createFeatureSelector<PostState>('post');
 
+export const selectPostByID = createSelector(
+    selectPostState,
+    (state) => state.CurrentPostById
+);
 export const selectPostIds = createSelector(selectPostState, adpater.selectPostIds);
 export const selectPostEntities = createSelector(selectPostState, adpater.selectPostEntities);
 export const selectAllposts = createSelector(selectPostState, adpater.selectAllposts);

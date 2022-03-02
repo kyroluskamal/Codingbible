@@ -32,6 +32,8 @@ export interface AuthState
 export interface PostState extends EntityState<Post>
 {
     ValidationErrors: ModelStateErrors[];
+    CurrentPostById: Post;
+    CurrentPostBySlug: Post;
 }
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,

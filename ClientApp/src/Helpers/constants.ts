@@ -77,13 +77,17 @@ export const NotificationMessage = {
     Success: {
         DataAddtionStatus_Success: "Data is added successfully",
         Data_SAVED_success: "Data is saved successfully",
-        Logged_In_Success: "You successfully logged in"
+        Logged_In_Success: "You successfully logged in",
+        Addition: (type: string) => `${type} is added successfully`,
+        Delete: (type: string) => `${type} is deleted successfully`,
+        Update: (type: string) => `${type} is updated successfully`,
     },
     Error: {
         Unique_Field_ERROR: "You can't repeat values in this field. Add UNIQUE value.",
         ResetPasswordFail_InvalidToken: "This reset link is used before, or the token expired. Try to reset password again",
         BrowserDontSupportFullscreen: "Your browser doesn't support fullscreen mode. Use latest version of Chrome.",
-
+        Delete: (type: string) => `Failed to delete ${type}`,
+        Update: (type: string) => `Failed to Update ${type}`
     }
 };
 
@@ -221,6 +225,10 @@ export function ClientUrl(url: string): string
 {
     return "https://" + window.location.host + "/" + url;
 }
+export const PostType = {
+    Add: "Add",
+    Edit: "Edit"
+};
 //#region
 /************************************************************************
  *                          State mangement constants                   *
@@ -253,16 +261,22 @@ export const actionNames = {
         ADD_POST: '[ADD POST] Request',
         ADD_POST_Success: '[ADD POST] SUCCESS',
         ADD_POST_Failed: '[ADD POST] FAILED',
-        ADD_POSTS: '[POST] Add POSTs',
-        UPDATE_POST: '[POST] Update POST',
-        UPDATE_POSTS: '[POST] Update POSTs',
-        REMOVE_POST: '[POST] Remove POST',
+        GetPostById: '[GetPostById] request',
+        GetPostById_Success: '[GetPostById] Sucess',
+        GetPostById_Failed: '[GetPostBy_Slug] Failed',
+        GetPostBy_Slug: '[GetPostById] request',
+        GetPostBy_Slug_Success: '[GetPostBy_Slug] Sucess',
+        GetPostBy_Slug_Failed: '[GetPostBy_Slug] Failed',
+        UPDATE_POST: '[Update POST] Request',
+        UPDATE_POST_Sucess: '[Update POST] Sucess',
+        UPDATE_POST_Failed: '[Update POST] Failed',
+        REMOVE_POST: '[Delete POST] Request',
+        REMOVE_POST_Success: '[Delete POST] Sucess',
+        REMOVE_POST_Failed: '[Delete POST] Failed',
         REMOVE_POSTS: '[POST] Remove POSTs',
-        CLEAR_POSTS: '[POST] Clear POSTs',
         LOAD_ALL_POSTS: '[POST] Load All POSTs',
         LOAD_ALL_POSTS_SUCCESS: '[Load POSTs] Success',
         LOAD_ALL_POSTS_FAILED: '[Load POSTs] FAILED',
-        SELECT_POST: '[POST] POST By Id'
     },
     designActions: {
         pinned: '[Pinnded menu]'
