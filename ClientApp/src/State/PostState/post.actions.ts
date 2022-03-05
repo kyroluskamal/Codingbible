@@ -11,6 +11,12 @@ export const AddPOST_Success = createAction(actionNames.PostActions.ADD_POST_Suc
     props<Post>());
 export const AddPOST_Failed = createAction(actionNames.PostActions.ADD_POST_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const ChangeStatus = createAction(actionNames.PostActions.ChangeStatus,
+    props<Post>());
+export const ChangeStatus_Success = createAction(actionNames.PostActions.ChangeStatus_Success,
+    props<{ POST: Update<Post>; currentPostById: Post; }>());
+export const ChangeStatus_Failed = createAction(actionNames.PostActions.ChangeStatus_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const GetPostById = createAction(actionNames.PostActions.GetPostById,
     props<{ id: number; }>());
 export const GetPostById_Success = createAction(actionNames.PostActions.GetPostById_Success,

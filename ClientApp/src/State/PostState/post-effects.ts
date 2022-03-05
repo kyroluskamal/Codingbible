@@ -12,7 +12,7 @@ import { NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Post } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
-import { AddPOST, AddPOST_Failed, AddPOST_Success, dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess, RemovePOST, RemovePOST_Failed, RemovePOST_Success, UpdatePOST, UpdatePOST_Failed, UpdatePOST_Sucess } from './post.actions';
+import { AddPOST, AddPOST_Failed, AddPOST_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess, RemovePOST, RemovePOST_Failed, RemovePOST_Success, UpdatePOST, UpdatePOST_Failed, UpdatePOST_Sucess } from './post.actions';
 import { selectAllposts } from './post.reducer';
 
 @Injectable({
@@ -68,10 +68,35 @@ export class PostEffects
           catchError((e) =>
           {
             console.log(e);
-
             this.spinner.removeSpinner();
             this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
             return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
+          })
+        );
+      })
+    )
+  );
+  changeStatus$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ChangeStatus),
+      switchMap((action) =>
+      {
+        return this.postService.ChangeStus(action).pipe(
+          map((r) =>
+          {
+            this.spinner.removeSpinner();
+            this.NotificationService.Success_Swal(NotificationMessage.Success.Update('Post status'));
+            let x: Update<Post> = {
+              id: action.id,
+              changes: action
+            };
+            return ChangeStatus_Success({ POST: x, currentPostById: action });
+          }),
+          catchError((e) =>
+          {
+            this.spinner.removeSpinner();
+            this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post status'));
+            return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })

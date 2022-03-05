@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PostsController } from 'src/Helpers/apiconstants';
-import { Post } from 'src/models.model';
+import { HttpResponsesObject, Post } from 'src/models.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +35,9 @@ export class PostService
   GetPostById(id: number): Observable<Post>
   {
     return this.httpClient.get<Post>(`${PostsController.GetPostById}/${id}`);
+  }
+  ChangeStus(post: Post)
+  {
+    return this.httpClient.put<HttpResponsesObject>(PostsController.ChangStatus, post);
   }
 }

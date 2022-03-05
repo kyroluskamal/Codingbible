@@ -20,7 +20,8 @@ const controllers = {
             IsSlugUnique: "IsSlugUnique",
             DeletePost: "DeletePost",
             UpdatePost: "UpdatePost",
-            GetPostById: "GetPostById"
+            GetPostById: "GetPostById",
+            ChangStatus: "ChangStatus"
         }
     }
 };
@@ -40,6 +41,7 @@ export const PostsController = {
     DeletePost: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.DeletePost),
     UpdatePost: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.UpdatePost),
     GetPostById: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetPostById),
+    ChangStatus: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.ChangStatus),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

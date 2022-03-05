@@ -45,6 +45,14 @@ export const PostReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
+    on(postActions.ChangeStatus_Success, (state, res) => adpater.PostAdapter.updateOne(res.POST, { ...state, CurrentPostById: res.currentPostById })),
+    on(postActions.ChangeStatus_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
     on(postActions.UpdatePOST_Failed, (state, res) =>
     {
         return {

@@ -10,12 +10,12 @@ import
 } from 'src/Helpers/constants';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { CardTitle, SelectedTextData } from 'src/Interfaces/interfaces';
+import { SelectedTextData } from 'src/Interfaces/interfaces';
 import { Post } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
 import { selectUser } from 'src/State/AuthState/auth.reducer';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
-import { GetPostById, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
+import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
 import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
 
 @Component({
@@ -108,6 +108,12 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   UpdateHtml(html: HTMLTextAreaElement, view: HTMLDivElement)
   {
     this.form.get(FormControlNames.postForm.htmlContent)?.setValue(view.innerHTML);
+    this.post.title = String(this.form.get(FormControlNames.postForm.title)?.value);
+    this.post.description = String(this.form.get(FormControlNames.postForm.description)?.value);
+    this.post.excerpt = String(this.form.get(FormControlNames.postForm.excerpt)?.value);
+    this.post.htmlContent = this.view.nativeElement.innerHTML;
+    this.post.slug = String(this.slug.nativeElement.value);
+    this.post.author = null;
     html.value = view.innerHTML;
   }
   GetData()
@@ -116,7 +122,12 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
 
   CreateSlug(title: HTMLInputElement, slug: HTMLInputElement)
   {
-
+    this.post.title = String(this.form.get(FormControlNames.postForm.title)?.value);
+    this.post.description = String(this.form.get(FormControlNames.postForm.description)?.value);
+    this.post.excerpt = String(this.form.get(FormControlNames.postForm.excerpt)?.value);
+    this.post.htmlContent = this.view.nativeElement.innerHTML;
+    this.post.slug = String(this.slug.nativeElement.value);
+    this.post.author = null;
     slug.value = title.value.trim().split(' ').join("-");
     this.form.get('slug')?.setValue(slug.value);
   }
@@ -208,5 +219,10 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
             this.form.get('slug')?.clearValidators();
         }
       );
+  }
+  changeStatus(status: number)
+  {
+    this.post.status = status;
+    this.store.dispatch(ChangeStatus(this.post));
   }
 }

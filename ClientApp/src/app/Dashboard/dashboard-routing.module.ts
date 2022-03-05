@@ -10,8 +10,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 
 const routes: Routes = [
   {
-    path: DashboardRoutes.Home, component: DashboardHomeComponent, children: [
-
+    path: '', component: DashboardHomeComponent, children: [
       {
         path: DashboardRoutes.Posts.Home, children: [
           { path: '', component: PostsDashboardComponent },

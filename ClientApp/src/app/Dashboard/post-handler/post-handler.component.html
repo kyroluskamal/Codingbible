@@ -159,6 +159,12 @@
                     <span *ngIf="(postById|async)"><strong>Status: </strong>
                         <span *ngIf="(postById|async)?.status===0">Draft</span>
                         <span *ngIf="(postById|async)?.status===1">Published</span>
+                        <a *ngIf="(postById|async)?.status===1"
+                           class="cursor-pointer ps-1"
+                           (click)="changeStatus(0)">Set as draft</a>
+                        <a *ngIf="(postById|async)?.status===0"
+                           class="cursor-pointer ps-1"
+                           (click)="changeStatus(1)">Publish</a>
                     </span>
                     <span *ngIf="(postById|async)"><strong>Created At: </strong>
                         <span>{{(postById|async)?.dateCreated|date}}</span>
