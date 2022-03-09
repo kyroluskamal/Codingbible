@@ -1,4 +1,6 @@
+import { Validators } from "@angular/forms";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
+import { CustomValidators } from "./custom-validators";
 
 export const FormConstants = {
     Search: "Search",
@@ -286,3 +288,24 @@ export const actionNames = {
     }
 };
 //#endregion
+//#region Validators
+export const Password_minlength = 8;
+export const validators = {
+    required: Validators.required,
+    minLength_8: Validators.minLength(Password_minlength),
+    password: Validators.compose([
+        CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+        CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+        CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true })]),
+    email: Validators.pattern(ConstRegex.EmailRegex)
+};
+//#endregion
+
+export const InputElementsAttributes = {
+    required: "required",
+    minlength: "minlength",
+    maxlength: "maxlength",
+    min: "min",
+    max: "max"
+};
