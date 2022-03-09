@@ -7,7 +7,6 @@ import { ServerResponseHandelerService } from 'src/CommonServices/server-respons
 import { AuthRoutes, DashboardRoutes, HomeRoutes } from 'src/Helpers/router-constants';
 import { AccountService } from 'src/Services/account.service';
 import * as AuthActions from './auth.actions';
-import { ClientSideValidationService } from '../../CommonServices/client-side-validation.service';
 import { HTTPResponseStatus, NotificationMessage } from 'src/Helpers/constants';
 
 @Injectable()
@@ -17,11 +16,15 @@ export class AuthEffects
         this.actions$.pipe(
             ofType(AuthActions.Login),
             exhaustMap(action =>
-                this.accoutnService.Login({ email: action.email, password: action.password, rememberMe: action.rememberMe })
+            {
+                console.log("Called from effect");
+
+                return this.accoutnService.Login({ email: action.email, password: action.password, rememberMe: action.rememberMe })
                     .pipe(
                         map((r) => AuthActions.LoginSuccess(r)),
                         catchError((e) => of(AuthActions.LoginFailure({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
-                    )
+                    );
+            }
             )
         )
     );
@@ -47,6 +50,7 @@ export class AuthEffects
                 {
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                     this.dialogHandler.CloseDialog();
+                    console.log("URL", this.router);
                     if (this.router.url.includes(AuthRoutes.Login))
                         this.router.navigateByUrl(DashboardRoutes.Home);
                 })

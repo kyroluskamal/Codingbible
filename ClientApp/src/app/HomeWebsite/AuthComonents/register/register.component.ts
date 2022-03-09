@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import * as Routes from '../../../../Helpers/router-constants';
+import { AuthRoutes } from '../../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
-import * as Constants from '../../../../Helpers/constants';
+import
+{
+  ClientUrl, defaultFormAppearance, FormConstants, FormControlNames,
+  FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, Password_minlength, validators
+} from '../../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { ClientSideValidationService } from '../../../../CommonServices/client-side-validation.service';
 import { CustomValidators } from '../../../../Helpers/custom-validators';
@@ -19,13 +23,20 @@ import { IsInProgress, Register } from 'src/State/AuthState/auth.actions';
 export class RegisterComponent implements OnInit
 {
   BootstrapIcons = IconNamesEnum;
-  Constants = Constants;
   RegisterForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors = this.store.select(selectValidationErrors);
+  FormControlNames = FormControlNames;
+  InputFieldTypes = InputFieldTypes;
+  FormFieldsNames = FormFieldsNames;
+  defaultFormAppearance = defaultFormAppearance;
+  FormValidationErrorsNames = FormValidationErrorsNames;
+  FormValidationErrors = FormValidationErrors;
+  FormConstants = FormConstants;
+  AuthRoutes = AuthRoutes;
+  Password_minlength = Password_minlength;
   loading = this.store.select(selectIsInProgress);
-  Routes = Routes;
-  constructor(public formBuilder: FormBuilder, private store: Store,
+  constructor(public formBuilder: FormBuilder, public store: Store,
     private ClientSideValidationService: ClientSideValidationService,
     public dialogHandler: DialogHandlerService) { }
   @Input() CloseIconHide: boolean = false;
@@ -35,28 +46,20 @@ export class RegisterComponent implements OnInit
   {
     this.RegisterForm = this.formBuilder.group({
       email: [null,
-        [Validators.required, Validators.email, Validators.pattern(Constants.ConstRegex.EmailRegex)]
+        [validators.required, validators.email]
       ],
-      password: [null,
-        Validators.compose([
-          Validators.required,
-          CustomValidators.patternValidator(/\d/, { hasNumber: true }),
-          CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-          CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-          CustomValidators.patternValidator(/[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/, { hasSpecialCharacters: true }),
-          Validators.minLength(8)])
-      ],
+      password: [null, [validators.required, validators.password, validators.minLength_8]],
       confirmpassword: [null,
-        [Validators.required]
+        [validators.required, validators.minLength_8]
       ],
       username: [null,
-        [Validators.required]
+        [validators.required]
       ],
       firstname: [null,
-        [Validators.required]
+        [validators.required]
       ],
       lastname: [null,
-        [Validators.required]
+        [validators.required]
       ],
     },
       {
@@ -68,7 +71,7 @@ export class RegisterComponent implements OnInit
   {
     let registerObj: RegisterViewModel = new RegisterViewModel();
     this.ClientSideValidationService.FillObjectFromForm(registerObj, this.RegisterForm);
-    registerObj.clientUrl = Constants.ClientUrl(Routes.AuthRoutes.emailConfirmation);
+    registerObj.clientUrl = ClientUrl(AuthRoutes.emailConfirmation);
     this.store.dispatch(IsInProgress({ isLoading: true }));
     this.store.dispatch(Register(registerObj));
   }

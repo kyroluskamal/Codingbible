@@ -183,16 +183,15 @@ namespace CodingBible
             {
                 app.UseSpaStaticFiles();
             }
-
             app.UseRouting();
             app.UseSession();
-
             app.UseCookiePolicy();
             app.UseCors(policy =>
             {
                 policy.AllowAnyOrigin();
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
+                policy.WithOrigins("http://localhost:9876", "https://*.localhost:5001");
             });
 
             app.UseAuthorization();

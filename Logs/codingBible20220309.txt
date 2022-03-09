@@ -1,0 +1,118 @@
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 13:49:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 13:49:48 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 13:50:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 13:56:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 13:58:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 14:00:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 14:00:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 14:00:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/03/2022 14:05:33 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 11048
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

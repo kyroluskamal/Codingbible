@@ -12,8 +12,9 @@
           (ngSubmit)="RegisterForm.valid">
         <div class="form-container calibri-font p-3 row overflow-hidden">
             <div class="alert alert-danger"
+                 data-testid="invalidErrors"
                  *ngIf="(ValidationErrors|async)?.length!>0">
-                <p><strong>{{Constants.FormValidationErrors.PleaseCorrectErrors}}</strong></p>
+                <p><strong>{{FormValidationErrors.PleaseCorrectErrors}}</strong></p>
                 <ul>
                     <li *ngFor="let error of (ValidationErrors|async)">
                         <strong>{{error.key}}</strong> : {{error.message}}
@@ -23,38 +24,40 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                 Email                                             ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.Email}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.Email}}</span></mat-label>
                 <input matInput
-                       [type]="Constants.InputFieldTypes.email"
+                       [type]="InputFieldTypes.email"
                        value=""
+                       required
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.email"
-                       [placeholder]="Constants.FormConstants.PlaceHolders.emailExample" />
+                       [formControlName]="FormControlNames.authForm.email"
+                       [placeholder]="FormConstants.PlaceHolders.emailExample" />
                 <mat-icon matSuffix>email</mat-icon>
 
                 <mat-error
-                           *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.email)?.hasError(Constants.FormValidationErrorsNames.pattern)">
-                    {{Constants.FormValidationErrors.EnterValidEmail}}
+                           *ngIf="RegisterForm.get(FormControlNames.authForm.email)?.hasError(FormValidationErrorsNames.pattern)">
+                    {{FormValidationErrors.EnterValidEmail}}
                 </mat-error>
                 <mat-error
                            *ngIf="
-                           RegisterForm.get(Constants.FormControlNames.authForm.email)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.EnterValidEmail}}
+                           RegisterForm.get(FormControlNames.authForm.email)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.EnterValidEmail}}
                 </mat-error>
             </mat-form-field>
             <!-- ----------------------------------------------------------------------------------
             ||                                 UserName                                             ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.Username}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.Username}}</span></mat-label>
                 <input matInput
-                       [type]="Constants.InputFieldTypes.text"
+                       [type]="InputFieldTypes.text"
                        value=""
+                       required
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.username" />
+                       [formControlName]="FormControlNames.authForm.username" />
                 <mat-icon matSuffix>
                     <i-bs [name]="BootstrapIcons.PersonFill"
                           width="30"
@@ -64,22 +67,23 @@
 
                 <mat-error
                            *ngIf="
-                       RegisterForm.get(Constants.FormControlNames.authForm.username)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.RequiredField}}
+                       RegisterForm.get(FormControlNames.authForm.username)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
             <!-- ----------------------------------------------------------------------------------
             ||                                First name and last name                           ||  
             --------------------------------------------------------------------------------------->
 
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.FirstName}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.FirstName}}</span></mat-label>
                 <input matInput
-                       [type]="Constants.InputFieldTypes.text"
+                       [type]="InputFieldTypes.text"
                        value=""
+                       required
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.firstname" />
+                       [formControlName]="FormControlNames.authForm.firstname" />
                 <mat-icon matSuffix>
                     <i-bs [name]="BootstrapIcons.PenFill"
                           width="25"
@@ -89,18 +93,19 @@
 
                 <mat-error
                            *ngIf="
-                       RegisterForm.get(Constants.FormControlNames.authForm.firstname)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.RequiredField}}
+                       RegisterForm.get(FormControlNames.authForm.firstname)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.LastName}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.LastName}}</span></mat-label>
                 <input matInput
-                       [type]="Constants.InputFieldTypes.text"
+                       required
+                       [type]="InputFieldTypes.text"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.lastname" />
+                       [formControlName]="FormControlNames.authForm.lastname" />
                 <mat-icon matSuffix>
                     <i-bs [name]="BootstrapIcons.PenFill"
                           width="25"
@@ -110,80 +115,84 @@
 
                 <mat-error
                            *ngIf="
-                       RegisterForm.get(Constants.FormControlNames.authForm.lastname)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.RequiredField}}
+                       RegisterForm.get(FormControlNames.authForm.lastname)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
             </mat-form-field>
 
             <!-- ----------------------------------------------------------------------------------
             ||                                Password                                            ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.Passowrd}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.Passowrd}}</span></mat-label>
                 <input matInput
                        #password
                        [tooltip]="PasswordValidations"
-                       tooltipPlacement="right"
-                       [tooltipIsOpen]="RegisterForm.get(Constants.FormControlNames.authForm.password)?.errors&&password.value?true:false"
-                       tooltipTrigger="focus"
-                       [type]="Constants.InputFieldTypes.password"
+                       placement="right"
+                       container="body"
+                       boundariesElement="window"
+                       [isOpen]="RegisterForm.get(FormControlNames.authForm.password)?.errors&&password.value?true:false"
+                       triggers="focus"
+                       required
+                       [minlength]="Password_minlength"
+                       [type]="InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.password" />
+                       [formControlName]="FormControlNames.authForm.password" />
                 <mat-icon matSuffix
-                          (click)="password.type===Constants.InputFieldTypes.password?
-                          password.type=Constants.InputFieldTypes.text:password.type===Constants.InputFieldTypes.text?
-                          password.type=Constants.InputFieldTypes.password:''">
+                          (click)="password.type===InputFieldTypes.password?
+                          password.type=InputFieldTypes.text:password.type===InputFieldTypes.text?
+                          password.type=InputFieldTypes.password:''">
                     <span class="material-icons cursor-pointer">
-                        {{password.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
+                        {{password.type===InputFieldTypes.password?'visibility':'visibility_off'}}
                     </span>
                 </mat-icon>
                 <mat-error
-                           *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.RequiredField}}
+                           *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
                 <ng-template #PasswordValidations>
                     <ul class="text-start"
-                        *ngIf="!RegisterForm.get(Constants.FormControlNames.authForm.password)?.value">
+                        *ngIf="!RegisterForm.get(FormControlNames.authForm.password)?.value">
                         <li>
-                            {{Constants.FormValidationErrors.Password.minLength}}
+                            {{FormValidationErrors.Password.minLength}}
                         </li>
                         <li>
-                            {{Constants.FormValidationErrors.Password.hasCapitalCase}}
+                            {{FormValidationErrors.Password.hasCapitalCase}}
                         </li>
                         <li>
-                            {{Constants.FormValidationErrors.Password.hasNumber}}
+                            {{FormValidationErrors.Password.hasNumber}}
                         </li>
                         <li>
-                            {{Constants.FormValidationErrors.Password.hasSmallCase}}
+                            {{FormValidationErrors.Password.hasSmallCase}}
                         </li>
                         <li>
-                            {{Constants.FormValidationErrors.Password.hasSpecialCharacters}}
+                            {{FormValidationErrors.Password.hasSpecialCharacters}}
                         </li>
                     </ul>
                     <ul class="text-start"
-                        *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.value">
+                        *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.value">
                         <li *ngIf="
-                             RegisterForm.get(Constants.FormControlNames.authForm.password)?.
-                             hasError(Constants.FormValidationErrorsNames.password.minLength)">
-                            {{Constants.FormValidationErrors.Password.minLength}}
+                             RegisterForm.get(FormControlNames.authForm.password)?.
+                             hasError(FormValidationErrorsNames.password.minLength)">
+                            {{FormValidationErrors.Password.minLength}}
                         </li>
-                        <li *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.
-                        hasError(Constants.FormValidationErrorsNames.password.hasCapitalCase)">
-                            {{Constants.FormValidationErrors.Password.hasCapitalCase}}
+                        <li *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.
+                        hasError(FormValidationErrorsNames.password.hasCapitalCase)">
+                            {{FormValidationErrors.Password.hasCapitalCase}}
                         </li>
-                        <li *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.
-                        hasError(Constants.FormValidationErrorsNames.password.hasNumber)">
-                            {{Constants.FormValidationErrors.Password.hasNumber}}
+                        <li *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.
+                        hasError(FormValidationErrorsNames.password.hasNumber)">
+                            {{FormValidationErrors.Password.hasNumber}}
                         </li>
-                        <li *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.
-                        hasError(Constants.FormValidationErrorsNames.password.hasSmallCase)">
-                            {{Constants.FormValidationErrors.Password.hasSmallCase}}
+                        <li *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.
+                        hasError(FormValidationErrorsNames.password.hasSmallCase)">
+                            {{FormValidationErrors.Password.hasSmallCase}}
                         </li>
-                        <li *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.password)?.
-                        hasError(Constants.FormValidationErrorsNames.password.hasSpecialCharacters)">
-                            {{Constants.FormValidationErrors.Password.hasSpecialCharacters}}
+                        <li *ngIf="RegisterForm.get(FormControlNames.authForm.password)?.
+                        hasError(FormValidationErrorsNames.password.hasSpecialCharacters)">
+                            {{FormValidationErrors.Password.hasSpecialCharacters}}
                         </li>
                     </ul>
                 </ng-template>
@@ -191,30 +200,32 @@
             <!-- ----------------------------------------------------------------------------------
             ||                                Confirm Password                                    ||  
             --------------------------------------------------------------------------------------->
-            <mat-form-field [appearance]="Constants.defaultFormAppearance"
+            <mat-form-field [appearance]="defaultFormAppearance"
                             class="col">
-                <mat-label><span>{{Constants.FormFieldsNames.authForm.ConfirmPassword}}</span></mat-label>
+                <mat-label><span>{{FormFieldsNames.authForm.ConfirmPassword}}</span></mat-label>
                 <input matInput
                        #ConfirmPassword
-                       [type]="Constants.InputFieldTypes.password"
+                       [type]="InputFieldTypes.password"
                        value=""
+                       required
+                       [minlength]="Password_minlength"
                        [errorStateMatcher]="customErrorStateMatcher"
-                       [formControlName]="Constants.FormControlNames.authForm.confirmpassword" />
+                       [formControlName]="FormControlNames.authForm.confirmpassword" />
                 <mat-icon matSuffix
-                          (click)="ConfirmPassword.type===Constants.InputFieldTypes.password?
-                          ConfirmPassword.type=Constants.InputFieldTypes.text:ConfirmPassword.type===Constants.InputFieldTypes.text?
-                          ConfirmPassword.type=Constants.InputFieldTypes.password:''">
+                          (click)="ConfirmPassword.type===InputFieldTypes.password?
+                          ConfirmPassword.type=InputFieldTypes.text:ConfirmPassword.type===InputFieldTypes.text?
+                          ConfirmPassword.type=InputFieldTypes.password:''">
                     <span class="material-icons cursor-pointer">
-                        {{ConfirmPassword.type===Constants.InputFieldTypes.password?'visibility':'visibility_off'}}
+                        {{ConfirmPassword.type===InputFieldTypes.password?'visibility':'visibility_off'}}
                     </span>
                 </mat-icon>
                 <mat-error
-                           *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.confirmpassword)?.hasError(Constants.FormValidationErrorsNames.required)">
-                    {{Constants.FormValidationErrors.RequiredField}}
+                           *ngIf="RegisterForm.get(FormControlNames.authForm.confirmpassword)?.hasError(FormValidationErrorsNames.required)">
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
                 <mat-error
-                           *ngIf="RegisterForm.get(Constants.FormControlNames.authForm.confirmpassword)?.hasError(Constants.FormValidationErrorsNames.password.NoPassswordMatch)">
-                    {{Constants.FormValidationErrors.Password.NoPassswordMatch}}
+                           *ngIf="RegisterForm.get(FormControlNames.authForm.confirmpassword)?.hasError(FormValidationErrorsNames.password.NoPassswordMatch)">
+                    {{FormValidationErrors.Password.NoPassswordMatch}}
                 </mat-error>
             </mat-form-field>
             <!------------------------Mat-Dialog-actions--------------------------->
@@ -224,6 +235,7 @@
                         dir="ltr"
                         [disabled]="RegisterForm.invalid || (RegisterForm.valid && (loading|async))"
                         class="w-100 mt-3"
+                        data-testid="registerBtn"
                         aria-label="press to login"
                         (click)="Register()">
                     <mat-icon *ngIf="(loading|async)">
@@ -231,7 +243,7 @@
                                      color="warn"></mat-spinner>
                     </mat-icon>
                     {{(RegisterForm.valid || RegisterForm.invalid) &&
-                    !(loading|async)?Constants.FormConstants.Register:''}}
+                    !(loading|async)?FormConstants.Register:''}}
                 </button>
             </div>
             <!--End Mat-Dialog-actions-->
@@ -240,18 +252,17 @@
     </form>
     <p *ngIf="ShowCardFooter"
        class="calibri-font m-3 fs-6 d-flex justify-content-center">
-        {{Constants.FormConstants.DontHaveAccount}}&nbsp; <a
-           class="text-decoration-none btn-link fw-bold cursor-pointer"
+        {{FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
            (click)="dialogHandler.CloseDialog();dialogHandler.OpenLogin()">
-            {{Constants.FormConstants.Login}}.
+            {{FormConstants.Login}}.
         </a>
     </p>
 </mat-card>
 <p *ngIf="!ShowCardFooter"
    class="calibri-font mt-3 fs-6 d-flex justify-content-center">
-    {{Constants.FormConstants.AlreadyHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
+    {{FormConstants.AlreadyHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
        (click)="dialogHandler.CloseDialog();"
-       [routerLink]="['',Routes.AuthRoutes.Login]">
-        {{Constants.FormConstants.Login}}.
+       [routerLink]="['',AuthRoutes.Login]">
+        {{FormConstants.Login}}.
     </a>
 </p>

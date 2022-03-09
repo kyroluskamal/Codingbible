@@ -1,33 +1,43 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { LoginPageComponent } from "./login-page.component";
-
+import { createComponentFactory, createRoutingFactory, Spectator, SpectatorRouting } from '@ngneat/spectator';
+import { LoginComponent } from '../AuthComonents/login/login.component';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler';
+import { MockComponent } from 'ng-mocks';
+import { AuthRoutes } from "src/Helpers/router-constants";
 describe("LoginPageComponent", () =>
 {
-  let component: LoginPageComponent;
-  let fixture: ComponentFixture<LoginPageComponent>;
-
-  beforeEach(async () =>
-  {
-    await TestBed.configureTestingModule({
-      declarations: [LoginPageComponent],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: []
-    }).compileComponents();
+  let Spectator: SpectatorRouting<LoginPageComponent>;
+  const createComponent = createRoutingFactory({
+    component: LoginPageComponent,
+    declarations: [MockComponent(LoginComponent)],
+    schemas: [NO_ERRORS_SCHEMA],
+    shallow: false
   });
-
   beforeEach(() =>
   {
-    fixture = TestBed.createComponent(LoginPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  describe('method1', () =>
-  {
-    it('should contain app-login', () =>
-    {
-      expect(component).toBeTruthy();
+    Spectator = createComponent({
+      detectChanges: true
     });
   });
+  it("has app-login", () =>
+  {
+    let app_login = Spectator.query(LoginComponent);
+    expect(app_login).toBeTruthy();
+  });
+  it("has app-login with [CloseIconHide] attribute to be true", () =>
+  {
+    let app_login = Spectator.query(LoginComponent);
+    expect(app_login).toHaveProperty('CloseIconHide', true);
+  });
+  it("has app-login with [ShowCardFooter] attribute to be false", () =>
+  {
+    let app_login = Spectator.query(LoginComponent);
+    expect(app_login).toHaveProperty('ShowCardFooter', false);
+  });
+  it("has div element to center the app-login component", () =>
+  {
+    let div = Spectator.query('div');
+    expect(div).toHaveClass(['d-flex', 'align-items-center', 'justify-content-center'], { strict: false });
+  });
+
 });

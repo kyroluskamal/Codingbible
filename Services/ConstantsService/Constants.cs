@@ -97,6 +97,7 @@ namespace CodingBible.Services.ConstantsService
         public static class DataAnotationErrorMessages
         {
             public const string Email_notValid = "Please, Enter a valid email";
+            public const string Password_notValid = "Please, Enter a valid password";
             public const string Confirm_Password_error = "Password and confirmed password don't match";
             public const string Field_required_error = "This field is required";
             public static string RangeError(int min, int max){

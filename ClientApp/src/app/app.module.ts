@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeWebsiteModule } from './HomeWebsite/home-website.module';
@@ -25,7 +23,7 @@ import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
 import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
 
 
-function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
+export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 {
   return localStorageSync({
     keys: [
@@ -37,7 +35,7 @@ function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReduce
   })(reducer);
 }
 
-const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
+export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
 
 @NgModule({
   declarations: [

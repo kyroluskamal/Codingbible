@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
-const routes: Routes = [
+export const RoutesForHomeModule: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
   { path: HomeRoutes.Home.toLowerCase(), component: HomeComponent },
   { path: AuthRoutes.Login.toLowerCase(), component: LoginPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
@@ -19,7 +19,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(RoutesForHomeModule)],
   exports: [RouterModule]
 })
 export class HomeWebsiteRoutingModule { }

@@ -23,7 +23,7 @@ export class PostEffects
 
   constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
     public dialogHandler: DialogHandlerService, private postService: PostService, private store: Store,
-    private router: Router, private spinner: SpinnerService, private NotificationService: NotificationsService) { }
+    private router: Router, private spinner: SpinnerService) { }
 
   AddPost$ = createEffect(() =>
     this.actions$.pipe(
@@ -35,7 +35,7 @@ export class PostEffects
           map((r) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Success_Swal(NotificationMessage.Success.Addition('Post'));
+            this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Post'));
             this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.EditPost], { queryParams: { id: r.id } });
             return AddPOST_Success(r);
           }),
@@ -58,7 +58,7 @@ export class PostEffects
           map((r) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Success_Swal(NotificationMessage.Success.Update('Post'));
+            this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Post'));
             let x: Update<Post> = {
               id: action.id,
               changes: action
@@ -69,7 +69,7 @@ export class PostEffects
           {
             console.log(e);
             this.spinner.removeSpinner();
-            this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
+            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
             return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
           })
         );
@@ -85,7 +85,7 @@ export class PostEffects
           map((r) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Success_Swal(NotificationMessage.Success.Update('Post status'));
+            this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Post status'));
             let x: Update<Post> = {
               id: action.id,
               changes: action
@@ -95,7 +95,7 @@ export class PostEffects
           catchError((e) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post status'));
+            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post status'));
             return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
           })
         );
@@ -128,7 +128,7 @@ export class PostEffects
           map((r) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Success_Swal(NotificationMessage.Success.Delete('Post'));
+            this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Post'));
             if (action.source === DashboardRoutes.Posts.EditPost)
               this.router.navigate(['', DashboardRoutes.Home]);
             return RemovePOST_Success({ id: action.id });
@@ -136,7 +136,7 @@ export class PostEffects
           catchError((e) =>
           {
             this.spinner.removeSpinner();
-            this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Post'));
+            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Post'));
             return of(RemovePOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
           })
         );

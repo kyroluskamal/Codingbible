@@ -1,0 +1,331 @@
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:06:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:07:49 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:09:37 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:39:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:53:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 07/03/2022 21:54:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:27:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:27:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:40:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:58:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:58:27 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 00:58:57 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 01:00:28 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 01:00:33 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMG0DPH0TM8V:00000002"
+RequestPath : "/ws"
+ConnectionId : "0HMG0DPH0TM8V"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The remote party closed the WebSocket connection without completing the close handshake.)
+ ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PumpWebSocket(WebSocket source, WebSocket destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.AcceptProxyWebSocketRequest(HttpContext context, Uri destinationUri, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PumpWebSocket(WebSocket source, WebSocket destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.AcceptProxyWebSocketRequest(HttpContext context, Uri destinationUri, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The remote party closed the WebSocket connection without completing the close handshake.)Source - Microsoft.AspNetCore.SpaServices.ExtensionsInnerException - System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 01:00:33 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 2, Name: "ResponseStarted" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMG0DPH0TM8V:00000002"
+RequestPath : "/ws"
+ConnectionId : "0HMG0DPH0TM8V"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 01:00:34 +02:00 | Level - Error |
+----------------------------------------------------------------------
+ConnectionId : "0HMG0DPH0TM8V"
+TraceIdentifier : "0HMG0DPH0TM8V:00000002"
+EventId : { Id: 13, Name: "ApplicationError" }
+SourceContext : "Microsoft.AspNetCore.Server.Kestrel"
+RequestId : "0HMG0DPH0TM8V:00000002"
+RequestPath : "/ws"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The remote party closed the WebSocket connection without completing the close handshake.)
+ ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PumpWebSocket(WebSocket source, WebSocket destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.AcceptProxyWebSocketRequest(HttpContext context, Uri destinationUri, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)StackTrace -    at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PumpWebSocket(WebSocket source, WebSocket destination, Int32 bufferSize, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.AcceptProxyWebSocketRequest(HttpContext context, Uri destinationUri, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)Message - One or more errors occurred. (The remote party closed the WebSocket connection without completing the close handshake.)Source - Microsoft.AspNetCore.SpaServices.ExtensionsInnerException - System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+ ---> System.IO.IOException: Unable to read data from the transport connection: An existing connection was forcibly closed by the remote host..
+ ---> System.Net.Sockets.SocketException (10054): An existing connection was forcibly closed by the remote host.
+   --- End of inner exception stack trace ---
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource<System.Int32>.GetResult(Int16 token)
+   at System.Net.Http.HttpConnection.ReadBufferedAsyncCore(Memory`1 destination)
+   at System.Net.Http.HttpConnection.RawConnectionStream.ReadAsync(Memory`1 buffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken, Boolean throwOnPrematureClosure)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 08/03/2022 01:04:23 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.2"
+UserName : "kyrolus"
+ProcessId : 13096
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

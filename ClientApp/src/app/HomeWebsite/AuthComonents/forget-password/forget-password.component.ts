@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
-import * as Constants from '../../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { ForgetPasswordModel } from '../../../../models.model';
 import { AuthRoutes } from 'src/Helpers/router-constants';
 import { Store } from '@ngrx/store';
 import { selectIsInProgress, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
 import { ForgetPassword, IsInProgress } from 'src/State/AuthState/auth.actions';
+import { ClientUrl, defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, validators } from 'src/Helpers/constants';
 @Component({
   selector: 'app-forget-password',
   templateUrl: './forget-password.component.html',
@@ -15,13 +15,19 @@ import { ForgetPassword, IsInProgress } from 'src/State/AuthState/auth.actions';
 })
 export class ForgetPasswordComponent implements OnInit
 {
-  Constants = Constants;
+  FormControlNames = FormControlNames;
+  InputFieldTypes = InputFieldTypes;
+  FormFieldsNames = FormFieldsNames;
+  defaultFormAppearance = defaultFormAppearance;
+  FormValidationErrorsNames = FormValidationErrorsNames;
+  FormValidationErrors = FormValidationErrors;
+  FormConstants = FormConstants;
   ForgetPassworForm = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors = this.store.select(selectValidationErrors);
   loading = this.store.select(selectIsInProgress);
   //Constructor
-  constructor(public formBuilder: FormBuilder, private store: Store,
+  constructor(public formBuilder: FormBuilder, public store: Store,
     public dialogHandler: DialogHandlerService)
   {
   }
@@ -31,7 +37,7 @@ export class ForgetPasswordComponent implements OnInit
 
     this.ForgetPassworForm = this.formBuilder.group({
       email: [null,
-        [Validators.pattern(Constants.ConstRegex.EmailRegex), Validators.required]
+        [validators.email, validators.required]
       ]
     });
   }
@@ -39,9 +45,10 @@ export class ForgetPasswordComponent implements OnInit
   //new Functions
   OnSubmit()
   {
+    if (this.ForgetPassworForm.invalid) return;
     const ForgetPasswordModel: ForgetPasswordModel = {
-      email: this.ForgetPassworForm.get(Constants.FormControlNames.authForm.email)?.value,
-      clientUrl: Constants.ClientUrl(AuthRoutes.ResetPassword)
+      email: this.ForgetPassworForm.get(FormControlNames.authForm.email)?.value,
+      clientUrl: ClientUrl(AuthRoutes.ResetPassword)
     };
     this.store.dispatch(IsInProgress({ isLoading: true }));
     this.store.dispatch(ForgetPassword(ForgetPasswordModel));

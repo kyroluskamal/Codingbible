@@ -124,6 +124,37 @@ namespace CodingBible.Controllers.api.v1
                 return BadRequest(ex);
             }
         }
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
+        [Route(nameof(ChangStatus))]
+        public async Task<IActionResult> ChangStatus([FromBody] Post Post){
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var getPost = await UnitOfWork.Posts.GetAsync(Post.Id);
+                    if (getPost == null)
+                    {
+                        return NotFound();
+                    }
+                    getPost.Status = Post.Status;
+                    UnitOfWork.Posts.Update(getPost);
+                    var result = await UnitOfWork.SaveAsync();
+                    if (result > 0)
+                    {
+                        return Ok(Constants.HttpResponses.Update_Sucess($"{getPost.Title}"));
+                    }
+                    return BadRequest(Constants.HttpResponses.Update_Failed($"{getPost.Title}"));
+                }
+                return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+            }
+            catch (Exception ex) {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                return BadRequest(ex);
+            }
+        }
 
         [HttpDelete]
         [Authorize(AuthenticationSchemes = "Custom")]

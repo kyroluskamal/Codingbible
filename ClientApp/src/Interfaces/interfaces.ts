@@ -155,22 +155,7 @@ export class MatGroupOptionsForMatSelect
   options: any;
   disabled: boolean = false;
 }
-export abstract class FormFieldType
-{
-  public static text = 'text';
-  public static checkbox = 'checkbox';
-  public static search = 'search';
-  public static chip_autocomplete = 'chip-autocomplete';
-  public static email = 'email';
-  public static tel = 'tel';
-  public static textarea = 'textarea';
-  public static OneFile = 'OneFile';
-  public static image = 'image';
-  public static select = 'select';
-  public static date = 'date';
-  public static number = 'number';
-  public static array = 'array';
-}
+
 export class MatError
 {
   type: string = "";

@@ -76,7 +76,7 @@ export class ServerResponseHandelerService
     {
       errors.push(...this.GetIdentityErrors(e.error.message));
     }
-    else
+    else if (e.error.status !== 400)
     {
       errors.push({ key: e.error.status, message: e.error.message });
     }
