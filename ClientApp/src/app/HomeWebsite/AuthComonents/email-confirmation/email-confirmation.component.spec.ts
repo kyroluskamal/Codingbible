@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { AppModule } from "src/app/app.module";
 import { EmailConfirmationComponent } from "./email-confirmation.component";
@@ -8,11 +9,13 @@ describe("EmailConfirmationComponent", () =>
     let successH1tag: HTMLElement | null;
     let failH1tag: HTMLHeadElement | null;
     let loginLink: HTMLAnchorElement | null;
-    let errorMessageH3Tag: HTMLHeadingElement | null;
+    let failMessage: HTMLHeadingElement | null;
 
     const createComponent = createRoutingFactory({
         component: EmailConfirmationComponent,
-        imports: [AppModule]
+        imports: [AppModule],
+        stubsEnabled: false,
+        shallow: false
     });
     beforeEach(() =>
     {
@@ -22,8 +25,11 @@ describe("EmailConfirmationComponent", () =>
     {
         beforeEach(() =>
         {
+            spectator.component.ngOnInit();
             spectator.component.Success = true;
             spectator.component.Fail = false;
+            spectator.component.email = "fdfdfdfd@gkdfjskd.com";
+            spectator.component.token = "ddfdfdfdfdfdfd";
             spectator.detectChanges();
             successH1tag = spectator.query(byTestId("success"));
             loginLink = spectator.query(byTestId("loginlink"));
@@ -33,13 +39,52 @@ describe("EmailConfirmationComponent", () =>
             expect(successH1tag?.tagName).toBe("H1");
             expect(successH1tag?.innerText).toEqual("Email is confirmed successfully");
         });
-        it("ensure that h1 has classes alert and alert-danger", () =>
+        it("ensure that h1 has classes alert and alert-sucess", () =>
         {
             expect(successH1tag).toHaveClass(['alert', 'alert-success']);
         });
         it("ensure that login link is found", () =>
         {
             expect(loginLink).toHaveAttribute("ng-reflect-router-link", "/login");
+        });
+    });
+    describe("Failed case", () =>
+    {
+        beforeEach(() =>
+        {
+            spectator.component.ngOnInit();
+            spectator.component.Success = false;
+            spectator.component.Fail = true;
+            spectator.component.email = "fdfdfdfd@gkdfjskd.com";
+            spectator.component.token = "ddfdfdfdfdfdfd";
+            spectator.detectChanges();
+            successH1tag = spectator.query(byTestId("success"));
+            failH1tag = spectator.query(byTestId("fail"));
+            failMessage = spectator.query(byTestId("failMessage"));
+        });
+        it("finds h1 with title Email confirmation failed", () =>
+        {
+            expect(failH1tag?.tagName).toBe("H1");
+            expect(failH1tag?.innerText).toEqual("Email confirmation failed");
+        });
+        it("ensure that h1 has classes alert and alert-danger", () =>
+        {
+            expect(failH1tag).toHaveClass(['alert', 'alert-danger']);
+        });
+        it("ensure that the error message is found", () =>
+        {
+            expect(failMessage).toExist();
+            expect(failMessage).toHaveClass(['h3', 'alert']);
+        });
+    });
+    describe("direction to homepage if the link doesn't contain email or token", () =>
+    {
+        it("redirect to '/' if no email or token", async () =>
+        {
+            spectator.component.ngOnInit();
+            spectator.component.email = null;
+            await spectator.fixture.whenStable();
+            expect(spectator.inject(Location).path()).toBe("/");
         });
     });
 });
