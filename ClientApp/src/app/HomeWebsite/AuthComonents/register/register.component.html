@@ -135,7 +135,7 @@
                        [isOpen]="RegisterForm.get(FormControlNames.authForm.password)?.errors&&password.value?true:false"
                        triggers="focus"
                        required
-                       [minlength]="Password_minlength"
+                       [minlength]="PASSWORD_MINLENGTH"
                        [type]="InputFieldTypes.password"
                        value=""
                        [errorStateMatcher]="customErrorStateMatcher"
@@ -208,7 +208,7 @@
                        [type]="InputFieldTypes.password"
                        value=""
                        required
-                       [minlength]="Password_minlength"
+                       [minlength]="PASSWORD_MINLENGTH"
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="FormControlNames.authForm.confirmpassword" />
                 <mat-icon matSuffix

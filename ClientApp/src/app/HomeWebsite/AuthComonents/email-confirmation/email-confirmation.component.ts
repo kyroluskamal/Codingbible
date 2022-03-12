@@ -22,8 +22,8 @@ export class EmailConfirmationComponent implements OnInit
   email: string | null = "";
   token: string | null = "";
   //constructor
-  constructor(private route: ActivatedRoute, private router: Router,
-    private accountService: AccountService, public dialogHandler: DialogHandlerService,
+  constructor(public route: ActivatedRoute, public router: Router,
+    public accountService: AccountService,
   ) { }
   //ngOnInit
   ngOnInit(): void
@@ -40,7 +40,6 @@ export class EmailConfirmationComponent implements OnInit
           {
             this.Fail = true;
             this.Error = e.error;
-            console.log(e);
           }
         }
       );

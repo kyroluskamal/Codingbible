@@ -10,10 +10,9 @@ import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { CodingBibleEditorModule } from '../CodingBible_editor/coding-bible-editor.module';
 import { PostHandlerComponent } from './post-handler/post-handler.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
-import { MatCardTitleOnlyComponent } from '../CommonComponents/mat-card-title-only/mat-card-title-only.component';
 
 const components = [
-  DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent, MatCardTitleOnlyComponent
+  DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent,
 ];
 @NgModule({
   declarations: [components, PostHandlerComponent, EditPostComponent],

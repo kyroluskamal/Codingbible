@@ -7,7 +7,7 @@ import { ResetPasswordModel } from 'src/models.model';
 import { Store } from '@ngrx/store';
 import { selectIsInProgress, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
 import { IsInProgress, ResetPassword } from 'src/State/AuthState/auth.actions';
-import { AuthConstants, ConstRegex, defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, Password_minlength, validators } from 'src/Helpers/constants';
+import { AuthConstants, ConstRegex, defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PASSWORD_MINLENGTH, validators } from 'src/Helpers/constants';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormConstants = FormConstants;
-  Password_minlength = Password_minlength;
+  PASSWORD_MINLENGTH = PASSWORD_MINLENGTH;
   Form: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors = this.store.select(selectValidationErrors);
@@ -36,9 +36,9 @@ export class ResetPasswordComponent implements OnInit
   ngOnInit(): void
   {
     this.Form = this.formBuilder.group({
-      password: [null, [validators.required, validators.password, validators.minLength_8]],
+      password: [null, [validators.required, validators.password, validators.PASSWORD_MIN_LENGTH]],
       confirmpassword: [null,
-        [validators.required, validators.password, validators.minLength_8]
+        [validators.required, validators.password, validators.PASSWORD_MIN_LENGTH]
       ],
     },
       {

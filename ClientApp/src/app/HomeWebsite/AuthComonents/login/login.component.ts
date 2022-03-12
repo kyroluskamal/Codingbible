@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthRoutes } from '../../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
-import { ConstRegex, defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, Password_minlength, validators } from '../../../../Helpers/constants';
+import { ConstRegex, defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PASSWORD_MINLENGTH, validators } from '../../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { Store } from '@ngrx/store';
 import { IsInProgress, Login } from 'src/State/AuthState/auth.actions';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormConstants = FormConstants;
-  Password_minlength = Password_minlength;
+  PASSWORD_MINLENGTH = PASSWORD_MINLENGTH;
   AuthRoutes = AuthRoutes;
   //constructor
   constructor(public formBuilder: FormBuilder, public dialogHandler: DialogHandlerService,
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit
       ],
       password: [null,
         [validators.required, validators.password,
-        validators.minLength_8]]
+        validators.PASSWORD_MIN_LENGTH]]
       ,
       rememberme: [false]
     });

@@ -69,7 +69,7 @@
                        data-testid="pass"
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="FormControlNames.authForm.password"
-                       [minlength]="Password_minlength"
+                       [minlength]="PASSWORD_MINLENGTH"
                        required />
                 <mat-icon matSuffix
                           (click)="password.type===InputFieldTypes.password?
@@ -142,6 +142,7 @@
                            for="flexSwitchCheckChecked">{{FormConstants.RememberMe}}</label>
                 </div>
                 <a class="btn-link text-decoration-none fw-bold cursor-pointer"
+                   data-testid="forgetpass"
                    (click)="dialogHandler.CloseDialog(); dialogHandler.OpenForgetPassword()">Forget password?</a>
             </div>
             <!------------------------Mat-Dialog-actions--------------------------->
@@ -167,20 +168,24 @@
         </div>
 
     </form>
-    <p *ngIf="ShowCardFooter"
-       class="calibri-font m-3 fs-6 d-flex justify-content-center">
-        {{FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
-           (click)="dialogHandler.CloseDialog(); dialogHandler.OpenRegister();">
+    <ng-container *ngIf="ShowCardFooter">
+        <p class="calibri-font m-3 fs-6 d-flex justify-content-center">
+            {{FormConstants.DontHaveAccount}}&nbsp; <a data-testid="joinNow_CardFooterTrue"
+               class="text-decoration-none btn-link fw-bold cursor-pointer"
+               (click)="dialogHandler.CloseDialog(); dialogHandler.OpenRegister();">
+                {{FormConstants.JoinNow}}.
+            </a>
+        </p>
+    </ng-container>
+</mat-card>
+<ng-container *ngIf="!ShowCardFooter">
+    <p class="calibri-font mt-3 fs-6 d-flex justify-content-center">
+        {{FormConstants.DontHaveAccount}}&nbsp;
+        <a data-testid="joinNow_CardFooterFalse"
+           class="text-decoration-none btn-link fw-bold cursor-pointer"
+           (click)="dialogHandler.CloseDialog();"
+           [routerLink]="['',AuthRoutes.Register]">
             {{FormConstants.JoinNow}}.
         </a>
     </p>
-</mat-card>
-<p *ngIf="!ShowCardFooter"
-   class="calibri-font mt-3 fs-6 d-flex justify-content-center">
-    {{FormConstants.DontHaveAccount}}&nbsp;
-    <a class="text-decoration-none btn-link fw-bold cursor-pointer"
-       (click)="dialogHandler.CloseDialog();"
-       [routerLink]="['',AuthRoutes.Register]">
-        {{FormConstants.JoinNow}}.
-    </a>
-</p>
+</ng-container>

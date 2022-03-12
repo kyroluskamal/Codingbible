@@ -1,12 +1,21 @@
 import { HttpClient } from "@angular/common/http";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { byTestId, createRoutingFactory, Spectator } from "@ngneat/spectator";
-import { Store } from "@ngrx/store";
-import { AppModule } from "src/app/app.module";
+import { Store, StoreModule } from "@ngrx/store";
+import { MockService } from "ng-mocks";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { AppModule, metaReducers } from "src/app/app.module";
+import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
+import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
+import { AppReducers } from "src/State/app.state";
 import { RegisterFailure } from "src/State/AuthState/auth.actions";
 import { RegisterComponent } from "./register.component";
 
@@ -20,11 +29,15 @@ describe("RegisterComponent", () =>
     let userNameInput: HTMLInputElement | null;
     let registerBtn: HTMLInputElement | null;
     let spectator: Spectator<RegisterComponent>;
+    let DialogMocks = MockService(DialogHandlerService);
+
     const createComponent = createRoutingFactory({
         component: RegisterComponent,
-        imports: [AppModule],
-        providers: [FormBuilder, Store],
-        mocks: [HttpClient],
+        imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
+            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule],
+        providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        mocks: [ClientSideValidationService],
         shallow: false
     });
     beforeEach(() =>
@@ -76,7 +89,7 @@ describe("RegisterComponent", () =>
                 });
                 it(`has minlength 8 validator`, () =>
                 {
-                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.hasValidator(validators.minLength_8)).toBeTrue();
+                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
                 });
             });
             describe(`${toTitleCase(FormControlNames.authForm.confirmpassword)}`, () =>
@@ -91,7 +104,7 @@ describe("RegisterComponent", () =>
                 });
                 it(`has minlength 8 validator`, () =>
                 {
-                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.hasValidator(validators.minLength_8)).toBeTrue();
+                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
                 });
             });
             describe(`${toTitleCase(FormControlNames.authForm.firstname)}`, () =>
@@ -270,7 +283,7 @@ describe("RegisterComponent", () =>
         });
     });
 
-    describe("Server Side Validation [Mocking]", () =>
+    describe("Server Side Validation [Integration test with NGRX store]", () =>
     {
         describe("Register Form is valid", () =>
         {

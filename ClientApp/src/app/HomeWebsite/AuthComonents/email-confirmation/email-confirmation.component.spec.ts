@@ -1,24 +1,36 @@
 import { Location } from "@angular/common";
+import { HttpClient, HttpHandler } from "@angular/common/http";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { RouterModule, UrlSegment } from "@angular/router";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
+import { MockService } from "ng-mocks";
+import { Observable } from "rxjs";
 import { AppModule } from "src/app/app.module";
+import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
+import { AuthRoutes } from "src/Helpers/router-constants";
+import { AccountService } from "src/Services/account.service";
+import { RoutesForHomeModule } from "../../home-website-routing.module";
 import { EmailConfirmationComponent } from "./email-confirmation.component";
 
-describe("EmailConfirmationComponent", () =>
+describe("EmailConfirmationComponent [UNIT TEST]", () =>
 {
     let spectator: SpectatorRouting<EmailConfirmationComponent>;
     let successH1tag: HTMLElement | null;
     let failH1tag: HTMLHeadElement | null;
     let loginLink: HTMLAnchorElement | null;
     let failMessage: HTMLHeadingElement | null;
-
+    let accountServiceMocks = MockService(AccountService);
     const createComponent = createRoutingFactory({
         component: EmailConfirmationComponent,
-        imports: [AppModule],
+        imports: [RouterModule.forRoot(RoutesForHomeModule)],
+        providers: [{ provide: AccountService, useValue: accountServiceMocks }],
+        schemas: [NO_ERRORS_SCHEMA],
         stubsEnabled: false,
         shallow: false
     });
     beforeEach(() =>
     {
+        spyOn(accountServiceMocks, "EmailConfirmations").and.returnValue(new Observable<any>());
         spectator = createComponent({ detectChanges: true });
     });
     describe("Sucess case", () =>
@@ -64,6 +76,12 @@ describe("EmailConfirmationComponent", () =>
         });
         it("finds h1 with title Email confirmation failed", () =>
         {
+            spectator.component.Error = {
+                status: "test",
+                message: "Test message",
+                data: null,
+                tokenExpire: ""
+            };
             expect(failH1tag?.tagName).toBe("H1");
             expect(failH1tag?.innerText).toEqual("Email confirmation failed");
         });
@@ -81,10 +99,11 @@ describe("EmailConfirmationComponent", () =>
     {
         it("redirect to '/' if no email or token", async () =>
         {
+            // spectator.component.router.navigateByUrl("/" + AuthRoutes.emailConfirmation);
             spectator.component.ngOnInit();
             spectator.component.email = null;
             await spectator.fixture.whenStable();
-            expect(spectator.inject(Location).path()).toBe("/");
+            expect(spectator.inject(Location).path()).toBe("");
         });
     });
 });

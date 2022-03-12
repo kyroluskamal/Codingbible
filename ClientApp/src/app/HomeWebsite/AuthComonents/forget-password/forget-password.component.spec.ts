@@ -9,7 +9,7 @@ import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-fu
 import { ForgetPasswordFailure } from "src/State/AuthState/auth.actions";
 import { ForgetPasswordComponent } from "./forget-password.component";
 
-describe("LoginComponent", () =>
+describe("ForgetPasswordComponent [Unit Test]", () =>
 {
     let emailInput: HTMLInputElement | null;
     let SendBtn: HTMLButtonElement | null;

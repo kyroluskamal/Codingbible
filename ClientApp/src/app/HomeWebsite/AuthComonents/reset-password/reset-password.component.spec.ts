@@ -62,7 +62,7 @@ describe("RegisterComponent", () =>
                 });
                 it(`has minlength 8 validator`, () =>
                 {
-                    expect(spectator.component.Form.get(FormControlNames.authForm.password)?.hasValidator(validators.minLength_8)).toBeTrue();
+                    expect(spectator.component.Form.get(FormControlNames.authForm.password)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
                 });
             });
             describe(`${toTitleCase(FormControlNames.authForm.confirmpassword)}`, () =>
@@ -77,7 +77,7 @@ describe("RegisterComponent", () =>
                 });
                 it(`has minlength 8 validator`, () =>
                 {
-                    expect(spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.hasValidator(validators.minLength_8)).toBeTrue();
+                    expect(spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
                 });
             });
             it("has passwordMatchValidator", () =>

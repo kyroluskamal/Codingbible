@@ -41,7 +41,6 @@ import
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { MatCardTitleOnlyComponent } from 'src/app/CommonComponents/mat-card-title-only/mat-card-title-only.component';
 
 const icons = {
   personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill, pinAngleFill,
@@ -49,7 +48,7 @@ const icons = {
 };
 const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
-  MatBottomSheetModule, MatInputModule, MatFormFieldModule, MatStepperModule,
+  MatBottomSheetModule, MatInputModule, MatFormFieldModule,
   MatCheckboxModule, MatSidenavModule, MatNativeDateModule, NgxSpinnerModule,
   MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule, MatSnackBarModule,
   MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule, MatCardModule,

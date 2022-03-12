@@ -5,7 +5,7 @@ import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.
 import
 {
   ClientUrl, defaultFormAppearance, FormConstants, FormControlNames,
-  FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, Password_minlength, validators
+  FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PASSWORD_MINLENGTH, validators
 } from '../../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { ClientSideValidationService } from '../../../../CommonServices/client-side-validation.service';
@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit
   FormValidationErrors = FormValidationErrors;
   FormConstants = FormConstants;
   AuthRoutes = AuthRoutes;
-  Password_minlength = Password_minlength;
+  PASSWORD_MINLENGTH = PASSWORD_MINLENGTH;
   loading = this.store.select(selectIsInProgress);
   constructor(public formBuilder: FormBuilder, public store: Store,
     private ClientSideValidationService: ClientSideValidationService,
@@ -48,9 +48,9 @@ export class RegisterComponent implements OnInit
       email: [null,
         [validators.required, validators.email]
       ],
-      password: [null, [validators.required, validators.password, validators.minLength_8]],
+      password: [null, [validators.required, validators.password, validators.PASSWORD_MIN_LENGTH]],
       confirmpassword: [null,
-        [validators.required, validators.minLength_8]
+        [validators.required, validators.PASSWORD_MIN_LENGTH]
       ],
       username: [null,
         [validators.required]

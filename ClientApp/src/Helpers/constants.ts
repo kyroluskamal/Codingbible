@@ -289,10 +289,18 @@ export const actionNames = {
 };
 //#endregion
 //#region Validators
-export const Password_minlength = 8;
+export const PASSWORD_MINLENGTH = 8;
+export const POST_TITLE_MIN_LENGTH = 60;
+export const POST_TITLE_MAX_LENGTH = 70;
+export const POST_DESCRIPTION_MIN_LENGTH = 50;
+export const POST_DESCRIPTION_MAX_LENGTH = 160;
 export const validators = {
     required: Validators.required,
-    minLength_8: Validators.minLength(Password_minlength),
+    PASSWORD_MIN_LENGTH: Validators.minLength(PASSWORD_MINLENGTH),
+    POST_TITLE_MIN_LENGTH: Validators.minLength(POST_TITLE_MIN_LENGTH),
+    POST_TITLE_MAX_LENGTH: Validators.minLength(POST_TITLE_MAX_LENGTH),
+    POST_DESCRIPTION_MIN_LENGTH: Validators.minLength(POST_DESCRIPTION_MIN_LENGTH),
+    POST_DESCRIPTION_MAX_LENGTH: Validators.minLength(POST_DESCRIPTION_MAX_LENGTH),
     password: Validators.compose([
         CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
