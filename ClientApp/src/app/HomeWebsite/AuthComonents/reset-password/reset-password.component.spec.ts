@@ -1,16 +1,23 @@
 import { CommonModule, Location } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatCardModule } from "@angular/material/card";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatInputModule } from "@angular/material/input";
 import { NavigationEnd } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
-import { Store } from "@ngrx/store";
-import { AppModule } from "src/app/app.module";
+import { Store, StoreModule } from "@ngrx/store";
+import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { AppModule, metaReducers } from "src/app/app.module";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
+import { AppReducers } from "src/State/app.state";
 import { ResetPasswordFailure } from "src/State/AuthState/auth.actions";
+import { RoutesForHomeModule } from "../../home-website-routing.module";
 import { HomeComponent } from "../../home/home.component";
 import { ResetPasswordComponent } from "./reset-password.component";
 
@@ -24,9 +31,11 @@ describe("RegisterComponent", () =>
     const createComponent = createRoutingFactory({
         component: ResetPasswordComponent,
         declarations: [HomeComponent],
-        imports: [AppModule, RouterTestingModule],
+        imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
+            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule,
+        RouterTestingModule.withRoutes(RoutesForHomeModule)],
         providers: [FormBuilder, Store],
-        mocks: [HttpClient],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
         stubsEnabled: false,
         shallow: false
     });

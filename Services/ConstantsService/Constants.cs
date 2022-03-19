@@ -100,8 +100,12 @@ namespace CodingBible.Services.ConstantsService
             public const string Password_notValid = "Please, Enter a valid password";
             public const string Confirm_Password_error = "Password and confirmed password don't match";
             public const string Field_required_error = "This field is required";
+            public const string PasswordMinLength_Error = "Enter 8 character at least";
             public static string RangeError(int min, int max){
                 return $"Enter from {min} to {max}";
+            }
+            public static string MinStringLength(int min){
+                return $"Enter {min} characters at least";
             }
         }
         public static class HttpResponses

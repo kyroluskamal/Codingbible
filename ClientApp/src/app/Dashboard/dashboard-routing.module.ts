@@ -8,7 +8,7 @@ import { PostsDashboardComponent } from './posts-dashboard/posts-dashboard.compo
 import { AddPostsComponent } from './add-posts/add-posts.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 
-const routes: Routes = [
+export const DashBoardRoutesModule: Routes = [
   {
     path: '', component: DashboardHomeComponent, children: [
       {
@@ -18,12 +18,12 @@ const routes: Routes = [
           { path: DashboardRoutes.Posts.EditPost, component: EditPostComponent }
         ]
       }
-    ], canActivate: [AuthGuard]
+    ], //canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(DashBoardRoutesModule)],
   exports: [RouterModule]
 })
 export class DashboardRoutingModule { }

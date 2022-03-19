@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
-import { SweetAlertData, ThemeColor } from '../Interfaces/interfaces';
-import Swal, { SweetAlertCustomClass } from 'sweetalert2';
-import * as Constants from '../Helpers/constants';
+import { SweetAlertData } from '../Interfaces/interfaces';
+import Swal from 'sweetalert2';
+import { css } from 'src/Helpers/constants';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService
 {
 
-  Constants = Constants;
   constructor(public SnackBar: MatSnackBar)
   {
 
@@ -53,7 +51,7 @@ export class NotificationsService
       allowEnterKey: true,
       allowEscapeKey: true,
       allowOutsideClick: true,
-      customClass: { title: this.Constants.css.SwalErrorTitle },
+      customClass: { title: css.SwalErrorTitle },
     });
   }
   Success_Swal(message: string)
@@ -69,7 +67,7 @@ export class NotificationsService
       allowOutsideClick: true,
       scrollbarPadding: false,
       timer: 3500,
-      customClass: { htmlContainer: this.Constants.css.SwalHtmlContent },
+      customClass: { htmlContainer: css.SwalHtmlContent },
     });
   }
 

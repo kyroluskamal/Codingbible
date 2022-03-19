@@ -1,3 +1,4 @@
+import { Location } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
@@ -5,6 +6,7 @@ import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, Spectator } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
@@ -12,11 +14,13 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { AppModule, metaReducers } from "src/app/app.module";
 import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
-import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
+import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
+import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { RegisterFailure } from "src/State/AuthState/auth.actions";
+import { RoutesForHomeModule } from "../../home-website-routing.module";
 import { RegisterComponent } from "./register.component";
 
 describe("RegisterComponent", () =>
@@ -34,10 +38,11 @@ describe("RegisterComponent", () =>
     const createComponent = createRoutingFactory({
         component: RegisterComponent,
         imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
-            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule],
+            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule, RouterTestingModule.withRoutes(RoutesForHomeModule)],
         providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         mocks: [ClientSideValidationService],
+        stubsEnabled: false,
         shallow: false
     });
     beforeEach(() =>
@@ -72,6 +77,21 @@ describe("RegisterComponent", () =>
                 {
                     expect(spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.hasValidator(validators.email)).toBeTrue();
                 });
+                it(`Set form invalid if email entered but not valid`, () =>
+                {
+                    let email = spectator.component.RegisterForm.get(FormControlNames.authForm.email);
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.setValue("Kiko@2009");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kiko@2009");
+                    email?.setValue("kflkdslkfls@fkl");
+                    expect(email?.hasError(FormValidationErrorsNames.pattern)).toBeTrue();
+                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.errors).toBe(null);
+                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.errors).toBe(null);
+                    expect(spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.errors).toBe(null);
+                    expect(spectator.component.RegisterForm.hasError(FormValidationErrorsNames.password.NoPassswordMatch)).toBeFalse();
+                    expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                });
             });
             describe(`${toTitleCase(FormControlNames.authForm.password)}`, () =>
             {
@@ -91,6 +111,86 @@ describe("RegisterComponent", () =>
                 {
                     expect(spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
                 });
+                it(`Set form invalid if password lessthan 8`, () =>
+                {
+                    let password = spectator.component.RegisterForm.get(FormControlNames.authForm.password);
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                    password?.setValue("Kiko@22");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kiko@22");
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeTrue();
+                    expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                });
+                describe("Check password validation requirements", () =>
+                {
+                    it("has hasNumber Error", () =>
+                    {
+                        let password = spectator.component.RegisterForm.get(FormControlNames.authForm.password);
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                        password?.setValue("Kiko@fffff");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kiko@fffff");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                    });
+                    it("has hasCapitalCase Error", () =>
+                    {
+                        let password = spectator.component.RegisterForm.get(FormControlNames.authForm.password);
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                        password?.setValue("kiko@2009");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("kiko@2009");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                    });
+                    it("has hasSmallCase Error", () =>
+                    {
+                        let password = spectator.component.RegisterForm.get(FormControlNames.authForm.password);
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                        password?.setValue("KIKO@2009");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("KIKO@2009");
+
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                    });
+                    it("has hasSpecialCharacters Error", () =>
+                    {
+                        let password = spectator.component.RegisterForm.get(FormControlNames.authForm.password);
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                        password?.setValue("Kiko2009");
+                        spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kiko2009");
+
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.RegisterForm.invalid).toBeTrue();
+                    });
+                });
             });
             describe(`${toTitleCase(FormControlNames.authForm.confirmpassword)}`, () =>
             {
@@ -105,6 +205,15 @@ describe("RegisterComponent", () =>
                 it(`has minlength 8 validator`, () =>
                 {
                     expect(spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
+                });
+                it("has NoPasswordMatch error if all formControls are valid but passsword and confirmed password are not the same", () =>
+                {
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.setValue("Kiko@2009");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.firstname)?.setValue("dfdfdfdfdfdf");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("dsdsdsdsdsdsds");
+                    spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kiko@ff2009");
+                    expect(spectator.component.RegisterForm.hasError(FormValidationErrorsNames.password.NoPassswordMatch)).toBeTrue();
                 });
             });
             describe(`${toTitleCase(FormControlNames.authForm.firstname)}`, () =>
@@ -319,6 +428,117 @@ describe("RegisterComponent", () =>
                         expect(li.innerHTML.toString()).toContainText(["Email", "required"]);
                         expect(li.innerHTML.toString()).toContainText(["Email", "Valid email"]);
                     }
+                }
+            ));
+        });
+
+    });
+
+    describe("Login link", () =>
+    {
+        describe("If ShowCardFooter = false", () =>
+        {
+            let Login_CardFooterFalse: HTMLAnchorElement | null;
+            let spCloseDialog: jasmine.Spy;
+
+            beforeEach(() =>
+            {
+                spectator.component.ShowCardFooter = false;
+                spectator.detectChanges();
+                spCloseDialog = spyOn(DialogMocks, "CloseDialog");
+                Login_CardFooterFalse = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterFalse"));
+            });
+            it("exists", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    expect(Login_CardFooterFalse).toExist();
+                }
+            ));
+            it("call close dialog after [Login] is clicked", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    spectator.click(byTestId("Login_CardFooterFalse"));
+                    expect(spCloseDialog).toHaveBeenCalled();
+                }
+            ));
+            it("open login link after [Login] is clicked", async () =>
+            {
+                spectator.click(byTestId("Login_CardFooterFalse"));
+                await spectator.fixture.whenStable();
+                expect(spectator.inject(Location).path()).toBe(`/${AuthRoutes.Login}`);
+            });
+        });
+        describe("If ShowCardFooter = true", () =>
+        {
+            let Login_CardFooterTrue: HTMLAnchorElement | null;
+            let spCloseDialog: jasmine.Spy;
+            let spOpenLogin: jasmine.Spy;
+            beforeAll(() =>
+            {
+                spectator.component.ShowCardFooter = true;
+                spectator.detectChanges();
+                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
+                spOpenLogin = spyOn(spectator.component.dialogHandler, "OpenLogin");
+                Login_CardFooterTrue = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterTrue"));
+            });
+            it("Join now link is found", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    expect(Login_CardFooterTrue).toExist();
+                }
+            ));
+            it("click Login and call dialogHandler.CloseDialog then dialogHandler.OpenLogin", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    spectator.click(byTestId("Login_CardFooterTrue"));
+                    expect(spCloseDialog).toHaveBeenCalledBefore(spOpenLogin);
+                }
+            ));
+        });
+    });
+    describe("Close button", () =>
+    {
+        describe("If CloseIconHide = true", () =>
+        {
+            it("does not exists", fakeAsync(
+                () =>
+                {
+                    spectator.component.CloseIconHide = true;
+                    spectator.detectChanges();
+                    spectator.tick(1000);
+                    let closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
+                    expect(closeBtn).not.toExist();
+                }
+            ));
+        });
+        describe("If CloseIconHide = false", () =>
+        {
+            let closeBtn: HTMLButtonElement | null;
+            let spCloseDialog: jasmine.Spy;
+            beforeAll(() =>
+            {
+                spectator.component.CloseIconHide = false;
+                spectator.detectChanges();
+                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
+                closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
+            });
+            it("exists", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    expect(closeBtn).toExist();
+                }
+            ));
+            it("click the login dialog if the close button is clicked", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    spectator.click(byTestId("closeBtn"));
+                    expect(spCloseDialog).toHaveBeenCalled();
                 }
             ));
         });

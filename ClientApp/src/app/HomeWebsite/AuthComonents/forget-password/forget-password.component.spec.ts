@@ -1,11 +1,16 @@
 import { HttpClient } from "@angular/common/http";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
-import { Store } from "@ngrx/store";
-import { AppModule } from "src/app/app.module";
+import { Store, StoreModule } from "@ngrx/store";
+import { MockService } from "ng-mocks";
+import { AppModule, metaReducers } from "src/app/app.module";
+import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
+import { AppReducers } from "src/State/app.state";
 import { ForgetPasswordFailure } from "src/State/AuthState/auth.actions";
 import { ForgetPasswordComponent } from "./forget-password.component";
 
@@ -14,10 +19,15 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
     let emailInput: HTMLInputElement | null;
     let SendBtn: HTMLButtonElement | null;
     let spectator: SpectatorRouting<ForgetPasswordComponent>;
+    let DialogMocks = MockService(DialogHandlerService);
+
     const createComponent = createRoutingFactory({
         component: ForgetPasswordComponent,
-        imports: [AppModule],
-        providers: [FormBuilder, Store, HttpClient],
+        imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule, MatInputModule
+        ],
+        providers: [FormBuilder, Store, { provide: DialogHandlerService, useValue: DialogMocks }],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        stubsEnabled: false,
         shallow: false
     });
     beforeEach(() =>
@@ -135,6 +145,25 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
                     }
                 }
             ));
+        });
+    });
+    describe("Close button", () =>
+    {
+        let closeBtn_ForgetPassword: HTMLAnchorElement | null;
+        let CloseDialog: jasmine.Spy;
+        beforeEach(() =>
+        {
+            CloseDialog = spyOn(DialogMocks, "CloseDialog");
+            closeBtn_ForgetPassword = spectator.query<HTMLAnchorElement>(byTestId("closeBtn_ForgetPassword"));
+        });
+        it("has a close button", () =>
+        {
+            expect(closeBtn_ForgetPassword).toExist();
+        });
+        it("calls dialogHanglaer.CloseDialog() after the close button is clicked", () =>
+        {
+            closeBtn_ForgetPassword?.click();
+            expect(CloseDialog).toHaveBeenCalled();
         });
     });
 });

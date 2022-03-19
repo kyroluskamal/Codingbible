@@ -8,20 +8,9 @@ import { filter } from 'rxjs';
 })
 export class AppComponent
 {
-  isDashboard: boolean = false;
   title = 'app';
-  constructor(private router: Router)
+  constructor()
   {
-    this.router.events
-      .pipe(
-        filter(e => e instanceof NavigationEnd)
-      )
-      .subscribe((navEnd: any) =>
-      {
 
-        if (navEnd.url.includes("/dashboard")) this.isDashboard = true;
-        else this.isDashboard = false;
-
-      });
   }
 }

@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { CardTitle, KeyValueForUniqueCheck, SweetAlertData } from '../Interfaces/interfaces';
 import { NotificationsService } from './notifications.service';
-import * as Constants from '../Helpers/constants';
 @Injectable({
   providedIn: 'root'
 })
 export class ClientSideValidationService
 {
-  Constants = Constants;
   constructor(private NotificationService: NotificationsService) { }
 
   refillForm(object: any, formGroup: FormGroup)
@@ -36,8 +35,6 @@ export class ClientSideValidationService
     {
       for (let el of array)
       {
-        console.log(el[keyToCheck]);
-
         if (el[keyToCheck] && el['id'] !== id)
           if (el[keyToCheck] === value)
           {
@@ -51,20 +48,20 @@ export class ClientSideValidationService
   isUniqueMany(array: any[], keyValue: KeyValueForUniqueCheck[], id?: number)
   {
     let translatedMessage = "";
-    let notUnique: boolean = false;
+    let notUnique: boolean = true;
     for (let k of keyValue)
     {
       if (!this.isUnique(array, k.key, k.value, id))
       {
         translatedMessage += `<strong>( ${k.key} )</strong>
-      ${this.Constants.NotificationMessage.Error.Unique_Field_ERROR}<br/>`;
-        notUnique = true;
+      ${NotificationMessage.Error.Unique_Field_ERROR}<br/>`;
+        notUnique = false;
       }
     }
-    if (notUnique)
+    if (!notUnique)
 
-      this.NotificationService.Error_Swal(`${this.Constants.sweetAlert.Title.Error}:`,
-        this.Constants.sweetAlert.ButtonText.OK, translatedMessage);
+      this.NotificationService.Error_Swal(`${sweetAlert.Title.Error}:`,
+        sweetAlert.ButtonText.OK, translatedMessage);
     return notUnique;
   }
   isEqual(ObjectToCompare: any, ObjectToCompareWith: any): boolean
@@ -105,7 +102,6 @@ export class ClientSideValidationService
     {
       if (formControls.includes(c))
       {
-
         if (typeof object[c] === 'number')
         {
           let x: number = Number(formGroup.get(c)?.value);
@@ -121,72 +117,72 @@ export class ClientSideValidationService
       }
     }
   }
-  notUniqueNotification(keyToCheck: string)
-  {
-    this.NotificationService.error(`( ${keyToCheck} )
-          ${this.Constants.NotificationMessage.Error.Unique_Field_ERROR}`);
-  }
-  notUniqueNotification_Swal(keyToCheck: string)
-  {
-    this.NotificationService.Error_Swal(`${this.Constants.sweetAlert.Title.Error}:`,
-      this.Constants.sweetAlert.ButtonText.OK, `<strong>( ${keyToCheck} )</strong>
-    ${this.Constants.NotificationMessage.Error.Unique_Field_ERROR}`);
-  }
+  // notUniqueNotification(keyToCheck: string)
+  // {
+  //   this.NotificationService.error(`( ${keyToCheck} )
+  //         ${NotificationMessage.Error.Unique_Field_ERROR}`);
+  // }
+  // notUniqueNotification_Swal(keyToCheck: string)
+  // {
+  //   this.NotificationService.Error_Swal(`${sweetAlert.Title.Error}:`,
+  //     sweetAlert.ButtonText.OK, `<strong>( ${keyToCheck} )</strong>
+  //   ${NotificationMessage.Error.Unique_Field_ERROR}`);
+  // }
 
-  GerneralClientSideError_swal(keyToCheck: string, Message: CardTitle)
-  {
+  // GerneralClientSideError_swal(keyToCheck: string, Message: CardTitle)
+  // {
 
-    this.NotificationService.Error_Swal(`${this.Constants.sweetAlert.Title.Error}:`,
-      this.Constants.sweetAlert.ButtonText.OK, `<strong>( ${keyToCheck}) </strong>${Message.text} `);
-  }
-  Warning(message: string)
-  {
-    let swalData: SweetAlertData = {
-      OtherOptions: {
-        icon: "warning",
-        text: message,
-        html: message,
-        showCancelButton: true,
-        showConfirmButton: true,
-        cancelButtonText: this.Constants.sweetAlert.ButtonText.Cancenl,
-        confirmButtonText: this.Constants.sweetAlert.ButtonText.Confirm,
-        allowEnterKey: true,
-        allowEscapeKey: true,
-        allowOutsideClick: true,
-        showLoaderOnConfirm: true,
-        customClass: { title: this.Constants.css.SwalWarningTitle }
-      },
-      direction: "ltr"
-    };
-    return this.NotificationService.Custom_Swal(this.Constants.sweetAlert.Title.Warning, swalData);
-  }
+  //   this.NotificationService.Error_Swal(`${sweetAlert.Title.Error}:`,
+  //     sweetAlert.ButtonText.OK, `<strong>( ${keyToCheck}) </strong>${Message.text} `);
+  // }
+  // Warning(message: string)
+  // {
+  //   let swalData: SweetAlertData = {
+  //     OtherOptions: {
+  //       icon: "warning",
+  //       text: message,
+  //       html: message,
+  //       showCancelButton: true,
+  //       showConfirmButton: true,
+  //       cancelButtonText: sweetAlert.ButtonText.Cancenl,
+  //       confirmButtonText: sweetAlert.ButtonText.Confirm,
+  //       allowEnterKey: true,
+  //       allowEscapeKey: true,
+  //       allowOutsideClick: true,
+  //       showLoaderOnConfirm: true,
+  //       customClass: { title: css.SwalWarningTitle }
+  //     },
+  //     direction: "ltr"
+  //   };
+  //   return this.NotificationService.Custom_Swal(sweetAlert.Title.Warning, swalData);
+  // }
 
-  Error_swal(message: string)
-  {
-    return this.NotificationService.Error_Swal(`${this.Constants.sweetAlert.Title.Error}: `,
-      this.Constants.sweetAlert.ButtonText.OK, message);
-  }
-  convertDataURIToBinary(dataURI: any)
-  {
-    var base64Index = dataURI.indexOf(';base64,') + ';base64,'.length;
-    var base64 = dataURI.substring(base64Index);
-    var raw = window.atob(base64);
-    var rawLength = raw.length;
-    var array = new Uint8Array(new ArrayBuffer(rawLength));
+  // Error_swal(message: string)
+  // {
+  //   return this.NotificationService.Error_Swal(`${sweetAlert.Title.Error}: `,
+  //     sweetAlert.ButtonText.OK, message);
+  // }
+  // convertDataURIToBinary(dataURI: any)
+  // {
+  //   var base64Index = dataURI.indexOf(';base64,') + ';base64,'.length;
+  //   var base64 = dataURI.substring(base64Index);
+  //   var raw = window.atob(base64);
+  //   var rawLength = raw.length;
+  //   var array = new Uint8Array(new ArrayBuffer(rawLength));
 
-    for (let i = 0; i < rawLength; i++)
-    {
-      array[i] = raw.charCodeAt(i);
-    }
-    return array;
-  }
+  //   for (let i = 0; i < rawLength; i++)
+  //   {
+  //     array[i] = raw.charCodeAt(i);
+  //   }
+  //   return array;
+  // }
 
-  FillObjectFromAnotherObject(ObjectToFill: any, from: any)
-  {
-    let Keys: string[] = Object.keys(ObjectToFill);
-    for (let k of Keys)
-    {
-      ObjectToFill[k] = from[k];
-    }
-  }
+  // FillObjectFromAnotherObject(ObjectToFill: any, from: any)
+  // {
+  //   let Keys: string[] = Object.keys(ObjectToFill);
+  //   for (let k of Keys)
+  //   {
+  //     ObjectToFill[k] = from[k];
+  //   }
+  // }
 }

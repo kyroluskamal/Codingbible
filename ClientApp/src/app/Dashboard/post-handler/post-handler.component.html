@@ -2,10 +2,16 @@
       [formGroup]="form"
       class="mt-2 mx-2 needs-validation"
       novalidate>
+    <!-- ------------------------------------------------------------------------------- 
+        |                               Title Add ot Edit
+       ------------------------------------------------------------------------------------>
     <h1>
         <span *ngIf="Type===PostType.Add">Add new Post</span>
         <span *ngIf="Type===PostType.Edit">Edit Post : #{{(postById|async)?.id}}</span>
     </h1>
+    <!-- ------------------------------------------------------------------------------- 
+     |                               Validation Errors
+    ------------------------------------------------------------------------------------>
     <div class="alert alert-danger"
          *ngIf="(ValidationErrors$!|async)?.length!>0">
         <p><strong>{{FormValidationErrors.PleaseCorrectErrors}}</strong></p>
@@ -15,6 +21,9 @@
             </li>
         </ul>
     </div>
+    <!-- ------------------------------------------------------------------------------- 
+     |                               Sticky notes for errors
+    ------------------------------------------------------------------------------------>
     <div class="alert alert-info mb-0 small"
          style="position: fixed; bottom: 10px; z-index: 1030;"
          [ngStyle]="(pinned$|async)?{'left':'16vw'}:{'left':'10px' }"
@@ -62,9 +71,11 @@
          fxLayoutAlign="space-between">
         <div fxFlex="77%"
              fxLayout="column">
+            <!-- ------------------------------------------------------------------------------- 
+            |                               Title Input 
+            ------------------------------------------------------------------------------------>
             <mat-form-field appearance="legacy"
                             class="customMatFormField">
-
                 <div class="input-group">
                     <span class="input-group-text">{{FormFieldsNames.Post.title}}
                         <span class="ps-1 text-danger"
@@ -94,14 +105,21 @@
                 <span matSuffix
                       class="ps-1">{{title.value.length}} characters</span>
             </mat-form-field>
+            <!-- ------------------------------------------------------------------------------- 
+            |                               Slug Input 
+            ------------------------------------------------------------------------------------>
             <div class="input-group mb-3">
                 <span class="input-group-text">{{FormFieldsNames.Post.slug}}</span>
                 <input type="text"
                        disabled
                        [value]="Type===PostType.Edit?(postById|async)?.slug:''"
                        #slug
+                       data-testid="slug"
                        class="form-control" />
             </div>
+            <!-- ------------------------------------------------------------------------------- 
+            |                               View and Html 
+            ------------------------------------------------------------------------------------>
             <tabset class="h-50">
                 <tab heading="View"
                      id="tab1"
@@ -111,11 +129,14 @@
                                         [html]="html"
                                         [selectedText]="selectedText">
                     </CodingBible-editor>
-
+                    <!-- -------------------------------------------------------------------------- 
+                    |                               View  
+                    ------------------------------------------------------------------------------->
                     <div #view
                          [innerHtml]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                          (input)="UpdateHtml(html,view)"
                          class="Editor bg-white p-2 "
+                         data-testid="view"
                          (mouseup)="GetSelectedText(view)"
                          (keyup)="GetSelectedText(view)"
                          contenteditable="true">
@@ -123,6 +144,9 @@
                 </tab>
                 <tab heading="Html"
                      style="max-height: 500px;">
+                    <!-- -------------------------------------------------------------------------- 
+                    |                               Html   
+                    ------------------------------------------------------------------------------->
                     <textarea name=""
                               formControlName="htmlContent"
                               class="Editor border border-top-0 p-2"
@@ -147,9 +171,15 @@
             }">
             </editor>
         </div>
+        <!-- -------------------------------------------------------------------------- 
+        |                                  Side Bar
+        ------------------------------------------------------------------------------->
         <div fxFlex="22%"
              fxLayout="column"
              fxLayoutGap="3px">
+            <!-- -------------------------------------------------------------------------- 
+             |                                  Publish Card
+             ------------------------------------------------------------------------------->
             <div class="card">
                 <div class="card-header">
                     Publish
@@ -159,10 +189,10 @@
                     <span *ngIf="(postById|async)"><strong>Status: </strong>
                         <span *ngIf="(postById|async)?.status===0">Draft</span>
                         <span *ngIf="(postById|async)?.status===1">Published</span>
-                        <a *ngIf="(postById|async)?.status===1"
+                        <a *ngIf="(postById|async)?.status===1 && Type!=PostType.Add"
                            class="cursor-pointer ps-1"
                            (click)="changeStatus(0)">Set as draft</a>
-                        <a *ngIf="(postById|async)?.status===0"
+                        <a *ngIf="(postById|async)?.status===0 && Type!=PostType.Add"
                            class="cursor-pointer ps-1"
                            (click)="changeStatus(1)">Publish</a>
                     </span>
@@ -176,6 +206,9 @@
                         <span>{{(postById|async)?.publishedDate|date}}</span>
                     </span>
                 </div>
+                <!-- -------------------------------------------------------------------------- 
+                |                         Update and delete buttons
+                ------------------------------------------------------------------------------->
                 <div class="card-footer text-muted"
                      fxLayout="row"
                      fxLayoutAlign="start"
@@ -189,21 +222,29 @@
                             (click)="DeleteClicked()"
                             class="btn btn-danger btn-sm">Delete</button>
                 </div>
+                <!-- -------------------------------------------------------------------------- 
+                |                      Save as draft and publish buttons
+                ------------------------------------------------------------------------------->
                 <div class="card-footer text-muted "
                      fxLayout="row"
                      fxLayoutAlign="start"
                      fxLayoutGap="10px"
                      *ngIf="Type == PostType.Add">
                     <button type="button"
-                            (click)="DraftOrPublish(view)"
+                            (click)="DraftOrPublish(view, 'Draft')"
                             [disabled]="form.invalid"
+                            data-testid="DraftBtn"
                             class="btn btn-outline-primary btn-sm">Save as Draft</button>
                     <button type="button"
+                            data-testid="PublishBtn"
                             [disabled]="form.invalid"
                             class="btn btn-outline-primary btn-sm"
-                            (click)="DraftOrPublish(view)">Publish</button>
+                            (click)="DraftOrPublish(view,'Publish')">Publish</button>
                 </div>
             </div>
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Excerpt Card
+            ------------------------------------------------------------------------------->
             <div class="card h-25">
                 <div class="card-header">
                     Excerpt
@@ -226,6 +267,9 @@
                     </mat-form-field>
                 </div>
             </div>
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Description Card
+            ------------------------------------------------------------------------------->
             <div class="card h-50">
                 <div class="card-header">
                     Description (for SEO)

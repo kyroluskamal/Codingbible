@@ -1,5 +1,6 @@
 <mat-card class="d-flex flex-column align-items-center p-0">
     <button class="btn btn-link position-absolute top-0 end-0 text-light"
+            data-testid="closeBtn"
             *ngIf="!CloseIconHide"
             (click)="dialogHandler.CloseDialog();">
         <mat-icon class="mat-18">close</mat-icon>
@@ -13,6 +14,8 @@
     <!-- <mat-card-subtitle>Sign in to our store</mat-card-subtitle> -->
 
     <form [formGroup]="loginForm"
+          data-testid="loginForm"
+          (submit)="Login()"
           (ngSubmit)="loginForm.valid">
         <div class="form-container calibri-font p-3">
             <div class="alert alert-danger"

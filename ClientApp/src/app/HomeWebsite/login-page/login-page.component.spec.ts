@@ -1,9 +1,8 @@
 import { LoginPageComponent } from "./login-page.component";
-import { createComponentFactory, createRoutingFactory, Spectator, SpectatorRouting } from '@ngneat/spectator';
+import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 import { LoginComponent } from '../AuthComonents/login/login.component';
 import { NO_ERRORS_SCHEMA } from '@angular/compiler';
 import { MockComponent } from 'ng-mocks';
-import { AuthRoutes } from "src/Helpers/router-constants";
 describe("LoginPageComponent", () =>
 {
   let Spectator: SpectatorRouting<LoginPageComponent>;

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { FormControlNames, validators } from 'src/Helpers/constants';
@@ -16,7 +17,8 @@ export class AddPostsComponent implements OnInit
 {
   PostType = PostType;
   form: FormGroup = new FormGroup({});
-  constructor(private fb: FormBuilder, public store: Store,
+  newPost = new Post();
+  constructor(private fb: FormBuilder, public store: Store, public router: Router,
     private cliendSideService: ClientSideValidationService) { }
 
   ngOnInit(): void
@@ -32,13 +34,12 @@ export class AddPostsComponent implements OnInit
   }
   SaveOrPublish(event: FormGroup, type: string)
   {
-    let newPost = new Post();
-    this.cliendSideService.FillObjectFromForm(newPost, event);
-    newPost.slug = String(event.get(FormControlNames.postForm.slug)?.value).split(' ').join('-');
+    this.cliendSideService.FillObjectFromForm(this.newPost, event);
+    this.newPost.slug = String(event.get(FormControlNames.postForm.slug)?.value).split(' ').join('-');
     if (type == "publish")
-      newPost.status = 1;
+      this.newPost.status = 1;
     else if (type == "draft")
-      newPost.status = 0;
-    this.store.dispatch(AddPOST(newPost));
+      this.newPost.status = 0;
+    this.store.dispatch(AddPOST(this.newPost));
   }
 }

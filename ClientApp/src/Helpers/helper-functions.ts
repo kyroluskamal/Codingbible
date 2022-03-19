@@ -1,5 +1,8 @@
 import { FormGroup } from "@angular/forms";
 import { Spectator, SpectatorRouting } from "@ngneat/spectator";
+import { DebugElement } from '@angular/core';
+import { ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 export function toTitleCase(str: string)
 {
@@ -16,9 +19,7 @@ export function spectatorSelectByControlName<T>(Spectator: Spectator<T> | Specta
 {
     return Spectator.query(`[ng-reflect-name="${controlName}"]`);
 }
-import { DebugElement } from '@angular/core';
-import { ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+
 
 /**
  * Spec helpers for working with the DOM
@@ -33,6 +34,10 @@ import { By } from '@angular/platform-browser';
 export function testIdSelector(testId: string): string
 {
     return `[data-testid="${testId}"]`;
+}
+export function ng_reflect__name_Selector(name: string): string
+{
+    return `[ng-reflect-name="${name}"]`;
 }
 
 /**
@@ -68,9 +73,13 @@ export function queryByCss<T>(
  * @param testId Test id set by `data-testid`
  *
  */
-export function findEl<T>(fixture: ComponentFixture<T>, testId: string): DebugElement
+export function findEl_ByTestId<T>(fixture: ComponentFixture<T>, testId: string): DebugElement
 {
     return queryByCss<T>(fixture, testIdSelector(testId));
+}
+export function findEl_ByName<T>(fixture: ComponentFixture<T>, name: string): DebugElement
+{
+    return queryByCss<T>(fixture, ng_reflect__name_Selector(name));
 }
 
 /**
@@ -90,9 +99,11 @@ export function findEls<T>(fixture: ComponentFixture<T>, testId: string): DebugE
  * @param fixture Component fixture
  * @param testId Test id set by `data-testid`
  */
-export function getText<T>(fixture: ComponentFixture<T>, testId: string): string
+export function getText<T>(fixture: ComponentFixture<T>, testId?: string, name?: string): string
 {
-    return findEl(fixture, testId).nativeElement.textContent;
+    if (name)
+        return findEl_ByName(fixture, name).nativeElement.textContent;
+    else return findEl_ByTestId(fixture, testId!).nativeElement.textContent;
 }
 
 /**
@@ -184,11 +195,16 @@ export function setFieldElementValue(
  */
 export function setFieldValue<T>(
     fixture: ComponentFixture<T>,
-    testId: string,
     value: string,
+    testId?: string,
+    name?: string,
 ): void
 {
-    setFieldElementValue(findEl(fixture, testId).nativeElement, value);
+    if (name)
+        setFieldElementValue(findEl_ByName(fixture, name).nativeElement, value);
+    else
+        setFieldElementValue(findEl_ByTestId(fixture, testId!).nativeElement, value);
+
 }
 
 /**
@@ -201,14 +217,25 @@ export function setFieldValue<T>(
  */
 export function checkField<T>(
     fixture: ComponentFixture<T>,
-    testId: string,
     checked: boolean,
+    testId?: string,
+    name?: string,
 ): void
 {
-    const { nativeElement } = findEl(fixture, testId);
-    nativeElement.checked = checked;
-    // Dispatch a `change` fake event so Angular form bindings take notice of the change.
-    dispatchFakeEvent(nativeElement, 'change');
+    if (name)
+    {
+        const { nativeElement } = findEl_ByName(fixture, name);
+        nativeElement.checked = checked;
+        // Dispatch a `change` fake event so Angular form bindings take notice of the change.
+        dispatchFakeEvent(nativeElement, 'change');
+    }
+    else
+    {
+        const { nativeElement } = findEl_ByTestId(fixture, testId!);
+        nativeElement.checked = checked;
+        // Dispatch a `change` fake event so Angular form bindings take notice of the change.
+        dispatchFakeEvent(nativeElement, 'change');
+    }
 }
 
 /**
@@ -239,11 +266,20 @@ export function makeClickEvent(target: EventTarget): Partial<MouseEvent>
  * @param fixture Component fixture
  * @param testId Test id set by `data-testid`
  */
-export function click<T>(fixture: ComponentFixture<T>, testId: string): void
+export function click<T>(fixture: ComponentFixture<T>, testId?: string, name?: string): void
 {
-    const element = findEl(fixture, testId);
-    const event = makeClickEvent(element.nativeElement);
-    element.triggerEventHandler('click', event);
+    if (name)
+    {
+        const element = findEl_ByName(fixture, name);
+        const event = makeClickEvent(element.nativeElement);
+        element.triggerEventHandler('click', event);
+    }
+    else
+    {
+        const element = findEl_ByTestId(fixture, testId!);
+        const event = makeClickEvent(element.nativeElement);
+        element.triggerEventHandler('click', event);
+    }
 }
 
 /**

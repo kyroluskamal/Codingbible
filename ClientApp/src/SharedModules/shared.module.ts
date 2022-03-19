@@ -4,15 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { BidiModule } from '@angular/cdk/bidi';
 import { AnimateOnScrollDirective } from '../Directives/animate-on-scroll.directive';
-import { StylePaginatorDirective } from '../Directives/style-paginator.directive';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 const SharedModules = [
   ReactiveFormsModule, FormsModule,
-  HttpClientModule, BidiModule,
+  HttpClientModule,
   CommonModule, BreadcrumbModule
 ];
 
-const Directive = [AnimateOnScrollDirective, StylePaginatorDirective];
+const Directive = [AnimateOnScrollDirective];
 @NgModule({
   declarations: [Directive],
   imports: [SharedModules],

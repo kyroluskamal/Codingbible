@@ -26,7 +26,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     browserDisconnectTimeout: 50000,
-    browserNoActivityTimeout: 30000,
+    browserNoActivityTimeout: 300000,
     coverageReporter: {
       dir: require('path').join(__dirname, './coverage/client-app'),
       subdir: '.',

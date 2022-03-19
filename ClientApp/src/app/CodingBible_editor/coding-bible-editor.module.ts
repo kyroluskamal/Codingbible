@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CodingBibleEditorComponent } from './editor/editor.component';
-import { MaterialModule } from 'src/SharedModules/material.module';
-import { SharedModule } from 'src/SharedModules/shared.module';
+import { eraserFill, NgxBootstrapIconsModule, typeBold, typeItalic, typeStrikethrough, typeUnderline } from 'ngx-bootstrap-icons';
 
-
+const icons = {
+  typeBold, typeItalic, typeUnderline, eraserFill, typeStrikethrough
+};
 const commponents = [CodingBibleEditorComponent];
 @NgModule({
   declarations: [CodingBibleEditorComponent],
   imports: [
-    CommonModule, MaterialModule, SharedModule
+    CommonModule, NgxBootstrapIconsModule.pick(icons),
   ],
   exports: [commponents]
 })

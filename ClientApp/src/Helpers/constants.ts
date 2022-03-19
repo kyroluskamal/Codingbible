@@ -298,9 +298,9 @@ export const validators = {
     required: Validators.required,
     PASSWORD_MIN_LENGTH: Validators.minLength(PASSWORD_MINLENGTH),
     POST_TITLE_MIN_LENGTH: Validators.minLength(POST_TITLE_MIN_LENGTH),
-    POST_TITLE_MAX_LENGTH: Validators.minLength(POST_TITLE_MAX_LENGTH),
+    POST_TITLE_MAX_LENGTH: Validators.maxLength(POST_TITLE_MAX_LENGTH),
     POST_DESCRIPTION_MIN_LENGTH: Validators.minLength(POST_DESCRIPTION_MIN_LENGTH),
-    POST_DESCRIPTION_MAX_LENGTH: Validators.minLength(POST_DESCRIPTION_MAX_LENGTH),
+    POST_DESCRIPTION_MAX_LENGTH: Validators.maxLength(POST_DESCRIPTION_MAX_LENGTH),
     password: Validators.compose([
         CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),

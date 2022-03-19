@@ -28,8 +28,6 @@ export class HomeNavMenuComponent implements OnInit
 
   ngOnInit(): void
   {
-    console.log(this.cookieServ.get(CookieNames.refershTokenExpire).toString().replace("%2F", '/').replace("%20", ' ').replace("%3A", ':'));
-    console.log(new Date(this.cookieServ.get(CookieNames.refershTokenExpire).toString().replace("%2F", '/').replace("%20", ' ').replace("%3A", ':')));
     this.IsLoggedIn.subscribe(r => console.log(r));
   }
   logout()

@@ -1,5 +1,6 @@
 <mat-card class="d-flex flex-column align-items-center p-0">
     <button class="btn btn-link position-absolute top-0 end-0 text-light"
+            data-testid="closeBtn"
             *ngIf="!CloseIconHide"
             (click)="dialogHandler.CloseDialog();">
         <mat-icon class="mat-18">close</mat-icon>
@@ -252,7 +253,8 @@
     </form>
     <p *ngIf="ShowCardFooter"
        class="calibri-font m-3 fs-6 d-flex justify-content-center">
-        {{FormConstants.DontHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
+        {{FormConstants.DontHaveAccount}}&nbsp; <a data-testid="Login_CardFooterTrue"
+           class="text-decoration-none btn-link fw-bold cursor-pointer"
            (click)="dialogHandler.CloseDialog();dialogHandler.OpenLogin()">
             {{FormConstants.Login}}.
         </a>
@@ -260,7 +262,8 @@
 </mat-card>
 <p *ngIf="!ShowCardFooter"
    class="calibri-font mt-3 fs-6 d-flex justify-content-center">
-    {{FormConstants.AlreadyHaveAccount}}&nbsp; <a class="text-decoration-none btn-link fw-bold cursor-pointer"
+    {{FormConstants.AlreadyHaveAccount}}&nbsp; <a data-testid="Login_CardFooterFalse"
+       class="text-decoration-none btn-link fw-bold cursor-pointer"
        (click)="dialogHandler.CloseDialog();"
        [routerLink]="['',AuthRoutes.Login]">
         {{FormConstants.Login}}.

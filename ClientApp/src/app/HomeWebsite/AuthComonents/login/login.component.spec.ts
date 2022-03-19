@@ -13,8 +13,8 @@ import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
-import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
-import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
+import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
+import { findEl_ByName, findEl_ByTestId, setFieldValue, spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { LoginFailure } from "src/State/AuthState/auth.actions";
@@ -57,13 +57,22 @@ describe("LoginComponent [Unit test]", () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.email)).toExist();
                 });
-                it(`is required`, () =>
+                it(`has required validator`, () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.email)?.hasValidator(validators.required)).toBeTrue();
                 });
                 it(`has pattern validator`, () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.email)?.hasValidator(validators.email)).toBeTrue();
+                });
+                it(`Set form invalid if email entered but not valid`, () =>
+                {
+                    let email = spectator.component.loginForm.get(FormControlNames.authForm.email);
+                    spectator.component.loginForm.get(FormControlNames.authForm.password)?.setValue("Kiko@fjdklfjdkl232323");
+                    email?.setValue("kflkdslkfls@fkl");
+                    expect(spectator.component.loginForm.get(FormControlNames.authForm.password)?.errors).toEqual(null);
+                    expect(email?.hasError(FormValidationErrorsNames.pattern)).toBeTrue();
+                    expect(spectator.component.loginForm.invalid).toBeTrue();
                 });
             });
             describe(`${toTitleCase(FormControlNames.authForm.password)}`, () =>
@@ -72,17 +81,80 @@ describe("LoginComponent [Unit test]", () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.password)).toExist();
                 });
-                it(`is required`, () =>
+                it(`has required validator`, () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.password)?.hasValidator(validators.required)).toBeTrue();
                 });
-                it(`has pattern validators`, () =>
+                it(`has pattern validator`, () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.password)?.hasValidator(validators.password!)).toBeTrue();
                 });
                 it(`has minlength 8 validator`, () =>
                 {
                     expect(spectator.component.loginForm.get(FormControlNames.authForm.password)?.hasValidator(validators.PASSWORD_MIN_LENGTH)).toBeTrue();
+                });
+                it(`Set form invalid if password lessthan 8`, () =>
+                {
+                    let password = spectator.component.loginForm.get(FormControlNames.authForm.password);
+                    spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                    password?.setValue("Kiko@22");
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                    expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeTrue();
+                    expect(spectator.component.loginForm.invalid).toBeTrue();
+                });
+                describe("Check password validation requirements", () =>
+                {
+                    it("has hasNumber Error", () =>
+                    {
+                        let password = spectator.component.loginForm.get(FormControlNames.authForm.password);
+                        spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        password?.setValue("Kiko@fffff");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.loginForm.invalid).toBeTrue();
+                    });
+                    it("has hasCapitalCase Error", () =>
+                    {
+                        let password = spectator.component.loginForm.get(FormControlNames.authForm.password);
+                        spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        password?.setValue("kiko@2009");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.loginForm.invalid).toBeTrue();
+                    });
+                    it("has hasSmallCase Error", () =>
+                    {
+                        let password = spectator.component.loginForm.get(FormControlNames.authForm.password);
+                        spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        password?.setValue("KIKO@2009");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.loginForm.invalid).toBeTrue();
+                    });
+                    it("has hasSpecialCharacters Error", () =>
+                    {
+                        let password = spectator.component.loginForm.get(FormControlNames.authForm.password);
+                        spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("Kiko@gmail.com");
+                        password?.setValue("Kiko2009");
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasNumber)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasCapitalCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSmallCase)).toBeFalse();
+                        expect(password?.hasError(FormValidationErrorsNames.password.hasSpecialCharacters)).toBeTrue();
+                        expect(password?.hasError(FormValidationErrorsNames.minlength)).toBeFalse();
+                        expect(spectator.component.loginForm.invalid).toBeTrue();
+                    });
                 });
             });
             describe(toTitleCase(FormControlNames.authForm.rememberMe), () =>
@@ -171,7 +243,7 @@ describe("LoginComponent [Unit test]", () =>
         });
     });
 
-    describe("Server Side Validation [Integration test with NGRX store]", () =>
+    describe("Server Side Validation [Mocking]", () =>
     {
         describe("Login Form is valid", () =>
         {
@@ -276,7 +348,7 @@ describe("LoginComponent [Unit test]", () =>
                     expect(joinNow_CardFooterFalse).toExist();
                 }
             ));
-            it("close dialog is called after [join now] is clicked", fakeAsync(
+            it("calls closeDialog after [join now] is clicked", fakeAsync(
                 () =>
                 {
                     spectator.tick(1000);
@@ -284,7 +356,7 @@ describe("LoginComponent [Unit test]", () =>
                     expect(spCloseDialog).toHaveBeenCalled();
                 }
             ));
-            it("login link is opened after [join now] is clicked", async () =>
+            it("opens Register link after [join now] is clicked", async () =>
             {
                 spectator.click(byTestId("joinNow_CardFooterFalse"));
                 await spectator.fixture.whenStable();
@@ -308,7 +380,6 @@ describe("LoginComponent [Unit test]", () =>
                 () =>
                 {
                     spectator.tick(1000);
-                    console.log(spectator.component.ShowCardFooter);
                     expect(joinNow_CardFooterTrue).toExist();
                 }
             ));
@@ -318,6 +389,49 @@ describe("LoginComponent [Unit test]", () =>
                     spectator.tick(1000);
                     spectator.click(byTestId("joinNow_CardFooterTrue"));
                     expect(spCloseDialog).toHaveBeenCalledBefore(spOpenRegister);
+                }
+            ));
+        });
+    });
+    describe("Close button", () =>
+    {
+        describe("If CloseIconHide = true", () =>
+        {
+            it("does not exists", fakeAsync(
+                () =>
+                {
+                    spectator.component.CloseIconHide = true;
+                    spectator.detectChanges();
+                    spectator.tick(1000);
+                    let closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
+                    expect(closeBtn).not.toExist();
+                }
+            ));
+        });
+        describe("If CloseIconHide = false", () =>
+        {
+            let closeBtn: HTMLButtonElement | null;
+            let spCloseDialog: jasmine.Spy;
+            beforeAll(() =>
+            {
+                spectator.component.CloseIconHide = false;
+                spectator.detectChanges();
+                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
+                closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
+            });
+            it("exists", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    expect(closeBtn).toExist();
+                }
+            ));
+            it("click the login dialog if the close button is clicked", fakeAsync(
+                () =>
+                {
+                    spectator.tick(1000);
+                    spectator.click(byTestId("closeBtn"));
+                    expect(spCloseDialog).toHaveBeenCalled();
                 }
             ));
         });

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CodingBible.Models;
+using CodingBible.ViewModels;
 
 namespace CodingBible.Services.AutoMapperService
 {

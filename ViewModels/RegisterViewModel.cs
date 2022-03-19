@@ -1,7 +1,7 @@
 ﻿using CodingBible.Services.ConstantsService;
 using System.ComponentModel.DataAnnotations;
 
-namespace CodingBible.Models
+namespace CodingBible.ViewModels
 {
     public class RegisterViewModel
     {
@@ -11,8 +11,10 @@ namespace CodingBible.Models
         [Required]
         public string UserName { get; set; }
         [Required]
+        [StringLength(int.MaxValue, MinimumLength = 8, ErrorMessage =Constants.DataAnotationErrorMessages.PasswordMinLength_Error)]
         public string Password { get; set; }
         [Required]
+        [StringLength(int.MaxValue, MinimumLength = 8, ErrorMessage = Constants.DataAnotationErrorMessages.PasswordMinLength_Error)]
         [Compare(nameof(Password), ErrorMessage = Constants.DataAnotationErrorMessages.Confirm_Password_error)]
         public string ConfirmPassword { get; set; }
         [Required]

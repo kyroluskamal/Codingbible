@@ -23,7 +23,7 @@ import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'sr
   templateUrl: './post-handler.component.html',
   styleUrls: ['./post-handler.component.css']
 })
-export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
+export class PostHandlerComponent implements OnInit, OnChanges
 {
   ValidationErrors$ = this.store.select(select_Post_ValidationErrors);
   pinned = Boolean(localStorage.getItem(LocalStorageKeys.FixedSidnav));
@@ -60,17 +60,13 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   form: FormGroup = new FormGroup({});
   postTitle: string = '';
   IsUpdated: boolean = false;
-  constructor(private store: Store, private postService: PostService,
-    public ClientSideService: ClientSideValidationService, private router: ActivatedRoute)
+  constructor(public store: Store, private postService: PostService,
+    public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
   {
     this.form = this.inputForm;
     this.Type = this.postType;
   }
 
-  ngAfterViewInit(): void
-  {
-
-  }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('inputForm' in changes)
@@ -179,10 +175,13 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.post.author = null;
     this.store.dispatch(UpdatePOST(this.post));
   }
-  DraftOrPublish(view: HTMLDivElement)
+  DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
   {
     this.form.get(FormControlNames.postForm.htmlContent)?.setValue(view.innerHTML);
-    this.Publish.emit(this.form);
+    if (draftOrPublish === "Draft")
+      this.Draft.emit(this.form);
+    else
+      this.Publish.emit(this.form);
   }
   CheckIfSulgNotUnique(slug: HTMLInputElement)
   {

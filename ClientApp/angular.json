@@ -98,14 +98,36 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
+              { "glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/" },
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css"
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./src/styles.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ],
+            "codeCoverageExclude": [
+              "src/CommonServices/**",
+              "src/models.model.ts",
+              "src/Directives/animate-on-scroll.directive.ts",
+              "src/Helpers/**",
+              "src/Services/**",
+              "src/Interceptors/**",
+              "src/State/**",
+              "src/app/app.component.ts",
+              "src/app/app-routing.module.ts",
+              "src/app/CodingBible_editor/editor/**",
+              "src/app/Dashboard/dashboard-home/**",
+              "src/app/HomeWebsite/home-nav-menu/**",
+              "src/ app/HomeWebsite/home-nav-menu home-nav-menu.component.ts"
+            ]
           }
         }
       }

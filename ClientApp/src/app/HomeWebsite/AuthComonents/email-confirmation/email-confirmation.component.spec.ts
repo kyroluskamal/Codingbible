@@ -1,13 +1,9 @@
 import { Location } from "@angular/common";
-import { HttpClient, HttpHandler } from "@angular/common/http";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { RouterModule, UrlSegment } from "@angular/router";
+import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { MockService } from "ng-mocks";
 import { Observable } from "rxjs";
-import { AppModule } from "src/app/app.module";
-import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
-import { AuthRoutes } from "src/Helpers/router-constants";
 import { AccountService } from "src/Services/account.service";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
 import { EmailConfirmationComponent } from "./email-confirmation.component";
@@ -22,7 +18,7 @@ describe("EmailConfirmationComponent [UNIT TEST]", () =>
     let accountServiceMocks = MockService(AccountService);
     const createComponent = createRoutingFactory({
         component: EmailConfirmationComponent,
-        imports: [RouterModule.forRoot(RoutesForHomeModule)],
+        imports: [RouterTestingModule.withRoutes(RoutesForHomeModule)],
         providers: [{ provide: AccountService, useValue: accountServiceMocks }],
         schemas: [NO_ERRORS_SCHEMA],
         stubsEnabled: false,
@@ -76,12 +72,6 @@ describe("EmailConfirmationComponent [UNIT TEST]", () =>
         });
         it("finds h1 with title Email confirmation failed", () =>
         {
-            spectator.component.Error = {
-                status: "test",
-                message: "Test message",
-                data: null,
-                tokenExpire: ""
-            };
             expect(failH1tag?.tagName).toBe("H1");
             expect(failH1tag?.innerText).toEqual("Email confirmation failed");
         });
@@ -103,7 +93,7 @@ describe("EmailConfirmationComponent [UNIT TEST]", () =>
             spectator.component.ngOnInit();
             spectator.component.email = null;
             await spectator.fixture.whenStable();
-            expect(spectator.inject(Location).path()).toBe("");
+            expect(spectator.inject(Location).path()).toBe("/");
         });
     });
 });

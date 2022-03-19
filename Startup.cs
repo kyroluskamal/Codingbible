@@ -126,7 +126,10 @@ namespace CodingBible
                 options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
             });
-
+            services.AddSpaStaticFiles(spa =>
+            {
+                spa.RootPath = "ClientApp/dist";
+            });
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
             /*---------------------------------------------------------------------------------------------------*/

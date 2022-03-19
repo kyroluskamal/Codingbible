@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CodingBible.Data;
 using CodingBible.Models;
 using CodingBible.Models.Identity;
 using CodingBible.Services.AuthenticationService;
@@ -12,7 +11,6 @@ using CodingBible.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -23,35 +21,32 @@ namespace CodingBible.Controllers.api.v1
     [ApiVersion("1.0")]
     [ApiController]
     [Route("api/v1/[controller]")]
-    [AutoValidateAntiforgeryToken]
     public class AccountController : ControllerBase
     {
         private readonly IMapper Mapper;
         public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
 
-        private readonly IServiceProvider ServiceProvider;
-        private readonly IAuthService AuthService;
         private readonly ICookieServ CookieService;
         private readonly IEMailService MailService;
         private readonly ITokenServ TokenService;
         private readonly ApplicationUserManager UserManager;
         private readonly ApplicationUserRoleManager RoleManager;
-        private readonly ApplicationUserSignIngManager SignInManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IFunctionalService FunctionalService;
 
-        public AccountController(IServiceProvider serviceProvider, IAuthService authService, ICookieServ cookieService, IMapper mapper, ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, IEMailService emailService, ITokenServ tokenService, ApplicationUserSignIngManager signInManager, IHttpContextAccessor httpContextAccessor, IFunctionalService functionalService, IUnitOfWork_ApplicationUser unitOfWork)
+        public AccountController(ICookieServ cookieService, IMapper mapper, 
+            ApplicationUserManager userManager, 
+            ApplicationUserRoleManager roleManager, 
+            IEMailService emailService, 
+            ITokenServ tokenService, 
+            IFunctionalService functionalService, 
+            IUnitOfWork_ApplicationUser unitOfWork)
         {
-            ServiceProvider = serviceProvider;
-            AuthService = authService;
             CookieService = cookieService;
             Mapper = mapper;
             UserManager = userManager;
             RoleManager = roleManager;
             MailService = emailService;
             TokenService = tokenService;
-            SignInManager = signInManager;
-            _httpContextAccessor = httpContextAccessor;
             FunctionalService = functionalService;
             UnitOfWork = unitOfWork;
         }
@@ -118,6 +113,7 @@ namespace CodingBible.Controllers.api.v1
                 {
                     Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                        ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                    return Unauthorized(Constants.HttpResponses.NullUser_Error_Response());
                 }
             }
 
@@ -150,11 +146,13 @@ namespace CodingBible.Controllers.api.v1
                 {
                     if(!await RoleManager.RoleExistsAsync(Constants.Roles.Reader))
                     {
-                        var newrole = new ApplicationUserRole(Constants.Roles.Reader);
-                        newrole.RoleIcon = "";
-                        newrole.IsActive = true;
-                        newrole.NormalizedName = Constants.Roles.Reader.ToUpper();
-                        newrole.Handle = Constants.Roles.Reader.ToLower();
+                        var newrole = new ApplicationUserRole(Constants.Roles.Reader)
+                        {
+                            RoleIcon = "",
+                            IsActive = true,
+                            NormalizedName = Constants.Roles.Reader.ToUpper(),
+                            Handle = Constants.Roles.Reader.ToLower()
+                        };
                         await RoleManager.CreateAsync(newrole);
                     }
                     await UserManager.AddToRoleAsync(newUser, Constants.Roles.Reader);
