@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Serilog.Sinks.SystemConsole.Themes;
+﻿using Serilog.Sinks.SystemConsole.Themes;
 
 namespace LoggingService
 {

@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using CodingBible.Models;
 using CodingBible.Models.Identity;
-using CodingBible.Services.AuthenticationService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
+using CodingBible.Services.FunctionalService;
 using CodingBible.Services.MailService;
 using CodingBible.Services.TokenService;
-using CodingBible.Services.FunctionalService;
+using CodingBible.UnitOfWork;
 using CodingBible.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.WebUtilities;
 using Serilog;
 using System.Text;
 using System.Text.Encodings.Web;
-using CodingBible.UnitOfWork;
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -33,12 +32,12 @@ namespace CodingBible.Controllers.api.v1
         private readonly ApplicationUserRoleManager RoleManager;
         private readonly IFunctionalService FunctionalService;
 
-        public AccountController(ICookieServ cookieService, IMapper mapper, 
-            ApplicationUserManager userManager, 
-            ApplicationUserRoleManager roleManager, 
-            IEMailService emailService, 
-            ITokenServ tokenService, 
-            IFunctionalService functionalService, 
+        public AccountController(ICookieServ cookieService, IMapper mapper,
+            ApplicationUserManager userManager,
+            ApplicationUserRoleManager roleManager,
+            IEMailService emailService,
+            ITokenServ tokenService,
+            IFunctionalService functionalService,
             IUnitOfWork_ApplicationUser unitOfWork)
         {
             CookieService = cookieService;
@@ -59,65 +58,55 @@ namespace CodingBible.Controllers.api.v1
         {
             if (ModelState.IsValid)
             {
-                try
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null)
                 {
-                    var user = await UserManager.FindByEmailAsync(model.Email);
-                    if (user == null)  {
-                        /*****************************************************************
-                         * 
-                         *              Send email to the admin to tell him about that
-                         * 
-                         * ***************************************************************/
-                        Log.Error("Error : Email not found in database");
-                        return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
-                     }
-
-                    //var res = await SignInManager.CheckPasswordSignInAsync(user, model.Password, model.RememberMe);
-                    var roles = await UserManager.GetRolesAsync(user);
-                    // Get the role of the user - validate if he is admin - dont bother to go ahead if returned false
-                    // If user is admin continue to execute the code
-                    if (!await UserManager.CheckPasswordAsync(user, model.Password))
-                    {
-                        Log.Error("Error : Wrong password for {user}",model.Email);
-                        return Unauthorized(Constants.HttpResponses.WrongPassword_Response());
-                    }
-
-                    // Then Check If Email Is confirmed
-                    if (!await UserManager.IsEmailConfirmedAsync(user))
-                    {
-                        Log.Error("Error : Email Not Confirmed for {user}", user.UserName);
-                        return Unauthorized(Constants.HttpResponses.EmailNotConfirmed_pleaseConfirm());
-                    }
-
-                    // Create & Return the access token which contains JWT and Refresh Token
-                    user.RememberMe = model.RememberMe;
-                    await UserManager.UpdateAsync(user);
-                    var accessToken = await TokenService.GenerateNewToken(user, roles.ToList());
-
-                    var expireTime = roles.Contains(Constants.Roles.admin)?TimeSpan.FromMinutes(180) : accessToken.Expiration;
-                    // set cookie for jwt and refresh token
-                    CookieService.SetRequiredCookies(accessToken, user, roles.ToList(), expireTime, model.RememberMe);
-                    //CookieService.SetCookie(Constants.CookieName.r, authToken.Username, expireTime);
-                    Log.Information($"User {model.Email} logged in.");
-                    user.PasswordHash = null;
-                    user.SecurityStamp = null;
-                    var data = new
-                    {
-                        user,
-                        roles,
-                        tokenExpire = accessToken.RefreshTokenExpiration
-                    };
-                    return Ok(Constants.HttpResponses.Loggin_success(data));
+                    /*****************************************************************
+                     * 
+                     *              Send email to the admin to tell him about that
+                     * 
+                     * ***************************************************************/
+                    Log.Error("Error : Email not found in database");
+                    return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
                 }
-                catch (Exception ex)
+
+                //var res = await SignInManager.CheckPasswordSignInAsync(user, model.Password, model.RememberMe);
+                var roles = await UserManager.GetRolesAsync(user);
+                // Get the role of the user - validate if he is admin - dont bother to go ahead if returned false
+                // If user is admin continue to execute the code
+                if (!await UserManager.CheckPasswordAsync(user, model.Password))
                 {
-                    Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                       ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-                    return Unauthorized(Constants.HttpResponses.NullUser_Error_Response());
+                    Log.Error("Error : Wrong password for {user}", model.Email);
+                    return Unauthorized(Constants.HttpResponses.WrongPassword_Response());
                 }
+
+                // Then Check If Email Is confirmed
+                if (!await UserManager.IsEmailConfirmedAsync(user))
+                {
+                    Log.Error("Error : Email Not Confirmed for {user}", user.UserName);
+                    return Unauthorized(Constants.HttpResponses.EmailNotConfirmed_pleaseConfirm());
+                }
+
+                // Create & Return the access token which contains JWT and Refresh Token
+                user.RememberMe = model.RememberMe;
+                await UserManager.UpdateAsync(user);
+                var accessToken = await TokenService.GenerateNewToken(user, roles.ToList());
+
+                var expireTime = roles.Contains(Constants.Roles.admin) ? TimeSpan.FromMinutes(180) : accessToken.Expiration;
+                // set cookie for jwt and refresh token
+                CookieService.SetRequiredCookies(accessToken, user, roles.ToList(), expireTime, model.RememberMe);
+                //CookieService.SetCookie(Constants.CookieName.r, authToken.Username, expireTime);
+                Log.Information($"User {model.Email} logged in.");
+                user.PasswordHash = null;
+                user.SecurityStamp = null;
+                var data = new
+                {
+                    user,
+                    roles,
+                    tokenExpire = accessToken.RefreshTokenExpiration
+                };
+                return Ok(Constants.HttpResponses.Loggin_success(data));
             }
-
-            Log.Error("ModelState error");
             return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
 
@@ -144,7 +133,7 @@ namespace CodingBible.Controllers.api.v1
 
                 if (result.Succeeded)
                 {
-                    if(!await RoleManager.RoleExistsAsync(Constants.Roles.Reader))
+                    if (!await RoleManager.RoleExistsAsync(Constants.Roles.Reader))
                     {
                         var newrole = new ApplicationUserRole(Constants.Roles.Reader)
                         {
@@ -172,7 +161,7 @@ namespace CodingBible.Controllers.api.v1
                         Body = Constants.EmailSettings.ConfirmationEmail_Body(HtmlEncoder.Default.Encode(callbackUrl))
                     };
 
-                    MailService.SendMail(MailRequest, await UnitOfWork.MailProviders.GetFirstOrDefaultAsync(x=>x.IsDefault));
+                    MailService.SendMail(MailRequest, await UnitOfWork.MailProviders.GetFirstOrDefaultAsync(x => x.IsDefault));
 
                     return Ok(Constants.HttpResponses.RegisterResponse_Success());
                 }
@@ -186,16 +175,24 @@ namespace CodingBible.Controllers.api.v1
         [HttpGet(nameof(EmailConfirmation))]
         public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
         {
-            var user = await UserManager.FindByEmailAsync(email);
-            if (user == null)
-                return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
-            if (await UserManager.IsEmailConfirmedAsync(user))
-                return BadRequest(Constants.HttpResponses.EmailAlreadyConfirmed_Error_Response());
-            var tokenInBody = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
-            var confirmResult = await UserManager.ConfirmEmailAsync(user, tokenInBody);
-            if (!confirmResult.Succeeded)
-                return BadRequest(Constants.HttpResponses.IdentityRegults_Errors(confirmResult.Errors));
-            return StatusCode(201);
+            try { 
+                var user = await UserManager.FindByEmailAsync(email);
+                if (user == null)
+                    return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
+                if (await UserManager.IsEmailConfirmedAsync(user))
+                    return BadRequest(Constants.HttpResponses.EmailAlreadyConfirmed_Error_Response());
+                var tokenInBody = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
+                var confirmResult = await UserManager.ConfirmEmailAsync(user, tokenInBody);
+                if (!confirmResult.Succeeded)
+                    return BadRequest(Constants.HttpResponses.IdentityRegults_Errors(confirmResult.Errors));
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Log.Error("An error occurred at ForgotPassword {Error} {StackTrace} {InnerException} {Source}",
+               ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                return BadRequest(Constants.HttpResponses.EmailConfirmed_FAILED());
+            }
         }
         /**************************************************************************************
          *                                       Forgetpassword
@@ -203,7 +200,8 @@ namespace CodingBible.Controllers.api.v1
         [HttpPost(nameof(ForgetPassword))]
         public async Task<IActionResult> ForgetPassword([FromBody] ForgetPasswordModel model)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 try
                 {
                     var user = await UserManager.FindByEmailAsync(model.Email);
@@ -255,7 +253,7 @@ namespace CodingBible.Controllers.api.v1
                         return BadRequest(Constants.HttpResponses.IdentityRegults_Errors(confirmResult.Errors));
                     return Ok(Constants.HttpResponses.ResetPassword_Success());
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Log.Error("An error occurred at RESET PASSWORD {Error} {StackTrace} {InnerException} {Source}",
                    ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
@@ -274,8 +272,8 @@ namespace CodingBible.Controllers.api.v1
             try
             {
                 // Check if user is already logged in 
-                if (Request.Cookies.ContainsKey(Constants.CookieName.Access_token)&& Request.Cookies.ContainsKey(Constants.CookieName.refreshToken)
-                    && Request.Cookies.ContainsKey(Constants.CookieName.Username)&& Request.Cookies.ContainsKey(Constants.CookieName.User_id))
+                if (Request.Cookies.ContainsKey(Constants.CookieName.Access_token) && Request.Cookies.ContainsKey(Constants.CookieName.refreshToken)
+                    && Request.Cookies.ContainsKey(Constants.CookieName.Username) && Request.Cookies.ContainsKey(Constants.CookieName.User_id))
                 {
                     var userName = CookieService.Get(Constants.CookieName.Username);
                     var user = await UserManager.FindByNameAsync(userName);
@@ -283,11 +281,11 @@ namespace CodingBible.Controllers.api.v1
                     var userOldToken = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(x => x.UserId == user.Id);
                     var tokenValidations = await TokenService.ValidateAuthTokenAsync(user, userOldToken, userName);
 
-                     if(tokenValidations.IsValid && userOldToken.ExpiryTime > DateTime.Now)
+                    if (tokenValidations.IsValid && userOldToken.ExpiryTime > DateTime.Now)
                     {
                         return true;
                     }
-                    else if((userOldToken.ExpiryTime<DateTime.Now || tokenValidations.Message == "Token Expired") &&
+                    else if ((userOldToken.ExpiryTime < DateTime.Now || tokenValidations.Message == "Token Expired") &&
                         Constants.AppSettings.AllowSiteWideTokenRefresh)
                     {
                         var accessToken = await TokenService.RefreshToken(user, roles.ToList(), userOldToken);
@@ -315,7 +313,7 @@ namespace CodingBible.Controllers.api.v1
         [HttpGet(nameof(Logout))]
         public async Task<bool> Logout()
         {
-            return await this.FunctionalService.Logout();
+            return await FunctionalService.Logout();
         }
     }
 }

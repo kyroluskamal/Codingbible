@@ -1,9 +1,9 @@
 ﻿using CodingBible.Models;
 using CodingBible.Models.Identity;
+using CodingBible.Models.Posts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using CodingBible.Models.Posts;
 
 namespace CodingBible.Data
 {
@@ -20,8 +20,8 @@ namespace CodingBible.Data
         }
         public DbSet<ActivityModel> Activities { get; set; }
         public DbSet<MailProviders> MailProviders { get; set; }
-        public DbSet<Category> Categories{ get; set; }
-        public DbSet<Post> Posts{ get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Post> Posts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserRole>()
@@ -32,29 +32,29 @@ namespace CodingBible.Data
             *                               Self Referencing 
             **********************************************************************************/
             builder.Entity<Category>()
-                .HasOne(e=>e.Parent)
+                .HasOne(e => e.Parent)
                 .WithMany()
-                .HasForeignKey(e=>e.ParentKey);
+                .HasForeignKey(e => e.ParentKey);
             /*********************************************************************************
             *                               One to one relationship
             **********************************************************************************/
             builder.Entity<ApplicationUser>()
-                .HasMany(e=>e.Post)
-                .WithOne(e=>e.Author)
-                .HasForeignKey(e=>e.AuthorId);
+                .HasMany(e => e.Post)
+                .WithOne(e => e.Author)
+                .HasForeignKey(e => e.AuthorId);
             /*********************************************************************************
             *                               Many to many relationShip 
             **********************************************************************************/
             builder.Entity<PostsCategory>()
-                .HasKey(x=>new {x.PostId, x.CategoryId});
+                .HasKey(x => new { x.PostId, x.CategoryId });
             builder.Entity<PostsCategory>()
-                .HasOne(x=>x.Posts)
-                .WithMany(x=>x.PostsCategories)
-                .HasForeignKey(x=>x.PostId);
+                .HasOne(x => x.Posts)
+                .WithMany(x => x.PostsCategories)
+                .HasForeignKey(x => x.PostId);
             builder.Entity<PostsCategory>()
-                .HasOne(x=>x.Categories)
-                .WithMany(x=>x.PostsCategories)
-                .HasForeignKey(x=>x.CategoryId);
+                .HasOne(x => x.Categories)
+                .WithMany(x => x.PostsCategories)
+                .HasForeignKey(x => x.CategoryId);
             builder.Entity<Post>().HasIndex(x => x.Slug).IsUnique();
             base.OnModelCreating(builder);
         }

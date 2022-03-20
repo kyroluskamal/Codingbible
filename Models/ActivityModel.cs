@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CodingBible.Models
+﻿namespace CodingBible.Models
 {
     public class ActivityModel
     {

@@ -1,12 +1,5 @@
 ﻿using CodingBible.Models;
-using CodingBible.Models.Identity;
-using CodingBible.Services.ConstantsService;
 using CodingBible.Services.FunctionalService;
-using DataService;
-using Microsoft.EntityFrameworkCore;
-using Serilog;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CodingBible.Data
 {

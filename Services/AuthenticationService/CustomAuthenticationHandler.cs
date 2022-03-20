@@ -1,7 +1,9 @@
-﻿using CodingBible.Data;
-using CodingBible.Models;
+﻿using CodingBible.Models;
 using CodingBible.Models.Identity;
 using CodingBible.Services.ConstantsService;
+using CodingBible.Services.CookieService;
+using CodingBible.Services.TokenService;
+using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Options;
@@ -12,10 +14,6 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Encodings.Web;
-using CodingBible.Services.TokenService;
-using CodingBible.Services.CookieService;
-using Microsoft.EntityFrameworkCore;
-using CodingBible.UnitOfWork;
 
 namespace CodingBible.Services.AuthenticationService
 {
@@ -68,7 +66,7 @@ namespace CodingBible.Services.AuthenticationService
 
                 /* STEP 3. Create an instance of Jwt token  validation parameters */
                 TokenValidationParameters validationParameters =
-                   new ()
+                   new()
                    {
                        ValidateIssuerSigningKey = true,
                        ValidateIssuer = true,
@@ -93,7 +91,7 @@ namespace CodingBible.Services.AuthenticationService
                 var decryptedToken = protector.Unprotect(headerValue.Parameter);
 
                 /* STEP 8. Create an instance of the user tokenModel */
-                ApplicationUserTokens tokenModel = new ();
+                ApplicationUserTokens tokenModel = new();
 
                 /* STEP 9 Get the existing token for the user from Database using a scoped request */
 
@@ -162,27 +160,27 @@ namespace CodingBible.Services.AuthenticationService
                         var username = Request.Cookies[Constants.CookieName.Username];
                         var role = Request.Cookies[Constants.CookieName.userRole];
 
-                        if (accessToken != null && userId != null&&username!=null)
+                        if (accessToken != null && userId != null && username != null)
                         {
                             var user = await UserManager.FindByNameAsync(username);
                             var roles = await UserManager.GetRolesAsync(user);
-                            var OldToken = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(x=>x.Name == username);
+                            var OldToken = await UnitOfWork.UserTokens.GetFirstOrDefaultAsync(x => x.Name == username);
                             // Call the refresh token method if it is valid
                             var tokenValidations = await TokenService.ValidateAuthTokenAsync(user, OldToken, username);
-                                var NewAccessToken = new TokenResponseModel();
-                               if((OldToken.ExpiryTime<DateTime.Now || tokenValidations.Message == "Token Expired") &&
-                                    Constants.AppSettings.AllowSiteWideTokenRefresh)
-                                {
-                                    NewAccessToken = await TokenService.RefreshToken(user, roles.ToList(), OldToken);
-                                    var expireTime = roles.Contains(Constants.Roles.admin) ? TimeSpan.FromMinutes(180) : NewAccessToken.Expiration;
+                            var NewAccessToken = new TokenResponseModel();
+                            if ((OldToken.ExpiryTime < DateTime.Now || tokenValidations.Message == "Token Expired") &&
+                                 Constants.AppSettings.AllowSiteWideTokenRefresh)
+                            {
+                                NewAccessToken = await TokenService.RefreshToken(user, roles.ToList(), OldToken);
+                                var expireTime = roles.Contains(Constants.Roles.admin) ? TimeSpan.FromMinutes(180) : NewAccessToken.Expiration;
 
-                                    // set cookie for jwt and refresh token
-                                    CookieService.SetRequiredCookies(NewAccessToken, user, roles.ToList(), expireTime, user.RememberMe);
-                                }
-                                var identity = new ClaimsIdentity(NewAccessToken.Principal.Claims, Scheme.Name);
-                                var principal = new ClaimsPrincipal(identity);
-                                var ticket = new AuthenticationTicket(principal, Scheme.Name);
-                               return await Task.FromResult(AuthenticateResult.Success(ticket));
+                                // set cookie for jwt and refresh token
+                                CookieService.SetRequiredCookies(NewAccessToken, user, roles.ToList(), expireTime, user.RememberMe);
+                            }
+                            var identity = new ClaimsIdentity(NewAccessToken.Principal.Claims, Scheme.Name);
+                            var principal = new ClaimsPrincipal(identity);
+                            var ticket = new AuthenticationTicket(principal, Scheme.Name);
+                            return await Task.FromResult(AuthenticateResult.Success(ticket));
                         }
                     }
                 }

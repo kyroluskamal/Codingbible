@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataService
@@ -7,7 +6,8 @@ namespace DataService
     public class DataProtectionKeysContext : DbContext, IDataProtectionKeyContext
     {
         public DataProtectionKeysContext(DbContextOptions<DataProtectionKeysContext> options)
-                    : base(options) {
+                    : base(options)
+        {
             if (Database.GetPendingMigrationsAsync().GetAwaiter().GetResult().Any())
             {
                 Database.MigrateAsync().GetAwaiter();

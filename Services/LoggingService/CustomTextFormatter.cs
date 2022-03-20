@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using Serilog.Events;
+﻿using Serilog.Events;
 using Serilog.Formatting;
 
 namespace LoggingService

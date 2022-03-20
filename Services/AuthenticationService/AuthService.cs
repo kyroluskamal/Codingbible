@@ -1,24 +1,10 @@
-﻿using CodingBible.Data;
-using CodingBible.Models;
-using CodingBible.Models.Identity;
+﻿using CodingBible.Models;
 using CodingBible.Services.ActivityService;
-using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
-using CodingBible.ViewModels;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using Serilog;
-using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using CodingBible.Services.TokenService;
 using CodingBible.UnitOfWork;
+using Microsoft.AspNetCore.Identity;
+using Serilog;
 
 namespace CodingBible.Services.AuthenticationService
 {

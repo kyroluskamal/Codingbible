@@ -1,8 +1,7 @@
+using CodingBible.Data;
 using CodingBible.Models.Posts;
 using CodingBible.UnitOfWork.IRepository.Posts;
-using CodingBible.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace CodingBible.UnitOfWork.Repository.Posts
 {
@@ -20,8 +19,9 @@ namespace CodingBible.UnitOfWork.Repository.Posts
             ApplicationDbContext.Posts.Update(post);
         }
 
-        public async Task<Post> GetBySlug(string slug){
-            return await ApplicationDbContext.Posts.FirstOrDefaultAsync(x=>x.Slug == slug);
+        public async Task<Post> GetBySlug(string slug)
+        {
+            return await ApplicationDbContext.Posts.FirstOrDefaultAsync(x => x.Slug == slug);
         }
     }
 }

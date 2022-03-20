@@ -2,7 +2,7 @@
 {
     public class HttpResponsesObject
     {
-        public HttpResponsesObject(string status, dynamic message, dynamic data=null)
+        public HttpResponsesObject(string status, dynamic message, dynamic data = null)
         {
             Status = status;
             Message = message;

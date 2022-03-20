@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace CodingBible.Services.FunctionalService
+﻿namespace CodingBible.Services.FunctionalService
 {
     public interface IFunctionalService
     {

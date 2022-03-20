@@ -1,8 +1,4 @@
-﻿using CodingBible.Models;
-using CodingBible.ViewModels;
-using System.Threading.Tasks;
-
-namespace CodingBible.Services.AuthenticationService
+﻿namespace CodingBible.Services.AuthenticationService
 {
     public interface IAuthService
     {

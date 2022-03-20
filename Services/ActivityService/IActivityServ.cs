@@ -1,6 +1,4 @@
 ﻿using CodingBible.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CodingBible.Services.ActivityService
 {

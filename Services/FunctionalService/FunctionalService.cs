@@ -1,11 +1,9 @@
 ﻿using CodingBible.Models;
-using CodingBible.Data;
-using Serilog;
 using CodingBible.Models.Identity;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
-using Microsoft.EntityFrameworkCore;
 using CodingBible.UnitOfWork;
+using Serilog;
 
 namespace CodingBible.Services.FunctionalService
 {
@@ -15,7 +13,7 @@ namespace CodingBible.Services.FunctionalService
         private readonly ApplicationUserRoleManager RoleManager;
         public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
 
-        private ICookieServ CookieService{get;}
+        private ICookieServ CookieService { get; }
 
         public FunctionalService(ApplicationUserManager userManager, ApplicationUserRoleManager roleManager, ICookieServ cookieService, IUnitOfWork_ApplicationUser unitOfWork)
         {
@@ -55,7 +53,7 @@ namespace CodingBible.Services.FunctionalService
                         await RoleManager.CreateAsync(adminRole);
                     }
                     var u = await _userManager.FindByEmailAsync(adminUser.Email);
-                    if(u!=null)
+                    if (u != null)
                         await _userManager.AddToRoleAsync(u, Constants.Roles.admin);
                     Log.Information("Admin User Created {UserName}", adminUser.UserName);
                 }

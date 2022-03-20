@@ -1,7 +1,5 @@
 ﻿using CodingBible.Models;
 using CodingBible.Models.Identity;
-using CodingBible.ViewModels;
-using System.Net;
 
 namespace CodingBible.Services.TokenService
 {

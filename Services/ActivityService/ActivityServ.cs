@@ -1,10 +1,6 @@
 ﻿using CodingBible.Data;
 using CodingBible.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Serilog;
 
 namespace CodingBible.Services.ActivityService
@@ -37,7 +33,7 @@ namespace CodingBible.Services.ActivityService
 
         public async Task<List<ActivityModel>> GetUserActivity(int userId)
         {
-            List<ActivityModel> userActivities = new ();
+            List<ActivityModel> userActivities = new();
 
             try
             {

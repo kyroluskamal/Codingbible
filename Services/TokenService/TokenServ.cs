@@ -1,7 +1,5 @@
-﻿using CodingBible.Data;
-using CodingBible.Models;
+﻿using CodingBible.Models;
 using CodingBible.Models.Identity;
-using CodingBible.Services.ActivityService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
 using CodingBible.UnitOfWork;
@@ -10,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -96,7 +93,7 @@ namespace CodingBible.Services.TokenService
             var encryptedToken = protectorJwt.Protect(tokenHandler.WriteToken(token));
 
             /* Create and update the token table */
-            ApplicationUserTokens newRtoken = new ();
+            ApplicationUserTokens newRtoken = new();
 
             /* Create refresh token instance */
             newRtoken = CreateRefreshToken(Constants.AppSettings.ClientId, user, Convert.ToInt32(rtTokenExpiryTime));
@@ -157,19 +154,19 @@ namespace CodingBible.Services.TokenService
                 if (Constants.AppSettings.AllowSiteWideTokenRefresh)
                 {
                     // STEP 1: Validate JWT Token 
-                        // check if the received refreshToken exists for the given clientId
-                        /* Get the Data protection service instance */
-                        var protectorProvider = Provider.GetService<IDataProtectionProvider>();
-                        /* Create a protector instance */
-                        var protectorRt = protectorProvider.CreateProtector(RtFromDb.EncryptionKeyRt);
-                        var decryptedToken =  protectorRt.Unprotect(CookieServ.Get("refreshToken"));
+                    // check if the received refreshToken exists for the given clientId
+                    /* Get the Data protection service instance */
+                    var protectorProvider = Provider.GetService<IDataProtectionProvider>();
+                    /* Create a protector instance */
+                    var protectorRt = protectorProvider.CreateProtector(RtFromDb.EncryptionKeyRt);
+                    var decryptedToken = protectorRt.Unprotect(CookieServ.Get("refreshToken"));
 
-                        if (RtFromDb.Value != decryptedToken)
-                            return null;
+                    if (RtFromDb.Value != decryptedToken)
+                        return null;
 
-                        var accessToken = await GenerateNewToken(user,roles);
-                        accessToken.Principal = validateToken;
-                        return accessToken;
+                    var accessToken = await GenerateNewToken(user, roles);
+                    accessToken.Principal = validateToken;
+                    return accessToken;
                 }
             }
             catch (Exception ex)
@@ -189,40 +186,40 @@ namespace CodingBible.Services.TokenService
                 var authToken = CookieServ.Get(Constants.CookieName.Access_token);
                 if (!string.IsNullOrEmpty(authToken))
                 {
-                        if (userOldToken != null)
+                    if (userOldToken != null)
+                    {
+                        var protectorProvider = Provider.GetService<IDataProtectionProvider>();
+                        var layerOneUnProtector = protectorProvider.CreateProtector(Constants.DataProtectionKeys.ApplicationUserKey);
+                        var unprotectedTokenLayerOne = layerOneUnProtector.Unprotect(authToken);
+                        var protectorJwt = protectorProvider.CreateProtector(userOldToken.EncryptionKeyJwt);
+                        unProtectedToken = protectorJwt.Unprotect(unprotectedTokenLayerOne);
+                        var key = Encoding.ASCII.GetBytes(Constants.AppSettings.Secret);
+
+                        handler = new JwtSecurityTokenHandler();
+
+                        validationParameters = new TokenValidationParameters
                         {
-                            var protectorProvider = Provider.GetService<IDataProtectionProvider>();
-                            var layerOneUnProtector = protectorProvider.CreateProtector(Constants.DataProtectionKeys.ApplicationUserKey);
-                            var unprotectedTokenLayerOne = layerOneUnProtector.Unprotect(authToken);
-                            var protectorJwt = protectorProvider.CreateProtector(userOldToken.EncryptionKeyJwt);
-                            unProtectedToken = protectorJwt.Unprotect(unprotectedTokenLayerOne);
-                            var key = Encoding.ASCII.GetBytes(Constants.AppSettings.Secret);
+                            ValidateIssuerSigningKey = true,
+                            ValidateIssuer = true,
+                            ValidateAudience = true,
+                            ValidIssuer = Constants.AppSettings.Site,
+                            ValidAudience = Constants.AppSettings.Audience,
+                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.Zero
+                        };
 
-                            handler = new JwtSecurityTokenHandler();
+                        validateToken = handler.ValidateToken(unProtectedToken, validationParameters, out var securityToken);
 
-                            validationParameters = new TokenValidationParameters
-                            {
-                                ValidateIssuerSigningKey = true,
-                                ValidateIssuer = true,
-                                ValidateAudience = true,
-                                ValidIssuer = Constants.AppSettings.Site,
-                                ValidAudience = Constants.AppSettings.Audience,
-                                IssuerSigningKey = new SymmetricSecurityKey(key),
-                                ValidateLifetime = true,
-                                ClockSkew = TimeSpan.Zero
-                            };
-
-                            validateToken = handler.ValidateToken(unProtectedToken, validationParameters, out var securityToken);
-
-                            /* This is called pattern matching => is */
-                            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
-                                !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
-                                    StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                response.IsValid = false;
-                                response.Message = "Token Invalid";
-                                return response;
-                            }
+                        /* This is called pattern matching => is */
+                        if (securityToken is not JwtSecurityToken jwtSecurityToken ||
+                            !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                                StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            response.IsValid = false;
+                            response.Message = "Token Invalid";
+                            return response;
+                        }
                         var decryptedUsername = validateToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.NameIdentifier)?.Value;
 
                         if (decryptedUsername == UsernameFromCookie)

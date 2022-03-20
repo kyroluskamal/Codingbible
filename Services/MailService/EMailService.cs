@@ -1,11 +1,8 @@
-﻿using CodingBible.Data;
-using CodingBible.Models;
+﻿using CodingBible.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System.IO;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace CodingBible.Services.MailService
 {
@@ -17,11 +14,11 @@ namespace CodingBible.Services.MailService
 
         public void SendMail(MailRequest mailRequest, MailProviders provider)
         {
-            if (!string.Equals(provider.Name, "sendgrid",StringComparison.OrdinalIgnoreCase) && !provider.IsService)
+            if (!string.Equals(provider.Name, "sendgrid", StringComparison.OrdinalIgnoreCase) && !provider.IsService)
             {
                 NotServiceProvider(mailRequest, provider);
             }
-            if (string.Equals(provider.Name, "sendgrid",StringComparison.OrdinalIgnoreCase) && provider.IsService)
+            if (string.Equals(provider.Name, "sendgrid", StringComparison.OrdinalIgnoreCase) && provider.IsService)
             {
                 SendGridProvider(mailRequest, provider);
             }
@@ -29,7 +26,7 @@ namespace CodingBible.Services.MailService
 
         public void NotServiceProvider(MailRequest mailRequest, MailProviders provider)
         {
-            MailMessage myMessage = new ();
+            MailMessage myMessage = new();
             myMessage.From = new MailAddress(provider.FromEmail, provider.DisplayName);
             myMessage.To.Add(mailRequest.ToEmail);
             myMessage.Subject = mailRequest.Subject;
@@ -54,8 +51,8 @@ namespace CodingBible.Services.MailService
             }
             myMessage.Body = mailRequest.Body;
 
-            SmtpClient mySmtpClient = new ();
-            NetworkCredential myCredential = new (provider.FromEmail, provider.Password);
+            SmtpClient mySmtpClient = new();
+            NetworkCredential myCredential = new(provider.FromEmail, provider.Password);
             mySmtpClient.Host = provider.Host;
             mySmtpClient.Port = provider.Port;
 

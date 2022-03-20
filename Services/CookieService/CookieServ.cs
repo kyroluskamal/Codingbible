@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CodingBible.Models;
+using CodingBible.Services.ConstantsService;
+using Microsoft.AspNetCore.DataProtection;
+using Newtonsoft.Json;
 using Serilog;
 using System.Globalization;
-using CodingBible.Services.ConstantsService;
-using CodingBible.Models;
-using Microsoft.AspNetCore.DataProtection;
-using CodingBible.Models.Identity;
-using CodingBible.Data;
 
 namespace CodingBible.Services.CookieService
 {
@@ -27,7 +25,7 @@ namespace CodingBible.Services.CookieService
             return _httpContextAccessor.HttpContext.Request.Cookies[key];
         }
 
-        public void SetCookie(string key, string value, TimeSpan? expireTime, bool isSecure=true, bool isHttpOnly=true)
+        public void SetCookie(string key, string value, TimeSpan? expireTime, bool isSecure = true, bool isHttpOnly = true)
         {
             if (expireTime.HasValue)
             {
@@ -39,7 +37,7 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.SameSite = SameSiteMode.Strict;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
-        public void SetCookie(string key, string value, bool isSecure=true, bool isHttpOnly=true)
+        public void SetCookie(string key, string value, bool isSecure = true, bool isHttpOnly = true)
         {
             _cookieOptions.Secure = isSecure;
             _cookieOptions.HttpOnly = isHttpOnly;
@@ -67,11 +65,11 @@ namespace CodingBible.Services.CookieService
             Constants.CookieName.userRole,Constants.CookieName.refreshToken, Constants.CookieName.Username};
             foreach (var key in cookiesToDelete)
             {
-                if(_httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key))
-                _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
+                if (_httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key))
+                    _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
             }
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.loginStatus, "0", new CookieOptions() { HttpOnly=false, Secure=false});
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.refershTokenExpire, "0", new CookieOptions() { HttpOnly = false, Secure=false });
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.loginStatus, "0", new CookieOptions() { HttpOnly = false, Secure = false });
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.refershTokenExpire, "0", new CookieOptions() { HttpOnly = false, Secure = false });
         }
 
         public string GetUserIP()
@@ -89,16 +87,17 @@ namespace CodingBible.Services.CookieService
 
             return userIp;
         }
-        public string GetUserID(){
+        public string GetUserID()
+        {
             var protectedUserId = Get(Constants.CookieName.User_id);
-             var protectorProvider = Provider.GetService<IDataProtectionProvider>();
+            var protectorProvider = Provider.GetService<IDataProtectionProvider>();
 
-                /* STEP 5. create a protector instance */
-                var protector = protectorProvider.CreateProtector(Constants.DataProtectionKeys.ApplicationUserKey);
+            /* STEP 5. create a protector instance */
+            var protector = protectorProvider.CreateProtector(Constants.DataProtectionKeys.ApplicationUserKey);
 
-                /* STEP 6. Layer One Unprotect the user id */
-                var decryptedUid = protector.Unprotect(protectedUserId);
-                return decryptedUid;
+            /* STEP 6. Layer One Unprotect the user id */
+            var decryptedUid = protector.Unprotect(protectedUserId);
+            return decryptedUid;
         }
         public string GetUserCountry()
         {
@@ -107,7 +106,7 @@ namespace CodingBible.Services.CookieService
                 string userIp = GetUserIP();
                 string info = new HttpClient().GetAsync("http://ipinfo.io/" + userIp).GetAwaiter().GetResult().ToString();
                 var ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
-                RegionInfo regionalInfo = new (ipInfo.Country);
+                RegionInfo regionalInfo = new(ipInfo.Country);
                 ipInfo.Country = regionalInfo.EnglishName;
 
                 if (!string.IsNullOrEmpty(userIp))
@@ -127,7 +126,8 @@ namespace CodingBible.Services.CookieService
         {
             var exp = (DateTime.Now + accessToken.RefreshTokenExpiration);
             var refExp = $"{exp.Year}-{exp.Month}-{exp.Day} {exp.Hour}:{exp.Minute}:{exp.Second}";
-            if (rememberMe) {
+            if (rememberMe)
+            {
                 SetCookie(Constants.CookieName.Access_token, accessToken.Token, expireTime);
                 SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, accessToken.RefreshTokenExpiration);
                 SetCookie(Constants.CookieName.loginStatus, "1", accessToken.RefreshTokenExpiration, false, false);
@@ -142,7 +142,7 @@ namespace CodingBible.Services.CookieService
                 SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken);
                 SetCookie(Constants.CookieName.loginStatus, "1", false, false);
                 SetCookie(Constants.CookieName.Username, user.UserName, true, true);
-                SetCookie(Constants.CookieName.userRole, string.Join(",", roles),  true, true);
+                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), true, true);
                 SetCookie(Constants.CookieName.User_id, accessToken.UserId);
                 SetCookie(Constants.CookieName.refershTokenExpire, "0", true, false);
             }

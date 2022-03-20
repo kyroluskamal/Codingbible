@@ -2,7 +2,7 @@
 
 namespace CodingBible.Services.AuthenticationService
 {
-    public class CustomAuthenticationOptions :AuthenticationSchemeOptions
+    public class CustomAuthenticationOptions : AuthenticationSchemeOptions
     {
     }
 }

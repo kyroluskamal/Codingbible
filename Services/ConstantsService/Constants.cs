@@ -32,7 +32,8 @@ namespace CodingBible.Services.ConstantsService
             public const string ApplicationUserKey = "mY@c3vvxYfFa8YT__XQ@R";
         }
 
-        public static class IdentityDefaultOptions {
+        public static class IdentityDefaultOptions
+        {
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Password Properties                                                  */
             /*---------------------------------------------------------------------------------------------------*/
@@ -101,10 +102,12 @@ namespace CodingBible.Services.ConstantsService
             public const string Confirm_Password_error = "Password and confirmed password don't match";
             public const string Field_required_error = "This field is required";
             public const string PasswordMinLength_Error = "Enter 8 character at least";
-            public static string RangeError(int min, int max){
+            public static string RangeError(int min, int max)
+            {
                 return $"Enter from {min} to {max}";
             }
-            public static string MinStringLength(int min){
+            public static string MinStringLength(int min)
+            {
                 return $"Enter {min} characters at least";
             }
         }
@@ -133,6 +136,9 @@ namespace CodingBible.Services.ConstantsService
             public static object EmailConfirmed_Success()
             {
                 return new HttpResponsesObject("EMAIL_CONFIRM_SUCCESS", "Email is confirmed successfully.");
+            }public static object EmailConfirmed_FAILED()
+            {
+                return new HttpResponsesObject("EMAIL_CONFIRM_FAILED", "Email confirmation failed.");
             }
             public static object WrongPassword_Response()
             {
