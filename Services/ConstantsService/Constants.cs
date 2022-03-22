@@ -177,11 +177,11 @@ namespace CodingBible.Services.ConstantsService
             }
             public static object Update_Failed(string op)
             {
-                return new HttpResponsesObject($"{op}_UPDATE_FAILED", $"{op} update failed");
+                return new HttpResponsesObject($"UPDATE_FAILED", $"{op} update failed");
             }
             public static object Update_Sucess(string op)
             {
-                return new HttpResponsesObject($"{op}_UPDATE_SUCCESS", $"{op} update success");
+                return new HttpResponsesObject($"UPDATE_SUCCESS", $"{op} update success");
             }
             public static object Delete_Failed(string op)
             {
@@ -189,7 +189,7 @@ namespace CodingBible.Services.ConstantsService
             }
             public static object Delete_Sucess(string op)
             {
-                return new HttpResponsesObject($"{op}_DELETE_SUCCESS", $"{op} Deletion is succeeded");
+                return new HttpResponsesObject($"DELETE_SUCCESS", $"{op} Deletion is succeeded");
             }
             public static object NotUnique_ERROR_Response(string prop)
             {

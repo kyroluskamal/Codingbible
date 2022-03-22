@@ -35,7 +35,7 @@ namespace CodingBible.Services.AuthenticationService
 
                 if (!isValid)
                 {
-                    filterContext.Result = new UnauthorizedObjectResult(new { cookieToken = hToken, headerToken = cookie_Token });
+                    filterContext.Result = new UnauthorizedObjectResult(new { status = "AntiForgery_Error", error = "Are you trying to login with a forge identity? This is forbidden." });
                     return;
                 }
             }
