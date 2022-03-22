@@ -175,7 +175,8 @@ namespace CodingBible.Controllers.api.v1
         [HttpGet(nameof(EmailConfirmation))]
         public async Task<IActionResult> EmailConfirmation([FromQuery] string token, [FromQuery] string email)
         {
-            try { 
+            try
+            {
                 var user = await UserManager.FindByEmailAsync(email);
                 if (user == null)
                     return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
@@ -311,9 +312,9 @@ namespace CodingBible.Controllers.api.v1
          *                                       Logout
          * ************************************************************************************/
         [HttpGet(nameof(Logout))]
-        public async Task<bool> Logout()
-        {
-            return await FunctionalService.Logout();
+        public async Task<IActionResult> Logout()
+        { 
+            return StatusCode(600, await FunctionalService.Logout());
         }
     }
 }

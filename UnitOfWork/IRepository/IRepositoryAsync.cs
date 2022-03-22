@@ -22,6 +22,6 @@ namespace CodingBible.UnitOfWork.IRepository
         Task RemoveAsync(int id);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entity);
-        Task<bool> IsUnique(Expression<Func<T, bool>> filter);
+        Task<bool> IsNotUnique(Expression<Func<T, bool>> filter);
     }
 }

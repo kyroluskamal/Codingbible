@@ -30,7 +30,10 @@ namespace CodingBible.Controllers.api.v1
             UserManager = userManager;
             FunctionalService = functionalService;
         }
-
+        /// <summary>
+        /// Get a list of all posts in the database
+        /// </summary>
+        /// <returns>List of posts</returns>
         [HttpGet]
         [Route(nameof(GetPosts))]
         [AllowAnonymous]
@@ -39,23 +42,29 @@ namespace CodingBible.Controllers.api.v1
             var allPosts = await UnitOfWork.Posts.GetAllAsync();
             return allPosts;
         }
-
+        /// <summary>
+        /// Finds a post by its slug
+        /// </summary>
+        /// <param name="slug">a slug of the post</param>
+        /// <returns>Post if it is found or null</returns>
         [HttpGet]
         [AllowAnonymous]
         [Route(nameof(GetPostBySlug) + "/{slug}")]
-        public async Task<ActionResult<Post>> GetPostBySlug([FromRoute] string slug)
+        public async Task<IActionResult> GetPostBySlug([FromRoute] string slug)
         {
-            return await UnitOfWork.Posts.GetBySlug(slug);
+            Post post = await UnitOfWork.Posts.GetBySlug(slug);
+            if (post == null) return NotFound();
+            return Ok(post);
         }
+
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Custom")]
-        [ValidateAntiForgeryTokenCustom]
         [Route(nameof(GetPostById) + "/{id}")]
-        public async Task<ActionResult<Post>> GetPostById([FromRoute] int id)
+        public async Task<IActionResult> GetPostById([FromRoute] int id)
         {
-            var post = await UnitOfWork.Posts.GetAsync(id);
+            Post post = await UnitOfWork.Posts.GetAsync(id);
             if (post == null) return NotFound();
-            return post;
+            return Ok(post);
         }
 
         [HttpPost]
@@ -64,43 +73,41 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(AddPost))]
         public async Task<IActionResult> AddPost([FromBody] Post Post)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                /*
+                 * This conditions is just preventive and protective step. It is never called
+                 * because if the username cookie is not found, then the Authorize attribute
+                 * will prevent the action call. This condition is only called if some can 
+                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                 */
+                if (user == null)
                 {
-                    var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
-                    if (user == null)
-                    {
-                        await this.FunctionalService.Logout();
-                        return BadRequest(Constants.HttpResponses.NullUser_Error_Response());
-                    }
-                    if (!await UnitOfWork.Posts.IsUnique(x => x.Slug == Post.Slug))
-                    {
-                        return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(Post.Slug)));
-                    }
-                    var newPost = new Post();
-                    newPost = Mapper.Map(Post, newPost);
-                    newPost.DateCreated = DateTime.Now;
-                    newPost.LasModified = DateTime.Now;
-                    newPost.AuthorId = user.Id;
-                    newPost.CommentCount = 0;
-                    newPost.CommentStatus = true;
-                    await UnitOfWork.Posts.AddAsync(newPost);
-                    var result = await UnitOfWork.SaveAsync();
-                    if (result > 0)
-                    {
-                        return Ok(await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug));
-                    }
-                    return BadRequest(Constants.HttpResponses.Addition_Failed($"The {Post.Title} post"));
+                    await FunctionalService.Logout();
+                    return StatusCode(600,Constants.HttpResponses.NullUser_Error_Response());
                 }
-                return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+                if (await UnitOfWork.Posts.IsNotUnique(x => x.Slug == Post.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(Post.Slug)));
+                }
+                var newPost = new Post();
+                newPost = Mapper.Map(Post, newPost);
+                newPost.DateCreated = DateTime.Now;
+                newPost.LasModified = DateTime.Now;
+                newPost.AuthorId = user.Id;
+                newPost.CommentCount = 0;
+                newPost.CommentStatus = true;
+                await UnitOfWork.Posts.AddAsync(newPost);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug));
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed($"The {Post.Title} post"));
             }
-            catch (Exception ex)
-            {
-                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                  ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-                return BadRequest();
-            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
         [HttpPut]
         [Authorize(AuthenticationSchemes = "Custom")]
@@ -198,7 +205,7 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(IsSlugUnique) + "/{slug}")]
         public async Task<ActionResult<bool>> IsSlugUnique([FromRoute] string slug)
         {
-            return await UnitOfWork.Posts.IsUnique(x => x.Slug == slug);
+            return await UnitOfWork.Posts.IsNotUnique(x => x.Slug == slug);
         }
     }
 }

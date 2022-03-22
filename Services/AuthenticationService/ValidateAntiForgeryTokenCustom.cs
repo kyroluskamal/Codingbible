@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Filters;
 namespace CodingBible.Services.AuthenticationService
 {
-    public class ValidateAntiForgeryTokenCustom : Microsoft.AspNetCore.Mvc.Filters.ActionFilterAttribute
+    public class ValidateAntiForgeryTokenCustom : ActionFilterAttribute
     {
         private const string XsrfCookieName = "XSRF-TOKEN";
 
         private const string XsrfHeaderName = "scfD1z5dp2";
 
-        public override void OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext filterContext)
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             string requestMethod = filterContext.HttpContext.Request.Method;
 
@@ -16,26 +17,25 @@ namespace CodingBible.Services.AuthenticationService
 
             if (requestMethod != "GET")
             {
-                var headerToken = filterContext.HttpContext.Request.Headers.Where(x => x.Key.Equals(XsrfHeaderName, StringComparison.OrdinalIgnoreCase))
-                    .Select(x => x.Value).SelectMany(x => x).FirstOrDefault();
-
+                var headerToken = filterContext.HttpContext.Request.Headers.TryGetValue(XsrfHeaderName, out var hToken);
+                Trace.WriteLine(headerToken);
                 var cookieToken = filterContext.HttpContext.Request.Cookies.TryGetValue(XsrfCookieName, out var cookie_Token);
-
+                Trace.WriteLine(cookieToken);
                 // check for missing cookie or header
-                if (!cookieToken || headerToken == null)
+                if (!cookieToken || !headerToken)
                 {
                     isValid = false;
                 }
 
-                // ensure that the cookie matches the header
-                if (isValid && !string.Equals(headerToken, cookie_Token, StringComparison.OrdinalIgnoreCase))
+                //ensure that the cookie matches the header
+                if (isValid && !hToken.ToString().Contains(cookie_Token.ToString()))
                 {
                     isValid = false;
                 }
 
                 if (!isValid)
                 {
-                    filterContext.Result = new UnauthorizedObjectResult(new { status = "AntiForgery_Error", error = "Are you trying to login with a forge identity? This is forbidden." });
+                    filterContext.Result = new UnauthorizedObjectResult(new { cookieToken = hToken, headerToken = cookie_Token });
                     return;
                 }
             }

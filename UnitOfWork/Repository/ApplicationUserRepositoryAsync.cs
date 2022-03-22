@@ -91,10 +91,10 @@ namespace CodingBible.UnitOfWork.Repository
             return await dbSet.ToListAsync();
         }
 
-        public async Task<bool> IsUnique(Expression<Func<T, bool>> filter)
+        public async Task<bool> IsNotUnique(Expression<Func<T, bool>> filter)
         {
             IQueryable<T> query = dbSet;
-            return await query.FirstOrDefaultAsync(filter) == null;
+            return await query.FirstOrDefaultAsync(filter) != null;
         }
 
         public async Task AddRangeAsync(T[] entity)

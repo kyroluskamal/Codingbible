@@ -102,6 +102,8 @@ namespace CodingBible.Services.ConstantsService
             public const string Confirm_Password_error = "Password and confirmed password don't match";
             public const string Field_required_error = "This field is required";
             public const string PasswordMinLength_Error = "Enter 8 character at least";
+            public const string Post_Title_length = "Post title should be between 60 to 70 characters";
+            public const string Post_Description_length = "Post description should be between 50 to 160 characters";
             public static string RangeError(int min, int max)
             {
                 return $"Enter from {min} to {max}";
@@ -136,7 +138,8 @@ namespace CodingBible.Services.ConstantsService
             public static object EmailConfirmed_Success()
             {
                 return new HttpResponsesObject("EMAIL_CONFIRM_SUCCESS", "Email is confirmed successfully.");
-            }public static object EmailConfirmed_FAILED()
+            }
+            public static object EmailConfirmed_FAILED()
             {
                 return new HttpResponsesObject("EMAIL_CONFIRM_FAILED", "Email confirmation failed.");
             }
@@ -170,7 +173,7 @@ namespace CodingBible.Services.ConstantsService
             }
             public static object Addition_Failed(string op)
             {
-                return new HttpResponsesObject($"{op}_ADDITION_FAILED", $"{op} addition failed");
+                return new HttpResponsesObject($"ADDITION_FAILED", $"{op} addition failed");
             }
             public static object Update_Failed(string op)
             {

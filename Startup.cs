@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Text;
 
 namespace CodingBible
@@ -80,7 +82,10 @@ namespace CodingBible
             services.AddTransient<ApplicationUserStore>();
             services.AddDbContext<DataProtectionKeysContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ); ;
+
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Cookie Helper SERVICE                                                */
             /*---------------------------------------------------------------------------------------------------*/
@@ -126,10 +131,6 @@ namespace CodingBible
                 options.Cookie.SameSite = SameSiteMode.Strict;
                 options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-            });
-            services.AddSpaStaticFiles(spa =>
-            {
-                spa.RootPath = "ClientApp/dist";
             });
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
@@ -187,6 +188,7 @@ namespace CodingBible
             {
                 app.UseSpaStaticFiles();
             }
+
             app.UseRouting();
             app.UseSession();
             app.UseCookiePolicy();

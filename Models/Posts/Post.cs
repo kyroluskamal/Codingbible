@@ -7,12 +7,12 @@ namespace CodingBible.Models.Posts
     public class Post
     {
         public int Id { get; set; }
-        [Required(ErrorMessage = Constants.DataAnotationErrorMessages.Field_required_error)]
-        [StringLength(70, MinimumLength = 60, ErrorMessage = "Post title should be between 60 to 70 characters")]
+        [Required]
+        [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.Post_Title_length)]
         public string Title { get; set; }
-        [Required(ErrorMessage = Constants.DataAnotationErrorMessages.Field_required_error)]
+        [Required]
         public string Slug { get; set; }
-        [Required(ErrorMessage = Constants.DataAnotationErrorMessages.Field_required_error)]
+        [Required]
         public string HtmlContent { get; set; }
         [ForeignKey(nameof(AuthorId))]
         public int? AuthorId { get; set; }
@@ -22,10 +22,10 @@ namespace CodingBible.Models.Posts
         public DateTime PublishedDate { get; set; }
         [Column(TypeName = "tinyint")]
         public int Status { get; set; }
-        [Required(ErrorMessage = Constants.DataAnotationErrorMessages.Field_required_error)]
+        [Required]
         public string Excerpt { get; set; }
-        [Required(ErrorMessage = Constants.DataAnotationErrorMessages.Field_required_error)]
-        [StringLength(160, MinimumLength = 50, ErrorMessage = "Post description should be between 50 to 160 characters")]
+        [Required]
+        [StringLength(160, MinimumLength = 50, ErrorMessage = Constants.DataAnotationErrorMessages.Post_Description_length)]
         public string Description { get; set; }
         [Column(TypeName = "bit")]
         public bool CommentStatus { get; set; }
