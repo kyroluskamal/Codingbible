@@ -34,8 +34,17 @@ export class AuthEffects
             exhaustMap(() =>
                 this.accoutnService.logout()
                     .pipe(
-                        map((r) => AuthActions.LogoutConfirmed()),
-                        catchError((e) => of(AuthActions.LogoutCancelled()))
+                        map((r) =>
+                        {
+                            this.router.navigateByUrl("/");
+                            return AuthActions.LogoutConfirmed();
+                        }),
+                        catchError((e) =>
+                        {
+                            console.log(e);
+
+                            return of(AuthActions.LogoutCancelled());
+                        })
                     )
             )
         )

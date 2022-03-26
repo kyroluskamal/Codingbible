@@ -21,8 +21,8 @@ import { DatePipe } from '@angular/common';
 import { PostEffects } from 'src/State/PostState/post-effects';
 import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
 import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
-
-
+import { NgrxUniversalRehydrateBrowserRootModule } from '@trellisorg/ngrx-universal-rehydrate';
+import { TransferHttpCacheModule } from '@nguniversal/common';
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 {
   return localStorageSync({
@@ -45,13 +45,16 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     HomeWebsiteModule, SharedModule,
     DashboardModule, MaterialModule,
     AppRoutingModule, DashboardModule,
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    //BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    // TransferHttpCacheModule,
+
     BrowserAnimationsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
     EffectsModule.forRoot([AuthEffects, PostEffects]),
     StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     FontAwesomeModule,
+    // NgrxUniversalRehydrateModule.forRoot({})
+
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
       headerName: 'scfD1z5dp2',

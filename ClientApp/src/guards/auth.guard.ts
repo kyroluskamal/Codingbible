@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Store } from '@ngrx/store';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { AuthRoutes } from 'src/Helpers/router-constants';
 import { AccountService } from 'src/Services/account.service';

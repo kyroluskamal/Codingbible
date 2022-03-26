@@ -92,7 +92,7 @@ export class NotificationsService
       showLoaderOnConfirm: SwalConfig.OtherOptions.showLoaderOnConfirm,
       showLoaderOnDeny: SwalConfig.OtherOptions.showLoaderOnDeny,
       timer: SwalConfig.OtherOptions.timer,
-      customClass: { container: SwalConfig.direction, title: SwalConfig.OtherOptions.customClass?.title }
+      // customClass: { container: SwalConfig.direction, title: SwalConfig.OtherOptions.customClass?.title }
     });
   }
 }

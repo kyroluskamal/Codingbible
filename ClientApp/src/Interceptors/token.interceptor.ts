@@ -20,8 +20,10 @@ export class TokenInterceptor implements HttpInterceptor
   {
     request = request.clone({
       setHeaders: {
-        Authorization: `Bearer ${this.CookieService.get(CookieNames.XSRF_TOKEN)}`
-      }
+        Authorization: `Bearer ${this.CookieService.get(CookieNames.XSRF_TOKEN)}`,
+        "scfD1z5dp2": this.CookieService.get(CookieNames.XSRF_TOKEN)
+      },
+      withCredentials: true
     });
     return next.handle(request);
   }

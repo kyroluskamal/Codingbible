@@ -1,5 +1,4 @@
 ﻿using CodingBible.Models;
-using CodingBible.Services.ActivityService;
 using CodingBible.Services.CookieService;
 using CodingBible.Services.TokenService;
 using CodingBible.UnitOfWork;
@@ -14,18 +13,14 @@ namespace CodingBible.Services.AuthenticationService
         private readonly ICookieServ CookieServ;
         public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
         //private readonly IServiceProvider Provider;
-        private readonly IActivityServ ActivityServ;
-        private readonly ITokenServ TokenService;
         //private IDataProtector Protector;
 
         public AuthService(UserManager<ApplicationUser> userManager,
 
-            ICookieServ cookieServ, IActivityServ activityServ, ITokenServ tokenService, IUnitOfWork_ApplicationUser unitOfWork)
+            ICookieServ cookieServ, IUnitOfWork_ApplicationUser unitOfWork)
         {
             UserManager = userManager;
             CookieServ = cookieServ;
-            ActivityServ = activityServ;
-            TokenService = tokenService;
             UnitOfWork = unitOfWork;
         }
 

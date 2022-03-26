@@ -46,5 +46,5 @@ export const PostsController = {
 
 function getApiUrl(version: string, controller: string, action: string): string
 {
-    return `/api/${version}/${controller}/${action}`;
+    return `https://localhost:5001/api/${version}/${controller}/${action}`;
 }

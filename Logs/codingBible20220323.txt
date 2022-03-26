@@ -1,0 +1,3819 @@
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:12:00 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:12:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:14:40 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:21:42 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:41:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7180
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:57:44 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:58:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 02:58:58 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 03:00:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 03:57:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 03:57:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 03:59:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:23 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:02:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:04:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:09:30 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 04:09:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11244
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:49:24 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:50:37 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:51:58 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:48 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:48 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:56 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:55:56 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:56:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 22:56:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:01:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD21FEEV9C:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGD21FEEV9C"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:02:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD21FEEV9C:00000003"
+RequestPath : "/favicon.ico"
+ConnectionId : "0HMGD21FEEV9C"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:02:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD21FEEV9C:00000005"
+RequestPath : "/"
+ConnectionId : "0HMGD21FEEV9C"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:02:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD21FEEV9C:00000007"
+RequestPath : "/favicon.ico"
+ConnectionId : "0HMGD21FEEV9C"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 15516
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+
+
+- @auth0/angular-jwt [es2015/esm2015] (git+https://github.com/auth0/angular2-jwt)
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/CodingBible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '49590'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:05:04 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:05:32 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:08:02 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:08:13 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:08:13 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:02 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:02 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:30 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD25LUHEQV:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGD25LUHEQV"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:09:30 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD25LUHEQV:00000003"
+RequestPath : "/favicon.ico"
+ConnectionId : "0HMGD25LUHEQV"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9040
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '51733'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:35 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:36:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:40:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:41:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:41:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:42:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:42:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:42:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD2MUGOH7D:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGD2MUGOH7D"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+)
+ ---> System.InvalidOperationException: The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:42:11 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGD2MUGOH7D:00000003"
+RequestPath : "/favicon.ico"
+ConnectionId : "0HMGD2MUGOH7D"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11540
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+)
+ ---> System.InvalidOperationException: The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - One or more errors occurred. (The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'dev:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: ****************************************************************************************
+
+This is a simple server for use in testing or debugging Angular applications locally.
+
+It hasn't been reviewed for security issues.
+
+
+
+DON'T USE IT FOR PRODUCTION!
+
+****************************************************************************************
+
+- Generating server application bundles (phase: setup)...
+
+- Generating browser application bundles (phase: setup)...
+
+✔ Server application bundle generation complete.
+
+- Generating index html...
+
+✔ Browser application bundle generation complete.
+
+✔ Index html generation complete.
+
+connect ECONNREFUSED 127.0.0.1:53179
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:43:51 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9060
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:43:52 +02:00 | Level - Fatal |
+----------------------------------------------------------------------
+EventId : { Id: 6 }
+SourceContext : "Microsoft.AspNetCore.Hosting.Diagnostics"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 9060
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.InvalidOperationException: To use UseSpaStaticFiles, you must first register an ISpaStaticFileProvider in the service provider, typically by calling services.AddSpaStaticFiles.
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.ShouldServeStaticFiles(IApplicationBuilder app, Boolean allowFallbackOnServingWebRootFiles, IFileProvider& fileProviderOrDefault)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFilesInternal(IApplicationBuilder app, StaticFileOptions staticFileOptions, Boolean allowFallbackOnServingWebRootFiles)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(IApplicationBuilder applicationBuilder, StaticFileOptions options)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(IApplicationBuilder applicationBuilder)
+   at CodingBible.Startup.Configure(IApplicationBuilder app, IDbContextInitializer dbContextInitializer, IHostEnvironment env, IAntiforgery antiForgery) in D:\Bussiness\Project\codingbible\Startup.cs:line 184
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.Extensions.DependencyInjection.AutoRegisterMiddleware.<>c__DisplayClass4_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)StackTrace -    at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.ShouldServeStaticFiles(IApplicationBuilder app, Boolean allowFallbackOnServingWebRootFiles, IFileProvider& fileProviderOrDefault)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFilesInternal(IApplicationBuilder app, StaticFileOptions staticFileOptions, Boolean allowFallbackOnServingWebRootFiles)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(IApplicationBuilder applicationBuilder, StaticFileOptions options)
+   at Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles(IApplicationBuilder applicationBuilder)
+   at CodingBible.Startup.Configure(IApplicationBuilder app, IDbContextInitializer dbContextInitializer, IHostEnvironment env, IAntiforgery antiForgery) in D:\Bussiness\Project\codingbible\Startup.cs:line 184
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.Extensions.DependencyInjection.AutoRegisterMiddleware.<>c__DisplayClass4_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)Message - To use UseSpaStaticFiles, you must first register an ISpaStaticFileProvider in the service provider, typically by calling services.AddSpaStaticFiles.Source - Microsoft.AspNetCore.SpaServices.ExtensionsInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:48:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 6428
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:50:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:52:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:54:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:54:38 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:54:38 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:11 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:11 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:17 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:55:17 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:58:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware"
+RequestId : "0HMGD315IC89K:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGD315IC89K"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:58:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 3, Name: "Exception" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware"
+RequestId : "0HMGD315IC89K:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGD315IC89K"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.HandleException(HttpContext context, ExceptionDispatchInfo edi)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.HandleException(HttpContext context, ExceptionDispatchInfo edi)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/03/2022 23:58:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+ConnectionId : "0HMGD315IC89K"
+TraceIdentifier : "0HMGD315IC89K:00000001"
+EventId : { Id: 13, Name: "ApplicationError" }
+SourceContext : "Microsoft.AspNetCore.Server.Kestrel"
+RequestId : "0HMGD315IC89K:00000001"
+RequestPath : "/"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 13916
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - System.AggregateException: One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)
+ ---> System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.HandleException(HttpContext context, ExceptionDispatchInfo edi)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)StackTrace -    at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)
+   at System.Threading.Tasks.Task`1.get_Result()
+   at Microsoft.AspNetCore.SpaServices.Extensions.Util.TaskTimeoutExtensions.WithTimeout[T](Task`1 task, TimeSpan timeoutDelay, String message)
+   at Microsoft.AspNetCore.SpaServices.Extensions.Proxy.SpaProxy.PerformProxyRequest(HttpContext context, HttpClient httpClient, Task`1 baseUriTask, CancellationToken applicationStoppingToken, Boolean proxy404s)
+   at Microsoft.AspNetCore.Builder.SpaProxyingExtensions.<>c__DisplayClass2_0.<<UseProxyToSpaDevelopmentServer>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Session.SessionMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.HandleException(HttpContext context, ExceptionDispatchInfo edi)
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddleware.<Invoke>g__Awaited|6_0(ExceptionHandlerMiddleware middleware, HttpContext context, Task task)
+   at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpProtocol.ProcessRequests[TContext](IHttpApplication`1 application)Message - One or more errors occurred. (The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+)Source - System.Private.CoreLibInnerException - System.InvalidOperationException: The npm script 'build:ssr' exited without indicating that the Angular CLI was listening for requests. The error output was: - Generating browser application bundles (phase: setup)...
+
+✔ Browser application bundle generation complete.
+
+✔ Browser application bundle generation complete.
+
+- Copying assets...
+
+✔ Copying assets complete.
+
+- Generating index html...
+
+✔ Index html generation complete.
+
+
+
+Warning: D:/Bussiness/Project/codingbible/ClientApp/src/app/Dashboard/dashboard-home/dashboard-home.component.css exceeded maximum budget. Budget 2.00 kB was not met by 610 bytes with a total of 2.60 kB.
+
+
+
+
+
+Unknown option: '--port'
+
+Unknown option: '59294'
+
+
+ ---> System.IO.EndOfStreamException: Attempted to read past the end of the stream.
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.SpaServices.AngularCli.AngularCliMiddleware.StartAngularCliServerAsync(String sourcePath, String scriptName, String pkgManagerCommand, Int32 portNumber, ILogger logger, DiagnosticSource diagnosticSource, CancellationToken applicationStoppingToken)---------------------------------------------------------------------------

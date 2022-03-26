@@ -70,7 +70,7 @@ export class ServerResponseHandelerService
   {
     console.log(e);
     let errors: ModelStateErrors[] = [];
-    if (e.error.errors)
+    if (e["error"]["errors"])
       errors.push(...this.GetModelStateErrors(e.error.errors));
     else if (e.error.status === Constants.HTTPResponseStatus.identityErrors)
     {

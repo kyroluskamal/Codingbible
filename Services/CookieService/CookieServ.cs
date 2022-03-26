@@ -34,15 +34,16 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.Secure = isSecure;
             _cookieOptions.HttpOnly = isHttpOnly;
             _cookieOptions.IsEssential = true;
-            _cookieOptions.SameSite = SameSiteMode.Strict;
+            _cookieOptions.SameSite = SameSiteMode.None;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
         public void SetCookie(string key, string value, bool isSecure = true, bool isHttpOnly = true)
         {
             _cookieOptions.Secure = isSecure;
             _cookieOptions.HttpOnly = isHttpOnly;
-            _cookieOptions.IsEssential = true;
-            _cookieOptions.SameSite = SameSiteMode.Strict;
+            _cookieOptions.Domain = "";
+            _cookieOptions.Path = "/";
+            _cookieOptions.SameSite = SameSiteMode.None;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
 
@@ -55,6 +56,8 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.Secure = true;
             _cookieOptions.HttpOnly = true;
             _cookieOptions.SameSite = SameSiteMode.Strict;
+            _cookieOptions.Domain = "";
+            _cookieOptions.Path = "/";
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
         public void DeleteAllCookies()
@@ -128,22 +131,22 @@ namespace CodingBible.Services.CookieService
             var refExp = $"{exp.Year}-{exp.Month}-{exp.Day} {exp.Hour}:{exp.Minute}:{exp.Second}";
             if (rememberMe)
             {
-                SetCookie(Constants.CookieName.Access_token, accessToken.Token, expireTime);
-                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, accessToken.RefreshTokenExpiration);
-                SetCookie(Constants.CookieName.loginStatus, "1", accessToken.RefreshTokenExpiration, false, false);
-                SetCookie(Constants.CookieName.Username, user.UserName, accessToken.RefreshTokenExpiration);
-                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), accessToken.RefreshTokenExpiration);
-                SetCookie(Constants.CookieName.User_id, accessToken.UserId, accessToken.RefreshTokenExpiration);
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token, expireTime, true, false);
+                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, accessToken.RefreshTokenExpiration, true, false);
+                SetCookie(Constants.CookieName.loginStatus, "1", accessToken.RefreshTokenExpiration, true, false);
+                SetCookie(Constants.CookieName.Username, user.UserName, accessToken.RefreshTokenExpiration, true, false);
+                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), accessToken.RefreshTokenExpiration, true, false);
+                SetCookie(Constants.CookieName.User_id, accessToken.UserId, accessToken.RefreshTokenExpiration, true, false);
                 SetCookie(Constants.CookieName.refershTokenExpire, refExp, accessToken.RefreshTokenExpiration, true, false);
             }
             else
             {
-                SetCookie(Constants.CookieName.Access_token, accessToken.Token);
-                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken);
-                SetCookie(Constants.CookieName.loginStatus, "1", false, false);
-                SetCookie(Constants.CookieName.Username, user.UserName, true, true);
-                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), true, true);
-                SetCookie(Constants.CookieName.User_id, accessToken.UserId);
+                SetCookie(Constants.CookieName.Access_token, accessToken.Token, true, false);
+                SetCookie(Constants.CookieName.refreshToken, accessToken.RefreshToken, true, false);
+                SetCookie(Constants.CookieName.loginStatus, "1", true, false);
+                SetCookie(Constants.CookieName.Username, user.UserName, true, false);
+                SetCookie(Constants.CookieName.userRole, string.Join(",", roles), true, false);
+                SetCookie(Constants.CookieName.User_id, accessToken.UserId, true, false);
                 SetCookie(Constants.CookieName.refershTokenExpire, "0", true, false);
             }
         }

@@ -1,7 +1,6 @@
 using CodingBible.Data;
 using CodingBible.Models;
 using CodingBible.Models.Identity;
-using CodingBible.Services.ActivityService;
 using CodingBible.Services.AuthenticationService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
@@ -18,8 +17,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MintPlayer.AspNetCore.Hsts;
+using MintPlayer.AspNetCore.SpaServices.Prerendering;
+using MintPlayer.AspNetCore.SpaServices.Routing;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Text;
 
 namespace CodingBible
@@ -36,6 +37,12 @@ namespace CodingBible
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader();
+            }));
+
+            services.AddMvc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -99,6 +106,12 @@ namespace CodingBible
             services.AddAuthentication("Custom").AddScheme<CustomAuthenticationOptions, CustomAuthenticationHandler>("Custom", null);
 
             services.AddControllersWithViews();
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
+            //services.AddSpaPrerenderingService<Services.SpaPrerenderingService>();
             services.AddRazorPages();
 
             /*---------------------------------------------------------------------------------------------------*/
@@ -106,19 +119,17 @@ namespace CodingBible
             /*---------------------------------------------------------------------------------------------------*/
             services.AddTransient<IFunctionalService, FunctionalService>();
             services.AddDataProtection().PersistKeysToDbContext<DataProtectionKeysContext>();
-            services.AddTransient<IAuthService, AuthService>();
-            services.AddTransient<IActivityServ, ActivityServ>();
             services.AddTransient<IEMailService, EMailService>();
             services.AddTransient<ITokenServ, TokenServ>();
             services.AddTransient<IDbContextInitializer, DbContextInitializer>();
             services.AddTransient<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true;
-            });
+            //services.AddSession(options =>
+            //{
+            //    options.IdleTimeout = TimeSpan.FromMinutes(60);
+            //    options.Cookie.HttpOnly = true;
+            //    options.Cookie.IsEssential = true;
+            //});
             /*--------------------------------------------------------------------------------------------------------------------*/
             /*                      Anti Forgery Token Validation Service                                                         */
             /* We use the option patterm to configure the Antiforgery feature through the AntiForgeryOptions Class                */
@@ -128,9 +139,11 @@ namespace CodingBible
             {
                 options.HeaderName = "scfD1z5dp2";
                 options.Cookie.MaxAge = TimeSpan.FromDays(10);
-                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.HttpOnly = false;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                options.Cookie.Domain = "";
+                options.Cookie.Path = "/";
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
@@ -154,7 +167,14 @@ namespace CodingBible
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
+            services.AddCors(o =>
+            {
+                o.AddPolicy("basic", options =>
+                {
+                    options.WithOrigins("http://localhost:4000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                        .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
+                });
+            });
             /*---------------------------------------------------------------------------------------------------*/
             /*                              ENABLE API Versioning                                                */
             /*---------------------------------------------------------------------------------------------------*/
@@ -174,32 +194,22 @@ namespace CodingBible
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-                //The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
             }
 
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseImprovedHsts();
+            //app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
-            app.UseSession();
-            app.UseCookiePolicy();
             app.UseCors(policy =>
             {
-                policy.AllowAnyOrigin();
-                policy.AllowAnyHeader();
-                policy.AllowAnyMethod();
-                policy.WithOrigins("http://localhost:9876", "https://*.localhost:5001");
+                policy.WithOrigins("http://localhost:4000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
             });
-
             app.UseAuthorization();
             app.Use(next => context =>
             {
@@ -210,9 +220,11 @@ namespace CodingBible
                         new CookieOptions()
                         {
                             HttpOnly = false,
-                            Secure = false,
+                            Secure = true,
                             IsEssential = true,
-                            SameSite = SameSiteMode.Strict,
+                            Domain="",
+                            Path="/",
+                            SameSite = SameSiteMode.None,
                             MaxAge = TimeSpan.FromDays(10)
                         });
                 }
@@ -231,20 +243,25 @@ namespace CodingBible
                 endpoints.MapControllerRoute(
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-          );
+                );
                 endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
-                spa.Options.StartupTimeout = new TimeSpan(0, 5, 0);
+
+                //spa.UseSpaPrerendering(options =>
+                //{
+                //    //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                //    options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
+                //    options.ExcludeUrls = new[] { "/sockjs-node" };
+                //});
+
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
                 }
             });
         }
