@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -112,9 +112,9 @@ export class PostHandlerComponent implements OnInit, OnChanges
     this.post.author = null;
     html.value = view.innerHTML;
   }
-  GetData()
-  {
-  }
+  // GetData()
+  // {
+  // }
 
   CreateSlug(title: HTMLInputElement, slug: HTMLInputElement)
   {
@@ -135,9 +135,6 @@ export class PostHandlerComponent implements OnInit, OnChanges
       var selection = window.getSelection();
       var start = selection?.anchorOffset;
       var end = selection?.focusOffset;
-      // console.log('start at postion', start, 'in node', selection?.anchorNode);
-      // console.log('stop at position', end, 'in node', selection?.focusNode);
-
       this.selectedText = {
         text: selection!?.toString(),
         start: start!,
@@ -145,7 +142,6 @@ export class PostHandlerComponent implements OnInit, OnChanges
         anchorNode: selection?.anchorNode,
         focusNode: selection?.focusNode
       };
-      // console.log(this.selectedText.anchorNode?.parentElement?.outerHTML);
     }
     else if (document.getSelection())
     {
@@ -153,9 +149,6 @@ export class PostHandlerComponent implements OnInit, OnChanges
       var selection = document.getSelection();
       var start = selection?.anchorOffset;
       var end = selection?.focusOffset;
-      console.log('start at postion', start, 'in node', selection?.anchorNode);
-      console.log('stop at position', end, 'in node', selection?.anchorNode);
-      console.log('stop at position 222222', end, 'in node', selection?.focusNode);
       this.selectedText = {
         text: selection!?.toString(),
         start: start!,

@@ -22,30 +22,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatStepperModule } from '@angular/material/stepper';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
-import
-{
-  personFill, penFill, NgxBootstrapIconsModule, speedometer2, typeItalic, typeUnderline,
-  boxArrowRight, gearFill, pinFill, plusSquareFill, pinAngleFill, typeBold, eraserFill,
-  typeStrikethrough
-} from 'ngx-bootstrap-icons';
+
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
-import { NgbModule, NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 
-const icons = {
-  personFill, penFill, boxArrowRight, gearFill, speedometer2, pinFill, plusSquareFill, pinAngleFill,
-  typeBold, typeItalic, typeUnderline, eraserFill, typeStrikethrough
-};
 const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
   MatBottomSheetModule, MatInputModule, MatFormFieldModule,
@@ -53,8 +41,8 @@ const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
   MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule, MatSnackBarModule,
   MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule, MatCardModule,
   MatButtonToggleModule, MatSlideToggleModule, MatTableModule, MatDividerModule,
-NgxBootstrapIconsModule.pick(icons), NgbModule, BsDropdownModule.forRoot(), TabsModule.forRoot(),
-  MatCardModule, MatPaginatorModule, MatSortModule, FontAwesomeModule, MatProgressSpinnerModule
+BsDropdownModule.forRoot(), TabsModule.forRoot(),
+  MatCardModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule
 ];
 @NgModule({
   declarations: [],

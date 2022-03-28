@@ -1,10 +1,10 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { Post } from "src/models.model";
 import { PostState } from "../app.state";
-import * as postActions from './post.actions';
-import * as adpater from "./post.adapter";
+import { AddPOST_Failed, AddPOST_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById_Failed, GetPostById_Success, LoadPOSTsSuccess, RemovePOST_Failed, RemovePOST_Success, UpdatePOST_Failed, UpdatePOST_Sucess } from "./post.actions";
+import * as adapter from "./post.adapter";
 
-export const initialState: PostState = adpater.PostAdapter.getInitialState({
+export const initialState: PostState = adapter.PostAdapter.getInitialState({
     ValidationErrors: [],
     CurrentPostById: new Post(),
     CurrentPostBySlug: new Post()
@@ -12,60 +12,58 @@ export const initialState: PostState = adpater.PostAdapter.getInitialState({
 // Creating reducer                        
 export const PostReducer = createReducer(
     initialState,
-    on(postActions.AddPOST_Success, (state, post) => adpater.PostAdapter.addOne(post, state)),
-    on(postActions.AddPOST_Failed, (state, res) =>
+    on(AddPOST_Success, (state, post) => adapter.PostAdapter.addOne(post, state)),
+    on(AddPOST_Failed, (state, res) =>
     {
         return {
             ...state,
             ValidationErrors: res.validationErrors
         };
     }),
-    on(postActions.GetPostById_Success, (state, post) => 
+    on(GetPostById_Success, (state, post) => 
     {
         return {
             ...state,
             CurrentPostById: post
         };
     }),
-    on(postActions.GetPostById_Failed, (state, res) =>
-    {
-        console.log(res);
-
-        return {
-            ...state,
-            ValidationErrors: res.validationErrors
-        };
-    }),
-    on(postActions.UpdatePOST_Sucess, (state, res) => adpater.PostAdapter.updateOne(res.POST, state)),
-    on(postActions.RemovePOST_Success, (state, { id }) => adpater.PostAdapter.removeOne(id, state)),
-    on(postActions.RemovePOST_Failed, (state, res) =>
+    on(GetPostById_Failed, (state, res) =>
     {
         return {
             ...state,
             ValidationErrors: res.validationErrors
         };
     }),
-    on(postActions.ChangeStatus_Success, (state, res) => adpater.PostAdapter.updateOne(res.POST, { ...state, CurrentPostById: res.currentPostById })),
-    on(postActions.ChangeStatus_Failed, (state, res) =>
+    on(UpdatePOST_Sucess, (state, res) => adapter.PostAdapter.updateOne(res.POST, state)),
+    on(RemovePOST_Success, (state, { id }) => adapter.PostAdapter.removeOne(id, state)),
+    on(RemovePOST_Failed, (state, res) =>
     {
         return {
             ...state,
             ValidationErrors: res.validationErrors
         };
     }),
-    on(postActions.UpdatePOST_Failed, (state, res) =>
+    on(ChangeStatus_Success, (state, res) => adapter.PostAdapter.updateOne(res.POST, { ...state, CurrentPostById: res.currentPostById })),
+    on(ChangeStatus_Failed, (state, res) =>
     {
         return {
             ...state,
             ValidationErrors: res.validationErrors
         };
     }),
-    on(postActions.LoadPOSTsSuccess, (state, { payload }) =>
+    on(UpdatePOST_Failed, (state, res) =>
     {
-        state = adpater.PostAdapter.removeAll({ ...state });
-        return adpater.PostAdapter.addMany(payload, state);
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
     }),
-    on(postActions.dummyAction, (state) =>
+    on(LoadPOSTsSuccess, (state, { payload }) =>
+    {
+        state = adapter.PostAdapter.removeAll({ ...state });
+        return adapter.PostAdapter.addMany(payload, state);
+    }),
+    on(dummyAction, (state) =>
     {
         return {
             ...state,
@@ -79,7 +77,6 @@ export function prticleReducer(state: any, action: Action)
     return PostReducer(state, action);
 }
 
-// Creating selectors
 
 export const selectPostState = createFeatureSelector<PostState>('post');
 
@@ -87,10 +84,10 @@ export const selectPostByID = createSelector(
     selectPostState,
     (state) => state.CurrentPostById
 );
-export const selectPostIds = createSelector(selectPostState, adpater.selectPostIds);
-export const selectPostEntities = createSelector(selectPostState, adpater.selectPostEntities);
-export const selectAllposts = createSelector(selectPostState, adpater.selectAllposts);
-export const selectPostsCount = createSelector(selectPostState, adpater.postsCount);
+export const selectPostIds = createSelector(selectPostState, adapter.selectPostIds);
+export const selectPostEntities = createSelector(selectPostState, adapter.selectPostEntities);
+export const selectAllposts = createSelector(selectPostState, adapter.selectAllposts);
+export const selectPostsCount = createSelector(selectPostState, adapter.postsCount);
 export const select_Post_ValidationErrors = createSelector(
     selectPostState,
     (state) => state.ValidationErrors!

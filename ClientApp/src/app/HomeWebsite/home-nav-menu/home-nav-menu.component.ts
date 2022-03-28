@@ -1,37 +1,43 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IconNamesEnum } from 'ngx-bootstrap-icons';
-import { CookieService } from 'ngx-cookie-service';
-import { DropDownAnimation } from 'src/Animations/animations';
-import { CookieNames } from 'src/Helpers/constants';
+import { Observable } from 'rxjs';
+import { ApplicationUser } from 'src/models.model';
 import { Logout } from 'src/State/AuthState/auth.actions';
 import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
-import { DialogHandlerService } from '../../../CommonServices/dialog-handler.service';
 import * as Routes from '../../../Helpers/router-constants';
 @Component({
   selector: 'app-home-nav-menu',
   templateUrl: './home-nav-menu.component.html',
   styleUrls: ['./home-nav-menu.component.css'],
-  animations: [DropDownAnimation]
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class HomeNavMenuComponent implements OnInit
 {
-  BootstrapIcons = IconNamesEnum;
   MenuOpen: boolean = false;
   Routes = Routes;
-  User = this.store.select(selectUser);
-  IsLoggedIn = this.store.select(selectIsLoggedIn);
-  UserRoles = this.store.select(selectUserRoles);
-  constructor(public dialogHandler: DialogHandlerService, private datePipe: DatePipe,
-    private store: Store, private cookieServ: CookieService) { }
+  User: Observable<ApplicationUser | null> = new Observable<ApplicationUser | null>();
+  IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
+  UserRoles: Observable<string[]> = new Observable<string[]>();
+  constructor(
+    private store: Store,
+    @Inject(PLATFORM_ID) private platformId: Object)
+  {
+    if (isPlatformBrowser(this.platformId))
+    {
+      this.User = this.store.select(selectUser);
+      this.IsLoggedIn = this.store.select(selectIsLoggedIn);
+      this.UserRoles = this.store.select(selectUserRoles);
+    }
+  }
 
   ngOnInit(): void
   {
-    this.IsLoggedIn.subscribe(r => console.log(r));
   }
   logout()
   {
-    this.store.dispatch(Logout());
+    if (isPlatformBrowser(this.platformId))
+      this.store.dispatch(Logout());
   }
 }

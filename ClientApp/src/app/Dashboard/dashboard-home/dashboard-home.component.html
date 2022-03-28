@@ -28,13 +28,7 @@
                     <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
                             {{item.GoogleIconName}}
                         </span></mat-icon>
-                    <fa-icon *ngIf="item.faIcon"
-                             [icon]="item.faIcon"></fa-icon>
-                    <i-bs *ngIf="item.boostrapIcon"
-                          [name]="item.boostrapIcon"
-                          width="24"
-                          height="24">
-                    </i-bs>
+
                     <span class="ps-2 ">{{item.title}}</span>
                 </button>
                 <mat-menu #submenu="matMenu">
@@ -80,10 +74,7 @@
                      matRipple
                      [adaptivePosition]="true"
                      [tooltipAppendToBody]="true">
-                    <i-bs name="plus-square-fill"
-                          width="24"
-                          height="24">
-                    </i-bs>
+                    <i class="bi bi-plus-square-fill"></i>
                 </div>
             </div>
             <!-- second Div -->

@@ -8,6 +8,7 @@ import { AuthRoutes, DashboardRoutes, HomeRoutes } from 'src/Helpers/router-cons
 import { AccountService } from 'src/Services/account.service';
 import * as AuthActions from './auth.actions';
 import { HTTPResponseStatus, NotificationMessage } from 'src/Helpers/constants';
+import { GetServerErrorResponseService } from 'src/CommonServices/getServerErrorResponse.service';
 
 @Injectable()
 export class AuthEffects
@@ -17,12 +18,10 @@ export class AuthEffects
             ofType(AuthActions.Login),
             exhaustMap(action =>
             {
-                console.log("Called from effect");
-
                 return this.accoutnService.Login({ email: action.email, password: action.password, rememberMe: action.rememberMe })
                     .pipe(
                         map((r) => AuthActions.LoginSuccess(r)),
-                        catchError((e) => of(AuthActions.LoginFailure({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) => of(AuthActions.LoginFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     );
             }
             )
@@ -41,8 +40,6 @@ export class AuthEffects
                         }),
                         catchError((e) =>
                         {
-                            console.log(e);
-
                             return of(AuthActions.LogoutCancelled());
                         })
                     )
@@ -59,7 +56,6 @@ export class AuthEffects
                 {
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                     this.dialogHandler.CloseDialog();
-                    console.log("URL", this.router);
                     if (this.router.url.includes(AuthRoutes.Login))
                         this.router.navigateByUrl(DashboardRoutes.Home);
                 })
@@ -83,7 +79,7 @@ export class AuthEffects
                 })
                     .pipe(
                         map((r) => AuthActions.RegisterSuccess(r)),
-                        catchError((e) => of(AuthActions.RegisterFailure({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) => of(AuthActions.RegisterFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     )
             )
         )
@@ -112,7 +108,7 @@ export class AuthEffects
                 })
                     .pipe(
                         map((r) => AuthActions.ForgetPasswordSuccess(r)),
-                        catchError((e) => of(AuthActions.ForgetPasswordFailure({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) => of(AuthActions.ForgetPasswordFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     )
             )
         )
@@ -141,7 +137,7 @@ export class AuthEffects
                 })
                     .pipe(
                         map((r) => AuthActions.ResetPasswordSuccess(r)),
-                        catchError((e) => of(AuthActions.ResetPasswordFailure({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) => of(AuthActions.ResetPasswordFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     )
             )
         )
@@ -164,7 +160,6 @@ export class AuthEffects
                 ofType(AuthActions.ResetPasswordFailure),
                 tap((e) =>
                 {
-                    console.log(e);
                     if (e.error.error.status === HTTPResponseStatus.identityErrors)
                     {
                         for (let error of e.error.error.message)
@@ -190,7 +185,7 @@ export class AuthEffects
     );
     constructor(
         private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
-        public dialogHandler: DialogHandlerService,
+        public dialogHandler: DialogHandlerService, private ServerError: GetServerErrorResponseService,
         private accoutnService: AccountService,
         private router: Router
     ) { }

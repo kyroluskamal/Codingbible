@@ -1,20 +1,27 @@
+import { isPlatformBrowser } from "@angular/common";
+import { PLATFORM_ID } from "@angular/core";
 import { EntityState } from "@ngrx/entity";
-import { ActionReducerMap } from "@ngrx/store";
+import { ActionReducerMap, createFeatureSelector, createSelector } from "@ngrx/store";
+import { CookieNames } from "src/Helpers/constants";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
 import { ApplicationUser, Post } from "src/models.model";
-import { AuthReducer } from "./AuthState/auth.reducer";
+import { AuthReducer, GetCookie } from "./AuthState/auth.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
+import { postsCount, selectAllposts, selectPostEntities, selectPostIds } from "./PostState/post.adapter";
 import { PostReducer } from "./PostState/post.reducer";
 
-export interface AppState
+export interface AppState extends PostStateForHome
 {
-    auth: AuthState;
-    post: PostState;
     design: DesignState;
 }
 export interface DesignState
 {
     pinned: boolean;
+}
+export interface PostStateForHome
+{
+    post: PostState;
+    auth: AuthState;
 }
 
 export interface AuthState
@@ -35,8 +42,13 @@ export interface PostState extends EntityState<Post>
     CurrentPostById: Post;
     CurrentPostBySlug: Post;
 }
+
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,
     post: PostReducer,
     design: DesignReducer
+};
+export const PostReducers: ActionReducerMap<PostStateForHome> = {
+    post: PostReducer,
+    auth: AuthReducer,
 };

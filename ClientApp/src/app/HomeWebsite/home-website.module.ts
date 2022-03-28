@@ -1,35 +1,55 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeWebsiteRoutingModule } from './home-website-routing.module';
-import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './AuthComonents/login/login.component';
 import { RegisterComponent } from './AuthComonents/register/register.component';
-import { SendCodeComponent } from './AuthComonents/send-code/send-code.component';
-import { ValidateCodeComponent } from './AuthComonents/validate-code/validate-code.component';
 import { ForgetPasswordComponent } from './AuthComonents/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './AuthComonents/reset-password/reset-password.component';
-import { HomeNavMenuComponent } from './home-nav-menu/home-nav-menu.component';
-import { SharedModule } from '../../SharedModules/shared.module';
-import { MaterialModule } from '../../SharedModules/material.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { EmailConfirmationComponent } from './AuthComonents/email-confirmation/email-confirmation.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedComponentsModule } from 'src/SharedModules/SharedComponents.module';
+import { AuthEffects } from 'src/State/AuthState/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
+import { AppReducers, AppState } from 'src/State/app.state';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
+export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
+{
+  return localStorageSync({
+    keys: [
+      { auth: ['user', 'roles'] },
+      { design: ['pinned'] },
+    ],
+    rehydrate: true,
+    removeOnUndefined: true
+  })(reducer);
+}
 
-
-
-
-
+export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
 const Commponents = [
-  HomeComponent, LoginComponent, RegisterComponent, SendCodeComponent, ValidateCodeComponent,
-  HomeNavMenuComponent, ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
+  LoginComponent, RegisterComponent,
+  ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
   LoginPageComponent, RegisterPageComponent
 ];
 @NgModule({
   declarations: [Commponents],
-  imports: [
-    CommonModule,
-    SharedModule, MaterialModule,
-    HomeWebsiteRoutingModule
+  imports: [SharedComponentsModule,
+    StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
+    ReactiveFormsModule, MatInputModule, CommonModule,
+    MatIconModule, MatCardModule, MatFormFieldModule, FormsModule,
+    EffectsModule.forFeature([AuthEffects]),
+    NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
+
+    HomeWebsiteRoutingModule, TooltipModule.forRoot(), MatProgressSpinnerModule
   ],
   exports: [Commponents]
 })

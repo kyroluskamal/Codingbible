@@ -1,13 +1,11 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MenuPositionX, MenuPositionY } from '@angular/material/menu';
-import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { MatDrawerMode } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { IconNamesEnum } from 'ngx-bootstrap-icons';
 import { filter, Subscription } from 'rxjs';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
-import { css, LocalStorageKeys, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
+import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { ExpansionPanel } from 'src/Interfaces/interfaces';
 import { PinnedMenu } from 'src/State/DesignState/design.actions';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
@@ -17,7 +15,8 @@ import { SideNav_items } from '../SideNavItems';
 @Component({
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
-  styleUrls: ['./dashboard-home.component.css']
+  styleUrls: ['./dashboard-home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardHomeComponent implements OnInit
 {
@@ -200,7 +199,6 @@ export class DashboardHomeComponent implements OnInit
     this.MediaSubscription = this.mediaObserver.asObservable().subscribe(
       (response: MediaChange[]) =>
       {
-        console.log(response);
         var matRangLanble = document.getElementsByClassName("mat-paginator-range-label");
         if (response.some(x => x.mqAlias === 'xs'))
         {

@@ -53,12 +53,12 @@
                  *ngIf="!(IsLoggedIn|async)?.isLoggedIn"
                  role="group"
                  aria-label="First group">
-                <button type="button"
-                        (click)="dialogHandler.OpenRegister()"
-                        class="btn btn-outline-primary">Register</button>
-                <button type="button"
-                        (click)="dialogHandler.OpenLogin()"
-                        class="btn btn-outline-primary">Login</button>
+                <a type="button"
+                   class="btn btn-outline-primary"
+                   href="/Register">Register</a>
+                <a type="button"
+                   class="btn btn-outline-primary"
+                   href="/login">Login</a>
             </div>
             <div class="dropdown h-100 border-end border-start"
                  *ngIf="(IsLoggedIn|async)?.isLoggedIn">
@@ -85,25 +85,17 @@
                 <ul class="dropdown-menu w-100"
                     aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item cursor-pointer"
-                           [routerLink]="['',Routes.DashboardRoutes.Home]">
-                            <i-bs [name]="BootstrapIcons.Speedometer2"
-                                  width="20"
-                                  height="20">
-                            </i-bs><span class="ms-3">Dashboard</span>
+                           href="/Dashboard">
+                            <i class="bi bi-speedometer2"></i><span class="ms-3">Dashboard</span>
                         </a>
                     </li>
                     <li><a class="dropdown-item cursor-pointer">
-                            <i-bs [name]="BootstrapIcons.PersonFill"
-                                  width="20"
-                                  height="20">
-                            </i-bs><span class="ms-3">Profile</span>
+                            <i class="bi bi-person-fill"></i>
+                            <span class="ms-3">Profile</span>
                         </a>
                     </li>
                     <li><a class="dropdown-item cursor-pointer">
-                            <i-bs [name]="BootstrapIcons.GearFill"
-                                  width="20"
-                                  height="20">
-                            </i-bs><span class="ms-3">Settings</span>
+                            <i class="bi bi-gear-fill"></i><span class="ms-3">Settings</span>
                         </a>
                     </li>
                     <li>
@@ -111,10 +103,7 @@
                     </li>
                     <li><a class="dropdown-item cursor-pointer"
                            (click)="logout()">
-                            <i-bs [name]="BootstrapIcons.BoxArrowRight"
-                                  width="20"
-                                  height="20">
-                            </i-bs><span class="ms-3">Logout</span>
+                            <i class="bi bi-arrow-right-square-fill"></i><span class="ms-3">Logout</span>
                         </a></li>
                 </ul>
             </div>

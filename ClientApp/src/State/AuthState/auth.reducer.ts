@@ -6,7 +6,7 @@ import { AuthState } from "../app.state";
 
 import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, LoginFailure, LoginSuccess, LogoutCancelled, LogoutConfirmed, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
 
-function GetCookie(key: string)
+export function GetCookie(key: string)
 {
     if (isPlatformBrowser(PLATFORM_ID))
     {

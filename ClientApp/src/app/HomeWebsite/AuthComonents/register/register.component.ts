@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { AuthRoutes } from '../../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
 import
@@ -10,7 +10,6 @@ import
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { ClientSideValidationService } from '../../../../CommonServices/client-side-validation.service';
 import { CustomValidators } from '../../../../Helpers/custom-validators';
-import { IconNamesEnum } from 'ngx-bootstrap-icons';
 import { RegisterViewModel } from 'src/models.model';
 import { Store } from '@ngrx/store';
 import { selectIsInProgress, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
@@ -18,11 +17,11 @@ import { IsInProgress, Register } from 'src/State/AuthState/auth.actions';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit
 {
-  BootstrapIcons = IconNamesEnum;
   RegisterForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors = this.store.select(selectValidationErrors);

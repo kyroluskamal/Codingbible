@@ -5,7 +5,7 @@ import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
-import { NotificationsService } from 'src/CommonServices/notifications.service';
+import { GetServerErrorResponseService } from 'src/CommonServices/getServerErrorResponse.service';
 import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { NotificationMessage, sweetAlert } from 'src/Helpers/constants';
@@ -22,6 +22,7 @@ export class PostEffects
 {
 
   constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
+    private ServerErrorResponse: GetServerErrorResponseService,
     public dialogHandler: DialogHandlerService, private postService: PostService, private store: Store,
     private router: Router, private spinner: SpinnerService) { }
 
@@ -42,7 +43,7 @@ export class PostEffects
           catchError((e) =>
           {
             this.spinner.removeSpinner();
-            return of(AddPOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
+            return of(AddPOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })
@@ -67,10 +68,9 @@ export class PostEffects
           }),
           catchError((e) =>
           {
-            console.log(e);
             this.spinner.removeSpinner();
             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
-            return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
+            return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })
@@ -96,7 +96,7 @@ export class PostEffects
           {
             this.spinner.removeSpinner();
             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post status'));
-            return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
+            return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })
@@ -111,7 +111,7 @@ export class PostEffects
         if (posts.length == 0)
           return this.postService.getAllPosts().pipe(
             map((r) => LoadPOSTsSuccess({ payload: r })),
-            catchError((e) => of(LoadPOSTsFail({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+            catchError((e) => of(LoadPOSTsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
           );
         return of(dummyAction());
       }
@@ -137,7 +137,7 @@ export class PostEffects
           {
             this.spinner.removeSpinner();
             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Post'));
-            return of(RemovePOST_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) }));
+            return of(RemovePOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })
@@ -149,7 +149,7 @@ export class PostEffects
       switchMap((action) =>
         this.postService.GetPostById(action.id).pipe(
           map((r) => GetPostById_Success(r)),
-          catchError((e) => of(GetPostById_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
+          catchError((e) => of(GetPostById_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
         )
       )
     )

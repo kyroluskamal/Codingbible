@@ -1,5 +1,4 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, TemplateRef } from '@angular/core';
-import { fonts, IconNamesEnum } from 'ngx-bootstrap-icons';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
 
 @Component({
@@ -10,7 +9,6 @@ import { SelectedTextData } from 'src/Interfaces/interfaces';
 export class CodingBibleEditorComponent implements OnInit, OnChanges
 {
   text: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };;
-  BootstrapIcons = IconNamesEnum;
   finalText: string = "";
   @Input() selectedText: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
@@ -49,7 +47,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   setFontSize(fontSize: HTMLSelectElement)
   {
     this.getTextFromRexgex();
-    console.log(this.finalText);
     let sizes = ['fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     if (this.finalText.includes(fontSize.value))
@@ -75,7 +72,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   Strikethrough()
   {
     this.getTextFromRexgex();
-    console.log(this.finalText);
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     if (this.finalText.includes("text-decoration-line-through"))
     {
@@ -121,7 +117,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let startRegex = new RegExp(`<${header.value}(\s?[^>]*)*>`, 'gi');
     let endRegex = new RegExp(`</${header.value}>`, 'gi');
     this.getTextFromRexgex();
-    // console.log(this.finalText);
     let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     if (this.finalText.includes(`<${header.value}`) && this.finalText.includes(`</${header.value}>`))
@@ -160,8 +155,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let startRegex = new RegExp(`<${tag}(\s?[^>]*)*>`, 'gi');
     let endRegex = new RegExp(`</${tag}>`, 'gi');
     this.getTextFromRexgex();
-    console.log(this.finalText);
-
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     if (this.finalText.includes(`<${tag}`) && this.finalText.includes(`</${tag}>`))
     {
@@ -174,24 +167,17 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   getTextFromRexgex()
   {
     this.text = this.selectedText;
-    console.log(this.text);
-
     let startIndex: number = -1;
     let endIndex: number = -1;
-    console.log(this.view.childNodes);
     // If we have only one node inside the editable div
     if (this.text.text !== '')
     {
       if (this.view.childNodes.length === 1)
       {
-        console.log("One Node Only");
-
         // If this node is text node
         if (this.view.childNodes[0].nodeName === '#text')
         {
-          console.log("One Node Only [Text node]");
           this.finalText = this.view.innerHTML.substring(this.text.start, this.text.end);
-          console.log("the final text : " + this.finalText);
         }
         //if it is not a text node 
         else
@@ -201,16 +187,10 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           let match = Node.outerHTML.match(temRegex);
           if (Node.innerText.length === this.text.text.length)
           {
-            console.log(`One Node only [${this.view.childNodes[0].nodeName}] innerText [EQUAL]`);
-            console.log(`One Node only --- innerText [${Node.innerText}]`);
-            console.log(`One Node only --- OuterHtml [${Node.outerHTML}]`);
             this.finalText = Node.outerHTML;
           }
           else if (Node.innerText.length > this.text.text.length)
           {
-            console.log(`One Node only [${this.view.childNodes[0].nodeName}] innerText [LOGNER]`);
-            console.log(`One Node only --- innerText [${Node.innerText}]`);
-            console.log(`One Node only --- OuterHtml [${Node.outerHTML}]`);
             if (match)
             {
               this.finalText = match[0];
@@ -218,19 +198,13 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
               this.finalText = this.text.text;
           } else
           {
-            console.log(`One Node only [${this.view.childNodes[0].nodeName}] innerText [LOGNER]`);
-            console.log(`One Node only --- innerText [${Node.innerText}]`);
-            console.log(`One Node only --- OuterHtml [${Node.outerHTML}]`);
 
           }
         }
       }
       else if (this.view.childNodes.length > 1)
       {
-        console.log("More than one Node");
-
         this.checkIfSelectionFromLeftToRight(this.text.anchorNode?.textContent, this.text.focusNode?.textContent);
-        console.log(this.text);
         let anchorNode: ChildNode | null = null;
         let anchorNodeIndex: number = -1;
         let focusNodeIndex: number = -1;
@@ -249,17 +223,12 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           }
           if (anchorNodeIndex > -1 && focusNodeIndex > -1) break;
         }
-        console.log(anchorNode);
-        console.log(focusNode);
-
         if (anchorNode?.textContent!?.length < this.text.text.length)
         {
           let temp = "";
-
           temp = anchorNode?.nodeName === "#text" ? anchorNode.textContent!?.substring(this.text.start) :
             this.text.start === 0 ? (<HTMLElement>anchorNode).outerHTML.substring(this.text.start) :
               (<HTMLElement>anchorNode).outerHTML.substring(this.text.start + this.getTheFirstTag((<HTMLElement>anchorNode).outerHTML!)?.length!);
-
           if (focusNodeIndex - anchorNodeIndex > 1)
           {
             for (let i = anchorNodeIndex + 1; i < focusNodeIndex; i++)
@@ -269,16 +238,13 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           }
           temp += focusNode?.nodeName === '#text' ? focusNode.textContent!.substring(0, this.text.end) :
             (<HTMLElement>focusNode).outerHTML.substring(0, this.text.end + this.getTheFirstTag((<HTMLElement>focusNode).outerHTML!)?.length!);
-          console.log(temp);
           this.finalText = temp;
 
         }
         else if (anchorNode?.textContent!?.length > this.text.text.length)
         {
-          console.log("anchortext > text");
           if (this.text.anchorNode?.textContent === this.text.focusNode?.textContent)
           {
-            console.log("anchortext === focusnode");
             let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${this.text.text}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
             if (anchorNode?.nodeName === "#text")
             {
@@ -286,20 +252,15 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
             } else
             {
               let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
-              console.log(match);
-
               if (match)
               {
                 this.finalText = match[0];
-                console.log(this.finalText);
-
                 return;
               }
             }
           }
           else
           {
-            console.log("anchortext !== focusnode");
             let temp = (<HTMLElement>anchorNode).innerHTML.substring((<HTMLElement>anchorNode).innerHTML.indexOf(this.text.anchorNode?.textContent!) + this.text.start,
               (<HTMLElement>focusNode).innerHTML.indexOf(this.text.focusNode?.textContent!) + this.text.end);
             let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${temp}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
@@ -307,13 +268,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
             if (match)
             {
               this.finalText = match[0];
-              console.log(this.finalText);
               return;
             }
           }
         } else if (anchorNode?.textContent?.length === this.text.text.length)
         {
-          console.log("anchoreNode === text");
           this.finalText = anchorNode.nodeName === '#text' ? anchorNode.textContent : (<HTMLElement>anchorNode).outerHTML;
         }
 
@@ -364,7 +323,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   {
     let temp = this.finalText;
     this.finalText = this.finalText.replace(startRegex, '').replace(endRegex, '');
-    // console.log(this.finalText);
     this.view.innerHTML = this.view.innerHTML
       .replace(temp, this.finalText);
   }
@@ -396,7 +354,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       let startRegex = new RegExp(`<span(\s?[^>]*)*>`, 'gi');
       let endRegex = new RegExp(`</span>`, 'gi');
       this.finalText = this.finalText.replace(startRegex, '').replace(endRegex, '');
-      // console.log(this.finalText);
       this.view.innerHTML = this.view.innerHTML
         .replace(temp, this.finalText);
       return;

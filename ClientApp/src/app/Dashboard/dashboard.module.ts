@@ -7,19 +7,42 @@ import { SharedModule } from '../../SharedModules/shared.module';
 import { PostsDashboardComponent } from './posts-dashboard/posts-dashboard.component';
 import { AddPostsComponent } from './add-posts/add-posts.component';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
-import { CodingBibleEditorModule } from '../CodingBible_editor/coding-bible-editor.module';
 import { PostHandlerComponent } from './post-handler/post-handler.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { CodingBibleEditorComponent } from '../CodingBible_editor/editor/editor.component';
+import { EffectsModule } from '@ngrx/effects';
+import { PostEffects } from 'src/State/PostState/post-effects';
+import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
+import { AppReducers, AppState } from 'src/State/app.state';
+import { localStorageSync } from 'ngrx-store-localstorage';
+import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
+import { AuthEffects } from 'src/State/AuthState/auth.effects';
 
+export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
+{
+  return localStorageSync({
+    keys: [
+      { auth: ['user', 'roles'] },
+      { design: ['pinned'] },
+    ],
+    rehydrate: true,
+    removeOnUndefined: true
+  })(reducer);
+}
+
+export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
 const components = [
-  DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent,
+  DashboardHomeComponent, PostsDashboardComponent, AddPostsComponent, CodingBibleEditorComponent
 ];
 @NgModule({
   declarations: [components, PostHandlerComponent, EditPostComponent],
   imports: [
+    StoreModule.forFeature("DashboardModule", AppReducers, { metaReducers }),
     CommonModule, MaterialModule, SharedModule,
     DashboardRoutingModule, EditorModule,
-    CodingBibleEditorModule
+    EffectsModule.forFeature([PostEffects, AuthEffects]),
+    NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
+
   ],
   exports: [components]
   ,

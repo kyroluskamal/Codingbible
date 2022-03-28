@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
-import { FormControlNames, PostType, validators } from 'src/Helpers/constants';
-import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { CardTitle } from 'src/Interfaces/interfaces';
-import { Post } from 'src/models.model';
-import { GetPostById, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
-import { selectPostByID } from 'src/State/PostState/post.reducer';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { PostType, validators } from 'src/Helpers/constants';
 
 @Component({
   selector: 'app-edit-post',

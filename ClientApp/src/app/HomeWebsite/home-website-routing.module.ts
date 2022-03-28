@@ -10,12 +10,15 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const RoutesForHomeModule: Routes = [
-  { path: "", component: HomeComponent, pathMatch: "full" },
-  { path: HomeRoutes.Home.toLowerCase(), component: HomeComponent },
-  { path: AuthRoutes.Login.toLowerCase(), component: LoginPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.Register.toLowerCase(), component: RegisterPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.ResetPassword.toLowerCase(), component: ResetPasswordComponent, canActivate: [PreventLoadIfLoggedInGuard] },
-  { path: AuthRoutes.emailConfirmation.toLowerCase(), component: EmailConfirmationComponent, canActivate: [PreventLoadIfLoggedInGuard] }
+
+  {
+    path: "", children: [
+      { path: AuthRoutes.Login.toLowerCase(), component: LoginPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+      { path: AuthRoutes.Register.toLowerCase(), component: RegisterPageComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+      { path: AuthRoutes.ResetPassword.toLowerCase(), component: ResetPasswordComponent, canActivate: [PreventLoadIfLoggedInGuard] },
+      { path: AuthRoutes.emailConfirmation.toLowerCase(), component: EmailConfirmationComponent, canActivate: [PreventLoadIfLoggedInGuard] }
+    ]
+  }
 ];
 
 @NgModule({
