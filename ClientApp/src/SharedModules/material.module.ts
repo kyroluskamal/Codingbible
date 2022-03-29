@@ -15,11 +15,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,31 +25,30 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
 
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatRippleModule } from '@angular/material/core';
 
-const MaterialComponents = [TooltipModule.forRoot(), MatRippleModule,
+const MaterialComponents = [TooltipModule, MatRippleModule,
   MatButtonModule, MatIconModule, MatDialogModule, MatProgressBarModule,
-  MatBottomSheetModule, MatInputModule, MatFormFieldModule,
+  MatInputModule, MatFormFieldModule,
   MatCheckboxModule, MatSidenavModule, MatNativeDateModule, NgxSpinnerModule,
-  MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule, MatSnackBarModule,
-  MatTooltipModule, MatChipsModule, MatAutocompleteModule, MatDatepickerModule, MatCardModule,
+  MatSelectModule, MatMenuModule, MatExpansionModule, FlexLayoutModule,
+  MatTooltipModule, MatAutocompleteModule, MatDatepickerModule, MatCardModule,
   MatButtonToggleModule, MatSlideToggleModule, MatTableModule, MatDividerModule,
-BsDropdownModule.forRoot(), TabsModule.forRoot(),
-  MatCardModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule
+  BsDropdownModule, TabsModule,
+  MatPaginatorModule, MatProgressSpinnerModule
 ];
 @NgModule({
   declarations: [],
   imports: [MaterialComponents],
   exports: [MaterialComponents],
   providers: [
-    { provide: MatBottomSheetRef, useValue: {} },
-    { provide: MAT_BOTTOM_SHEET_DATA, useValue: {} },
-    { provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, closeOnNavigation: true, backdropClass: "bg-gray" } },
+    // { provide: MatBottomSheetRef, useValue: {} },
+    // { provide: MAT_BOTTOM_SHEET_DATA, useValue: {} },
+    // { provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, closeOnNavigation: true, backdropClass: "bg-gray" } },
   ],
 })
 export class MaterialModule { }

@@ -22,6 +22,10 @@ import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
+import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 {
   return localStorageSync({
@@ -44,13 +48,14 @@ const Commponents = [
   declarations: [Commponents],
   imports: [SharedComponentsModule,
     StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
-    ReactiveFormsModule, MatInputModule, CommonModule,
-    MatIconModule, MatCardModule, MatFormFieldModule, FormsModule,
+    ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
+    MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
     EffectsModule.forFeature([AuthEffects]),
     NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
 
     HomeWebsiteRoutingModule, TooltipModule.forRoot(), MatProgressSpinnerModule
   ],
-  exports: [Commponents]
+  exports: [Commponents],
+  providers: [DialogHandlerService]
 })
 export class HomeWebsiteModule { }

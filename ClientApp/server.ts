@@ -16,7 +16,9 @@ export function app(): express.Express
   const expressStaticGzip = require("express-static-gzip");
   const server = express();
   server.use(compression());
-  const distFolder = join(process.cwd(), 'dist/ClientApp/browser');
+  server.use(require('prerender-node'));
+
+  const distFolder = join(process.cwd(), 'dist/browser');
   server.use('/', expressStaticGzip(distFolder, {
     enableBrotli: true,
     orderPreference: ['br']

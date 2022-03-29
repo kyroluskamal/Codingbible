@@ -55,10 +55,10 @@
                  aria-label="First group">
                 <a type="button"
                    class="btn btn-outline-primary"
-                   href="/Register">Register</a>
+                   (click)="dialogHandler.OpenRegister()">Register</a>
                 <a type="button"
                    class="btn btn-outline-primary"
-                   href="/login">Login</a>
+                   (click)="dialogHandler.OpenLogin()">Login</a>
             </div>
             <div class="dropdown h-100 border-end border-start"
                  *ngIf="(IsLoggedIn|async)?.isLoggedIn">

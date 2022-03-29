@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SweetAlertData } from '../Interfaces/interfaces';
 import Swal from 'sweetalert2';
 import { css } from 'src/Helpers/constants';
@@ -9,33 +8,9 @@ import { css } from 'src/Helpers/constants';
 export class NotificationsService
 {
 
-  constructor(public SnackBar: MatSnackBar)
+  constructor()
   {
 
-  }
-
-  error(message: string)
-  {
-    this.SnackBar.open(message, "✖", {
-      duration: 5000,
-      direction: "ltr",
-      horizontalPosition: "right",
-      verticalPosition: "bottom",
-      panelClass: "Error-Notification",
-      data: { message }
-    });
-  }
-
-  success(message: string)
-  {
-    this.SnackBar.open(message, "✖", {
-      duration: 5000,
-      direction: 'ltr',
-      horizontalPosition: "right",
-      verticalPosition: "bottom",
-      panelClass: "Success-Notification",
-      data: { message }
-    });
   }
 
   Error_Swal(title: string, confirmText: string, message: string)

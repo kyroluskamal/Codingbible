@@ -5,7 +5,7 @@ import { NotFoundComponent } from './CommonComponents/not-found/not-found.compon
 import { DashboardRoutes, HomeRoutes } from 'src/Helpers/router-constants';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { HomeComponent } from './HomeWebsite/home/home.component';
-const routes: Routes = [
+export const routes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
   { path: HomeRoutes.Home.toLowerCase(), component: HomeComponent },
   { path: DashboardRoutes.Home, loadChildren: () => import('./Dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },

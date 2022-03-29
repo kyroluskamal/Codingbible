@@ -16,6 +16,9 @@ import { HomeComponent } from './HomeWebsite/home/home.component';
 import { SharedComponentsModule } from 'src/SharedModules/SharedComponents.module';
 import { PostEffectForHome } from 'src/State/PostState/post-effects-ForHome';
 import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const enum MergeStrategy
 {
@@ -44,11 +47,13 @@ export const metaReducers: Array<MetaReducer<PostStateForHome, any>> = [localSto
     AppRoutingModule, HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     // TransferHttpCacheModule,
+    MatDialogModule, ReactiveFormsModule, FormsModule,
+    BrowserAnimationsModule,
     BrowserTransferStateModule,
     SharedComponentsModule,
     StoreModule.forRoot(PostReducers, { metaReducers }),
     EffectsModule.forRoot([PostEffectForHome]),
-    StoreDevtoolsModule.instrument({ logOnly: true }),
+    StoreDevtoolsModule.instrument({ logOnly: false }),
     NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['post', 'auth'] }),
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',

@@ -1693,3 +1693,883 @@ UserName : "kyrolus"
 ProcessId : 15104
 ProcessName : "CodingBible"
 ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:20:28 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:20:40 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:22:26 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:22:26 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:22:26 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:23:23 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGFBO8QG5T9:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGFBO8QG5T9"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - MintPlayer.AspNetCore.NodeServices.HostingModels.NodeInvocationException: Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+Current directory is: D:\Bussiness\Project\CodingBible
+
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+Current directory is: D:\Bussiness\Project\CodingBible
+Source - MintPlayer.AspNetCore.NodeServicesInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:23:36 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGFBO8QG5T9:00000005"
+RequestPath : "/"
+ConnectionId : "0HMGFBO8QG5T9"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - MintPlayer.AspNetCore.NodeServices.HostingModels.NodeInvocationException: Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at _ZoneDelegate2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1874486)
+    at Zone3.runTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1866968)
+    at ZoneTask2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1876120)
+    at IncomingMessage.ZoneTask2.options2.useG.invoke (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1875916)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+Current directory is: D:\Bussiness\Project\CodingBible
+
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at _ZoneDelegate2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1874486)
+    at Zone3.runTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1866968)
+    at ZoneTask2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1876120)
+    at IncomingMessage.ZoneTask2.options2.useG.invoke (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1875916)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+Current directory is: D:\Bussiness\Project\CodingBible
+Source - MintPlayer.AspNetCore.NodeServicesInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:23:40 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGFBO8QG5T9:00000007"
+RequestPath : "/"
+ConnectionId : "0HMGFBO8QG5T9"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - MintPlayer.AspNetCore.NodeServices.HostingModels.NodeInvocationException: Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at _ZoneDelegate2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1874486)
+    at Zone3.runTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1866968)
+    at ZoneTask2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1876120)
+    at IncomingMessage.ZoneTask2.options2.useG.invoke (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1875916)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+Current directory is: D:\Bussiness\Project\CodingBible
+
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\avq32oma.x5n:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\m0qzwmhb.cou:186:37)
+    at _ZoneDelegate2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1874486)
+    at Zone3.runTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1866968)
+    at ZoneTask2.invokeTask (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1876120)
+    at IncomingMessage.ZoneTask2.options2.useG.invoke (D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js:1:1875916)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+Current directory is: D:\Bussiness\Project\CodingBible
+Source - MintPlayer.AspNetCore.NodeServicesInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:28:54 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12980
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:29:57 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:30:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:32:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:26 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:26 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:33:34 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11076
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:41:56 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7856
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:42:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7856
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:43:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7856
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:43:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7856
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 21:43:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7856
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:26:49 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:27:03 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:28:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:28:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:28:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:28:58 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGFCSQQ8OF7:00000005"
+RequestPath : "/"
+ConnectionId : "0HMGFCSQQ8OF7"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - MintPlayer.AspNetCore.NodeServices.HostingModels.NodeInvocationException: Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\iiz2l2iu.tvl:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\iiz2l2iu.tvl:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+Current directory is: D:\Bussiness\Project\CodingBible
+
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - Prerendering failed because of error: Error: The module at ClientApp/dist/ClientApp/server/main.js does not export a default function, and you have not specified which export to invoke.
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:186:19)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\iiz2l2iu.tvl:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\iiz2l2iu.tvl:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+    at endReadableNT (node:internal/streams/readable:1343:12)
+    at processTicksAndRejections (node:internal/process/task_queues:83:21)
+Current directory is: D:\Bussiness\Project\CodingBible
+Source - MintPlayer.AspNetCore.NodeServicesInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:39:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+EventId : { Id: 1, Name: "UnhandledException" }
+SourceContext : "Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware"
+RequestId : "0HMGFCSQQ8OFJ:00000001"
+RequestPath : "/"
+ConnectionId : "0HMGFCSQQ8OFJ"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - MintPlayer.AspNetCore.NodeServices.HostingModels.NodeInvocationException: Prerendering failed because of error: Error: Cannot find module 'D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js'
+Require stack:
+- C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau
+- C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Module.require (node:internal/modules/cjs/loader:1005:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at findBootModule (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:157:16)
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:162:27)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+Current directory is: D:\Bussiness\Project\CodingBible
+
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)StackTrace -    at MintPlayer.AspNetCore.NodeServices.HostingModels.HttpNodeInstance.InvokeExportAsync[T](NodeInvocationInfo invocationInfo, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.HostingModels.OutOfProcessNodeInstance.InvokeExportAsync[T](CancellationToken cancellationToken, String moduleName, String exportNameOrNull, Object[] args)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.NodeServices.NodeServicesImpl.InvokeExportWithPossibleRetryAsync[T](String moduleName, String exportedFunctionName, Object[] args, Boolean allowRetry, CancellationToken cancellationToken)
+   at MintPlayer.AspNetCore.SpaServices.Prerendering.SpaPrerenderingExtensions.<>c__DisplayClass0_0.<<UseSpaPrerendering>b__1>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at MintPlayer.AspNetCore.Hsts.ImprovedHstsMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)Message - Prerendering failed because of error: Error: Cannot find module 'D:\Bussiness\Project\CodingBible\ClientApp\dist\ClientApp\server\main.js'
+Require stack:
+- C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau
+- C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Module.require (node:internal/modules/cjs/loader:1005:19)
+    at require (node:internal/modules/cjs/helpers:102:18)
+    at findBootModule (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:157:16)
+    at findRenderToStringFunc (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:162:27)
+    at renderToStringImpl (C:\Users\kyrolus\AppData\Local\Temp\3w402kp3.tau:121:50)
+    at C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4:166:18
+    at IncomingMessage.<anonymous> (C:\Users\kyrolus\AppData\Local\Temp\jfbusjju.ya4:186:37)
+    at IncomingMessage.emit (node:events:402:35)
+Current directory is: D:\Bussiness\Project\CodingBible
+Source - MintPlayer.AspNetCore.NodeServicesInnerException - ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/03/2022 22:39:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 11596
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

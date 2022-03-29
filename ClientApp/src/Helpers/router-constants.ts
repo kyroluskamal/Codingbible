@@ -4,6 +4,7 @@ export const HomeRoutes = {
 };
 
 export const AuthRoutes = {
+    account: "account",
     Login: "login",
     Register: "register",
     ForgetPassword: "forget-password",

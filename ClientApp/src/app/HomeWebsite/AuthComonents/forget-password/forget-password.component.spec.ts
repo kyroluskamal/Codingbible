@@ -1,17 +1,24 @@
-import { HttpClient } from "@angular/common/http";
+import { CommonModule } from "@angular/common";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { BrowserModule } from "@angular/platform-browser";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
-import { AppModule, metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
 import { ForgetPasswordFailure } from "src/State/AuthState/auth.actions";
+import { metaReducers } from "../../home-website.module";
 import { ForgetPasswordComponent } from "./forget-password.component";
 
 describe("ForgetPasswordComponent [Unit Test]", () =>
@@ -23,7 +30,10 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
 
     const createComponent = createRoutingFactory({
         component: ForgetPasswordComponent,
-        imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule, MatInputModule
+        imports: [
+            StoreModule.forRoot(AppReducers, { metaReducers }), HttpClientModule, BrowserModule,
+            ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
+            MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
         ],
         providers: [FormBuilder, Store, { provide: DialogHandlerService, useValue: DialogMocks }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],

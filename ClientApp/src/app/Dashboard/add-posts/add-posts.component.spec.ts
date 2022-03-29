@@ -1,20 +1,22 @@
 import { Overlay } from "@angular/cdk/overlay";
+import { HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, NO_ERRORS_SCHEMA } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { BrowserModule } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
 import { createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { MockComponent } from "ng-mocks";
-import { metaReducers } from "src/app/app.module";
 import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
 import { environment } from "src/environments/environment";
 import { FormControlNames, FormValidationErrorsNames, PostType, validators } from "src/Helpers/constants";
 import { click, findComponent, findEl_ByName, findEl_ByTestId, toTitleCase } from "src/Helpers/helper-functions";
 import { PostService } from "src/Services/post.service";
 import { AppReducers } from "src/State/app.state";
+import { metaReducers } from "../dashboard.module";
 import { EditPostComponent } from "../edit-post/edit-post.component";
 import { PostHandlerComponent } from "../post-handler/post-handler.component";
 import { AddPostsComponent } from "./add-posts.component";
@@ -27,7 +29,7 @@ describe("AddPostsComponent", () =>
         const createComponent = createRoutingFactory({
             component: AddPostsComponent,
             declarations: [MockComponent(PostHandlerComponent)],
-            imports: [
+            imports: [HttpClientModule, BrowserModule,
                 StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
                 StoreDevtoolsModule.instrument({ logOnly: environment.production }),],
             mocks: [ClientSideValidationService],
@@ -181,8 +183,9 @@ describe("AddPostsComponent", () =>
         let excerpt: DebugElement;
         const createComponent = createRoutingFactory({
             component: AddPostsComponent,
-            imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
-            StoreDevtoolsModule.instrument({ logOnly: environment.production })],
+            imports: [HttpClientModule, BrowserModule,
+                StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
+                StoreDevtoolsModule.instrument({ logOnly: environment.production })],
             declarations: [PostHandlerComponent, EditPostComponent],
             mocks: [PostService, MatDialog],
             schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],

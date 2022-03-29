@@ -2,12 +2,11 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
+import { catchError, exhaustMap, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { GetServerErrorResponseService } from 'src/CommonServices/getServerErrorResponse.service';
-import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
-import { SpinnerService } from 'src/CommonServices/spinner.service';
+import { AccountService } from 'src/Services/account.service';
 import { PostService } from 'src/Services/post.service';
+import { Logout, LogoutCancelled, LogoutConfirmed } from '../AuthState/auth.actions';
 import { dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess } from './post.actions';
 import { selectAllposts } from './post.reducer';
 
@@ -17,8 +16,9 @@ import { selectAllposts } from './post.reducer';
 export class PostEffectForHome
 {
 
-  constructor(private actions$: Actions, private ServerResponse: GetServerErrorResponseService,
-    private postService: PostService, private store: Store,
+  constructor(private actions$: Actions, private router: Router, private ServerResponse: GetServerErrorResponseService,
+    private postService: PostService, private store: Store, private accoutnService: AccountService,
+
   ) { }
 
   GetPosts$ = createEffect(() =>
@@ -46,6 +46,25 @@ export class PostEffectForHome
           map((r) => GetPostById_Success(r)),
           catchError((e) => of(GetPostById_Failed({ error: e, validationErrors: this.ServerResponse.GetServerSideValidationErrors(e) })))
         )
+      )
+    )
+  );
+  logoutRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(Logout),
+      exhaustMap(() =>
+        this.accoutnService.logout()
+          .pipe(
+            map((r) =>
+            {
+              this.router.navigateByUrl("/");
+              return LogoutConfirmed();
+            }),
+            catchError((e) =>
+            {
+              return of(LogoutCancelled());
+            })
+          )
       )
     )
   );

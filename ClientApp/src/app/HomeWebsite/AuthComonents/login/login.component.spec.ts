@@ -1,17 +1,19 @@
 import { Location } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
+import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { findEl_ByName, findEl_ByTestId, setFieldValue, spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
@@ -19,6 +21,7 @@ import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { LoginFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
+import { metaReducers } from "../../home-website.module";
 import { LoginComponent } from "./login.component";
 
 describe("LoginComponent [Unit test]", () =>
@@ -31,7 +34,11 @@ describe("LoginComponent [Unit test]", () =>
     const createComponent = createRoutingFactory({
         component: LoginComponent,
         imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
-            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule, RouterTestingModule.withRoutes(RoutesForHomeModule)],
+            HttpClientModule, BrowserModule, FormsModule,
+            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule, RouterTestingModule.withRoutes(RoutesForHomeModule),
+            MatIconModule, MatButtonModule
+        ],
+
         providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         stubsEnabled: false,
@@ -40,11 +47,12 @@ describe("LoginComponent [Unit test]", () =>
     beforeEach(() =>
     {
         spectator = createComponent({
-            detectChanges: true
+            detectChanges: false,
         });
         spectator.component.ngOnInit();
-        emailInput = <HTMLInputElement>spectatorSelectByControlName<LoginComponent>(spectator, FormControlNames.authForm.email);
-        passwordInput = <HTMLInputElement>spectatorSelectByControlName<LoginComponent>(spectator, FormControlNames.authForm.password);
+        spectator.detectComponentChanges();
+        emailInput = <HTMLInputElement>spectator.query(byTestId("email"));
+        passwordInput = <HTMLInputElement>spectator.query(byTestId("pass"));
         loginBtn = spectator.query(byTestId('loginBtn'));
     });
     describe("Client Side Validation", () =>
@@ -173,7 +181,7 @@ describe("LoginComponent [Unit test]", () =>
             {
                 spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue(null);
                 spectator.component.loginForm.get(FormControlNames.authForm.password)?.setValue("fdfdfd");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(spectator.component.Login()).toBe(undefined);
             });
         });
@@ -187,7 +195,7 @@ describe("LoginComponent [Unit test]", () =>
                 });
                 it(`has type email`, () =>
                 {
-                    expect(emailInput?.type).toEqual(InputFieldTypes.email);
+                    expect(emailInput).toHaveAttribute("type", InputFieldTypes.email);
                 });
                 it(`has required attribute`, () =>
                 {
@@ -220,24 +228,24 @@ describe("LoginComponent [Unit test]", () =>
             {
                 spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue(null);
                 spectator.component.loginForm.get(FormControlNames.authForm.password)?.setValue("fdfdfd");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(loginBtn).toBeDisabled();
             });
             it('enable login button if loginForm is valid', () =>
             {
                 spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("kyroluskamal@gmail.com");
                 spectator.component.loginForm.get(FormControlNames.authForm.password)?.setValue("Kfdf@23256");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(loginBtn).not.toBeDisabled();
             });
             it("disable login button when the form is valid and the user click the login button", () =>
             {
                 spectator.component.loginForm.get(FormControlNames.authForm.email)?.setValue("kyroluskamal@gmail.com");
                 spectator.component.loginForm.get(FormControlNames.authForm.password)?.setValue("Kfdf@23256");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(loginBtn).not.toBeDisabled();
                 loginBtn?.click();
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(loginBtn).toBeDisabled();
             });
         });
@@ -252,7 +260,7 @@ describe("LoginComponent [Unit test]", () =>
                 {
                     spectator.component.store.dispatch(LoginFailure({ error: null, validationErrors: [] }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).not.toExist();
                 }
@@ -267,7 +275,7 @@ describe("LoginComponent [Unit test]", () =>
                         ]
                     }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).toExist();
                     let liElements: HTMLLIElement[] | null = spectator.queryAll("div li");
@@ -288,7 +296,7 @@ describe("LoginComponent [Unit test]", () =>
                         ]
                     }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).toExist();
                     let liElements: HTMLLIElement[] | null = spectator.queryAll("div li");
@@ -336,8 +344,10 @@ describe("LoginComponent [Unit test]", () =>
 
             beforeEach(() =>
             {
+                spectator.component.ngOnInit();
+                spectator.detectComponentChanges();
                 spectator.component.ShowCardFooter = false;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(DialogMocks, "CloseDialog");
                 joinNow_CardFooterFalse = spectator.query<HTMLAnchorElement>(byTestId("joinNow_CardFooterFalse"));
             });
@@ -348,20 +358,6 @@ describe("LoginComponent [Unit test]", () =>
                     expect(joinNow_CardFooterFalse).toExist();
                 }
             ));
-            it("calls closeDialog after [join now] is clicked", fakeAsync(
-                () =>
-                {
-                    spectator.tick(1000);
-                    spectator.click(byTestId("joinNow_CardFooterFalse"));
-                    expect(spCloseDialog).toHaveBeenCalled();
-                }
-            ));
-            it("opens Register link after [join now] is clicked", async () =>
-            {
-                spectator.click(byTestId("joinNow_CardFooterFalse"));
-                await spectator.fixture.whenStable();
-                expect(spectator.inject(Location).path()).toBe(`/${AuthRoutes.Register}`);
-            });
         });
         describe("If ShowCardFooter = true", () =>
         {
@@ -371,7 +367,7 @@ describe("LoginComponent [Unit test]", () =>
             beforeAll(() =>
             {
                 spectator.component.ShowCardFooter = true;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 spOpenRegister = spyOn(spectator.component.dialogHandler, "OpenRegister");
                 joinNow_CardFooterTrue = spectator.query<HTMLAnchorElement>(byTestId("joinNow_CardFooterTrue"));
@@ -401,7 +397,7 @@ describe("LoginComponent [Unit test]", () =>
                 () =>
                 {
                     spectator.component.CloseIconHide = true;
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     spectator.tick(1000);
                     let closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
                     expect(closeBtn).not.toExist();
@@ -415,7 +411,7 @@ describe("LoginComponent [Unit test]", () =>
             beforeAll(() =>
             {
                 spectator.component.CloseIconHide = false;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
             });

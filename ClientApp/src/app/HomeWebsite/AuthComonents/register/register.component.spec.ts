@@ -1,17 +1,18 @@
 import { Location } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
+import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, Spectator } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { AppModule, metaReducers } from "src/app/app.module";
 import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
@@ -21,6 +22,7 @@ import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { RegisterFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
+import { metaReducers } from "../../home-website.module";
 import { RegisterComponent } from "./register.component";
 
 describe("RegisterComponent", () =>
@@ -38,7 +40,10 @@ describe("RegisterComponent", () =>
     const createComponent = createRoutingFactory({
         component: RegisterComponent,
         imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
-            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule, RouterTestingModule.withRoutes(RoutesForHomeModule)],
+            HttpClientModule, BrowserModule,
+            MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule,
+        RouterTestingModule.withRoutes(RoutesForHomeModule), MatButtonModule
+        ],
         providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         mocks: [ClientSideValidationService],
@@ -48,9 +53,10 @@ describe("RegisterComponent", () =>
     beforeEach(() =>
     {
         spectator = createComponent({
-            detectChanges: true
+            detectChanges: false
         });
         spectator.component.ngOnInit();
+        spectator.detectComponentChanges();
         emailInput = <HTMLInputElement>spectatorSelectByControlName<RegisterComponent>(spectator, FormControlNames.authForm.email);
         passwordInput = <HTMLInputElement>spectatorSelectByControlName<RegisterComponent>(spectator, FormControlNames.authForm.password);
         confirmpasswordInput = <HTMLInputElement>spectatorSelectByControlName<RegisterComponent>(spectator, FormControlNames.authForm.confirmpassword);
@@ -361,7 +367,7 @@ describe("RegisterComponent", () =>
             {
                 spectator.component.RegisterForm.get(FormControlNames.authForm.email)?.setValue(null);
                 spectator.component.RegisterForm.get(FormControlNames.authForm.password)?.setValue("fdfdfd");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(registerBtn).toBeDisabled();
             });
             it('enable Register button if RegisterForm is valid valid', () =>
@@ -372,7 +378,7 @@ describe("RegisterComponent", () =>
                 spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("fdfdfdfdfd");
                 spectator.component.RegisterForm.get(FormControlNames.authForm.username)?.setValue("registerBtn");
                 spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kfdf@23256");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(registerBtn).not.toBeDisabled();
             });
             it("disable Register button when the form is valid and the user click the Register button", () =>
@@ -383,10 +389,10 @@ describe("RegisterComponent", () =>
                 spectator.component.RegisterForm.get(FormControlNames.authForm.lastname)?.setValue("fdfdfdfdfd");
                 spectator.component.RegisterForm.get(FormControlNames.authForm.username)?.setValue("registerBtn");
                 spectator.component.RegisterForm.get(FormControlNames.authForm.confirmpassword)?.setValue("Kfdf@23256");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(registerBtn).not.toBeDisabled();
                 registerBtn?.click();
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(registerBtn).toBeDisabled();
             });
         });
@@ -401,7 +407,7 @@ describe("RegisterComponent", () =>
                 {
                     spectator.component.store.dispatch(RegisterFailure({ error: null, validationErrors: [] }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).not.toExist();
                 }
@@ -419,7 +425,7 @@ describe("RegisterComponent", () =>
                         ]
                     }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).toExist();
                     let liElements: HTMLLIElement[] | null = spectator.queryAll("div li");
@@ -444,7 +450,7 @@ describe("RegisterComponent", () =>
             beforeEach(() =>
             {
                 spectator.component.ShowCardFooter = false;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(DialogMocks, "CloseDialog");
                 Login_CardFooterFalse = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterFalse"));
             });
@@ -478,7 +484,7 @@ describe("RegisterComponent", () =>
             beforeAll(() =>
             {
                 spectator.component.ShowCardFooter = true;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 spOpenLogin = spyOn(spectator.component.dialogHandler, "OpenLogin");
                 Login_CardFooterTrue = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterTrue"));
@@ -508,7 +514,7 @@ describe("RegisterComponent", () =>
                 () =>
                 {
                     spectator.component.CloseIconHide = true;
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     spectator.tick(1000);
                     let closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
                     expect(closeBtn).not.toExist();
@@ -522,7 +528,7 @@ describe("RegisterComponent", () =>
             beforeAll(() =>
             {
                 spectator.component.CloseIconHide = false;
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
             });

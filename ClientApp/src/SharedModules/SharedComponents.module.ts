@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 const modules = [
-  CommonModule,
+  CommonModule, RouterModule
 ];
 @NgModule({
   imports: [modules],

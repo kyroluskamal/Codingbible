@@ -1,27 +1,28 @@
-import { CommonModule, Location } from "@angular/common";
-import { HttpClient } from "@angular/common/http";
+import { Location } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
 import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { NavigationEnd } from "@angular/router";
+import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
-import { AppModule, metaReducers } from "src/app/app.module";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
 import { ResetPasswordFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
+import { metaReducers } from "../../home-website.module";
 import { HomeComponent } from "../../home/home.component";
 import { ResetPasswordComponent } from "./reset-password.component";
 
-describe("RegisterComponent", () =>
+describe("ResetPasswordComponent", () =>
 {
     let emailInput: HTMLInputElement | null;
     let passwordInput: HTMLInputElement | null;
@@ -33,6 +34,8 @@ describe("RegisterComponent", () =>
         declarations: [HomeComponent],
         imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
             MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule,
+            MatButtonModule, HttpClientModule, BrowserModule,
+
         RouterTestingModule.withRoutes(RoutesForHomeModule)],
         providers: [FormBuilder, Store],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -42,9 +45,10 @@ describe("RegisterComponent", () =>
     beforeEach(() =>
     {
         spectator = createComponent({
-            detectChanges: true
+            detectChanges: false
         });
         spectator.component.ngOnInit();
+        spectator.detectComponentChanges();
         emailInput = <HTMLInputElement>spectatorSelectByControlName<ResetPasswordComponent>(spectator, FormControlNames.authForm.email);
         passwordInput = <HTMLInputElement>spectatorSelectByControlName<ResetPasswordComponent>(spectator, FormControlNames.authForm.password);
         confirmpasswordInput = <HTMLInputElement>spectatorSelectByControlName<ResetPasswordComponent>(spectator, FormControlNames.authForm.confirmpassword);
@@ -122,7 +126,7 @@ describe("RegisterComponent", () =>
             {
                 spectator.component.Form.get(FormControlNames.authForm.password)?.setValue(null);
                 spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.setValue("fdfdfd");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(ResetPasswordBtn).toBeDisabled();
             });
             it('disable Reset Password button if email or token is not found in the link', () =>
@@ -131,7 +135,7 @@ describe("RegisterComponent", () =>
                 spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.setValue("fdfdF@2fdfdfd");
                 spectator.component.token = null;
                 spectator.component.email = "Kyroluskamal@gjkjk.com";
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(spectator.component.Form.valid).toBeTrue();
                 expect(ResetPasswordBtn).toBeDisabled();
             });
@@ -141,7 +145,7 @@ describe("RegisterComponent", () =>
                 spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.setValue("Kfdf@23256");
                 spectator.component.token = "dfdfdfdfdfdfd";
                 spectator.component.email = "Kyroluskamal@gjkjk.com";
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
 
                 expect(ResetPasswordBtn).not.toBeDisabled();
             });
@@ -151,10 +155,10 @@ describe("RegisterComponent", () =>
                 spectator.component.email = "kyroluskamal@gmail.com";
                 spectator.component.Form.get(FormControlNames.authForm.password)?.setValue("Kfdf@23256");
                 spectator.component.Form.get(FormControlNames.authForm.confirmpassword)?.setValue("Kfdf@23256");
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(ResetPasswordBtn).not.toBeDisabled();
                 ResetPasswordBtn?.click();
-                spectator.detectChanges();
+                spectator.detectComponentChanges();
                 expect(ResetPasswordBtn).toBeDisabled();
             });
         });
@@ -162,6 +166,7 @@ describe("RegisterComponent", () =>
         {
             spectator.component.token = "fdfdfdfdfdfdf";
             spectator.component.ngOnInit();
+            spectator.detectComponentChanges();
             await spectator.fixture.whenStable();
             expect(spectator.inject(Location).path()).toBe("/");
         });
@@ -169,6 +174,7 @@ describe("RegisterComponent", () =>
         {
             spectator.component.email = "kkfsdlj@fsfsd.com";
             spectator.component.ngOnInit();
+            spectator.detectComponentChanges();
             await spectator.fixture.whenStable();
             expect(spectator.inject(Location).path()).toBe("/");
         });
@@ -187,7 +193,7 @@ describe("RegisterComponent", () =>
                 {
                     spectator.component.store.dispatch(ResetPasswordFailure({ error: null, validationErrors: [] }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).not.toExist();
                 }
@@ -204,7 +210,7 @@ describe("RegisterComponent", () =>
                         ]
                     }));
                     spectator.tick(1000);
-                    spectator.detectChanges();
+                    spectator.detectComponentChanges();
                     let invalidErrors: HTMLDivElement | null = spectator.query(byTestId('invalidErrors'));
                     expect(invalidErrors).toExist();
                     let liElements: HTMLLIElement[] | null = spectator.queryAll("#invalidErrors li");

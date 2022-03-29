@@ -3,7 +3,6 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 import { FlexLayoutServerModule } from '@angular/flex-layout/server';
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
-import { AppShellComponent } from './app-shell/app-shell.component';
 import { NgrxUniversalRehydrateServerModule } from '@trellisorg/ngrx-universal-rehydrate/server';
 
 @NgModule({
@@ -12,12 +11,8 @@ import { NgrxUniversalRehydrateServerModule } from '@trellisorg/ngrx-universal-r
     ServerModule,
     ServerTransferStateModule,
     FlexLayoutServerModule,
-    NgrxUniversalRehydrateServerModule.forServer(),
-
+    NgrxUniversalRehydrateServerModule.forServer()
   ],
   bootstrap: [AppComponent],
-  declarations: [
-    AppShellComponent
-  ],
 })
 export class AppServerModule { }

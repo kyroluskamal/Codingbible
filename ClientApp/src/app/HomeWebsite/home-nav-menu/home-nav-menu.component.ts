@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { ApplicationUser } from 'src/models.model';
 import { Logout } from 'src/State/AuthState/auth.actions';
 import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
@@ -21,7 +22,7 @@ export class HomeNavMenuComponent implements OnInit
   IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
   UserRoles: Observable<string[]> = new Observable<string[]>();
   constructor(
-    private store: Store,
+    private store: Store, public dialogHandler: DialogHandlerService,
     @Inject(PLATFORM_ID) private platformId: Object)
   {
     if (isPlatformBrowser(this.platformId))

@@ -23,7 +23,7 @@ export class PostEffects
 
   constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
     private ServerErrorResponse: GetServerErrorResponseService,
-    public dialogHandler: DialogHandlerService, private postService: PostService, private store: Store,
+    private postService: PostService, private store: Store,
     private router: Router, private spinner: SpinnerService) { }
 
   AddPost$ = createEffect(() =>

@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MintPlayer.AspNetCore.Hsts;
-using MintPlayer.AspNetCore.SpaServices.Prerendering;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using Newtonsoft.Json;
 using System.Text;
@@ -108,12 +107,9 @@ namespace CodingBible
             services.AddControllersWithViews();
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist";
+               configuration.RootPath = "ClientApp/dist";
             });
-
-            //services.AddSpaPrerenderingService<Services.SpaPrerenderingService>();
             services.AddRazorPages();
-
             /*---------------------------------------------------------------------------------------------------*/
             /*                             Adding new Services                                                    */
             /*---------------------------------------------------------------------------------------------------*/
@@ -124,12 +120,7 @@ namespace CodingBible
             services.AddTransient<IDbContextInitializer, DbContextInitializer>();
             services.AddTransient<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
-            //services.AddSession(options =>
-            //{
-            //    options.IdleTimeout = TimeSpan.FromMinutes(60);
-            //    options.Cookie.HttpOnly = true;
-            //    options.Cookie.IsEssential = true;
-            //});
+
             /*--------------------------------------------------------------------------------------------------------------------*/
             /*                      Anti Forgery Token Validation Service                                                         */
             /* We use the option patterm to configure the Antiforgery feature through the AntiForgeryOptions Class                */
@@ -141,8 +132,6 @@ namespace CodingBible
                 options.Cookie.MaxAge = TimeSpan.FromDays(10);
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.HttpOnly = false;
-                options.Cookie.Domain = "";
-                options.Cookie.Path = "/";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
             /*---------------------------------------------------------------------------------------------------*/
@@ -202,7 +191,7 @@ namespace CodingBible
 
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseImprovedHsts();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(policy =>
@@ -222,8 +211,6 @@ namespace CodingBible
                             HttpOnly = false,
                             Secure = true,
                             IsEssential = true,
-                            Domain="",
-                            Path="/",
                             SameSite = SameSiteMode.None,
                             MaxAge = TimeSpan.FromDays(10)
                         });
@@ -232,6 +219,12 @@ namespace CodingBible
                 return next(context);
             });
             dbContextInitializer.Initialize().GetAwaiter().GetResult();
+            //app.UseMvc(endpoints =>
+            //{
+            //    endpoints.MapSpaFallbackRoute(
+            //    name: "spa-fallback",
+            //    defaults: new { controller = "Home", action = "Index" });
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -244,6 +237,7 @@ namespace CodingBible
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+             
                 endpoints.MapRazorPages();
             });
 
@@ -253,9 +247,9 @@ namespace CodingBible
 
                 //spa.UseSpaPrerendering(options =>
                 //{
-                //    //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                //    options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
-                //    options.ExcludeUrls = new[] { "/sockjs-node" };
+                //   //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+                //   options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
+                //   options.ExcludeUrls = new[] { "/sockjs-node" };
                 //});
 
                 if (env.IsDevelopment())

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthRoutes } from '../../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
@@ -13,9 +13,8 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit
+export class LoginComponent implements OnInit, OnChanges
 {
   loginForm: FormGroup = new FormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
@@ -30,10 +29,18 @@ export class LoginComponent implements OnInit
   FormConstants = FormConstants;
   PASSWORD_MINLENGTH = PASSWORD_MINLENGTH;
   AuthRoutes = AuthRoutes;
+  CardFooter: boolean = true;
   //constructor
   constructor(public formBuilder: FormBuilder, public dialogHandler: DialogHandlerService,
     public store: Store, public router: Router)
   {
+  }
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    if ("ShowCardFooter" in changes)
+    {
+      this.CardFooter = this.ShowCardFooter;
+    }
   }
 
   @Input() CloseIconHide: boolean = false;

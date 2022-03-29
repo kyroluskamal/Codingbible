@@ -9,26 +9,17 @@ export class ServerResponseHandelerService
   constructor(
     private NotificationService: NotificationsService) { }
 
-  DatatAddition_Success()
-  {
-    this.NotificationService.success(NotificationMessage.Success.DataAddtionStatus_Success);
-  }
+
   DatatAddition_Success_Swal()
   {
     this.NotificationService.Success_Swal(NotificationMessage.Success.DataAddtionStatus_Success);
   }
-  Data_Updaed_Success()
-  {
-    this.NotificationService.success(NotificationMessage.Success.Data_SAVED_success);
-  }
+
   Data_Updaed_Success_Swal()
   {
     this.NotificationService.Success_Swal(NotificationMessage.Success.Data_SAVED_success);
   }
-  GeneralSuccessResponse(SuncessResponse: any)
-  {
-    this.NotificationService.success(SuncessResponse.status);
-  }
+
   GeneralSuccessResponse_Swal(SuncessResponse: string)
   {
     this.NotificationService.Success_Swal(SuncessResponse);

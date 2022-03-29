@@ -17,6 +17,8 @@ import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 
 export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 {
@@ -47,7 +49,8 @@ const components = [
   exports: [components]
   ,
   providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' }
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    DialogHandlerService
   ]
 })
 export class DashboardModule { }

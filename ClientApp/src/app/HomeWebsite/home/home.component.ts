@@ -13,12 +13,12 @@ export class HomeComponent implements OnInit
 {
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object, private store: Store) { }
 
   ngOnInit(): void
   {
-    // if (isPlatformBrowser(this.platformId))
-    // this.store.dispatch(LoadPOSTs());
+    if (isPlatformBrowser(this.platformId))
+      this.store.dispatch(LoadPOSTs());
   }
 
 }
