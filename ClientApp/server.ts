@@ -12,11 +12,10 @@ global["localStorage"] = localStorage;
 export function app(): express.Express
 {
   const compression = require('compression');
-
   const expressStaticGzip = require("express-static-gzip");
   const server = express();
   server.use(compression());
-  server.use(require('prerender-node'));
+
 
   const distFolder = join(process.cwd(), 'dist/browser');
   server.use('/', expressStaticGzip(distFolder, {
@@ -45,7 +44,15 @@ export function app(): express.Express
   {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
-
+  // const redis = require("redis"),
+  //   client = redis.createClient();
+  // server.use(require('prerender-node').set('beforeRender', function (req: any, done: any)
+  // {
+  //   client.get(req.url, done);
+  // }).set('afterRender', function (err: any, req: any, prerender_res: any)
+  // {
+  //   client.set(req.url, prerender_res.body);
+  // }));
   return server;
 }
 

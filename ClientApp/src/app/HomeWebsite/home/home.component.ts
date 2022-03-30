@@ -11,14 +11,11 @@ import { LoadPOSTs } from 'src/State/PostState/post.actions';
 })
 export class HomeComponent implements OnInit
 {
-
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private store: Store) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void
   {
-    if (isPlatformBrowser(this.platformId))
-      this.store.dispatch(LoadPOSTs());
+    this.store.dispatch(LoadPOSTs());
   }
 
 }
