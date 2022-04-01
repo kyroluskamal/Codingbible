@@ -1,29 +1,19 @@
-import { isPlatformBrowser } from "@angular/common";
-import { PLATFORM_ID } from "@angular/core";
 import { EntityState } from "@ngrx/entity";
-import { ActionReducerMap, createFeatureSelector, createSelector } from "@ngrx/store";
-import { CookieNames } from "src/Helpers/constants";
+import { ActionReducerMap } from "@ngrx/store";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
 import { ApplicationUser, Post } from "src/models.model";
-import { AuthReducer, GetCookie } from "./AuthState/auth.reducer";
+import { AuthReducer } from "./AuthState/auth.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
-import { postsCount, selectAllposts, selectPostEntities, selectPostIds } from "./PostState/post.adapter";
 import { PostReducer } from "./PostState/post.reducer";
 
-export interface AppState extends PostStateForHome
+export interface AppState extends PostStateForModule, DesignStateForModule, AuthStateForModule
 {
-    design: DesignState;
+
 }
 export interface DesignState
 {
     pinned: boolean;
 }
-export interface PostStateForHome
-{
-    post: PostState;
-    auth: AuthState;
-}
-
 export interface AuthState
 {
     user: ApplicationUser | null;
@@ -42,13 +32,31 @@ export interface PostState extends EntityState<Post>
     CurrentPostById: Post;
     CurrentPostBySlug: Post;
 }
-
-export const AppReducers: ActionReducerMap<AppState> = {
+/********************************************************
+ * For importing in modules
+ */
+export interface DesignStateForModule
+{
+    design: DesignState;
+}
+export interface PostStateForModule
+{
+    post: PostState;
+}
+export interface AuthStateForModule
+{
+    auth: AuthState;
+}
+export const AuthReducers: ActionReducerMap<AuthStateForModule> = {
     auth: AuthReducer,
+};
+export const PostReducers: ActionReducerMap<PostStateForModule> = {
     post: PostReducer,
+};
+export const DesignReducers: ActionReducerMap<DesignStateForModule> = {
     design: DesignReducer
 };
-export const PostReducers: ActionReducerMap<PostStateForHome> = {
-    post: PostReducer,
-    auth: AuthReducer,
+
+export const AppReducers: ActionReducerMap<AppState> = {
+    ...PostReducers, ...DesignReducers, ...AuthReducers
 };

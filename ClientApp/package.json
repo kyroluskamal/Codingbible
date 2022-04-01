@@ -9,7 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run ClientApp:serve-ssr",
     "serve:ssr": "node dist/server/main.js",
-    "build:ssr": "ng build --source-map --stats-json && ng run ClientApp:server",
+    "build:ssr": "ng build && ng run ClientApp:server",
     "prerender": "ng run ClientApp:prerender"
   },
   "private": true,
@@ -40,6 +40,7 @@
     "@trellisorg/ngrx-universal-rehydrate": "^0.0.12",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.8.1",
+    "domino": "^2.1.6",
     "express": "^4.15.2",
     "express-static-gzip": "^2.1.5",
     "localstorage-polyfill": "^1.0.1",

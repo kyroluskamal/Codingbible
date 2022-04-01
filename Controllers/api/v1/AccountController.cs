@@ -313,8 +313,9 @@ namespace CodingBible.Controllers.api.v1
          * ************************************************************************************/
         [HttpGet(nameof(Logout))]
         public async Task<IActionResult> Logout()
-        { 
-            return StatusCode(600, await FunctionalService.Logout());
+        {
+            var result = await FunctionalService.Logout();
+            return result ? StatusCode(250, result):StatusCode(450, result);
         }
     }
 }

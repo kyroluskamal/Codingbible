@@ -13,6 +13,7 @@ import { byTestId, createRoutingFactory, Spectator } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { metaReducers } from "src/app/app.module";
 import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
@@ -22,7 +23,6 @@ import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { RegisterFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
-import { metaReducers } from "../../home-website.module";
 import { RegisterComponent } from "./register.component";
 
 describe("RegisterComponent", () =>

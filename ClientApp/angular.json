@@ -35,12 +35,13 @@
               "path": "./webpack.config.js"
              },
             "optimization": true,
+            "statsJson": true,
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./src/styles.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
-              "./node_modules/bootstrap-icons/font/bootstrap-icons.css"
+              "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -146,7 +147,8 @@
             "outputPath": "dist/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
-            "optimization": true
+            "optimization": true,
+            "sourceMap": true
           },
           "configurations": {
             "production": {

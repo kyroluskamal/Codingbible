@@ -1,0 +1,121 @@
+<div class="bg-light sticky-top mat-elevation-z2 p-1 d-flex flex-column h-auto pb-0">
+        <div class="d-flex flex-row w-100 flex-wrap">
+                <select (change)="setFontSize(fontSize)"
+                        #fontSize
+                        class="form-select form-select-sm w-25 mb-1 me-1"
+                        aria-label=".form-select-sm example">
+                        <option selected
+                                value="">Font size</option>
+                        <option value="fs-1"
+                                class="fs-1">Sample</option>
+                        <option value="fs-2"
+                                class="fs-2">Sample</option>
+                        <option value="fs-3"
+                                class="fs-3">Sample</option>
+                        <option value="fs-4"
+                                class="fs-4">Sample</option>
+                        <option value="fs-5"
+                                class="fs-5">Sample</option>
+                        <option value="fs-6"
+                                class="fs-6">Sample</option>
+                </select>
+                <select (change)="SetHeader(header)"
+                        #header
+                        class="form-select form-select-sm w-25 me-1 mb-1"
+                        aria-label=".form-select-sm example">
+                        <option selected
+                                value="">Headers</option>
+                        <option value="h1"
+                                class="h1">
+                                Header 1
+                        </option>
+                        <option value="h2"
+                                class="h2">
+                                Header 2
+                        </option>
+                        <option value="h3"
+                                class="h3">
+                                Header 3
+                        </option>
+                        <option value="h4"
+                                class="h4">
+                                Header 4
+                        </option>
+                        <option value="h5"
+                                class="h5">
+                                Header 5
+                        </option>
+                        <option value="h6"
+                                class="h6">
+                                Header 6
+                        </option>
+                </select>
+                <!-- ///////////////////////////////////////////////////////////////////////////////
+                                                Format text buttons
+            /////////////////////////////////////////////////////////////////////////////////-->
+                <div class="btn-group me-1 mb-1"
+                     role="group"
+                     aria-label="format text">
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="bold()">
+                                <i class="bi bi-type-bold"></i>
+
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="italic()">
+                                <i class="bi bi-type-italic"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="underline()">
+                                <i class="bi bi-type-underline"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="Strikethrough()">
+                                <i class="bi bi-type-strikethrough"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="Strikethrough_delTag()">
+                                del
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="Undeline_byInsert()">
+                                ins
+                        </button>
+                </div>
+                <div class="btn-group me-1 mb-1"
+                     role="group"
+                     aria-label="format text">
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="RemoveAllStyles()">
+                                <i class="bi bi-eraser-fill"></i>
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1"
+                                (click)="Remove_PTag()">
+                                <span class="text-decoration-line-through px-2 fw-bold">P</span>
+                        </button>
+                </div>
+                <div class="btn-group me-1 mb-1"
+                     role="group"
+                     aria-label="format text">
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1 fw-bold px-2"
+                                (click)="superScript()">
+                                X<sup>2</sup>
+                        </button>
+                        <button type="button"
+                                class="btn btn-outline-secondary p-1 fw-bold px-2"
+                                (click)="subScript()">
+                                X<sub>2</sub>
+                        </button>
+                </div>
+        </div>
+
+</div>

@@ -4,9 +4,10 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { ApplicationUser } from 'src/models.model';
+import { AuthState } from 'src/State/app.state';
 import { Logout } from 'src/State/AuthState/auth.actions';
 import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
-import * as Routes from '../../../Helpers/router-constants';
+import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
 @Component({
   selector: 'app-home-nav-menu',
   templateUrl: './home-nav-menu.component.html',
@@ -17,20 +18,18 @@ import * as Routes from '../../../Helpers/router-constants';
 export class HomeNavMenuComponent implements OnInit
 {
   MenuOpen: boolean = false;
-  Routes = Routes;
   User: Observable<ApplicationUser | null> = new Observable<ApplicationUser | null>();
   IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
   UserRoles: Observable<string[]> = new Observable<string[]>();
+  DashboardHome = DashboardRoutes.Home;
+  AuthRoutes = AuthRoutes;
   constructor(
-    private store: Store, public dialogHandler: DialogHandlerService,
-    @Inject(PLATFORM_ID) private platformId: Object)
+    private store: Store,
+  )
   {
-    if (isPlatformBrowser(this.platformId))
-    {
-      this.User = this.store.select(selectUser);
-      this.IsLoggedIn = this.store.select(selectIsLoggedIn);
-      this.UserRoles = this.store.select(selectUserRoles);
-    }
+    this.User = this.store.select(selectUser);
+    this.IsLoggedIn = this.store.select(selectIsLoggedIn);
+    this.UserRoles = this.store.select(selectUserRoles);
   }
 
   ngOnInit(): void
@@ -38,7 +37,6 @@ export class HomeNavMenuComponent implements OnInit
   }
   logout()
   {
-    if (isPlatformBrowser(this.platformId))
-      this.store.dispatch(Logout());
+    this.store.dispatch(Logout());
   }
 }

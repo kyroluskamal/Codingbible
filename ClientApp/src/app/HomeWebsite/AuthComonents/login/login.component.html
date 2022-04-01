@@ -139,7 +139,9 @@
                 <div class="form-check form-switch">
                     <input class="form-check-input"
                            [type]="InputFieldTypes.checkbox"
+                           #rememberme
                            [formControlName]="FormControlNames.authForm.rememberMe"
+                           (change)="SetRememberMe(rememberme)"
                            id="flexSwitchCheckChecked">
                     <label class="form-check-label"
                            for="flexSwitchCheckChecked">{{FormConstants.RememberMe}}</label>

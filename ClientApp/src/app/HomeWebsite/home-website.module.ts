@@ -26,19 +26,21 @@ import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service'
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
-export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
-{
-  return localStorageSync({
-    keys: [
-      { auth: ['user', 'roles'] },
-      { design: ['pinned'] },
-    ],
-    rehydrate: true,
-    removeOnUndefined: true
-  })(reducer);
-}
+import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
+import { UrlSerializer } from '@angular/router';
+// export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
+// {
+//   return localStorageSync({
+//     keys: [
+//       { auth: ['user', 'roles'] },
+//       { design: ['pinned'] },
+//     ],
+//     rehydrate: true,
+//     removeOnUndefined: true
+//   })(reducer);
+// }
 
-export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
+// export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
 const Commponents = [
   LoginComponent, RegisterComponent,
   ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
@@ -47,15 +49,17 @@ const Commponents = [
 @NgModule({
   declarations: [Commponents],
   imports: [SharedComponentsModule,
-    StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
+    // StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
     ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
     MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
-    EffectsModule.forFeature([AuthEffects]),
-    NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
+    // EffectsModule.forFeature([AuthEffects]),
+    // NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
 
     HomeWebsiteRoutingModule, TooltipModule.forRoot(), MatProgressSpinnerModule
   ],
   exports: [Commponents],
-  providers: [DialogHandlerService]
+  providers: [DialogHandlerService,
+    { provide: UrlSerializer, useClass: LowerCaseUrlSerializer }
+  ]
 })
 export class HomeWebsiteModule { }

@@ -15,15 +15,13 @@ export const LoginSuccess = createAction(actionNames.AuthenticationActions.Login
 export const LoginFailure = createAction(actionNames.AuthenticationActions.LoginFailure,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>()
 );
-export const CheckLoginOnServer = createAction(actionNames.AuthenticationActions.CheckLoginOnServer,
-    props<{ isLoggedIn: boolean; }>()
-);
 export const SetValidationErrors = createAction(actionNames.AuthenticationActions.SetValidationErrors,
     props<{ ValidationErrors: ModelStateErrors[]; }>()
 );
 /***********************************************************************************
  *                              Register actions
  ***********************************************************************************/
+//#region Register actions
 export const Register = createAction(
     actionNames.AuthenticationActions.Register,
     props<RegisterViewModel>()
@@ -34,9 +32,11 @@ export const RegisterSuccess = createAction(actionNames.AuthenticationActions.Re
 export const RegisterFailure = createAction(actionNames.AuthenticationActions.RegisterFailure,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>()
 );
+//#endregion
 /***********************************************************************************
  *                              Forgetpassword actions
  ***********************************************************************************/
+//#region Forgetpassword actions
 export const ForgetPassword = createAction(
     actionNames.AuthenticationActions.ForgetPassword,
     props<ForgetPasswordModel>()
@@ -46,6 +46,7 @@ export const ForgetPasswordSuccess = createAction(actionNames.AuthenticationActi
 export const ForgetPasswordFailure = createAction(actionNames.AuthenticationActions.ForgetPasswordFailure,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>()
 );
+//#endregion
 /***********************************************************************************
  *                              Resetpassword actions
  ***********************************************************************************/

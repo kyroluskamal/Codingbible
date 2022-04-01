@@ -129,7 +129,7 @@ export class PostEffects
           {
             this.spinner.removeSpinner();
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Post'));
-            if (action.source === DashboardRoutes.Posts.EditPost)
+            if (action.url === DashboardRoutes.Posts.EditPost)
               this.router.navigate(['', DashboardRoutes.Home]);
             return RemovePOST_Success({ id: action.id });
           }),

@@ -45,11 +45,12 @@ namespace CodingBible.Services.FunctionalService
                 {
                     if (!await RoleManager.RoleExistsAsync(Constants.Roles.admin))
                     {
-                        var adminRole = new ApplicationUserRole(Constants.Roles.admin);
-                        adminRole.NormalizedName = Constants.Roles.admin.ToUpper();
-                        adminRole.Handle = Constants.Roles.admin.ToLower();
-                        adminRole.RoleIcon = "/uploads/roles/icons/default/role.png";
-                        adminRole.IsActive = true;
+                        ApplicationUserRole adminRole = new (Constants.Roles.admin){
+                            NormalizedName = Constants.Roles.admin.ToUpper(),
+                            Handle = Constants.Roles.admin.ToLower(),
+                            RoleIcon = "/uploads/roles/icons/default/role.png",
+                            IsActive = true
+                        };
                         await RoleManager.CreateAsync(adminRole);
                     }
                     var u = await _userManager.FindByEmailAsync(adminUser.Email);
@@ -93,6 +94,8 @@ namespace CodingBible.Services.FunctionalService
             {
                 Log.Error("An error occurred while Logging our {} {Error} {StackTrace} {InnerException} {Source}",
                     ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+                    CookieService.DeleteAllCookies();
+                    return false;
             }
             CookieService.DeleteAllCookies();
             return false;

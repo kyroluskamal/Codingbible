@@ -1,12 +1,16 @@
+import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDrawerMode } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, Subscription } from 'rxjs';
+import { filter, Observable, Subscription } from 'rxjs';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { ExpansionPanel } from 'src/Interfaces/interfaces';
+import { ApplicationUser } from 'src/models.model';
+import { Logout } from 'src/State/AuthState/auth.actions';
+import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
 import { PinnedMenu } from 'src/State/DesignState/design.actions';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { LoadPOSTs } from 'src/State/PostState/post.actions';
@@ -44,15 +48,21 @@ export class DashboardHomeComponent implements OnInit
   ChoosenThemeColor: any;
   MediaSubscription: Subscription = new Subscription();
   CurrentUrl: string = "";
+  User: Observable<ApplicationUser | null> = new Observable<ApplicationUser | null>();
+  IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
+  UserRoles: Observable<string[]> = new Observable<string[]>();
   @ViewChild("FullscreenButton", { read: ElementRef }) FullscreenButton: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
   SideNavItems: ExpansionPanel[] = SideNav_items;
   pinned$ = this.store.select(selectPinned);
   //#region Constructor
   //Constructor............................................................................
-  constructor(
+  constructor(private location: Location,
     private Notifications: NotificationsService, private mediaObserver: MediaObserver,
     private router: Router, private store: Store)
   {
+    this.User = this.store.select(selectUser);
+    this.IsLoggedIn = this.store.select(selectIsLoggedIn);
+    this.UserRoles = this.store.select(selectUserRoles);
     // //set the fixed ot non fixed sidenav
     // if (localStorage.getItem(LocalStorageKeys.FixedSidnav))
     // {
@@ -134,26 +144,6 @@ export class DashboardHomeComponent implements OnInit
     this.pinned = !this.pinned;
     this.store.dispatch(PinnedMenu({ pinned: this.pinned }));
     this.pinnedRTLClassSettings();
-
-    // if (this.pinned === false)
-    // {
-    //   for (let item of this.SideNavItems)
-    //   {
-    //     item.expanded = false;
-    //   }
-    // } else
-    // {
-    //   for (let item of this.SideNavItems)
-    //   {
-    //     for (let link of item.links)
-    //     {
-    //       // if (this.CurrentUrl.includes(link.link))
-    //       // {
-    //       //   item.expanded = true;
-    //       // }
-    //     }
-    //   }
-    // }
   }
 
   ToggleFullscreen()
@@ -249,6 +239,19 @@ export class DashboardHomeComponent implements OnInit
 
       };
     }
+  }
+
+  logout()
+  {
+    this.store.dispatch(Logout());
+  }
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent)
+  {
+    let ArrowLeft = event.key === "ArrowLeft";
+    let ArrowRight = event.key === "ArrowRight";
+    if (event.ctrlKey && ArrowLeft) this.location.back();
+    if (event.ctrlKey && ArrowRight) this.location.forward();
   }
 
 

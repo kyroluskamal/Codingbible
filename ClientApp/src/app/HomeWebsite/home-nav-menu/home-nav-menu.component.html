@@ -53,12 +53,10 @@
                  *ngIf="!(IsLoggedIn|async)?.isLoggedIn"
                  role="group"
                  aria-label="First group">
-                <a type="button"
-                   class="btn btn-outline-primary"
-                   (click)="dialogHandler.OpenRegister()">Register</a>
-                <a type="button"
-                   class="btn btn-outline-primary"
-                   (click)="dialogHandler.OpenLogin()">Login</a>
+                <a class="btn btn-outline-primary"
+                   [routerLink]="['', AuthRoutes.account, AuthRoutes.Register]">Register</a>
+                <a class="btn btn-outline-primary"
+                   [routerLink]="['', AuthRoutes.account, AuthRoutes.Login]">Login</a>
             </div>
             <div class="dropdown h-100 border-end border-start"
                  *ngIf="(IsLoggedIn|async)?.isLoggedIn">
@@ -85,7 +83,7 @@
                 <ul class="dropdown-menu w-100"
                     aria-labelledby="dropdownMenuButton1">
                     <li><a class="dropdown-item cursor-pointer"
-                           href="/Dashboard">
+                           [routerLink]="['', DashboardHome]">
                             <i class="bi bi-speedometer2"></i><span class="ms-3">Dashboard</span>
                         </a>
                     </li>

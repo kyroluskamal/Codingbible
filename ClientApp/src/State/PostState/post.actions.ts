@@ -30,7 +30,7 @@ export const UpdatePOST_Sucess = createAction(actionNames.PostActions.UPDATE_POS
 export const UpdatePOST_Failed = createAction(actionNames.PostActions.UPDATE_POST_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemovePOST = createAction(actionNames.PostActions.REMOVE_POST,
-    props<{ id: number; source: string; }>());
+    props<{ id: number; url: string; }>());
 export const RemovePOST_Success = createAction(actionNames.PostActions.REMOVE_POST_Success,
     props<{ id: number; }>());
 export const RemovePOST_Failed = createAction(actionNames.PostActions.REMOVE_POST_Failed,

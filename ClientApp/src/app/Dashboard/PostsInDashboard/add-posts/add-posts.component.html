@@ -1,0 +1,4 @@
+<app-post-handler [inputForm]="form"
+                  [postType]="PostType.Add"
+                  (Draft)="SaveOrPublish($event,'draft')"
+                  (Publish)="SaveOrPublish($event, 'publish')"></app-post-handler>

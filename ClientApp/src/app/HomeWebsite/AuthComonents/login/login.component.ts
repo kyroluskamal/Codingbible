@@ -6,7 +6,7 @@ import { defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { Store } from '@ngrx/store';
 import { IsInProgress, Login } from 'src/State/AuthState/auth.actions';
-import { selectIsInProgress, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
+import { selectIsInProgress, selectIsLoggedIn, selectValidationErrors } from 'src/State/AuthState/auth.reducer';
 import { LoginViewModel } from 'src/models.model';
 import { Router } from '@angular/router';
 @Component({
@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit, OnChanges
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors$ = this.store.select(selectValidationErrors);
   loading$ = this.store.select(selectIsInProgress);
+  IsLoggedIn = this.store.select(selectIsLoggedIn);
   FormControlNames = FormControlNames;
   InputFieldTypes = InputFieldTypes;
   FormFieldsNames = FormFieldsNames;
@@ -58,8 +59,19 @@ export class LoginComponent implements OnInit, OnChanges
       ,
       rememberme: [false]
     });
+    this.IsLoggedIn.subscribe(x =>
+    {
+      if (x.isLoggedIn)
+      {
+        this.router.navigate(['']);
+      }
+    });
   }
-
+  SetRememberMe(rememberme: HTMLInputElement)
+  {
+    this.loginForm.get(FormControlNames.authForm.rememberMe)?.setValue(rememberme.checked);
+    localStorage.setItem(FormControlNames.authForm.rememberMe, String(rememberme.checked));
+  };
 
   Login()
   {
@@ -69,7 +81,6 @@ export class LoginComponent implements OnInit, OnChanges
       password: this.loginForm.get(FormControlNames.authForm.password)?.value,
       rememberMe: Boolean(this.loginForm.get(FormControlNames.authForm.rememberMe)?.value)
     };
-    localStorage.setItem(FormControlNames.authForm.rememberMe, this.loginForm.get(FormControlNames.authForm.rememberMe)?.value);
     this.store.dispatch(IsInProgress({ isLoading: true }));
     this.store.dispatch(Login(Model));
   }

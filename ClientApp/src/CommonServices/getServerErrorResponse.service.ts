@@ -38,16 +38,17 @@ export class GetServerErrorResponseService
   GetServerSideValidationErrors(e: any): ModelStateErrors[]
   {
     let errors: ModelStateErrors[] = [];
-    if (e["error"]["errors"])
-      errors.push(...this.GetModelStateErrors(e.error.errors));
-    else if (e.error.status === HTTPResponseStatus.identityErrors)
-    {
-      errors.push(...this.GetIdentityErrors(e.error.message));
-    }
-    else if (e.error.status !== 400)
-    {
-      errors.push({ key: e.error.status, message: e.error.message });
-    }
+    if (e["error"])
+      if (e["error"]["errors"] != null || e["error"]["errors"] != undefined)
+        errors.push(...this.GetModelStateErrors(e.error.errors));
+      else if (e.error.status === HTTPResponseStatus.identityErrors)
+      {
+        errors.push(...this.GetIdentityErrors(e.error.message));
+      }
+      else if (e.error.status !== 400)
+      {
+        errors.push({ key: e.error.status, message: e.error.message });
+      }
     return errors;
   }
 }

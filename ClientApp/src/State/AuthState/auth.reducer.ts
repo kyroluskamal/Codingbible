@@ -1,33 +1,30 @@
-import { isPlatformBrowser } from "@angular/common";
-import { PLATFORM_ID } from "@angular/core";
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { CookieNames } from "src/Helpers/constants";
 import { AuthState } from "../app.state";
 
-import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, LoginFailure, LoginSuccess, LogoutCancelled, LogoutConfirmed, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
+import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, IsLoggedIn, LoginFailure, LoginSuccess, LogoutCancelled, LogoutConfirmed, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
 
-export function GetCookie(key: string)
-{
-    if (isPlatformBrowser(PLATFORM_ID))
-    {
-        let cookie = document.cookie;
-        let cookies: string[] = cookie.split(";");
-        for (let c of cookies)
-        {
-            let keyValue: string[] = c.trim().split("=");
-            if (keyValue[0] === key) return keyValue[1];
-        }
-    }
-    return "";
-}
+
+// export function GetCookie(key: string)
+// {
+//     let cookie = document.cookie;
+//     let cookies: string[] = cookie.split(";");
+//     for (let c of cookies)
+//     {
+//         let keyValue: string[] = c.trim().split("=");
+//         if (keyValue[0] === key) return keyValue[1];
+//     }
+//     return "";
+// }
+// console.log("GetCookie(CookieNames.IsLoggedIn): " + GetCookie(CookieNames.loginStatus));
 export const initialState: AuthState = {
     user: null,
     loginError: null,
     roles: [],
     InProgress: false,
     ValidationErrors: [],
-    isLoggedIn: isPlatformBrowser(PLATFORM_ID) ? Boolean(Number(GetCookie(CookieNames.loginStatus))) : false,
-    refershTokenExpire: isPlatformBrowser(PLATFORM_ID) ? GetCookie(CookieNames.refershTokenExpire).replace(/%20/g, ' ').replace(/%3A/g, ':') : "",
+    isLoggedIn: false,
+    refershTokenExpire: "0",
     isLoggedInChecked: false
 };
 export const AuthReducer = createReducer(
@@ -38,11 +35,10 @@ export const AuthReducer = createReducer(
     }),
     on(LoginSuccess, (state, res) =>
     {
-
         return {
             ...state, user: res.data.user, roles: res.data.roles, LoggingIsInProgress: false,
             ValidationErrors: [], isLoggedIn: true, InProgress: false,
-            refershTokenExpire: isPlatformBrowser(PLATFORM_ID) ? GetCookie(CookieNames.refershTokenExpire).replace(/%20/g, ' ').replace(/%3A/g, ':') : "",
+            refershTokenExpire: res.tokenExpire,
         };
     }),
     on(LoginFailure, (state, { error, validationErrors }) =>
@@ -98,8 +94,16 @@ export const AuthReducer = createReducer(
         return {
             ...state, ...state
         };
+    }),
+    on(IsLoggedIn, (state, res) =>
+    {
+        return {
+            ...state, isLoggedIn: res.isLoggedIn, isLoggedInChecked: res.checked,
+            user: res.isLoggedIn ? state.user : null, roles: res.isLoggedIn ? state.roles : [],
+        };
     })
 );
+
 export function authReducer(state: any, action: any)
 {
     return AuthReducer(state, action);
@@ -130,7 +134,7 @@ export const selectIsLoggedIn = createSelector(
     selectAuthState,
     (state) =>
     {
-        let isLoggedIn = isPlatformBrowser(PLATFORM_ID) ? Boolean(Number(GetCookie(CookieNames.loginStatus))) && state.user !== null : state.user !== null;
+        let isLoggedIn = state.isLoggedIn && state.user !== null;
         return { isLoggedIn: isLoggedIn, Checked: state.isLoggedInChecked, tokenExpire: state.refershTokenExpire };
     }
 );

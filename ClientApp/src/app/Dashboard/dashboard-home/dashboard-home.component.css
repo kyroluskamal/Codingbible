@@ -154,7 +154,7 @@ mat-expansion-panel-header:hover,
   transform: translate(15vw, -36px);
 }
 mat-toolbar{
-  height: 50px;
+  height: 60px;
 }
 /* ::ng-deep .MenuToolTips .cdk-overlay-connected-position-bounding-box{
   margin: 0% !important;

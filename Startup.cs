@@ -37,9 +37,8 @@ namespace CodingBible
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
-            {
-                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader();
-            }));
+                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader()
+            ));
 
             services.AddMvc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -90,7 +89,7 @@ namespace CodingBible
                     options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                ); ;
+                );
 
             /*---------------------------------------------------------------------------------------------------*/
             /*                              Cookie Helper SERVICE                                                */
@@ -105,10 +104,7 @@ namespace CodingBible
             services.AddAuthentication("Custom").AddScheme<CustomAuthenticationOptions, CustomAuthenticationHandler>("Custom", null);
 
             services.AddControllersWithViews();
-            services.AddSpaStaticFiles(configuration =>
-            {
-               configuration.RootPath = "ClientApp/dist";
-            });
+            services.AddSpaStaticFiles(configuration =>configuration.RootPath = "ClientApp/dist");
             services.AddRazorPages();
             /*---------------------------------------------------------------------------------------------------*/
             /*                             Adding new Services                                                    */
@@ -134,6 +130,7 @@ namespace CodingBible
                 options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
+            services.AddSpaStaticFiles(configuration =>configuration.RootPath = "ClientApp/dist/browser");
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
             /*---------------------------------------------------------------------------------------------------*/
@@ -160,7 +157,7 @@ namespace CodingBible
             {
                 o.AddPolicy("basic", options =>
                 {
-                    options.WithOrigins("http://localhost:4000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                    options.WithOrigins("http://localhost:4000","https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                         .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
                 });
             });
@@ -196,7 +193,7 @@ namespace CodingBible
             app.UseRouting();
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:4000").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                policy.WithOrigins("http://localhost:4000","https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                 .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
             });
             app.UseAuthorization();
@@ -237,7 +234,6 @@ namespace CodingBible
                     name: "areas",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
-             
                 endpoints.MapRazorPages();
             });
 

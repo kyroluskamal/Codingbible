@@ -13,12 +13,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
+import { metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
 import { ForgetPasswordFailure } from "src/State/AuthState/auth.actions";
-import { metaReducers } from "../../home-website.module";
 import { ForgetPasswordComponent } from "./forget-password.component";
 
 describe("ForgetPasswordComponent [Unit Test]", () =>

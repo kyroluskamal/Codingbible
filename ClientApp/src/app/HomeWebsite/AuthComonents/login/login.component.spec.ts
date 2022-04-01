@@ -14,6 +14,7 @@ import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/specta
 import { Store, StoreModule } from "@ngrx/store";
 import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { findEl_ByName, findEl_ByTestId, setFieldValue, spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
@@ -21,7 +22,6 @@ import { AuthRoutes } from "src/Helpers/router-constants";
 import { AppReducers } from "src/State/app.state";
 import { LoginFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
-import { metaReducers } from "../../home-website.module";
 import { LoginComponent } from "./login.component";
 
 describe("LoginComponent [Unit test]", () =>

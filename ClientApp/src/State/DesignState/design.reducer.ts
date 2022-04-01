@@ -16,5 +16,5 @@ export const selectDesignState = createFeatureSelector<DesignState>('design');
 
 export const selectPinned = createSelector(
     selectDesignState,
-    (state) => state.pinned
+    (state) => state?.pinned
 );

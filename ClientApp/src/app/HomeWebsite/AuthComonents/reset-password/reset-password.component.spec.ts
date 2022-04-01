@@ -12,13 +12,13 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
+import { metaReducers } from "src/app/app.module";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
 import { ResetPasswordFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";
-import { metaReducers } from "../../home-website.module";
 import { HomeComponent } from "../../home/home.component";
 import { ResetPasswordComponent } from "./reset-password.component";
 

@@ -1,0 +1,108 @@
+<div
+     class="p-2 d-flex flex-fill flex-wrap justify-content-center justify-content-md-between justify-content-lg-between">
+    <div>
+        <div class="input-group mb-3">
+            <input type="text"
+                   #search
+                   placeholder="Search"
+                   class="form-control"
+                   (input)="Search(search.value)"
+                   aria-label="type to search the table">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+        </div>
+    </div>
+    <div>
+        <div class="btn-group"
+             role="group"
+             aria-label="table menu">
+            <!-- add button -->
+            <button type="button"
+                    tooltip="Add new post"
+                    (click)="AddButtonClick()"
+                    class="btn btn-outline-primary fw-bold"><i class="bi bi-plus-circle-fill"></i> </button>
+            <!-- Edit button -->
+            <button type="button"
+                    (click)="EditButtonClick()"
+                    class="btn  btn-outline-primary"
+                    [disabled]="SelectedRows.length === 0"
+                    tooltip="Edit selected post"><i class="bi bi-pen-fill"></i></button>
+            <button type="button"
+                    (click)="DeleteButtonClick()"
+                    [disabled]="SelectedRows.length === 0"
+                    tooltip="Delete selected post"
+                    class="btn  btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
+        </div>
+
+    </div>
+</div>
+
+<table [class]="tableClasses">
+    <thead>
+        <tr>
+            <th *ngFor="let c of ColumnDefs"
+                [class]="c.HeaderClasses">
+                <span *ngIf="c.icon"
+                      [innerHtml]="c.icon">
+                </span>
+                <span *ngIf="c.display"
+                      [innerHtml]="c.display">
+                </span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngIf="innerDataSource.data!.length>0">
+            <tr *ngFor="let row of this.PagesData.get(currentPageNo)"
+                (click)="rowClicked(row)"
+                (dblclick)="dbClick(row)"
+                [class]="SelectedRows.includes(row)?'table-active':''">
+                <td *ngFor="let c of ColumnDefs">
+                    <ng-container *ngIf="!c.pipe && !c.data_icon">
+                        {{row[c.field]}}
+                    </ng-container>
+                    <ng-container *ngIf="c.pipe || c.data_icon">
+                        <ng-container *ngIf="c.pipe">
+                            <span *ngIf="c.pipe ==='date'">
+                                {{row[c.field] | date}}
+                            </span>
+                            <span *ngIf="c.pipe ==='postStatus'">
+                                {{row[c.field] | postStatus}}
+                            </span>
+                            <span *ngIf="c.pipe ==='Boolean'">
+                                <span *ngIf="row[c.field]===true"
+                                      class="text-success fw-bold fs-5">
+                                    <i class="bi bi-check-lg"></i>
+                                </span>
+                                <span *ngIf="row[c.field]===false"
+                                      class="text-danger fw-bold fs-5">
+                                    <i class="bi bi-x-lg"></i> </span>
+                            </span>
+                        </ng-container>
+                        <ng-container *ngIf="c.data_icon">
+                            <span *ngIf="c.data_icon"
+                                  [innerHtml]="c.data_icon"></span>
+                        </ng-container>
+                    </ng-container>
+                </td>
+            </tr>
+
+        </ng-container>
+        <tr *ngIf="innerDataSource.data!.length===0">
+            <td [attr.colspan]="ColumnDefs.length"
+                class="bg-light">
+                <div class="d-flex align-items-center justify-content-center"
+                     style="height: 100px;">
+                    <h4>No data found</h4>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #nodataFound>
+
+</ng-template>
+<cb-paginator #paginator
+              [allowedElementsPerPage]="[2,5,10,20]"
+              [DataInTables]="innerDataSource.Data!"
+              (GetPages)="Pages($event);"
+              (CurrentPageUnmber)="currentPageNo=$event"></cb-paginator>

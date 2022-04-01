@@ -45,7 +45,26 @@ export class NotificationsService
       customClass: { htmlContainer: css.SwalHtmlContent },
     });
   }
+  Confirm_Swal()
+  {
+    return Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+      cancelButtonText: "No!",
+      confirmButtonAriaLabel: "Yes!",
+      cancelButtonAriaLabel: "No!",
+      allowEnterKey: false,
+      allowEscapeKey: true,
+      allowOutsideClick: true,
+      focusConfirm: true,
+      customClass: { title: css.SwalWarningTitle },
 
+    });
+  }
   Custom_Swal(title: string, SwalConfig: SweetAlertData)
   {
     return Swal.fire({

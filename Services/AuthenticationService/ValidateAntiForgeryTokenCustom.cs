@@ -28,7 +28,7 @@ namespace CodingBible.Services.AuthenticationService
                 }
 
                 //ensure that the cookie matches the header
-                if (isValid && !hToken.ToString().Contains(cookie_Token.ToString()))
+                if (isValid && !hToken.ToString().Contains(cookie_Token))
                 {
                     isValid = false;
                 }

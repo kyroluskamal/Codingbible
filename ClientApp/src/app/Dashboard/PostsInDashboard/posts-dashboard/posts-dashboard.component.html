@@ -1,0 +1,11 @@
+<main class="mt-5 bg-white mat-elevation-z3 rounded-2">
+    <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
+              [ColumnDefs]="colDefs"
+              [dataSource]="posts$|async"
+              (AddButtonClicked)="AddNewPost($event)"
+              (EditButtonClicked)="EditPost($event)"
+              (DeleteButtonClicked)="DeletePost($event)"
+              (row_Db_Click)="EditPost($event)"
+              [resetSelectedRow]="resetSelectedRow">
+    </cb-table>
+</main>

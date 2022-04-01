@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+import { CookieNames } from 'src/Helpers/constants';
 import { AuthRoutes } from 'src/Helpers/router-constants';
 import { AccountService } from 'src/Services/account.service';
 import { IsLoggedIn } from 'src/State/AuthState/auth.actions';
@@ -13,7 +15,8 @@ import { selectIsLoggedIn } from 'src/State/AuthState/auth.reducer';
 export class AuthGuard implements CanActivate
 {
   IsLoggedIn$ = this.store.select(selectIsLoggedIn);
-  constructor(private accountService: AccountService, private store: Store, private router: Router)
+  constructor(private accountService: AccountService,
+    private store: Store, private router: Router)
   {
 
   }
@@ -31,12 +34,13 @@ export class AuthGuard implements CanActivate
       this.accountService.IsLoggedIn().subscribe(
         r =>
         {
+          console.log(r);
           loggedIn = r;
           this.store.dispatch(IsLoggedIn({ isLoggedIn: Boolean(r), checked: true }));
         }
       );
     if (!loggedIn)
-      this.router.navigate(["", AuthRoutes.Login]);
+      this.router.navigate(["", AuthRoutes.account, AuthRoutes.Login]);
     return loggedIn;
   }
 
