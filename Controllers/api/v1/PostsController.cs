@@ -9,6 +9,8 @@ using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using System.Linq;
+
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -39,7 +41,8 @@ namespace CodingBible.Controllers.api.v1
         [AllowAnonymous]
         public async Task<ActionResult<List<Post>>> GetPosts()
         {
-            var allPosts = await UnitOfWork.Posts.GetAllAsync();
+            await Task.Delay(0);
+            var allPosts = UnitOfWork.Posts.GetAllAsync(includeProperties: "Author").GetAwaiter().GetResult().ToList();
             return allPosts;
         }
         /// <summary>

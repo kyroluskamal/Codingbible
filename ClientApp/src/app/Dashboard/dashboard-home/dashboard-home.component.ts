@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatDrawerMode } from '@angular/material/sidenav';
+import { MatMenu } from '@angular/material/menu';
+import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { filter, Observable, Subscription } from 'rxjs';
@@ -30,7 +31,6 @@ export class DashboardHomeComponent implements OnInit
   Display: string = "";
   SideNav_Content_class: string = "";
   ToggleClass: string = "";
-  preventMouseLeave: boolean = false;
   choosenColor: boolean = false;
   SideNav_openingStatus: boolean = true;
   SideNav_mode: MatDrawerMode = "side";
@@ -41,17 +41,12 @@ export class DashboardHomeComponent implements OnInit
 
 
   //#endregion
-  SidenavThemeClass: any;
-  ToolbarThemeClass: any;
-  BodyThemeClass: any;
-  SelectedLanguage: any;
-  ChoosenThemeColor: any;
   MediaSubscription: Subscription = new Subscription();
-  CurrentUrl: string = "";
   User: Observable<ApplicationUser | null> = new Observable<ApplicationUser | null>();
   IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
   UserRoles: Observable<string[]> = new Observable<string[]>();
   @ViewChild("FullscreenButton", { read: ElementRef }) FullscreenButton: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
+  @ViewChild("SideNav") SideNav!: MatSidenav;
   SideNavItems: ExpansionPanel[] = SideNav_items;
   pinned$ = this.store.select(selectPinned);
   //#region Constructor
@@ -63,68 +58,22 @@ export class DashboardHomeComponent implements OnInit
     this.User = this.store.select(selectUser);
     this.IsLoggedIn = this.store.select(selectIsLoggedIn);
     this.UserRoles = this.store.select(selectUserRoles);
-    // //set the fixed ot non fixed sidenav
-    // if (localStorage.getItem(LocalStorageKeys.FixedSidnav))
-    // {
-    //   this.pinned = localStorage.getItem(LocalStorageKeys.FixedSidnav) === "false" ? false : true;
-    // } else
-    // {
-    //   this.pinned = false;
-    //   localStorage.setItem(LocalStorageKeys.FixedSidnav, String(this.pinned));
-    // }
+
     this.pinned$.subscribe(
       r =>
       {
         this.pinned = r;
         if (r)
         {
-          this.Display = "d-inline";
-          this.preventMouseLeave = true;
-          this.ToggleClass = css.Dashboard.SidNav.fullOpend;
           this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.pinned;
         } else
         {
-          this.Display = "d-none";
-          this.preventMouseLeave = false;
-          this.ToggleClass = css.Dashboard.SidNav.halfClosed;
           this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.nonPinned;
         }
-        if (!r) this.SideNavItems.forEach(i => i.expanded = false);
-        else
-        {
-          for (let item of this.SideNavItems)
-          {
-            for (let link of item.links)
-            {
-              // if (this.CurrentUrl.includes(link.link))
-              // {
-              //   item.expanded = true;
-              // }
-            }
-          }
-        }
-        this.router.events.pipe(
-          filter(event => event instanceof NavigationEnd)
-        )
-          .subscribe((event: any) =>
-          {
-            for (let item of this.SideNavItems)
-            {
-              for (let link of item.links)
-              {
-                // if (event.url.split("/").pop() === link.link.split('/').pop())
-                // {
-                //   if (!this.pinned) item.expanded = false;
-                //   else item.expanded = true;
-                //   link.state = true;
-                // }
-                // else link.state = false;
-              }
-            }
-          });
       }
     );
   }
+
 
   //#endregion
 
@@ -132,18 +81,33 @@ export class DashboardHomeComponent implements OnInit
   ngOnInit(): void
   {
     this.store.dispatch(LoadPOSTs());
-  }
-
-  close()
-  {
-
+    console.log(this.router.url);
+    for (let item of this.SideNavItems)
+    {
+      if (this.router.url.split("/")[item.itemLevel! + 1]?.includes(item.title.toLowerCase()) && this.router.url.split("/").length === item.itemLevel! + 2)
+      {
+        item.expanded = true;
+      } else
+      {
+        item.expanded = false;
+      }
+      for (let link of item.links)
+      {
+        if (link.LinkText.split(" ").includes(this.router.url.split("/").pop()!))
+        {
+          link.state = true;
+        } else if (this.router.url.includes(link.link.join("/")))
+        {
+          link.state = true;
+        }
+      }
+    }
   }
 
   PinSideNav()
   {
     this.pinned = !this.pinned;
     this.store.dispatch(PinnedMenu({ pinned: this.pinned }));
-    this.pinnedRTLClassSettings();
   }
 
   ToggleFullscreen()
@@ -163,22 +127,7 @@ export class DashboardHomeComponent implements OnInit
       this.FullscreenEnabled = false;
   }
 
-  pinnedRTLClassSettings()
-  {
-    if (this.pinned)
-    {
-      this.Display = "d-inline";
-      this.preventMouseLeave = true;
-      this.ToggleClass = css.Dashboard.SidNav.fullOpend;
-      this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.pinned;
-    } else
-    {
-      this.Display = "d-none";
-      this.preventMouseLeave = false;
-      this.ToggleClass = css.Dashboard.SidNav.fullOpend;
-      this.SideNav_Content_class = css.Dashboard.SidNav.content.ltr.nonPinned;
-    }
-  }
+
 
 
   /****************************************************************************************
@@ -252,7 +201,38 @@ export class DashboardHomeComponent implements OnInit
     let ArrowRight = event.key === "ArrowRight";
     if (event.ctrlKey && ArrowLeft) this.location.back();
     if (event.ctrlKey && ArrowRight) this.location.forward();
+    if (event.ctrlKey && event.altKey && event.key === "a") { this.PinSideNav(); this.SideNav.toggle(); };
   }
 
-
+  expandSideNavItem(index: number)
+  {
+    for (let i = 0; i < this.SideNavItems.length; i++)
+    {
+      if (i === index)
+      {
+        this.SideNavItems[i].expanded = true;
+      } else
+      {
+        this.SideNavItems[i].expanded = false;
+      }
+    }
+  }
+  ActivateSideNavLink(itemIndex: number, linkIndex: number)
+  {
+    this.SideNavItems[itemIndex].links[linkIndex].state = true;
+    for (let i = 0; i < this.SideNavItems.length; i++)
+    {
+      for (let j = 0; j < this.SideNavItems[i].links.length; j++)
+      {
+        if (i === itemIndex && j === linkIndex)
+        {
+          this.SideNavItems[i].links[j].state = true;
+        }
+        else
+        {
+          this.SideNavItems[i].links[j].state = false;
+        }
+      }
+    }
+  }
 }

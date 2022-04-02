@@ -35,7 +35,7 @@ export class SpinnerService
   {
     return this.spinner.show('inside', {
       fullScreen: false,
-      type: "ball-clip-rotate-pulse",
+      type: "ball-scale-multiple",
       size: "medium",
       bdColor: "rgba(0, 0, 0, 1)",
       color: "white",

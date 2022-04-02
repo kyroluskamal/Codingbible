@@ -1,19 +1,13 @@
-import { Direction } from "@angular/cdk/bidi";
-import { ComponentType } from "@angular/cdk/portal";
-import { StepperOrientation } from "@angular/cdk/stepper";
-import { FormArray, FormControl, FormGroup } from "@angular/forms";
-import { MatFormFieldAppearance } from "@angular/material/form-field";
-import { MatTableDataSource } from "@angular/material/table";
-import { SweetAlertIcon, SweetAlertOptions } from "sweetalert2";
+
+import { SweetAlertOptions } from "sweetalert2";
 
 export interface ExpansionPanel
 {
   title: string;
   expanded: boolean;
   links: { link: string[], LinkText: string, state: boolean; }[];
-  GoogleIconName?: string;
-  faIcon?: any;
-  boostrapIcon?: any;
+  bootstrapIcon?: string;
+  itemLevel?: number;
 }
 export interface ColDefs
 {
@@ -24,6 +18,8 @@ export interface ColDefs
   rowClasses?: string;
   pipe?: string;
   data_icon?: string;
+  isObject?: boolean;
+  KeyToShowIfObjectTrue?: string;
 }
 
 

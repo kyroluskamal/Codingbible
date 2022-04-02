@@ -40,7 +40,8 @@
     <thead>
         <tr>
             <th *ngFor="let c of ColumnDefs"
-                [class]="c.HeaderClasses">
+                [class]="c.HeaderClasses"
+                style="max-width: 10%;">
                 <span *ngIf="c.icon"
                       [innerHtml]="c.icon">
                 </span>
@@ -56,9 +57,13 @@
                 (click)="rowClicked(row)"
                 (dblclick)="dbClick(row)"
                 [class]="SelectedRows.includes(row)?'table-active':''">
-                <td *ngFor="let c of ColumnDefs">
-                    <ng-container *ngIf="!c.pipe && !c.data_icon">
+                <td *ngFor="let c of ColumnDefs"
+                    class="text-wrap">
+                    <ng-container *ngIf="!c.pipe && !c.data_icon && !c.isObject">
                         {{row[c.field]}}
+                    </ng-container>
+                    <ng-container *ngIf="c.isObject">
+                        {{row[c.field][c.KeyToShowIfObjectTrue!]}}
                     </ng-container>
                     <ng-container *ngIf="c.pipe || c.data_icon">
                         <ng-container *ngIf="c.pipe">
@@ -87,7 +92,8 @@
             </tr>
 
         </ng-container>
-        <tr *ngIf="innerDataSource.data!.length===0">
+        <tr *ngIf="innerDataSource.data!.length===0"
+            class="text-wrap">
             <td [attr.colspan]="ColumnDefs.length"
                 class="bg-light">
                 <div class="d-flex align-items-center justify-content-center"

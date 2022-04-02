@@ -1,3 +1,6 @@
+mat-sidenav{
+  border: none;
+}
 .SideNav-HalfClosed {
     width: 0 !important;
     transition: all 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -5,23 +8,8 @@
 
 .SideNav-FullOpened {
     width: 15vw !important;
+    min-width: 150px !important;
     transition: width 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .mat-sidenav-content-nonPinned-LTR {
-    margin-left: 0px !important;
-    transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .mat-sidenav-content-nonPinned-RTL {
-    margin-right: 0px !important;
-    transition: all 100ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .mat-sidenav-content-pin-LTR {
-    margin-left: 15vw !important;
-    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  .mat-sidenav-content-pin-RTL {
-    margin-right: 15vw !important;
-    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   .Openned-pin {
     transform: rotate(45deg);
@@ -42,33 +30,15 @@
     }
   }
   @media screen and (min-width: 600px) {
-    .menuSideNav {
+    /* .menuSideNav {
       display: flex !important;
       visibility: visible !important;
       min-width: 15vw !important;
-    }
+    } */
     .FullscreenButton {
       display: inline-block;
     }
   }
-  /* body {
-  background-color: #f1f2f7;
-  transition: all 0.5s;
-  font-size: 13px;
-} */
-mat-sidenav.dark-for-others div h3 {
-    font-weight: bold;
-    border-bottom: #e6e6e6 solid 1px;
-  }
-  mat-sidenav.light-for-others div h3 {
-    font-weight: bold;
-    border-bottom: #333 solid 1px;
-  }
-  .mat-button-toggle-checked {
-    color: white !important;
-    background-color: violet !important;
-  }
-  
   /*This part is to style the buttons for theme colors settings*/
   p button {
     padding: 0px !important;
@@ -79,13 +49,6 @@ mat-sidenav.dark-for-others div h3 {
   mat-toolbar {
     transform: translate(0, -1px);
   }
-  [dir="rtl"] .mat-drawer.mat-drawer-end {
-    font-size: 1rem;
-  }
-  [dir="rtl"] .mat-drawer.mat-drawer-end h3 {
-    font-size: 1.2rem;
-    font-family: var(--Hacen) !important;
-  }
   button {
     font-family: var(--Almarai) !important;
     font-weight: bold;
@@ -94,10 +57,13 @@ mat-sidenav.dark-for-others div h3 {
     .WidthForSmallScreens {
       width: 80vw !important;
     }
-    .menuSideNav {
+    /* .BusinessName{
+      font-size: 20px !important;
+    } */
+    /* .menuSideNav {
       display: none;
       width: 80vw !important;
-    }
+    } */
     .sideNavContent {
       margin: 0 !important;
     }
@@ -106,10 +72,10 @@ mat-sidenav.dark-for-others div h3 {
     }
   }
   @media screen and (min-width: 600px) {
-    .menuSideNav {
+    /* .menuSideNav {
       display: flex !important;
       visibility: visible !important;
-    }
+    } */
     .FullscreenButton {
       display: inline-block;
     }
@@ -117,41 +83,57 @@ mat-sidenav.dark-for-others div h3 {
   /*........................................................................................
   ...............................Expansion Stypes .......................................
   ........................................................................................*/
-  mat-accordion,
-  mat-accordion *:not(mat-icon) {
-    background-color: inherit !important;
-    color: inherit !important;
-  }
-  
-  
-   .mat-expansion-panel-header-title,
-  .mat-expansion-panel-header-description {
-    font-family: var(--Almarai) !important;
-    font-size: 1.0rem !important;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #9d9d9d;
-  }
- 
-  .mat-card-title{
-    font-family: cursive !important;
-  }
-  .mat-expansion-panel-content{
-    font-size: 0.9rem !important;
-  }
-  .mat-expansion-panel:not([class*=mat-elevation-z]){
-      box-shadow: none;
-  }
 
-mat-expansion-panel-header:hover,
-.expansionIsExpanded,
-.mat-expansion-panel-body a:hover {
-  color: white !important;
-  background-color: #11151e !important;
-  font-weight: bold !important;
+.accordion-item{
+  border-radius: 0;
+  background-color: inherit; 
 }
-::ng-deep .cdk-overlay-connected-position-bounding-box{
-  transform: translate(15vw, -36px);
+.accordion-button{
+  color: inherit !important;
+  font-family: var(--Calibri) !important;
+}
+.accordion-button::after{
+  content: none;
+}
+.sideNavLink-Li-Active:after{
+  right: 0px;
+  border: solid 10px transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    position: absolute;
+    border-right-color: #fafafa;
+    transition: none;
+}
+.accordion-button:focus, .accordion-button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.accordion-item:hover, .accordion-button-active{
+  background-color: rgb(25, 25, 25) !important;
+  color: rgb(255, 255, 180);
+}
+.accordion-body{
+  background-color: #2c3338;
+  color: #f0f0f1 !important;
+  box-shadow: inset 0px 0px 4px 0px #ffffff59
+}
+.accordion-body ul li a{
+  color:#c3c4c7 !important;
+}
+.accordion-body ul li a:hover, .accordion-body ul li .sideNavLinkActive{
+  color:#f0f0f1 !important;
+  font-weight: bold;
+}
+.accordion-body ul li.sideNavLink-Li-Active{
+  border-left: 4px solid rgb(255, 255, 180) !important;
+}
+.accordion-body ul li:first-of-type{
+  margin-top: 0px !important;
+}
+.accordion-body ul li:last-of-type{
+  margin-bottom: 0px !important;
 }
 mat-toolbar{
   height: 60px;
@@ -162,3 +144,23 @@ mat-toolbar{
   color: white !important;
   transform: translate(0,0) !important;
 } */
+div.dropdown>.dropdown-menu {    
+    display: inherit;
+    top: 95%;
+    right: 0;
+    z-index: -1;
+    transform: translateY(-110%);
+    transition: transform .4s cubic-bezier(.25,.8,.25,1),visibility .4s cubic-bezier(.25,.8,.25,1);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background: white;
+    box-shadow: 0 3px 1px -2px #0003, 0 2px 2px #00000024, 0 1px 5px #0000001f;
+}
+
+.dark-bg{
+  background-color: #1d2327;
+  color: #f0f0f1 !important;
+}
+.BusinessName{
+  font-size: 1.5rem;
+}

@@ -19,7 +19,7 @@ export class PostsDashboardComponent implements OnInit
   colDefs: ColDefs[] = [
     { field: "id", display: "#" },
     { field: "title", display: "Title", },
-    { field: "author.firstname", display: "Author" },
+    { field: "author", display: "Author", isObject: true, KeyToShowIfObjectTrue: "firstname" },
     { field: "dateCreated", display: "Created", pipe: "date" },
     { field: "status", display: "Status", pipe: "postStatus" },
     { field: "commentStatus", display: "Comment Status", pipe: "Boolean" },

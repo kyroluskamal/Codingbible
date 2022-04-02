@@ -186,7 +186,7 @@
                 </div>
                 <div class="card-body d-flex flex-column small">
                     <span><strong>Author: </strong>{{(user$|async)?.firstname}}</span>
-                    <span *ngIf="(postById|async)"><strong>Status: </strong>
+                    <span *ngIf="(postById|async) && Type!=PostType.Add"><strong>Status: </strong>
                         <span *ngIf="(postById|async)?.status===0">Draft</span>
                         <span *ngIf="(postById|async)?.status===1">Published</span>
                         <a *ngIf="(postById|async)?.status===1 && Type!=PostType.Add"
@@ -196,13 +196,13 @@
                            class="cursor-pointer ps-1"
                            (click)="changeStatus(1)">Publish</a>
                     </span>
-                    <span *ngIf="(postById|async)"><strong>Created At: </strong>
+                    <span *ngIf="(postById|async) &&Type!=PostType.Add"><strong>Created At: </strong>
                         <span>{{(postById|async)?.dateCreated|date}}</span>
                     </span>
-                    <span *ngIf="(postById|async)"><strong>Last modified: </strong>
+                    <span *ngIf="(postById|async) &&Type!=PostType.Add"><strong>Last modified: </strong>
                         <span>{{(postById|async)?.lasModified|date}}</span>
                     </span>
-                    <span *ngIf="(postById|async)"><strong>Published At: </strong>
+                    <span *ngIf="(postById|async) &&Type!=PostType.Add"><strong>Published At: </strong>
                         <span>{{(postById|async)?.publishedDate|date}}</span>
                     </span>
                 </div>

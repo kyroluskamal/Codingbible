@@ -52,25 +52,10 @@ a {
   color: #0366d6;
 }
 
-code {
-  color: #e01a76;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
 
 /* html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 
-.table-outer-container{
-  border-radius: 10px;
-}
-.LightRowSelection{
-  background: #efefef;
-}
 .SwalHtmlContent{
   font:inherit;
   font-weight: normal;
@@ -115,21 +100,12 @@ body{
   border: 2px solid white;
 }
 
-.dark-bg{
-  background-color: #232b3e;
-  color: #e6e6e6 !important;
-}
+
 .border-bottom-forDark{
   border-bottom:solid 1px #e6e6e6 !important;
   border-radius: 0% !important;
 }
 
-.MenuToolTips{
-  background: black !important;
-  color: white !important;
-  transform: translate(-75px,34px) !important;
-  z-index: 2000;
-}
 .mw-50{
   min-width: 50px;
 }

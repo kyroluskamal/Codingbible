@@ -4,8 +4,7 @@
     <mat-sidenav [mode]="SideNav_mode"
                  [opened]="pinned"
                  #SideNav
-                 (keydown.escape)="close()"
-                 [ngClass]="'menuSideNav'+' dark-bg'"
+                 class="menuSideNav dark-bg"
                  fxLayout="column">
 
         <!-- ------------------------------------------------------------------------------------
@@ -14,28 +13,52 @@
         <div class="d-flex flex-column justify-content-center">
             <div class="d-flex justify-content-center align-items-center cursor-pointer"
                  style="min-height: 50px;">
-                <a [routerLink]="['','dashboard']"><img src="../../assets/logo 3.png"
+                <a [routerLink]="['']"
+                   class="text-decoration-none BusinessName dark-bg my-2"><img src="../../assets/LogoForDashBoard.svg"
                          alt="logo"
-                         width="35px"
-                         height="35px"></a>
+                         width="50px"
+                         height="35px"> Coding Bible</a>
             </div>
-            <div *ngFor="let item of SideNavItems; let i = index"
-                 fxLayout="column">
-                <button mat-button
-                        #matMenuTrigger
-                        [matMenuTriggerFor]="submenu"
-                        class="px-2 text-start">
-                    <mat-icon *ngIf="item.GoogleIconName"><span class="material-icons">
-                            {{item.GoogleIconName}}
-                        </span></mat-icon>
+            <div class="accordion WidthForSmallScreens"
+                 id="accordionExample">
+                <div [class]="item.expanded?'accordion-item accordion-button-active':'accordion-item'"
+                     *ngFor="let item of SideNavItems; let i = index">
+                    <p class="accordion-header px-1 py-2 fs-5 d-flex flex-row"
+                       [id]="'heading'+item.title+i">
+                        <i [class]="item.bootstrapIcon"></i>
+                        <button class="accordion-button collapsed"
+                                (click)="expandSideNavItem(i)"
+                                type="button"
+                                style="background-color: inherit;"
+                                data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#'+item.title+i"
+                                aria-expanded="true"
+                                [attr.aria-controls]="item.title+i">
+                            <span class="ps-2">
+                                {{item.title}}
+                            </span>
 
-                    <span class="ps-2 ">{{item.title}}</span>
-                </button>
-                <mat-menu #submenu="matMenu">
-                    <a mat-menu-item
-                       *ngFor="let link of item.links"
-                       [routerLink]="link.link">{{link.LinkText}}</a>
-                </mat-menu>
+                        </button>
+                    </p>
+                    <div [id]="item.title+i"
+                         [class]="item.expanded?'accordion-collapse collapse show':'accordion-collapse collapse'"
+                         [attr.aria-labelledby]="'heading'+item.title+i"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body p-0">
+                            <ul class="list-unstyled mb-0">
+                                <li *ngFor="let link of item.links; let l=index"
+                                    [class]="link.state?'sideNavLink-Li-Active py-1':' py-1'">
+                                    <a [routerLink]="link.link"
+                                       (click)="ActivateSideNavLink(i, l)"
+                                       [class]="link.state?'sideNavLinkActive text-decoration-none ps-2':'text-decoration-none ps-2'"
+                                       style="color:inherit; font-size: 13px;">
+                                        {{link.LinkText}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -55,13 +78,17 @@
             <!-- ----------------------------------------------------
                                      Add Button
              -------------------------------------------------------->
+            <ng-template #SideNavMenuToggleToolTip>
+                <span>Toogle Sidebar</span>
+                <br>
+                <span>(Ctrl + Alt + A)</span>
+            </ng-template>
             <div fxLayoutAlign="center center"
                  class="h-100">
                 <div class="cursor-pointer border-end h-100 d-flex align-items-center justify-content-center mw-50"
-                     tooltip="Close Sidebar"
+                     [tooltip]="SideNavMenuToggleToolTip"
                      boundariesElement="window"
-                     [adaptivePosition]="true"
-                     [tooltipAppendToBody]="true"
+                     container="body"
                      (click)="PinSideNav();SideNav.toggle()">
                     <mat-icon class="mat-18"><span class="material-icons-outlined">
                             menu
@@ -73,32 +100,32 @@
                      boundariesElement="window"
                      matRipple
                      [adaptivePosition]="true"
-                     [tooltipAppendToBody]="true">
+                     container="body">
                     <i class="bi bi-plus-square-fill"></i>
                 </div>
             </div>
             <!-- second Div -->
             <div fxLayoutAlign="center center"
                  class="h-100">
-                <div class="cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50"
+                <ng-template #toggleFullScreenToolTip>
+                    <span>Toggle Fullscreen mode</span><br><span>(F11)</span>
+                </ng-template>
+                <div class="bg-white cursor-pointer border-start h-100 align-items-center justify-content-center mw-50 d-flex"
                      (click)="ToggleFullscreen()"
-                     fxHide.xs
-                     [tooltip]="FullscreenEnabled?'Exit fullscreen mode':'Fullscreen mode'"
+                     [tooltip]="toggleFullScreenToolTip"
                      boundariesElement="window"
                      matRipple
-                     [adaptivePosition]="true"
-                     [tooltipAppendToBody]="true"
+                     container="body"
                      #FullscreenButton>
                     <mat-icon><span class="material-icons-outlined">
                             {{FullscreenEnabled?'fullscreen_exit':'fullscreen'}}
                         </span></mat-icon>
                 </div>
-                <div class="cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50"
+                <div class="bg-white cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50"
                      tooltip="see notifications"
                      boundariesElement="window"
                      matRipple
-                     [adaptivePosition]="true"
-                     [tooltipAppendToBody]="true">
+                     container="body">
                     <mat-icon><span class="material-icons-outlined">
                             notifications_active
                         </span></mat-icon>
@@ -106,7 +133,7 @@
 
 
                 <div
-                     class="dropdown cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50">
+                     class="dropdown cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50 bg-white">
                     <div class="dropdown-toggle p-2 d-flex flex-row gap-2 cursor-pointer align-items-center"
                          data-bs-toggle="dropdown"
                          matRipple
@@ -114,7 +141,7 @@
                         <span class="rounded-circle p-2 d-flex justify-content-center align-items-center img-thumbnail mat-elevation-z2"
                               style="width: 40px; height: 40px;">
                             <span class="fs-6 fw-bold">
-                                KK
+                                {{(User|async)?.firstname![0]}}{{(User|async)?.lastname![0]}}
                             </span>
                         </span>
                         <span class="flex-column d-none d-sm-flex">
@@ -127,7 +154,7 @@
                         </span>
 
                     </div>
-                    <ul class="dropdown-menu w-100"
+                    <ul class="dropdown-menu w-100 d-flex flex-column"
                         aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item cursor-pointer">
                                 <i class="bi bi-person-fill"></i>
