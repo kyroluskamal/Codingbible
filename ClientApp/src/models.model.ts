@@ -51,6 +51,7 @@ export class Category
 {
     id: number = 0;
     name: string = "";
+    title: string = "";
     sulg: string = "";
     description: string = "";
     postCount: number = 0;

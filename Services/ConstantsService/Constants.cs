@@ -102,8 +102,8 @@ namespace CodingBible.Services.ConstantsService
             public const string Confirm_Password_error = "Password and confirmed password don't match";
             public const string Field_required_error = "This field is required";
             public const string PasswordMinLength_Error = "Enter 8 character at least";
-            public const string Post_Title_length = "Post title should be between 60 to 70 characters";
-            public const string Post_Description_length = "Post description should be between 50 to 160 characters";
+            public const string SEO_Title_length = "Title should be between 60 to 70 characters";
+            public const string SEO_Description_length = "Description should be between 50 to 160 characters";
             public static string RangeError(int min, int max)
             {
                 return $"Enter from {min} to {max}";

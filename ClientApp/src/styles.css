@@ -131,9 +131,7 @@ body{
     top: 50%;
     margin-top: -8px;
 }
-.border-none{
-  border:none !important;
-}
+
 .mat-form-field-infix{
   width: 100%;
 }

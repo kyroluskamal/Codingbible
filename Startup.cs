@@ -43,7 +43,7 @@ namespace CodingBible
             services.AddMvc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddControllers().AddNewtonsoftJson(options =>
-                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 );
             services.AddDbContext<ApplicationDbContext>(options =>
             {
@@ -104,7 +104,7 @@ namespace CodingBible
             services.AddAuthentication("Custom").AddScheme<CustomAuthenticationOptions, CustomAuthenticationHandler>("Custom", null);
 
             services.AddControllersWithViews();
-            services.AddSpaStaticFiles(configuration =>configuration.RootPath = "ClientApp/dist");
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
             services.AddRazorPages();
             /*---------------------------------------------------------------------------------------------------*/
             /*                             Adding new Services                                                    */
@@ -130,7 +130,7 @@ namespace CodingBible
                 options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
-            services.AddSpaStaticFiles(configuration =>configuration.RootPath = "ClientApp/dist/browser");
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/browser");
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
             /*---------------------------------------------------------------------------------------------------*/
@@ -157,7 +157,7 @@ namespace CodingBible
             {
                 o.AddPolicy("basic", options =>
                 {
-                    options.WithOrigins("http://localhost:4000","https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                    options.WithOrigins("http://localhost:4000", "https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                         .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
                 });
             });
@@ -193,7 +193,7 @@ namespace CodingBible
             app.UseRouting();
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:4000","https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                policy.WithOrigins("http://localhost:4000", "https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                 .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
             });
             app.UseAuthorization();
@@ -248,11 +248,11 @@ namespace CodingBible
                 //   options.ExcludeUrls = new[] { "/sockjs-node" };
                 //});
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
-                }
+                // if (env.IsDevelopment())
+                // {
+                //     spa.UseAngularCliServer(npmScript: "start");
+                //     // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
+                // }
             });
         }
     }

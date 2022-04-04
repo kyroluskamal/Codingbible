@@ -6,6 +6,8 @@ using CodingBible.UnitOfWork.IRepository.Tokens;
 using CodingBible.UnitOfWork.Repository.MailProvider;
 using CodingBible.UnitOfWork.Repository.Posts;
 using CodingBible.UnitOfWork.Repository.Tokens;
+using CodingBible.UnitOfWork.IRepository.Categories;
+using CodingBible.UnitOfWork.Repository.Categories;
 
 namespace CodingBible.UnitOfWork
 {
@@ -14,6 +16,7 @@ namespace CodingBible.UnitOfWork
         public IPostsRepositoryAsync Posts { get; }
         public ApplicationDbContext ApplicationDbContext { get; }
         public ApplicationUserRoleManager RoleManager { get; set; }
+        public ICategoriesRepositoryAsync Categories { get; }
 
         public ITokensRepositoryAsync UserTokens { get; }
 
@@ -27,6 +30,7 @@ namespace CodingBible.UnitOfWork
             Posts = new PostsRepoAsync(applicationDbContext);
             UserTokens = new TokensRepositoryAsync(applicationDbContext);
             MailProviders = new MailProviderRepositoryAsync(applicationDbContext);
+            Categories = new CategoriesRepositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

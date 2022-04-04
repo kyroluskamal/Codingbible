@@ -8,7 +8,7 @@ namespace CodingBible.Models.Posts
     {
         public int Id { get; set; }
         [Required]
-        [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.Post_Title_length)]
+        [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Title_length)]
         public string Title { get; set; }
         [Required]
         public string Slug { get; set; }
@@ -25,7 +25,7 @@ namespace CodingBible.Models.Posts
         [Required]
         public string Excerpt { get; set; }
         [Required]
-        [StringLength(160, MinimumLength = 50, ErrorMessage = Constants.DataAnotationErrorMessages.Post_Description_length)]
+        [StringLength(160, MinimumLength = 50, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Description_length)]
         public string Description { get; set; }
         [Column(TypeName = "bit")]
         public bool CommentStatus { get; set; }

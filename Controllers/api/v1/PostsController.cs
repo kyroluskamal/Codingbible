@@ -9,8 +9,6 @@ using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using System.Linq;
-
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -32,6 +30,10 @@ namespace CodingBible.Controllers.api.v1
             UserManager = userManager;
             FunctionalService = functionalService;
         }
+        /******************************************************************************
+        *                                   Categories CRUD
+        *******************************************************************************/
+        #region Posts CRUD
         /// <summary>
         /// Get a list of all posts in the database
         /// </summary>
@@ -39,11 +41,10 @@ namespace CodingBible.Controllers.api.v1
         [HttpGet]
         [Route(nameof(GetPosts))]
         [AllowAnonymous]
-        public async Task<ActionResult<List<Post>>> GetPosts()
+        public async Task<IActionResult> GetPosts()
         {
-            await Task.Delay(0);
-            var allPosts = UnitOfWork.Posts.GetAllAsync(includeProperties: "Author").GetAwaiter().GetResult().ToList();
-            return allPosts;
+            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author");
+            return Ok(allPosts.ToList());
         }
         /// <summary>
         /// Finds a post by its slug
@@ -56,8 +57,7 @@ namespace CodingBible.Controllers.api.v1
         public async Task<IActionResult> GetPostBySlug([FromRoute] string slug)
         {
             Post post = await UnitOfWork.Posts.GetBySlug(slug);
-            if (post == null) return NotFound();
-            return Ok(post);
+            return post != null ? Ok(post) : NotFound();
         }
 
         [HttpGet]
@@ -66,8 +66,7 @@ namespace CodingBible.Controllers.api.v1
         public async Task<IActionResult> GetPostById([FromRoute] int id)
         {
             Post post = await UnitOfWork.Posts.GetAsync(id);
-            if (post == null) return NotFound();
-            return Ok(post);
+            return post != null ? Ok(post) : NotFound();
         }
 
         [HttpPost]
@@ -89,7 +88,7 @@ namespace CodingBible.Controllers.api.v1
                 if (user == null)
                 {
                     await FunctionalService.Logout();
-                    return StatusCode(600,Constants.HttpResponses.NullUser_Error_Response());
+                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
                 }
                 if (await UnitOfWork.Posts.IsNotUnique(x => x.Slug == Post.Slug))
                 {
@@ -196,5 +195,112 @@ namespace CodingBible.Controllers.api.v1
         {
             return Ok(await UnitOfWork.Posts.IsNotUnique(x => x.Slug == slug));
         }
+        #endregion
+
+        #region Categories CRUD
+        [HttpGet]
+        [Route(nameof(GetAllCategories))]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var categories = await UnitOfWork.Categories.GetAllAsync();
+            return Ok(categories);
+        }
+        [HttpGet]
+        [Route(nameof(GetCategoryBySlug) + "/{slug}")]
+        public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug)
+        {
+            var category = await UnitOfWork.Categories.GetBySlug(slug);
+            return category != null ? Ok(category) : NotFound();
+        }
+        [HttpPost]
+        [Route(nameof(AddCategory))]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
+        public async Task<IActionResult> AddCategory([FromBody] Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                /*
+                 * This conditions is just preventive and protective step. It is never called
+                 * because if the username cookie is not found, then the Authorize attribute
+                 * will prevent the action call. This condition is only called if some can 
+                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                 */
+                if (user == null)
+                {
+                    await FunctionalService.Logout();
+                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
+                }
+                if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
+                }
+                var newCategory = new Category();
+                newCategory = Mapper.Map(category, newCategory);
+
+                await UnitOfWork.Categories.AddAsync(newCategory);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(await UnitOfWork.Categories.GetFirstOrDefaultAsync(x => x.Slug == category.Slug));
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+
+        [HttpPut]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
+        [Route(nameof(UpdateCategory))]
+        public async Task<IActionResult> UpdateCategory([FromBody] Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                var getCategory = await UnitOfWork.Categories.GetAsync(category.Id);
+                if (getCategory == null)
+                {
+                    return NotFound();
+                }
+                getCategory = Mapper.Map(category, getCategory);
+                UnitOfWork.Categories.Update(getCategory);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        [HttpDelete]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [ValidateAntiForgeryTokenCustom]
+        [Route(nameof(DeleteCategory) + "/{id}")]
+        public async Task<IActionResult> DeleteCategory([FromRoute] int id)
+        {
+            var getCategory = await UnitOfWork.Categories.GetAsync(id);
+            if (getCategory == null)
+            {
+                return NotFound();
+            }
+            await UnitOfWork.Categories.RemoveAsync(id);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
+            }
+            return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
+        }
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Custom")]
+        [Route(nameof(CatIsSlugUnique) + "/{slug}")]
+        public async Task<IActionResult> CatIsSlugUnique([FromRoute] string slug)
+        {
+            return Ok(await UnitOfWork.Categories.IsNotUnique(x => x.Slug == slug));
+        }
+        #endregion
     }
 }

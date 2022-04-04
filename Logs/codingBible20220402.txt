@@ -1055,3 +1055,189 @@ UserName : "kyrolus"
 ProcessId : 13300
 ProcessName : "CodingBible"
 ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 07:41:12 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 8816
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 07:43:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 8816
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 07:45:40 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 8816
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 09:00:15 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12580
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 09:00:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12580
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 09:01:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12580
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 09:25:21 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12580
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 09:29:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 12880
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 10:03:20 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7896
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 10:03:42 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7896
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 10:04:31 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7896
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 10:04:58 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in D:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "135d0787-9285-4dcb-bdd6-b30af891a386"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMGKFTM2RC8K:00000023"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMGKFTM2RC8K"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7896
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/04/2022 10:14:38 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "LAP"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.3"
+UserName : "kyrolus"
+ProcessId : 7896
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
