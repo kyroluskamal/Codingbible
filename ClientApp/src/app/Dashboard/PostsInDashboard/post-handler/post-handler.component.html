@@ -24,9 +24,10 @@
     <!-- ------------------------------------------------------------------------------- 
      |                               Sticky notes for errors
     ------------------------------------------------------------------------------------>
-    <div class="alert alert-info mb-0 small"
+    <div class="alert alert-info mb-0 small d-none d-lg-block"
+         #StickyNotes
          style="position: fixed; bottom: 10px; z-index: 1030;"
-         [ngStyle]="(pinned$|async)?{'left':'16vw'}:{'left':'10px' }"
+         [ngStyle]="(pinned$|async)?{'left':'23vw'}:{'left':'10px' }"
          *ngIf="form.invalid">
         <p><strong>You have to do the following</strong></p>
         <ul class="mb-0">
@@ -304,7 +305,23 @@
                     </span>
                 </div>
             </div>
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Feature Image Card
+            ------------------------------------------------------------------------------->
+            <div class="card h-50">
+                <div class="card-header">
+                    Feature image
+                </div>
+                <div class="card-body">
+                    <button (click)="media.Toggle()">Browse</button>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between">
+                    <span class="text-primary small">Character count: {{desc.value.length}}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 
 </form>
+<app-media #media></app-media>

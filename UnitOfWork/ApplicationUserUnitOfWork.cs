@@ -8,7 +8,8 @@ using CodingBible.UnitOfWork.Repository.Posts;
 using CodingBible.UnitOfWork.Repository.Tokens;
 using CodingBible.UnitOfWork.IRepository.Categories;
 using CodingBible.UnitOfWork.Repository.Categories;
-
+using CodingBible.UnitOfWork.IRepository.AttachmentRepo;
+using CodingBible.UnitOfWork.Repository.AttachmentRepo;
 namespace CodingBible.UnitOfWork
 {
     public class ApplicationUserUnitOfWork : IUnitOfWork_ApplicationUser
@@ -21,6 +22,7 @@ namespace CodingBible.UnitOfWork
         public ITokensRepositoryAsync UserTokens { get; }
 
         public IMailProvidersRepositoryAsync MailProviders { get; }
+        public IAttachmentsRepositoryAsync Attachments { get; }
 
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
@@ -31,6 +33,7 @@ namespace CodingBible.UnitOfWork
             UserTokens = new TokensRepositoryAsync(applicationDbContext);
             MailProviders = new MailProviderRepositoryAsync(applicationDbContext);
             Categories = new CategoriesRepositoryAsync(applicationDbContext);
+            Attachments = new AttachmentsRespositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

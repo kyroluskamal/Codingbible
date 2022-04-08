@@ -19,7 +19,7 @@ export class ClientSideValidationService
         formGroup.get(k)?.setValue(object[k]);
     }
   }
-  isUnique(array: any[], keyToCheck: string, value: string, id?: number)
+  isNotUnique(array: any[], keyToCheck: string, value: string, id?: number)
   {
     if (!id)
     {
@@ -28,7 +28,7 @@ export class ClientSideValidationService
         if (el[keyToCheck])
           if (el[keyToCheck] === value)
           {
-            return false;
+            return true;
           }
       }
     } else
@@ -38,11 +38,11 @@ export class ClientSideValidationService
         if (el[keyToCheck] && el['id'] !== id)
           if (el[keyToCheck] === value)
           {
-            return false;
+            return true;
           }
       }
     }
-    return true;
+    return false;
   }
 
   isUniqueMany(array: any[], keyValue: KeyValueForUniqueCheck[], id?: number)
@@ -51,7 +51,7 @@ export class ClientSideValidationService
     let notUnique: boolean = true;
     for (let k of keyValue)
     {
-      if (!this.isUnique(array, k.key, k.value, id))
+      if (this.isNotUnique(array, k.key, k.value, id))
       {
         translatedMessage += `<strong>( ${k.key} )</strong>
       ${NotificationMessage.Error.Unique_Field_ERROR}<br/>`;

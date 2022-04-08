@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-gategory',
@@ -6,11 +7,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./add-gategory.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddGategoryComponent implements OnInit {
+export class AddGategoryComponent implements OnInit
+{
 
-  constructor() { }
+  AddForm: FormGroup = new FormGroup({});
+  constructor(private fb: FormBuilder) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
   }
 
 }

@@ -2,6 +2,7 @@
 using CodingBible.UnitOfWork.IRepository.Posts;
 using CodingBible.UnitOfWork.IRepository.Tokens;
 using CodingBible.UnitOfWork.IRepository.Categories;
+using CodingBible.UnitOfWork.IRepository.AttachmentRepo;
 
 namespace CodingBible.UnitOfWork
 {
@@ -11,6 +12,7 @@ namespace CodingBible.UnitOfWork
         ITokensRepositoryAsync UserTokens { get; }
         IMailProvidersRepositoryAsync MailProviders { get; }
         ICategoriesRepositoryAsync Categories { get; }
+        IAttachmentsRepositoryAsync Attachments { get; }
         Task<int> SaveAsync();
         int Save();
     }

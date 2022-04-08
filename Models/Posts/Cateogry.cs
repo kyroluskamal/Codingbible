@@ -17,6 +17,8 @@ namespace CodingBible.Models.Posts
         [Required]
         [StringLength(160, MinimumLength = 50, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Description_length)]
         public string Description { get; set; }
+        [Column(TypeName = "tinyint")]
+        public int Level { get; set; }
         public int PostCount { get; set; }
         [ForeignKey(nameof(ParentKey))]
         public int? ParentKey { get; set; }

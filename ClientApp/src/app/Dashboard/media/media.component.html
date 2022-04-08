@@ -1,0 +1,18 @@
+<bootstrap-modal #modal
+                 [Modal_Body_template]="Body"
+                 [FullScreeen]="true"
+                 FullScreenClass="modal-fullscreen"
+                 Modal_Header_Text="Media"
+                 [Modal_Footer_template]="Footer"></bootstrap-modal>
+<ng-template #Body>
+    <input type="file"
+           class="form-control"
+           multiple
+           (change)="uploadImage($event)">
+</ng-template>
+
+<ng-template #Footer>
+    <button class="btn btn-secondary"
+            type="button"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>

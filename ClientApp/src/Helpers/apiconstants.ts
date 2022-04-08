@@ -23,6 +23,12 @@ const controllers = {
             GetPostById: "GetPostById",
             ChangStatus: "ChangStatus"
         }
+    },
+    media: {
+        name: "Media",
+        Actions: {
+            Upload: "Upload"
+        }
     }
 };
 export const AccountController = {
@@ -42,6 +48,9 @@ export const PostsController = {
     UpdatePost: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.UpdatePost),
     GetPostById: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetPostById),
     ChangStatus: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.ChangStatus),
+};
+export const MediaController = {
+    Upload: getApiUrl(version, controllers.media.name, controllers.media.Actions.Upload)
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

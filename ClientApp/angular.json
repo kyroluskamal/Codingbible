@@ -137,7 +137,10 @@
               "src/app/CodingBible_editor/editor/**",
               "src/app/Dashboard/dashboard-home/**",
               "src/app/HomeWebsite/home-nav-menu/**",
-              "src/ app/HomeWebsite/home-nav-menu home-nav-menu.component.ts"
+              "src/app/HomeWebsite/home/home.component.ts",
+              "src/app/Dashboard/PostsInDashboard/post-handler/post-handler.component.ts",
+              "src/guards/auth.guard.ts",
+              "src/app/HomeWebsite/AuthComonents/email-confirmation/email-confirmation.component.ts"
             ]
           }
         },

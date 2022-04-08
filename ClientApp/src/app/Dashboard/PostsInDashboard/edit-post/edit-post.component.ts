@@ -16,10 +16,10 @@ export class EditPostComponent implements OnInit
   ngOnInit(): void
   {
     this.form = this.fb.group({
-      title: [null, [validators.required, validators.POST_TITLE_MIN_LENGTH, validators.POST_TITLE_MAX_LENGTH]],
+      title: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
       slug: [null],
       excerpt: [null, [validators.required]],
-      description: [null, [validators.required, validators.POST_DESCRIPTION_MIN_LENGTH, validators.POST_DESCRIPTION_MAX_LENGTH]],
+      description: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       htmlContent: [null, [validators.required]]
     });
   }

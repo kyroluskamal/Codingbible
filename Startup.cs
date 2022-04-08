@@ -21,6 +21,9 @@ using MintPlayer.AspNetCore.Hsts;
 using MintPlayer.AspNetCore.SpaServices.Routing;
 using Newtonsoft.Json;
 using System.Text;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
+using CodingBible.Services.SitemapService;
 
 namespace CodingBible
 {
@@ -117,6 +120,11 @@ namespace CodingBible
             services.AddTransient<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
 
+            /*---------------------------------------------------------------------------------------------------*/
+            /*                             Addid Sitemap serice                                                   */
+            /*---------------------------------------------------------------------------------------------------*/
+            services.AddTransient<ISitemapService, SitemapService>();
+
             /*--------------------------------------------------------------------------------------------------------------------*/
             /*                      Anti Forgery Token Validation Service                                                         */
             /* We use the option patterm to configure the Antiforgery feature through the AntiForgeryOptions Class                */
@@ -171,6 +179,30 @@ namespace CodingBible
                    options.AssumeDefaultVersionWhenUnspecified = true;
                    options.DefaultApiVersion = new ApiVersion(1, 0);
                });
+            /*---------------------------------------------------------------------------------------------------*/
+            /*                              ENABLE API Versioning                                                */
+            /*---------------------------------------------------------------------------------------------------*/
+            services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.Configure<BrotliCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression(options =>
+            {
+                IEnumerable<string> MimeTypes = new[]
+                {
+                    // General
+                    "text/plain",
+                    "text/html",
+                    "text/css",
+                    "font/woff2",
+                    "application/javascript",
+                    "image/x-icon",
+                    "image/*"
+                };
+
+                options.EnableForHttps = true;
+                options.MimeTypes = MimeTypes;
+                options.Providers.Add<GzipCompressionProvider>();
+                options.Providers.Add<BrotliCompressionProvider>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -189,6 +221,7 @@ namespace CodingBible
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseImprovedHsts();
             app.UseHttpsRedirection();
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(policy =>
@@ -248,11 +281,11 @@ namespace CodingBible
                 //   options.ExcludeUrls = new[] { "/sockjs-node" };
                 //});
 
-                // if (env.IsDevelopment())
-                // {
-                //     spa.UseAngularCliServer(npmScript: "start");
-                //     // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
-                // }
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
+                }
             });
         }
     }

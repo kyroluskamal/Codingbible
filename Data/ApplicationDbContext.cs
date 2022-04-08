@@ -18,8 +18,8 @@ namespace CodingBible.Data
                 Database.MigrateAsync().GetAwaiter().GetResult();
             }
         }
-        public DbSet<ActivityModel> Activities { get; set; }
         public DbSet<MailProviders> MailProviders { get; set; }
+        public DbSet<Attachments> Attachments { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -55,7 +55,26 @@ namespace CodingBible.Data
                 .HasOne(x => x.Categories)
                 .WithMany(x => x.PostsCategories)
                 .HasForeignKey(x => x.CategoryId);
+
             builder.Entity<Post>().HasIndex(x => x.Slug).IsUnique();
+
+            builder.Entity<PostAttachments>()
+                .HasKey(x => new { x.PostId, x.AttachmentId });
+            builder.Entity<PostAttachments>()
+                .HasOne(x => x.Post)
+                .WithMany(x => x.Attachments)
+                .HasForeignKey(x => x.PostId);
+            builder.Entity<PostAttachments>()
+                .HasOne(x => x.Attachment)
+                .WithMany(x => x.Posts)
+                .HasForeignKey(x => x.AttachmentId);
+            /*************************************************************************
+            *                            Set defalut values
+            **************************************************************************/
+            builder.Entity<Post>().Property(x => x.EditFrequency).HasDefaultValue("monthly");
+            builder.Entity<Post>().Property(x => x.Priority).HasDefaultValue(0.5f);
+            builder.Entity<Post>().Property(x => x.DateCreated).HasDefaultValue(DateTime.Now);
+            builder.Entity<Post>().Property(x => x.LasModified).HasDefaultValue(DateTime.Now);
             base.OnModelCreating(builder);
         }
     }

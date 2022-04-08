@@ -1,0 +1,37 @@
+<button type="button"
+        #ModalButtton
+        hidden
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#MediaModel"></button>
+
+<div class="modal fade"
+     #Modal
+     style="z-index: 50000"
+     id="MediaModel"
+     tabindex="-1"
+     aria-labelledby="Modal"
+     aria-hidden="true">
+    <div [class]="DialogClass">
+        <div [class]="ContentClass">
+            <div [class]="HeaderCLass">
+                <ng-container *ngTemplateOutlet="Modal_Header_Template">
+
+                </ng-container>
+                <h5 class="modal-title"
+                    *ngIf="!Modal_Header_Template"
+                    id="exampleModalLabel">{{this.Header_text}}</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div [class]="Body_Additional_Classes">
+                <ng-container *ngTemplateOutlet="Body_template"></ng-container>
+            </div>
+            <div [class]="Footer_Additional_Classes">
+                <ng-container *ngTemplateOutlet="Footer_TemplateRef"></ng-container>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,15 +17,15 @@ import { CodingBibleTableComponent } from 'src/app/CommonComponents/coding-bible
 import { CodingBiblePaginatorComponent } from 'src/app/CommonComponents/coding-bible-paginator/coding-bible-paginator.component';
 import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
 import { PostStatusPipe } from 'src/Pipes/post-status.pipe';
+import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 const components = [
   PostsDashboardComponent, AddPostsComponent, CodingBibleEditorComponent,
-  PostHandlerComponent, EditPostComponent, CodingBibleTableComponent, CodingBiblePaginatorComponent
-];
+  PostHandlerComponent, EditPostComponent];
 @NgModule({
-  imports: [TooltipModule, FlexLayoutModule,
+  imports: [TooltipModule, FlexLayoutModule, ShareComponentsforDashboardModule,
     SharedModule, MatFormFieldModule, MatTableModule, TabsModule,
     MatInputModule, PostsInDashboardRoutingModule, DragDropModule
   ],
-  declarations: [components, HandleBooleanPipe, PostStatusPipe]
+  declarations: [components, HandleBooleanPipe]
 })
 export class PostsInDashboardModule { }

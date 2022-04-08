@@ -42,6 +42,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
   @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
+
   validators = Validators;
   CustoErrorStateMatcher = new CustomErrorStateMatcher();
   selectedText: SelectedTextData = {
@@ -60,6 +61,11 @@ export class PostHandlerComponent implements OnInit, OnChanges
   form: FormGroup = new FormGroup({});
   postTitle: string = '';
   IsUpdated: boolean = false;
+  modal_fullscreen = "modal-fullscreen";
+
+  /**********************************************************************************************************
+   *                                                Constructor
+   ************************************************************************************/
   constructor(public store: Store, private postService: PostService,
     public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
   {
@@ -197,15 +203,15 @@ export class PostHandlerComponent implements OnInit, OnChanges
 
     if (this.posts.length > 0)
     {
-      if (!this.ClientSideService.isUnique(this.posts, 'slug', slug.value))
+      if (this.ClientSideService.isNotUnique(this.posts, 'slug', slug.value))
         this.form.get('slug')?.setErrors({ notUnique: true });
       else
         this.form.get('slug')?.clearValidators();
     } else
-      this.postService.IsSlugUnique(slug.value).subscribe(
+      this.postService.IsSlugNotUnique(slug.value).subscribe(
         r =>
         {
-          if (!r)
+          if (r)
             this.form.get('slug')?.setErrors({ notUnique: true });
           else
             this.form.get('slug')?.clearValidators();

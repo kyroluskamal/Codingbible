@@ -1,4 +1,3 @@
-import { Location } from "@angular/common";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { fakeAsync } from "@angular/core/testing";
@@ -17,8 +16,7 @@ import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { metaReducers } from "src/app/app.module";
 import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
-import { findEl_ByName, findEl_ByTestId, setFieldValue, spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
-import { AuthRoutes } from "src/Helpers/router-constants";
+import { toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
 import { LoginFailure } from "src/State/AuthState/auth.actions";
 import { RoutesForHomeModule } from "../../home-website-routing.module";

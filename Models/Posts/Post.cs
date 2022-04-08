@@ -1,7 +1,8 @@
 using CodingBible.Services.ConstantsService;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using AspNetCore.SEOHelper.Sitemap;
 namespace CodingBible.Models.Posts
 {
     public class Post
@@ -30,6 +31,11 @@ namespace CodingBible.Models.Posts
         [Column(TypeName = "bit")]
         public bool CommentStatus { get; set; }
         public int CommentCount { get; set; }
+        // [Required]
+        public string FeatureImageUrl { get; set; }
+        public string EditFrequency { get; set; }
+        public float Priority { get; set; }
         public ICollection<PostsCategory> PostsCategories { get; set; }
+        public ICollection<PostAttachments> Attachments { get; set; }
     }
 }

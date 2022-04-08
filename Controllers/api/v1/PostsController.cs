@@ -4,6 +4,7 @@ using CodingBible.Models.Posts;
 using CodingBible.Services.AuthenticationService;
 using CodingBible.Services.ConstantsService;
 using CodingBible.Services.CookieService;
+using CodingBible.Services.SitemapService;
 using CodingBible.Services.FunctionalService;
 using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
@@ -22,14 +23,19 @@ namespace CodingBible.Controllers.api.v1
         private ICookieServ CookierService { get; }
         private ApplicationUserManager UserManager { get; }
         private readonly IFunctionalService FunctionalService;
-        public PostsController(IUnitOfWork_ApplicationUser unitOfWork, IMapper mapper, ICookieServ cookierService, ApplicationUserManager userManager, IFunctionalService functionalService)
+        private readonly ISitemapService SitemapService;
+        public PostsController(IUnitOfWork_ApplicationUser unitOfWork,
+        IMapper mapper, ICookieServ cookierService, ApplicationUserManager userManager,
+        IFunctionalService functionalService, ISitemapService sitemapService)
         {
             UnitOfWork = unitOfWork;
             Mapper = mapper;
             CookierService = cookierService;
             UserManager = userManager;
             FunctionalService = functionalService;
+            SitemapService = sitemapService;
         }
+
         /******************************************************************************
         *                                   Categories CRUD
         *******************************************************************************/
@@ -103,6 +109,9 @@ namespace CodingBible.Controllers.api.v1
                 newPost.CommentStatus = true;
                 await UnitOfWork.Posts.AddAsync(newPost);
                 var result = await UnitOfWork.SaveAsync();
+                //add the post to the sitemap if it is published
+                if (newPost.Status == (int)Constants.PostStatus.Published)
+                    await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
                 if (result > 0)
                 {
                     return Ok(await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug));
@@ -153,6 +162,19 @@ namespace CodingBible.Controllers.api.v1
                     getPost.Status = Post.Status;
                     UnitOfWork.Posts.Update(getPost);
                     var result = await UnitOfWork.SaveAsync();
+                    if (Post.Status == (int)Constants.PostStatus.Published)
+                    {
+                        if (!SitemapService.IsPostFoundInSitemap(Post.Slug))
+                        {
+                            await SitemapService.AddPostToSitemap(getPost, $"{Request.Scheme}://{Request.Host}");
+                        }
+                    }
+                    else if (Post.Status == (int)Constants.PostStatus.Draft)
+                    {
+                        if (SitemapService.IsPostFoundInSitemap(Post.Slug))
+                            await SitemapService.DeletePostFromSitemap(Post, $"{Request.Scheme}://{Request.Host}");
+                    }
+
                     if (result > 0)
                     {
                         return Ok(Constants.HttpResponses.Update_Sucess($"{getPost.Title}"));
@@ -180,8 +202,11 @@ namespace CodingBible.Controllers.api.v1
             {
                 return NotFound();
             }
+
             await UnitOfWork.Posts.RemoveAsync(id);
             var result = await UnitOfWork.SaveAsync();
+            if (SitemapService.IsPostFoundInSitemap(getPost.Slug))
+                await SitemapService.DeletePostFromSitemap(getPost, $"{Request.Scheme}://{Request.Host}");
             if (result > 0)
             {
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Post({getPost.Title})"));

@@ -24,7 +24,7 @@ export class PostService
   {
     return this.httpClient.put<Post>(PostsController.UpdatePost, post);
   }
-  IsSlugUnique(slug: string): Observable<boolean>
+  IsSlugNotUnique(slug: string): Observable<boolean>
   {
     return this.httpClient.get<boolean>(`${PostsController.IsSlugUnique}/${slug}`);
   }

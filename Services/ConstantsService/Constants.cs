@@ -6,13 +6,19 @@ namespace CodingBible.Services.ConstantsService
 {
     public static class Constants
     {
+        public enum PostStatus
+        {
+            Draft = 0,
+            Published = 1,
+            Deleted = 2
+        }
         public static class Roles
         {
             public const string admin = "Administrator";
             public const string Participant = "Participant";
             public const string Reader = "Reader";
         }
-
+        public const string imageExtensions = "jpg, jpeg, png, gif, bmp, webp, tiff";
         public static class AppSettings
         {
             public const string Site = "localhost:5001";
@@ -112,6 +118,15 @@ namespace CodingBible.Services.ConstantsService
             {
                 return $"Enter {min} characters at least";
             }
+        }
+        public static string Join(string separator, string[] arrytoJoin)
+        {
+            string finalString = "";
+            foreach (var item in arrytoJoin)
+            {
+                finalString += item + separator;
+            }
+            return finalString[0..finalString.IndexOf(separator)];
         }
         public static class HttpResponses
         {

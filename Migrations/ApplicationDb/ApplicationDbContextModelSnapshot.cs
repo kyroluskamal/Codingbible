@@ -22,43 +22,6 @@ namespace CodingBible.Migrations.ApplicationDb
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CodingBible.Models.ActivityModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Color")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Icon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IpAddress")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OperatingSystem")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Activities");
-                });
-
             modelBuilder.Entity("CodingBible.Models.ApplicationUser", b =>
                 {
                     b.Property<int>("Id")
@@ -137,6 +100,43 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Attachments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("FileType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Attachments");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>
@@ -307,6 +307,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
 
+                    b.Property<byte>("Level")
+                        .HasColumnType("tinyint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -351,15 +354,25 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 4, 8, 2, 22, 57, 962, DateTimeKind.Local).AddTicks(4579));
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
 
+                    b.Property<string>("EditFrequency")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("monthly");
+
                     b.Property<string>("Excerpt")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatureImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HtmlContent")
@@ -367,7 +380,14 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LasModified")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 4, 8, 2, 22, 57, 962, DateTimeKind.Local).AddTicks(5288));
+
+                    b.Property<float>("Priority")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("real")
+                        .HasDefaultValue(0.5f);
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
@@ -392,6 +412,21 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsUnique();
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Posts.PostAttachments", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttachmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId", "AttachmentId");
+
+                    b.HasIndex("AttachmentId");
+
+                    b.ToTable("PostAttachments");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Posts.PostsCategory", b =>
@@ -531,6 +566,25 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Posts.PostAttachments", b =>
+                {
+                    b.HasOne("CodingBible.Models.Attachments", "Attachment")
+                        .WithMany("Posts")
+                        .HasForeignKey("AttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.Posts.Post", "Post")
+                        .WithMany("Attachments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attachment");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("CodingBible.Models.Posts.PostsCategory", b =>
                 {
                     b.HasOne("CodingBible.Models.Posts.Category", "Categories")
@@ -597,6 +651,11 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Attachments", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>
                 {
                     b.Navigation("RolePermission");
@@ -609,6 +668,8 @@ namespace CodingBible.Migrations.ApplicationDb
 
             modelBuilder.Entity("CodingBible.Models.Posts.Post", b =>
                 {
+                    b.Navigation("Attachments");
+
                     b.Navigation("PostsCategories");
                 });
 #pragma warning restore 612, 618

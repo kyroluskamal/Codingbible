@@ -81,10 +81,17 @@ export class DashboardHomeComponent implements OnInit
   ngOnInit(): void
   {
     this.store.dispatch(LoadPOSTs());
-    console.log(this.router.url);
+    // this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+    //   .subscribe(e =>
+    //   {
+    //     console.log(e);
+
+    //     //Do something with the NavigationEnd event object.
+    //   });
     for (let item of this.SideNavItems)
     {
-      if (this.router.url.split("/")[item.itemLevel! + 1]?.includes(item.title.toLowerCase()) && this.router.url.split("/").length === item.itemLevel! + 2)
+      if (this.router.url.split("/")[item.itemLevel! + 1]?.includes(item.title.toLowerCase())
+        && this.router.url.split("/").length === item.itemLevel! + 2)
       {
         item.expanded = true;
       } else
@@ -93,12 +100,12 @@ export class DashboardHomeComponent implements OnInit
       }
       for (let link of item.links)
       {
-        if (link.LinkText.split(" ").includes(this.router.url.split("/").pop()!))
+        if (link.link[link.link.length - 1] === this.router.url.split("/").pop()!)
         {
           link.state = true;
-        } else if (this.router.url.includes(link.link.join("/")))
+        } else 
         {
-          link.state = true;
+          link.state = false;
         }
       }
     }

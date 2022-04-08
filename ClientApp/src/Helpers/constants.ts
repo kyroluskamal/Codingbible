@@ -122,6 +122,12 @@ export const FormControlNames = {
         htmlContent: "htmlContent",
         description: "description",
         excerpt: "excerpt"
+    },
+    AddEditCategoryForm: {
+        name: "name",
+        title: "title",
+        slug: "slug",
+        description: "description"
     }
 };
 
@@ -285,22 +291,39 @@ export const actionNames = {
     },
     designActions: {
         pinned: '[Pinnded menu]'
+    },
+    categoryActions: {
+        ADD_CATEGORY: '[Add CATEGORY] Request',
+        ADD_CATEGORY_Success: '[Add CATEGORY] SUCCESS',
+        ADD_CATEGORY_Failed: '[Add CATEGORY] FAILED',
+        UPDATE_CATEGORY: '[Update CATEGORY] Request',
+        UPDATE_CATEGORY_Success: '[Update CATEGORY] SUCCESS',
+        UPDATE_CATEGORY_Failed: '[Update CATEGORY] FAILED',
+        REMOVE_CATEGORY: '[Delete CATEGORY] Request',
+        REMOVE_CATEGORY_Success: '[Delete CATEGORY] SUCCESS',
+        REMOVE_CATEGORY_Failed: '[Delete CATEGORY] FAILED',
+        LOAD_ALL_CATEGORIES: '[CATEGORY] Load All CATEGORIES',
+        LOAD_ALL_CATEGORIES_SUCCESS: '[Load CATEGORIES] Success',
+        LOAD_ALL_CATEGORIES_FAILED: '[Load CATEGORIES] FAILED',
+        GetCategoryById: '[GetCategoryById] request',
+        GetCategoryById_Success: '[GetCategoryById] Sucess',
+        GetCategoryById_Failed: '[GetCategoryBy_Slug] Failed',
     }
 };
 //#endregion
 //#region Validators
 export const PASSWORD_MINLENGTH = 8;
-export const POST_TITLE_MIN_LENGTH = 60;
-export const POST_TITLE_MAX_LENGTH = 70;
-export const POST_DESCRIPTION_MIN_LENGTH = 50;
-export const POST_DESCRIPTION_MAX_LENGTH = 160;
+export const SEO_TITLE_MIN_LENGTH = 60;
+export const SEO_TITLE_MAX_LENGTH = 70;
+export const SEO_DESCRIPTION_MIN_LENGTH = 50;
+export const SEO_DESCRIPTION_MAX_LENGTH = 160;
 export const validators = {
     required: Validators.required,
     PASSWORD_MIN_LENGTH: Validators.minLength(PASSWORD_MINLENGTH),
-    POST_TITLE_MIN_LENGTH: Validators.minLength(POST_TITLE_MIN_LENGTH),
-    POST_TITLE_MAX_LENGTH: Validators.maxLength(POST_TITLE_MAX_LENGTH),
-    POST_DESCRIPTION_MIN_LENGTH: Validators.minLength(POST_DESCRIPTION_MIN_LENGTH),
-    POST_DESCRIPTION_MAX_LENGTH: Validators.maxLength(POST_DESCRIPTION_MAX_LENGTH),
+    SEO_TITLE_MIN_LENGTH: Validators.minLength(SEO_TITLE_MIN_LENGTH),
+    SEO_TITLE_MAX_LENGTH: Validators.maxLength(SEO_TITLE_MAX_LENGTH),
+    SEO_DESCRIPTION_MIN_LENGTH: Validators.minLength(SEO_DESCRIPTION_MIN_LENGTH),
+    SEO_DESCRIPTION_MAX_LENGTH: Validators.maxLength(SEO_DESCRIPTION_MAX_LENGTH),
     password: Validators.compose([
         CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),

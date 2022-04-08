@@ -54,6 +54,7 @@ export class Category
     title: string = "";
     sulg: string = "";
     description: string = "";
+    level: number = 0;
     postCount: number = 0;
     parentKey: number = 0;
     parent: any;

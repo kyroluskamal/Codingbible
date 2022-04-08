@@ -74,10 +74,10 @@ describe("AddPostsComponent", () =>
                 it("repsonds to Draft event", () =>
                 {
                     let form = new FormGroup({
-                        title: new FormControl("This is test title", [validators.required, validators.POST_TITLE_MIN_LENGTH, validators.POST_TITLE_MAX_LENGTH]),
+                        title: new FormControl("This is test title", [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]),
                         slug: new FormControl("This-is-test-title"),
                         excerpt: new FormControl("This is excerpt", [validators.required]),
-                        description: new FormControl("This is description This is description This is description This is description ", [validators.required, validators.POST_DESCRIPTION_MIN_LENGTH, validators.POST_DESCRIPTION_MAX_LENGTH]),
+                        description: new FormControl("This is description This is description This is description This is description ", [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]),
                         htmlContent: new FormControl("This is description This is description This is description This is description ", [validators.required])
                     });
                     spectator.triggerEventHandler("app-post-handler", "Draft", form);
@@ -87,10 +87,10 @@ describe("AddPostsComponent", () =>
                 it("repsonds to Publish event", () =>
                 {
                     let form = new FormGroup({
-                        title: new FormControl("This is test title", [validators.required, validators.POST_TITLE_MIN_LENGTH, validators.POST_TITLE_MAX_LENGTH]),
+                        title: new FormControl("This is test title", [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]),
                         slug: new FormControl("This-is-test-title"),
                         excerpt: new FormControl("This is excerpt", [validators.required]),
-                        description: new FormControl("This is description This is description This is description This is description ", [validators.required, validators.POST_DESCRIPTION_MIN_LENGTH, validators.POST_DESCRIPTION_MAX_LENGTH]),
+                        description: new FormControl("This is description This is description This is description This is description ", [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]),
                         htmlContent: new FormControl("This is description This is description This is description This is description ", [validators.required])
                     });
                     spectator.triggerEventHandler("app-post-handler", "Publish", form);
@@ -113,11 +113,11 @@ describe("AddPostsComponent", () =>
                 });
                 it(`has minlength 60 validator`, () =>
                 {
-                    expect(spectator.component.form.get(FormControlNames.postForm.title)?.hasValidator(validators.POST_TITLE_MIN_LENGTH)).toBeTrue();
+                    expect(spectator.component.form.get(FormControlNames.postForm.title)?.hasValidator(validators.SEO_TITLE_MIN_LENGTH)).toBeTrue();
                 });
                 it(`has maxlength 70 validator`, () =>
                 {
-                    expect(spectator.component.form.get(FormControlNames.postForm.title)?.hasValidator(validators.POST_TITLE_MAX_LENGTH)).toBeTrue();
+                    expect(spectator.component.form.get(FormControlNames.postForm.title)?.hasValidator(validators.SEO_TITLE_MAX_LENGTH)).toBeTrue();
                 });
                 it(`sets form invalid if title is less than 60 and more than 70`, () =>
                 {
@@ -151,11 +151,11 @@ describe("AddPostsComponent", () =>
                 });
                 it(`has min length 50 validator`, () =>
                 {
-                    expect(spectator.component.form.get(FormControlNames.postForm.description)?.hasValidator(validators.POST_DESCRIPTION_MIN_LENGTH)).toBeTrue();
+                    expect(spectator.component.form.get(FormControlNames.postForm.description)?.hasValidator(validators.SEO_DESCRIPTION_MIN_LENGTH)).toBeTrue();
                 });
                 it(`has max length 160 validator`, () =>
                 {
-                    expect(spectator.component.form.get(FormControlNames.postForm.description)?.hasValidator(validators.POST_DESCRIPTION_MAX_LENGTH)).toBeTrue();
+                    expect(spectator.component.form.get(FormControlNames.postForm.description)?.hasValidator(validators.SEO_DESCRIPTION_MAX_LENGTH)).toBeTrue();
                 });
             });
             describe(toTitleCase(FormControlNames.postForm.excerpt), () =>
