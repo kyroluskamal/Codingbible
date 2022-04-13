@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Update } from '@ngrx/entity';
+import { Store } from '@ngrx/store';
 import { HTTPResponseStatus } from 'src/Helpers/constants';
 import { ModelStateErrors } from 'src/Interfaces/interfaces';
+import { Category } from 'src/models.model';
+import { UpdateCATEGORY_Sucess } from 'src/State/CategoriesState/Category.actions';
+import { selectAllCategorys } from 'src/State/CategoriesState/Category.reducer';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class GetServerErrorResponseService
 {
+  allCats$ = this.store.select(selectAllCategorys);
+  allCats: Category[] = [];
+  constructor(private store: Store)
+  {
+    this.allCats$.subscribe(cats => this.allCats = cats);
 
-  constructor() { }
+  }
   GetModelStateErrors(ModelStateErrors: any): ModelStateErrors[]
   {
     let errors: ModelStateErrors[] = [];
@@ -50,5 +61,32 @@ export class GetServerErrorResponseService
         errors.push({ key: e.error.status, message: e.error.message });
       }
     return errors;
+  }
+  updateCategoryLevelInStore(category: Category)
+  {
+    debugger;
+
+    let children: Category[] = [];
+    for (let cat of this.allCats)
+    {
+      if (cat.parentKey === category.id)
+      {
+        children.push(cat);
+      }
+    }
+    if (children.length > 0)
+    {
+      children.forEach(child =>
+      {
+        let ch = new Category();
+        ch = { ...child, level: category.level! + 1 };
+        let x: Update<Category> = {
+          id: child.id,
+          changes: ch
+        };
+        this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
+        this.updateCategoryLevelInStore(child);
+      });
+    }
   }
 }

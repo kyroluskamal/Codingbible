@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'cb-paginator',
@@ -24,7 +24,6 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges
     if ("DataInTables" in changes)
     {
       this.DataForPages = this.DataInTables;
-      console.log(this.DataForPages);
       this.getNumberOfPage();
       this.CreatePages();
     }
@@ -42,7 +41,6 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges
   getNumberOfPage()
   {
     this.noOfPages = Math.ceil(this.DataForPages.length / this.defaultNumberOfElementsPerPage);
-
   }
   CreatePages()
   {
@@ -84,9 +82,6 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges
     this.defaultNumberOfElementsPerPage = parseInt(pageSize);
     this.getNumberOfPage();
     this.CreatePages();
-    console.log("Current" + this.currentPageNo + 1);
-    console.log("Size" + this.noOfPages);
-
     if (this.currentPageNo + 1 > this.noOfPages)
     {
       this.ChangePage(this.noOfPages - 1);

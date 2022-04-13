@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
+import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
+import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { CodingBiblePaginatorComponent } from '../coding-bible-paginator/coding-bible-paginator.component';
 
 @Component({
@@ -12,6 +14,11 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @ViewChild("paginator") child!: CodingBiblePaginatorComponent;
   @Input() tableTagClass: string[] = [];
   @Input() ColumnDefs: ColDefs[] = [];
+  @Input() UseTree: boolean = false;
+  @Input() PropertyToShowLevels: string = "name";
+  @Input() PropertyToCountLevel: string = "level";
+  @Input() ParentKeyProperty: string = "";
+  @Input() isLoading: boolean = true;
   @Input() dataSource: any[] | null = null;
   @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() row_Db_Click: EventEmitter<any> = new EventEmitter<any>();
@@ -21,21 +28,31 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @Input() resetSelectedRow: boolean = false;
   innerDataSource: CbTableDataSource<any> = new CbTableDataSource<any>();
   SelectedRows: any[] = [];
+  loading: boolean = true;
   tableClasses: string = "";
   currentPageNo: number = 0;
   PagesData: Map<number, any[]> = new Map<number, any[]>();
-  constructor() { }
+  constructor(private spinnerService: SpinnerService) { }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ("dataSource" in changes)
     {
-      this.innerDataSource.Data = this.dataSource;
-      console.log(this.innerDataSource.Data);
+      if (!this.UseTree)
+        this.innerDataSource.Data = this.dataSource;
+      else
+      {
+        this.innerDataSource.Data = new TreeDataStructureService<any>(this.dataSource!, this.ParentKeyProperty).finalFlatenArray();
+      }
     }
     if ("resetSelectedRow" in changes)
     {
       if (this.resetSelectedRow)
         this.SelectedRows = [];
+    }
+    if ("isLoading" in changes)
+    {
+      this.loading = this.isLoading;
+      this.spinnerState();
     }
   }
 
@@ -43,6 +60,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   ngOnInit(): void
   {
     this.tableClasses = this.tableTagClass.join(" ");
+    this.spinnerState();
   }
   Search(value: string)
   {
@@ -101,13 +119,9 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   }
   SelectionByKeyboard(key: string)
   {
-    console.log(key);
-
     let ArrowUp = "ArrowUp";
     let ArrowDown = "ArrowDown";
     let CurrentIndex = this.PagesData.get(this.currentPageNo)?.indexOf(this.SelectedRows[0]);
-    console.log(CurrentIndex);
-
     if (this.SelectedRows.length > 0 && (key === ArrowUp || key === ArrowDown))
     {
       //Case one:  ---------------------------------------------------------
@@ -172,6 +186,16 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
     } else if (this.SelectedRows.length === 0 && (key === ArrowUp || key === ArrowDown))
     {
       this.SelectedRows.push(this.PagesData.get(this.currentPageNo)![0]);
+    }
+  }
+  spinnerState()
+  {
+    if (this.loading)
+    {
+      this.spinnerService.fullScreenSpinnerForForm();
+    } else
+    {
+      this.spinnerService.removeSpinner();
     }
   }
 }

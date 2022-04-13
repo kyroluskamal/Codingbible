@@ -6,11 +6,10 @@ import { EditPostComponent } from "./edit-post/edit-post.component";
 import { PostsDashboardComponent } from "./posts-dashboard/posts-dashboard.component";
 
 const PostsInDashboardRoutes: Routes = [
-    {
-        path: "", component: PostsDashboardComponent,
-    },
+    { path: "", component: PostsDashboardComponent },
     { path: DashboardRoutes.Posts.AddPost, component: AddPostsComponent },
-    { path: DashboardRoutes.Posts.EditPost, component: EditPostComponent }
+    { path: DashboardRoutes.Posts.EditPost, component: EditPostComponent },
+    { path: DashboardRoutes.Posts.Categoris, loadChildren: () => import("./categories/categories.module").then(m => m.CategoriesModule) },
 ];
 
 @NgModule({

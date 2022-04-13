@@ -128,6 +128,13 @@ export const FormControlNames = {
         title: "title",
         slug: "slug",
         description: "description"
+    },
+    categoryForm: {
+        name: "name",
+        title: "title",
+        slug: "slug",
+        description: "description",
+        parentkey: "parentkey"
     }
 };
 
@@ -146,6 +153,13 @@ export const FormFieldsNames = {
         title: "Title",
         slug: "Sulg",
         excerpt: "Excerpt"
+    },
+    Category: {
+        name: "Name",
+        title: "Title",
+        slug: "Slug",
+        description: "Description",
+        parentkey: "Parent"
     }
 };
 export const FormValidationErrors = {
@@ -159,7 +173,9 @@ export const FormValidationErrors = {
         hasCapitalCase: "At least one capital letter",
         hasNumber: "At least one number",
         NoPassswordMatch: "Both passwords are not matching."
-    }
+    },
+    SEO_Title_Length: "Title length must be between 60 and 70 characters",
+    SEO_Description_Length: "Description length must be between 50 and 160 characters",
 };
 
 export const FormValidationErrorsNames = {

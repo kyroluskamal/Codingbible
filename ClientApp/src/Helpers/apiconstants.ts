@@ -21,7 +21,13 @@ const controllers = {
             DeletePost: "DeletePost",
             UpdatePost: "UpdatePost",
             GetPostById: "GetPostById",
-            ChangStatus: "ChangStatus"
+            ChangStatus: "ChangStatus",
+            GetAllCategories: "GetAllCategories",
+            GetCategoryBySlug: "GetCategoryBySlug",
+            AddCategory: "AddCategory",
+            UpdateCategory: "UpdateCategory",
+            DeleteCategory: "DeleteCategory",
+            IsCatSlug_NOT_Unique: "IsCatSlug_NOT_Unique",
         }
     },
     media: {
@@ -48,6 +54,12 @@ export const PostsController = {
     UpdatePost: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.UpdatePost),
     GetPostById: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetPostById),
     ChangStatus: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.ChangStatus),
+    GetAllCategories: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetAllCategories),
+    GetCategoryBySlug: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.GetCategoryBySlug),
+    AddCategory: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.AddCategory),
+    UpdateCategory: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.UpdateCategory),
+    DeleteCategory: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.DeleteCategory),
+    IsCatSlug_NOT_Unique: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.IsCatSlug_NOT_Unique),
 };
 export const MediaController = {
     Upload: getApiUrl(version, controllers.media.name, controllers.media.Actions.Upload)

@@ -18,6 +18,10 @@ export const DashboardRoutes = {
         Home: "posts",
         AddPost: "add-post",
         EditPost: "edit-post",
+        Categoris: "categories",
+    },
+    Cateogries: {
+        Home: "categories",
     }
 };
 export const DashboardRoutesText = {
@@ -26,6 +30,8 @@ export const DashboardRoutesText = {
     Posts: {
         Main: "Posts",
         All: "All posts",
-        AddPost: "Add New"
-    }
+        AddPost: "Add New",
+        Categories: "Categories",
+    },
+
 };

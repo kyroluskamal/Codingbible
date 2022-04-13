@@ -21,7 +21,7 @@ import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'sr
 @Component({
   selector: 'app-post-handler',
   templateUrl: './post-handler.component.html',
-  styleUrls: ['./post-handler.component.css']
+  styleUrls: ['./post-handler.component.css'],
 })
 export class PostHandlerComponent implements OnInit, OnChanges
 {

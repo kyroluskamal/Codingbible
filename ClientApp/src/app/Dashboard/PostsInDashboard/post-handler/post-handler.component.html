@@ -96,12 +96,12 @@
                 </div>
                 <mat-error
                            *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.required)">
-                    Please, add title.
+                    {{FormValidationErrors.RequiredField}}
                 </mat-error>
                 <mat-error
                            *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.maxlength)
                            ||form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.minlength)||title.value.length<=70">
-                    Post should be 60 to 70 character long.
+                    {{FormValidationErrors.SEO_Title_Length}}
                 </mat-error>
                 <span matSuffix
                       class="ps-1">{{title.value.length}} characters</span>
@@ -263,7 +263,7 @@
                         </div>
                         <mat-error
                                    *ngIf="form.get(FormControlNames.postForm.excerpt)?.hasError(FormValidationErrorsNames.required)">
-                            Please, write the excerpt.
+                            {{FormValidationErrors.RequiredField}}
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -291,7 +291,7 @@
                         </div>
                         <mat-error
                                    *ngIf="form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.required)">
-                            Please, write the the description.
+                            {{FormValidationErrors.RequiredField}}
                         </mat-error>
                         <mat-error
                                    *ngIf="form.get(FormControlNames.postForm.description)?.hasError(FormValidationErrorsNames.maxlength)

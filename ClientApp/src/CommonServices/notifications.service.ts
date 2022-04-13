@@ -1,14 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { SweetAlertData } from '../Interfaces/interfaces';
 import Swal from 'sweetalert2';
 import { css } from 'src/Helpers/constants';
+import { DOCUMENT } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService
 {
 
-  constructor()
+  constructor(@Inject(DOCUMENT) private document: Document)
   {
 
   }
@@ -31,6 +32,8 @@ export class NotificationsService
   }
   Success_Swal(message: string)
   {
+    if (this.document.getElementById("ModalCloseButton"))
+      this.document.getElementById("ModalCloseButton")?.click();
     return Swal.fire({
       icon: "success",
       html: message,
@@ -40,8 +43,10 @@ export class NotificationsService
       allowEnterKey: true,
       allowEscapeKey: true,
       allowOutsideClick: true,
+      backdrop: true,
       scrollbarPadding: false,
       timer: 3500,
+      keydownListenerCapture: true,
       customClass: { htmlContainer: css.SwalHtmlContent },
     });
   }
@@ -83,6 +88,7 @@ export class NotificationsService
       allowEnterKey: SwalConfig.OtherOptions.allowEnterKey,
       allowEscapeKey: SwalConfig.OtherOptions.allowEscapeKey,
       allowOutsideClick: SwalConfig.OtherOptions.allowOutsideClick,
+      backdrop: true,
       showLoaderOnConfirm: SwalConfig.OtherOptions.showLoaderOnConfirm,
       showLoaderOnDeny: SwalConfig.OtherOptions.showLoaderOnDeny,
       timer: SwalConfig.OtherOptions.timer,

@@ -20,23 +20,23 @@ export class PostService
   {
     return this.httpClient.post<Post>(PostsController.AddPost, post);
   }
-  UpdatePost(post: Post): Observable<Post>
+  UpdatePost(post: Post): Observable<HttpResponsesObject>
   {
-    return this.httpClient.put<Post>(PostsController.UpdatePost, post);
+    return this.httpClient.put<HttpResponsesObject>(PostsController.UpdatePost, post);
   }
   IsSlugNotUnique(slug: string): Observable<boolean>
   {
     return this.httpClient.get<boolean>(`${PostsController.IsSlugUnique}/${slug}`);
   }
-  DeletePost(id: number)
+  DeletePost(id: number): Observable<HttpResponsesObject>
   {
-    return this.httpClient.delete(`${PostsController.DeletePost}/${id}`);
+    return this.httpClient.delete<HttpResponsesObject>(`${PostsController.DeletePost}/${id}`);
   }
   GetPostById(id: number): Observable<Post>
   {
     return this.httpClient.get<Post>(`${PostsController.GetPostById}/${id}`);
   }
-  ChangeStus(post: Post)
+  ChangeStus(post: Post): Observable<HttpResponsesObject>
   {
     return this.httpClient.put<HttpResponsesObject>(PostsController.ChangStatus, post);
   }

@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CategoriesRoutingModule } from './categories-routing.module';
-import { AddGategoryComponent } from './add-gategory/add-gategory.component';
-import { UpdateGategoryComponent } from './update-gategory/update-gategory.component';
-import { GategoryHomeComponent } from './gategory-home/gategory-home.component';
-import { AddEditCategoriesComponent } from './add-edit-categories/add-edit-categories.component';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
+import { CategoryHandlerComponent } from './category-handler/category-handler.component';
+import { CategoryHomeComponent } from './Category-home/category-home.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
   declarations: [
-    AddGategoryComponent,
-    UpdateGategoryComponent,
-    GategoryHomeComponent,
-    AddEditCategoriesComponent,
+    CategoryHandlerComponent,
+    CategoryHomeComponent,
   ],
   imports: [
-    CommonModule,
-    CategoriesRoutingModule,
+    CommonModule, ReactiveFormsModule, FormsModule,
+    CategoriesRoutingModule, MatFormFieldModule, MatSelectModule,
     ShareComponentsforDashboardModule
   ]
 })

@@ -6,6 +6,7 @@
               (EditButtonClicked)="EditPost($event)"
               (DeleteButtonClicked)="DeletePost($event)"
               (row_Db_Click)="EditPost($event)"
+              [isLoading]="isLoading"
               [resetSelectedRow]="resetSelectedRow">
     </cb-table>
 </main>

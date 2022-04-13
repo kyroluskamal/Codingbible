@@ -52,11 +52,11 @@ export class Category
     id: number = 0;
     name: string = "";
     title: string = "";
-    sulg: string = "";
+    slug: string = "";
     description: string = "";
     level: number = 0;
     postCount: number = 0;
-    parentKey: number = 0;
+    parentKey: number | null = null;
     parent: any;
     postsCategories: PostsCategory[] = [];
 }

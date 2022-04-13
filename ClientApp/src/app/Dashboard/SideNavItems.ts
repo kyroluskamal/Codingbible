@@ -18,6 +18,7 @@ export let SideNav_items: ExpansionPanel[] = [
     links: [
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home], LinkText: DashboardRoutesText.Posts.All, state: false },
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.AddPost], LinkText: DashboardRoutesText.Posts.AddPost, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.Categoris], LinkText: DashboardRoutesText.Posts.Categories, state: false },
     ],
     itemLevel: 1,
     bootstrapIcon: "bi bi-pin-angle-fill"

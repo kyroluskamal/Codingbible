@@ -1,13 +1,13 @@
 import { Location } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatMenu } from '@angular/material/menu';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, Observable, Subscription } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable, Subscription } from 'rxjs';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
-import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
+import { CookieNames, css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { ExpansionPanel } from 'src/Interfaces/interfaces';
 import { ApplicationUser } from 'src/models.model';
 import { Logout } from 'src/State/AuthState/auth.actions';
@@ -21,7 +21,6 @@ import { SideNav_items } from '../SideNavItems';
   selector: 'app-dashboard-home',
   templateUrl: './dashboard-home.component.html',
   styleUrls: ['./dashboard-home.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardHomeComponent implements OnInit
 {
@@ -53,7 +52,7 @@ export class DashboardHomeComponent implements OnInit
   //Constructor............................................................................
   constructor(private location: Location,
     private Notifications: NotificationsService, private mediaObserver: MediaObserver,
-    private router: Router, private store: Store)
+    private router: Router, private store: Store, private CookieService: CookieService)
   {
     this.User = this.store.select(selectUser);
     this.IsLoggedIn = this.store.select(selectIsLoggedIn);
@@ -80,6 +79,15 @@ export class DashboardHomeComponent implements OnInit
   //NgOn it .....................................................................
   ngOnInit(): void
   {
+    if (this.CookieService.get(CookieNames.Access_token) == null ||
+      this.CookieService.get(CookieNames.loginStatus) == null ||
+      this.CookieService.get(CookieNames.loginStatus) == "0")
+    {
+      this.store.dispatch(Logout());
+      this.router.navigate(['/account/login']);
+    }
+
+
     this.store.dispatch(LoadPOSTs());
     // this.router.events.pipe(filter(event => event instanceof NavigationEnd))
     //   .subscribe(e =>
@@ -208,7 +216,7 @@ export class DashboardHomeComponent implements OnInit
     let ArrowRight = event.key === "ArrowRight";
     if (event.ctrlKey && ArrowLeft) this.location.back();
     if (event.ctrlKey && ArrowRight) this.location.forward();
-    if (event.ctrlKey && event.altKey && event.key === "a") { this.PinSideNav(); this.SideNav.toggle(); };
+    if (event.ctrlKey && event.altKey && event.key === "s") { this.PinSideNav(); this.SideNav.toggle(); };
   }
 
   expandSideNavItem(index: number)

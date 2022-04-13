@@ -1,0 +1,16 @@
+<main class="mt-5 bg-white mat-elevation-z3 rounded-2">
+    <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
+              [ColumnDefs]="colDefs"
+              [UseTree]="true"
+              ParentKeyProperty="parentKey"
+              [dataSource]="Cats$|async"
+              (AddButtonClicked)="AddNewCategory($event)"
+              (EditButtonClicked)="EditCategory($event)"
+              (DeleteButtonClicked)="DeleteCategory($event)"
+              (row_Db_Click)="EditCategory($event)"
+              [isLoading]="isLoading"
+              [resetSelectedRow]="resetSelectedRow"></cb-table>
+</main>
+<Category-handler #Modal
+                  [ActionType]="Type"
+                  [inputForm]="Form"></Category-handler>

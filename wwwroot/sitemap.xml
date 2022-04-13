@@ -2,11 +2,20 @@
                 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
                 xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>
             <url>
-                <loc>https://localhost:5001/kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</loc>
-                <lastmod>08/04/2022 15:53:58</lastmod>
+                <loc>https://localhost:5001/[CS50]-Introduction-to-Computer-Science|-Bin-to-decimal-conversion</loc>
+                <lastmod>09/04/2022 15:07:43</lastmod>
                 <changefreq>monthly</changefreq>
                 <priority>0.5</priority>
-        <image:image>
-<image:loc>https://localhost:5001/Uploads/2022/4/7) conversion from decimal to octal using division600_Compressed.png</image:loc></image:image><image:image>
-<image:loc>https://localhost:5001/Uploads/2022/4/8) conversion from decimal to hexadecimal using division600_Compressed.png</image:loc></image:image><image:image>
-<image:loc>https://localhost:5001/Uploads/2022/4/465829_3498355705197_1426728635_o600_Compressed.jpg</image:loc><image:caption>sfsdfsdfsdfsfs</image:caption><image:title>fsfsfsdfsdfsdfds</image:title></image:image></url></urlset>
+        </url>
+            <url>
+                <loc>https://localhost:5001/fsdfsfsfsfsdffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</loc>
+                <lastmod>09/04/2022 15:08:16</lastmod>
+                <changefreq>monthly</changefreq>
+                <priority>0.5</priority>
+        </url>
+            <url>
+                <loc>https://localhost:5001/fsdfsfsfsfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffd</loc>
+                <lastmod>09/04/2022 15:08:39</lastmod>
+                <changefreq>monthly</changefreq>
+                <priority>0.5</priority>
+        </url></urlset>

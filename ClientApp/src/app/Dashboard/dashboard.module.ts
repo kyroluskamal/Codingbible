@@ -8,6 +8,7 @@ import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service'
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { UrlSerializer } from '@angular/router';
 import { MediaComponent } from './media/media.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const components = [

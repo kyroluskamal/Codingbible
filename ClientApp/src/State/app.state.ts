@@ -3,6 +3,7 @@ import { ActionReducerMap } from "@ngrx/store";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
 import { ApplicationUser, Category, Post } from "src/models.model";
 import { AuthReducer } from "./AuthState/auth.reducer";
+import { CategoryReducer } from "./CategoriesState/Category.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
 import { PostReducer } from "./PostState/post.reducer";
 
@@ -11,6 +12,7 @@ export interface AppState
     design: DesignState;
     post: PostState;
     auth: AuthState;
+    category: CategoryState;
 }
 export interface DesignState
 {
@@ -45,5 +47,6 @@ export interface CategoryState extends EntityState<Category>
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,
     post: PostReducer,
-    design: DesignReducer
+    design: DesignReducer,
+    category: CategoryReducer
 };

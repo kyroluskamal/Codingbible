@@ -12,7 +12,6 @@ import { selectAllposts } from 'src/State/PostState/post.reducer';
   selector: 'app-posts-dashboard',
   templateUrl: './posts-dashboard.component.html',
   styleUrls: ['./posts-dashboard.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsDashboardComponent implements OnInit
 {
@@ -28,6 +27,7 @@ export class PostsDashboardComponent implements OnInit
   resetSelectedRow: boolean = false;
   dataSource: CbTableDataSource<Post> = new CbTableDataSource<Post>();
   posts$ = this.store.select(selectAllposts);
+  isLoading = true;
   constructor(private store: Store, private router: Router, private NotificationService: NotificationsService)
   {
   }
@@ -38,6 +38,7 @@ export class PostsDashboardComponent implements OnInit
 
     this.posts$.subscribe(posts =>
     {
+      this.isLoading = false;
       this.dataSource.data = posts;
     });
   }

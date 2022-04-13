@@ -37,8 +37,8 @@ export class SpinnerService
       fullScreen: false,
       type: "ball-scale-multiple",
       size: "medium",
-      bdColor: "rgba(0, 0, 0, 1)",
-      color: "white",
+      bdColor: "rgba(0, 0, 0, 0.25)",
+      color: "white"
     });
   }
   removeSpinner()

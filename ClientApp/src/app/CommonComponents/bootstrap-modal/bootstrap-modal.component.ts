@@ -1,10 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, ElementRef, ViewChild, Inject, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, ElementRef, ViewChild, Inject, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'bootstrap-modal',
   templateUrl: './bootstrap-modal.component.html',
   styleUrls: ['./bootstrap-modal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BootstrapMoalComponent implements OnInit
 {
@@ -19,6 +20,7 @@ export class BootstrapMoalComponent implements OnInit
   @Input() Modal_Footer_template!: TemplateRef<any>;
   @Input() Modal_Body_Additionalclasses: string = "";
   @Input() Modal_Footer_Additionalclasses: string = "";
+  @Output() CloseIsClicked: EventEmitter<boolean> = new EventEmitter();
   Body_template!: TemplateRef<any>;
   DialogClass = 'modal-dialog';
   HeaderCLass = "modal-header";
@@ -59,5 +61,9 @@ export class BootstrapMoalComponent implements OnInit
   {
     this.ModalButtton.nativeElement.click();
     this.document.body.appendChild(this.Modal.nativeElement);
+  }
+  CloseModal()
+  {
+    this.CloseIsClicked.emit(true);
   }
 }

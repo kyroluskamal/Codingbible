@@ -100,20 +100,21 @@ export class ClientSideValidationService
 
     for (let c of objectKeys)
     {
-      if (formControls.includes(c))
+      let control = c.toLowerCase();
+      if (formControls.includes(control))
       {
         if (typeof object[c] === 'number')
         {
-          let x: number = Number(formGroup.get(c)?.value);
-          if (isNaN(Number(formGroup.get(c)?.value)))
+          let x: number = Number(formGroup.get(control)?.value);
+          if (isNaN(Number(formGroup.get(control)?.value)))
             x = 0;
           object[c] = x;
         }
         else if (typeof object[c] === 'boolean')
-          object[c] = Boolean(formGroup.get(c)?.value);
+          object[c] = Boolean(formGroup.get(control)?.value);
         else if (typeof object[c] === 'string')
-          object[c] = formGroup.get(c)?.value;
-        else object[c] = formGroup.get(c)?.value;
+          object[c] = formGroup.get(control)?.value;
+        else object[c] = formGroup.get(control)?.value;
       }
     }
   }

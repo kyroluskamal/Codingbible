@@ -37,7 +37,7 @@ namespace CodingBible.Controllers.api.v1
         }
 
         /******************************************************************************
-        *                                   Categories CRUD
+        *                                   Posts CRUD
         *******************************************************************************/
         #region Posts CRUD
         /// <summary>
@@ -221,7 +221,9 @@ namespace CodingBible.Controllers.api.v1
             return Ok(await UnitOfWork.Posts.IsNotUnique(x => x.Slug == slug));
         }
         #endregion
-
+        /******************************************************************************
+        *                                   Categories CRUD
+        *******************************************************************************/
         #region Categories CRUD
         [HttpGet]
         [Route(nameof(GetAllCategories))]
@@ -289,7 +291,12 @@ namespace CodingBible.Controllers.api.v1
                 {
                     return NotFound();
                 }
+                var oldLevel = getCategory.Level;
                 getCategory = Mapper.Map(category, getCategory);
+                if (category.Level != oldLevel)
+                {
+                    await UpdateCategoryLevel(getCategory);
+                }
                 UnitOfWork.Categories.Update(getCategory);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
@@ -311,20 +318,50 @@ namespace CodingBible.Controllers.api.v1
             {
                 return NotFound();
             }
+            var catToDeleteId = getCategory.Id;
+            var catToDelete_Level = getCategory.Level;
+            var catToDelete_ParentKey = getCategory.ParentKey;
+            var children = await UnitOfWork.Categories.GetAllAsync(x => x.ParentKey == getCategory.Id);
+            children = children.ToList();
+            if (children.Any())
+            {
+                foreach (var child in children)
+                {
+                    child.ParentKey = getCategory.ParentKey;
+                    child.Level = getCategory.Level;
+                }
+            }
             await UnitOfWork.Categories.RemoveAsync(id);
             var result = await UnitOfWork.SaveAsync();
             if (result > 0)
             {
+                if (children.Any())
+                {
+                    foreach (var child in children)
+                    {
+                        await UpdateCategoryLevel(child);
+                    }
+                }
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
             }
             return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
         }
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Custom")]
-        [Route(nameof(CatIsSlugUnique) + "/{slug}")]
-        public async Task<IActionResult> CatIsSlugUnique([FromRoute] string slug)
+        [Route(nameof(IsCatSlug_NOT_Unique) + "/{slug}")]
+        public async Task<IActionResult> IsCatSlug_NOT_Unique([FromRoute] string slug)
         {
             return Ok(await UnitOfWork.Categories.IsNotUnique(x => x.Slug == slug));
+        }
+        private async Task UpdateCategoryLevel(Category Category)
+        {
+            var children = await UnitOfWork.Categories.GetAllAsync(x => x.ParentKey == Category.Id);
+            foreach (var child in children)
+            {
+                child.Level = Category.Level + 1;
+                UnitOfWork.Categories.Update(child);
+                await UpdateCategoryLevel(child);
+            }
         }
         #endregion
     }

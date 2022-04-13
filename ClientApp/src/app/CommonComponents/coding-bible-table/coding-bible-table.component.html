@@ -17,7 +17,7 @@
              aria-label="table menu">
             <!-- add button -->
             <button type="button"
-                    tooltip="Add new post"
+                    tooltip="Add (Ctrl+Alt+A)"
                     (click)="AddButtonClick()"
                     class="btn btn-outline-primary fw-bold"><i class="bi bi-plus-circle-fill"></i> </button>
             <!-- Edit button -->
@@ -25,88 +25,98 @@
                     (click)="EditButtonClick()"
                     class="btn  btn-outline-primary"
                     [disabled]="SelectedRows.length === 0"
-                    tooltip="Edit selected post"><i class="bi bi-pen-fill"></i></button>
+                    tooltip="Edit (Ctrl+Alt+E)"><i class="bi bi-pen-fill"></i></button>
             <button type="button"
                     (click)="DeleteButtonClick()"
                     [disabled]="SelectedRows.length === 0"
-                    tooltip="Delete selected post"
+                    tooltip="Delete (Ctrl+Alt+D)"
                     class="btn  btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
         </div>
 
     </div>
 </div>
-
-<table [class]="tableClasses">
-    <thead>
-        <tr>
-            <th *ngFor="let c of ColumnDefs"
-                [class]="c.HeaderClasses"
-                style="max-width: 10%;">
-                <span *ngIf="c.icon"
-                      [innerHtml]="c.icon">
-                </span>
-                <span *ngIf="c.display"
-                      [innerHtml]="c.display">
-                </span>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <ng-container *ngIf="innerDataSource.data!.length>0">
-            <tr *ngFor="let row of this.PagesData.get(currentPageNo)"
-                (click)="rowClicked(row)"
-                (dblclick)="dbClick(row)"
-                [class]="SelectedRows.includes(row)?'table-active':''">
-                <td *ngFor="let c of ColumnDefs"
-                    class="text-wrap">
-                    <ng-container *ngIf="!c.pipe && !c.data_icon && !c.isObject">
-                        {{row[c.field]}}
-                    </ng-container>
-                    <ng-container *ngIf="c.isObject">
-                        {{row[c.field][c.KeyToShowIfObjectTrue!]}}
-                    </ng-container>
-                    <ng-container *ngIf="c.pipe || c.data_icon">
-                        <ng-container *ngIf="c.pipe">
-                            <span *ngIf="c.pipe ==='date'">
-                                {{row[c.field] | date}}
+<div class="overflow-auto">
+    <table [class]="tableClasses">
+        <thead>
+            <tr>
+                <th *ngFor="let c of ColumnDefs"
+                    [class]="c.HeaderClasses"
+                    style="max-width: 10%;">
+                    <span *ngIf="c.icon"
+                          [innerHtml]="c.icon">
+                    </span>
+                    <span *ngIf="c.display"
+                          [innerHtml]="c.display">
+                    </span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="innerDataSource.data!.length>0">
+                <tr *ngFor="let row of this.PagesData.get(currentPageNo)"
+                    (click)="rowClicked(row)"
+                    (dblclick)="dbClick(row)"
+                    [class]="SelectedRows.includes(row)?'table-active':''">
+                    <td *ngFor="let c of ColumnDefs"
+                        class="text-wrap">
+                        <ng-container *ngIf="!c.pipe && !c.data_icon && !c.isObject">
+                            <span *ngIf="UseTree &&c.field === PropertyToShowLevels">
+                                <span *ngFor="let _ of [].constructor(row[PropertyToCountLevel])">— </span>
                             </span>
-                            <span *ngIf="c.pipe ==='postStatus'">
-                                {{row[c.field] | postStatus}}
-                            </span>
-                            <span *ngIf="c.pipe ==='Boolean'">
-                                <span *ngIf="row[c.field]===true"
-                                      class="text-success fw-bold fs-5">
-                                    <i class="bi bi-check-lg"></i>
+                            {{row[c.field]}}
+                        </ng-container>
+                        <ng-container *ngIf="c.isObject">
+                            {{row[c.field][c.KeyToShowIfObjectTrue!]}}
+                        </ng-container>
+                        <ng-container *ngIf="c.pipe || c.data_icon">
+                            <ng-container *ngIf="c.pipe">
+                                <span *ngIf="c.pipe ==='date'">
+                                    {{row[c.field] | date}}
                                 </span>
-                                <span *ngIf="row[c.field]===false"
-                                      class="text-danger fw-bold fs-5">
-                                    <i class="bi bi-x-lg"></i> </span>
-                            </span>
+                                <span *ngIf="c.pipe ==='postStatus'">
+                                    {{row[c.field] | postStatus}}
+                                </span>
+                                <span *ngIf="c.pipe ==='Boolean'">
+                                    <span *ngIf="row[c.field]===true"
+                                          class="text-success fw-bold fs-5">
+                                        <i class="bi bi-check-lg"></i>
+                                    </span>
+                                    <span *ngIf="row[c.field]===false"
+                                          class="text-danger fw-bold fs-5">
+                                        <i class="bi bi-x-lg"></i> </span>
+                                </span>
+                            </ng-container>
+                            <ng-container *ngIf="c.data_icon">
+                                <span *ngIf="c.data_icon"
+                                      [innerHtml]="c.data_icon"></span>
+                            </ng-container>
                         </ng-container>
-                        <ng-container *ngIf="c.data_icon">
-                            <span *ngIf="c.data_icon"
-                                  [innerHtml]="c.data_icon"></span>
-                        </ng-container>
-                    </ng-container>
+                    </td>
+                </tr>
+
+            </ng-container>
+            <tr *ngIf="innerDataSource.data!.length===0 && !loading"
+                class="text-wrap">
+                <td [attr.colspan]="ColumnDefs.length"
+                    class="bg-light">
+                    <div class="d-flex align-items-center justify-content-center"
+                         style="height: 100px;">
+                        <h4>No data found</h4>
+                    </div>
                 </td>
             </tr>
-
-        </ng-container>
-        <tr *ngIf="innerDataSource.data!.length===0"
-            class="text-wrap">
-            <td [attr.colspan]="ColumnDefs.length"
-                class="bg-light">
-                <div class="d-flex align-items-center justify-content-center"
-                     style="height: 100px;">
-                    <h4>No data found</h4>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-<ng-template #nodataFound>
-
-</ng-template>
+            <tr *ngIf="loading"
+                class="text-wrap">
+                <td [attr.colspan]="ColumnDefs.length">
+                    <div class="d-flex align-items-center justify-content-center"
+                         style="height: 100px;">
+                        <ngx-spinner name="form"></ngx-spinner>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <cb-paginator #paginator
               [allowedElementsPerPage]="[2,5,10,20]"
               [DataInTables]="innerDataSource.Data!"
