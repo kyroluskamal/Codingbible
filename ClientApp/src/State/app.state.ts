@@ -1,7 +1,8 @@
 import { EntityState } from "@ngrx/entity";
 import { ActionReducerMap } from "@ngrx/store";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
-import { ApplicationUser, Category, Post } from "src/models.model";
+import { ApplicationUser, Attachments, Category, Post } from "src/models.model";
+import { AttachmentsReducer } from "./Attachments/Attachments.reducer";
 import { AuthReducer } from "./AuthState/auth.reducer";
 import { CategoryReducer } from "./CategoriesState/Category.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
@@ -13,6 +14,7 @@ export interface AppState
     post: PostState;
     auth: AuthState;
     category: CategoryState;
+    attachment: AttachmentsState;
 }
 export interface DesignState
 {
@@ -42,11 +44,16 @@ export interface CategoryState extends EntityState<Category>
     CurrentCategoryById: Category;
     CurrentCategoryBySlug: Category;
 }
+export interface AttachmentsState extends EntityState<Attachments>
+{
+    SelectedFile: Attachments | null;
+}
 
 
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,
     post: PostReducer,
     design: DesignReducer,
-    category: CategoryReducer
+    category: CategoryReducer,
+    attachment: AttachmentsReducer
 };

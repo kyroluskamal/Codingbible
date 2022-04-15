@@ -27,7 +27,7 @@ export class AddPostsComponent implements OnInit
       slug: [null],
       excerpt: [null, [validators.required]],
       description: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      htmlContent: [null, [validators.required]]
+      htmlcontent: [null, [validators.required]]
     });
 
   }

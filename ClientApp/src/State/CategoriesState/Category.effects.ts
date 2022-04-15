@@ -30,7 +30,6 @@ export class CategoryEffects
         private spinner: SpinnerService)
     {
         this.allCats.subscribe(cats => this.allCategories = cats);
-        console.log(this);
     }
 
     AddCategory$ = createEffect(() =>

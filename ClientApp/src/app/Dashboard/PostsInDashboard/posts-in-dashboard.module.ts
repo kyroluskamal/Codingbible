@@ -13,10 +13,7 @@ import { PostsInDashboardRoutingModule } from './posts-in-dashboard-routing.modu
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CodingBibleTableComponent } from 'src/app/CommonComponents/coding-bible-table/coding-bible-table.component';
-import { CodingBiblePaginatorComponent } from 'src/app/CommonComponents/coding-bible-paginator/coding-bible-paginator.component';
 import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
-import { PostStatusPipe } from 'src/Pipes/post-status.pipe';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 const components = [
   PostsDashboardComponent, AddPostsComponent, CodingBibleEditorComponent,

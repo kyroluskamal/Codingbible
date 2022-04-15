@@ -7,13 +7,15 @@ import { CodingBiblePaginatorComponent } from 'src/app/CommonComponents/coding-b
 import { PostStatusPipe } from 'src/Pipes/post-status.pipe';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-const components = [MediaComponent, BootstrapMoalComponent, PostStatusPipe,
+import { FileSizePipe } from 'src/Pipes/file-size.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
+const components = [MediaComponent, BootstrapMoalComponent, PostStatusPipe, FileSizePipe,
   CodingBiblePaginatorComponent, CodingBibleTableComponent];
 
 @NgModule({
   declarations: [components],
   imports: [
-    CommonModule, NgxSpinnerModule, TooltipModule
+    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule
   ],
   exports: [components]
 })

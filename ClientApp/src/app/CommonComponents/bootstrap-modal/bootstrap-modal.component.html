@@ -13,13 +13,14 @@
      aria-hidden="true">
     <div [class]="DialogClass">
         <div [class]="ContentClass">
+            <ngx-spinner name="inside"></ngx-spinner>
             <div [class]="HeaderCLass">
                 <ng-container *ngTemplateOutlet="Modal_Header_Template"></ng-container>
                 <h5 class="modal-title"
                     *ngIf="!Modal_Header_Template"
                     id="exampleModalLabel">{{this.Header_text}}</h5>
                 <button type="button"
-                        class="btn btn-secondary rounded-circle"
+                        class="btn btn-secondary rounded-circle d-flex flex-row justify-content-center align-items-center"
                         data-bs-dismiss="modal"
                         id="ModalCloseButton"
                         (click)="CloseModal()"

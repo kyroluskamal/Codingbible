@@ -33,7 +33,10 @@ const controllers = {
     media: {
         name: "Media",
         Actions: {
-            Upload: "Upload"
+            Upload: "Upload",
+            GetAll: "GetAll",
+            Delete: "Delete",
+            Update: "Update"
         }
     }
 };
@@ -62,7 +65,10 @@ export const PostsController = {
     IsCatSlug_NOT_Unique: getApiUrl(version, controllers.posts.name, controllers.posts.Actions.IsCatSlug_NOT_Unique),
 };
 export const MediaController = {
-    Upload: getApiUrl(version, controllers.media.name, controllers.media.Actions.Upload)
+    Upload: getApiUrl(version, controllers.media.name, controllers.media.Actions.Upload),
+    GetAll: getApiUrl(version, controllers.media.name, controllers.media.Actions.GetAll),
+    Delete: getApiUrl(version, controllers.media.name, controllers.media.Actions.Delete),
+    Update: getApiUrl(version, controllers.media.name, controllers.media.Actions.Update)
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

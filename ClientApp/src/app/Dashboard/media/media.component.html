@@ -1,17 +1,137 @@
 <bootstrap-modal #modal
-                 [Modal_Body_template]="Body"
+                 [Modal_Body_template]="AddBody"
                  [FullScreeen]="true"
                  FullScreenClass="modal-fullscreen"
-                 Modal_Header_Text="Media"
-                 [Modal_Footer_template]="Footer"></bootstrap-modal>
-<ng-template #Body>
-    <input type="file"
-           class="form-control"
-           multiple
-           (change)="uploadImage($event)">
-</ng-template>
+                 Modal_Header_AdditionalClasses="bg-dark text-white-50"
+                 Modal_Body_Additionalclasses="bg-light"
+                 [Modal_Header_Template]="AddHeader"
+                 [Modal_Footer_template]="AddFooter"></bootstrap-modal>
 
-<ng-template #Footer>
+<ng-template #AddHeader>
+    <div class="d-flex flex-row justify-content-center align-items-center gap-2">
+        <h5> <span class="text-warning">Add </span> Media</h5>
+        <button class="btn btn-warning shadow fw-bold text-black-50"
+                (click)="openBrowseFiles()">Add</button>
+    </div>
+</ng-template>
+<ng-template #AddBody>
+    <div class="row h-100 bg-light ">
+        <!-- ***************************************************************************
+                                        Media List
+        *****************************************************************************-->
+        <div class="col-12 col-sm-9 bg-white p-2 overflow-auto">
+            <input type="file"
+                   id="AddButton"
+                   class="form-control d-none"
+                   multiple
+                   (change)="uploadImage($event)">
+            <ul class="my-2 d-flex flex-row flex-wrap list-unstyled">
+                <li *ngFor="let f of (attachments$|async)"
+                    style="width: 120px; height: 120px;"
+                    (click)="SelectFile(f)"
+                    [class]="f===(selectedFile$|async)?'selectedImage placeholder-glow m-1 d-flex flex-row justify-content-center align-items-center p-1':
+                     'placeholder-glow m-1 d-flex flex-row justify-content-center align-items-center NonSelectedImage p-1' ">
+                    <span *ngIf="f.thumbnailUrl===''"
+                          class="placeholder bg-gradient d-flex justify-content-center align-items-center"
+                          style="width: 120px; height: 120px;">
+                        <span class=" text-white small text-wrap">{{f.fileName}}</span>
+                    </span>
+                    <ng-template #largeImage>
+                        <img [src]="f.fileUrl"
+                             class="img-fluid">
+                    </ng-template>
+                    <img *ngIf="f.thumbnailUrl!==''"
+                         [src]="f.thumbnailUrl"
+                         [alt]="f.altText"
+                         [tooltip]="largeImage"
+                         containerClass="imageToolTip"
+                         placement="bottom"
+                         class="thumbnail">
+                </li>
+            </ul>
+        </div>
+        <!-- *******************************************************************************
+                                        Side bar data
+        ***********************************************************************************-->
+        <div class="col-12 bg-light col-sm-3 p-2 px-4 overflow-auto">
+            <div *ngIf="(selectedFile$|async)!==null">
+                <!-- **********************************************************
+                                        attachment details 
+                ****************************************************************-->
+                <div class="border-bottom pb-3">
+                    <h6 class="text-black-50">ATTACHMENT DETAILS</h6>
+                    <div class="row">
+                        <div class="placeholder-glow col-12 col-sm-5 pe-0 d-flex flex-row align-items-center">
+                            <span *ngIf="(selectedFile$|async)?.thumbnailUrl===''"
+                                  class="placeholder bg-gradient d-flex justify-content-center align-items-center"
+                                  style="width: 100%; height: 150px; max-height: 200px;">
+                                <span class=" text-white small text-wrap">{{(selectedFile$|async)?.fileName}}</span>
+                            </span>
+                            <img *ngIf="(selectedFile$|async)?.thumbnailUrl!==''"
+                                 [src]="(selectedFile$|async)?.thumbnailUrl"
+                                 [alt]="(selectedFile$|async)?.altText"
+                                 class="thumbnail">
+                        </div>
+                        <div class="col-12 col-sm-7">
+                            <div class="small text-black-50 fw-bold">{{(selectedFile$|async)?.fileName}}</div>
+                            <div class="small text-black-50">{{(selectedFile$|async)?.createdDate| date}}</div>
+                            <div class="small text-black-50">{{(selectedFile$|async)?.fileSize!| fileSize}}</div>
+                            <div class="small text-black-50">
+                                <span class="placeholder-glow"
+                                      *ngIf="(selectedFile$|async)?.width===''
+                                ||(selectedFile$|async)?.height===''">
+                                    <span class="placeholder col-6 bg-gradient"></span>
+                                </span>
+                                <span *ngIf="(selectedFile$|async)?.width!==''||(selectedFile$|async)?.height!==''">
+                                    {{(selectedFile$|async)?.width}} by {{(selectedFile$|async)?.height}} pixels
+                                </span>
+                            </div>
+                            <div *ngIf="(selectedFile$|async)?.thumbnailUrl!==''">
+                                <a class="text-decoration-none small cursor-pointer">Edit image</a><br>
+                                <a class="text-decoration-none small text-danger cursor-pointer"
+                                   (click)="DeleteAttachment()">Delete permenantly</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- **********************************************************
+                                        image details Form
+                ****************************************************************-->
+                <form [formGroup]="form"
+                      class="pt-3">
+                    <h6 class="text-black-50">ATTACHMENT DETAILS</h6>
+                    <!-- Title -->
+                    <input type="text"
+                           class="form-control form-control-sm mb-1"
+                           value=""
+                           [formControlName]="FormControlNames.mediaForm.title"
+                           [placeholder]="FormFieldsNames.Media.title">
+                    <!-- Alt text -->
+                    <input type="text"
+                           class="form-control form-control-sm mb-1"
+                           value=""
+                           [formControlName]="FormControlNames.mediaForm.alttext"
+                           [placeholder]="FormFieldsNames.Media.alttext">
+                    <!-- Description -->
+                    <textarea class="form-control form-control-sm mb-1"
+                              style="resize: none;"
+                              maxlength="160"
+                              rows="3"
+                              [formControlName]="FormControlNames.mediaForm.description"
+                              [placeholder]="FormFieldsNames.Media.description"></textarea>
+                    <!-- Caption -->
+                    <textarea class="form-control form-control-sm mb-1"
+                              style="resize: none;"
+                              maxlength="160"
+                              rows="4"
+                              [formControlName]="FormControlNames.mediaForm.caption"
+                              [placeholder]="FormFieldsNames.Media.caption"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #AddFooter>
     <button class="btn btn-secondary"
             type="button"
             data-bs-dismiss="modal">Close</button>

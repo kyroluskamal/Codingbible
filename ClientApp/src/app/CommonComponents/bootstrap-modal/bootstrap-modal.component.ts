@@ -5,7 +5,6 @@ import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, ElementRef, Vi
   selector: 'bootstrap-modal',
   templateUrl: './bootstrap-modal.component.html',
   styleUrls: ['./bootstrap-modal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BootstrapMoalComponent implements OnInit
 {

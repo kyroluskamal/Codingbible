@@ -87,3 +87,30 @@ export class Post
     commentCount: number = 0;
     postsCategories: PostsCategory[] = [];
 }
+
+export class Attachments
+{
+    id: number = 0;
+    fileName: string = "";
+    fileUrl: string = "";
+    thumbnailUrl: string = "";
+    fileType: string = "";
+    fileExtension: string = "";
+    caption: string = "";
+    title: string = "";
+    altText: string = "";
+    description: string = "";
+    fileSize: number = 0;
+    createdDate: Date = new Date();
+    width: string = "";
+    height: string = "";
+    posts: PostAttachments[] = [];
+}
+
+export class PostAttachments
+{
+    postId: number = 0;
+    post: Post = new Post();
+    attachmentId: number = 0;
+    attachment: Attachments = new Attachments();
+}

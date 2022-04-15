@@ -119,7 +119,7 @@ export const FormControlNames = {
     postForm: {
         title: "title",
         slug: "slug",
-        htmlContent: "htmlContent",
+        htmlContent: "htmlcontent",
         description: "description",
         excerpt: "excerpt"
     },
@@ -135,6 +135,12 @@ export const FormControlNames = {
         slug: "slug",
         description: "description",
         parentkey: "parentkey"
+    },
+    mediaForm: {
+        title: "title",
+        description: "description",
+        caption: "caption",
+        alttext: "alttext",
     }
 };
 
@@ -160,6 +166,13 @@ export const FormFieldsNames = {
         slug: "Slug",
         description: "Description",
         parentkey: "Parent"
+    },
+    Media: {
+        title: "Title",
+        description: "Description",
+        caption: "Caption",
+        alttext: "Alt Text",
+        url: "Url"
     }
 };
 export const FormValidationErrors = {
@@ -324,6 +337,21 @@ export const actionNames = {
         GetCategoryById: '[GetCategoryById] request',
         GetCategoryById_Success: '[GetCategoryById] Sucess',
         GetCategoryById_Failed: '[GetCategoryBy_Slug] Failed',
+    },
+    AttactmentActions: {
+        ADD_ATTACHMENT: '[Add Attachment] Request',
+        ADD_ATTACHMENT_Success: '[Add Attachment] SUCCESS',
+        ADD_ATTACHMENT_Failed: '[Add Attachment] FAILED',
+        UPDATE_ATTACHMENT: '[Update Attachment] Request',
+        UPDATE_ATTACHMENT_Success: '[Update Attachment] SUCCESS',
+        UPDATE_ATTACHMENT_Failed: '[Update Attachment] FAILED',
+        REMOVE_ATTACHMENT: '[Delete Attachment] Request',
+        REMOVE_ATTACHMENT_Success: '[Delete Attachment] SUCCESS',
+        REMOVE_ATTACHMENT_Failed: '[Delete Attachment] FAILED',
+        LOAD_ALL_ATTACHMENTS: '[Attachment] Load All Attachments',
+        LOAD_ALL_ATTACHMENTS_SUCCESS: '[Load Attachments] Success',
+        LOAD_ALL_ATTACHMENTS_FAILED: '[Load Attachments] FAILED',
+        SelectAttachment: '[Select Attachment] Request',
     }
 };
 //#endregion

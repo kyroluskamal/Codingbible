@@ -25,6 +25,7 @@ import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
 import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
+import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
 
 export const enum MergeStrategy
 {
@@ -60,7 +61,7 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     BrowserAnimationsModule,
     SharedComponentsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
-    EffectsModule.forRoot([PostEffects, AuthEffects, CategoryEffects]),
+    EffectsModule.forRoot([PostEffects, AuthEffects, CategoryEffects, AttachmentsEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
     NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
     HttpClientXsrfModule.withOptions({

@@ -99,3 +99,28 @@ export class CbTableDataSource<T>{
     return this.FilteredData;
   }
 }
+
+export function imageToBinary(file: File)
+{
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () =>
+  {
+    return reader.result?.toString()!;
+  };
+}
+export function imageSizeAndHeght(file: File)
+{
+  let reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () =>
+  {
+    let img = new Image();
+    img.src = reader.result?.toString()!;
+    img.onload = (rs) =>
+    {
+      img.height;
+
+    };
+  };
+}
