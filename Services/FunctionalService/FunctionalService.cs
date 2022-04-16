@@ -113,7 +113,7 @@ namespace CodingBible.Services.FunctionalService
             var source = Tinify.FromFile(FilPath_Origina);
             await source.ToFile(FilePath_optimised);
         }
-        public async Task ResizeImage(string FilPath_Origina, string FilePath_optimised, int width, string scaleMethod = "scale")
+        public async Task ResizeImage_SCALE(string FilPath_Origina, string FilePath_optimised, int width, string scaleMethod = "scale")
         {
             Tinify.Key = "ly5n539WXDRxb4ZtPhYwGNsYFKYKntj9"; //TinyPNG Developer API KEY
             var source = Tinify.FromFile(FilPath_Origina);
@@ -121,6 +121,18 @@ namespace CodingBible.Services.FunctionalService
             {
                 method = scaleMethod,
                 width = width,
+            });
+            await resized.ToFile(FilePath_optimised);
+        }
+        public async Task ResizeImage_OtherMedthods(string FilPath_Original, string FilePath_optimised, int Width, int Height, string scaleMethod = "fit")
+        {
+            Tinify.Key = "ly5n539WXDRxb4ZtPhYwGNsYFKYKntj9"; //TinyPNG Developer API KEY
+            var source = Tinify.FromFile(FilPath_Original);
+            var resized = source.Resize(new
+            {
+                method = scaleMethod,
+                width = Width,
+                height = Height,
             });
             await resized.ToFile(FilePath_optimised);
         }
@@ -177,21 +189,5 @@ namespace CodingBible.Services.FunctionalService
         //        return "An error occurred while editing sitemap";
         //    }
         //}
-
-        private static SitemapFrequency GetFrequencyValue(int freq)
-        {
-            return freq switch
-            {
-                0 => SitemapFrequency.Never,
-                1 => SitemapFrequency.Yearly,
-                2 => SitemapFrequency.Monthly,
-                3 => SitemapFrequency.Weekly,
-                4 => SitemapFrequency.Daily,
-                5 => SitemapFrequency.Hourly,
-                6 => SitemapFrequency.Always,
-                _ => SitemapFrequency.Monthly
-            };
-        }
     }
 }
-

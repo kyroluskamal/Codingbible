@@ -1,10 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { ApplicationUser } from 'src/models.model';
-import { AuthState } from 'src/State/app.state';
 import { Logout } from 'src/State/AuthState/auth.actions';
 import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
 import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
@@ -12,8 +9,6 @@ import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
   selector: 'app-home-nav-menu',
   templateUrl: './home-nav-menu.component.html',
   styleUrls: ['./home-nav-menu.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-
 })
 export class HomeNavMenuComponent implements OnInit
 {

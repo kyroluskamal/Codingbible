@@ -38,5 +38,7 @@ export const RemovePOST_Failed = createAction(actionNames.PostActions.REMOVE_POS
 export const LoadPOSTs = createAction(actionNames.PostActions.LOAD_ALL_POSTS);
 export const LoadPOSTsSuccess = createAction(actionNames.PostActions.LOAD_ALL_POSTS_SUCCESS,
     props<{ payload: Post[]; }>());
+export const SetValidationErrors = createAction(actionNames.PostActions.Set_ValidationErrors,
+    props<{ validationErrors: ModelStateErrors[]; }>());
 export const LoadPOSTsFail = createAction(actionNames.PostActions.LOAD_ALL_POSTS_FAILED,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());

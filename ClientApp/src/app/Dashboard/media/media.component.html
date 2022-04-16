@@ -3,7 +3,7 @@
                  [FullScreeen]="true"
                  FullScreenClass="modal-fullscreen"
                  Modal_Header_AdditionalClasses="bg-dark text-white-50"
-                 Modal_Body_Additionalclasses="bg-light"
+                 Modal_Body_Additionalclasses="bg-light py-0"
                  [Modal_Header_Template]="AddHeader"
                  [Modal_Footer_template]="AddFooter"></bootstrap-modal>
 
@@ -12,6 +12,11 @@
         <h5> <span class="text-warning">Add </span> Media</h5>
         <button class="btn btn-warning shadow fw-bold text-black-50"
                 (click)="openBrowseFiles()">Add</button>
+        <input type="file"
+               id="AddButton"
+               class="form-control d-none"
+               multiple
+               (change)="uploadImage($event)">
     </div>
 </ng-template>
 <ng-template #AddBody>
@@ -20,17 +25,16 @@
                                         Media List
         *****************************************************************************-->
         <div class="col-12 col-sm-9 bg-white p-2 overflow-auto">
-            <input type="file"
-                   id="AddButton"
-                   class="form-control d-none"
-                   multiple
-                   (change)="uploadImage($event)">
-            <ul class="my-2 d-flex flex-row flex-wrap list-unstyled">
+            <div *ngIf="(attachments$|async)?.length==00"
+                 class="d-flex flex-row justify-content-center align-items-center gap-2 h-100">
+                <h5>No Media are found</h5>
+            </div>
+            <ul class="my-2 d-flex flex-row flex-wrap list-unstyled"
+                *ngIf="(attachments$|async)?.length!>0">
                 <li *ngFor="let f of (attachments$|async)"
                     style="width: 120px; height: 120px;"
                     (click)="SelectFile(f)"
-                    [class]="f===(selectedFile$|async)?'selectedImage placeholder-glow m-1 d-flex flex-row justify-content-center align-items-center p-1':
-                     'placeholder-glow m-1 d-flex flex-row justify-content-center align-items-center NonSelectedImage p-1' ">
+                    class=" placeholder-glow m-1 d-flex flex-row justify-content-center align-items-center">
                     <span *ngIf="f.thumbnailUrl===''"
                           class="placeholder bg-gradient d-flex justify-content-center align-items-center"
                           style="width: 120px; height: 120px;">
@@ -46,7 +50,7 @@
                          [tooltip]="largeImage"
                          containerClass="imageToolTip"
                          placement="bottom"
-                         class="thumbnail">
+                         [class]="f.fileName===(selectedFile$|async)?.fileName?'selectedImage ':'img-thumbnail'">
                 </li>
             </ul>
         </div>
@@ -54,6 +58,10 @@
                                         Side bar data
         ***********************************************************************************-->
         <div class="col-12 bg-light col-sm-3 p-2 px-4 overflow-auto">
+            <div *ngIf="(selectedFile$|async)===null"
+                 class="d-flex flex-row justify-content-center align-items-center h-100">
+                <h5 class="text-center">Select an image from the image list</h5>
+            </div>
             <div *ngIf="(selectedFile$|async)!==null">
                 <!-- **********************************************************
                                         attachment details 
@@ -61,7 +69,8 @@
                 <div class="border-bottom pb-3">
                     <h6 class="text-black-50">ATTACHMENT DETAILS</h6>
                     <div class="row">
-                        <div class="placeholder-glow col-12 col-sm-5 pe-0 d-flex flex-row align-items-center">
+                        <div
+                             class="placeholder-glow col-12 col-sm-5 pe-0 d-flex flex-row justify-content-center align-items-center">
                             <span *ngIf="(selectedFile$|async)?.thumbnailUrl===''"
                                   class="placeholder bg-gradient d-flex justify-content-center align-items-center"
                                   style="width: 100%; height: 150px; max-height: 200px;">
@@ -70,7 +79,7 @@
                             <img *ngIf="(selectedFile$|async)?.thumbnailUrl!==''"
                                  [src]="(selectedFile$|async)?.thumbnailUrl"
                                  [alt]="(selectedFile$|async)?.altText"
-                                 class="thumbnail">
+                                 class="img-thumbnail">
                         </div>
                         <div class="col-12 col-sm-7">
                             <div class="small text-black-50 fw-bold">{{(selectedFile$|async)?.fileName}}</div>
@@ -98,34 +107,114 @@
                                         image details Form
                 ****************************************************************-->
                 <form [formGroup]="form"
+                      #Form
                       class="pt-3">
                     <h6 class="text-black-50">ATTACHMENT DETAILS</h6>
                     <!-- Title -->
-                    <input type="text"
-                           class="form-control form-control-sm mb-1"
-                           value=""
-                           [formControlName]="FormControlNames.mediaForm.title"
-                           [placeholder]="FormFieldsNames.Media.title">
+                    <div class="form-floating mb-3">
+                        <input type="text"
+                               [id]="FormControlNames.mediaForm.title"
+                               [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.title, form)?'form-control form-control-sm':
+                                                       errorState.isErrorState(FormControlNames.mediaForm.title, form, Form)?
+                                                       'form-control form-control-sm is-invalid':'form-control form-control-sm is-valid'"
+                               value=""
+                               required
+                               minlength="60"
+                               maxlength="70"
+                               [formControlName]="FormControlNames.mediaForm.title"
+                               [placeholder]="FormFieldsNames.Media.title">
+                        <div class="validationDiv">
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.title)?.hasError(FormValidationErrorsNames.required)
+                                                  &&errorState.isErrorState(FormControlNames.mediaForm.title, form, Form)">
+                                {{FormValidationErrors.RequiredField}}
+                            </span>
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                                                  &&errorState.isErrorState(FormControlNames.mediaForm.title, form, Form)">
+                                {{FormValidationErrors.SEO_Title_Length}}
+                            </span>
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                                                  &&errorState.isErrorState(FormControlNames.mediaForm.title, form, Form)">
+                                {{FormValidationErrors.SEO_Title_Length}}
+                            </span>
+                        </div>
+                        <label [for]="FormControlNames.mediaForm.alttext"
+                               class="form-label">{{FormFieldsNames.Media.title}}</label>
+                    </div><!-- end Title -->
                     <!-- Alt text -->
-                    <input type="text"
-                           class="form-control form-control-sm mb-1"
-                           value=""
-                           [formControlName]="FormControlNames.mediaForm.alttext"
-                           [placeholder]="FormFieldsNames.Media.alttext">
+                    <div class="form-floating mb-3">
+                        <input type="text"
+                               [id]="FormControlNames.mediaForm.alttext"
+                               [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.alttext, form)?'form-control form-control-sm':
+                                                   errorState.isErrorState(FormControlNames.mediaForm.alttext, form, Form)?
+                                                   'form-control form-control-sm is-invalid':'form-control form-control-sm is-valid'"
+                               value=""
+                               [formControlName]="FormControlNames.mediaForm.alttext"
+                               [placeholder]="FormFieldsNames.Media.alttext">
+                        <div class="validationDiv">
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.alttext)?.hasError(FormValidationErrorsNames.required)
+                                              &&errorState.isErrorState(FormControlNames.mediaForm.alttext, form, Form)">
+                                {{FormValidationErrors.RequiredField}}
+                            </span>
+                        </div>
+                        <label [for]="FormControlNames.mediaForm.alttext"
+                               class="form-label">{{FormFieldsNames.Media.alttext}}</label>
+                    </div><!-- end Alt text -->
                     <!-- Description -->
-                    <textarea class="form-control form-control-sm mb-1"
-                              style="resize: none;"
-                              maxlength="160"
-                              rows="3"
-                              [formControlName]="FormControlNames.mediaForm.description"
-                              [placeholder]="FormFieldsNames.Media.description"></textarea>
+                    <div class="form-floating mb-3">
+                        <textarea required
+                                  [id]="FormControlNames.mediaForm.description"
+                                  style="resize: none; height: 120px;"
+                                  rows="5"
+                                  minlength="50"
+                                  maxlength="160"
+                                  [formControlName]="FormControlNames.mediaForm.description"
+                                  [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.description, form)?'form-control form-control-sm':
+                                               errorState.isErrorState(FormControlNames.mediaForm.description, form, Form)?
+                                               'form-control form-control-sm is-invalid':'form-control form-control-sm is-valid'"
+                                  id="description"
+                                  [placeholder]="FormFieldsNames.Media.description"></textarea>
+                        <div class="validationDiv">
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.description)?.hasError(FormValidationErrorsNames.required)
+                                          &&errorState.isErrorState(FormControlNames.mediaForm.description, form, Form)">
+                                {{FormValidationErrors.RequiredField}}
+                            </span>
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                                          &&errorState.isErrorState(FormControlNames.mediaForm.description, form, Form)">
+                                {{FormValidationErrors.SEO_Description_Length}}
+                            </span>
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.mediaForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                                          &&errorState.isErrorState(FormControlNames.mediaForm.description, form, Form)">
+                                {{FormValidationErrors.SEO_Description_Length}}
+                            </span>
+                        </div>
+                        <label [for]="FormControlNames.mediaForm.description"
+                               class="form-label">{{FormFieldsNames.Media.description}}</label>
+                    </div><!-- end description -->
                     <!-- Caption -->
-                    <textarea class="form-control form-control-sm mb-1"
-                              style="resize: none;"
-                              maxlength="160"
-                              rows="4"
-                              [formControlName]="FormControlNames.mediaForm.caption"
-                              [placeholder]="FormFieldsNames.Media.caption"></textarea>
+                    <div class="form-floating mb-3">
+                        <textarea style="resize: none; height: 120px;"
+                                  rows="5"
+                                  [id]="FormControlNames.mediaForm.caption"
+                                  [formControlName]="FormControlNames.mediaForm.caption"
+                                  class="form-control form-control-sm"
+                                  id="caption"
+                                  [placeholder]="FormFieldsNames.Media.caption"></textarea>
+                        <div class="validationDiv">
+
+                        </div>
+                        <label [for]="FormControlNames.mediaForm.caption"
+                               class="form-label">{{FormFieldsNames.Media.caption}}</label>
+                    </div><!-- end Cation -->
+                    <button class="btn btn-sm btn-primary w-100"
+                            [disabled]="form.invalid"
+                            (click)="UpdateAttachment()">Save</button>
                 </form>
             </div>
         </div>
@@ -135,4 +224,10 @@
     <button class="btn btn-secondary"
             type="button"
             data-bs-dismiss="modal">Close</button>
+    <button [disabled]="(selectedFile$|async)===null"
+            *ngIf="setFeatureImageButton"
+            class="btn btn-primary"
+            type="button"
+            (click)="featureImageClicked()"
+            data-bs-dismiss="modal">Set as feature image</button>
 </ng-template>

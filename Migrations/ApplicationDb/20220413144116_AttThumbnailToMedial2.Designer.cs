@@ -4,6 +4,7 @@ using CodingBible.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413144116_AttThumbnailToMedial2")]
+    partial class AttThumbnailToMedial2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,16 +139,10 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("FileUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Height")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ThumbnailUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Width")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -371,7 +367,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 4, 16, 17, 29, 59, 19, DateTimeKind.Local).AddTicks(4488));
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 16, 41, 16, 378, DateTimeKind.Local).AddTicks(6192));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -397,7 +393,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 4, 16, 17, 29, 59, 19, DateTimeKind.Local).AddTicks(5509));
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 16, 41, 16, 378, DateTimeKind.Local).AddTicks(6901));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -456,7 +452,7 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("PostsCategories");
+                    b.ToTable("PostsCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

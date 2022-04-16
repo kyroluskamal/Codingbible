@@ -18,7 +18,6 @@ import { IsInProgress, Register } from 'src/State/AuthState/auth.actions';
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegisterComponent implements OnInit
 {

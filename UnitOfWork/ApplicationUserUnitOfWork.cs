@@ -6,8 +6,6 @@ using CodingBible.UnitOfWork.IRepository.Tokens;
 using CodingBible.UnitOfWork.Repository.MailProvider;
 using CodingBible.UnitOfWork.Repository.Posts;
 using CodingBible.UnitOfWork.Repository.Tokens;
-using CodingBible.UnitOfWork.IRepository.Categories;
-using CodingBible.UnitOfWork.Repository.Categories;
 using CodingBible.UnitOfWork.IRepository.AttachmentRepo;
 using CodingBible.UnitOfWork.Repository.AttachmentRepo;
 namespace CodingBible.UnitOfWork
@@ -18,12 +16,11 @@ namespace CodingBible.UnitOfWork
         public ApplicationDbContext ApplicationDbContext { get; }
         public ApplicationUserRoleManager RoleManager { get; set; }
         public ICategoriesRepositoryAsync Categories { get; }
-
         public ITokensRepositoryAsync UserTokens { get; }
-
         public IMailProvidersRepositoryAsync MailProviders { get; }
         public IAttachmentsRepositoryAsync Attachments { get; }
-
+        public IPostAttachmentsRepositoryAsync PostAttachments { get; }
+        public IPostsCategoryRepositoryAsync PostsCategories { get; }
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
         {
@@ -34,6 +31,8 @@ namespace CodingBible.UnitOfWork
             MailProviders = new MailProviderRepositoryAsync(applicationDbContext);
             Categories = new CategoriesRepositoryAsync(applicationDbContext);
             Attachments = new AttachmentsRespositoryAsync(applicationDbContext);
+            PostAttachments = new PostAttachmentsRepositoryAsync(applicationDbContext);
+            PostsCategories = new PostsCategoryRepositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

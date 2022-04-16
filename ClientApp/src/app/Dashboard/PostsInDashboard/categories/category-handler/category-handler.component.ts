@@ -31,7 +31,6 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
   cats$ = this.store.select(selectAllCategorys);
-  CatById$ = this.store.select(selectCategoryByID);
   @Input() inputForm: FormGroup = new FormGroup({});
   category: Category = new Category();
   @Input() ActionType: string = "";
@@ -44,9 +43,7 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     {
       let parent = this.catsForSelectmenu.filter(cat => cat.id == this.Form.get("id")?.value)[0];
       this.OldLevel = parent?.level;
-
     }
-    console.log(this.OldLevel);
   }
   ngOnChanges(changes: SimpleChanges): void
   {

@@ -1,5 +1,6 @@
 <form fxLayout="column"
       [formGroup]="form"
+      #Form
       class="mt-2 mx-2 needs-validation"
       novalidate>
     <!-- ------------------------------------------------------------------------------- 
@@ -24,10 +25,8 @@
     <!-- ------------------------------------------------------------------------------- 
      |                               Sticky notes for errors
     ------------------------------------------------------------------------------------>
-    <div class="alert alert-info mb-0 small d-none d-lg-block"
+    <div class="alert alert-info mb-0 small mb-2"
          #StickyNotes
-         style="position: fixed; bottom: 10px; z-index: 1030;"
-         [ngStyle]="(pinned$|async)?{'left':'23vw'}:{'left':'10px' }"
          *ngIf="form.invalid">
         <p><strong>You have to do the following</strong></p>
         <ul class="mb-0">
@@ -61,6 +60,13 @@
             <li *ngIf="form.get(FormControlNames.postForm.excerpt)?.hasError(FormValidationErrorsNames.required)">
                 Write excerpt to be shown for post in the home page.
             </li>
+            <li
+                *ngIf="form.get(FormControlNames.postForm.featureimageurl)?.hasError(FormValidationErrorsNames.required)">
+                Choose feature image.
+            </li>
+            <li *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)">
+                Choose at least one category.
+            </li>
         </ul>
     </div>
     <div *ngIf="form.valid && Type===PostType.Add"
@@ -69,6 +75,7 @@
     </div>
     <div fxLayout="row"
          fxLayout.lt-md="column"
+         fxLayoutGap="5px"
          fxLayoutAlign="space-between">
         <div fxFlex="77%"
              fxLayout="column">
@@ -121,10 +128,10 @@
             <!-- ------------------------------------------------------------------------------- 
             |                               View and Html 
             ------------------------------------------------------------------------------------>
-            <tabset class="h-50">
+            <tabset class="h-50 mb-5">
                 <tab heading="View"
                      id="tab1"
-                     style="max-height: 500px;"
+                     style="max-height: 550px;"
                      class="border ">
                     <CodingBible-editor [view]="view"
                                         [html]="html"
@@ -134,9 +141,10 @@
                     |                               View  
                     ------------------------------------------------------------------------------->
                     <div #view
+                         style="max-height: 500px;"
                          [innerHtml]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                          (input)="UpdateHtml(html,view)"
-                         class="Editor bg-white p-2 "
+                         class="Editor bg-white p-2 overflow-auto"
                          data-testid="view"
                          (mouseup)="GetSelectedText(view)"
                          (keyup)="GetSelectedText(view)"
@@ -149,9 +157,10 @@
                     |                               Html   
                     ------------------------------------------------------------------------------->
                     <textarea name=""
-                              formControlName="htmlContent"
+                              [formControlName]="FormControlNames.postForm.htmlContent"
                               class="Editor border border-top-0 p-2"
                               id=""
+                              style="max-height: 500px; resize: none;"
                               [value]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                               #html
                               (input)="UpdateView(html, view)">
@@ -171,6 +180,60 @@
                 suffix: '.min'
             }">
             </editor> -->
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Category Card
+            ------------------------------------------------------------------------------->
+            <div class="card mt-3">
+                <div class="card-header">
+                    Choose categoris
+                </div>
+                <div class="card-body d-flex flex-row justify-content-center btn align-items-center"
+                     style="height: 150px">
+                    <mat-form-field appearance="outline"
+                                    class="w-100">
+                        <mat-select [formControlName]="FormControlNames.postForm.categories"
+                                    [errorStateMatcher]="CustoErrorStateMatcher"
+                                    #categories
+                                    (selectionChange)="selectCategory(categories.value)"
+                                    multiple>
+                            <mat-option *ngFor="let cat of (cats$|async)"
+                                        [value]="cat.id">
+                                <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error
+                                   *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)">
+                            {{FormValidationErrors.RequiredField}}
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- <div class="has-validation w-100 h-100">
+                        <select #categories
+                                required
+                                multiple
+                                (change)="$event.preventDefault()"
+                                [formControlName]="FormControlNames.postForm.categories"
+                                [class]="errorState.isErrorState(FormControlNames.postForm.categories, form, Form)?
+                                               'form-select is-invalid w-100 h-100':'form-select is-valid w-100 h-100'"
+                                id="categories"
+                                aria-label="Select categories">
+                            <option *ngFor="let cat of (cats$|async)"
+                                    [value]="cat.id"
+                                    (click)=" $event.preventDefault();selectCategory(cat.id)"
+                                    [tooltip]="cat.title">
+                                <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
+                            </option>
+                        </select>
+
+                        <div class="validationDiv">
+                            <span class="invalid-feedback d-block m-0"
+                                  *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)
+                                          &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, form, Form)">
+                                {{FormValidationErrors.RequiredField}}
+                            </span>
+                        </div>
+                    </div> -->
+                </div><!-- end card body -->
+            </div><!-- end category card -->
         </div>
         <!-- -------------------------------------------------------------------------- 
         |                                  Side Bar
@@ -305,6 +368,7 @@
                     </span>
                 </div>
             </div>
+
             <!-- -------------------------------------------------------------------------- 
             |                                  Feature Image Card
             ------------------------------------------------------------------------------->
@@ -312,16 +376,30 @@
                 <div class="card-header">
                     Feature image
                 </div>
-                <div class="card-body">
-                    <button (click)="media.Toggle()">Browse</button>
+                <div (click)="media.Toggle()"
+                     class="card-body d-flex flex-row justify-content-center btn align-items-center p-0"
+                     style="height: 150px">
+                    <div *ngIf="post.featureImageUrl===''"
+                         class="w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <img *ngIf="post.featureImageUrl!==''"
+                         [src]="post.featureImageUrl"
+                         class="img-thumbnail"
+                         alt="feature image">
                 </div>
-                <div class="card-footer text-muted d-flex justify-content-between">
-                    <span class="text-primary small">Character count: {{desc.value.length}}
-                    </span>
+                <div class="card-footer">
+                    <a *ngIf="post.featureImageUrl!==''"
+                       class="text-danger text-decoration-none cursor-pointer"
+                       (click)="removeFeatureImage()">Remove feature image</a>
+                    <a *ngIf="post.featureImageUrl===''"
+                       class="text-secondary text-decoration-none">Remove feature image</a>
                 </div>
-            </div>
+            </div><!-- end feature image card -->
         </div>
     </div>
 
 </form>
-<app-media #media></app-media>
+<app-media #media
+           [setFeatureImageButton]="true"
+           (setFeatureImage)="SetFeatureImage($event)"></app-media>

@@ -10,7 +10,6 @@ using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-
 namespace CodingBible.Controllers.api.v1
 {
     [ApiVersion("1.0")]
@@ -49,7 +48,7 @@ namespace CodingBible.Controllers.api.v1
         [AllowAnonymous]
         public async Task<IActionResult> GetPosts()
         {
-            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author");
+            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author,PostsCategories");
             return Ok(allPosts.ToList());
         }
         /// <summary>
@@ -108,13 +107,39 @@ namespace CodingBible.Controllers.api.v1
                 newPost.CommentCount = 0;
                 newPost.CommentStatus = true;
                 await UnitOfWork.Posts.AddAsync(newPost);
+
                 var result = await UnitOfWork.SaveAsync();
                 //add the post to the sitemap if it is published
                 if (newPost.Status == (int)Constants.PostStatus.Published)
                     await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
                 if (result > 0)
                 {
-                    return Ok(await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug));
+                    if (Post.FeatureImageUrl != "")
+                    {
+                        var attachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == Post.FeatureImageUrl);
+                        await UnitOfWork.PostAttachments.AddAsync(new PostAttachments()
+                        {
+                            PostId = newPost.Id,
+                            AttachmentId = attachment.First().Id,
+                        });
+                    }
+                    if (Post.Categories.Length > 0)
+                    {
+                        List<PostsCategory> postCategories = new();
+                        foreach (var cat in Post.Categories)
+                        {
+                            postCategories.Add(new PostsCategory()
+                            {
+                                PostId = newPost.Id,
+                                CategoryId = cat,
+                            });
+                        }
+                        await UnitOfWork.PostsCategories.AddRangeAsync(postCategories.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
+                    var postToResturn = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug);
+                    postToResturn.Categories = Post.Categories;
+                    return Ok(postToResturn);
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed($"The {Post.Title} post"));
             }
@@ -133,11 +158,26 @@ namespace CodingBible.Controllers.api.v1
                 {
                     return NotFound();
                 }
+                var oldFeatureImageUrl = getPost.FeatureImageUrl;
                 getPost = Mapper.Map(Post, getPost);
                 UnitOfWork.Posts.Update(getPost);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
+                    if (Post.FeatureImageUrl != oldFeatureImageUrl)
+                    {
+                        var newAttachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == Post.FeatureImageUrl);
+                        var oldAttachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == oldFeatureImageUrl);
+                        await UnitOfWork.PostAttachments.AddAsync(new PostAttachments()
+                        {
+                            PostId = Post.Id,
+                            AttachmentId = newAttachment.First().Id,
+                        });
+                        var old_PostAttachments = await UnitOfWork.PostAttachments.GetAllAsync(x => x.PostId == Post.Id
+                        && x.AttachmentId == oldAttachment.First().Id);
+                        UnitOfWork.PostAttachments.Remove(old_PostAttachments.First());
+                        await UnitOfWork.SaveAsync();
+                    }
                     return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(getPost.Title));

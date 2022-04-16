@@ -20,7 +20,9 @@ export class EditPostComponent implements OnInit
       slug: [null],
       excerpt: [null, [validators.required]],
       description: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      htmlcontent: [null, [validators.required]]
+      htmlcontent: [null, [validators.required]],
+      featureimageurl: [null, [validators.required]],
+      categories: [[], [validators.required]],
     });
   }
 

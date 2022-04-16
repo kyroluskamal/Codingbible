@@ -1,13 +1,16 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
+import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
-import { FormControlNames, FormFieldsNames } from 'src/Helpers/constants';
+import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
+import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, validators } from 'src/Helpers/constants';
 import { Attachments } from 'src/models.model';
 import { MediaService } from 'src/Services/media.service';
-import { Add_ATTACHMENT, LoadATTACHMENTSs, RemoveATTACHMENTS, SelectAttachment } from 'src/State/Attachments/Attachments.actions';
+import { Add_ATTACHMENT, Add_ATTACHMENT_Success, LoadATTACHMENTSs, RemoveATTACHMENTS, SelectAttachment, UpdateATTACHMENTS } from 'src/State/Attachments/Attachments.actions';
 import { selectAllAttachment, SelectSelected_Attachment } from 'src/State/Attachments/Attachments.reducer';
 
 export interface IFileMetaData
@@ -24,6 +27,9 @@ export interface IFileMetaData
 export class MediaComponent implements OnInit 
 {
   @ViewChild("modal") modal!: BootstrapMoalComponent;
+  errorState = new BootstrapErrorStateMatcher();
+  FormValidationErrors = FormValidationErrors;
+  FormValidationErrorsNames = FormValidationErrorsNames;
   selectedFile: Attachments | null = null;
   form: FormGroup = new FormGroup({});
   FormControlNames = FormControlNames;
@@ -31,7 +37,10 @@ export class MediaComponent implements OnInit
   attachments: Attachments[] = [];
   attachments$ = this.store.select(selectAllAttachment);
   selectedFile$ = this.store.select(SelectSelected_Attachment);
-  constructor(private mediaService: MediaService, private Spinner: SpinnerService,
+
+  @Input() setFeatureImageButton: boolean = false;
+  @Output() setFeatureImage: EventEmitter<Attachments | null> = new EventEmitter();
+  constructor(private ClientService: ClientSideValidationService,
     @Inject(DOCUMENT) private document: Document, private store: Store,
     private fb: FormBuilder)
   {
@@ -41,13 +50,15 @@ export class MediaComponent implements OnInit
     this.selectedFile$.subscribe(file =>
     {
       this.selectedFile = file;
+      if (file != null)
+        this.ClientService.refillForm(file, this.form);
     });
     this.store.dispatch(LoadATTACHMENTSs());
     this.form = this.fb.group({
-      title: [''],
-      description: [''],
+      title: ['', [validators.required, validators.SEO_TITLE_MAX_LENGTH, validators.SEO_TITLE_MIN_LENGTH]],
+      description: ['', [validators.required, validators.SEO_DESCRIPTION_MAX_LENGTH, validators.SEO_DESCRIPTION_MIN_LENGTH]],
       caption: [''],
-      alttext: [''],
+      alttext: ['', [validators.required]],
     });
   }
   Toggle()
@@ -57,6 +68,7 @@ export class MediaComponent implements OnInit
 
   uploadImage(event: any)
   {
+    this.attachments = [];
     let files: File[] = [];
     for (let f of event.target.files)
     {
@@ -69,13 +81,18 @@ export class MediaComponent implements OnInit
       }
       files.push(file);
       let att = new Attachments();
+      att.id = this.getRandomInt(10000, 99999);
       att.fileName = file.name;
       att.fileType = file.type;
       att.fileSize = file.size;
 
       this.attachments.unshift(att);
     }
-    this.store.dispatch(Add_ATTACHMENT({ files: files }));
+    console.log(this.selectedFile);
+    this.store.dispatch(Add_ATTACHMENT_Success({ attachments: this.attachments }));
+    this.store.dispatch(Add_ATTACHMENT({
+      files: files, tempAttachments: this.attachments
+    }));
     // this.mediaService.SendImages(files)
     //   .subscribe(res =>
     //   {
@@ -112,5 +129,26 @@ export class MediaComponent implements OnInit
     //   this.selectedFile = null;
     //   this.Spinner.removeSpinner();
     // });
+  }
+  UpdateAttachment()
+  {
+    console.log(this.form.get("caption")?.value);
+    let temp: Attachments = new Attachments();
+    temp = { ...this.selectedFile! };
+    temp.caption = "";
+    this.ClientService.FillObjectFromForm(temp, this.form);
+    this.store.dispatch(UpdateATTACHMENTS(temp));
+  }
+
+  featureImageClicked()
+  {
+    this.setFeatureImage.emit(this.selectedFile);
+  }
+  //helper methods
+  getRandomInt(min: number, max: number): number
+  {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

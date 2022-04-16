@@ -36,7 +36,7 @@ namespace CodingBible.Models.Posts
         public string EditFrequency { get; set; }
         public float Priority { get; set; }
         [NotMapped]
-        public Category[] Categories { get; set; }
+        public int[] Categories { get; set; }
         public ICollection<PostsCategory> PostsCategories { get; set; }
         public ICollection<PostAttachments> Attachments { get; set; }
     }

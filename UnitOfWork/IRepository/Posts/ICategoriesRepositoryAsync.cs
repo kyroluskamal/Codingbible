@@ -1,6 +1,6 @@
 using CodingBible.Models.Posts;
 
-namespace CodingBible.UnitOfWork.IRepository.Categories
+namespace CodingBible.UnitOfWork.IRepository.Posts
 {
     public interface ICategoriesRepositoryAsync : IRepositoryAsync<Category>
     {

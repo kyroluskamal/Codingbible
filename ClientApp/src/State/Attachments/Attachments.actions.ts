@@ -4,7 +4,7 @@ import { actionNames } from "src/Helpers/constants";
 import { Attachments } from "src/models.model";
 
 export const Add_ATTACHMENT = createAction(actionNames.AttactmentActions.ADD_ATTACHMENT,
-    props<{ files: File[]; }>());
+    props<{ files: File[]; tempAttachments: Attachments[]; }>());
 export const Add_ATTACHMENT_Success = createAction(actionNames.AttactmentActions.ADD_ATTACHMENT_Success,
     props<{ attachments: Attachments[]; }>());
 
@@ -21,4 +21,8 @@ export const LoadATTACHMENTSs = createAction(actionNames.AttactmentActions.LOAD_
 export const LoadATTACHMENTSsSuccess = createAction(actionNames.AttactmentActions.LOAD_ALL_ATTACHMENTS_SUCCESS,
     props<{ payload: Attachments[]; }>());
 export const SelectAttachment = createAction(actionNames.AttactmentActions.SelectAttachment,
+    props<{ selectedFile: Attachments | null; }>());
+export const UpdateTempAttachment = createAction(actionNames.AttactmentActions.UpdateTempAttachment,
+    props<{ tempAttachment: Attachments[]; }>());
+export const checkSelectedFile = createAction(actionNames.AttactmentActions.checkSelectedFile,
     props<{ selectedFile: Attachments | null; }>());

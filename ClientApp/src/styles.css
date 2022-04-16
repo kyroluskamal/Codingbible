@@ -140,3 +140,19 @@ body{
   padding: 0;
   margin: 0;
 }
+.validationDiv{
+  height: 10px; max-height: 30px;
+  font-size: 12px !important;
+  margin-top: 3px !important;
+}
+.img-thumbnail{
+   max-height: 120px !important; object-fit: contain;
+}
+select option:checked  {
+  background-color: #e3ffbb !important;
+  font-weight: bold !important;
+}
+select option:checked:active::selection  {
+  color: red;
+  background: yellow;
+}

@@ -1,6 +1,4 @@
-import { DOCUMENT } from "@angular/common";
-import { Inject, Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
@@ -12,9 +10,7 @@ import { PostsController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Category } from "src/models.model";
 import { CategoryService } from "src/Services/category.service";
-import { dummyAction } from "../PostState/post.actions";
 import { AddCATEGORY, AddCATEGORY_Failed, AddCATEGORY_Success, LoadCATEGORYs, LoadCATEGORYsFail, LoadCATEGORYsSuccess, RemoveCATEGORY, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, UpdateCATEGORY, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
-import { selectAllcategorys } from "./Category.adapter";
 import { selectAllCategorys } from "./Category.reducer";
 
 @Injectable({
@@ -37,7 +33,7 @@ export class CategoryEffects
             ofType(AddCATEGORY),
             switchMap((action) =>
             {
-                this.spinner.fullScreenSpinner();
+                this.spinner.InsideContainerSpinner();
                 return this.CategoryService.Add(PostsController.AddCategory, action).pipe(
                     map((r) =>
                     {
@@ -49,6 +45,8 @@ export class CategoryEffects
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
+
                         return of(AddCATEGORY_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
@@ -61,7 +59,7 @@ export class CategoryEffects
             switchMap((action) =>
             {
 
-                this.spinner.fullScreenSpinner();
+                this.spinner.InsideContainerSpinner();
                 return this.CategoryService.Update(PostsController.UpdateCategory, action).pipe(
                     map((r) =>
                     {
@@ -108,7 +106,7 @@ export class CategoryEffects
             ofType(RemoveCATEGORY),
             switchMap((action) =>
             {
-                this.spinner.fullScreenSpinner();
+                this.spinner.InsideContainerSpinner();
                 return this.CategoryService.Delete(PostsController.DeleteCategory, action.id).pipe(
                     map((r) =>
                     {

@@ -2,7 +2,9 @@ import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, 
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
+import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import
 {
   FormControlNames, LocalStorageKeys, PostType, FormFieldsNames,
@@ -11,9 +13,12 @@ import
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Post } from 'src/models.model';
+import { Attachments, Post } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
+import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { selectUser } from 'src/State/AuthState/auth.reducer';
+import { LoadCATEGORYs } from 'src/State/CategoriesState/Category.actions';
+import { selectAllCategorys, selectCategoryIds } from 'src/State/CategoriesState/Category.reducer';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
 import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
@@ -28,10 +33,14 @@ export class PostHandlerComponent implements OnInit, OnChanges
   ValidationErrors$ = this.store.select(select_Post_ValidationErrors);
   pinned = Boolean(localStorage.getItem(LocalStorageKeys.FixedSidnav));
   PostType = PostType;
+
   FormControlNames = FormControlNames;
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
+  errorState = new BootstrapErrorStateMatcher();
+  cats$ = this.store.select(selectAllCategorys);
+
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
   @Input() postType: string = "";
@@ -57,10 +66,12 @@ export class PostHandlerComponent implements OnInit, OnChanges
   pinned$ = this.store.select(selectPinned);
   posts$ = this.store.select(selectAllposts);
   user$ = this.store.select(selectUser);
-  postById = this.store.select(selectPostByID);
+  postById = new Observable<any>();
   form: FormGroup = new FormGroup({});
   postTitle: string = '';
   IsUpdated: boolean = false;
+  selectedCategories: number[] = [];
+  categoriesIds = this.store.select(selectCategoryIds);
   modal_fullscreen = "modal-fullscreen";
 
   /**********************************************************************************************************
@@ -87,20 +98,30 @@ export class PostHandlerComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.store.dispatch(LoadCATEGORYs());
+
+    this.router.queryParams.subscribe(x =>
+    {
+      if (x['id'])
+      {
+        this.store.dispatch(GetPostById({ id: Number(x['id']) }));
+        this.postById = this.store.select(selectPostByID(Number(x['id'])));
+      }
+    });
     if (this.Type === PostType.Edit)
     {
       this.postById.subscribe(r =>
       {
-        this.post = Object.assign({}, r);
-        this.ClientSideService.refillForm(r, this.form);
+        if (r)
+        {
+          let post = r as Post;
+          post.postsCategories.forEach(x => this.selectedCategories.push(x.categoryId));
+          this.post = Object.assign({}, r);
+          this.ClientSideService.refillForm(r, this.form);
+          this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
+        }
       });
     }
-    this.router.queryParams.subscribe(x =>
-    {
-      if (x['id'])
-        this.store.dispatch(GetPostById({ id: Number(x['id']) }));
-    });
-
   }
   UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
   {
@@ -222,5 +243,30 @@ export class PostHandlerComponent implements OnInit, OnChanges
   {
     this.post.status = status;
     this.store.dispatch(ChangeStatus(this.post));
+  }
+  SetFeatureImage(event: Attachments | null)
+  {
+    if (event)
+    {
+      this.post.featureImageUrl = event.fileUrl;
+      this.form.get(FormControlNames.postForm.featureimageurl)?.setValue(event.fileUrl);
+    }
+  }
+  removeFeatureImage()
+  {
+    this.store.dispatch(SelectAttachment({ selectedFile: null }));
+    this.post.featureImageUrl = "";
+    this.form.get(FormControlNames.postForm.featureimageurl)?.setValue("");
+  }
+  selectCategory(value: number)
+  {
+    console.log(value);
+    if (!this.selectedCategories.includes(value))
+    {
+      this.selectedCategories.push(value);
+    } else
+    {
+      this.selectedCategories.splice(this.selectedCategories.indexOf(value), 1);
+    }
   }
 }

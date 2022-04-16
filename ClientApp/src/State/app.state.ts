@@ -47,6 +47,7 @@ export interface CategoryState extends EntityState<Category>
 export interface AttachmentsState extends EntityState<Attachments>
 {
     SelectedFile: Attachments | null;
+    tempAttachments: Attachments[];
 }
 
 

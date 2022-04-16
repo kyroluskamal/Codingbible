@@ -80,9 +80,9 @@ export function prticleReducer(state: any, action: Action)
 
 export const selectPostState = createFeatureSelector<PostState>('post');
 
-export const selectPostByID = createSelector(
+export const selectPostByID = (id: number) => createSelector(
     selectPostState,
-    (state) => state.CurrentPostById
+    (state) => state.entities[id]
 );
 export const selectPostIds = createSelector(selectPostState, adapter.selectPostIds);
 export const selectPostEntities = createSelector(selectPostState, adapter.selectPostEntities);

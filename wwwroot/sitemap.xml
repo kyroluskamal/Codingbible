@@ -2,20 +2,29 @@
                 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
                 xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>
             <url>
-                <loc>https://localhost:5001/[CS50]-Introduction-to-Computer-Science|-Bin-to-decimal-conversion</loc>
-                <lastmod>09/04/2022 15:07:43</lastmod>
-                <changefreq>monthly</changefreq>
+                <loc>https://localhost:5001/fsdddddddddsssssvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvsvsvsvs</loc>
+                <lastmod>16/04/2022 17:28:45</lastmod>
+                <changefreq></changefreq>
                 <priority>0.5</priority>
         </url>
             <url>
-                <loc>https://localhost:5001/fsdfsfsfsfsdffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</loc>
-                <lastmod>09/04/2022 15:08:16</lastmod>
-                <changefreq>monthly</changefreq>
+                <loc>https://localhost:5001/fsdddddddddsssssvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvfvvvsvsvsvs</loc>
+                <lastmod>16/04/2022 17:38:28</lastmod>
+                <changefreq></changefreq>
                 <priority>0.5</priority>
-        </url>
+        <image:image>
+<image:loc>https://localhost:5001//Uploads/2022/4/myimage2_Compressed.jpg</image:loc></image:image></url>
             <url>
-                <loc>https://localhost:5001/fsdfsfsfsfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffd</loc>
-                <lastmod>09/04/2022 15:08:39</lastmod>
-                <changefreq>monthly</changefreq>
+                <loc>https://localhost:5001/ffffffffffffffffffffffffffffffffvbbfffffffffffffffffffffffffffffffffff</loc>
+                <lastmod>16/04/2022 20:21:59</lastmod>
+                <changefreq></changefreq>
                 <priority>0.5</priority>
-        </url></urlset>
+        <image:image>
+<image:loc>https://localhost:5001//Uploads/2022/4/myimage-fdfd_Compressed.jpg</image:loc></image:image></url>
+            <url>
+                <loc>https://localhost:5001/vsfsdfsdsdfsdsfs-fsd-fsd-fsdfsd-f-sdf-sd-f-sd-fsd-f-sd-f-sdf-sd-f-sd-f</loc>
+                <lastmod>16/04/2022 21:49:08</lastmod>
+                <changefreq></changefreq>
+                <priority>0.5</priority>
+        <image:image>
+<image:loc>https://localhost:5001//Uploads/2022/4/myimage2_Compressed.jpg</image:loc></image:image></url></urlset>

@@ -4,6 +4,7 @@ using CodingBible.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220413134359_AttThumbnailToMedial")]
+    partial class AttThumbnailToMedial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,17 +112,11 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AltText")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Caption")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FileExtension")
                         .HasColumnType("nvarchar(max)");
@@ -137,16 +133,10 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("FileUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Height")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ThumbnailUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Width")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -371,7 +361,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 4, 16, 17, 29, 59, 19, DateTimeKind.Local).AddTicks(4488));
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 15, 43, 58, 575, DateTimeKind.Local).AddTicks(4719));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -397,7 +387,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 4, 16, 17, 29, 59, 19, DateTimeKind.Local).AddTicks(5509));
+                        .HasDefaultValue(new DateTime(2022, 4, 13, 15, 43, 58, 575, DateTimeKind.Local).AddTicks(5806));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -456,7 +446,7 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("PostsCategories");
+                    b.ToTable("PostsCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

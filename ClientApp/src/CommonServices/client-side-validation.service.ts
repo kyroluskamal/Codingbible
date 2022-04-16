@@ -15,8 +15,9 @@ export class ClientSideValidationService
     let keys = Object.keys(object);
     for (let k of keys)
     {
-      if (formGroup.get(k))
-        formGroup.get(k)?.setValue(object[k]);
+      let key = k.toLowerCase();
+      if (formGroup.get(key))
+        formGroup.get(key)?.setValue(object[k]);
     }
   }
   isNotUnique(array: any[], keyToCheck: string, value: string, id?: number)
@@ -97,7 +98,6 @@ export class ClientSideValidationService
   {
     let formControls: string[] = Object.keys(formGroup.controls);
     let objectKeys: string[] = Object.keys(object);
-
     for (let c of objectKeys)
     {
       let control = c.toLowerCase();

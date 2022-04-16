@@ -30,9 +30,9 @@ export class NotificationsService
       customClass: { title: css.SwalErrorTitle },
     });
   }
-  Success_Swal(message: string)
+  Success_Swal(message: string, closeModal: boolean = true)
   {
-    if (this.document.getElementById("ModalCloseButton"))
+    if (this.document.getElementById("ModalCloseButton") && closeModal)
       this.document.getElementById("ModalCloseButton")?.click();
     return Swal.fire({
       icon: "success",

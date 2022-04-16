@@ -88,6 +88,8 @@ export const NotificationMessage = {
         Unique_Field_ERROR: "You can't repeat values in this field. Add UNIQUE value.",
         ResetPasswordFail_InvalidToken: "This reset link is used before, or the token expired. Try to reset password again",
         BrowserDontSupportFullscreen: "Your browser doesn't support fullscreen mode. Use latest version of Chrome.",
+        Addition: (type: string) => `Failed to add ${type}`,
+
         Delete: (type: string) => `Failed to delete ${type}`,
         Update: (type: string) => `Failed to Update ${type}`
     }
@@ -121,7 +123,9 @@ export const FormControlNames = {
         slug: "slug",
         htmlContent: "htmlcontent",
         description: "description",
-        excerpt: "excerpt"
+        excerpt: "excerpt",
+        featureimageurl: "featureimageurl",
+        categories: "categories",
     },
     AddEditCategoryForm: {
         name: "name",
@@ -317,6 +321,7 @@ export const actionNames = {
         LOAD_ALL_POSTS: '[POST] Load All POSTs',
         LOAD_ALL_POSTS_SUCCESS: '[Load POSTs] Success',
         LOAD_ALL_POSTS_FAILED: '[Load POSTs] FAILED',
+        Set_ValidationErrors: '[POST] Set Validation Errors',
     },
     designActions: {
         pinned: '[Pinnded menu]'
@@ -352,8 +357,12 @@ export const actionNames = {
         LOAD_ALL_ATTACHMENTS_SUCCESS: '[Load Attachments] Success',
         LOAD_ALL_ATTACHMENTS_FAILED: '[Load Attachments] FAILED',
         SelectAttachment: '[Select Attachment] Request',
+        UpdateTempAttachment: '[Update Temp Attachment]',
+        UpdateResponseMessage: '[Update Response Message]',
+        checkSelectedFile: '[Check Selected File]',
     }
 };
+
 //#endregion
 //#region Validators
 export const PASSWORD_MINLENGTH = 8;

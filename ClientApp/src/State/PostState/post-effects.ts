@@ -11,7 +11,7 @@ import { NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Post } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
-import { AddPOST, AddPOST_Failed, AddPOST_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess, RemovePOST, RemovePOST_Failed, RemovePOST_Success, UpdatePOST, UpdatePOST_Failed, UpdatePOST_Sucess } from './post.actions';
+import { AddPOST, AddPOST_Failed, AddPOST_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess, RemovePOST, RemovePOST_Failed, RemovePOST_Success, SetValidationErrors, UpdatePOST, UpdatePOST_Failed, UpdatePOST_Sucess } from './post.actions';
 import { selectAllposts } from './post.reducer';
 
 @Injectable({
@@ -36,6 +36,7 @@ export class PostEffects
           {
             this.spinner.removeSpinner();
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Post'));
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
             this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.EditPost], { queryParams: { id: r.id } });
             return AddPOST_Success(r);
           }),
@@ -63,6 +64,7 @@ export class PostEffects
               id: action.id,
               changes: action
             };
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
             return UpdatePOST_Sucess({ POST: x });
           }),
           catchError((e) =>
@@ -89,6 +91,7 @@ export class PostEffects
               id: action.id,
               changes: action
             };
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
             return ChangeStatus_Success({ POST: x, currentPostById: action });
           }),
           catchError((e) =>
@@ -109,7 +112,11 @@ export class PostEffects
       {
         if (posts.length == 0)
           return this.postService.getAllPosts().pipe(
-            map((r) => LoadPOSTsSuccess({ payload: r })),
+            map((r) =>
+            {
+              this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+              return LoadPOSTsSuccess({ payload: r });
+            }),
             catchError((e) => of(LoadPOSTsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
           );
         return of(dummyAction());
@@ -130,6 +137,8 @@ export class PostEffects
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Post'));
             if (action.url === DashboardRoutes.Posts.EditPost)
               this.router.navigate(['', DashboardRoutes.Home]);
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+
             return RemovePOST_Success({ id: action.id });
           }),
           catchError((e) =>
@@ -147,7 +156,11 @@ export class PostEffects
       ofType(GetPostById),
       switchMap((action) =>
         this.postService.GetPostById(action.id).pipe(
-          map((r) => GetPostById_Success(r)),
+          map((r) =>
+          {
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+            return GetPostById_Success(r);
+          }),
           catchError((e) => of(GetPostById_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
         )
       )

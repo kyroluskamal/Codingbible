@@ -75,7 +75,7 @@ export class Post
     title: string = "";
     slug: string = "";
     htmlContent: string = "";
-    authorId: number = 0;
+    authorId: number | null = 0;
     author: any;
     dateCreated: Date = new Date();
     lasModified: Date = new Date();
@@ -85,7 +85,12 @@ export class Post
     description: string = "";
     commentStatus: boolean = false;
     commentCount: number = 0;
+    featureImageUrl: string = "";
+    editFrequency: string = "";
+    priority: number = 0;
+    categories: number[] = [];
     postsCategories: PostsCategory[] = [];
+    attachments: PostAttachments[] = [];
 }
 
 export class Attachments

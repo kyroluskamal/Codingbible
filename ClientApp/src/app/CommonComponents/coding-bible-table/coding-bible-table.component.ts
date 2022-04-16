@@ -37,12 +37,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   {
     if ("dataSource" in changes)
     {
-      if (!this.UseTree)
-        this.innerDataSource.Data = this.dataSource;
-      else
-      {
-        this.innerDataSource.Data = new TreeDataStructureService<any>(this.dataSource!, this.ParentKeyProperty).finalFlatenArray();
-      }
+      this.innerDataSource.Data = this.dataSource;
     }
     if ("resetSelectedRow" in changes)
     {

@@ -53,7 +53,7 @@
                     (change)="onChange(parent)"
                     aria-label="Select parent category">
                 <option value="0">No parent</option>
-                <option *ngFor="let cat of catsForSelectmenu"
+                <option *ngFor="let cat of (cats$|async)"
                         [value]="cat.id"
                         [disabled]="cat.id === Form.get('id')?.value">
                     <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}

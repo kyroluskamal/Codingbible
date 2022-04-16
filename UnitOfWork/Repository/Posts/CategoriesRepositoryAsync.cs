@@ -1,9 +1,9 @@
 using CodingBible.Data;
 using CodingBible.Models.Posts;
-using CodingBible.UnitOfWork.IRepository.Categories;
+using CodingBible.UnitOfWork.IRepository.Posts;
 using Microsoft.EntityFrameworkCore;
 
-namespace CodingBible.UnitOfWork.Repository.Categories
+namespace CodingBible.UnitOfWork.Repository.Posts
 {
     public class CategoriesRepositoryAsync : ApplicationUserRepositoryAsync<Category>, ICategoriesRepositoryAsync
     {

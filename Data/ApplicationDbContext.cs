@@ -20,6 +20,8 @@ namespace CodingBible.Data
         }
         public DbSet<MailProviders> MailProviders { get; set; }
         public DbSet<Attachments> Attachments { get; set; }
+        public DbSet<PostAttachments> PostAttachments { get; set; }
+        public DbSet<PostsCategory> PostsCategories { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

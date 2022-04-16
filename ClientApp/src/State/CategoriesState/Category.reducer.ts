@@ -1,5 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { Category } from "src/models.model";
+import { TreeDataStructureService } from "src/Services/tree-data-structure.service";
 import { CategoryState } from "../app.state";
 import { dummyAction } from "../PostState/post.actions";
 import { AddCATEGORY_Failed, AddCATEGORY_Success, GetCategoryById_Failed, GetCategoryById_Success, LoadCATEGORYsSuccess, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
@@ -53,8 +54,10 @@ export const CategoryReducer = createReducer(
     }),
     on(LoadCATEGORYsSuccess, (state, { payload }) =>
     {
+        let TreeDataStructure = new TreeDataStructureService(payload, "parentKey");
+        let finalPayload = TreeDataStructure.finalFlatenArray();
         state = CategoryAdapter.removeAll({ ...state });
-        return CategoryAdapter.addMany(payload, state);
+        return CategoryAdapter.addMany(finalPayload, state);
     }),
     on(dummyAction, (state) =>
     {
