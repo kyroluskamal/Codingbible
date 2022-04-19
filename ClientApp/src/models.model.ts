@@ -64,9 +64,9 @@ export class Category
 export class PostsCategory
 {
     postId: number = 0;
-    posts: Post = new Post();
+    posts?: Post = new Post();
     categoryId: number = 0;
-    categories: Category = new Category();
+    categories?: Category = new Category();
 }
 
 export class Post

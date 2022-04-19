@@ -166,6 +166,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
 
   getTextFromRexgex()
   {
+    debugger;
     this.text = this.selectedText;
     let startIndex: number = -1;
     let endIndex: number = -1;
@@ -179,7 +180,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         {
           this.finalText = this.view.innerHTML.substring(this.text.start, this.text.end);
         }
-        //if it is not a text node 
+        //if it is not a text node (the whole text is surrounded by on tag)
         else
         {
           let Node = (<HTMLElement>this.view.childNodes[0]);
@@ -191,14 +192,12 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           }
           else if (Node.innerText.length > this.text.text.length)
           {
+            console.log(match);
             if (match)
             {
               this.finalText = match[0];
             } else
               this.finalText = this.text.text;
-          } else
-          {
-
           }
         }
       }
@@ -223,58 +222,65 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           }
           if (anchorNodeIndex > -1 && focusNodeIndex > -1) break;
         }
-        if (anchorNode?.textContent!?.length < this.text.text.length)
+        if (anchorNode?.nextSibling === focusNode)
         {
-          let temp = "";
-          temp = anchorNode?.nodeName === "#text" ? anchorNode.textContent!?.substring(this.text.start) :
-            this.text.start === 0 ? (<HTMLElement>anchorNode).outerHTML.substring(this.text.start) :
-              (<HTMLElement>anchorNode).outerHTML.substring(this.text.start + this.getTheFirstTag((<HTMLElement>anchorNode).outerHTML!)?.length!);
-          if (focusNodeIndex - anchorNodeIndex > 1)
+          if (this.text.end !== focusNode?.textContent!.length! - 1)
           {
-            for (let i = anchorNodeIndex + 1; i < focusNodeIndex; i++)
-            {
-              temp += this.view.childNodes[i].nodeName === "#text" ? this.view.childNodes[i].textContent : (<HTMLElement>this.view.childNodes[i]).outerHTML;
-            }
-          }
-          temp += focusNode?.nodeName === '#text' ? focusNode.textContent!.substring(0, this.text.end) :
-            (<HTMLElement>focusNode).outerHTML.substring(0, this.text.end + this.getTheFirstTag((<HTMLElement>focusNode).outerHTML!)?.length!);
-          this.finalText = temp;
 
-        }
-        else if (anchorNode?.textContent!?.length > this.text.text.length)
-        {
-          if (this.text.anchorNode?.textContent === this.text.focusNode?.textContent)
-          {
-            let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${this.text.text}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
-            if (anchorNode?.nodeName === "#text")
-            {
-              this.finalText = anchorNode.textContent!?.substring(this.text.start, this.text.end); return;
-            } else
-            {
-              let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
-              if (match)
-              {
-                this.finalText = match[0];
-                return;
-              }
-            }
           }
-          else
-          {
-            let temp = (<HTMLElement>anchorNode).innerHTML.substring((<HTMLElement>anchorNode).innerHTML.indexOf(this.text.anchorNode?.textContent!) + this.text.start,
-              (<HTMLElement>focusNode).innerHTML.indexOf(this.text.focusNode?.textContent!) + this.text.end);
-            let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${temp}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
-            let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
-            if (match)
-            {
-              this.finalText = match[0];
-              return;
-            }
-          }
-        } else if (anchorNode?.textContent?.length === this.text.text.length)
-        {
-          this.finalText = anchorNode.nodeName === '#text' ? anchorNode.textContent : (<HTMLElement>anchorNode).outerHTML;
         }
+        // if (anchorNode?.textContent!?.length < this.text.text.length)
+        // {
+        //   let temp = "";
+        //   temp = anchorNode?.nodeName === "#text" ? anchorNode.textContent!?.substring(this.text.start) :
+        //     this.text.start === 0 ? (<HTMLElement>anchorNode).outerHTML.substring(this.text.start) :
+        //       (<HTMLElement>anchorNode).outerHTML.substring(this.text.start + this.getTheFirstTag((<HTMLElement>anchorNode).outerHTML!)?.length!);
+        //   if (focusNodeIndex - anchorNodeIndex > 1)
+        //   {
+        //     for (let i = anchorNodeIndex + 1; i < focusNodeIndex; i++)
+        //     {
+        //       temp += this.view.childNodes[i].nodeName === "#text" ? this.view.childNodes[i].textContent : (<HTMLElement>this.view.childNodes[i]).outerHTML;
+        //     }
+        //   }
+        //   temp += focusNode?.nodeName === '#text' ? focusNode.textContent!.substring(0, this.text.end) :
+        //     (<HTMLElement>focusNode).outerHTML.substring(0, this.text.end + this.getTheFirstTag((<HTMLElement>focusNode).outerHTML!)?.length!);
+        //   this.finalText = temp;
+
+        // }
+        // else if (anchorNode?.textContent!?.length > this.text.text.length)
+        // {
+        //   if (this.text.anchorNode?.textContent === this.text.focusNode?.textContent)
+        //   {
+        //     let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${this.text.text}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
+        //     if (anchorNode?.nodeName === "#text")
+        //     {
+        //       this.finalText = anchorNode.textContent!?.substring(this.text.start, this.text.end); return;
+        //     } else
+        //     {
+        //       let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
+        //       if (match)
+        //       {
+        //         this.finalText = match[0];
+        //         return;
+        //       }
+        //     }
+        //   }
+        //   else
+        //   {
+        //     let temp = (<HTMLElement>anchorNode).innerHTML.substring((<HTMLElement>anchorNode).innerHTML.indexOf(this.text.anchorNode?.textContent!) + this.text.start,
+        //       (<HTMLElement>focusNode).innerHTML.indexOf(this.text.focusNode?.textContent!) + this.text.end);
+        //     let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${temp}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
+        //     let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
+        //     if (match)
+        //     {
+        //       this.finalText = match[0];
+        //       return;
+        //     }
+        //   }
+        // } else if (anchorNode?.textContent?.length === this.text.text.length)
+        // {
+        //   this.finalText = anchorNode.nodeName === '#text' ? anchorNode.textContent : (<HTMLElement>anchorNode).outerHTML;
+        // }
 
       }
     } else

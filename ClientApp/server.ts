@@ -1,13 +1,13 @@
 import 'zone.js/dist/zone-node';
+import "localstorage-polyfill";
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
-import "localstorage-polyfill";
+
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
-
-global["localStorage"] = localStorage;
+global['localStorage'] = localStorage;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express
 {
@@ -18,10 +18,7 @@ export function app(): express.Express
 
 
   const distFolder = join(process.cwd(), 'dist/browser');
-  server.use('/', expressStaticGzip(distFolder, {
-    enableBrotli: true,
-    orderPreference: ['br']
-  }));
+
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -44,15 +41,7 @@ export function app(): express.Express
   {
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
-  // const redis = require("redis"),
-  //   client = redis.createClient();
-  // server.use(require('prerender-node').set('beforeRender', function (req: any, done: any)
-  // {
-  //   client.get(req.url, done);
-  // }).set('afterRender', function (err: any, req: any, prerender_res: any)
-  // {
-  //   client.set(req.url, prerender_res.body);
-  // }));
+
   return server;
 }
 

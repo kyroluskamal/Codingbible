@@ -31,3 +31,8 @@
   background: none;
   height: 0px !important;
 } */
+
+.SelectCheckBoxes .form-check-input:checked+label.w-100{
+  background-color: #e1e3e6;
+  font-weight: bold;
+}

@@ -169,6 +169,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
         anchorNode: selection?.anchorNode,
         focusNode: selection?.focusNode
       };
+      console.log(this.selectedText);
     }
     else if (document.getSelection())
     {
@@ -193,6 +194,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
     this.post.htmlContent = this.view.nativeElement.innerHTML;
     this.post.slug = String(this.slug.nativeElement.value);
     this.post.author = null;
+    this.post.categories = this.selectedCategories;
     this.store.dispatch(UpdatePOST(this.post));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
@@ -258,15 +260,14 @@ export class PostHandlerComponent implements OnInit, OnChanges
     this.post.featureImageUrl = "";
     this.form.get(FormControlNames.postForm.featureimageurl)?.setValue("");
   }
-  selectCategory(value: number)
+  selectCategory(selectedCatId: number)
   {
-    console.log(value);
-    if (!this.selectedCategories.includes(value))
-    {
-      this.selectedCategories.push(value);
-    } else
-    {
-      this.selectedCategories.splice(this.selectedCategories.indexOf(value), 1);
-    }
+    let temp: number[] = [];
+    temp = [...this.selectedCategories];
+    temp.includes(selectedCatId)
+      ? temp.splice(temp.indexOf(selectedCatId), 1)
+      : temp.push(selectedCatId);
+    this.selectedCategories = temp;
+    this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
   }
 }

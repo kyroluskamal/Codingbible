@@ -153,13 +153,21 @@ namespace CodingBible.Controllers.api.v1
         {
             if (ModelState.IsValid)
             {
-                var getPost = await UnitOfWork.Posts.GetAsync(Post.Id);
+                var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "PostsCategories");
                 if (getPost == null)
                 {
                     return NotFound();
                 }
                 var oldFeatureImageUrl = getPost.FeatureImageUrl;
-                getPost = Mapper.Map(Post, getPost);
+                getPost.CommentStatus = Post.CommentStatus;
+                getPost.HtmlContent = Post.HtmlContent;
+                getPost.LasModified = DateTime.Now;
+                getPost.Description = Post.Description;
+                getPost.Excerpt = Post.Excerpt;
+                getPost.FeatureImageUrl = Post.FeatureImageUrl;
+                getPost.Title = Post.Title;
+                getPost.Slug = Post.Slug;
+
                 UnitOfWork.Posts.Update(getPost);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
@@ -176,9 +184,28 @@ namespace CodingBible.Controllers.api.v1
                         var old_PostAttachments = await UnitOfWork.PostAttachments.GetAllAsync(x => x.PostId == Post.Id
                         && x.AttachmentId == oldAttachment.First().Id);
                         UnitOfWork.PostAttachments.Remove(old_PostAttachments.First());
-                        await UnitOfWork.SaveAsync();
                     }
-                    return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title));
+                    foreach (var cat in getPost.PostsCategories)
+                    {
+                        UnitOfWork.PostsCategories.Remove(cat);
+                    }
+                    // await UnitOfWork.SaveAsync();
+
+                    if (Post.Categories.Length > 0)
+                    {
+                        List<PostsCategory> postCategories = new();
+                        foreach (var cat in Post.Categories)
+                        {
+                            postCategories.Add(new PostsCategory()
+                            {
+                                PostId = getPost.Id,
+                                CategoryId = cat,
+                            });
+                        }
+                        await UnitOfWork.PostsCategories.AddRangeAsync(postCategories.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
+                    return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title, getPost));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(getPost.Title));
             }

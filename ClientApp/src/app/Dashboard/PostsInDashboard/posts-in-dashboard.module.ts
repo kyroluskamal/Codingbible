@@ -12,17 +12,15 @@ import { MatInputModule } from '@angular/material/input';
 import { PostsInDashboardRoutingModule } from './posts-in-dashboard-routing.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
-import { MatSelectModule } from '@angular/material/select';
 const components = [
   PostsDashboardComponent, AddPostsComponent, CodingBibleEditorComponent,
   PostHandlerComponent, EditPostComponent];
 @NgModule({
   imports: [TooltipModule, FlexLayoutModule, ShareComponentsforDashboardModule,
     SharedModule, MatFormFieldModule, MatTableModule, TabsModule,
-    MatInputModule, PostsInDashboardRoutingModule, DragDropModule, MatSelectModule
+    MatInputModule, PostsInDashboardRoutingModule,
   ],
   declarations: [components, HandleBooleanPipe]
 })

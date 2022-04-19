@@ -9,7 +9,7 @@ import { ServerResponseHandelerService } from 'src/CommonServices/server-respons
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { Post } from 'src/models.model';
+import { Post, PostsCategory } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
 import { AddPOST, AddPOST_Failed, AddPOST_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById, GetPostById_Failed, GetPostById_Success, LoadPOSTs, LoadPOSTsFail, LoadPOSTsSuccess, RemovePOST, RemovePOST_Failed, RemovePOST_Success, SetValidationErrors, UpdatePOST, UpdatePOST_Failed, UpdatePOST_Sucess } from './post.actions';
 import { selectAllposts } from './post.reducer';
@@ -58,11 +58,12 @@ export class PostEffects
         return this.postService.UpdatePost(action).pipe(
           map((r) =>
           {
+            console.log(r);
             this.spinner.removeSpinner();
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Post'));
             let x: Update<Post> = {
               id: action.id,
-              changes: action
+              changes: r.data as Post
             };
             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
             return UpdatePOST_Sucess({ POST: x });

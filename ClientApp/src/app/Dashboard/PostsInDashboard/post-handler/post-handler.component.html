@@ -187,50 +187,63 @@
                 <div class="card-header">
                     Choose categoris
                 </div>
-                <div class="card-body d-flex flex-row justify-content-center btn align-items-center"
+                <div class="card-body"
                      style="height: 150px">
-                    <mat-form-field appearance="outline"
-                                    class="w-100">
-                        <mat-select [formControlName]="FormControlNames.postForm.categories"
-                                    [errorStateMatcher]="CustoErrorStateMatcher"
-                                    #categories
-                                    (selectionChange)="selectCategory(categories.value)"
-                                    multiple>
-                            <mat-option *ngFor="let cat of (cats$|async)"
-                                        [value]="cat.id">
-                                <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-error
-                                   *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)">
-                            {{FormValidationErrors.RequiredField}}
-                        </mat-error>
-                    </mat-form-field>
-                    <!-- <div class="has-validation w-100 h-100">
-                        <select #categories
-                                required
-                                multiple
-                                (change)="$event.preventDefault()"
-                                [formControlName]="FormControlNames.postForm.categories"
-                                [class]="errorState.isErrorState(FormControlNames.postForm.categories, form, Form)?
-                                               'form-select is-invalid w-100 h-100':'form-select is-valid w-100 h-100'"
-                                id="categories"
-                                aria-label="Select categories">
-                            <option *ngFor="let cat of (cats$|async)"
-                                    [value]="cat.id"
-                                    (click)=" $event.preventDefault();selectCategory(cat.id)"
-                                    [tooltip]="cat.title">
-                                <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
-                            </option>
-                        </select>
-
-                        <div class="validationDiv">
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)
-                                          &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, form, Form)">
-                                {{FormValidationErrors.RequiredField}}
-                            </span>
+                    <div
+                         [class]="form.get(FormControlNames.postForm.categories)?.valid?'w-100 border border-2 rounded-1 border-success h-100 overflow-auto p-2':'w-100 border border-2 border-danger rounded-1 h-100 overflow-auto p-2'">
+                        <div class="form-check SelectCheckBoxes"
+                             *ngFor="let cat of (cats$|async)">
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   [id]="cat.id"
+                                   (click)="selectCategory(cat.id)"
+                                   [value]="cat.id"
+                                   [checked]="selectedCategories.includes(cat.id)" />
+                            <label class="form-check-label w-100"
+                                   [for]="cat.id">
+                                <span *ngFor="let _ of [].constructor(cat.level)">— </span> {{cat.name}}
+                            </label>
                         </div>
+                    </div>
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                    </div>
+                    <!-- <div class="
+                              has-validation
+                              w-100
+                              h-100">
+                            <select #categories
+                                    required
+                                    multiple
+                                    [formControlName]="FormControlNames.postForm.categories"
+                                    (change)="selectCategory(categories)"
+                                    [class]="errorState.isErrorState(FormControlNames.postForm.categories, form, Form)?
+                                               'form-select is-invalid w-100 h-100':'form-select is-valid w-100 h-100'"
+                                    id="categories"
+                                    aria-label="Select categories">
+                                <div class="form-check"
+                                     *ngFor="let cat of (cats$|async)">
+                                    <input type="checkbox"
+                                           class="form-check-input"
+                                           [value]="cat.id" />
+                                    <label class="form-check-label"
+                                           for="flexCheckDisabled">
+                                        <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>
+                                        {{cat.name}}
+                                    </label>
+                                </div>
+                            </select>
+
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="form.get(FormControlNames.postForm.categories)?.hasError(FormValidationErrorsNames.required)
+                                          &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, form, Form)">
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                            </div>
                     </div> -->
                 </div><!-- end card body -->
             </div><!-- end category card -->

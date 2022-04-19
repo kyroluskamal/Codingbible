@@ -194,9 +194,9 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("UPDATE_FAILED", $"{op} update failed");
             }
-            public static object Update_Sucess(string op)
+            public static object Update_Sucess(string op, dynamic data = null)
             {
-                return new HttpResponsesObject("UPDATE_SUCCESS", $"{op} update success");
+                return new HttpResponsesObject("UPDATE_SUCCESS", $"{op} update success", data);
             }
             public static object Delete_Failed(string op)
             {
