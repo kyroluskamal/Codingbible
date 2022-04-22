@@ -19,7 +19,7 @@
                         <option value="fs-6"
                                 class="fs-6">Sample</option>
                 </select>
-                <select (change)="SetHeader(header)"
+                <select (change)="AddRemoveTag(header.value)"
                         #header
                         class="form-select form-select-sm w-25 me-1 mb-1"
                         aria-label=".form-select-sm example">
@@ -58,18 +58,18 @@
                      aria-label="format text">
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="bold()">
+                                (click)="AddRemoveTag('strong')">
                                 <i class="bi bi-type-bold"></i>
 
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="italic()">
+                                (click)="AddRemoveTag('em')">
                                 <i class="bi bi-type-italic"></i>
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="underline()">
+                                (click)="AddRemoveTag('u')">
                                 <i class="bi bi-type-underline"></i>
                         </button>
                         <button type="button"
@@ -79,12 +79,12 @@
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="Strikethrough_delTag()">
+                                (click)="AddRemoveTag('del')">
                                 del
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="Undeline_byInsert()">
+                                (click)="AddRemoveTag('ins')">
                                 ins
                         </button>
                 </div>
@@ -98,7 +98,7 @@
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1"
-                                (click)="Remove_PTag()">
+                                (click)="AddRemoveTag('p')">
                                 <span class="text-decoration-line-through px-2 fw-bold">P</span>
                         </button>
                 </div>
@@ -107,12 +107,12 @@
                      aria-label="format text">
                         <button type="button"
                                 class="btn btn-outline-secondary p-1 fw-bold px-2"
-                                (click)="superScript()">
+                                (click)="AddRemoveTag('sup')">
                                 X<sup>2</sup>
                         </button>
                         <button type="button"
                                 class="btn btn-outline-secondary p-1 fw-bold px-2"
-                                (click)="subScript()">
+                                (click)="AddRemoveTag('sub')">
                                 X<sub>2</sub>
                         </button>
                 </div>

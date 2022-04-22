@@ -18,7 +18,11 @@ export function app(): express.Express
 
 
   const distFolder = join(process.cwd(), 'dist/browser');
-
+  server.use('/', expressStaticGzip(distFolder, {
+    enableBrotli: true,
+    index: false,
+    orderPreference: ['br','gz']
+  }));
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -33,7 +37,8 @@ export function app(): express.Express
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
+    maxAge: '1y',
+
   }));
 
   // All regular routes use the Universal engine

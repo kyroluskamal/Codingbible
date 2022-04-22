@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
 
 @Component({
@@ -9,11 +10,28 @@ import { SelectedTextData } from 'src/Interfaces/interfaces';
 export class CodingBibleEditorComponent implements OnInit, OnChanges
 {
   text: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };;
-  finalText: string = "";
+  textToReplaceWith: string = "";
+  textToReplace: string = "";
+  anchorNodeText: string = "";
+  anchorNode_OuterHtml: string = "";
+  anchorNode_StartTag: string = "";
+  anchorNode_EndTag: string = "";
+  focusNodeText: string = "";
+  focusNode_OuterHtml: string = "";
+  focusNode_StartTag: string = "";
+  focusNode_EndTag: string = "";
+  focusNodeIndex: number = -1;
+  anchorNodeIndex: number = -1;
+  anchorNode: ChildNode | null = null;
+  focusNode: ChildNode | null = null;
+  NodesBetween_AnchorNode_and_FocusNode: string = "";
+  NodesBetween_AnchorNode_and_FocusNode_List: ChildNode[] = [];
   @Input() selectedText: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
   @Input() html!: HTMLTextAreaElement;
-  constructor() { }
+
+
+  constructor(@Inject(DOCUMENT) private document: Document) { }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('selectedText' in changes)
@@ -25,38 +43,22 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   ngOnInit(): void
   {
   }
-  /**********************************************************************************
-   *                                      Bold
-   **********************************************************************************/
-  bold()
-  {
-    this.AddRemoveStyle("strong");
-  }
-  /**********************************************************************************
- *                                      Italic
- **********************************************************************************/
-  italic() { this.AddRemoveStyle('em'); }
-  /**********************************************************************************
-  *                                      Underline
-  **********************************************************************************/
-  underline() { this.AddRemoveStyle('u'); }
-  Undeline_byInsert() { this.AddRemoveStyle('ins'); }
+
   /**********************************************************************************
    *                                      FontSize
    **********************************************************************************/
   setFontSize(fontSize: HTMLSelectElement)
   {
-    this.getTextFromRexgex();
     let sizes = ['fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
-    if (this.finalText.includes(fontSize.value))
+    if (this.textToReplaceWith.includes(fontSize.value))
     {
       this.removeClass(fontSize.value);;
     } else
     {
       for (let s of sizes)
       {
-        if (this.finalText.includes(`${s}`))
+        if (this.textToReplaceWith.includes(`${s}`))
         {
           this.removeClass(s);
         }
@@ -71,224 +73,37 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   Strikethrough()
   {
-    this.getTextFromRexgex();
     if (this.selectedText.text === '' && !this.view && !this.html) return;
-    if (this.finalText.includes("text-decoration-line-through"))
+    if (this.textToReplaceWith.includes("text-decoration-line-through"))
     {
       this.removeClass("text-decoration-line-through");
     } else
     {
-
       this.addClass("text-decoration-line-through");
     }
     this.UpdateHtml();
   }
-  Strikethrough_delTag()
-  {
-    this.AddRemoveStyle('del');
-  }
+
   /**********************************************************************************
   *                                      Remove styles
   **********************************************************************************/
   RemoveAllStyles()
   {
-    this.getTextFromRexgex();
-    let temp = this.finalText;
-    let tags = this.finalText.match(/(<(\"[^\"div\|p]*\"|'[^']*'|[^'\">])*>)/gi);
-    for (let t of tags!)
-      if (!t.includes("div") && !t.includes("p"))
-        this.finalText = this.finalText.replace(t, '');
-    this.view.innerHTML = this.view.innerHTML.replace(temp, this.finalText);
-    this.UpdateHtml();
+    this.AddRemoveTag('span');
+    let temp = this.textToReplaceWith;
+    let tags = this.textToReplaceWith.match(/<[^\/]("[^"]*"|'[^']*'|[^'">])*>|<\/[a-zA-Z0-9]+>/gi);
+    // console.log(tags);
+    // for (let t of tags!)
+    //   if (!t.includes("div") && !t.includes("p") || t.includes("span"))
+    this.textToReplaceWith = this.textToReplaceWith.replace(/<[^\/]("[^"]*"|'[^']*'|[^'">])*>|<\/[a-zA-Z0-9]+>/gi, '');
+    this.applyChangesToView(temp, this.textToReplaceWith);
   }
-  Remove_PTag()
-  {
-    this.getTextFromRexgex();
-    let startRegex = new RegExp(`<p(\s?[^>]*)*>`, 'gi');
-    let endRegex = new RegExp(`</p>`, 'gi');
-    this.removeTag(startRegex, endRegex);
-    this.UpdateHtml();
-  }
-  /**********************************************************************************
-  *                               SetHeaders
-  **********************************************************************************/
-  SetHeader(header: HTMLSelectElement)
-  {
-    let startRegex = new RegExp(`<${header.value}(\s?[^>]*)*>`, 'gi');
-    let endRegex = new RegExp(`</${header.value}>`, 'gi');
-    this.getTextFromRexgex();
-    let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
-    if (this.selectedText.text === '' && !this.view && !this.html) return;
-    if (this.finalText.includes(`<${header.value}`) && this.finalText.includes(`</${header.value}>`))
-    {
-      this.removeTag(startRegex, endRegex);
-    }
-    else
-    {
-      for (let h of headers)
-      {
-        if (this.finalText.includes(`<${h}>`))
-        {
-          let startRegex = new RegExp(`<${h}(\s?[^>]*)*>`, 'gi');
-          let endRegex = new RegExp(`</${h}>`, 'gi');
-          this.removeTag(startRegex, endRegex);
-        }
-      }
-      this.addTag(header.value);
-    }
-    this.UpdateHtml();
-    header.value = "";
-  }
+
+
   /**********************************************************************************
   *                               Subscript and superscript
   **********************************************************************************/
-  superScript() { this.AddRemoveStyle('sup'); }
-  subScript() { this.AddRemoveStyle('sub'); }
 
-  UpdateHtml()
-  {
-    this.html.value = this.view.innerHTML;
-  }
-
-  AddRemoveStyle(tag: string)
-  {
-    let startRegex = new RegExp(`<${tag}(\s?[^>]*)*>`, 'gi');
-    let endRegex = new RegExp(`</${tag}>`, 'gi');
-    this.getTextFromRexgex();
-    if (this.selectedText.text === '' && !this.view && !this.html) return;
-    if (this.finalText.includes(`<${tag}`) && this.finalText.includes(`</${tag}>`))
-    {
-      this.removeTag(startRegex, endRegex);
-    } else
-      this.addTag(tag);
-    this.UpdateHtml();
-  }
-
-  getTextFromRexgex()
-  {
-    debugger;
-    this.text = this.selectedText;
-    let startIndex: number = -1;
-    let endIndex: number = -1;
-    // If we have only one node inside the editable div
-    if (this.text.text !== '')
-    {
-      if (this.view.childNodes.length === 1)
-      {
-        // If this node is text node
-        if (this.view.childNodes[0].nodeName === '#text')
-        {
-          this.finalText = this.view.innerHTML.substring(this.text.start, this.text.end);
-        }
-        //if it is not a text node (the whole text is surrounded by on tag)
-        else
-        {
-          let Node = (<HTMLElement>this.view.childNodes[0]);
-          let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${this.text.text}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
-          let match = Node.outerHTML.match(temRegex);
-          if (Node.innerText.length === this.text.text.length)
-          {
-            this.finalText = Node.outerHTML;
-          }
-          else if (Node.innerText.length > this.text.text.length)
-          {
-            console.log(match);
-            if (match)
-            {
-              this.finalText = match[0];
-            } else
-              this.finalText = this.text.text;
-          }
-        }
-      }
-      else if (this.view.childNodes.length > 1)
-      {
-        this.checkIfSelectionFromLeftToRight(this.text.anchorNode?.textContent, this.text.focusNode?.textContent);
-        let anchorNode: ChildNode | null = null;
-        let anchorNodeIndex: number = -1;
-        let focusNodeIndex: number = -1;
-        let focusNode: ChildNode | null = null;
-        for (let i = 0; i < this.view.childNodes.length; i++)
-        {
-          if (this.view.childNodes[i].textContent?.includes(this.text.anchorNode?.textContent!))
-          {
-            anchorNode = this.view.childNodes[i];
-            anchorNodeIndex = i;
-          }
-          if (this.view.childNodes[i].textContent?.includes(this.text.focusNode?.textContent!))
-          {
-            focusNode = this.view.childNodes[i];
-            focusNodeIndex = i;
-          }
-          if (anchorNodeIndex > -1 && focusNodeIndex > -1) break;
-        }
-        if (anchorNode?.nextSibling === focusNode)
-        {
-          if (this.text.end !== focusNode?.textContent!.length! - 1)
-          {
-
-          }
-        }
-        // if (anchorNode?.textContent!?.length < this.text.text.length)
-        // {
-        //   let temp = "";
-        //   temp = anchorNode?.nodeName === "#text" ? anchorNode.textContent!?.substring(this.text.start) :
-        //     this.text.start === 0 ? (<HTMLElement>anchorNode).outerHTML.substring(this.text.start) :
-        //       (<HTMLElement>anchorNode).outerHTML.substring(this.text.start + this.getTheFirstTag((<HTMLElement>anchorNode).outerHTML!)?.length!);
-        //   if (focusNodeIndex - anchorNodeIndex > 1)
-        //   {
-        //     for (let i = anchorNodeIndex + 1; i < focusNodeIndex; i++)
-        //     {
-        //       temp += this.view.childNodes[i].nodeName === "#text" ? this.view.childNodes[i].textContent : (<HTMLElement>this.view.childNodes[i]).outerHTML;
-        //     }
-        //   }
-        //   temp += focusNode?.nodeName === '#text' ? focusNode.textContent!.substring(0, this.text.end) :
-        //     (<HTMLElement>focusNode).outerHTML.substring(0, this.text.end + this.getTheFirstTag((<HTMLElement>focusNode).outerHTML!)?.length!);
-        //   this.finalText = temp;
-
-        // }
-        // else if (anchorNode?.textContent!?.length > this.text.text.length)
-        // {
-        //   if (this.text.anchorNode?.textContent === this.text.focusNode?.textContent)
-        //   {
-        //     let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${this.text.text}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
-        //     if (anchorNode?.nodeName === "#text")
-        //     {
-        //       this.finalText = anchorNode.textContent!?.substring(this.text.start, this.text.end); return;
-        //     } else
-        //     {
-        //       let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
-        //       if (match)
-        //       {
-        //         this.finalText = match[0];
-        //         return;
-        //       }
-        //     }
-        //   }
-        //   else
-        //   {
-        //     let temp = (<HTMLElement>anchorNode).innerHTML.substring((<HTMLElement>anchorNode).innerHTML.indexOf(this.text.anchorNode?.textContent!) + this.text.start,
-        //       (<HTMLElement>focusNode).innerHTML.indexOf(this.text.focusNode?.textContent!) + this.text.end);
-        //     let temRegex = new RegExp(`(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?\\s*${temp}\\s*(<(\"[^\"]*\"|'[^']*'|[^'\">])*>)?`);
-        //     let match = (<HTMLElement>anchorNode).outerHTML.match(temRegex);
-        //     if (match)
-        //     {
-        //       this.finalText = match[0];
-        //       return;
-        //     }
-        //   }
-        // } else if (anchorNode?.textContent?.length === this.text.text.length)
-        // {
-        //   this.finalText = anchorNode.nodeName === '#text' ? anchorNode.textContent : (<HTMLElement>anchorNode).outerHTML;
-        // }
-
-      }
-    } else
-    {
-      this.finalText = this.text.anchorNode?.parentElement!?.outerHTML;
-    }
-
-  }
 
   checkIfSelectionFromLeftToRight(anchorText: any, focusText: any)
   {
@@ -319,66 +134,333 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       }
     }
   }
-  getTheFirstTag(x: string)
-  {
-    return x.match(/<("[^"]*"|'[^']*'|[^'">])*>/)![0];
-  }
 
-
-  removeTag(startRegex: RegExp, endRegex: RegExp)
+  AddRemoveTag(tag: string)
   {
-    let temp = this.finalText;
-    this.finalText = this.finalText.replace(startRegex, '').replace(endRegex, '');
-    this.view.innerHTML = this.view.innerHTML
-      .replace(temp, this.finalText);
-  }
-  addTag(tag: string)
-  {
-    let startRegex = new RegExp(`<p(\s?[^>]*)*>`, 'gi');
-    let endRegex = new RegExp(`</p>`, 'gi');
-    if (this.finalText.match(startRegex))
-    {
-      let m = this.finalText.match(startRegex)![0];
-      let end = this.finalText.match(endRegex)![0];
-      let temp = this.finalText;
-      this.finalText = this.finalText.replace(startRegex, '').replace(endRegex, '');
-      this.finalText = `<${tag}>${this.finalText}</${tag}>`;
-      this.finalText = `${m}${this.finalText}${end}`;
-      this.view.innerHTML = this.view.innerHTML
-        .replace(temp, this.finalText);
-    } else
-      this.view.innerHTML = this.view.innerHTML
-        .replace(this.finalText, `<${tag}>${this.finalText}</${tag}>`);
+    this.buildTextToReplace_And_TextToReplaceWith(tag);
   }
 
   removeClass(className: string)
   {
-    let temp = this.finalText;
-    this.finalText = this.finalText.replace(className, '');
-    if (this.finalText.search(/class=("|')("|')/g) > -1)
+    let temp = this.textToReplaceWith;
+    this.textToReplaceWith = this.textToReplaceWith.replace(className, '');
+    if (this.textToReplaceWith.search(/class=("|')("|')/g) > -1)
     {
       let startRegex = new RegExp(`<span(\s?[^>]*)*>`, 'gi');
       let endRegex = new RegExp(`</span>`, 'gi');
-      this.finalText = this.finalText.replace(startRegex, '').replace(endRegex, '');
+      this.textToReplaceWith = this.textToReplaceWith.replace(startRegex, '').replace(endRegex, '');
       this.view.innerHTML = this.view.innerHTML
-        .replace(temp, this.finalText);
+        .replace(temp, this.textToReplaceWith);
       return;
     }
-    this.view.innerHTML = this.view.innerHTML.replace(temp, this.finalText);
+    this.view.innerHTML = this.view.innerHTML.replace(temp, this.textToReplaceWith);
   }
   addClass(className: string)
   {
-    if (this.finalText.includes("class="))
+    if (this.textToReplaceWith.includes("class="))
     {
-      let match = this.finalText.match(/class=("|')[^'"><]+("|')/gi)![0];
+      let match = this.textToReplaceWith.match(/class=("|')[^'"><]+("|')/gi)![0];
       let classes = match.substring('class="'.length, match.length - 1);
       let newClassList = className + ' ' + classes;
-      let temp = this.finalText;
-      this.finalText = this.finalText.replace(classes, newClassList);
+      let temp = this.textToReplaceWith;
+      this.textToReplaceWith = this.textToReplaceWith.replace(classes, newClassList);
       this.view.innerHTML = this.view.innerHTML
-        .replace(temp, this.finalText);
+        .replace(temp, this.textToReplaceWith);
     } else
       this.view.innerHTML = this.view.innerHTML
-        .replace(this.finalText, `<span class="${className}">${this.finalText}</span>`);
+        .replace(this.textToReplaceWith, `<span class="${className}">${this.textToReplaceWith}</span>`);
+  }
+
+
+  /*******************************************************************************************
+   *                                    Helper functions
+  ****************************************************************************************** */
+  private buildTextToReplace(anchorNode: ChildNode | null, focusNode: ChildNode | null, tag: string)
+  {
+    //get the anchorNode text from the selected text
+    debugger;
+    if (anchorNode?.nodeName === '#text' && focusNode?.nodeName !== '#text')
+    {
+      this.focusNode_OuterHtml = (<HTMLElement>focusNode)?.outerHTML;
+      this.focusNode_StartTag = this.getTheFirstTag(this.focusNode_OuterHtml);
+      this.focusNode_EndTag = this.getTheEndTag(this.focusNode_OuterHtml);
+      if (this.text.end !== focusNode?.textContent!.length!)
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ? `<${tag}>${this.anchorNodeText}</${tag}>${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>` :
+          `<${tag}>${this.anchorNodeText}</${tag}><${tag}>${this.NodesBetween_AnchorNode_and_FocusNode}</${tag}>${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>`;
+        this.textToReplace = this.anchorNodeText! + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_StartTag + this.focusNodeText;
+      } else 
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ? `<${tag}>${this.anchorNodeText}${this.focusNode_OuterHtml}</${tag}>` :
+          `<${tag}>${this.anchorNodeText}${this.NodesBetween_AnchorNode_and_FocusNode}${this.focusNode_OuterHtml}</${tag}>`;
+        this.textToReplace = this.anchorNodeText! + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_StartTag + this.focusNodeText + this.focusNode_EndTag;
+      }
+    }
+    else if (anchorNode?.nodeName !== '#text' && focusNode?.nodeName === '#text')
+    {
+      this.anchorNode_OuterHtml = (<HTMLElement>anchorNode)?.outerHTML;
+      this.anchorNode_StartTag = this.getTheFirstTag(this.anchorNode_OuterHtml);
+      this.anchorNode_EndTag = this.getTheEndTag(this.anchorNode_OuterHtml);
+      if (this.text.start !== 0 &&
+        (this.text.end !== focusNode?.textContent!.length! || this.text.end === focusNode?.textContent!.length!))
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ?
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}<${tag}>${this.focusNodeText}</${tag}>` :
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}<${tag}>${this.NodesBetween_AnchorNode_and_FocusNode}${this.focusNodeText}</${tag}>`;
+        this.textToReplace = this.anchorNodeText + this.anchorNode_EndTag + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNodeText;
+      } else if (this.text.start === 0 && (this.text.end !== focusNode?.textContent!.length! || this.text.end === focusNode?.textContent!.length!))
+      {
+        this.textToReplace = this.anchorNode_OuterHtml + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNodeText;
+        this.textToReplaceWith = `<${tag}>${this.textToReplace}</${tag}>`;
+      }
+    }
+    else if (anchorNode?.nodeName !== '#text' && focusNode?.nodeName !== '#text')
+    {
+
+      if (this.text.start !== 0 && this.text.end !== focusNode?.textContent!.length!)
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ?
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>` :
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}<${tag}>${this.NodesBetween_AnchorNode_and_FocusNode}</${tag}>${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>`;
+        this.textToReplace = this.anchorNodeText + this.anchorNode_EndTag + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_StartTag + this.focusNodeText;
+      }
+      else if (this.text.start === 0 && this.text.end !== focusNode?.textContent!.length!)
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ?
+          `<${tag}>${this.anchorNode_OuterHtml}</${tag}>${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>` :
+          `<${tag}>${this.anchorNode_OuterHtml}${this.NodesBetween_AnchorNode_and_FocusNode}</${tag}>${this.focusNode_StartTag}<${tag}>${this.focusNodeText}</${tag}>`;
+        this.textToReplace = this.anchorNode_OuterHtml + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_StartTag + this.focusNodeText;
+      }
+      else if (this.text.start !== 0 && this.text.end === focusNode?.textContent!.length!)
+      {
+        this.textToReplaceWith = this.NodesBetween_AnchorNode_and_FocusNode === '' ?
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}<${tag}>${this.focusNode_OuterHtml}</${tag}>` :
+          `<${tag}>${this.anchorNodeText}</${tag}>${this.anchorNode_EndTag}<${tag}>${this.NodesBetween_AnchorNode_and_FocusNode}${this.focusNode_OuterHtml}</${tag}>`;
+        this.textToReplace = this.anchorNodeText + this.anchorNode_EndTag + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_StartTag + this.focusNodeText + this.focusNode_EndTag;
+      }
+      else if (this.text.start === 0 && this.text.end === focusNode?.textContent!.length!)
+      {
+        this.textToReplace = this.anchorNode_OuterHtml + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNode_OuterHtml;
+        this.textToReplaceWith = `<${tag}>${this.textToReplace}</${tag}>`;
+      }
+    } else
+    {
+      this.textToReplace = this.anchorNodeText + this.NodesBetween_AnchorNode_and_FocusNode + this.focusNodeText;
+      this.textToReplaceWith = `<${tag}>${this.textToReplace}</${tag}>`;
+    }
+  }
+  private buildTextToReplace_And_TextToReplaceWith(tag: string)
+  {
+    if (tag === "") return;
+    this.view.innerHTML = this.view.innerHTML.replace("&nbsp;", "");
+    this.checkIfSelectionFromLeftToRight(this.text.anchorNode?.textContent, this.text.focusNode?.textContent);
+
+    this.text = this.selectedText;
+    // If we have only one node inside the editable div
+    this.find_AnchorNode_and_FocusNode();
+    //find the anchor node and focusnode with their indices
+
+    //if the whole selected text is inside one node, the anchorNode and focusNode are the same
+    if (this.text.anchorNode === this.text.focusNode || this.anchorNode !== null && this.focusNode === null)
+    {
+
+      //if we just clicked inside the node, the selected text is empty and we will select the whole text inside the node
+      if (this.text.text === '')
+      {
+        if (this.anchorNode?.nodeName === '#text')
+        {
+          this.textToReplace = this.anchorNode.textContent!;
+          this.textToReplaceWith = `<${tag}>${this.textToReplace}</${tag}>`;
+        } else
+        {
+          let matchStartTag = this.matchStartTag(this.anchorNode_OuterHtml, tag);
+          let matchEndTag = this.matchEndTag(this.anchorNode_OuterHtml, tag);
+          this.textToReplace = (<HTMLElement>this.anchorNode).outerHTML!;
+          this.textToReplaceWith = this.anchorNode_StartTag.includes(tag) && this.anchorNode_EndTag.includes(tag) ?
+            this.replaceLast(this.textToReplace.replace(this.anchorNode_StartTag, ""), `</${tag}>`) :
+            matchEndTag === '' && matchStartTag === '' ? `<${tag}>${this.textToReplace}</${tag}>` :
+              this.replaceLast(this.textToReplace.replace(matchStartTag, ""), matchEndTag);
+
+        }
+      }
+      else
+      {
+        this.anchorNodeText = this.focusNode !== null ? this.anchorNode?.textContent?.substring(this.text.start, this.text.end)! :
+          this.anchorNode?.textContent!;
+        if (this.anchorNode?.nodeName === '#text')
+        {
+          let startIndex = this.view.innerHTML.indexOf(this.anchorNode.textContent!) + this.text.start;
+          let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
+          let textToUpdate = this.anchorNodeText;
+          let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + textToUpdate.length);
+          this.textToReplace = textBeforeTextToUpdate + textToUpdate + textAfterTextToUpdate;
+          this.textToReplaceWith = textBeforeTextToUpdate + `<${tag}>${textToUpdate}</${tag}>` + textAfterTextToUpdate;
+        }
+        else
+        {
+          if (this.anchorNode_StartTag.includes(tag) && this.anchorNode_EndTag.includes(tag))
+          {
+            let startIndex = this.view.innerHTML.indexOf(this.anchorNode_OuterHtml);
+            let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
+            let textToUpdate = this.anchorNode_OuterHtml;
+            let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + textToUpdate.length);
+
+            this.textToReplace = textBeforeTextToUpdate + textToUpdate + textAfterTextToUpdate;
+            this.textToReplaceWith = textBeforeTextToUpdate + textToUpdate.replace(this.anchorNode_StartTag, "").replace(this.anchorNode_EndTag, "") + textAfterTextToUpdate;
+          } else
+          {
+            if (this.text.anchorNode?.textContent !== this.anchorNodeText)
+            {
+              let startIndex = this.view.innerHTML.indexOf(this.anchorNode_OuterHtml);
+              let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
+              let textToUpdate = this.anchorNode_OuterHtml;
+              let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + this.anchorNode_OuterHtml.length);
+
+              this.textToReplace = textBeforeTextToUpdate + textToUpdate + textAfterTextToUpdate;
+              this.textToReplaceWith = textBeforeTextToUpdate + `<${tag}>${textToUpdate}</${tag}>` + textAfterTextToUpdate;
+            } else
+            {
+              let startIndex = this.view.innerHTML.indexOf(this.anchorNode_StartTag + this.anchorNode?.textContent?.substring(0, this.text.start)) + this.text.start;
+              let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
+              let textToUpdate = this.anchorNodeText;
+              let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + textToUpdate.length);
+
+              this.textToReplace = textBeforeTextToUpdate + textToUpdate + textAfterTextToUpdate;
+              this.textToReplaceWith = textBeforeTextToUpdate + `<${tag}>${textToUpdate}</${tag}>` + textAfterTextToUpdate;
+            }
+
+          }
+        }
+      }
+    }
+    else
+    {
+      this.anchorNodeText = this.anchorNode?.textContent?.substring(this.text.start)!;
+
+      this.focusNodeText = this.focusNode?.textContent?.substring(0, this.text.end)!;
+      if (this.anchorNode?.nextSibling === this.focusNode)
+      {
+        this.NodesBetween_AnchorNode_and_FocusNode = "";
+        this.buildTextToReplace(this.anchorNode, this.focusNode, tag);
+      } else
+      {
+        for (let i = this.anchorNodeIndex + 1; i < this.focusNodeIndex; i++)
+        {
+          if (this.view.childNodes[i].nodeName === '#text')
+          {
+            this.NodesBetween_AnchorNode_and_FocusNode += this.view.childNodes[i].textContent;
+          } else
+          {
+            this.NodesBetween_AnchorNode_and_FocusNode += (<HTMLElement>this.view.childNodes[i]).outerHTML;
+          }
+        }
+        this.buildTextToReplace(this.anchorNode, this.focusNode, tag);
+      }
+    }
+    this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
+
+  }
+  applyChangesToView(textToReplace: string, textToReplaceWith: string)
+  {
+    this.view.innerHTML = this.view.innerHTML.replace(textToReplace, textToReplaceWith);
+    this.UpdateHtml();
+  }
+  getTheFirstTag(x: string)
+  {
+    return x.match(/<[^\/]("[^"]*"|'[^']*'|[^'">])*>/)![0];//get start tag only
+  }
+  getTheEndTag(x: string)
+  {
+    let match = x.match(/<\/[a-zA-Z0-9]+>/g);
+    return match![match?.length! - 1];
+  }
+  matchEndTag(text: string, tag: string)
+  {
+    let re = new RegExp(`<${tag}(\s?[^>]*)*>`);
+    let match = text.match(re);
+    console.log(match);
+    return match === null ? "" : match![match?.length! - 1];
+  }
+  matchStartTag(text: string, tag: string)
+  {
+    let re = new RegExp(`<${tag}(\s?[^>]*)*>`);
+    let match = text.match(re);
+    console.log(match);
+    return match === null ? "" : match![0];
+  }
+  find_AnchorNode_and_FocusNode()
+  {
+    debugger;
+    this.anchorNode = null;
+    this.anchorNodeIndex = -1;
+    this.anchorNodeText = "";
+    this.anchorNode_StartTag = "";
+    this.anchorNode_EndTag = "";
+    this.anchorNode_OuterHtml = "";
+    this.focusNode = null;
+    this.focusNodeIndex = -1;
+    this.focusNodeText = "";
+    this.focusNode_StartTag = "";
+    this.focusNode_EndTag = "";
+    this.focusNode_OuterHtml = "";
+    this.textToReplace = "";
+    this.textToReplaceWith = "";
+    this.NodesBetween_AnchorNode_and_FocusNode = "";
+    console.log(this.view.childNodes);
+    for (let i = 0; i < this.view.childNodes.length; i++)
+    {
+      if (this.view.childNodes[i].textContent?.includes(this.text.anchorNode?.textContent!))
+      {
+        this.anchorNode = this.view.childNodes[i];
+        this.anchorNodeIndex = i;
+      } else
+        if (this.view.childNodes[i].textContent?.includes(this.text.focusNode?.textContent!))
+        {
+          this.focusNode = this.view.childNodes[i];
+          this.focusNodeIndex = i;
+        }
+      if (this.anchorNodeIndex > -1 && this.focusNodeIndex > -1) break;
+    }
+    if (this.anchorNode?.nodeName !== '#text' && this.anchorNode != null)
+    {
+      this.anchorNode_OuterHtml = (<HTMLElement>this.anchorNode)?.outerHTML;
+      this.anchorNode_StartTag = this.getTheFirstTag(this.anchorNode_OuterHtml);
+      this.anchorNode_EndTag = this.getTheEndTag(this.anchorNode_OuterHtml);
+    }
+    if (this.focusNode?.nodeName !== '#text' && this.focusNode != null)
+    {
+      this.focusNode_OuterHtml = (<HTMLElement>this.focusNode)?.outerHTML;
+      this.focusNode_StartTag = this.getTheFirstTag(this.focusNode_OuterHtml);
+      this.focusNode_EndTag = this.getTheEndTag(this.focusNode_OuterHtml);
+    }
+  }
+  replaceLast(text: string, tag: string)
+  {
+    const lastIndexOfL = text.lastIndexOf(tag);
+
+    const removeLastL = text.slice(0, lastIndexOfL) +
+      text.slice(lastIndexOfL);
+    return removeLastL;
+  }
+  UpdateHtml()
+  {
+    this.html.value = this.view.innerHTML;
+  }
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent)
+  {
+    if (event.key === 'Enter')
+    {
+      // this.document.execCommand('formatBlock', true, 'p');
+      // event.preventDefault();
+      // this.view.innerHTML = this.view.innerHTML + '<p>klk;l</p>';
+      // this.UpdateHtml();
+      // let range = this.document.createRange();
+      // let sel = window.getSelection();
+      // range.setStart(this.view.childNodes[this.view.childNodes.length - 1], 0);
+      // range.collapse(true);
+      // sel?.removeAllRanges();
+      // sel?.addRange(range);
+    }
   }
 }

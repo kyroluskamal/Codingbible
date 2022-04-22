@@ -19,7 +19,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath":"dist/browser",
             "index": "src/index.html",
@@ -31,9 +31,6 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-             },
             "optimization": true,
             "statsJson": true,
             "styles": [
@@ -45,9 +42,8 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
-            "serviceWorker": true,
-            "ngswConfigPath": "ngsw-config.json"
+            ]
+            
           },
           "configurations": {
             "production": {

@@ -141,11 +141,12 @@
                     |                               View  
                     ------------------------------------------------------------------------------->
                     <div #view
-                         style="max-height: 500px;"
+                         style="max-height: 500px; display:inline-block;"
                          [innerHtml]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
                          (input)="UpdateHtml(html,view)"
                          class="Editor bg-white p-2 overflow-auto"
                          data-testid="view"
+                         id="EditorView"
                          (mouseup)="GetSelectedText(view)"
                          (keyup)="GetSelectedText(view)"
                          contenteditable="true">

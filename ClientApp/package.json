@@ -9,6 +9,7 @@
     "test": "ng test",
     "dev:ssr": "ng run ClientApp:serve-ssr",
     "serve:ssr": "node dist/server/main.js",
+    "compress": "gulp gzipApp gzipServer brotliApp brotliServer",
     "build:ssr": "ng build && ng run ClientApp:server",
     "analyze": "ng build --stats-json && npx webpack-bundle-analyzer dist/browser/stats.json",
     "prerender": "ng run ClientApp:prerender"
@@ -44,6 +45,9 @@
     "domino": "^2.1.6",
     "express": "^4.15.2",
     "express-static-gzip": "^2.1.5",
+    "gulp": "^4.0.2",
+    "gulp-brotli": "^3.0.0",
+    "gulp-gzip": "^1.4.2",
     "localstorage-polyfill": "^1.0.1",
     "ngrx-store-localstorage": "^13.0.0",
     "ngx-bootstrap": "^8.0.0",

@@ -36,3 +36,6 @@
   background-color: #e1e3e6;
   font-weight: bold;
 }
+#EditorView br{
+  display: none;
+}
