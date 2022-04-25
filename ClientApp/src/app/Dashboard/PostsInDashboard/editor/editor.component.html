@@ -1,6 +1,7 @@
 <div class="bg-light sticky-top mat-elevation-z2 p-1 d-flex flex-column h-auto pb-0">
         <div class="d-flex flex-row w-100 flex-wrap">
                 <select (change)="setFontSize(fontSize)"
+                        (selectstart)="fontSize.value = ''"
                         #fontSize
                         class="form-select form-select-sm w-25 mb-1 me-1"
                         aria-label=".form-select-sm example">
@@ -19,7 +20,8 @@
                         <option value="fs-6"
                                 class="fs-6">Sample</option>
                 </select>
-                <select (change)="AddRemoveTag(header.value)"
+                <select (change)="SetHeader(header)"
+                        (selectstart)="header.value = ''"
                         #header
                         class="form-select form-select-sm w-25 me-1 mb-1"
                         aria-label=".form-select-sm example">
