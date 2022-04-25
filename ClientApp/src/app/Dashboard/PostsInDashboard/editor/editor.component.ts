@@ -51,8 +51,10 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   SetHeader(header: HTMLSelectElement)
   {
+    debugger;
     let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
+    this.tag = header.value;
     this.buildTextToReplace_And_TextToReplaceWith();
     if (this.matchStartTag(this.textToReplace, header.value) && this.matchEndTag(this.textToReplace, header.value))
     {
@@ -63,10 +65,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       let isHeaderFound = false;
       for (let h of headers)
       {
-        if (this.matchStartTag(this.textToReplace, h))
+        let startTag = this.matchStartTag(this.textToReplace, h);
+        if (startTag !== '')
         {
-          this.textToReplaceWith = this.textToReplace.replace(`<${h}`, `<${header.value}`).replace(`</${h}>`, `</${header.value}>`);
-          isHeaderFound = true;
+          this.removeTag(h);
+          isHeaderFound = h === header.value;
           break;
         }
       }
@@ -75,7 +78,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         this.addRemoveTag(header.value);
       }
     }
-    this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
     header.value = "";
   }
   /**********************************************************************************
@@ -85,21 +87,31 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   {
     let sizes = ['fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
-    // if (this.textToReplaceWith.includes(fontSize.value))
-    // {
-    //   this.removeClass(fontSize.value);;
-    // } else
-    // {
-    //   for (let s of sizes)
-    //   {
-    //     if (this.textToReplaceWith.includes(`${s}`))
-    //     {
-    //       this.removeClass(s);
-    //     }
-    //   }
-    //   this.addClass(fontSize.value);
-    // }
-    // this.UpdateHtml();
+    this.tag = "span";
+    this.buildTextToReplace_And_TextToReplaceWith();
+    let startTag = this.matchStartTag(this.textToReplace, "span");
+    if (!startTag)
+    {
+      this.addRemoveClass(fontSize.value);
+    }
+    else
+    {
+      let isHeaderFound = false;
+      for (let s of sizes)
+      {
+        let size = startTag.match(s);
+        if (size)
+        {
+          this.removeClass(size[0]);
+          isHeaderFound = s === fontSize.value;
+          break;
+        }
+      }
+      if (!isHeaderFound)
+      {
+        this.addRemoveClass(fontSize.value);
+      }
+    }
     fontSize.value = "";
   }
   /**********************************************************************************
@@ -126,7 +138,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   /**********************************************************************************
   *                               Add remove tags
   **********************************************************************************/
-  AddRemoveTag(tag: string)
+  ApplyStyleByTag(tag: string)
   {
     this.tag = tag;
     this.buildTextToReplace_And_TextToReplaceWith();
@@ -330,7 +342,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         this.buildTextToReplace(this.anchorNode, this.focusNode);
       }
     }
-
   }
   applyChangesToView(textToReplace: string, textToReplaceWith: string)
   {
@@ -418,8 +429,9 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         }
       }
       this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
-      this.buildTextToReplace_And_TextToReplaceWith();
     }
+    this.buildTextToReplace_And_TextToReplaceWith();
+
   }
   UpdateHtml()
   {
@@ -427,22 +439,60 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   removeClass(className: string)
   {
-    let temp = this.textToReplaceWith;
-    this.textToReplaceWith = this.textToReplaceWith.replace(className, '');
-    if (this.textToReplaceWith.search(/class=("|')("|')/g) > -1)
+    if (this.textToTag.length === 0) return;
+    this.textToReplaceWith = "";
+    if (this.treatTextToTagElementsIndependentily)
     {
-      let startRegex = new RegExp(`<span(\s?[^>]*)*>`, 'gi');
-      let endRegex = new RegExp(`</span>`, 'gi');
-      this.textToReplaceWith = this.textToReplaceWith.replace(startRegex, '').replace(endRegex, '');
-      this.view.innerHTML = this.view.innerHTML
-        .replace(temp, this.textToReplaceWith);
-      return;
+      for (let t of this.textToTag)
+      {
+        if (t.needTag)
+        {
+          let startTag = this.matchStartTag(t.text, "span");
+          if (startTag != null)
+          {
+            let startTagWithClass = startTag.replace(className, "");
+            let temp = "";
+            if (startTagWithClass.match(/class=("|')\s*("|')/) !== null)
+              temp = this.removeLastTag(t.text.replace(startTag, ""), `</span>`);
+            else
+              temp = t.text.replace(startTag, startTagWithClass);
+            this.applyChangesToView(t.text, temp);
+          }
+        }
+      }
+      this.treatTextToTagElementsIndependentily = false;
+    } else
+    {
+      for (let t of this.textToTag)
+      {
+        if (t.needTag)
+        {
+          let startTag = this.matchStartTag(t.text, "span");
+          if (startTag != null)
+          {
+            let startTagWithClass = startTag.replace(className, "");
+            if (startTagWithClass.includes(className))
+            {
+              t.text = t.text.replace(className, "");
+              startTagWithClass.replace(className, "");
+            }
+            if (startTagWithClass.match(/class=("|')\s*("|')/) !== null)
+              t.text = this.removeLastTag(t.text.replace(startTag, ""), `</span>`);
+            else
+              t.text = t.text.replace(startTag, startTagWithClass);
+            this.textToReplaceWith += t.text;
+          }
+        } else
+        {
+          this.textToReplaceWith += t.text;
+        }
+      }
+      this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
+      this.buildTextToReplace_And_TextToReplaceWith();
     }
-    this.view.innerHTML = this.view.innerHTML.replace(temp, this.textToReplaceWith);
   }
   addRemoveClass(className: string)
   {
-    this.buildTextToReplace_And_TextToReplaceWith();
     debugger;
     if (this.treatTextToTagElementsIndependentily)
     {
@@ -519,6 +569,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       }
       this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
     }
+
   }
   checkIfSelectionFromLeftToRight(anchorText: any, focusText: any)
   {
@@ -635,14 +686,10 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       if (x !== null) return x;
       let start_of_string = (<HTMLElement>nodeList[i]).outerHTML ? (<HTMLElement>nodeList[i]).outerHTML.substring(0, `<${this.tag}`.length) : "";
 
-      let n = nodeList[i];
-      let c = start_of_string.includes(this.tag) && (<HTMLElement>nodeList[i]).innerText.includes(this.text.anchorNode?.textContent!);
-      let v = nodeList[i].isEqualNode(this.text.anchorNode!);
-      let y = nodeList[i].isEqualNode(this.text.anchorNode?.parentElement!);
       if (nodeList[i].isEqualNode(this.text.anchorNode!)
         || nodeList[i].isEqualNode(this.text.anchorNode?.parentElement!)
         || start_of_string.includes(this.tag)
-        && (<HTMLElement>nodeList[i]).innerText.includes(this.text.anchorNode?.textContent!))
+        && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.anchorNode?.textContent!)))
       {
         x = nodeList[i];
         return x;
@@ -663,7 +710,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       if (nodeList[i].isEqualNode(this.text.focusNode!) ||
         nodeList[i].isEqualNode(this.text.focusNode?.parentElement!)
         || start_of_string.includes(this.tag)
-        && (<HTMLElement>nodeList[i]).innerText.includes(this.text.focusNode?.textContent!))
+        && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.focusNode?.textContent!)))
       {
         x = nodeList[i];
         return x;
