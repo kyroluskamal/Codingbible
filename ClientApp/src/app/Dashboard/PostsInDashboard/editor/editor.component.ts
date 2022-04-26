@@ -32,7 +32,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   @Input() selectedText: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
   @Input() html!: HTMLTextAreaElement;
-
+  addedTags: string[] = [];
+  addedClasses: string[] = [];
 
   constructor(@Inject(DOCUMENT) private document: Document) { }
   ngOnChanges(changes: SimpleChanges): void
@@ -51,11 +52,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   SetHeader(header: HTMLSelectElement)
   {
-    debugger;
+    // debugger;
     let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = header.value;
-    this.buildTextToReplace_And_TextToReplaceWith();
+    // this.buildTextToReplace_And_TextToReplaceWith();
     if (this.matchStartTag(this.textToReplace, header.value) && this.matchEndTag(this.textToReplace, header.value))
     {
       this.removeTag(header.value);
@@ -88,7 +89,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let sizes = ['fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = "span";
-    this.buildTextToReplace_And_TextToReplaceWith();
+    // this.buildTextToReplace_And_TextToReplaceWith();
     let startTag = this.matchStartTag(this.textToReplace, "span");
     if (!startTag)
     {
@@ -117,11 +118,35 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   /**********************************************************************************
    *                                      Strike through
    **********************************************************************************/
-  Strikethrough()
+  ApplyStyleBy_Class(className: string)
   {
+    debugger;
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = "span";
-    this.addRemoveClass("text-decoration-line-through");
+    this.buildTextToReplace_And_TextToReplaceWith();
+    this.addRemoveClass(className);
+  }
+  /**********************************************************************************
+   *                                      Text Alignments
+   **********************************************************************************/
+  textAlignments(className: string)
+  {
+    debugger;
+    let alignments = ['text-start', 'text-center', 'text-end', "text_justify-left", 'text_justify-right', 'text-justify',
+    ];
+    this.buildTextToReplace_And_TextToReplaceWith();
+    let isHeaderFound = false;
+
+    for (let align of alignments)
+    {
+      if (this.textToReplace.includes(align))
+      {
+        this.removeTag(`p`);
+        isHeaderFound = className === align;
+      }
+    }
+    if (!isHeaderFound)
+      this.addRemoveTag(`p class="${className}"`);
   }
 
   /**********************************************************************************
@@ -133,7 +158,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     this.textToReplaceWith = this.textToReplace.replace(/<[^\/]("[^"]*"|'[^']*'|[^'">])*>|<\/[a-zA-Z0-9]+>/gi, '');
     this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
   }
-
 
   /**********************************************************************************
   *                               Add remove tags
@@ -280,7 +304,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         else
         {
           //if we select part of the text of the anchorNode
-          if (this.text.anchorNode?.textContent !== this.anchorNodeText)
+          if (this.text.anchorNode?.textContent === this.anchorNodeText)
           {
             let startIndex = this.view.innerHTML.indexOf(this.anchorNode_OuterHtml);
             let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
@@ -292,7 +316,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           } else
           {
             //If we select the whole text text inside the anchorNode
-            let startIndex = this.view.innerHTML.indexOf(this.anchorNode_StartTag + this.anchorNode?.textContent?.substring(0, this.text.start)) + this.text.start;
+            let startIndex = this.view.innerHTML.indexOf(this.anchorNode_StartTag + this.anchorNode?.textContent?.substring(0, this.text.start)) + this.anchorNode_StartTag.length;
             let textBeforeTextToUpdate = this.view.innerHTML.substring(0, startIndex);
             let textToUpdate = this.anchorNodeText;
             let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + textToUpdate.length);
@@ -354,7 +378,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     if (this.textToTag.length === 0) return;
     if (this.treatTextToTagElementsIndependentily)
     {
-      let startTag = new RegExp(`<${tag}(\s?[^>]*)*>`);
+      let startTag: RegExp;
+      if (tag.indexOf("class") === -1)
+        startTag = new RegExp(`<${tag}(\s?[^>]*)*>`);
+      else
+        startTag = new RegExp(`<${tag.replace(/\s?class\s?=\s?("|')[^'"><]+("|')/, '')}(\s?[^>]*)*>`);
       for (let t of this.textToTag)
       {
         if (t.needTag)
@@ -375,7 +403,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     } else
     {
       this.textToReplaceWith = "";
-      let startTag = new RegExp(`<${tag}(\s?[^>]*)*>`);
+      let startTag: RegExp;
+      if (tag.indexOf("class") === -1)
+        startTag = new RegExp(`<${tag}(\s?[^>]*)*>`);
+      else
+        startTag = new RegExp(`<${tag.replace(/\s?class\s?=\s?("|')[^'"><]+("|')/, '')}(\s?[^>]*)*>`);
       for (let t of this.textToTag)
       {
         if (t.needTag)
@@ -400,6 +432,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   removeTag(tag: string)
   {
+    debugger;
     if (this.textToTag.length === 0) return;
     this.textToReplaceWith = "";
     if (this.treatTextToTagElementsIndependentily)
@@ -493,7 +526,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   addRemoveClass(className: string)
   {
-    debugger;
+    // debugger;
     if (this.treatTextToTagElementsIndependentily)
     {
       for (let t of this.textToTag)
@@ -620,7 +653,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   matchStartTag(text: string, tag: string)
   {
-    let re = new RegExp(`<${tag}(\s?[^>]*)*>`);
+    let re: RegExp;
+    if (tag.indexOf("class") === -1)
+      re = new RegExp(`<${tag}(\s?[^>]*)*>`);
+    else
+      re = new RegExp(`<${tag.replace(/\s?class\s?=\s?("|')[^'"><]+("|')/, '')}(\s?[^>]*)*>`);
     let match = null;
     if (text)
     {
@@ -630,7 +667,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   prepare_AnchorNode_and_FocusNode()
   {
-    debugger;
+    // debugger;
     this.anchorNode = null;
     this.anchorNodeIndex = -1;
     this.anchorNodeText = "";
@@ -679,7 +716,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   extractAnchorNode(nodeList: NodeListOf<ChildNode>, x: ChildNode | null = null): ChildNode | null
   {
-    debugger;
+    // debugger;
 
     for (let i = 0; i < nodeList.length; i++)
     {
@@ -700,7 +737,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   extractFocusNode(nodeList: NodeListOf<ChildNode>, x: ChildNode | null = null): ChildNode | null
   {
-    debugger;
+    // debugger;
     for (let i = 0; i < nodeList.length; i++)
     {
       if (x !== null) return x;

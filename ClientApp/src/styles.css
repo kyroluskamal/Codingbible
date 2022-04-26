@@ -156,3 +156,16 @@ select option:checked:active::selection  {
   color: red;
   background: yellow;
 }
+.text-justify{
+  text-align: justify;
+  text-justify: inter-word;
+}
+.text_justify-right{
+  text-align: justify;
+  text-align-last: right;
+  text-justify: inter-word;
+}
+.text_justify-left{
+  text-align: justify;
+  text-align-last: left;
+}
