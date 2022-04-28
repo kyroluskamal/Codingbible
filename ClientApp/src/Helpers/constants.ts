@@ -393,3 +393,7 @@ export const InputElementsAttributes = {
     min: "min",
     max: "max"
 };
+export const PostStatus = {
+    Draft: 0,
+    Published: 1,
+};

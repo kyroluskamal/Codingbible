@@ -4,11 +4,11 @@
         hidden
         class="btn btn-primary"
         data-bs-toggle="modal"
-        data-bs-target="#Model"></button>
+        [attr.data-bs-target]="'#'+ModalId"></button>
 
 <div class="modal fade"
      #Modal
-     id="Model"
+     [id]="ModalId"
      aria-labelledby="Modal"
      aria-hidden="true">
     <div [class]="DialogClass">

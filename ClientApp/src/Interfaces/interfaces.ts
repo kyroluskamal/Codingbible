@@ -71,6 +71,8 @@ export interface SelectedTextData
   end: number;
   anchorNode: Node | null | undefined;
   focusNode: Node | null | undefined;
+  mouseX?: number;
+  mouseY?: number;
 }
 
 export class CbTableDataSource<T>{

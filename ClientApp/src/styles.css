@@ -169,3 +169,7 @@ select option:checked:active::selection  {
   text-align: justify;
   text-align-last: left;
 }
+a{
+  text-decoration: none !important;
+  cursor: pointer !important;
+}

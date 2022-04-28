@@ -26,7 +26,7 @@ export interface IFileMetaData
 })
 export class MediaComponent implements OnInit 
 {
-  @ViewChild("modal") modal!: BootstrapMoalComponent;
+  @ViewChild("mediaModal") modal!: BootstrapMoalComponent;
   errorState = new BootstrapErrorStateMatcher();
   FormValidationErrors = FormValidationErrors;
   FormValidationErrorsNames = FormValidationErrorsNames;

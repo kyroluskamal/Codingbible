@@ -1,12 +1,12 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, ElementRef, ViewChild, Inject, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, TemplateRef, ElementRef, ViewChild, Inject, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'bootstrap-modal',
   templateUrl: './bootstrap-modal.component.html',
   styleUrls: ['./bootstrap-modal.component.css'],
 })
-export class BootstrapMoalComponent implements OnInit
+export class BootstrapMoalComponent implements OnInit, OnChanges
 {
   @Input() FullScreeen: boolean = false;
   @Input() FullScreenClass: string = "";
@@ -19,6 +19,7 @@ export class BootstrapMoalComponent implements OnInit
   @Input() Modal_Footer_template!: TemplateRef<any>;
   @Input() Modal_Body_Additionalclasses: string = "";
   @Input() Modal_Footer_Additionalclasses: string = "";
+  @Input() ModalId: string = "Model";
   @Output() CloseIsClicked: EventEmitter<boolean> = new EventEmitter();
   Body_template!: TemplateRef<any>;
   DialogClass = 'modal-dialog';
@@ -30,6 +31,13 @@ export class BootstrapMoalComponent implements OnInit
   Footer_TemplateRef!: TemplateRef<any>;
   Footer_Additional_Classes: string = "modal-footer";
   constructor(@Inject(DOCUMENT) private document: Document) { }
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    if ("ModalId" in changes)
+    {
+      this.ModalId = changes["ModalId"].currentValue;
+    }
+  }
 
 
   @ViewChild("ModalButtton") ModalButtton!: ElementRef<HTMLButtonElement>;

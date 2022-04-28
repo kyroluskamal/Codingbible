@@ -1,4 +1,5 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -51,7 +52,8 @@ export class PostHandlerComponent implements OnInit, OnChanges
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
   @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
-
+  mousex: number = 0;
+  mousey: number = 0;
   validators = Validators;
   CustoErrorStateMatcher = new CustomErrorStateMatcher();
   selectedText: SelectedTextData = {
@@ -59,7 +61,9 @@ export class PostHandlerComponent implements OnInit, OnChanges
     start: -1,
     end: -1,
     anchorNode: null,
-    focusNode: null
+    focusNode: null,
+    mouseX: this.mousex,
+    mouseY: this.mousey
   };
   Type: string = "";
   posts: Post[] = [];
@@ -78,6 +82,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
    *                                                Constructor
    ************************************************************************************/
   constructor(public store: Store, private postService: PostService,
+    @Inject(DOCUMENT) private document: Document,
     public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
   {
     this.form = this.inputForm;
@@ -98,6 +103,11 @@ export class PostHandlerComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.document.addEventListener("mousemove", (e) =>
+    {
+      this.mousex = e.pageX;
+      this.mousey = e.pageY;
+    });
     this.store.dispatch(LoadCATEGORYs());
 
     this.router.queryParams.subscribe(x =>
@@ -167,7 +177,9 @@ export class PostHandlerComponent implements OnInit, OnChanges
         start: start!,
         end: end!,
         anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode
+        focusNode: selection?.focusNode,
+        mouseX: this.mousex,
+        mouseY: this.mousey
       };
       console.log(this.selectedText);
     }
@@ -182,7 +194,9 @@ export class PostHandlerComponent implements OnInit, OnChanges
         start: start!,
         end: end!,
         anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode
+        focusNode: selection?.focusNode,
+        mouseX: this.mousex,
+        mouseY: this.mousey
       };
     }
   }

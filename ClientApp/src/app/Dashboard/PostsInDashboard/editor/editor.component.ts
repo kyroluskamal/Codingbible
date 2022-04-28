@@ -1,6 +1,12 @@
+import { style } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { PostStatus, validators } from 'src/Helpers/constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
+import { Post } from 'src/models.model';
+import { selectAllposts } from 'src/State/PostState/post.reducer';
 
 @Component({
   selector: 'CodingBible-editor',
@@ -29,13 +35,21 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   NodesBetween_AnchorNode_and_FocusNode_List: ChildNode[] = [];
   treatTextToTagElementsIndependentily: boolean = false;
   tag: string = "";
+  posts$ = this.store.select(selectAllposts);
   @Input() selectedText: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
   @Input() html!: HTMLTextAreaElement;
-  addedTags: string[] = [];
-  addedClasses: string[] = [];
-
-  constructor(@Inject(DOCUMENT) private document: Document) { }
+  allPostst: Post[] = [];
+  filteredPosts: Post[] = [];
+  selectedPost: Post | null = null;
+  focusedAnchorTag: string = "";
+  linkTag_Parts: { href: string, text: string, target?: boolean; } = { href: "", text: "" };
+  LinkTagForm: FormGroup = new FormGroup({});
+  @ViewChild("anchorTagHandling") anchorTagHandling!: ElementRef<HTMLDivElement>;
+  @ViewChild("anchorTagHandling_FilledAnchor") anchorTagHandling_FilledAnchor!: ElementRef<HTMLDivElement>;
+  @ViewChild("searchBoxForUrl") searchBoxForUrl!: ElementRef<HTMLInputElement>;
+  constructor(@Inject(DOCUMENT) private document: Document,
+    private fb: FormBuilder, private store: Store) { }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('selectedText' in changes)
@@ -46,6 +60,97 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.LinkTagForm = this.fb.group({
+      href: ['', [validators.required]],
+      text: ['', [validators.required]],
+      target: [false]
+    });
+    this.view.addEventListener("click", (e) =>
+    {
+      this.prepare_AnchorNode_and_FocusNode();
+      if (this.anchorNode_StartTag.includes("<a "))
+      {
+        console.log("AnchorNode_StartTag contains <a ");
+        this.focusedAnchorTag = this.anchorNode_StartTag;
+        this.linkTag_Parts.href = this.anchorNode_StartTag.split("href=")[1].split(" ")[0].replace(/"/g, "").replace(/'/g, "").replace(/>/g, "");
+        this.linkTag_Parts.text = this.anchorNodeText;
+        this.linkTag_Parts.target = this.anchorNode_StartTag.includes("target=");
+
+        this.LinkTagForm.get("href")?.setValue(this.linkTag_Parts.href);
+        this.LinkTagForm.get("text")?.setValue(this.linkTag_Parts.text);
+        this.LinkTagForm.get("target")?.setValue(this.linkTag_Parts.target);
+        this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
+        this.hideDivElement(this.anchorTagHandling_FilledAnchor);
+      } else
+        if (this.anchorTagHandling.nativeElement.classList.contains("d-block")
+          || this.anchorTagHandling_FilledAnchor.nativeElement.classList.contains("d-block"))
+        {
+          this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
+          this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
+          this.searchBoxForUrl.nativeElement.value = "";
+        }
+    });
+    this.posts$.subscribe(posts =>
+    {
+      this.allPostst = posts.filter(post => post.status === PostStatus.Published);
+      this.filteredPosts = [...this.allPostst];
+    });
+  }
+  /**********************************************************************************
+   *                               Link handling
+   **********************************************************************************/
+  openLinkDialog()
+  {
+    if (this.anchorNode !== null)
+      this.hideDivElement(this.anchorTagHandling);
+  }
+  searchPosts(value: string)
+  {
+    this.filteredPosts = this.allPostst.filter(post =>
+    {
+      return post.title.toLowerCase().includes(value.toLowerCase()) && post.status === PostStatus.Published;
+    });
+  }
+  AddLink(href: string)
+  {
+    if (href !== "")
+    {
+      this.buildTextToReplace_And_TextToReplaceWith();
+      this.addRemoveTag(`a href='${href}'`);
+    }
+  }
+  addNewLink()
+  {
+    debugger;
+
+    this.prepare_AnchorNode_and_FocusNode();
+    let target = this.LinkTagForm.get("target")?.value;
+
+    let link = `<a href='${this.LinkTagForm.get("href")?.value}'`;
+    if (target)
+    {
+      link += ` target='_blank'`;
+    }
+    link += `>${this.LinkTagForm.get("text")?.value}</a>`;
+    let text = [this.anchorNodeText.slice(0, this.text.start), link, this.anchorNodeText.slice(this.text.start)].join('');
+    if (this.anchorNode_OuterHtml)
+      this.applyChangesToView(this.anchorNode_OuterHtml, this.anchorNode_StartTag + text + this.anchorNode_EndTag);
+    else
+      this.applyChangesToView(this.anchorNodeText, text);
+  }
+  editLink()
+  {
+    this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
+
+    let target = this.LinkTagForm.get("target")?.value;
+
+    let link = `<a href='${this.LinkTagForm.get("href")?.value}'`;
+    if (target)
+    {
+      link += ` target='_blank'`;
+    }
+    link += `>${this.LinkTagForm.get("text")?.value}</a>`;
+    this.applyChangesToView(this.anchorNode_OuterHtml, link);
   }
   /**********************************************************************************
    *                               SetHeaders
@@ -56,7 +161,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = header.value;
-    // this.buildTextToReplace_And_TextToReplaceWith();
+    this.buildTextToReplace_And_TextToReplaceWith();
     if (this.matchStartTag(this.textToReplace, header.value) && this.matchEndTag(this.textToReplace, header.value))
     {
       this.removeTag(header.value);
@@ -89,7 +194,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let sizes = ['fs-1', 'fs-2', 'fs-3', 'fs-4', 'fs-5', 'fs-6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = "span";
-    // this.buildTextToReplace_And_TextToReplaceWith();
+    this.buildTextToReplace_And_TextToReplaceWith();
     let startTag = this.matchStartTag(this.textToReplace, "span");
     if (!startTag)
     {
@@ -120,7 +225,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   ApplyStyleBy_Class(className: string)
   {
-    debugger;
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = "span";
     this.buildTextToReplace_And_TextToReplaceWith();
@@ -131,7 +235,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   textAlignments(className: string)
   {
-    debugger;
     let alignments = ['text-start', 'text-center', 'text-end', "text_justify-left", 'text_justify-right', 'text-justify',
     ];
     this.buildTextToReplace_And_TextToReplaceWith();
@@ -263,8 +366,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   private buildTextToReplace_And_TextToReplaceWith()
   {
-    debugger;
-    this.view.innerHTML = this.view.innerHTML.replace("&nbsp;", "");
+    this.applyChangesToView("&nbsp;", "");
+    this.applyChangesToView("<br>", "");
     this.checkIfSelectionFromLeftToRight(this.text.anchorNode?.textContent, this.text.focusNode?.textContent);
 
     this.text = this.selectedText;
@@ -299,7 +402,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           let textToUpdate = this.anchorNodeText;
           let textAfterTextToUpdate = this.view.innerHTML.substring(startIndex + textToUpdate.length);
           this.textToReplace = textBeforeTextToUpdate + textToUpdate + textAfterTextToUpdate;
-          this.textToTag = [{ text: textBeforeTextToUpdate, needTag: false }, { text: this.textToReplace, needTag: true }, { text: textAfterTextToUpdate, needTag: false }];
+          this.textToTag = [{ text: textBeforeTextToUpdate, needTag: false }, { text: textToUpdate, needTag: true }, { text: textAfterTextToUpdate, needTag: false }];
         }
         else
         {
@@ -374,7 +477,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   addRemoveTag(tag: string)
   {
-    debugger;
+    // debugger;
     if (this.textToTag.length === 0) return;
     if (this.treatTextToTagElementsIndependentily)
     {
@@ -387,7 +490,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       {
         if (t.needTag)
         {
-          let start_of_string = t.text.substring(0, this.anchorNodeText.length);
+          let start_of_string = t.text.substring(0, this.anchorNode_StartTag.length);
           if (start_of_string.match(startTag) === null)
           {
             let temp = `<${tag}>${t.text}</${tag}>`;
@@ -412,7 +515,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       {
         if (t.needTag)
         {
-          let start_of_string = t.text.substring(0, this.anchorNodeText.length);
+          let start_of_string = t.text.substring(0, this.anchorNode_StartTag.length);
 
           if (start_of_string.match(startTag) === null)
           {
@@ -432,7 +535,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   removeTag(tag: string)
   {
-    debugger;
+    // debugger;
     if (this.textToTag.length === 0) return;
     this.textToReplaceWith = "";
     if (this.treatTextToTagElementsIndependentily)
@@ -667,7 +770,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   prepare_AnchorNode_and_FocusNode()
   {
-    // debugger;
+    this.focusedAnchorTag = "";
     this.anchorNode = null;
     this.anchorNodeIndex = -1;
     this.anchorNodeText = "";
@@ -725,7 +828,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
 
       if (nodeList[i].isEqualNode(this.text.anchorNode!)
         || nodeList[i].isEqualNode(this.text.anchorNode?.parentElement!)
-        || start_of_string.includes(this.tag)
+        || this.tag !== '' && start_of_string.includes(this.tag)
         && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.anchorNode?.textContent!)))
       {
         x = nodeList[i];
@@ -746,7 +849,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
 
       if (nodeList[i].isEqualNode(this.text.focusNode!) ||
         nodeList[i].isEqualNode(this.text.focusNode?.parentElement!)
-        || start_of_string.includes(this.tag)
+        || this.tag !== '' && start_of_string.includes(this.tag)
         && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.focusNode?.textContent!)))
       {
         x = nodeList[i];
@@ -756,12 +859,57 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     }
     return x;
   }
+  hideDivElement(el: ElementRef<HTMLDivElement>)
+  {
+    let adabpted_x_Position = 0;
+    el.nativeElement.style.position = 'absolute';
+    el.nativeElement.style.zIndex = '50000';
+    el.nativeElement.setAttribute("class", "d-block");
+    if (this.text.mouseX! >= el.nativeElement.clientWidth)
+    {
+      adabpted_x_Position = (this.text.mouseX! - el.nativeElement.clientWidth * 50 / 100);
+    }
+    else
+    {
+      adabpted_x_Position = this.text.mouseX! - this.text.mouseX! * 50 / 100;
+    };
+    el.nativeElement.style.top = this.text.mouseY! + 20 + 'px';
+    el.nativeElement.style.left = adabpted_x_Position + 'px';
+  }
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent)
   {
-    if (event.key === 'Enter')
+    if (event.key === "ArrowDown" || event.key === "ArrowUp")
     {
-      // this.document.execCommand('formatBlock', true, 'p');
+      if (this.selectedPost === null)
+      {
+        this.selectedPost = this.filteredPosts[0];
+      } else
+      {
+        if (event.key === "ArrowDown")
+        {
+          let index = this.filteredPosts.indexOf(this.selectedPost);
+          if (index < this.filteredPosts.length - 1)
+          {
+            this.selectedPost = this.filteredPosts[index + 1];
+          } else
+          {
+            this.selectedPost = this.filteredPosts[0];
+          }
+        }
+        else if (event.key === "ArrowUp")
+        {
+          let index = this.filteredPosts.indexOf(this.selectedPost);
+          if (index > 0)
+          {
+            this.selectedPost = this.filteredPosts[index - 1];
+          } else
+          {
+            this.selectedPost = this.filteredPosts[this.filteredPosts.length - 1];
+          }
+        }
+      }
+
       // event.preventDefault();
       // this.view.innerHTML = this.view.innerHTML + '<p>klk;l</p>';
       // this.UpdateHtml();
@@ -772,5 +920,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       // sel?.removeAllRanges();
       // sel?.addRange(range);
     }
+    if (event.key == "Enter")
+      this.document.execCommand('formatBlock', true, 'p');
   }
 }

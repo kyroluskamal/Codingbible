@@ -270,6 +270,7 @@
                         <a *ngIf="(postById|async)?.status===1 && Type!=PostType.Add"
                            class="cursor-pointer ps-1"
                            (click)="changeStatus(0)">Set as draft</a>
+
                         <a *ngIf="(postById|async)?.status===0 && Type!=PostType.Add"
                            class="cursor-pointer ps-1"
                            (click)="changeStatus(1)">Publish</a>
