@@ -6,6 +6,7 @@ using System.Drawing;
 using CodingBible.UnitOfWork;
 using CodingBible.Models;
 using Microsoft.AspNetCore.Authorization;
+using CodingBible.Models.Posts;
 
 namespace CodingBible.Controllers.api.v1;
 [ApiVersion("1.0")]
@@ -174,6 +175,67 @@ public class MediaController : ControllerBase
             data.AltText = model.AltText;
             await UnitOfWork.SaveAsync();
             return Ok(Constants.HttpResponses.Update_Sucess("Image"));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpDelete("DeleteFromPost/{postId}/{AttachId}")]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    public async Task<IActionResult> DeleteFromPost([FromRoute] int postId, [FromRoute] int AttachId)
+    {
+        try
+        {
+            var data = await UnitOfWork.PostAttachments.GetFirstOrDefaultAsync(x => x.PostId == postId && x.AttachmentId == AttachId);
+            UnitOfWork.PostAttachments.Remove(data);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Delete_Sucess("Image"));
+            }
+            return BadRequest(Constants.HttpResponses.Delete_Failed("Image"));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpPost("BindAttachmentToPost/{postId}/{AttachId}")]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    public async Task<IActionResult> BindAttachmentToPost([FromRoute] int postId, [FromRoute] int AttachId)
+    {
+        try
+        {
+            var attachment = await UnitOfWork.PostAttachments.GetFirstOrDefaultAsync(x => x.PostId == postId && x.AttachmentId == AttachId);
+            if (attachment == null)
+            {
+                var NewPostAttachment = new PostAttachments()
+                {
+                    PostId = postId,
+                    AttachmentId = AttachId
+                };
+                await UnitOfWork.PostAttachments.AddAsync(NewPostAttachment);
+                var addResult = await UnitOfWork.SaveAsync();
+                if (addResult > 0)
+                {
+                    return Ok(NewPostAttachment);
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed("Attachment"));
+            }
+            else
+            {
+                attachment.PostId = postId;
+                attachment.AttachmentId = AttachId;
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Delete_Sucess("Image"));
+                }
+                return BadRequest(Constants.HttpResponses.Delete_Failed("Image"));
+            }
         }
         catch (Exception ex)
         {

@@ -115,7 +115,7 @@ export class Attachments
 export class PostAttachments
 {
     postId: number = 0;
-    post: Post = new Post();
+    post?: Post | null = null;
     attachmentId: number = 0;
-    attachment: Attachments = new Attachments();
+    attachment?: Attachments | null = null;
 }

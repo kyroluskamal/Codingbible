@@ -182,9 +182,19 @@ public class SitemapService : ISitemapService
             attachment.Attachment = await UnitOfWork.Attachments.GetAsync(attachment.AttachmentId);
             node.Images.Add(new ImageSitemapNode()
             {
-                Loc = $"{baseUrl}/{attachment.Attachment.FileUrl}",
+                Loc = $"{baseUrl}{attachment.Attachment.FileUrl}",
                 Caption = attachment.Attachment.Caption,
                 Title = attachment.Attachment.Title
+            });
+        }
+        var FeatureImage = await UnitOfWork.Attachments.GetFirstOrDefaultAsync(x => x.FileUrl == post.FeatureImageUrl);
+        if (FeatureImage != null)
+        {
+            node.Images.Insert(0, new ImageSitemapNode()
+            {
+                Loc = $"{baseUrl}{FeatureImage.FileUrl}",
+                Caption = FeatureImage.Caption,
+                Title = FeatureImage.Title
             });
         }
         return node;

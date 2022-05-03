@@ -1,6 +1,7 @@
 <bootstrap-modal #mediaModal
                  [Modal_Body_template]="AddBody"
                  [FullScreeen]="true"
+                 [ModalId]="ModalId"
                  FullScreenClass="modal-fullscreen"
                  Modal_Header_AdditionalClasses="bg-dark text-white-50"
                  Modal_Body_Additionalclasses="bg-light py-0"
@@ -230,4 +231,10 @@
             type="button"
             (click)="featureImageClicked()"
             data-bs-dismiss="modal">Set as feature image</button>
+    <button [disabled]="(selectedFile$|async)===null"
+            *ngIf="!setFeatureImageButton"
+            class="btn btn-primary"
+            type="button"
+            (click)="InsertImageIntoPost()"
+            data-bs-dismiss="modal">Insert Into Post</button>
 </ng-template>

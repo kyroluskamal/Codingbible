@@ -39,7 +39,9 @@ export class MediaComponent implements OnInit
   selectedFile$ = this.store.select(SelectSelected_Attachment);
 
   @Input() setFeatureImageButton: boolean = false;
+  @Input() ModalId: string = "Model";
   @Output() setFeatureImage: EventEmitter<Attachments | null> = new EventEmitter();
+  @Output() selectImage: EventEmitter<Attachments | null> = new EventEmitter();
   constructor(private ClientService: ClientSideValidationService,
     @Inject(DOCUMENT) private document: Document, private store: Store,
     private fb: FormBuilder)
@@ -132,7 +134,6 @@ export class MediaComponent implements OnInit
   }
   UpdateAttachment()
   {
-    console.log(this.form.get("caption")?.value);
     let temp: Attachments = new Attachments();
     temp = { ...this.selectedFile! };
     temp.caption = "";
@@ -143,6 +144,10 @@ export class MediaComponent implements OnInit
   featureImageClicked()
   {
     this.setFeatureImage.emit(this.selectedFile);
+  }
+  InsertImageIntoPost()
+  {
+    this.selectImage.emit(this.selectedFile);
   }
   //helper methods
   getRandomInt(min: number, max: number): number

@@ -135,6 +135,7 @@
                      class="border ">
                     <CodingBible-editor [view]="view"
                                         [html]="html"
+                                        (bindAttachmentsToPost)="BindAttachmentsToPost($event)"
                                         [selectedText]="selectedText">
                     </CodingBible-editor>
                     <!-- -------------------------------------------------------------------------- 
@@ -142,7 +143,7 @@
                     ------------------------------------------------------------------------------->
                     <div #view
                          style="max-height: 500px; display:inline-block;"
-                         [innerHtml]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
+                         [innerHtml]="Type===PostType.Edit?((postById|async)?.htmlContent| bypassStyle):''"
                          (input)="UpdateHtml(html,view)"
                          class="Editor bg-white p-2 overflow-auto"
                          data-testid="view"

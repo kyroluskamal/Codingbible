@@ -110,6 +110,7 @@ export class AttachmentsEffects
                             changes: action
                         };
                         this.Notification.Success_Swal(NotificationMessage.Success.Update("Data successfully updated"), false);
+                        this.store.dispatch(SelectAttachment({ selectedFile: action }));
                         return UpdateATTACHMENTS_Sucess({ attachment: x });
                     }),
                     catchError((e) =>

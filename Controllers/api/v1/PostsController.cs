@@ -48,7 +48,7 @@ namespace CodingBible.Controllers.api.v1
         [AllowAnonymous]
         public async Task<IActionResult> GetPosts()
         {
-            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author,PostsCategories");
+            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author,PostsCategories,Attachments");
             return Ok(allPosts.ToList());
         }
         /// <summary>
@@ -61,7 +61,7 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(GetPostBySlug) + "/{slug}")]
         public async Task<IActionResult> GetPostBySlug([FromRoute] string slug)
         {
-            Post post = await UnitOfWork.Posts.GetBySlug(slug);
+            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,PostsCategories,Attachments");
             return post != null ? Ok(post) : NotFound();
         }
 
@@ -70,7 +70,7 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(GetPostById) + "/{id}")]
         public async Task<IActionResult> GetPostById([FromRoute] int id)
         {
-            Post post = await UnitOfWork.Posts.GetAsync(id);
+            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,PostsCategories,Attachments");
             return post != null ? Ok(post) : NotFound();
         }
 
@@ -106,6 +106,7 @@ namespace CodingBible.Controllers.api.v1
                 newPost.AuthorId = user.Id;
                 newPost.CommentCount = 0;
                 newPost.CommentStatus = true;
+                newPost.Attachments = Post.Attachments;
                 await UnitOfWork.Posts.AddAsync(newPost);
 
                 var result = await UnitOfWork.SaveAsync();
@@ -114,15 +115,6 @@ namespace CodingBible.Controllers.api.v1
                     await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
                 if (result > 0)
                 {
-                    if (Post.FeatureImageUrl != "")
-                    {
-                        var attachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == Post.FeatureImageUrl);
-                        await UnitOfWork.PostAttachments.AddAsync(new PostAttachments()
-                        {
-                            PostId = newPost.Id,
-                            AttachmentId = attachment.First().Id,
-                        });
-                    }
                     if (Post.Categories.Length > 0)
                     {
                         List<PostsCategory> postCategories = new();
@@ -135,6 +127,19 @@ namespace CodingBible.Controllers.api.v1
                             });
                         }
                         await UnitOfWork.PostsCategories.AddRangeAsync(postCategories.ToArray());
+                    }
+                    if (Post.Attachments.ToArray().Length > 0)
+                    {
+                        List<PostAttachments> postAttachments = new();
+                        foreach (var p in Post.Attachments)
+                        {
+                            postAttachments.Add(new PostAttachments()
+                            {
+                                PostId = newPost.Id,
+                                AttachmentId = p.AttachmentId
+                            });
+                        }
+                        await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
                     }
                     await UnitOfWork.SaveAsync();
                     var postToResturn = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug);
@@ -153,7 +158,7 @@ namespace CodingBible.Controllers.api.v1
         {
             if (ModelState.IsValid)
             {
-                var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "PostsCategories");
+                var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments");
                 if (getPost == null)
                 {
                     return NotFound();
@@ -172,19 +177,7 @@ namespace CodingBible.Controllers.api.v1
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    if (Post.FeatureImageUrl != oldFeatureImageUrl)
-                    {
-                        var newAttachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == Post.FeatureImageUrl);
-                        var oldAttachment = await UnitOfWork.Attachments.GetAllAsync(x => x.FileUrl == oldFeatureImageUrl);
-                        await UnitOfWork.PostAttachments.AddAsync(new PostAttachments()
-                        {
-                            PostId = Post.Id,
-                            AttachmentId = newAttachment.First().Id,
-                        });
-                        var old_PostAttachments = await UnitOfWork.PostAttachments.GetAllAsync(x => x.PostId == Post.Id
-                        && x.AttachmentId == oldAttachment.First().Id);
-                        UnitOfWork.PostAttachments.Remove(old_PostAttachments.First());
-                    }
+                    getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments");
                     foreach (var cat in getPost.PostsCategories)
                     {
                         UnitOfWork.PostsCategories.Remove(cat);
@@ -204,7 +197,27 @@ namespace CodingBible.Controllers.api.v1
                         }
                         await UnitOfWork.PostsCategories.AddRangeAsync(postCategories.ToArray());
                     }
+                    foreach (var att in getPost.Attachments)
+                    {
+                        UnitOfWork.PostAttachments.Remove(att);
+                    }
                     await UnitOfWork.SaveAsync();
+
+                    if (Post.Attachments.ToArray().Length > 0)
+                    {
+                        List<PostAttachments> postAttachments = new();
+                        foreach (var p in Post.Attachments)
+                        {
+                            postAttachments.Add(new PostAttachments()
+                            {
+                                PostId = getPost.Id,
+                                AttachmentId = p.AttachmentId
+                            });
+                        }
+                        await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
+                    await SitemapService.CreatePostSiteMap($"{Request.Scheme}://{Request.Host}");
                     return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title, getPost));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(getPost.Title));

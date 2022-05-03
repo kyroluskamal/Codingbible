@@ -173,3 +173,39 @@ a{
   text-decoration: none !important;
   cursor: pointer !important;
 }
+.align-center{
+  clear: both;
+    display: block !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+.align-left{
+  display: inline !important;
+    float: left;
+    margin-right: 24px;
+    margin-top: 4px;
+}
+.align-right{
+  display: inline !important;
+    float: right;
+    margin-left: 24px;
+    margin-top: 4px;
+}
+img, figure{
+  box-shadow: 0px 0px 5px grey;
+}
+figure img{
+  box-shadow: none;
+  margin:0 !important;
+}
+figure figcaption{
+  padding: 0.2rem 0;
+  background: #e4e4e483;
+  color:rgb(24, 19, 19);
+}
+figure{
+  border-radius: 0.25rem;
+}
+figure.figure img{
+  border-radius: 0.25rem 0.25rem 0 0 !important;
+}

@@ -1,0 +1,130 @@
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:06:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:08:40 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:10:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:11:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:11:48 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:11:54 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "aa0744ff-f07b-4ebf-b822-8d7c93adf706"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMHCJ621LOK3:00000029"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMHCJ621LOK3"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:11:55 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "2091b546-08ed-4dfc-a8d5-dc424c587f75"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPostById (CodingBible)"
+RequestId : "0HMHCJ621LOK3:0000002D"
+RequestPath : "/api/v1/Posts/GetPostById/10"
+ConnectionId : "0HMHCJ621LOK3"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:13:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 03/05/2022 02:14:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+SourceContext : "Microsoft.AspNetCore.SpaServices"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 19492
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

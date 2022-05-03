@@ -33,4 +33,12 @@ export class MediaService
   {
     return this.httpClient.put<HttpResponsesObject>(`${MediaController.Update}`, attachments);
   }
+  BindImageToPost(postId: number, attachId: number): Observable<HttpResponsesObject>
+  {
+    return this.httpClient.post<HttpResponsesObject>(`${MediaController.BindAttachmentToPost}/${postId}/${attachId}`, null);
+  }
+  DeleteFromPost(postId: number, attachId: number): Observable<HttpResponsesObject>
+  {
+    return this.httpClient.delete<HttpResponsesObject>(`${MediaController.DeleteFromPost}/${postId}/${attachId}`);
+  }
 }

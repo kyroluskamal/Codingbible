@@ -29,8 +29,7 @@
                    [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.name, Form)?'form-control':
                                errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)?
                                'form-control is-invalid':'form-control is-valid'"
-                   id="CatName"
-                   placeholder="example">
+                   id="CatName">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="Form.get(FormControlNames.categoryForm.name)?.hasError(FormValidationErrorsNames.required)

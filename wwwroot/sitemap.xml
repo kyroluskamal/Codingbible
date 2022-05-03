@@ -2,21 +2,11 @@
                 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
                 xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>
             <url>
-                <loc>https://localhost:5001/fsdddddddddsssssvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvsvsvsvs</loc>
-                <lastmod>20/04/2022 01:12:29</lastmod>
-                <changefreq></changefreq>
-                <priority>0.5</priority>
-        </url>
-            <url>
-                <loc>https://localhost:5001/vsfsdfsdsdfsdsfs-fsd-fsd-fsdfsd-f-sdf-sd-f-sd-fsd-f-sd-f-sdf-sd-f-sd-f</loc>
-                <lastmod>20/04/2022 00:09:23</lastmod>
+                <loc>https://localhost:5001/CS50--sdfffffffffffffffffffffffffffffffff-;lk-llllllllllllllllllllllll</loc>
+                <lastmod>03/05/2022 02:02:56</lastmod>
                 <changefreq></changefreq>
                 <priority>0.5</priority>
         <image:image>
-<image:loc>https://localhost:5001//Uploads/2022/4/myimage2_Compressed.jpg</image:loc></image:image></url>
-            <url>
-                <loc>https://localhost:5001/CS50-AP-|-Introduction-to-computer-science-chapter-1-conversion-from</loc>
-                <lastmod>27/04/2022 19:48:11</lastmod>
-                <changefreq></changefreq>
-                <priority>0.5</priority>
-        </url></urlset>
+<image:loc>https://localhost:5001/Uploads/2022/4/myimage-fdfd_Compressed.jpg</image:loc><image:caption>ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</image:caption><image:title>dsdsdsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</image:title></image:image><image:image>
+<image:loc>https://localhost:5001/Uploads/2022/4/myimage2_Compressed.jpg</image:loc><image:caption>fffffffffffffffffffffffffffffffffffffffffff</image:caption><image:title>fsfsdfsdffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</image:title></image:image><image:image>
+<image:loc>https://localhost:5001/Uploads/2022/5/testphoto600_Compressed.jpg</image:loc><image:caption>fffffffffffffffffffffffffffffffffffffffffffffffffff</image:caption><image:title>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</image:title></image:image></url></urlset>

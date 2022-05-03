@@ -66,6 +66,8 @@ export interface IdentityErrors
 
 export interface SelectedTextData
 {
+  documentFragment?: DocumentFragment;
+  Range: Range;
   text: string;
   start: number;
   end: number;

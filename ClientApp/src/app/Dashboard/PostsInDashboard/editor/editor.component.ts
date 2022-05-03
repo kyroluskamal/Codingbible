@@ -1,21 +1,25 @@
-import { style } from '@angular/animations';
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, HostListener, Inject, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { PostStatus, validators } from 'src/Helpers/constants';
+import { FormControlNames, FormValidationErrors, FormValidationErrorsNames, PostStatus, sweetAlert, validators } from 'src/Helpers/constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Post } from 'src/models.model';
+import { Attachments, Post, PostAttachments } from 'src/models.model';
 import { selectAllposts } from 'src/State/PostState/post.reducer';
-
+import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
+import { selectAllAttachment } from 'src/State/Attachments/Attachments.reducer';
+import { selectPostByID } from 'src/State/PostState/post.reducer';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from 'src/CommonServices/notifications.service';
 @Component({
   selector: 'CodingBible-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.css']
+  styleUrls: ['./editor.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CodingBibleEditorComponent implements OnInit, OnChanges
 {
-  text: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };;
+  text: SelectedTextData = { Range: new Range(), text: "", start: -1, end: -1, anchorNode: null, focusNode: null };;
   textToReplaceWith: string = "";
   textToReplace: string = "";
   textToTag: { text: string, needTag: boolean; }[] = [];
@@ -35,31 +39,109 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   NodesBetween_AnchorNode_and_FocusNode_List: ChildNode[] = [];
   treatTextToTagElementsIndependentily: boolean = false;
   tag: string = "";
+  currentPost: Post = new Post();
   posts$ = this.store.select(selectAllposts);
-  @Input() selectedText: SelectedTextData = { text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
+  @Input() selectedText: SelectedTextData = { Range: new Range(), text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
   @Input() html!: HTMLTextAreaElement;
+  @Output() bindAttachmentsToPost: EventEmitter<PostAttachments[]> = new EventEmitter<PostAttachments[]>();
   allPostst: Post[] = [];
+  allPostsWithOutFiltering: Post[] = [];
   filteredPosts: Post[] = [];
   selectedPost: Post | null = null;
   focusedAnchorTag: string = "";
   linkTag_Parts: { href: string, text: string, target?: boolean; } = { href: "", text: "" };
   LinkTagForm: FormGroup = new FormGroup({});
+  ImageForm: FormGroup = new FormGroup({});
+  selectedImage: HTMLImageElement | null = null;
+  widthChangeFormControl: FormControl = new FormControl(1);
+  Attachments = this.store.select(selectAllAttachment);
+  allAttachments: Attachments[] = [];
+  postId: number = 0;
+  postsAttachments: PostAttachments[] = [];
   @ViewChild("anchorTagHandling") anchorTagHandling!: ElementRef<HTMLDivElement>;
+  @ViewChild("ImageTagHandling") ImageTagHandling!: ElementRef<HTMLDivElement>;
   @ViewChild("anchorTagHandling_FilledAnchor") anchorTagHandling_FilledAnchor!: ElementRef<HTMLDivElement>;
   @ViewChild("searchBoxForUrl") searchBoxForUrl!: ElementRef<HTMLInputElement>;
-  constructor(@Inject(DOCUMENT) private document: Document,
-    private fb: FormBuilder, private store: Store) { }
+
+  FormValidationErrorsNames = FormValidationErrorsNames;
+  errorState = new BootstrapErrorStateMatcher();
+  FormControlNames = FormControlNames;
+  FormValidationErrors = FormValidationErrors;
+  /**********************************************************************
+   *                            Constructor.
+   *********************************************************************/
+  constructor(@Inject(DOCUMENT) private document: Document, private router: ActivatedRoute,
+    private fb: FormBuilder, private store: Store, private Notifications: NotificationsService) { }
+  /**********************************************************************
+   *                            ngOnChanges.
+   *********************************************************************/
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('selectedText' in changes)
     {
       this.text = this.selectedText;
     }
+    let images = this.view.getElementsByTagName("img");
+    console.log(images);
+    if (images.length > 0)
+      for (let i = 0; i < images.length; i++)
+      {
+        images[i].addEventListener("click", (e) =>
+        {
+          if (images[i])
+            if (images[i].parentElement?.nodeName.toLowerCase() === "figure")
+            {
+              this.widthChangeFormControl.setValue(images[i].parentElement?.style.width);
+              this.ImageForm.get('width')?.setValue(Number(images[i].parentElement?.style.width.replace("%", "")));
+              this.ImageForm.get("caption")?.setValue(images[i].parentElement?.getElementsByTagName("figcaption")[0].innerText);
+            }
+            else
+            {
+              this.widthChangeFormControl.setValue(images[i].getAttribute("width"));
+              this.ImageForm.get('width')?.setValue(Number(images[i].getAttribute("width")?.replace("%", "")));
+            }
+          this.selectedImage = images[i];
+          this.ImageForm.get('src')?.setValue(this.selectedImage.src);
+          this.ImageForm.get('alt')?.setValue(this.selectedImage.alt);
+          this.ImageForm.markAllAsTouched();
+          this.hideDivElement(this.ImageTagHandling);
+        });
+      }
   }
-
+  /**********************************************************************
+  *                            ngOnInit
+  *********************************************************************/
   ngOnInit(): void
   {
+    this.Attachments.subscribe(attachments => { this.allAttachments = attachments; });
+    this.router.queryParams.subscribe(x =>
+    {
+      if (x['id'])
+      {
+        this.postId = Number(x['id']);
+      }
+    });
+    this.store.select(selectPostByID(this.postId)).subscribe(post =>
+    {
+      this.currentPost = post!;
+      this.postsAttachments = [];
+      for (let i = 0; i < post?.attachments.length!; i++)
+      {
+        let temp: PostAttachments = new PostAttachments();
+        temp.postId = post?.id!;
+        temp.attachmentId = post?.attachments[i]?.attachmentId!;
+        temp.attachment = null;
+        temp.post = null;
+        this.postsAttachments.push(temp);
+      }
+    });
+    this.ImageForm = this.fb.group({
+      src: ['', [validators.required]],
+      alt: ['', [validators.required]],
+      width: [100, [validators.required]],
+      caption: [''],
+    });
     this.LinkTagForm = this.fb.group({
       href: ['', [validators.required]],
       text: ['', [validators.required]],
@@ -70,7 +152,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       this.prepare_AnchorNode_and_FocusNode();
       if (this.anchorNode_StartTag.includes("<a "))
       {
-        console.log("AnchorNode_StartTag contains <a ");
         this.focusedAnchorTag = this.anchorNode_StartTag;
         this.linkTag_Parts.href = this.anchorNode_StartTag.split("href=")[1].split(" ")[0].replace(/"/g, "").replace(/'/g, "").replace(/>/g, "");
         this.linkTag_Parts.text = this.anchorNodeText;
@@ -89,12 +170,152 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
           this.searchBoxForUrl.nativeElement.value = "";
         }
+
     });
     this.posts$.subscribe(posts =>
     {
       this.allPostst = posts.filter(post => post.status === PostStatus.Published);
       this.filteredPosts = [...this.allPostst];
     });
+  }
+  /**********************************************************************************
+   *                               Inserting Image Handling
+   **********************************************************************************/
+  selectImage(event: Attachments | null)
+  {
+    if (event)
+    {
+      let findInDom = this.view.querySelector("[src='" + event.fileUrl + "']");
+      if (findInDom !== null)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "You added this image before");
+        return;
+      }
+      console.log(this.postsAttachments.find(x => x.postId === this.postId && x.attachmentId === event.id));
+      if (!this.postsAttachments.find(x => x.postId === this.postId && x.attachmentId === event.id))
+      {
+        let temp: PostAttachments = new PostAttachments();
+        temp.postId = this.postId;
+        temp.attachmentId = event.id;
+        temp.attachment = null;
+        temp.post = null;
+        this.postsAttachments.push(<PostAttachments>temp);
+      }
+      this.prepare_AnchorNode_and_FocusNode();
+      this.add_Image_ToView(event.fileName, event.fileUrl, event.altText, event.caption);
+      this.bindAttachmentsToPost.emit(this.postsAttachments);
+    }
+  }
+  changeImageAligment(alignmentType: string)
+  {
+    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    {
+      let classList = this.removeImageAlignments(image.parentElement.getAttribute("class")!);
+      classList?.push(`align-${alignmentType}`);
+      image.parentElement.setAttribute("class", classList.join(" "));
+    }
+    else
+    {
+      let classList = this.removeImageAlignments(this.selectedImage?.getAttribute("class")!);
+      classList?.push(`align-${alignmentType}`);
+      image?.setAttribute("class", classList?.join(" ")!);
+    }
+    this.UpdateHtml();
+  }
+  deleteImage()
+  {
+    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    let attachment = this.allAttachments.filter(attachment => attachment.fileUrl === image?.getAttribute("src"))[0];
+    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+      image.parentElement.remove();
+    else
+      image?.remove();
+    this.UpdateHtml();
+    this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
+    this.selectedImage = null;
+    this.postsAttachments = this.postsAttachments.filter(x => x.attachmentId !== attachment.id &&
+      x.postId === this.postId);
+    this.bindAttachmentsToPost.emit(this.postsAttachments);
+  }
+  removeImageAlignment()
+  {
+    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    {
+      let classList = this.removeImageAlignments(image.parentElement.getAttribute("class")!);
+      image.parentElement.setAttribute("class", classList.join(" "));
+    } else
+    {
+      let classList = this.removeImageAlignments(this.selectedImage?.getAttribute("class")!);
+      image?.setAttribute("class", classList?.join(" ")!);
+    }
+    this.UpdateHtml();
+  }
+  changeImageSize(width: string)
+  {
+    this.ImageForm.get("width")?.setValue(Number(width));
+    let image = <HTMLImageElement>this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    {
+      image.parentElement.style.width = width + "%";
+      let classList = image.parentElement.getAttribute("class")!.split(" ");
+      classList = classList.filter(className => className !== 'w-100');
+      image.parentElement.setAttribute("class", classList.join(" "));
+    }
+    else
+    {
+      image?.setAttribute("width", width + "%");
+    }
+    this.UpdateHtml();
+  }
+  AddNewImage()
+  {
+    this.prepare_AnchorNode_and_FocusNode();
+    this.add_Image_ToView("", this.ImageForm.get("src")?.value,
+      this.ImageForm.get("alt")?.value,
+      this.ImageForm.get("caption")?.value, this.ImageForm.get("width")?.value);
+    this.ImageForm.reset();
+  }
+  editImage()
+  {
+    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    this.widthChangeFormControl.setValue(image?.getAttribute("width"));
+    image?.setAttribute("alt", this.ImageForm.get("alt")?.value);
+    image?.setAttribute("src", this.ImageForm.get("src")?.value);
+    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    {
+      (<HTMLElement>image?.parentElement?.getElementsByTagName("figcaption")[0]).innerText = this.ImageForm.get("caption")?.value;
+      image.parentElement.style.width = this.ImageForm.get("width")?.value + "%";
+    } else if (image?.parentElement?.nodeName.toLowerCase() !== "figure" && this.ImageForm.get("caption")?.value !== '')
+    {
+      image?.setAttribute("width", "100%");
+      let figureWithCaption = `<figure class="figure align-center" style="width:${this.ImageForm.get("width")?.value}%">
+      ${image?.outerHTML}
+      <figcaption class="figure-caption text-center">${this.ImageForm.get("caption")?.value}</figcaption>
+    </figure>`;
+      image?.insertAdjacentHTML("beforebegin", figureWithCaption);
+      image?.remove();
+    } else if (image?.parentElement?.nodeName.toLowerCase() === "figure" && this.ImageForm.get("caption")?.value === '')
+    {
+      let imageCopy = image.cloneNode(true);
+      (<HTMLImageElement>imageCopy).setAttribute("width", this.ImageForm.get("width")?.value + "%");
+      (<HTMLImageElement>imageCopy).setAttribute("src", this.ImageForm.get("src")?.value + "%");
+      (<HTMLImageElement>imageCopy).setAttribute("alt", this.ImageForm.get("alt")?.value + "%");
+      image.parentElement.replaceWith(imageCopy);
+    }
+    else
+      image?.setAttribute("width", this.ImageForm.get("width")?.value + '%');
+    this.UpdateHtml();
+  }
+  removeCaption()
+  {
+    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
+    let imageCopy = image?.cloneNode(true);
+    (<HTMLImageElement>imageCopy).setAttribute("width", image?.parentElement?.style.width!);
+    image?.parentElement?.replaceWith(imageCopy!);
+    this.ImageForm.get("caption")?.setValue("");
+    this.UpdateHtml();
   }
   /**********************************************************************************
    *                               Link handling
@@ -121,8 +342,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   addNewLink()
   {
-    debugger;
-
     this.prepare_AnchorNode_and_FocusNode();
     let target = this.LinkTagForm.get("target")?.value;
 
@@ -157,7 +376,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   SetHeader(header: HTMLSelectElement)
   {
-    // debugger;
     let headers = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
     if (this.selectedText.text === '' && !this.view && !this.html) return;
     this.tag = header.value;
@@ -261,7 +479,10 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     this.textToReplaceWith = this.textToReplace.replace(/<[^\/]("[^"]*"|'[^']*'|[^'">])*>|<\/[a-zA-Z0-9]+>/gi, '');
     this.applyChangesToView(this.textToReplace, this.textToReplaceWith);
   }
-
+  AddParagraph()
+  {
+    this.view.innerHTML = this.view.innerHTML + "<p>Insert text here</p>";
+  }
   /**********************************************************************************
   *                               Add remove tags
   **********************************************************************************/
@@ -366,8 +587,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   private buildTextToReplace_And_TextToReplaceWith()
   {
-    this.applyChangesToView("&nbsp;", "");
-    this.applyChangesToView("<br>", "");
     this.checkIfSelectionFromLeftToRight(this.text.anchorNode?.textContent, this.text.focusNode?.textContent);
 
     this.text = this.selectedText;
@@ -443,41 +662,24 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       } else
       //if the 2 nodes are not direct neighbors
       {
-        for (let i = 0; i < this.view.childNodes.length; i++)
-        {
-          if (this.view.childNodes[i].isEqualNode(this.anchorNode))
+        if (this.text.documentFragment?.childNodes.length! > 2)
+          for (let i = 1; i < this.text.documentFragment?.childNodes.length! - 1; i++)
           {
-            this.anchorNodeIndex = i;
-            continue;
+            this.NodesBetween_AnchorNode_and_FocusNode += (<HTMLElement>this.text.documentFragment?.childNodes[i]).outerHTML;
           }
-          if (this.view.childNodes[i].isEqualNode(this.focusNode))
-          {
-            this.focusNodeIndex = i;
-          }
-        }
-        //get the html code between the 2 nodes
-        for (let i = this.anchorNodeIndex + 1; i < this.focusNodeIndex; i++)
-        {
-          if (this.view.childNodes[i].nodeName === '#text')
-          {
-            this.NodesBetween_AnchorNode_and_FocusNode += this.view.childNodes[i].textContent;
-          } else
-          {
-            this.NodesBetween_AnchorNode_and_FocusNode += (<HTMLElement>this.view.childNodes[i]).outerHTML;
-          }
-        }
         this.buildTextToReplace(this.anchorNode, this.focusNode);
       }
     }
   }
-  applyChangesToView(textToReplace: string, textToReplaceWith: string)
+  applyChangesToView(textToReplace: string | RegExp, textToReplaceWith: string, UpdateHtml: boolean = true)
   {
-    this.view.innerHTML = this.view.innerHTML.replace(textToReplace, textToReplaceWith);
-    this.UpdateHtml();
+    this.view.innerHTML = this.view.innerHTML.replace(textToReplace, textToReplaceWith).replace(/<[^\/]("[^"img]*"|'[^'img]*'|[^'">img])*><\/[a-zA-Z0-9]+>/gi, "")
+      .replace("&nbsp;", " ").replace("<p><br></p>", "");
+    if (UpdateHtml)
+      this.UpdateHtml();
   }
   addRemoveTag(tag: string)
   {
-    // debugger;
     if (this.textToTag.length === 0) return;
     if (this.treatTextToTagElementsIndependentily)
     {
@@ -535,7 +737,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   removeTag(tag: string)
   {
-    // debugger;
     if (this.textToTag.length === 0) return;
     this.textToReplaceWith = "";
     if (this.treatTextToTagElementsIndependentily)
@@ -629,7 +830,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   addRemoveClass(className: string)
   {
-    // debugger;
     if (this.treatTextToTagElementsIndependentily)
     {
       for (let t of this.textToTag)
@@ -715,6 +915,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     {
       let temp = this.text;
       this.text = {
+        Range: temp.Range,
         text: temp.text,
         start: temp.end,
         end: temp.start,
@@ -727,6 +928,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       {
         let temp = this.text;
         this.text = {
+          Range: temp.Range,
           text: temp.text,
           start: temp.end,
           end: temp.start,
@@ -786,8 +988,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     this.textToReplace = "";
     this.textToReplaceWith = "";
     this.NodesBetween_AnchorNode_and_FocusNode = "";
-    console.log(this.view.childNodes);
     this.anchorNode = this.extractAnchorNode(this.view.childNodes);
+    console.log(this.anchorNode);
     this.focusNode = this.extractFocusNode(this.view.childNodes);
     this.anchorNodeText = this.anchorNode?.textContent!;
     this.focusNodeText = this.focusNode?.textContent!;
@@ -819,15 +1021,15 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   extractAnchorNode(nodeList: NodeListOf<ChildNode>, x: ChildNode | null = null): ChildNode | null
   {
-    // debugger;
-
+    if (this.text.anchorNode?.nodeName === "P") return this.text.anchorNode as ChildNode;
+    if (this.text.anchorNode?.isSameNode(this.view)) return this.view;
     for (let i = 0; i < nodeList.length; i++)
     {
       if (x !== null) return x;
       let start_of_string = (<HTMLElement>nodeList[i]).outerHTML ? (<HTMLElement>nodeList[i]).outerHTML.substring(0, `<${this.tag}`.length) : "";
 
       if (nodeList[i].isEqualNode(this.text.anchorNode!)
-        || nodeList[i].isEqualNode(this.text.anchorNode?.parentElement!)
+        || nodeList[i].isEqualNode(this.text.anchorNode?.parentElement!) && nodeList[i].nodeName !== "P"
         || this.tag !== '' && start_of_string.includes(this.tag)
         && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.anchorNode?.textContent!)))
       {
@@ -840,7 +1042,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   extractFocusNode(nodeList: NodeListOf<ChildNode>, x: ChildNode | null = null): ChildNode | null
   {
-    // debugger;
     for (let i = 0; i < nodeList.length; i++)
     {
       if (x !== null) return x;
@@ -848,7 +1049,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       let start_of_string = (<HTMLElement>nodeList[i]).outerHTML ? (<HTMLElement>nodeList[i]).outerHTML.substring(0, `<${this.tag}`.length) : "";
 
       if (nodeList[i].isEqualNode(this.text.focusNode!) ||
-        nodeList[i].isEqualNode(this.text.focusNode?.parentElement!)
+        nodeList[i].isEqualNode(this.text.focusNode?.parentElement!) && nodeList[i].nodeName !== "P"
         || this.tag !== '' && start_of_string.includes(this.tag)
         && ((<HTMLElement>nodeList[i]).innerText && (<HTMLElement>nodeList[i]).innerText.includes(this.text.focusNode?.textContent!)))
       {
@@ -862,19 +1063,64 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   hideDivElement(el: ElementRef<HTMLDivElement>)
   {
     let adabpted_x_Position = 0;
-    el.nativeElement.style.position = 'absolute';
-    el.nativeElement.style.zIndex = '50000';
+    // el.nativeElement.style.position = 'absolute';
+    // el.nativeElement.style.zIndex = '50000';
     el.nativeElement.setAttribute("class", "d-block");
-    if (this.text.mouseX! >= el.nativeElement.clientWidth)
+    // el.nativeElement.style.top = `2px`;
+    // el.nativeElement.style.left = `2px`;
+    // this.view.style.position = 'relative';
+    // this.view.appendChild(el.nativeElement);
+    // if (this.text.mouseX! >= el.nativeElement.clientWidth)
+    // {
+    //   adabpted_x_Position = (this.text.mouseX! - el.nativeElement.clientWidth * 50 / 100);
+    // }
+    // else
+    // {
+    //   adabpted_x_Position = this.text.mouseX! - this.text.mouseX! * 50 / 100;
+    // };
+    // el.nativeElement.style.top = this.text.mouseY! + 20 + 'px';
+    // el.nativeElement.style.left = adabpted_x_Position + 'px';
+  }
+  removeImageAlignments(classAttrinute: string)
+  {
+    console.log(classAttrinute);
+    let classList = classAttrinute.split(' ');
+    return classList.filter(x => x !== 'align-center' && x !== 'align-right' && x !== 'align-left');
+  }
+  add_Image_ToView(fileName: string, url: string, alt: string, caption: string, width: number = 100)
+  {
+    let figureWithCaption = "";
+    let image = `<img id="${fileName}" 
+    class="figure-img img-fluid rounded align-center"
+    src="${url}" alt="${alt}" width="100%">`;
+    figureWithCaption = `<figure class="figure align-center" style="width:${width}%">
+      ${image}
+      <figcaption class="figure-caption text-center">${caption}</figcaption>
+    </figure>`;
+    if (caption !== null || caption !== '')
     {
-      adabpted_x_Position = (this.text.mouseX! - el.nativeElement.clientWidth * 50 / 100);
+      if (this.text.anchorNode?.isSameNode(this.view))
+      {
+        this.view.innerHTML += figureWithCaption;
+      }
+      else
+        this.applyChangesToView(this.anchorNode_OuterHtml, figureWithCaption);
     }
     else
     {
-      adabpted_x_Position = this.text.mouseX! - this.text.mouseX! * 50 / 100;
-    };
-    el.nativeElement.style.top = this.text.mouseY! + 20 + 'px';
-    el.nativeElement.style.left = adabpted_x_Position + 'px';
+      if (this.text.anchorNode?.isSameNode(this.view))
+      {
+        this.view.innerHTML += image;
+      } else
+        this.applyChangesToView(this.anchorNode_OuterHtml, image);
+    }
+    let newImage = <HTMLImageElement>this.document.getElementById(fileName);
+    newImage?.addEventListener("click", () =>
+    {
+      this.selectedImage = newImage;
+      this.hideDivElement(this.ImageTagHandling);
+      this.text.documentFragment = this.document.createRange().createContextualFragment(newImage?.outerHTML!);
+    });
   }
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent)
@@ -921,6 +1167,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       // sel?.addRange(range);
     }
     if (event.key == "Enter")
+    {
       this.document.execCommand('formatBlock', true, 'p');
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -14,12 +14,13 @@ import
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Attachments, Post } from 'src/models.model';
+import { Attachments, Post, PostAttachments } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { selectUser } from 'src/State/AuthState/auth.reducer';
 import { LoadCATEGORYs } from 'src/State/CategoriesState/Category.actions';
 import { selectAllCategorys, selectCategoryIds } from 'src/State/CategoriesState/Category.reducer';
+import { SetValidationErrors } from 'src/State/PostState/post.actions';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
 import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
@@ -28,6 +29,8 @@ import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'sr
   selector: 'app-post-handler',
   templateUrl: './post-handler.component.html',
   styleUrls: ['./post-handler.component.css'],
+  encapsulation: ViewEncapsulation.None,
+
 })
 export class PostHandlerComponent implements OnInit, OnChanges
 {
@@ -41,7 +44,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
   FormFieldsNames = FormFieldsNames;
   errorState = new BootstrapErrorStateMatcher();
   cats$ = this.store.select(selectAllCategorys);
-
+  postsAttachments: PostAttachments[] = [];
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
   @Input() postType: string = "";
@@ -49,6 +52,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
   @Output() Publish: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Draft: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Delete: EventEmitter<number> = new EventEmitter();
+  @Output() ChosenAttachment: EventEmitter<PostAttachments[]> = new EventEmitter<PostAttachments[]>();
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
   @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
@@ -57,6 +61,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
   validators = Validators;
   CustoErrorStateMatcher = new CustomErrorStateMatcher();
   selectedText: SelectedTextData = {
+    Range: new Range(),
     text: "",
     start: -1,
     end: -1,
@@ -103,6 +108,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
     this.document.addEventListener("mousemove", (e) =>
     {
       this.mousex = e.pageX;
@@ -125,6 +131,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
         if (r)
         {
           let post = r as Post;
+          this.selectedCategories = [];
           post.postsCategories.forEach(x => this.selectedCategories.push(x.categoryId));
           this.post = Object.assign({}, r);
           this.ClientSideService.refillForm(r, this.form);
@@ -149,9 +156,6 @@ export class PostHandlerComponent implements OnInit, OnChanges
     this.post.author = null;
     html.value = view.innerHTML;
   }
-  // GetData()
-  // {
-  // }
 
   CreateSlug(title: HTMLInputElement, slug: HTMLInputElement)
   {
@@ -166,39 +170,31 @@ export class PostHandlerComponent implements OnInit, OnChanges
   }
   GetSelectedText(view: HTMLDivElement)
   {
-    if (window.getSelection)
+    var range: Range | undefined = new Range();
+    var selection: Selection | null = null;
+    if (window.getSelection && window.getSelection()?.rangeCount! > 0)
     {
-      var txt = view.innerText;
-      var selection = window.getSelection();
-      var start = selection?.anchorOffset;
-      var end = selection?.focusOffset;
-      this.selectedText = {
-        text: selection!?.toString(),
-        start: start!,
-        end: end!,
-        anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode,
-        mouseX: this.mousex,
-        mouseY: this.mousey
-      };
-      console.log(this.selectedText);
+      range = window.getSelection()?.getRangeAt(0);
+      selection = window.getSelection();
     }
-    else if (document.getSelection())
+    else if (this.document.getSelection() && this.document.getSelection()?.rangeCount! > 0)
     {
-      var txt = view.innerText;
-      var selection = document.getSelection();
-      var start = selection?.anchorOffset;
-      var end = selection?.focusOffset;
-      this.selectedText = {
-        text: selection!?.toString(),
-        start: start!,
-        end: end!,
-        anchorNode: selection?.anchorNode,
-        focusNode: selection?.focusNode,
-        mouseX: this.mousex,
-        mouseY: this.mousey
-      };
+      range = this.document.getSelection()?.getRangeAt(0);
+      selection = this.document.getSelection();
     }
+    this.selectedText = {
+      documentFragment: range?.cloneRange().cloneContents(),
+      Range: range!,
+      text: selection!?.toString(),
+      start: range?.startOffset!,
+      end: range?.endOffset!,
+      anchorNode: selection?.anchorNode,
+      focusNode: selection?.focusNode,
+      mouseX: this.mousex,
+      mouseY: this.mousey
+    };
+    console.log(this.selectedText);
+    console.log(range?.cloneRange().cloneContents());
   }
   UpdateClicked()
   {
@@ -209,15 +205,23 @@ export class PostHandlerComponent implements OnInit, OnChanges
     this.post.slug = String(this.slug.nativeElement.value);
     this.post.author = null;
     this.post.categories = this.selectedCategories;
+    this.post.attachments = this.postsAttachments;
+
     this.store.dispatch(UpdatePOST(this.post));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
   {
     this.form.get(FormControlNames.postForm.htmlContent)?.setValue(view.innerHTML);
     if (draftOrPublish === "Draft")
+    {
       this.Draft.emit(this.form);
+      this.ChosenAttachment.emit(this.postsAttachments);
+    }
     else
+    {
       this.Publish.emit(this.form);
+      this.ChosenAttachment.emit(this.postsAttachments);
+    }
   }
   CheckIfSulgNotUnique(slug: HTMLInputElement)
   {
@@ -233,7 +237,10 @@ export class PostHandlerComponent implements OnInit, OnChanges
   {
     this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.EditPost }));
   }
-
+  BindAttachmentsToPost(postsAttachments: PostAttachments[])
+  {
+    this.postsAttachments = postsAttachments;
+  }
   isSlugUnique(slug: HTMLInputElement)
   {
     this.posts$.subscribe(x => this.posts = x);

@@ -36,7 +36,9 @@ const controllers = {
             Upload: "Upload",
             GetAll: "GetAll",
             Delete: "Delete",
-            Update: "Update"
+            Update: "Update",
+            BindAttachmentToPost: "BindAttachmentToPost",
+            DeleteFromPost: "DeleteFromPost",
         }
     }
 };
@@ -68,7 +70,9 @@ export const MediaController = {
     Upload: getApiUrl(version, controllers.media.name, controllers.media.Actions.Upload),
     GetAll: getApiUrl(version, controllers.media.name, controllers.media.Actions.GetAll),
     Delete: getApiUrl(version, controllers.media.name, controllers.media.Actions.Delete),
-    Update: getApiUrl(version, controllers.media.name, controllers.media.Actions.Update)
+    Update: getApiUrl(version, controllers.media.name, controllers.media.Actions.Update),
+    BindAttachmentToPost: getApiUrl(version, controllers.media.name, controllers.media.Actions.BindAttachmentToPost),
+    DeleteFromPost: getApiUrl(version, controllers.media.name, controllers.media.Actions.DeleteFromPost),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string
