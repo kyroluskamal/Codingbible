@@ -53,7 +53,9 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   linkTag_Parts: { href: string, text: string, target?: boolean; } = { href: "", text: "" };
   LinkTagForm: FormGroup = new FormGroup({});
   ImageForm: FormGroup = new FormGroup({});
+  VedioForm: FormGroup = new FormGroup({});
   selectedImage: HTMLImageElement | null = null;
+  selected_Vedio: HTMLIFrameElement | null = null;
   widthChangeFormControl: FormControl = new FormControl(1);
   Attachments = this.store.select(selectAllAttachment);
   allAttachments: Attachments[] = [];
@@ -63,7 +65,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   @ViewChild("ImageTagHandling") ImageTagHandling!: ElementRef<HTMLDivElement>;
   @ViewChild("anchorTagHandling_FilledAnchor") anchorTagHandling_FilledAnchor!: ElementRef<HTMLDivElement>;
   @ViewChild("searchBoxForUrl") searchBoxForUrl!: ElementRef<HTMLInputElement>;
-
+  @ViewChild("VedioTagHandling") VedioTagHandling!: ElementRef<HTMLInputElement>;
+  widthOfVedio: FormControl = new FormControl(1);
   FormValidationErrorsNames = FormValidationErrorsNames;
   errorState = new BootstrapErrorStateMatcher();
   FormControlNames = FormControlNames;
@@ -82,8 +85,10 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     {
       this.text = this.selectedText;
     }
+    //attach click event to all images
     let images = this.view.getElementsByTagName("img");
     console.log(images);
+
     if (images.length > 0)
       for (let i = 0; i < images.length; i++)
       {
@@ -105,9 +110,27 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           this.ImageForm.get('src')?.setValue(this.selectedImage.src);
           this.ImageForm.get('alt')?.setValue(this.selectedImage.alt);
           this.ImageForm.markAllAsTouched();
+          this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
+          this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
+          this.VedioTagHandling.nativeElement.setAttribute("class", "d-none");
           this.hideDivElement(this.ImageTagHandling);
         });
       }
+    window.focus();
+    window.addEventListener("blur", () =>
+    {
+      if (this.document.activeElement?.nodeName.toLowerCase() === "iframe")
+      {
+        this.selected_Vedio = <HTMLIFrameElement>this.document.activeElement;
+        this.VedioForm.get('src')?.setValue(this.selected_Vedio.src);
+        this.VedioForm.get('width')?.setValue(Number(this.selected_Vedio?.parentElement?.style.width.replace("%", "")));
+        this.widthOfVedio.setValue(Number(this.selected_Vedio.parentElement?.style.width.replace("%", "")));
+        this.VedioTagHandling.nativeElement.setAttribute("class", 'd-block');
+        this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
+        this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
+        this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
+      }
+    });
   }
   /**********************************************************************
   *                            ngOnInit
@@ -137,10 +160,14 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       }
     });
     this.ImageForm = this.fb.group({
-      src: ['', [validators.required]],
+      src: ['', [validators.required, validators.URL]],
       alt: ['', [validators.required]],
       width: [100, [validators.required]],
       caption: [''],
+    });
+    this.VedioForm = this.fb.group({
+      src: ['', [validators.required, validators.YoububeVideo]],
+      width: [100, [validators.required]],
     });
     this.LinkTagForm = this.fb.group({
       href: ['', [validators.required]],
@@ -161,6 +188,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         this.LinkTagForm.get("text")?.setValue(this.linkTag_Parts.text);
         this.LinkTagForm.get("target")?.setValue(this.linkTag_Parts.target);
         this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
+        this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
+        this.VedioTagHandling.nativeElement.setAttribute("class", "d-none");
         this.hideDivElement(this.anchorTagHandling_FilledAnchor);
       } else
         if (this.anchorTagHandling.nativeElement.classList.contains("d-block")
@@ -168,7 +197,14 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         {
           this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
           this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
+
           this.searchBoxForUrl.nativeElement.value = "";
+        } else
+        {
+          // if (this.ImageTagHandling.nativeElement.classList.contains("d-block"))
+          // {
+          //   this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
+          // }
         }
 
     });
@@ -177,6 +213,75 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       this.allPostst = posts.filter(post => post.status === PostStatus.Published);
       this.filteredPosts = [...this.allPostst];
     });
+  }
+  /**********************************************************************************
+   *                               Inserting Video Handling
+   **********************************************************************************/
+  AddNewVedio()
+  {
+    let vedioLink = this.VedioForm.get('src')?.value;
+    let vedioId;
+    if (vedioLink.includes('youtu.be'))
+    {
+      vedioId = vedioLink.split('youtu.be');
+    }
+    else
+      vedioId = vedioLink.split("youtube.com/watch?v=");
+    vedioId = vedioId[vedioId.length - 1];
+    this.prepare_AnchorNode_and_FocusNode();
+    this.Add_vedio_toView(vedioId, this.VedioForm.get('width')?.value);
+    let vedio = this.view.querySelector(`[id="${vedioId}"]`);
+    vedio?.addEventListener("click", (e) =>
+    {
+      this.selected_Vedio = <HTMLIFrameElement>vedio;
+      this.VedioForm.get('src')?.setValue((<HTMLIFrameElement>vedio).src);
+      this.VedioForm.get('width')?.setValue(Number(vedio?.parentElement?.style.width.replace("%", "")));
+    });
+
+  }
+  editVedio()
+  {
+    let vedioLink = this.VedioForm.get('src')?.value;
+    let vedioId;
+    if (vedioLink.includes('youtu.be'))
+    {
+      vedioId = vedioLink.split('youtu.be');
+    }
+    else
+      vedioId = vedioLink.split("youtube.com/watch?v=");
+    vedioId = vedioId[vedioId.length - 1];
+    this.widthOfVedio.setValue(this.VedioForm.get('width')?.value);
+    (<HTMLIFrameElement>this.selected_Vedio?.parentElement).style.width = `${this.widthOfVedio.value}%`;
+    this.selected_Vedio?.setAttribute("src", `https://www.youtube.com/embed/${vedioId}`);
+    this.selected_Vedio?.parentElement?.setAttribute("id", `${vedioId}`);
+    this.selected_Vedio?.parentElement?.setAttribute("data-source", `${vedioLink}`);
+    this.UpdateHtml();
+  }
+  changeVideoALignment(alignmentType: string)
+  {
+    let classList = this.removeAlignments(this.selected_Vedio?.parentElement?.getAttribute("class")!);
+    classList?.push(`align-${alignmentType}`);
+    this.selected_Vedio?.parentElement?.setAttribute("class", classList.join(" "));
+    this.UpdateHtml();
+  }
+  removeVedioAlignment()
+  {
+    let classList = this.removeAlignments(this.selected_Vedio?.parentElement?.getAttribute("class")!);
+    this.selected_Vedio?.parentElement?.setAttribute("class", classList.join(" "));
+    this.UpdateHtml();
+  }
+  deleteVedio()
+  {
+    this.selected_Vedio?.parentElement?.remove();
+    this.UpdateHtml();
+    this.VedioTagHandling.nativeElement.setAttribute("class", "d-none");
+  }
+  changeVedioSize(width: string)
+  {
+    console.log(width);
+    this.VedioForm.get('width')?.setValue(Number(width));
+    (<HTMLDivElement>this.selected_Vedio?.parentElement).style.width = `${width}%`;
+    this.UpdateHtml();
   }
   /**********************************************************************************
    *                               Inserting Image Handling
@@ -211,13 +316,13 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
     if (image?.parentElement?.nodeName.toLowerCase() === "figure")
     {
-      let classList = this.removeImageAlignments(image.parentElement.getAttribute("class")!);
+      let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
       classList?.push(`align-${alignmentType}`);
       image.parentElement.setAttribute("class", classList.join(" "));
     }
     else
     {
-      let classList = this.removeImageAlignments(this.selectedImage?.getAttribute("class")!);
+      let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
       classList?.push(`align-${alignmentType}`);
       image?.setAttribute("class", classList?.join(" ")!);
     }
@@ -243,11 +348,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
     if (image?.parentElement?.nodeName.toLowerCase() === "figure")
     {
-      let classList = this.removeImageAlignments(image.parentElement.getAttribute("class")!);
+      let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
       image.parentElement.setAttribute("class", classList.join(" "));
     } else
     {
-      let classList = this.removeImageAlignments(this.selectedImage?.getAttribute("class")!);
+      let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
       image?.setAttribute("class", classList?.join(" ")!);
     }
     this.UpdateHtml();
@@ -1065,7 +1170,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     let adabpted_x_Position = 0;
     // el.nativeElement.style.position = 'absolute';
     // el.nativeElement.style.zIndex = '50000';
-    el.nativeElement.setAttribute("class", "d-block");
+    el.nativeElement.setAttribute("class", "d-block sticky-top");
     // el.nativeElement.style.top = `2px`;
     // el.nativeElement.style.left = `2px`;
     // this.view.style.position = 'relative';
@@ -1081,12 +1186,12 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     // el.nativeElement.style.top = this.text.mouseY! + 20 + 'px';
     // el.nativeElement.style.left = adabpted_x_Position + 'px';
   }
-  removeImageAlignments(classAttrinute: string)
+  removeAlignments(classAttrinute: string)
   {
-    console.log(classAttrinute);
     let classList = classAttrinute.split(' ');
     return classList.filter(x => x !== 'align-center' && x !== 'align-right' && x !== 'align-left');
   }
+
   add_Image_ToView(fileName: string, url: string, alt: string, caption: string, width: number = 100)
   {
     let figureWithCaption = "";
@@ -1102,17 +1207,32 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       if (this.text.anchorNode?.isSameNode(this.view))
       {
         this.view.innerHTML += figureWithCaption;
+        this.UpdateHtml();
       }
       else
-        this.applyChangesToView(this.anchorNode_OuterHtml, figureWithCaption);
+      {
+        this.anchorNode?.replaceWith(this.convertString_ToHtml(figureWithCaption).firstChild!);
+        this.UpdateHtml();
+      }
+      // else if (this.text.anchorNode?.textContent === "Insert text here")
+      // {
+      //   this.applyChangesToView(this.text.anchorNode.parentElement?.outerHTML!, figureWithCaption);
+      // }
+      // else
+      //   this.applyChangesToView(this.anchorNode_OuterHtml, figureWithCaption);
     }
     else
     {
       if (this.text.anchorNode?.isSameNode(this.view))
       {
         this.view.innerHTML += image;
-      } else
-        this.applyChangesToView(this.anchorNode_OuterHtml, image);
+        this.UpdateHtml();
+      }
+      else
+      {
+        this.anchorNode?.replaceWith(this.convertString_ToHtml(image).firstChild!);
+        this.UpdateHtml();
+      }
     }
     let newImage = <HTMLImageElement>this.document.getElementById(fileName);
     newImage?.addEventListener("click", () =>
@@ -1122,6 +1242,44 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       this.text.documentFragment = this.document.createRange().createContextualFragment(newImage?.outerHTML!);
     });
   }
+  Add_vedio_toView(vedioId: string, width: number)
+  {
+    debugger;
+    let vedioInDOM = this.document.getElementById(vedioId);
+    if (vedioInDOM !== null)
+    {
+      this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "This vedio is already in the page");
+      return;
+    }
+    let vedio = `<div data-source="https://www.youtube.com/embed/${vedioId}" id="${vedioId}" class="youtube-container align-center" style="width:${width}%;">
+    <iframe src="https://www.youtube.com/embed/${vedioId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; 
+    encrypted-media; gyroscope; picture-in-picture" 
+    allowfullscreen></iframe>
+    </div>`;
+
+    if (this.text.anchorNode?.isSameNode(this.view))
+    {
+      this.view.innerHTML += vedio;
+      this.UpdateHtml();
+    } else
+    {
+      this.anchorNode?.replaceWith(this.convertString_ToHtml(vedio).firstChild!);
+      this.UpdateHtml();
+    }
+    // this.anchorNode?.remove();
+    // else if (this.text.anchorNode?.textContent === "Insert text here")
+    // {
+    //   this.applyChangesToView(this.text.anchorNode.parentElement?.outerHTML!, vedio);
+    // }
+    // else
+    //   this.applyChangesToView(this.anchorNode_OuterHtml, vedio);
+  }
+  convertString_ToHtml(str: string)
+  {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(str, 'text/html');
+    return doc.body;
+  };
   @HostListener('window:keydown', ['$event'])
   onKeyDown(event: KeyboardEvent)
   {

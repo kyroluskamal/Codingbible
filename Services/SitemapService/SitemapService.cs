@@ -171,7 +171,7 @@ public class SitemapService : ISitemapService
     {
         SitemapNode node = new()
         {
-            Frequency = post.EditFrequency,
+            Frequency = post.EditFrequency.Length == 0 ? "weekly" : post.EditFrequency,
             LastModified = post.LasModified,
             Loc = $"{baseUrl}/{post.Slug}",
             Priority = post.Priority,

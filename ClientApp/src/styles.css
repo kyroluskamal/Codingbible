@@ -209,3 +209,17 @@ figure{
 figure.figure img{
   border-radius: 0.25rem 0.25rem 0 0 !important;
 }
+.youtube-container{
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 1.0rem;
+}
+.youtube-container iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
