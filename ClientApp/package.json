@@ -17,7 +17,7 @@
   "private": true,
   "dependencies": {
     "@angular-builders/custom-webpack": "^13.1.0",
-    "@angular-devkit/build-angular": "^13.3.4",
+    "@angular-devkit/build-angular": "^13.3.5",
     "@angular/animations": "~13.3.5",
     "@angular/cdk": "^13.3.5",
     "@angular/common": "~13.3.5",
@@ -65,7 +65,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular/cli": "~13.3.4",
+    "@angular/cli": "~13.3.5",
     "@angular/compiler-cli": "~13.3.5",
     "@ngneat/spectator": "^10.0.0",
     "@nguniversal/builders": "^13.1.0",
