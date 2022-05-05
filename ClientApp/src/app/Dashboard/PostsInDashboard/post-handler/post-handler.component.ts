@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,7 @@ import { SetValidationErrors } from 'src/State/PostState/post.actions';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
 import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-post-handler',
@@ -32,7 +33,7 @@ import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'sr
   encapsulation: ViewEncapsulation.None,
 
 })
-export class PostHandlerComponent implements OnInit, OnChanges
+export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
 {
   ValidationErrors$ = this.store.select(select_Post_ValidationErrors);
   pinned = Boolean(localStorage.getItem(LocalStorageKeys.FixedSidnav));
@@ -48,12 +49,17 @@ export class PostHandlerComponent implements OnInit, OnChanges
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
   @Input() postType: string = "";
+  viewWidth: number = window.innerWidth;
+  viewHeight: number = window.innerHeight;
   @Output() Update: EventEmitter<Post> = new EventEmitter();
   @Output() Publish: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Draft: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Delete: EventEmitter<number> = new EventEmitter();
   @Output() ChosenAttachment: EventEmitter<PostAttachments[]> = new EventEmitter<PostAttachments[]>();
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
+  @ViewChild("StickyNotesHandler", { read: ElementRef }) StickyNotesHandler: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
+  @ViewChild("StickyNotesContainer", { read: ElementRef }) StickyNotesContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
+  @ViewChild("StickyNotes", { read: ElementRef }) StickyNotes: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
   @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
   mousex: number = 0;
@@ -70,6 +76,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
     mouseX: this.mousex,
     mouseY: this.mousey
   };
+  stickyNodeIsOpened: boolean = false;
   Type: string = "";
   posts: Post[] = [];
   pinned$ = this.store.select(selectPinned);
@@ -78,6 +85,7 @@ export class PostHandlerComponent implements OnInit, OnChanges
   postById = new Observable<any>();
   form: FormGroup = new FormGroup({});
   postTitle: string = '';
+  sideBarWidth: number = 0;
   IsUpdated: boolean = false;
   selectedCategories: number[] = [];
   categoriesIds = this.store.select(selectCategoryIds);
@@ -87,13 +95,53 @@ export class PostHandlerComponent implements OnInit, OnChanges
    *                                                Constructor
    ************************************************************************************/
   constructor(public store: Store, private postService: PostService,
-    @Inject(DOCUMENT) private document: Document,
+    @Inject(DOCUMENT) private document: Document, private title: Title,
     public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
   {
     this.form = this.inputForm;
     this.Type = this.postType;
   }
-
+  ngAfterViewInit(): void
+  {
+    let matSideNav = this.document.getElementsByTagName('mat-sidenav')[0];
+    this.pinned$.subscribe((x) =>
+    {
+      if (x)
+      {
+        this.sideBarWidth = (<HTMLElement>matSideNav).offsetWidth;
+      } else
+      {
+        this.sideBarWidth = 0;
+      }
+    });
+    this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+      this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+  }
+  ToggleStickyNotes()
+  {
+    this.stickyNodeIsOpened = !this.stickyNodeIsOpened;
+    this.StickyNotesContainer.nativeElement.style.transition = "all 0.5s ease-in-out";
+    if (this.stickyNodeIsOpened)
+      this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+        this.StickyNotesContainer.nativeElement.offsetWidth - 20 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+    else
+      this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+        this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+  }
+  // openStickyNotes()
+  // {
+  //   this.stickyNodeIsOpened = true;
+  //   this.StickyNotesContainer.nativeElement.style.transition = "all 0.5s ease-in-out";
+  //   this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+  //     this.StickyNotesContainer.nativeElement.offsetWidth - 20 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+  // }
+  closeStickyNotes()
+  {
+    this.stickyNodeIsOpened = false;
+    this.StickyNotesContainer.nativeElement.style.transition = "all 0.5s ease-in-out";
+    this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+      this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+  }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('inputForm' in changes)
@@ -108,6 +156,27 @@ export class PostHandlerComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    let matSideNav = this.document.getElementsByTagName('mat-sidenav')[0];
+    this.pinned$.subscribe((x) =>
+    {
+      if (x)
+      {
+        this.sideBarWidth = (<HTMLElement>matSideNav).offsetWidth;
+        this.closeStickyNotes();
+      } else
+      {
+        this.sideBarWidth = 0;
+        this.closeStickyNotes();
+      }
+    });
+    window.addEventListener('resize', () =>
+    {
+      this.viewWidth = window.innerWidth;
+      this.viewHeight = window.innerHeight;
+      this.stickyNodeIsOpened = false;
+      this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
+        this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+    });
     this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
     this.document.addEventListener("mousemove", (e) =>
     {
@@ -136,9 +205,12 @@ export class PostHandlerComponent implements OnInit, OnChanges
           this.post = Object.assign({}, r);
           this.ClientSideService.refillForm(r, this.form);
           this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
+          this.title.setTitle(`Edit post - ${this.post.title}`);
         }
       });
     }
+    if (this.postType === PostType.Add)
+      this.title.setTitle("Add new post");
   }
   UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
   {

@@ -1313,16 +1313,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           }
         }
       }
-
-      // event.preventDefault();
-      // this.view.innerHTML = this.view.innerHTML + '<p>klk;l</p>';
-      // this.UpdateHtml();
-      // let range = this.document.createRange();
-      // let sel = window.getSelection();
-      // range.setStart(this.view.childNodes[this.view.childNodes.length - 1], 0);
-      // range.collapse(true);
-      // sel?.removeAllRanges();
-      // sel?.addRange(range);
     }
     if (event.key == "Enter")
     {

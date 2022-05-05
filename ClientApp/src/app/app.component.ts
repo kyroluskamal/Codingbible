@@ -13,7 +13,6 @@ export class AppComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.title.setTitle('Home|');
     this.meta.addTag({ property: 'og:title', content: 'Angular Universal Demo' });
 
   }

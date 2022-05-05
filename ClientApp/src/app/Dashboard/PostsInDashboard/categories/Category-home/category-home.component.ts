@@ -31,8 +31,7 @@ export class CategoryHomeComponent implements OnInit
   @ViewChild("Modal") Modal!: CategoryHandlerComponent;
 
   constructor(private store: Store, private fb: FormBuilder,
-    private NotificationService: NotificationsService,
-    private ClientSideService: ClientSideValidationService)
+    private NotificationService: NotificationsService)
   {
   }
 

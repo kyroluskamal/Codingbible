@@ -86,8 +86,6 @@ export class DashboardHomeComponent implements OnInit
       this.store.dispatch(Logout());
       this.router.navigate(['/account/login']);
     }
-
-
     this.store.dispatch(LoadPOSTs());
     // this.router.events.pipe(filter(event => event instanceof NavigationEnd))
     //   .subscribe(e =>
