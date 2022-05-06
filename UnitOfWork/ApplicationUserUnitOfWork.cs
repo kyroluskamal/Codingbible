@@ -8,6 +8,11 @@ using CodingBible.UnitOfWork.Repository.Posts;
 using CodingBible.UnitOfWork.Repository.Tokens;
 using CodingBible.UnitOfWork.IRepository.AttachmentRepo;
 using CodingBible.UnitOfWork.Repository.AttachmentRepo;
+using CodingBible.UnitOfWork.IRepository.MenuItems;
+using CodingBible.UnitOfWork.Repository.MenuItems;
+using CodingBible.UnitOfWork.IRepository.Menus;
+using CodingBible.UnitOfWork.Repository.Menus;
+
 namespace CodingBible.UnitOfWork
 {
     public class ApplicationUserUnitOfWork : IUnitOfWork_ApplicationUser
@@ -21,6 +26,10 @@ namespace CodingBible.UnitOfWork
         public IAttachmentsRepositoryAsync Attachments { get; }
         public IPostAttachmentsRepositoryAsync PostAttachments { get; }
         public IPostsCategoryRepositoryAsync PostsCategories { get; }
+        public IMenuItemsRepositoryAsync MenuItems { get; }
+        public IMenuRepositoryAsync Menus { get; }
+        public IMenuMenuItemsRepositoryAsync MenuMenuItems { get; }
+        public IMenuLocationsRespositoryAsync MenuLocations { get; }
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
         {
@@ -33,6 +42,10 @@ namespace CodingBible.UnitOfWork
             Attachments = new AttachmentsRespositoryAsync(applicationDbContext);
             PostAttachments = new PostAttachmentsRepositoryAsync(applicationDbContext);
             PostsCategories = new PostsCategoryRepositoryAsync(applicationDbContext);
+            MenuItems = new MenuItemRepositoryAsync(applicationDbContext);
+            Menus = new MenuRespositoryAsync(applicationDbContext);
+            MenuMenuItems = new MenuMenuItemsRepositoryAsync(applicationDbContext);
+            MenuLocations = new MenuLocationsRepositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

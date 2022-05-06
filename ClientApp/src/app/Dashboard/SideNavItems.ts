@@ -23,4 +23,13 @@ export let SideNav_items: ExpansionPanel[] = [
     itemLevel: 1,
     bootstrapIcon: "bi bi-pin-angle-fill"
   },
+  {
+    title: DashboardRoutesText.Appereance.Main,
+    expanded: false,
+    links: [
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Appereance.Menus], LinkText: DashboardRoutesText.Appereance.Menus, state: false },
+    ],
+    itemLevel: 1,
+    bootstrapIcon: "bi bi-brush-fill"
+  },
 ];

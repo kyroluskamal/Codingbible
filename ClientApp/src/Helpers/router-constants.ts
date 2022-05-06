@@ -22,6 +22,9 @@ export const DashboardRoutes = {
     },
     Cateogries: {
         Home: "categories",
+    },
+    Appereance: {
+        Menus: "menus",
     }
 };
 export const DashboardRoutesText = {
@@ -33,5 +36,8 @@ export const DashboardRoutesText = {
         AddPost: "Add New",
         Categories: "Categories",
     },
-
+    Appereance: {
+        Main: "Appereance",
+        Menus: "Menus",
+    }
 };

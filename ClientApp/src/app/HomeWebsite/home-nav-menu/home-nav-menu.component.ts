@@ -13,18 +13,16 @@ import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
 export class HomeNavMenuComponent implements OnInit
 {
   MenuOpen: boolean = false;
-  User: Observable<ApplicationUser | null> = new Observable<ApplicationUser | null>();
-  IsLoggedIn: Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }> = new Observable<{ isLoggedIn: boolean, Checked: boolean, tokenExpire: string; }>();
-  UserRoles: Observable<string[]> = new Observable<string[]>();
+  IsLoggedIn = this.store.select(selectIsLoggedIn);
+  UserRoles = this.store.select(selectUserRoles);
   DashboardHome = DashboardRoutes.Home;
   AuthRoutes = AuthRoutes;
+  User = this.store.select(selectUser);
   constructor(
     private store: Store,
   )
   {
-    this.User = this.store.select(selectUser);
-    this.IsLoggedIn = this.store.select(selectIsLoggedIn);
-    this.UserRoles = this.store.select(selectUserRoles);
+
   }
 
   ngOnInit(): void

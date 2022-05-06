@@ -119,3 +119,36 @@ export class PostAttachments
     attachmentId: number = 0;
     attachment?: Attachments | null = null;
 }
+
+export class Menu
+{
+    id: number = 0;
+    name: string = "";
+    menuPositionsId: number = 0;
+    menuPositions: MenuPositions | null = null;
+    menuItems: MenuItem[] = [];
+}
+export class MenuItem
+{
+    id: number = 0;
+    name: string = "";
+    url: string = "";
+    level: number = 0;
+    orderWithinParent: number = 0;
+    parentKey: number | null = null;
+    parent: MenuItem | null = null;
+    associatedMenus: MenuMenuItems[] = [];
+}
+export class MenuMenuItems
+{
+    menuItemId: number = 0;
+    menuItem: MenuItem | null = null;
+    menuId: number = 0;
+    menu: Menu | null = null;
+}
+export class MenuPositions
+{
+    id: number = 0;
+    name: string = "";
+}
+

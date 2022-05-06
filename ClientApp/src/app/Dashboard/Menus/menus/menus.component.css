@@ -1,0 +1,39 @@
+.styledMenus li:nth-child(odd){
+    background-color: #f2f2f2;
+}
+.styledMenus li:hover{
+    background-color: #0d6efd !important;
+    color: #fff !important;
+        font-weight: bold;
+}
+.accordion-button::after {
+    flex-shrink: 0;
+    margin-left: auto;
+    width: 0;
+    width: 10px;
+    height: auto;
+    content: '+'; /* Unicode character for "plus" sign (+) */
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background: none;
+    transition: none;
+    transform: none;
+}
+.accordion-button:not(.collapsed)::after {
+    content: '-'; /* Unicode character for "plus" sign (+) */
+    transition: none;
+    margin-left: auto;
+    flex-shrink: 0;
+    transform: none;
+}
+.menu-Structure-List li:last-child{
+    margin-bottom: 0 !important;
+}
+.menu-item:hover{
+    background-color: #0d6efd !important;
+    color: white;
+    border: none;
+}
+
+
+

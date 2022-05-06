@@ -51,18 +51,18 @@ export class Tree<T> {
 
 
 export class TreeDataStructureService<T> {
-
   private _data: T[];
   private _parentPropertyName;
   constructor(Data: T[], private parentPropertyName: string)
   {
     this._data = Data;
     this._parentPropertyName = parentPropertyName;
+    console.log(this._data);
   }
 
   getRoots(): Tree<T>[]
   {
-    let items_whitNoParents = this._data.filter(x => getKeyValue<T, keyof T>(x, this._parentPropertyName as keyof T) == null);
+    let items_whitNoParents = this._data.filter(x => getKeyValue<T, keyof T>(x, this._parentPropertyName as keyof T) == null || Number(getKeyValue<T, keyof T>(x, this._parentPropertyName as keyof T)) === 0);
     let roots: Tree<T>[] = [];
     for (let r of items_whitNoParents)
     {

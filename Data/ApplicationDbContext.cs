@@ -1,4 +1,5 @@
 ﻿using CodingBible.Models;
+using CodingBible.Models.Menus;
 using CodingBible.Models.Identity;
 using CodingBible.Models.Posts;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,10 @@ namespace CodingBible.Data
         public DbSet<PostsCategory> PostsCategories { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<MenuMenuItems> MenuMenuItems { get; set; }
+        public DbSet<MenuLocations> MenuLocations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserRole>()
@@ -37,8 +42,12 @@ namespace CodingBible.Data
                 .HasOne(e => e.Parent)
                 .WithMany()
                 .HasForeignKey(e => e.ParentKey);
+            builder.Entity<MenuItem>()
+                .HasOne(e => e.Parent)
+                .WithMany()
+                .HasForeignKey(e => e.ParentKey);
             /*********************************************************************************
-            *                               One to one relationship
+            *                               One to many relationship
             **********************************************************************************/
             builder.Entity<ApplicationUser>()
                 .HasMany(e => e.Post)
@@ -70,6 +79,18 @@ namespace CodingBible.Data
                 .HasOne(x => x.Attachment)
                 .WithMany(x => x.Posts)
                 .HasForeignKey(x => x.AttachmentId);
+
+            builder.Entity<MenuMenuItems>()
+                .HasKey(x => new { x.MenuId, x.MenuItemId });
+            builder.Entity<MenuMenuItems>()
+                .HasOne(x => x.Menu)
+                .WithMany(x => x.MenuItems)
+                .HasForeignKey(x => x.MenuId);
+            builder.Entity<MenuMenuItems>()
+                .HasOne(x => x.MenuItem)
+                .WithMany(x => x.AssociatedMenus)
+                .HasForeignKey(x => x.MenuItemId);
+
             /*************************************************************************
             *                            Set defalut values
             **************************************************************************/

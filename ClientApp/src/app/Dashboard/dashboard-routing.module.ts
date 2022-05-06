@@ -11,6 +11,10 @@ export const DashBoardRoutesModule: Routes = [
       {
         path: DashboardRoutes.Posts.Home,
         loadChildren: () => import('./PostsInDashboard/posts-in-dashboard.module').then(m => m.PostsInDashboardModule)
+      },
+      {
+        path: DashboardRoutes.Appereance.Menus,
+        loadChildren: () => import('./Menus/menus.module').then(m => m.MenusModule)
       }
     ], canActivate: [AuthGuard]
   }

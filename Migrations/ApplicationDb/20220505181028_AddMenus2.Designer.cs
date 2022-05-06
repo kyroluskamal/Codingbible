@@ -4,6 +4,7 @@ using CodingBible.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220505181028_AddMenus2")]
+    partial class AddMenus2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -317,15 +319,13 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("MenuLocationsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Position")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("MenuLocationsId");
+                    b.HasKey("Id");
 
                     b.ToTable("Menus");
                 });
@@ -350,6 +350,9 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<int?>("ParentKey")
                         .HasColumnType("int");
 
+                    b.Property<int>("PostCount")
+                        .HasColumnType("int");
+
                     b.Property<string>("Url")
                         .HasColumnType("nvarchar(max)");
 
@@ -358,22 +361,6 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.HasIndex("ParentKey");
 
                     b.ToTable("MenuItems");
-                });
-
-            modelBuilder.Entity("CodingBible.Models.Menus.MenuLocations", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MenuLocations");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Menus.MenuMenuItems", b =>
@@ -389,6 +376,22 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.HasIndex("MenuItemId");
 
                     b.ToTable("MenuMenuItems");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Menus.MenuPositions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MenuPositions");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
@@ -453,7 +456,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 5, 21, 23, 2, 27, DateTimeKind.Local).AddTicks(5596));
+                        .HasDefaultValue(new DateTime(2022, 5, 5, 20, 10, 28, 658, DateTimeKind.Local).AddTicks(4005));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -479,7 +482,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 5, 21, 23, 2, 27, DateTimeKind.Local).AddTicks(6193));
+                        .HasDefaultValue(new DateTime(2022, 5, 5, 20, 10, 28, 658, DateTimeKind.Local).AddTicks(4772));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -643,15 +646,6 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("ApplicationUserRole");
-                });
-
-            modelBuilder.Entity("CodingBible.Models.Menus.Menu", b =>
-                {
-                    b.HasOne("CodingBible.Models.Menus.MenuLocations", "MenuLocations")
-                        .WithMany()
-                        .HasForeignKey("MenuLocationsId");
-
-                    b.Navigation("MenuLocations");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Menus.MenuItem", b =>

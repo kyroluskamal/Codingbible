@@ -40,6 +40,12 @@ const controllers = {
             BindAttachmentToPost: "BindAttachmentToPost",
             DeleteFromPost: "DeleteFromPost",
         }
+    },
+    menus: {
+        name: "Menu",
+        Actions: {
+            GetMenus: "GetMenus",
+        }
     }
 };
 export const AccountController = {
@@ -73,6 +79,9 @@ export const MediaController = {
     Update: getApiUrl(version, controllers.media.name, controllers.media.Actions.Update),
     BindAttachmentToPost: getApiUrl(version, controllers.media.name, controllers.media.Actions.BindAttachmentToPost),
     DeleteFromPost: getApiUrl(version, controllers.media.name, controllers.media.Actions.DeleteFromPost),
+};
+export const MenusController = {
+    GetMenus: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.GetMenus),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string
