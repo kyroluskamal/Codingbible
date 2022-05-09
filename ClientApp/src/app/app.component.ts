@@ -4,7 +4,6 @@ import { Meta, Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit 
 {

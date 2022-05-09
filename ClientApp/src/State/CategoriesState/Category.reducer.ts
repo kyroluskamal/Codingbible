@@ -54,7 +54,8 @@ export const CategoryReducer = createReducer(
     }),
     on(LoadCATEGORYsSuccess, (state, { payload }) =>
     {
-        let TreeDataStructure = new TreeDataStructureService(payload, "parentKey");
+        let TreeDataStructure = new TreeDataStructureService<Category>();
+        TreeDataStructure.setData(payload);
         let finalPayload = TreeDataStructure.finalFlatenArray();
         state = CategoryAdapter.removeAll({ ...state });
         return CategoryAdapter.addMany(finalPayload, state);

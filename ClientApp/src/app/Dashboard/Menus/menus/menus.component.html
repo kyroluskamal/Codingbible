@@ -64,18 +64,22 @@
         <div class="bg-white border border-1 p-2">
             <ul class="list-unstyled m-0 menu-Structure-List "
                 #menuStructureContainer>
-                <li draggable="true"
-                    class="rounded-2 bg-light border border-1 px-1 mb-2 dragable menu-item"
+                <li class="rounded-2 bg-light border border-1 p-2 mb-2 dragable menu-item"
                     *ngFor="let item of currentMenu.menuItems;let i=index"
                     [style.marginLeft]="item.level*10+ 'px'"
                     [id]="item.id"
-                    [attr.data-item-level]="item.level"
-                    [attr.data-parentkey]="item.parentKey">
+                    [attr.data-parentkey]="item.parentKey"
+                    [attr.data-index]="i"
+                    [attr.data-level]="item.level">
                     <div class="d-flex flex-row justify-content-between align-items-center">
                         <div class="small fw-bold">{{item.name}}</div>
                         <div class="d-flex flex-row align-items-center">
-                            <span>{{i}}</span>
-                            <button class="btn"
+
+                            <button class="btn rounded-circle me-1"
+                                    (click)="spinner.removeSpinner();modal.Toggle(); SetParent(item.id)">
+                                <i class="bi bi-pencil-fill text-primary"></i>
+                            </button>
+                            <button class="btn rounded-circle"
                                     (click)="currentMenu.menuItems.splice(currentMenu.menuItems.indexOf(item),1)">
                                 <i class="bi bi-x-lg text-danger"></i>
                             </button>
@@ -86,3 +90,113 @@
         </div>
     </div>
 </div>
+<bootstrap-modal #modal
+                 [VerticallyCentered]="true"
+                 [Modal_Body_template]="body"
+                 Modal_Header_Text="Locate menu item"
+                 [Modal_Footer_template]="footer"></bootstrap-modal>
+
+<ng-template #body>
+    <form [formGroup]="Form"
+          #form>
+        <!-- *******************************************************************
+        *                           Parent
+        **********************************************************************-->
+        <div class="form-floating has-validation mb-3">
+            <select #parent
+                    required
+                    [class]="errorState.isErrorState('parent', Form, form)?
+                  'form-select is-invalid':'form-select is-valid'"
+                    id="parentkey"
+                    formControlName="parent"
+                    aria-label="Select parent category"
+                    (change)="ChangeParent()">
+                <option value="0">No parent</option>
+                <option *ngFor="let cat of currentMenu.menuItems"
+                        [value]="cat.id"
+                        [disabled]="cat.id === CurrentItem.id">
+                    <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
+                </option>
+            </select>
+
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get('parent')?.hasError(FormValidationErrorsNames.required)
+             &&errorState.isErrorState('parent', Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="parentkey"
+                   class="form-label">Parent</label>
+        </div>
+        <!-- *******************************************************************
+        *                           Order
+        **********************************************************************-->
+        <div class="form-floating has-validation mb-3"
+             *ngIf="this.Form.get('parent')?.value!==0">
+            <select #order
+                    required
+                    [class]="errorState.isErrorState('order', Form, form)?
+                  'form-select is-invalid':'form-select is-valid'"
+                    id="order"
+                    formControlName="order">
+                <option *ngFor="let el of currentItemSblings; let i=index"
+                        [value]="el.orderWithinParent"
+                        [disabled]="el.id === CurrentItem.id || currentItemSblings.length>1">
+                    {{el.orderWithinParent}} <span *ngIf="i+1!==currentItemSblings.length">- Before
+                        {{currentItemSblings[i+1].name}}</span>
+                    <span *ngIf="i+1===currentItemSblings.length">- At the end</span>
+                    <span *ngIf="currentItemSblings.indexOf(CurrentItem)===i"> (Current location)</span>
+                </option>
+                <option *ngIf="!currentItemSblings.includes(CurrentItem)"
+                        [value]="currentItemSblings.length">Add at the end</option>
+                <option *ngIf="currentItemSblings.length===0"
+                        [value]="currentItemSblings.length">0 - the only item in this parent</option>
+            </select>
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get('order')?.hasError(FormValidationErrorsNames.required)
+             &&errorState.isErrorState('order', Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="parentkey"
+                   class="form-label">Order within parent</label>
+        </div>
+        <div class="form-floating has-validation mb-3"
+             *ngIf="this.Form.get('parent')?.value===0">
+            <select #order
+                    required
+                    [class]="errorState.isErrorState('order', Form, form)?
+                  'form-select is-invalid':'form-select is-valid'"
+                    id="order"
+                    formControlName="order">
+                <option *ngFor="let el of roots;let i = index"
+                        [value]="i">
+                    {{i}}
+                </option>
+            </select>
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get('order')?.hasError(FormValidationErrorsNames.required)
+             &&errorState.isErrorState('order', Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="parentkey"
+                   class="form-label">Order of roots</label>
+        </div>
+    </form>
+</ng-template>
+<ng-template #footer>
+    <button type="button"
+            class="btn btn-primary"
+            (click)="UpdateMenu()"
+            data-bs-dismiss="modal">
+        Save
+    </button>
+    <button class="btn btn-secondary"
+            type="button"
+            (click)="Form.reset()"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>

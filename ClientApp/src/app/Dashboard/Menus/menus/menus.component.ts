@@ -1,7 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
+import { SpinnerService } from 'src/CommonServices/spinner.service';
+import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
+import { FormValidationErrors, FormValidationErrorsNames } from 'src/Helpers/constants';
 import { Menu, MenuItem, MenuPositions, Post } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { selectAllposts } from 'src/State/PostState/post.reducer';
@@ -10,14 +14,19 @@ import { selectAllposts } from 'src/State/PostState/post.reducer';
   selector: 'app-menus',
   templateUrl: './menus.component.html',
   styleUrls: ['./menus.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenusComponent implements OnInit
 {
-  constructor(private title: Title, private store: Store, @Inject(DOCUMENT) private document: Document) 
+  constructor(private title: Title, public spinner: SpinnerService,
+    private store: Store, private fb: FormBuilder, private TreeDataStructure: TreeDataStructureService<MenuItem>,
+    @Inject(DOCUMENT) private document: Document) 
   {
     this.title.setTitle('Menus');
   }
+  Form: FormGroup = this.fb.group({
+    parent: [],
+    order: [],
+  });
   MenuPositions: MenuPositions[] = [
     { id: 1, name: 'Blog Menu' },
   ];
@@ -25,37 +34,95 @@ export class MenusComponent implements OnInit
   Posts = this.store.select(selectAllposts);
   selectedMenuItems: MenuItem[] = [];
   currentMenu: Menu = new Menu();
+  CurrentItem: MenuItem = new MenuItem();
+  previousItem: MenuItem | null = null;
+  currentItemSblings: MenuItem[] = [];
   dragabaleMenuItem!: HTMLElement;
   dragabale_clone!: HTMLElement;
   dragabale_TempHolder!: HTMLElement;
-  @ViewChild("menuStructureContainer") menuStructureContainer!: HTMLElement;
+  menuItemsOrder: number[] = [];
+  roots: MenuItem[] = [];
+  errorState = new BootstrapErrorStateMatcher();
+  FormValidationErrorsNames = FormValidationErrorsNames;
+  FormValidationErrors = FormValidationErrors;
+  ParentToChildrenMap: Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]> = new Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]>();
+  @ViewChild("menuStructureContainer", { read: ElementRef }) menuStructureContainer: ElementRef<HTMLUListElement> = {} as ElementRef<HTMLUListElement>;
   Menus: Menu[] = [
     {
       id: 1, name: "BlogMenu", menuPositionsId: 1, menuPositions: null, menuItems: [
-        { id: 1, name: "Home", url: "/", level: 0, orderWithinParent: 0, parentKey: null, parent: null, associatedMenus: [] },
-        { id: 2, name: "About", url: "/about", level: 1, orderWithinParent: 1, parentKey: 1, parent: null, associatedMenus: [] },
-        { id: 3, name: "Contact", url: "/contact", level: 3, orderWithinParent: 2, parentKey: 4, parent: null, associatedMenus: [] },
-        { id: 4, name: "Blog", url: "/blog", level: 2, orderWithinParent: 3, parentKey: 2, parent: null, associatedMenus: [] },
-      ]
-    },
-    {
-      id: 2, name: "BlogMenu", menuPositionsId: 2, menuPositions: null, menuItems: [
-        { id: 4, name: "Blog", url: "/blog", level: 0, orderWithinParent: 3, parentKey: 0, parent: null, associatedMenus: [] },
-        { id: 5, name: "Blog Details", url: "/blog-details", level: 0, orderWithinParent: 4, parentKey: 0, parent: null, associatedMenus: [] },
-        { id: 6, name: "Blog Category", url: "/blog-category", level: 0, orderWithinParent: 5, parentKey: 0, parent: null, associatedMenus: [] },
-        { id: 7, name: "Blog Tag", url: "/blog-tag", level: 0, orderWithinParent: 6, parentKey: 0, parent: null, associatedMenus: [] },
-        { id: 8, name: "Blog Search", url: "/blog-search", level: 0, orderWithinParent: 7, parentKey: 0, parent: null, associatedMenus: [] },
+        { id: 1, name: "Home", url: "/", level: 0, orderWithinParent: 1, parentKey: null, parent: null, associatedMenus: [], orderInMenu: 0 },
+        { id: 2, name: "About", url: "/about", level: 2, orderWithinParent: 0, parentKey: 4, parent: null, associatedMenus: [], orderInMenu: 0 },
+        { id: 3, name: "Contact", url: "/contact", level: 2, orderWithinParent: 1, parentKey: 4, parent: null, associatedMenus: [], orderInMenu: 0 },
+        { id: 4, name: "Blog", url: "/blog", level: 1, orderWithinParent: 0, parentKey: 1, parent: null, associatedMenus: [], orderInMenu: 0 },
+        { id: 5, name: "Blog Details", url: "/blog-details", level: 0, orderWithinParent: 0, parentKey: null, parent: null, associatedMenus: [], orderInMenu: 0 },
+
       ]
     }
   ];
   ngOnInit(): void
   {
-    for (let m of this.Menus)
-    {
-      let TreeDataStructure = new TreeDataStructureService<MenuItem>(m.menuItems, "parentKey");
-      m.menuItems = TreeDataStructure.finalFlatenArray();
-    }
     this.dragStart();
+  }
+  SetParent(itemId: number)
+  {
+    this.CurrentItem = this.currentMenu.menuItems.filter(x => x.id === itemId)[0];
+    if (this.CurrentItem.parentKey)
+    {
+      this.Form.get('parent')?.setValue(this.CurrentItem.parentKey);
+      this.currentItemSblings = this.currentMenu.menuItems.filter(x => x.parentKey === this.CurrentItem.parentKey);
+    }
+    else
+    {
+      this.Form.get('parent')?.setValue(0);
+      this.roots = this.currentMenu.menuItems.filter(i => i.parentKey == null || i.parentKey == 0);
+      this.currentItemSblings = this.roots;
+    }
+    this.Form.get("order")?.setValue(this.CurrentItem.orderWithinParent);
+  }
+  ChangeParent()
+  {
+    if (Number(this.Form.get('parent')?.value) === 0)
+      this.currentItemSblings = this.currentMenu.menuItems.filter(i => i.parentKey === null || i.parentKey === 0);
+    else
+      this.currentItemSblings = this.currentMenu.menuItems.filter(i => i.parentKey === Number(this.Form.get('parent')?.value));
+  }
+  UpdateMenu()
+  {
+    debugger;
+    if (Number(this.Form.get('parent')?.value) !== 0)
+    {
+      let sbilings = this.currentMenu.menuItems.filter(i => i.parentKey === Number(this.Form.get('parent')?.value));
+      if (sbilings.indexOf(this.CurrentItem) > -1)
+        sbilings.splice(sbilings.indexOf(this.CurrentItem), 1);
+      sbilings.splice(Number(this.Form.get('order')?.value), 0, this.CurrentItem);
+      for (let i = 0; i < sbilings.length; i++)
+      {
+        sbilings[i].orderWithinParent = i;
+      }
+    } else
+    {
+      if (this.roots.indexOf(this.CurrentItem) > -1)
+        this.roots.splice(this.roots.indexOf(this.CurrentItem), 1);
+      this.roots.splice(Number(this.Form.get('order')?.value), 0, this.CurrentItem);
+      for (let i = 0; i < this.roots.length; i++)
+      {
+        this.roots[i].orderWithinParent = i;
+      }
+    }
+    this.CurrentItem.orderWithinParent = Number(this.Form.get('order')?.value);
+    this.CurrentItem.parentKey = this.Form.get('parent')?.value == 0 ? null : Number(this.Form.get('parent')?.value);
+    this.CurrentItem.level = this.Form.get('parent')?.value == 0 ? 0 : this.currentMenu.menuItems.filter(x => x.id === Number(this.Form.get('parent')?.value))[0].level + 1;
+    this.roots = this.currentMenu.menuItems.filter(i => i.parentKey == null || i.parentKey == 0);
+    // this.TreeDataStructure.setData(this.currentMenu.menuItems);
+    for (let r of this.roots)
+    {
+      this.recalulateLevels(r);
+    }
+    this.ParentToChildrenMap = new Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]>();
+    this.ParentToChildrenMap = this.TreeDataStructure.ParentToChildMap();
+    this.currentItemSblings = this.currentMenu.menuItems.filter(i => i.parentKey == this.Form.get('parent')?.value);
+    this.currentMenu.menuItems = this.reArrangeMenuItems(this.currentMenu.menuItems);
+    console.log(this.currentMenu.menuItems);
   }
   ShowMenus(value: any)
   {
@@ -64,7 +131,8 @@ export class MenusComponent implements OnInit
   ShowItemMenus(menu: Menu)
   {
     this.currentMenu = menu;
-    this.selectedMenuItems = this.Menus.filter(x => x.id === menu.id)[0].menuItems;
+    this.TreeDataStructure.setData(this.currentMenu.menuItems);
+    this.currentMenu.menuItems = this.TreeDataStructure.finalFlatenArray();
   }
   AddToOpenedList(post: Post)
   {
@@ -82,20 +150,20 @@ export class MenusComponent implements OnInit
         menuItem: null,
         menu: null
       }]
+      , orderInMenu: 0
     };
 
     this.currentMenu.menuItems.push(newMenuItem);
   }
   dragStart()
   {
-    let previousItem;
-    let currentItem;
+
     this.document.addEventListener("dragstart", (e) =>
     {
 
       this.dragabaleMenuItem = e.target as HTMLElement;
       // e.dataTransfer!.dropEffect = "move";
-      currentItem = this.currentMenu.menuItems.find(x => x.id === Number(this.dragabaleMenuItem.getAttribute("id")));
+      this.CurrentItem = this.currentMenu.menuItems.filter(x => x.id === Number(this.dragabaleMenuItem.getAttribute("id")))[0];
 
       this.dragabale_clone = this.dragabaleMenuItem.cloneNode(true) as HTMLElement;
       e.dataTransfer!.dropEffect = "move";
@@ -129,11 +197,11 @@ export class MenusComponent implements OnInit
             (<HTMLElement>this.dragabale_TempHolder.nextSibling).offsetTop + 20)
           {
             this.dragabale_TempHolder.insertAdjacentElement("beforebegin", (<HTMLElement>this.dragabale_TempHolder.nextSibling));
-            previousItem = this.currentMenu.menuItems.filter(x =>
+
+            this.previousItem = this.currentMenu.menuItems.filter(x =>
               x.id === Number((<HTMLElement>this.dragabale_TempHolder.previousSibling).getAttribute("id"))
               && x.id !== Number(this.dragabale_clone.getAttribute('id')))[0];
-            console.log(previousItem.name);
-            this.dragabale_TempHolder.style.marginLeft = (previousItem.level + 1) * 10 + "px";
+            this.dragabale_TempHolder.style.marginLeft = this.previousItem ? this.previousItem.level + 1 * 10 + "px" : 0 + "px";
           }
           else
           {
@@ -142,21 +210,146 @@ export class MenusComponent implements OnInit
               if (this.dragabale_clone.offsetTop <
                 (<HTMLElement>this.dragabale_TempHolder.previousSibling).offsetTop + (<HTMLElement>this.dragabale_TempHolder.previousSibling).offsetHeight - 20)
               {
-                this.dragabale_TempHolder.insertAdjacentElement("afterend", (<HTMLElement>this.dragabale_TempHolder.previousSibling));
-                previousItem = this.currentMenu.menuItems.filter(x => x.id === Number((<HTMLElement>this.dragabale_TempHolder.previousSibling).getAttribute("id"))
+                this.previousItem = this.currentMenu.menuItems.filter(x => x.id === Number((<HTMLElement>this.dragabale_TempHolder.previousSibling).getAttribute("id"))
                   && x.id !== Number(this.dragabale_clone.getAttribute('id')))[0];
-                console.log(previousItem.name);
-                this.dragabale_TempHolder.style.marginLeft = (previousItem.level + 1) * 10 + "px";
-
+                this.dragabale_TempHolder.insertAdjacentElement("afterend", (<HTMLElement>this.dragabale_TempHolder.previousSibling));
+                this.dragabale_TempHolder.style.marginLeft = this.previousItem ? this.previousItem.level + 1 * 10 + "px" : 0 + "px";
               }
           }
         this.dragabale_clone.addEventListener("mouseup", () =>
         {
+          // // if (this.dragabale_TempHolder.previousSibling)
+          // if (this.dragabale_TempHolder.previousSibling &&
+          //   Number((<HTMLElement>this.dragabale_TempHolder.previousSibling).getAttribute('data-level'))
+          //   > Number(this.dragabale_clone.getAttribute('data-level')))
+          // {
+          //   return;
+          // }
           this.dragabale_clone.remove();
           this.dragabaleMenuItem.hidden = false;
           this.dragabale_TempHolder.replaceWith(this.dragabaleMenuItem);
+          this.previousItem = this.dragabaleMenuItem.previousSibling ? this.currentMenu.menuItems.filter(x => x.id
+            === Number((<HTMLElement>this.dragabaleMenuItem.previousSibling).getAttribute("id")))[0] : null;
+          this.CurrentItem.parentKey = this.previousItem ? this.previousItem.id : null;
+          this.CurrentItem.level = this.previousItem ? this.previousItem.level + 1 : 0;
+          let children = this.currentMenu.menuItems.filter(x => x.parentKey === this.CurrentItem.id);
+          children.forEach(x => x.level = this.CurrentItem.level + 1);
+          // let childrenInDOM = this.menuStructureContainer.nativeElement
+          //   .querySelectorAll(`[data-parentkey="${this.CurrentItem.id}"]`);
+          // for (let i = 0; i < childrenInDOM.length; i++)
+          // {
+          //   this.dragabaleMenuItem.insertAdjacentElement("afterend", childrenInDOM[i]);
+          // }
+          // this.currentMenu.menuItems.forEach(x =>
+          // {
+          //   if (x.id === this.CurrentItem.id)
+          //   {
+          //     x.level = this.CurrentItem.level;
+          //     x.parentKey = this.CurrentItem.parentKey;
+          //   }
+          // });
+
+          this.recalculateChildren();
+
+          for (let i = 0; i < this.menuStructureContainer.nativeElement.children.length; i++)
+          {
+            this.menuItemsOrder.push(i);
+            this.menuStructureContainer.nativeElement.children[i].setAttribute("data-index", i.toString());
+          }
         });
       }
     }, false);
+  }
+  recalculateChildren()
+  {
+    this.TreeDataStructure.setData(this.currentMenu.menuItems);
+    this.currentMenu.menuItems = this.TreeDataStructure.finalFlatenArray();
+    let arrangedArray: MenuItem[] = [];
+    this.currentMenu.menuItems.filter(e => e.parentKey === null || e.parentKey === 0).forEach(x =>
+    {
+      console.log(this.childrenOfChildren(x));
+      arrangedArray.push(x);
+      arrangedArray.push(...this.childrenOfChildren(x));
+    });
+
+    this.currentMenu.menuItems = arrangedArray;
+    console.log(this.currentMenu.menuItems);
+
+  }
+  isPreviousElInFamily()
+  {
+    if (this.previousItem)
+    {
+      let childrenOfCurrentItem =
+        this.currentMenu.menuItems.filter(x => x.parentKey === this.CurrentItem.id);
+
+    }
+  }
+  childrenOfChildren(item: MenuItem)
+  {
+    let finalArray = [];
+    let childrenOfCurrentItem =
+      this.currentMenu.menuItems.filter(x => x.parentKey === item.id);
+    // if (childrenOfCurrentItem.length === 0) return;
+    finalArray.push(...childrenOfCurrentItem);
+    childrenOfCurrentItem.forEach(x =>
+    {
+      finalArray.push(...this.childrenOfChildren(x));
+    });
+    return finalArray;
+  }
+  getChildrenFromMap(item: MenuItem, map: Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]>): MenuItem[]
+  {
+    debugger;
+    let finalArray: MenuItem[] = [];
+    let childrenOfCurrentItem: MenuItem[] = [];
+    for (const [key, value] of map)
+    {
+      if (key.parent.id === item.id)
+      {
+        childrenOfCurrentItem = value;
+      }
+    }
+    if (childrenOfCurrentItem)
+    {
+      finalArray.push(...childrenOfCurrentItem!);
+      childrenOfCurrentItem!.forEach(x =>
+      {
+        finalArray.push(...this.getChildrenFromMap(x, map));
+      });
+    }
+    return finalArray;
+  }
+  reArrangeMenuItems(menuItems: MenuItem[])
+  {
+    debugger;
+
+    for (let item of this.ParentToChildrenMap.entries())
+    {
+      item[1].sort((a, b) => a.orderWithinParent - b.orderWithinParent);
+    }
+    let roots = this.TreeDataStructure.getRawRoots().sort((a, b) => a.orderWithinParent - b.orderWithinParent);
+
+    let FlatentArrangedArray: MenuItem[] = [];
+    for (let root of roots)
+    {
+      FlatentArrangedArray.push(root);
+      FlatentArrangedArray = FlatentArrangedArray.concat(this.getChildrenFromMap(root, this.ParentToChildrenMap));
+    }
+    menuItems = FlatentArrangedArray;
+    for (let i = 0; i < menuItems.length; i++)
+    {
+      menuItems[i].orderInMenu = i;
+    }
+    return menuItems;
+  }
+  recalulateLevels(item: MenuItem)
+  {
+    let children = this.currentMenu.menuItems.filter(x => x.parentKey === item.id);
+    for (let child of children)
+    {
+      child.level = item.level + 1;
+      this.recalulateLevels(child);
+    }
   }
 }

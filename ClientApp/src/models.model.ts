@@ -138,6 +138,8 @@ export class MenuItem
     parentKey: number | null = null;
     parent: MenuItem | null = null;
     associatedMenus: MenuMenuItems[] = [];
+    orderInMenu: number = 0;
+
 }
 export class MenuMenuItems
 {

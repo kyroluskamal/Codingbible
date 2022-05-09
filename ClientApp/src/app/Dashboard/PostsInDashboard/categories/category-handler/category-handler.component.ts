@@ -36,7 +36,7 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   @Input() ActionType: string = "";
   Form: FormGroup = new FormGroup({});
   OldLevel: number = 0;
-  constructor(private store: Store,
+  constructor(private store: Store, private TreeDataStructure: TreeDataStructureService<Category>,
     private clientSideSevice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
@@ -58,8 +58,8 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     this.Form = this.inputForm;
     this.cats$.subscribe(cats =>
     {
-      let TreeDataStructure = new TreeDataStructureService(cats, "parentKey");
-      this.catsForSelectmenu = TreeDataStructure.finalFlatenArray();
+      this.TreeDataStructure.setData(cats);
+      this.catsForSelectmenu = this.TreeDataStructure.finalFlatenArray();
     });
   }
 
