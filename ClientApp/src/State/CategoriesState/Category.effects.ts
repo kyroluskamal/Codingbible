@@ -10,7 +10,8 @@ import { PostsController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Category } from "src/models.model";
 import { CategoryService } from "src/Services/category.service";
-import { AddCATEGORY, AddCATEGORY_Failed, AddCATEGORY_Success, LoadCATEGORYs, LoadCATEGORYsFail, LoadCATEGORYsSuccess, RemoveCATEGORY, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, UpdateCATEGORY, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
+import { dummyAction } from "../CourseCategoryState/CourseCategory.actions";
+import { AddCATEGORY, AddCATEGORY_Failed, AddCATEGORY_Success, LoadCATEGORYs, LoadCATEGORYsFail, LoadCATEGORYsSuccess, RemoveCATEGORY, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, SetValidationErrors, UpdateCATEGORY, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
 import { selectAllCategorys } from "./Category.reducer";
 
 @Injectable({
@@ -39,7 +40,7 @@ export class CategoryEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Category'));
-
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return AddCATEGORY_Success(r);
                     }),
                     catchError((e) =>
@@ -74,6 +75,7 @@ export class CategoryEffects
                         {
                             this.ServerErrorResponse.updateCategoryLevelInStore(action);
                         }
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return UpdateCATEGORY_Sucess({ CATEGORY: x });
                     }),
                     catchError((e) =>
@@ -93,10 +95,17 @@ export class CategoryEffects
             withLatestFrom(this.store.select(selectAllCategorys)),
             switchMap(([action, categories]) =>
             {
-                return this.CategoryService.GetAll(PostsController.GetAllCategories).pipe(
-                    map((r) => LoadCATEGORYsSuccess({ payload: r })),
-                    catchError((e) => of(LoadCATEGORYsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
-                );
+                if (categories.length === 0)
+                    return this.CategoryService.GetAll(PostsController.GetAllCategories).pipe(
+                        map((r) =>
+                        {
+                            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                            return LoadCATEGORYsSuccess({ payload: r });
+                        }),
+                        catchError((e) => of(LoadCATEGORYsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                    );
+                else
+                    return of(dummyAction());
             }
             )
         )
@@ -132,6 +141,7 @@ export class CategoryEffects
                             };
                             this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
                         }
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return RemoveCATEGORY_Success({ id: action.id });
                     }),
                     catchError((e) =>

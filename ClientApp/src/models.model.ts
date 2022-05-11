@@ -154,3 +154,83 @@ export class MenuPositions
     name: string = "";
 }
 
+export class Course
+{
+    id: number = 0;
+    name: string = "";
+    slug: string = "";
+    status: number = 0;
+    numberOfStudents: number = 0;
+    max_NumberOfStudents: number = 0;
+    needsEnrollment: boolean = false;
+    hasQASection: boolean = false;
+    description: string = "";
+    whatWillYouLearn: string = "";
+    targetAudience: string = "";
+    requirementsOrInstructions: string = "";
+    courseFeatures: string = "";
+    difficultyLevel: string = "";
+    featureImageUrl: string = "";
+    dateCreated: Date = new Date();
+    lastModified: Date = new Date();
+    introductoryVideoUrl: string = "";
+    authorId: number = 0;
+    author: ApplicationUser | null = null;
+    coursesPerCategories: CoursesPerCategory[] = [];
+    students: StudentsPerCourse[] = [];
+}
+
+export class CourseCategory
+{
+    id: number = 0;
+    name: string = "";
+    slug: string = "";
+    title: string = "";
+    description: string = "";
+    level: number = 0;
+    courseCount: number = 0;
+    parentKey: number | null = null;
+    parent: CourseCategory | null = null;
+    coursesPerCategories: CoursesPerCategory[] = [];
+}
+export class CoursesPerCategory
+{
+    courseId: number = 0;
+    course: Course | null = null;
+    courseCategoryId: number = 0;
+    courseCategory: CourseCategory | null = null;
+}
+
+export class StudentsPerCourse
+{
+    courseId: number = 0;
+    course: Course | null = null;
+    studentId: number = 0;
+    student: ApplicationUser | null = null;
+}
+
+export class Lesson
+{
+    id: number = 0;
+    name: string = "";
+    slug: string = "";
+    description: string = "";
+    vedioUrl: string = "";
+    htmlContent: string = "";
+    sectionId: number = 0;
+    section: Section | null = null;
+}
+export class Section
+{
+    id: number = 0;
+    name: string = "";
+    description: string = "";
+    courseId: number = 0;
+    course: Course | null = null;
+    order: number = 0;
+    featureImageUrl: string = "";
+    ssLeafSection: boolean = false;
+    introductoryVideoUrl: string = "";
+    parentKey: number | null = null;
+    parent: Section | null = null;
+}

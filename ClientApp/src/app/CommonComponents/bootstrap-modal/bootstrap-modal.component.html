@@ -10,6 +10,8 @@
      #Modal
      [id]="ModalId"
      aria-labelledby="Modal"
+     [attr.data-bs-backdrop]="IsStaticBackdrop?'static':'f'"
+     [attr.data-bs-keyboard]="FalseKeyboard"
      aria-hidden="true">
     <div [class]="DialogClass">
         <div [class]="ContentClass">

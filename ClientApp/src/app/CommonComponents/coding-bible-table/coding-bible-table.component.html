@@ -31,6 +31,9 @@
                     [disabled]="SelectedRows.length === 0"
                     tooltip="Delete (Ctrl+Alt+D)"
                     class="btn  btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
+            <ng-container *ngFor="let button of Additional_Menu_buttons">
+                <ng-container *ngTemplateOutlet="button"></ng-container>
+            </ng-container>
         </div>
 
     </div>
@@ -52,7 +55,7 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngIf="innerDataSource.data!.length>0">
+            <ng-container *ngIf="innerDataSource.data&&innerDataSource.data!.length>0">
                 <tr *ngFor="let row of this.PagesData.get(currentPageNo)"
                     (click)="rowClicked(row)"
                     (dblclick)="dbClick(row)"
@@ -95,7 +98,7 @@
                 </tr>
 
             </ng-container>
-            <tr *ngIf="innerDataSource.data!.length===0 && !loading"
+            <tr *ngIf="innerDataSource.data&&innerDataSource.data!.length===0 && !loading"
                 class="text-wrap">
                 <td [attr.colspan]="ColumnDefs.length"
                     class="bg-light">

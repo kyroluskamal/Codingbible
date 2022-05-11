@@ -12,6 +12,8 @@ using CodingBible.UnitOfWork.IRepository.MenuItems;
 using CodingBible.UnitOfWork.Repository.MenuItems;
 using CodingBible.UnitOfWork.IRepository.Menus;
 using CodingBible.UnitOfWork.Repository.Menus;
+using CodingBible.UnitOfWork.IRepository.Courses;
+using CodingBible.UnitOfWork.Repository.Courses;
 
 namespace CodingBible.UnitOfWork
 {
@@ -30,6 +32,12 @@ namespace CodingBible.UnitOfWork
         public IMenuRepositoryAsync Menus { get; }
         public IMenuMenuItemsRepositoryAsync MenuMenuItems { get; }
         public IMenuLocationsRespositoryAsync MenuLocations { get; }
+        public ICourseCategoryRepositoryAsync CourseCategories { get; }
+        public ICourseRepositoryAsync Courses { get; }
+        public ICoursesPerCategoryRepositoryAsync CoursesPerCategories { get; }
+        public ILessonRepositoryAsync Lessons { get; }
+        public ISectionRepositoryAsync Sections { get; }
+        public IStudentsPerCourseRepositoryAsync StudentsPerCourses { get; }
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
         {
@@ -46,6 +54,12 @@ namespace CodingBible.UnitOfWork
             Menus = new MenuRespositoryAsync(applicationDbContext);
             MenuMenuItems = new MenuMenuItemsRepositoryAsync(applicationDbContext);
             MenuLocations = new MenuLocationsRepositoryAsync(applicationDbContext);
+            CourseCategories = new CourseCategoryRepositoryAsync(applicationDbContext);
+            Courses = new CourseRepositoryAsync(applicationDbContext);
+            CoursesPerCategories = new CoursesPerCategoryRepositoryAsync(applicationDbContext);
+            Lessons = new LessonRepositoryAsync(applicationDbContext);
+            Sections = new SectionRepositoryAsync(applicationDbContext);
+            StudentsPerCourses = new StudentsPerCourseRepositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

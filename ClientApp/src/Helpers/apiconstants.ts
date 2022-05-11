@@ -46,6 +46,18 @@ const controllers = {
         Actions: {
             GetMenus: "GetMenus",
         }
+    },
+    Courses: {
+        name: "Courses",
+        Actions: {
+            GetAllCourses: "GetAllCourses",
+            GetAllCategories: "GetAllCategories",
+            GetCategoryBySlug: "GetCategoryBySlug",
+            AddCategory: "AddCategory",
+            UpdateCategory: "UpdateCategory",
+            DeleteCategory: "DeleteCategory",
+            IsCatSlug_NOT_Unique: "IsCatSlug_NOT_Unique",
+        }
     }
 };
 export const AccountController = {
@@ -82,6 +94,16 @@ export const MediaController = {
 };
 export const MenusController = {
     GetMenus: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.GetMenus),
+};
+
+export const CoursesController = {
+    GetAllCourses: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetAllCourses),
+    GetAllCategories: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetAllCategories),
+    GetCategoryBySlug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCategoryBySlug),
+    AddCategory: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddCategory),
+    UpdateCategory: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateCategory),
+    DeleteCategory: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteCategory),
+    IsCatSlug_NOT_Unique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsCatSlug_NOT_Unique),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

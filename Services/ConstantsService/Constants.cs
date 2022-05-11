@@ -12,6 +12,14 @@ namespace CodingBible.Services.ConstantsService
             Published = 1,
             Deleted = 2
         }
+        public enum DifficultyLevel
+        {
+            Beginner = 0,
+            Intermediate = 1,
+            Advanced = 2,
+            Expert = 3,
+            AllLevels = 6
+        }
         public static class Roles
         {
             public const string admin = "Administrator";

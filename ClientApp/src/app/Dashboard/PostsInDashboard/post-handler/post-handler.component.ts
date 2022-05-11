@@ -109,9 +109,11 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
       if (x)
       {
         this.sideBarWidth = (<HTMLElement>matSideNav).offsetWidth;
+        this.closeStickyNotes();
       } else
       {
         this.sideBarWidth = 0;
+        this.closeStickyNotes();
       }
     });
     this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
@@ -156,19 +158,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnInit(): void
   {
-    let matSideNav = this.document.getElementsByTagName('mat-sidenav')[0];
-    this.pinned$.subscribe((x) =>
-    {
-      if (x)
-      {
-        this.sideBarWidth = (<HTMLElement>matSideNav).offsetWidth;
-        this.closeStickyNotes();
-      } else
-      {
-        this.sideBarWidth = 0;
-        this.closeStickyNotes();
-      }
-    });
+
     window.addEventListener('resize', () =>
     {
       this.viewWidth = window.innerWidth;

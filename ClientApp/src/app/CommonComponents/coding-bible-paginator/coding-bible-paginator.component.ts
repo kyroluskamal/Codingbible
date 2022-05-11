@@ -1,11 +1,13 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, ChangeDetectorRef, AfterViewInit, AfterViewChecked, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'cb-paginator',
   templateUrl: './coding-bible-paginator.component.html',
   styleUrls: ['./coding-bible-paginator.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
-export class CodingBiblePaginatorComponent implements OnInit, OnChanges
+export class CodingBiblePaginatorComponent implements OnInit, OnChanges, AfterViewChecked
 {
   @Input() allowedElementsPerPage: number[] = [];
   @Input() DataInTables: any[] = [];
@@ -18,7 +20,12 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges
   currentPageNo: number = 0;
   @Input() ChangeCurrentPage: number = this.currentPageNo;
   Pages: Map<number, any[]> = new Map<number, any[]>();
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
+  ngAfterViewChecked(): void
+  {
+    this.cdr.detectChanges();
+  }
+
   ngOnChanges(changes: SimpleChanges): void
   {
     if ("DataInTables" in changes)
@@ -35,20 +42,24 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+
+    this.Pages.clear();
     this.DataForPages = this.DataInTables;
     this.ChangePage(this.currentPageNo);
   }
   getNumberOfPage()
   {
-    this.noOfPages = Math.ceil(this.DataForPages.length / this.defaultNumberOfElementsPerPage);
+    if (this.DataForPages)
+      this.noOfPages = Math.ceil(this.DataForPages.length / this.defaultNumberOfElementsPerPage);
   }
   CreatePages()
   {
     this.Pages.clear();
-    for (let i = 0; i < this.noOfPages; i++)
-    {
-      this.Pages.set(i, this.DataForPages.slice(i * this.defaultNumberOfElementsPerPage, (i + 1) * this.defaultNumberOfElementsPerPage));
-    }
+    if (this.DataForPages)
+      for (let i = 0; i < this.noOfPages; i++)
+      {
+        this.Pages.set(i, this.DataForPages.slice(i * this.defaultNumberOfElementsPerPage, (i + 1) * this.defaultNumberOfElementsPerPage));
+      }
     this.GetPages.emit(this.Pages);
   }
   ChangePage(pageNumber: number)

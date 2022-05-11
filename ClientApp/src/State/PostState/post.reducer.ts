@@ -1,7 +1,7 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { Post } from "src/models.model";
 import { PostState } from "../app.state";
-import { AddPOST_Failed, AddPOST_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById_Failed, GetPostById_Success, LoadPOSTsSuccess, RemovePOST_Failed, RemovePOST_Success, UpdatePOST_Failed, UpdatePOST_Sucess } from "./post.actions";
+import { AddPOST_Failed, AddPOST_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetPostById_Failed, GetPostById_Success, LoadPOSTsSuccess, RemovePOST_Failed, RemovePOST_Success, SetValidationErrors, UpdatePOST_Failed, UpdatePOST_Sucess } from "./post.actions";
 import * as adapter from "./post.adapter";
 
 export const initialState: PostState = adapter.PostAdapter.getInitialState({
@@ -62,6 +62,13 @@ export const PostReducer = createReducer(
     {
         state = adapter.PostAdapter.removeAll({ ...state });
         return adapter.PostAdapter.addMany(payload, state);
+    }),
+    on(SetValidationErrors, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
     }),
     on(dummyAction, (state) =>
     {

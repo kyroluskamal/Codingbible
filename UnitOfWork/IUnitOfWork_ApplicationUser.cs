@@ -4,6 +4,7 @@ using CodingBible.UnitOfWork.IRepository.Tokens;
 using CodingBible.UnitOfWork.IRepository.AttachmentRepo;
 using CodingBible.UnitOfWork.IRepository.MenuItems;
 using CodingBible.UnitOfWork.IRepository.Menus;
+using CodingBible.UnitOfWork.IRepository.Courses;
 
 namespace CodingBible.UnitOfWork
 {
@@ -20,6 +21,12 @@ namespace CodingBible.UnitOfWork
         IMenuRepositoryAsync Menus { get; }
         IMenuMenuItemsRepositoryAsync MenuMenuItems { get; }
         IMenuLocationsRespositoryAsync MenuLocations { get; }
+        ICourseCategoryRepositoryAsync CourseCategories { get; }
+        ICourseRepositoryAsync Courses { get; }
+        ICoursesPerCategoryRepositoryAsync CoursesPerCategories { get; }
+        ILessonRepositoryAsync Lessons { get; }
+        ISectionRepositoryAsync Sections { get; }
+        IStudentsPerCourseRepositoryAsync StudentsPerCourses { get; }
         Task<int> SaveAsync();
         int Save();
     }

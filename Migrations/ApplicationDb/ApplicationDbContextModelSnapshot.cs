@@ -154,6 +154,262 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.ToTable("Attachments");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Courses.Course", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseFeatures")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 5, 11, 3, 27, 24, 349, DateTimeKind.Local).AddTicks(8739));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<byte>("DifficultyLevel")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("FeatureImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasQASection")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IntroductoryVideoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LastModified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2022, 5, 11, 3, 27, 24, 349, DateTimeKind.Local).AddTicks(9249));
+
+                    b.Property<int>("Max_NumberOfStudents")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<bool>("NeedsEnrollment")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("NumberOfStudents")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequirementsOrInstructions")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TargetAudience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WhatWillYouLearn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasFilter("[Slug] IS NOT NULL");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.CourseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("FeatureImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Level")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentKey")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.HasIndex("ParentId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique()
+                        .HasFilter("[Slug] IS NOT NULL");
+
+                    b.ToTable("CourseCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.CoursesPerCategory", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CourseCategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "CourseCategoryId");
+
+                    b.HasIndex("CourseCategoryId");
+
+                    b.ToTable("CoursesPerCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Lesson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
+
+                    b.Property<string>("HtmlContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VedioUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FeatureImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IntroductoryVideoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLeafSection")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ParentKey")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Sections");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.StudentsPerCourse", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StudentsPerCourses");
+                });
+
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>
                 {
                     b.Property<int>("Id")
@@ -419,7 +675,7 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.Property<string>("Slug")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -429,6 +685,9 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.HasKey("Id");
 
                     b.HasIndex("ParentKey");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.ToTable("Categories");
                 });
@@ -453,7 +712,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 5, 21, 23, 2, 27, DateTimeKind.Local).AddTicks(5596));
+                        .HasDefaultValue(new DateTime(2022, 5, 11, 3, 27, 24, 349, DateTimeKind.Local).AddTicks(6930));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -479,7 +738,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 5, 21, 23, 2, 27, DateTimeKind.Local).AddTicks(6193));
+                        .HasDefaultValue(new DateTime(2022, 5, 11, 3, 27, 24, 349, DateTimeKind.Local).AddTicks(7597));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -623,6 +882,92 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Course", b =>
+                {
+                    b.HasOne("CodingBible.Models.ApplicationUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.CourseCategory", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.CourseCategory", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.CoursesPerCategory", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.CourseCategory", "CourseCategory")
+                        .WithMany("CoursesPerCategories")
+                        .HasForeignKey("CourseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.Courses.Course", "Course")
+                        .WithMany("CoursesPerCategories")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("CourseCategory");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Lesson", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Section", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.Courses.Section", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.StudentsPerCourse", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Course", "Course")
+                        .WithMany("Students")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.ApplicationUser", "Student")
+                        .WithMany("Courses")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserTokens", b =>
@@ -782,12 +1127,26 @@ namespace CodingBible.Migrations.ApplicationDb
 
             modelBuilder.Entity("CodingBible.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Courses");
+
                     b.Navigation("Post");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Attachments", b =>
                 {
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Course", b =>
+                {
+                    b.Navigation("CoursesPerCategories");
+
+                    b.Navigation("Students");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.CourseCategory", b =>
+                {
+                    b.Navigation("CoursesPerCategories");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>

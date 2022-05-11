@@ -10,7 +10,7 @@ import { Attachments } from "src/models.model";
 import { MediaService } from "src/Services/media.service";
 import { RemoveCATEGORY_Success } from "../CategoriesState/Category.actions";
 import { dummyAction } from "../PostState/post.actions";
-import { Add_ATTACHMENT, Add_ATTACHMENT_Success, checkSelectedFile, LoadATTACHMENTSs, LoadATTACHMENTSsSuccess, RemoveATTACHMENTS, RemoveATTACHMENTS_Success, SelectAttachment, UpdateATTACHMENTS, UpdateATTACHMENTS_Sucess } from "./Attachments.actions";
+import { Add_ATTACHMENT, Add_ATTACHMENT_Success, checkSelectedFile, LoadATTACHMENTSs, LoadATTACHMENTSsSuccess, RemoveATTACHMENTS, RemoveATTACHMENTS_Success, SelectAttachment, SetValidationErrors, UpdateATTACHMENTS, UpdateATTACHMENTS_Sucess } from "./Attachments.actions";
 import { selectAllAttachment, SelectSelected_Attachment, SelectTempAttachment } from "./Attachments.reducer";
 
 @Injectable({
@@ -34,6 +34,7 @@ export class AttachmentsEffects
                     map((r) =>
                     {
                         this.spinner.removeSpinner();
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return LoadATTACHMENTSsSuccess({ payload: r });
                     }),
                     catchError((e) => of(dummyAction()))
@@ -63,6 +64,7 @@ export class AttachmentsEffects
                             this.store.dispatch(SelectAttachment({ selectedFile: r[index] }));
 
                         });
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return dummyAction();
                     }),
                     catchError((e) =>
@@ -84,6 +86,7 @@ export class AttachmentsEffects
                     {
                         this.spinner.removeSpinner();
                         this.store.dispatch(SelectAttachment({ selectedFile: null }));
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return LoadATTACHMENTSs();
                     }),
                     catchError((e) =>
@@ -111,6 +114,7 @@ export class AttachmentsEffects
                         };
                         this.Notification.Success_Swal(NotificationMessage.Success.Update("Data successfully updated"), false);
                         this.store.dispatch(SelectAttachment({ selectedFile: action }));
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return UpdateATTACHMENTS_Sucess({ attachment: x });
                     }),
                     catchError((e) =>
@@ -129,6 +133,7 @@ export class AttachmentsEffects
             withLatestFrom(this.store.select(SelectSelected_Attachment)),
             switchMap(([action, selectedFile]) =>
             {
+                this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                 if (action.selectedFile?.fileName != selectedFile?.fileName)
                     return of(checkSelectedFile({ selectedFile: action.selectedFile }));
                 else

@@ -1,6 +1,7 @@
 import { Update } from "@ngrx/entity";
 import { createAction, props } from "@ngrx/store";
 import { actionNames } from "src/Helpers/constants";
+import { ModelStateErrors } from "src/Interfaces/interfaces";
 import { Attachments } from "src/models.model";
 
 export const Add_ATTACHMENT = createAction(actionNames.AttactmentActions.ADD_ATTACHMENT,
@@ -26,3 +27,5 @@ export const UpdateTempAttachment = createAction(actionNames.AttactmentActions.U
     props<{ tempAttachment: Attachments[]; }>());
 export const checkSelectedFile = createAction(actionNames.AttactmentActions.checkSelectedFile,
     props<{ selectedFile: Attachments | null; }>());
+export const SetValidationErrors = createAction(actionNames.PostActions.Set_ValidationErrors,
+    props<{ validationErrors: ModelStateErrors[]; }>());

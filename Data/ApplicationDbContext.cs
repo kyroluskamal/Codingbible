@@ -5,6 +5,7 @@ using CodingBible.Models.Posts;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using CodingBible.Models.Courses;
 
 namespace CodingBible.Data
 {
@@ -29,6 +30,12 @@ namespace CodingBible.Data
         public DbSet<Menu> Menus { get; set; }
         public DbSet<MenuMenuItems> MenuMenuItems { get; set; }
         public DbSet<MenuLocations> MenuLocations { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseCategory> CourseCategories { get; set; }
+        public DbSet<CoursesPerCategory> CoursesPerCategories { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<StudentsPerCourse> StudentsPerCourses { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserRole>()
@@ -67,8 +74,6 @@ namespace CodingBible.Data
                 .WithMany(x => x.PostsCategories)
                 .HasForeignKey(x => x.CategoryId);
 
-            builder.Entity<Post>().HasIndex(x => x.Slug).IsUnique();
-
             builder.Entity<PostAttachments>()
                 .HasKey(x => new { x.PostId, x.AttachmentId });
             builder.Entity<PostAttachments>()
@@ -91,6 +96,28 @@ namespace CodingBible.Data
                 .WithMany(x => x.AssociatedMenus)
                 .HasForeignKey(x => x.MenuItemId);
 
+            builder.Entity<CoursesPerCategory>()
+                .HasKey(x => new { x.CourseId, x.CourseCategoryId });
+            builder.Entity<CoursesPerCategory>()
+                .HasOne(x => x.Course)
+                .WithMany(x => x.CoursesPerCategories)
+                .HasForeignKey(x => x.CourseId);
+            builder.Entity<CoursesPerCategory>()
+                .HasOne(x => x.CourseCategory)
+                .WithMany(x => x.CoursesPerCategories)
+                .HasForeignKey(x => x.CourseCategoryId);
+
+            builder.Entity<StudentsPerCourse>()
+                .HasKey(x => new { x.CourseId, x.StudentId });
+            builder.Entity<StudentsPerCourse>()
+                .HasOne(x => x.Course)
+                .WithMany(x => x.Students)
+                .HasForeignKey(x => x.CourseId)
+                .OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<StudentsPerCourse>()
+                .HasOne(x => x.Student)
+                .WithMany(x => x.Courses)
+                .HasForeignKey(x => x.StudentId);
             /*************************************************************************
             *                            Set defalut values
             **************************************************************************/
@@ -98,6 +125,21 @@ namespace CodingBible.Data
             builder.Entity<Post>().Property(x => x.Priority).HasDefaultValue(0.5f);
             builder.Entity<Post>().Property(x => x.DateCreated).HasDefaultValue(DateTime.Now);
             builder.Entity<Post>().Property(x => x.LasModified).HasDefaultValue(DateTime.Now);
+            builder.Entity<Course>().Property(x => x.NeedsEnrollment).HasDefaultValue(false);
+            builder.Entity<Course>().Property(x => x.DateCreated).HasDefaultValue(DateTime.Now);
+            builder.Entity<Course>().Property(x => x.LastModified).HasDefaultValue(DateTime.Now);
+            builder.Entity<Section>().Property(x => x.IsLeafSection).HasDefaultValue(false);
+
+            /*************************************************************************
+            *                            Set Unique values
+            ***************************************************************************/
+            builder.Entity<Post>().HasIndex(x => x.Slug).IsUnique();
+            builder.Entity<Course>().HasIndex(x => x.Slug).IsUnique();
+            builder.Entity<Course>().HasIndex(x => x.Name).IsUnique();
+            builder.Entity<Category>().HasIndex(x => x.Slug).IsUnique();
+            builder.Entity<CourseCategory>().HasIndex(x => x.Slug).IsUnique();
+            builder.Entity<CourseCategory>().HasIndex(x => x.Name).IsUnique();
+
             base.OnModelCreating(builder);
         }
     }

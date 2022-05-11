@@ -1,6 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
@@ -8,8 +7,8 @@ import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-ma
 import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType } from 'src/Helpers/constants';
 import { Category } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
-import { AddCATEGORY, UpdateCATEGORY, UpdateCATEGORY_Sucess } from 'src/State/CategoriesState/Category.actions';
-import { selectAllCategorys, selectCategoryByID, select_Category_ValidationErrors } from 'src/State/CategoriesState/Category.reducer';
+import { AddCATEGORY, UpdateCATEGORY } from 'src/State/CategoriesState/Category.actions';
+import { selectAllCategorys, select_Category_ValidationErrors } from 'src/State/CategoriesState/Category.reducer';
 
 
 @Component({
@@ -19,7 +18,7 @@ import { selectAllCategorys, selectCategoryByID, select_Category_ValidationError
 })
 export class CategoryHandlerComponent implements OnInit, OnChanges
 {
-  @ViewChild("modal") modal!: BootstrapMoalComponent;
+  @ViewChild("PostCategory") modal!: BootstrapMoalComponent;
   ValidationErrors$ = this.store.select(select_Category_ValidationErrors);
 
   PostType = PostType;
@@ -36,6 +35,7 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   @Input() ActionType: string = "";
   Form: FormGroup = new FormGroup({});
   OldLevel: number = 0;
+  newCategory: Category = new Category();
   constructor(private store: Store, private TreeDataStructure: TreeDataStructureService<Category>,
     private clientSideSevice: ClientSideValidationService,)
   {
@@ -74,22 +74,22 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   Submit()
   {
     this.Form.markAllAsTouched();
-    let newCategory = new Category();
-    this.clientSideSevice.FillObjectFromForm(newCategory, this.Form);
-    if (newCategory.parentKey === 0)
+    this.newCategory = new Category();
+    this.clientSideSevice.FillObjectFromForm(this.newCategory, this.Form);
+    if (this.newCategory.parentKey === 0)
     {
-      newCategory.parentKey = null;
+      this.newCategory.parentKey = null;
     }
-    let parent = this.catsForSelectmenu.filter(cat => cat.id == newCategory.parentKey)[0];
-    if (newCategory.parentKey === 0 || newCategory.parentKey === null || parent == null)
+    let parent = this.catsForSelectmenu.filter(cat => cat.id == this.newCategory.parentKey)[0];
+    if (this.newCategory.parentKey === 0 || this.newCategory.parentKey === null || parent == null)
     {
-      newCategory.level = 0;
+      this.newCategory.level = 0;
     } else
     {
-      newCategory.level = parent?.level! + 1;
+      this.newCategory.level = parent?.level! + 1;
     }
-    newCategory.slug = newCategory.title.split(" ").join("-");
-    this.store.dispatch(AddCATEGORY(newCategory));
+    this.newCategory.slug = this.newCategory.title.split(" ").join("-");
+    this.store.dispatch(AddCATEGORY(this.newCategory));
   }
   ModelIsClosed()
   {
@@ -116,23 +116,4 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     newCategory.slug = newCategory.title.split(" ").join("-");
     this.store.dispatch(UpdateCATEGORY(newCategory));
   }
-
-  // updateCategoryLevelInStore(category: Category)
-  // {
-  //   let children = this.catsForSelectmenu.filter(cat => cat.parentKey == category.id);
-  //   if (children.length > 0)
-  //   {
-  //     children.forEach(child =>
-  //     {
-  //       let ch = new Category();
-  //       ch = { ...child, level: category.level! + 1 };
-  //       let x: Update<Category> = {
-  //         id: child.id,
-  //         changes: ch
-  //       };
-  //       this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
-  //       this.updateCategoryLevelInStore(child);
-  //     });
-  //   }
-  // }
 }

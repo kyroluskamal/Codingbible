@@ -37,7 +37,8 @@ export class MediaComponent implements OnInit
   attachments: Attachments[] = [];
   attachments$ = this.store.select(selectAllAttachment);
   selectedFile$ = this.store.select(SelectSelected_Attachment);
-
+  @Input() IsStaticBackdrop: boolean = false;
+  @Input() FalseKeyboard: boolean = true;
   @Input() setFeatureImageButton: boolean = false;
   @Input() ModalId: string = "Model";
   @Output() setFeatureImage: EventEmitter<Attachments | null> = new EventEmitter();
@@ -90,7 +91,6 @@ export class MediaComponent implements OnInit
 
       this.attachments.unshift(att);
     }
-    console.log(this.selectedFile);
     this.store.dispatch(Add_ATTACHMENT_Success({ attachments: this.attachments }));
     this.store.dispatch(Add_ATTACHMENT({
       files: files, tempAttachments: this.attachments

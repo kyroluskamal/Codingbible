@@ -9,6 +9,8 @@ import { AccountService } from 'src/Services/account.service';
 import * as AuthActions from './auth.actions';
 import { HTTPResponseStatus, NotificationMessage } from 'src/Helpers/constants';
 import { GetServerErrorResponseService } from 'src/CommonServices/getServerErrorResponse.service';
+import { Store } from '@ngrx/store';
+import { SetValidationErrors } from './auth.actions';
 
 @Injectable()
 export class AuthEffects
@@ -20,7 +22,11 @@ export class AuthEffects
             {
                 return this.accoutnService.Login({ email: action.email, password: action.password, rememberMe: action.rememberMe })
                     .pipe(
-                        map((r) => AuthActions.LoginSuccess(r)),
+                        map((r) =>
+                        {
+                            this.store.dispatch(SetValidationErrors({ ValidationErrors: [] }));
+                            return AuthActions.LoginSuccess(r);
+                        }),
                         catchError((e) => of(AuthActions.LoginFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     );
             }
@@ -36,6 +42,7 @@ export class AuthEffects
                         map((r) =>
                         {
                             this.router.navigateByUrl("/");
+                            this.store.dispatch(SetValidationErrors({ ValidationErrors: [] }));
                             return AuthActions.LogoutConfirmed();
                         }),
                         catchError((e) =>
@@ -78,7 +85,11 @@ export class AuthEffects
                     rememberMe: false
                 })
                     .pipe(
-                        map((r) => AuthActions.RegisterSuccess(r)),
+                        map((r) =>
+                        {
+                            this.store.dispatch(SetValidationErrors({ ValidationErrors: [] }));
+                            return AuthActions.RegisterSuccess(r);
+                        }),
                         catchError((e) => of(AuthActions.RegisterFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     )
             )
@@ -107,7 +118,11 @@ export class AuthEffects
                     clientUrl: action.clientUrl,
                 })
                     .pipe(
-                        map((r) => AuthActions.ForgetPasswordSuccess(r)),
+                        map((r) =>
+                        {
+                            this.store.dispatch(SetValidationErrors({ ValidationErrors: [] }));
+                            return AuthActions.ForgetPasswordSuccess(r);
+                        }),
                         catchError((e) => of(AuthActions.ForgetPasswordFailure({ error: e, validationErrors: this.ServerError.GetServerSideValidationErrors(e) })))
                     )
             )
@@ -187,6 +202,6 @@ export class AuthEffects
         private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
         public dialogHandler: DialogHandlerService, private ServerError: GetServerErrorResponseService,
         private accoutnService: AccountService,
-        private router: Router
+        private router: Router, private store: Store
     ) { }
 }

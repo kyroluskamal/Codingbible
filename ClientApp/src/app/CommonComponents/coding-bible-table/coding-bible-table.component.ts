@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, HostListener, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -20,6 +20,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @Input() ParentKeyProperty: string = "";
   @Input() isLoading: boolean = true;
   @Input() dataSource: any[] | null = null;
+  @Input() Additional_Menu_buttons: TemplateRef<any>[] = [];
   @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() row_Db_Click: EventEmitter<any> = new EventEmitter<any>();
   @Output() AddButtonClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -54,6 +55,8 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.innerDataSource.Data = this.dataSource;
+
     this.tableClasses = this.tableTagClass.join(" ");
     this.spinnerState();
   }

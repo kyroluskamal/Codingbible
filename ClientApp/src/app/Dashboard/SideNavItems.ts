@@ -24,12 +24,22 @@ export let SideNav_items: ExpansionPanel[] = [
     bootstrapIcon: "bi bi-pin-angle-fill"
   },
   {
+    title: DashboardRoutesText.Courses.Main,
+    expanded: false,
+    links: [
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home], LinkText: DashboardRoutesText.Courses.All, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Categories], LinkText: DashboardRoutesText.Courses.Categories, state: false },
+    ],
+    itemLevel: 2,
+    bootstrapIcon: "bi bi-book-fill"
+  },
+  {
     title: DashboardRoutesText.Appereance.Main,
     expanded: false,
     links: [
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Appereance.Menus], LinkText: DashboardRoutesText.Appereance.Menus, state: false },
     ],
-    itemLevel: 1,
+    itemLevel: 3,
     bootstrapIcon: "bi bi-brush-fill"
   },
 ];

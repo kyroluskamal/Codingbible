@@ -19,6 +19,8 @@ export class BootstrapMoalComponent implements OnInit, OnChanges
   @Input() Modal_Footer_template!: TemplateRef<any>;
   @Input() Modal_Body_Additionalclasses: string = "";
   @Input() Modal_Footer_Additionalclasses: string = "";
+  @Input() IsStaticBackdrop: boolean = false;
+  @Input() FalseKeyboard: boolean = true;
   @Input() ModalId: string = "Model";
   @Output() CloseIsClicked: EventEmitter<boolean> = new EventEmitter();
   Body_template!: TemplateRef<any>;
@@ -68,6 +70,10 @@ export class BootstrapMoalComponent implements OnInit, OnChanges
   {
     this.ModalButtton.nativeElement.click();
     this.document.body.appendChild(this.Modal.nativeElement);
+  }
+  Open()
+  {
+
   }
   CloseModal()
   {

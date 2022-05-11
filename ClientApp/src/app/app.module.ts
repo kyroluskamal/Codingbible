@@ -19,13 +19,13 @@ import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { UrlSerializer } from '@angular/router';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { PostEffects } from 'src/State/PostState/post-effects';
-import { TransferHttpCacheModule } from '@nguniversal/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
 import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
 import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
+import { CoursesEffects } from 'src/State/CourseState/Course.effects';
+import { CourseCategoryEffects } from 'src/State/CourseCategoryState/CourseCategory.effects';
 
 export const enum MergeStrategy
 {
@@ -61,7 +61,8 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     BrowserAnimationsModule,
     SharedComponentsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
-    EffectsModule.forRoot([PostEffects, AuthEffects, CategoryEffects, AttachmentsEffects]),
+    EffectsModule.forRoot([PostEffects, AuthEffects, CategoryEffects, AttachmentsEffects,
+      CoursesEffects, CourseCategoryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
     NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
     HttpClientXsrfModule.withOptions({

@@ -3,9 +3,11 @@ import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { HTTPResponseStatus } from 'src/Helpers/constants';
 import { ModelStateErrors } from 'src/Interfaces/interfaces';
-import { Category } from 'src/models.model';
+import { Category, CourseCategory } from 'src/models.model';
 import { UpdateCATEGORY_Sucess } from 'src/State/CategoriesState/Category.actions';
 import { selectAllCategorys } from 'src/State/CategoriesState/Category.reducer';
+import { UpdateCourseCategory_Sucess } from 'src/State/CourseCategoryState/CourseCategory.actions';
+import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,13 @@ import { selectAllCategorys } from 'src/State/CategoriesState/Category.reducer';
 export class GetServerErrorResponseService
 {
   allCats$ = this.store.select(selectAllCategorys);
+  allCourseCats$ = this.store.select(selectAllCourseCategorys);
   allCats: Category[] = [];
+  allCourseCats: CourseCategory[] = [];
   constructor(private store: Store)
   {
     this.allCats$.subscribe(cats => this.allCats = cats);
-
+    this.allCourseCats$.subscribe(cats => this.allCourseCats = cats);
   }
   GetModelStateErrors(ModelStateErrors: any): ModelStateErrors[]
   {
@@ -86,6 +90,33 @@ export class GetServerErrorResponseService
         };
         this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
         this.updateCategoryLevelInStore(child);
+      });
+    }
+  }
+  updateCategoryLevelInCourses(category: CourseCategory)
+  {
+    debugger;
+
+    let children: CourseCategory[] = [];
+    for (let cat of this.allCourseCats)
+    {
+      if (cat.parentKey === category.id)
+      {
+        children.push(cat);
+      }
+    }
+    if (children.length > 0)
+    {
+      children.forEach(child =>
+      {
+        let ch = new CourseCategory();
+        ch = { ...child, level: category.level! + 1 };
+        let x: Update<CourseCategory> = {
+          id: child.id,
+          changes: ch
+        };
+        this.store.dispatch(UpdateCourseCategory_Sucess({ CourseCategory: x }));
+        this.updateCategoryLevelInCourses(child);
       });
     }
   }

@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatDrawerMode, MatSidenav } from '@angular/material/sidenav';
+import { Title } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { CookieService } from 'ngx-cookie-service';
@@ -50,10 +51,11 @@ export class DashboardHomeComponent implements OnInit
   pinned$ = this.store.select(selectPinned);
   //#region Constructor
   //Constructor............................................................................
-  constructor(private location: Location,
+  constructor(private location: Location, private title: Title,
     private Notifications: NotificationsService, private mediaObserver: MediaObserver,
     private router: Router, private store: Store, private CookieService: CookieService)
   {
+    this.title.setTitle("Dashboard");
     this.User = this.store.select(selectUser);
     this.IsLoggedIn = this.store.select(selectIsLoggedIn);
     this.UserRoles = this.store.select(selectUserRoles);

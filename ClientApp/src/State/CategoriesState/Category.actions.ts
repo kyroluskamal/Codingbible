@@ -34,3 +34,5 @@ export const LoadCATEGORYsSuccess = createAction(actionNames.categoryActions.LOA
     props<{ payload: Category[]; }>());
 export const LoadCATEGORYsFail = createAction(actionNames.categoryActions.LOAD_ALL_CATEGORIES_FAILED,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const SetValidationErrors = createAction(actionNames.PostActions.Set_ValidationErrors,
+    props<{ validationErrors: ModelStateErrors[]; }>());

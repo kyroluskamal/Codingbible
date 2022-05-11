@@ -1,0 +1,161 @@
+<bootstrap-modal #CourseCategoryHandler
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="CourseCategoryHandler_header"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="CourseCategoryHandler_body"
+                 ModalId="CourseCategoryHandler"
+                 (CloseIsClicked)="ModelIsClosed()"
+                 [Modal_Footer_template]="CourseCategoryHandler_footer"></bootstrap-modal>
+<ng-template #CourseCategoryHandler_header>
+    <h4 class="modal-title text-white-50">
+        <span class="text-warning"
+              *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white"></i> Add </span>
+        <span class="text-warning"
+              *ngIf="ActionType===PostType.Edit"><i class="bi bi-pencil-fill text-white"></i> Edit </span>
+        new category
+    </h4>
+</ng-template>
+<ng-template #CourseCategoryHandler_body>
+    <form [formGroup]="Form"
+          #form
+          (submit)="Submit()"
+          (ngSubmit)="Form.valid">
+        <!-- *******************************************************************
+            *                           Name
+            **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   required
+                   [formControlName]="FormControlNames.categoryForm.name"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.name, Form)?'form-control':
+                               errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)?
+                               'form-control is-invalid':'form-control is-valid'"
+                   id="CatName">
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.name)?.hasError(FormValidationErrorsNames.required)
+                          &&errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="CatName">{{FormFieldsNames.Category.name}}</label>
+        </div>
+        <!-- *******************************************************************
+            *                           Parent Category
+            **********************************************************************-->
+        <div class="form-floating has-validation mb-3">
+            <select #parent
+                    required
+                    [class]="errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)?
+                                   'form-select is-invalid':'form-select is-valid'"
+                    id="parentkey"
+                    [formControlName]="FormControlNames.categoryForm.parentkey"
+                    (change)="onChange(parent)"
+                    aria-label="Select parent category">
+                <option value="0">No parent</option>
+                <option *ngFor="let cat of (cats$|async)"
+                        [value]="cat.id"
+                        [disabled]="cat.id === Form.get('id')?.value">
+                    <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
+                </option>
+            </select>
+
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.parentkey)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="parentkey"
+                   class="form-label">{{FormFieldsNames.Category.parentkey}}</label>
+        </div>
+        <!-- *******************************************************************
+         *                           Title
+         **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   required
+                   minlength="60"
+                   maxlength="70"
+                   [formControlName]="FormControlNames.categoryForm.title"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.title, Form)?'form-control':
+                                   errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                   id="title"
+                   placeholder="example">
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                    {{FormValidationErrors.SEO_Title_Length}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                    {{FormValidationErrors.SEO_Title_Length}}
+                </span>
+            </div>
+            <label for="title">{{FormFieldsNames.Category.title}}</label>
+        </div>
+        <!-- *******************************************************************
+         *                           Description
+         **********************************************************************-->
+        <div class="form-floating mb-3">
+            <textarea required
+                      style="resize: none; height: 120px;"
+                      rows="5"
+                      minlength="50"
+                      maxlength="160"
+                      [formControlName]="FormControlNames.categoryForm.description"
+                      [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.description, Form)?'form-control':
+                                   errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                      id="description"
+                      placeholder="example"></textarea>
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                    {{FormValidationErrors.SEO_Description_Length}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                    {{FormValidationErrors.SEO_Description_Length}}
+                </span>
+            </div>
+            <label for="description">{{FormFieldsNames.Category.description}}</label>
+        </div>
+    </form>
+</ng-template>
+<ng-template #CourseCategoryHandler_footer>
+    <button type="button"
+            *ngIf="ActionType === PostType.Add"
+            (click)="Submit()"
+            [disabled]="!Form.valid"
+            class="btn btn-primary">
+        Submit
+    </button>
+    <button type="button"
+            *ngIf="ActionType === PostType.Edit"
+            (click)="Update()"
+            [disabled]="!Form.valid"
+            class="btn btn-primary">
+        Save
+    </button>
+    <button class="btn btn-secondary"
+            type="button"
+            (click)="Form.reset()"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>

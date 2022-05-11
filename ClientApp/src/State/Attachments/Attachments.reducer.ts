@@ -1,9 +1,10 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { AttachmentsState } from "../app.state";
-import { Add_ATTACHMENT_Success, checkSelectedFile, LoadATTACHMENTSsSuccess, RemoveATTACHMENTS_Success, SelectAttachment, UpdateATTACHMENTS_Sucess, UpdateTempAttachment } from "./Attachments.actions";
+import { Add_ATTACHMENT_Success, checkSelectedFile, LoadATTACHMENTSsSuccess, RemoveATTACHMENTS_Success, SelectAttachment, SetValidationErrors, UpdateATTACHMENTS_Sucess, UpdateTempAttachment } from "./Attachments.actions";
 import { AttachmentAdapter, AttachmentsCount, selectAllAttachments, selectAttachment_Entities, selectAttachment_Ids } from "./Attachments.adapter";
 
 export const initialState: AttachmentsState = AttachmentAdapter.getInitialState({
+    ValidationErrors: [],
     SelectedFile: null,
     tempAttachments: [],
 });
@@ -26,6 +27,13 @@ export const AttachmentsReducer = createReducer(
         };
     }),
     on(UpdateTempAttachment, (state, res) => AttachmentAdapter.addMany(res.tempAttachment, state)),
+    on(SetValidationErrors, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
 );
 export const selectAttachmentState = createFeatureSelector<AttachmentsState>('attachment');
 

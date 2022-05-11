@@ -3,7 +3,7 @@ import { Category } from "src/models.model";
 import { TreeDataStructureService } from "src/Services/tree-data-structure.service";
 import { CategoryState } from "../app.state";
 import { dummyAction } from "../PostState/post.actions";
-import { AddCATEGORY_Failed, AddCATEGORY_Success, GetCategoryById_Failed, GetCategoryById_Success, LoadCATEGORYsSuccess, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
+import { AddCATEGORY_Failed, AddCATEGORY_Success, GetCategoryById_Failed, GetCategoryById_Success, LoadCATEGORYsSuccess, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, SetValidationErrors, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
 import { CategoryAdapter, categorysCount, selectAllcategorys, selectCategory_Entities, selectCategory_Ids } from "./Category.adapter";
 
 export const initialState: CategoryState = CategoryAdapter.getInitialState({
@@ -59,6 +59,13 @@ export const CategoryReducer = createReducer(
         let finalPayload = TreeDataStructure.finalFlatenArray();
         state = CategoryAdapter.removeAll({ ...state });
         return CategoryAdapter.addMany(finalPayload, state);
+    }),
+    on(SetValidationErrors, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
     }),
     on(dummyAction, (state) =>
     {
