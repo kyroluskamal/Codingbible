@@ -29,6 +29,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @Input() resetSelectedRow: boolean = false;
   innerDataSource: CbTableDataSource<any> = new CbTableDataSource<any>();
   SelectedRows: any[] = [];
+  selectedRow: any = null;
   loading: boolean = true;
   tableClasses: string = "";
   currentPageNo: number = 0;
@@ -38,7 +39,15 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   {
     if ("dataSource" in changes)
     {
+      let oldNoOfPages = this.PagesData.size;
       this.innerDataSource.Data = this.dataSource;
+      if (oldNoOfPages > this.PagesData.size)
+      {
+        this.SelectedRows = [];
+      } else if (oldNoOfPages < this.PagesData.size)
+      {
+        this.SelectedRows.push(this.selectedRow);
+      }
     }
     if ("resetSelectedRow" in changes)
     {
@@ -50,13 +59,14 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
       this.loading = this.isLoading;
       this.spinnerState();
     }
+    console.log(this.innerDataSource.Data);
   }
 
 
   ngOnInit(): void
   {
     this.innerDataSource.Data = this.dataSource;
-
+    this.currentPageNo = 2;
     this.tableClasses = this.tableTagClass.join(" ");
     this.spinnerState();
   }

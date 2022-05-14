@@ -114,7 +114,7 @@ export class CourseCategoryEffects
             ofType(RemoveCourseCategory),
             switchMap((action) =>
             {
-                this.spinner.InsideContainerSpinner();
+                this.spinner.fullScreenSpinner();
                 return this.CourseCategoryService.Delete(CoursesController.DeleteCategory, action.id).pipe(
                     map((r) =>
                     {
@@ -122,7 +122,6 @@ export class CourseCategoryEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         let children = this.allCategories.filter(c => c.parentKey == action.id);
                         let elTodelete = this.allCategories.find(c => c.id == action.id);
-                        debugger;
                         for (let child of children)
                         {
                             let temp = Object.assign({}, child);

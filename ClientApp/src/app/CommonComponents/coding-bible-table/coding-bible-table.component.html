@@ -57,8 +57,8 @@
         <tbody>
             <ng-container *ngIf="innerDataSource.data&&innerDataSource.data!.length>0">
                 <tr *ngFor="let row of this.PagesData.get(currentPageNo)"
-                    (click)="rowClicked(row)"
-                    (dblclick)="dbClick(row)"
+                    (click)="rowClicked(row);selectedRow=row"
+                    (dblclick)="dbClick(row);selectedRow=row"
                     [class]="SelectedRows.includes(row)?'table-active':''">
                     <td *ngFor="let c of ColumnDefs"
                         class="text-wrap">

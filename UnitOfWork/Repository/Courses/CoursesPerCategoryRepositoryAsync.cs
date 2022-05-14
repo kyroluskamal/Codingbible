@@ -8,6 +8,7 @@ public class CoursesPerCategoryRepositoryAsync : ApplicationUserRepositoryAsync<
 {
     public CoursesPerCategoryRepositoryAsync(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
     {
+        ApplicationDbContext = applicationDbContext;
     }
     public ApplicationDbContext ApplicationDbContext { get; }
     public void Update(CoursesPerCategory coursesPerCategory)

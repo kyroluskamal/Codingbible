@@ -68,8 +68,6 @@ export class GetServerErrorResponseService
   }
   updateCategoryLevelInStore(category: Category)
   {
-    debugger;
-
     let children: Category[] = [];
     for (let cat of this.allCats)
     {
@@ -95,8 +93,6 @@ export class GetServerErrorResponseService
   }
   updateCategoryLevelInCourses(category: CourseCategory)
   {
-    debugger;
-
     let children: CourseCategory[] = [];
     for (let cat of this.allCourseCats)
     {

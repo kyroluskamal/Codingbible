@@ -8,6 +8,7 @@ public class CourseRepositoryAsync : ApplicationUserRepositoryAsync<Course>, ICo
 {
     public CourseRepositoryAsync(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
     {
+        ApplicationDbContext = applicationDbContext;
     }
     public ApplicationDbContext ApplicationDbContext { get; }
     public void Update(Course course)

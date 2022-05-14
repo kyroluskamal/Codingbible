@@ -43,16 +43,34 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetAllCourses()
     {
-        var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author");
-        return Ok(courses.ToList());
+        try
+        {
+            var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author");
+            return Ok(courses.ToList());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
     [HttpGet]
     [Route(nameof(GetCourseById))]
     [AllowAnonymous]
     public async Task<IActionResult> GetCourseById(int id)
     {
-        var course = await UnitOfWork.Courses.GetAsync(id);
-        return Ok(course);
+        try
+        {
+            var course = await UnitOfWork.Courses.GetAsync(id);
+            return Ok(course);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -60,8 +78,17 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetCourseByName(string name)
     {
-        var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name);
-        return Ok(course);
+        try
+        {
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name);
+            return Ok(course);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -69,8 +96,17 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetCourseBySlug(string slug)
     {
-        var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug);
-        return Ok(course);
+        try
+        {
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug);
+            return Ok(course);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -78,9 +114,18 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetCoursesInCategory(int CategoryId)
     {
-        var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
-        x.CourseCategoryId == CategoryId, includeProperties: "Course");
-        return Ok(courses);
+        try
+        {
+            var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
+                         x.CourseCategoryId == CategoryId, includeProperties: "Course");
+            return Ok(courses);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -88,10 +133,19 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetCoursesInCategoryByName(string CategoryName)
     {
-        var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Name == CategoryName);
-        var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
-        x.CourseCategoryId == category.Id, includeProperties: "Course");
-        return Ok(courses);
+        try
+        {
+            var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Name == CategoryName);
+            var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
+            x.CourseCategoryId == category.Id, includeProperties: "Course");
+            return Ok(courses);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting the data from the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpGet]
@@ -99,10 +153,19 @@ public class CoursesController : ControllerBase
     [AllowAnonymous]
     public async Task<IActionResult> GetCoursesInCategoryBySlug(string CategorySlug)
     {
-        var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Slug == CategorySlug);
-        var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
-        x.CourseCategoryId == category.Id, includeProperties: "Course");
-        return Ok(courses);
+        try
+        {
+            var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Slug == CategorySlug);
+            var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
+            x.CourseCategoryId == category.Id, includeProperties: "Course");
+            return Ok(courses);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while getting the data the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPost]
@@ -111,24 +174,33 @@ public class CoursesController : ControllerBase
     [ValidateAntiForgeryTokenCustom]
     public async Task<IActionResult> AddCourse([FromBody] Course course)
     {
-        if (ModelState.IsValid)
+        try
         {
-            if (await UnitOfWork.Courses.IsNotUnique(x => x.Slug == course.Slug))
+            if (ModelState.IsValid)
             {
-                return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(course.Slug)));
+                if (await UnitOfWork.Courses.IsNotUnique(x => x.Slug == course.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(course.Slug)));
+                }
+                await UnitOfWork.Courses.AddAsync(course);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(course);
+                }
+                else
+                {
+                    return BadRequest("Failed to add course");
+                }
             }
-            await UnitOfWork.Courses.AddAsync(course);
-            var result = await UnitOfWork.SaveAsync();
-            if (result > 0)
-            {
-                return Ok(course);
-            }
-            else
-            {
-                return BadRequest("Failed to add course");
-            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
-        return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while adding data to the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     /******************************************************************************
@@ -139,15 +211,33 @@ public class CoursesController : ControllerBase
     [Route(nameof(GetAllCategories))]
     public async Task<IActionResult> GetAllCategories()
     {
-        var categories = await UnitOfWork.CourseCategories.GetAllAsync(includeProperties: "CoursesPerCategories");
-        return Ok(categories);
+        try
+        {
+            var categories = await UnitOfWork.CourseCategories.GetAllAsync(includeProperties: "CoursesPerCategories");
+            return Ok(categories);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
     [HttpGet]
     [Route(nameof(GetCategoryBySlug) + "/{slug}")]
     public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug)
     {
-        var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "CoursesPerCategories");
-        return category != null ? Ok(category) : NotFound();
+        try
+        {
+            var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "CoursesPerCategories");
+            return category != null ? Ok(category) : NotFound();
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
     [HttpPost]
     [Route(nameof(AddCategory))]
@@ -155,37 +245,46 @@ public class CoursesController : ControllerBase
     [ValidateAntiForgeryTokenCustom]
     public async Task<IActionResult> AddCategory([FromBody] CourseCategory category)
     {
-        if (ModelState.IsValid)
+        try
         {
-            var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
-            /*
-             * This conditions is just preventive and protective step. It is never called
-             * because if the username cookie is not found, then the Authorize attribute
-             * will prevent the action call. This condition is only called if some can 
-             * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
-             * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
-             */
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                await FunctionalService.Logout();
-                return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
-            }
-            if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
-            {
-                return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
-            }
-            var newCategory = new CourseCategory();
-            newCategory = Mapper.Map(category, newCategory);
+                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                /*
+                 * This conditions is just preventive and protective step. It is never called
+                 * because if the username cookie is not found, then the Authorize attribute
+                 * will prevent the action call. This condition is only called if some can 
+                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                 */
+                if (user == null)
+                {
+                    await FunctionalService.Logout();
+                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
+                }
+                if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
+                }
+                var newCategory = new CourseCategory();
+                newCategory = Mapper.Map(category, newCategory);
 
-            await UnitOfWork.CourseCategories.AddAsync(newCategory);
-            var result = await UnitOfWork.SaveAsync();
-            if (result > 0)
-            {
-                return Ok(newCategory);
+                await UnitOfWork.CourseCategories.AddAsync(newCategory);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(newCategory);
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
             }
-            return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
-        return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
 
     [HttpPut]
@@ -194,29 +293,37 @@ public class CoursesController : ControllerBase
     [Route(nameof(UpdateCategory))]
     public async Task<IActionResult> UpdateCategory([FromBody] CourseCategory category)
     {
-        Log.Warning(category.Name);
-        if (ModelState.IsValid)
+        try
         {
-            var getCategory = await UnitOfWork.CourseCategories.GetAsync(category.Id);
-            if (getCategory == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var getCategory = await UnitOfWork.CourseCategories.GetAsync(category.Id);
+                if (getCategory == null)
+                {
+                    return NotFound();
+                }
+                var oldLevel = getCategory.Level;
+                getCategory = Mapper.Map(category, getCategory);
+                if (category.Level != oldLevel)
+                {
+                    await UpdateCategoryLevel(getCategory);
+                }
+                UnitOfWork.CourseCategories.Update(getCategory);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
             }
-            var oldLevel = getCategory.Level;
-            getCategory = Mapper.Map(category, getCategory);
-            if (category.Level != oldLevel)
-            {
-                await UpdateCategoryLevel(getCategory);
-            }
-            UnitOfWork.CourseCategories.Update(getCategory);
-            var result = await UnitOfWork.SaveAsync();
-            if (result > 0)
-            {
-                return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
-            }
-            return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
-        return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
     }
     [HttpDelete]
     [Authorize(AuthenticationSchemes = "Custom")]
@@ -224,38 +331,47 @@ public class CoursesController : ControllerBase
     [Route(nameof(DeleteCategory) + "/{id}")]
     public async Task<IActionResult> DeleteCategory([FromRoute] int id)
     {
-        var getCategory = await UnitOfWork.CourseCategories.GetAsync(id);
-        if (getCategory == null)
+        try
         {
-            return NotFound();
-        }
-        var catToDeleteId = getCategory.Id;
-        var catToDelete_Level = getCategory.Level;
-        var catToDelete_ParentKey = getCategory.ParentKey;
-        var children = await UnitOfWork.CourseCategories.GetAllAsync(x => x.ParentKey == getCategory.Id);
-        children = children.ToList();
-        if (children.Any())
-        {
-            foreach (var child in children)
+            var getCategory = await UnitOfWork.CourseCategories.GetAsync(id);
+            if (getCategory == null)
             {
-                child.ParentKey = getCategory.ParentKey;
-                child.Level = getCategory.Level;
+                return NotFound();
             }
-        }
-        await UnitOfWork.Categories.RemoveAsync(id);
-        var result = await UnitOfWork.SaveAsync();
-        if (result > 0)
-        {
+            var catToDeleteId = getCategory.Id;
+            var catToDelete_Level = getCategory.Level;
+            var catToDelete_ParentKey = getCategory.ParentKey;
+            var children = await UnitOfWork.CourseCategories.GetAllAsync(x => x.ParentKey == getCategory.Id);
+            children = children.ToList();
             if (children.Any())
             {
                 foreach (var child in children)
                 {
-                    await UpdateCategoryLevel(child);
+                    child.ParentKey = getCategory.ParentKey;
+                    child.Level = getCategory.Level;
                 }
             }
-            return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
+            await UnitOfWork.CourseCategories.RemoveAsync(id);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                if (children.Any())
+                {
+                    foreach (var child in children)
+                    {
+                        await UpdateCategoryLevel(child);
+                    }
+                }
+                return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
+            }
+            return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
         }
-        return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e);
+        }
     }
     [HttpGet]
     [Authorize(AuthenticationSchemes = "Custom")]

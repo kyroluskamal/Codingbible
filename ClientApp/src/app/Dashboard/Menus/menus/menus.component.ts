@@ -88,7 +88,6 @@ export class MenusComponent implements OnInit
   }
   UpdateMenu()
   {
-    debugger;
     if (Number(this.Form.get('parent')?.value) !== 0)
     {
       let sbilings = this.currentMenu.menuItems.filter(i => i.parentKey === Number(this.Form.get('parent')?.value));
@@ -300,7 +299,6 @@ export class MenusComponent implements OnInit
   }
   getChildrenFromMap(item: MenuItem, map: Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]>): MenuItem[]
   {
-    debugger;
     let finalArray: MenuItem[] = [];
     let childrenOfCurrentItem: MenuItem[] = [];
     for (const [key, value] of map)
@@ -322,8 +320,6 @@ export class MenusComponent implements OnInit
   }
   reArrangeMenuItems(menuItems: MenuItem[])
   {
-    debugger;
-
     for (let item of this.ParentToChildrenMap.entries())
     {
       item[1].sort((a, b) => a.orderWithinParent - b.orderWithinParent);

@@ -41,15 +41,11 @@ export class CourseCategoryComponent implements OnInit
 
   ngOnInit(): void
   {
-    setTimeout(() =>
+    this.CourseCats$.subscribe(cats =>
     {
-      this.CourseCats$.subscribe(cats =>
-      {
-        this.isLoading = false;
-        this.Categories = cats;
-      });
-    }
-    );
+      this.isLoading = false;
+      this.Categories = cats;
+    });
     this.Form = this.fb.group({
       id: [0],
       name: ['', [validators.required]],

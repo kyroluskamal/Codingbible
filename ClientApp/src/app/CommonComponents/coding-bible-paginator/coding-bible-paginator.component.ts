@@ -15,7 +15,8 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges, AfterVi
   @Output() CurrentPageUnmber: EventEmitter<number> = new EventEmitter<number>();
   defaultNumberOfElementsPerPage: number = 2;
   DataForPages: any[] = [];
-  noOfPages: number = 0;
+  pagesinNumber: number[] = [];
+  noOfPages: number = 1;
   notFoundPageNumber: boolean = false;
   currentPageNo: number = 0;
   @Input() ChangeCurrentPage: number = this.currentPageNo;
@@ -30,22 +31,33 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges, AfterVi
   {
     if ("DataInTables" in changes)
     {
+      let oldPageNumbers = this.noOfPages;
+      let oldCurrenpage = this.currentPageNo;
       this.DataForPages = this.DataInTables;
       this.getNumberOfPage();
       this.CreatePages();
+      if (oldPageNumbers < this.noOfPages)
+      {
+        this.NextPage();
+      }
+      else if (oldPageNumbers > this.noOfPages)
+      {
+        this.PreviousPage();
+      }
     }
     if ("ChangeCurrentPage" in changes)
     {
       this.ChangePage(this.ChangeCurrentPage);
     }
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void
   {
-
     this.Pages.clear();
     this.DataForPages = this.DataInTables;
     this.ChangePage(this.currentPageNo);
+    this.CreatePages();
   }
   getNumberOfPage()
   {
@@ -55,9 +67,11 @@ export class CodingBiblePaginatorComponent implements OnInit, OnChanges, AfterVi
   CreatePages()
   {
     this.Pages.clear();
+    this.pagesinNumber = [];
     if (this.DataForPages)
       for (let i = 0; i < this.noOfPages; i++)
       {
+        this.pagesinNumber.push(i);
         this.Pages.set(i, this.DataForPages.slice(i * this.defaultNumberOfElementsPerPage, (i + 1) * this.defaultNumberOfElementsPerPage));
       }
     this.GetPages.emit(this.Pages);

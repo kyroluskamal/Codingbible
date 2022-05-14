@@ -38,15 +38,11 @@ export class CategoryHomeComponent implements OnInit
   ngOnInit(): void
   {
     this.store.dispatch(LoadCATEGORYs());
-    setTimeout(() =>
+    this.Cats$.subscribe(cats =>
     {
-      this.Cats$.subscribe(cats =>
-      {
-        this.isLoading = false;
-        this.Categories = cats;
-      });
-    }
-    );
+      this.isLoading = false;
+      this.Categories = cats;
+    });
     this.Form = this.fb.group({
       id: [0],
       name: ['', [validators.required]],

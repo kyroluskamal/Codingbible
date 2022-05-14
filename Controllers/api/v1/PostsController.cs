@@ -325,37 +325,46 @@ namespace CodingBible.Controllers.api.v1
         [ValidateAntiForgeryTokenCustom]
         public async Task<IActionResult> AddCategory([FromBody] Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
-                /*
-                 * This conditions is just preventive and protective step. It is never called
-                 * because if the username cookie is not found, then the Authorize attribute
-                 * will prevent the action call. This condition is only called if some can 
-                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
-                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
-                 */
-                if (user == null)
+                if (ModelState.IsValid)
                 {
-                    await FunctionalService.Logout();
-                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
-                }
-                if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
-                {
-                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
-                }
-                var newCategory = new Category();
-                newCategory = Mapper.Map(category, newCategory);
+                    var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                    /*
+                     * This conditions is just preventive and protective step. It is never called
+                     * because if the username cookie is not found, then the Authorize attribute
+                     * will prevent the action call. This condition is only called if some can 
+                     * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                     * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                     */
+                    if (user == null)
+                    {
+                        await FunctionalService.Logout();
+                        return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
+                    }
+                    if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
+                    {
+                        return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
+                    }
+                    var newCategory = new Category();
+                    newCategory = Mapper.Map(category, newCategory);
 
-                await UnitOfWork.Categories.AddAsync(newCategory);
-                var result = await UnitOfWork.SaveAsync();
-                if (result > 0)
-                {
-                    return Ok(await UnitOfWork.Categories.GetFirstOrDefaultAsync(x => x.Slug == category.Slug));
+                    await UnitOfWork.Categories.AddAsync(newCategory);
+                    var result = await UnitOfWork.SaveAsync();
+                    if (result > 0)
+                    {
+                        return Ok(await UnitOfWork.Categories.GetFirstOrDefaultAsync(x => x.Slug == category.Slug));
+                    }
+                    return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
                 }
-                return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
+                return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
             }
-            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPut]
@@ -364,28 +373,37 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(UpdateCategory))]
         public async Task<IActionResult> UpdateCategory([FromBody] Category category)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var getCategory = await UnitOfWork.Categories.GetAsync(category.Id);
-                if (getCategory == null)
+                if (ModelState.IsValid)
                 {
-                    return NotFound();
+                    var getCategory = await UnitOfWork.Categories.GetAsync(category.Id);
+                    if (getCategory == null)
+                    {
+                        return NotFound();
+                    }
+                    var oldLevel = getCategory.Level;
+                    getCategory = Mapper.Map(category, getCategory);
+                    if (category.Level != oldLevel)
+                    {
+                        await UpdateCategoryLevel(getCategory);
+                    }
+                    UnitOfWork.Categories.Update(getCategory);
+                    var result = await UnitOfWork.SaveAsync();
+                    if (result > 0)
+                    {
+                        return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
+                    }
+                    return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
                 }
-                var oldLevel = getCategory.Level;
-                getCategory = Mapper.Map(category, getCategory);
-                if (category.Level != oldLevel)
-                {
-                    await UpdateCategoryLevel(getCategory);
-                }
-                UnitOfWork.Categories.Update(getCategory);
-                var result = await UnitOfWork.SaveAsync();
-                if (result > 0)
-                {
-                    return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
-                }
-                return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
+                return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
             }
-            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+                return BadRequest(e.Message);
+            }
         }
         [HttpDelete]
         [Authorize(AuthenticationSchemes = "Custom")]
@@ -393,38 +411,47 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(DeleteCategory) + "/{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-            var getCategory = await UnitOfWork.Categories.GetAsync(id);
-            if (getCategory == null)
+            try
             {
-                return NotFound();
-            }
-            var catToDeleteId = getCategory.Id;
-            var catToDelete_Level = getCategory.Level;
-            var catToDelete_ParentKey = getCategory.ParentKey;
-            var children = await UnitOfWork.Categories.GetAllAsync(x => x.ParentKey == getCategory.Id);
-            children = children.ToList();
-            if (children.Any())
-            {
-                foreach (var child in children)
+                var getCategory = await UnitOfWork.Categories.GetAsync(id);
+                if (getCategory == null)
                 {
-                    child.ParentKey = getCategory.ParentKey;
-                    child.Level = getCategory.Level;
+                    return NotFound();
                 }
-            }
-            await UnitOfWork.Categories.RemoveAsync(id);
-            var result = await UnitOfWork.SaveAsync();
-            if (result > 0)
-            {
+                var catToDeleteId = getCategory.Id;
+                var catToDelete_Level = getCategory.Level;
+                var catToDelete_ParentKey = getCategory.ParentKey;
+                var children = await UnitOfWork.Categories.GetAllAsync(x => x.ParentKey == getCategory.Id);
+                children = children.ToList();
                 if (children.Any())
                 {
                     foreach (var child in children)
                     {
-                        await UpdateCategoryLevel(child);
+                        child.ParentKey = getCategory.ParentKey;
+                        child.Level = getCategory.Level;
                     }
                 }
-                return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
+                await UnitOfWork.Categories.RemoveAsync(id);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    if (children.Any())
+                    {
+                        foreach (var child in children)
+                        {
+                            await UpdateCategoryLevel(child);
+                        }
+                    }
+                    return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
+                }
+                return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
             }
-            return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));
+            catch (Exception e)
+            {
+                Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+                return BadRequest(e.Message);
+            }
         }
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Custom")]

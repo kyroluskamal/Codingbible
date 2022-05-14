@@ -1244,7 +1244,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   Add_vedio_toView(vedioId: string, width: number)
   {
-    debugger;
     let vedioInDOM = this.document.getElementById(vedioId);
     if (vedioInDOM !== null)
     {

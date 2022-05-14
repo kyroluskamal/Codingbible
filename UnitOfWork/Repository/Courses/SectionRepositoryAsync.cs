@@ -8,6 +8,7 @@ public class SectionRepositoryAsync : ApplicationUserRepositoryAsync<Section>, I
 {
     public SectionRepositoryAsync(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
     {
+        ApplicationDbContext = applicationDbContext;
     }
     public ApplicationDbContext ApplicationDbContext { get; }
     public void Update(Section section)

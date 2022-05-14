@@ -123,7 +123,6 @@ export class CategoryEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         let children = this.allCategories.filter(c => c.parentKey == action.id);
                         let elTodelete = this.allCategories.find(c => c.id == action.id);
-                        debugger;
                         for (let child of children)
                         {
                             let temp = Object.assign({}, child);
