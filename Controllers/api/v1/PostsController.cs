@@ -390,16 +390,30 @@ namespace CodingBible.Controllers.api.v1
                     {
                         return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
                     }
+                    var catToDeleteId = getCategory.Id;
                     var oldLevel = getCategory.Level;
                     getCategory = Mapper.Map(category, getCategory);
-                    if (category.Level != oldLevel)
-                    {
-                        await UpdateCategoryLevel(getCategory);
-                    }
+
                     UnitOfWork.Categories.Update(getCategory);
                     var result = await UnitOfWork.SaveAsync();
                     if (result > 0)
                     {
+                        if (category.Level != oldLevel)
+                        {
+                            await UpdateCategoryLevel(getCategory);
+                        }
+                        var allPostsInDeletedCategory = await UnitOfWork.PostsCategories.GetAllAsync(x => x.CategoryId == catToDeleteId);
+                        allPostsInDeletedCategory = allPostsInDeletedCategory.ToList();
+                        var Uncategorized = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Name == "uncategorized");
+                        if (allPostsInDeletedCategory.Any())
+                        {
+                            foreach (var post in allPostsInDeletedCategory)
+                            {
+                                post.CategoryId = Uncategorized.Id;
+                                UnitOfWork.PostsCategories.Update(post);
+                            }
+                        }
+                        await UnitOfWork.SaveAsync();
                         return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name));
                     }
                     return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));

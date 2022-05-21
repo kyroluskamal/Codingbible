@@ -222,6 +222,10 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("NOTFOUND", $"{name} is not Found.");
             }
+            public static object Already_Exists_ERROR_Response(string name)
+            {
+                return new HttpResponsesObject("ALREADY_EXIST", $"{name} is already exosts.");
+            }
         }
     }
 }

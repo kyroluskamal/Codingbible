@@ -555,6 +555,17 @@ public class CoursesController : ControllerBase
                         await UpdateCategoryLevel(child);
                     }
                 }
+                var allCoursesInDeletedCategory = await UnitOfWork.CoursesPerCategories.GetAllAsync(x => x.CourseCategoryId == catToDeleteId);
+                allCoursesInDeletedCategory = allCoursesInDeletedCategory.ToList();
+                var Uncategorized = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Name == "uncategorized");
+                if (allCoursesInDeletedCategory.Any())
+                {
+                    foreach (var course in allCoursesInDeletedCategory)
+                    {
+                        course.CourseCategoryId = Uncategorized.Id;
+                        UnitOfWork.CoursesPerCategories.Update(course);
+                    }
+                }
                 await UnitOfWork.SaveAsync();
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
             }
@@ -574,6 +585,328 @@ public class CoursesController : ControllerBase
     {
         return Ok(await UnitOfWork.CourseCategories.IsNotUnique(x => x.Slug == slug));
     }
+
+    #endregion
+    /******************************************************************************
+    *                                   Sections CRUD
+    *******************************************************************************/
+    #region Sections CRUD
+    [HttpGet]
+    [Route(nameof(GetSections))]
+    public async Task<IActionResult> GetSections()
+    {
+        try
+        {
+            var sections = await UnitOfWork.Sections.GetAllAsync(includeProperties: "Course,Parent");
+            return Ok(sections);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(GetSectionsOfCourse) + "/{courseId}")]
+    public async Task<IActionResult> GetSectionsOfCourse([FromRoute] int courseId)
+    {
+        try
+        {
+            var section = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Course,Parent");
+            return Ok(section);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPost]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(AddSection))]
+    public async Task<IActionResult> AddSection([FromBody] Section section)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getCourse = await UnitOfWork.Courses.GetAsync(section.CourseId);
+                if (getCourse == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
+                }
+                var getSection = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == section.CourseId && x.Name == section.Name);
+                if (getSection.Any())
+                {
+                    return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Section"));
+                }
+                var newSection = new Section();
+                newSection = Mapper.Map(section, newSection);
+                await UnitOfWork.Sections.AddAsync(newSection);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == newSection.Id, includeProperties: "Course,Parent"));
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed("Section"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(UpdateSection))]
+    public async Task<IActionResult> UpdateSection([FromBody] Section section)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getSection = await UnitOfWork.Sections.GetAsync(section.Id);
+                if (getSection == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
+                }
+                var getCourse = await UnitOfWork.Courses.GetAsync(section.CourseId);
+                if (getCourse == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
+                }
+                if (getSection.Name != section.Name)
+                {
+                    var getSection_ = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == section.CourseId && x.Name == section.Name);
+                    if (getSection_.Any())
+                    {
+                        return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Section"));
+                    }
+                }
+                var oldLevel = getSection.Level;
+                getSection = Mapper.Map(section, getSection);
+
+                UnitOfWork.Sections.Update(getSection);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    if (section.Level != oldLevel)
+                    {
+                        await UpdateSectionLevel(getSection);
+                    }
+                    await UnitOfWork.SaveAsync();
+                    return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed("Section"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpDelete]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(DeleteSection) + "/{id}")]
+    public async Task<IActionResult> DeleteSection([FromRoute] int id)
+    {
+        try
+        {
+            var getSection = await UnitOfWork.Sections.GetAsync(id);
+            if (getSection == null)
+            {
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
+            }
+            UnitOfWork.Sections.Remove(getSection);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Delete_Sucess($"Section ({getSection.Name})"));
+            }
+            return BadRequest(Constants.HttpResponses.Delete_Failed("Section"));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    #endregion
+    /******************************************************************************
+    *                                   Lessons CRUD
+    *******************************************************************************/
+    #region Lessons CRUD
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [Route(nameof(GetLessons))]
+    public async Task<IActionResult> GetLessons()
+    {
+        try
+        {
+            var lessons = await UnitOfWork.Lessons.GetAllAsync();
+            return Ok(lessons);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(GetLessonById) + "/{id}")]
+    public async Task<IActionResult> GetLessonById([FromRoute] int id)
+    {
+        try
+        {
+            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section");
+            if (lesson == null)
+            {
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
+            }
+            return Ok(lesson);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPost]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(AddLesson))]
+    public async Task<IActionResult> AddLesson([FromBody] Lesson lesson)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getSection = await UnitOfWork.Sections.GetAsync(lesson.SectionId);
+                if (getSection == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
+                }
+                var getCourse = await UnitOfWork.Courses.GetAsync(getSection.CourseId);
+                if (getCourse == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
+                }
+                var getLesson = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lesson.SectionId && x.Name == lesson.Name);
+                if (getLesson.Any())
+                {
+                    return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
+                }
+                var newLesson = new Lesson();
+                newLesson = Mapper.Map(lesson, newLesson);
+                await UnitOfWork.Lessons.AddAsync(newLesson);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == newLesson.Id, includeProperties: "Section"));
+                }
+                return BadRequest(Constants.HttpResponses.Addition_Failed("Lesson"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(UpdateLesson))]
+    public async Task<IActionResult> UpdateLesson([FromBody] Lesson lesson)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getLesson = await UnitOfWork.Lessons.GetAsync(lesson.Id);
+                if (getLesson == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
+                }
+                var getSection = await UnitOfWork.Sections.GetAsync(lesson.SectionId);
+                if (getSection == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
+                }
+                var getCourse = await UnitOfWork.Courses.GetAsync(getSection.CourseId);
+                if (getCourse == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
+                }
+                var getLessonByName = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lesson.SectionId && x.Name == lesson.Name);
+                if (getLessonByName.Any())
+                {
+                    return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
+                }
+                var updatedLesson = Mapper.Map(lesson, getLesson);
+                UnitOfWork.Lessons.Update(updatedLesson);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess("Lesson"));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed("Lesson"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpDelete]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(DeleteLesson) + "/{id}")]
+    public async Task<IActionResult> DeleteLesson([FromRoute] int id)
+    {
+        try
+        {
+            var getLesson = await UnitOfWork.Lessons.GetAsync(id);
+            if (getLesson == null)
+            {
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
+            }
+            UnitOfWork.Lessons.Remove(getLesson);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Delete_Sucess("Lesson"));
+            }
+            return BadRequest(Constants.HttpResponses.Delete_Failed("Lesson"));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    #endregion
+
     private async Task UpdateCategoryLevel(CourseCategory Category)
     {
         var children = await UnitOfWork.CourseCategories.GetAllAsync(x => x.ParentKey == Category.Id);
@@ -584,5 +917,14 @@ public class CoursesController : ControllerBase
             await UpdateCategoryLevel(child);
         }
     }
-    #endregion
+    private async Task UpdateSectionLevel(Section section)
+    {
+        var children = await UnitOfWork.Sections.GetAllAsync(x => x.ParentKey == section.Id);
+        foreach (var child in children)
+        {
+            child.Level = section.Level + 1;
+            UnitOfWork.Sections.Update(child);
+            await UpdateSectionLevel(child);
+        }
+    }
 }

@@ -485,6 +485,24 @@ export const actionNames = {
         ChangeStatus_Success: '[Lesson ChangeStatus] Sucess',
         ChangeStatus_Failed: '[Lesson ChangeStatus] Failed',
         Set_ValidationErrors: '[Lesson] Set Validation Errors',
+    },
+    SectionActions: {
+        ADD_Section: '[Add Section] Request',
+        ADD_Section_Success: '[Add Section] SUCCESS',
+        ADD_Section_Failed: '[Add Section] FAILED',
+        UPDATE_Section: '[Update Section] Request',
+        UPDATE_Section_Success: '[Update Section] SUCCESS',
+        UPDATE_Section_Failed: '[Update Section] FAILED',
+        REMOVE_Section: '[Delete Section] Request',
+        REMOVE_Section_Success: '[Delete Section] SUCCESS',
+        REMOVE_Section_Failed: '[Delete Section] FAILED',
+        LOAD_ALL_Sections: '[Section] Load All Sections',
+        LOAD_ALL_Sections_SUCCESS: '[Load Sections] Success',
+        LOAD_ALL_Sections_FAILED: '[Load Sections] FAILED',
+        GetSectionById: '[GetSectionById] request',
+        GetSectionById_Success: '[GetSectionById] Sucess',
+        GetSectionById_Failed: '[GetSectionBy_Slug] Failed',
+        Set_ValidationErrors: '[Section] Set Validation Errors',
     }
 };
 

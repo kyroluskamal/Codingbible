@@ -62,6 +62,16 @@ const controllers = {
             DeleteCourse: "DeleteCourse",
             ChangStatus: "ChangStatus",
             IsSlugUnique: "IsSlugUnique",
+            GetLessons: "GetLessons",
+            GetLessonById: "GetLessonById",
+            AddLesson: "AddLesson",
+            UpdateLesson: "UpdateLesson",
+            DeleteLesson: "DeleteLesson",
+            GetSections: "GetSections",
+            GetSectionsOfCourse: "GetSectionsOfCourse",
+            AddSection: "AddSection",
+            UpdateSection: "UpdateSection",
+            DeleteSection: "DeleteSection",
         }
     }
 };
@@ -114,6 +124,16 @@ export const CoursesController = {
     DeleteCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteCourse),
     ChangStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangStatus),
     IsSlugUnique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsSlugUnique),
+    GetLessons: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessons),
+    GetLessonById: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonById),
+    AddLesson: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddLesson),
+    UpdateLesson: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateLesson),
+    DeleteLesson: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteLesson),
+    GetSections: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetSections),
+    GetSectionsOfCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetSectionsOfCourse),
+    AddSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddSection),
+    UpdateSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateSection),
+    DeleteSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteSection),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

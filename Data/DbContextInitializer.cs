@@ -1,5 +1,8 @@
 ﻿using CodingBible.Models;
+using CodingBible.Models.Courses;
+using CodingBible.Models.Posts;
 using CodingBible.Services.FunctionalService;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingBible.Data
 {
@@ -55,6 +58,36 @@ namespace CodingBible.Data
             if (!ApplicationDbContext.Users.Any())
             {
                 await FunctionalService.CreateDefaultAdminUser();
+            }
+            var UncategorizedPostCategory = await ApplicationDbContext.Categories.FirstOrDefaultAsync(x => x.Name == "Uncategorized");
+            if (UncategorizedPostCategory == null)
+            {
+                UncategorizedPostCategory = new Category()
+                {
+                    Name = "Uncategorized",
+                    Slug = "uncategorized",
+                    Description = "Uncategorized",
+                    Level = 0,
+                    ParentKey = null,
+                    Title = "Uncategorized",
+                };
+                await ApplicationDbContext.Categories.AddAsync(UncategorizedPostCategory);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+            var Uncategorized_Course_Category = await ApplicationDbContext.CourseCategories.FirstOrDefaultAsync(x => x.Name == "Uncategorized");
+            if (Uncategorized_Course_Category == null)
+            {
+                Uncategorized_Course_Category = new CourseCategory()
+                {
+                    Name = "Uncategorized",
+                    Slug = "uncategorized",
+                    Description = "Uncategorized",
+                    Level = 0,
+                    ParentKey = null,
+                    Title = "Uncategorized",
+                };
+                await ApplicationDbContext.CourseCategories.AddAsync(Uncategorized_Course_Category);
+                await ApplicationDbContext.SaveChangesAsync();
             }
             //// If empty create Admin User and App User
             //await functionalSvc.CreateDefaultUser();

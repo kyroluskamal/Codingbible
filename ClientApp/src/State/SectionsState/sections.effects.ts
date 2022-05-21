@@ -9,57 +9,57 @@ import { ServerResponseHandelerService } from "src/CommonServices/server-respons
 import { SpinnerService } from "src/CommonServices/spinner.service";
 import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
-import { Lesson } from "src/models.model";
-import { LessonsService } from "src/Services/lessons.service";
-import { AddLesson, AddLesson_Failed, AddLesson_Success, dummyAction, LoadLessons, LoadLessonsFail, LoadLessonsSuccess, RemoveLesson, RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors, UpdateLesson, UpdateLesson_Failed, UpdateLesson_Sucess } from "./Lessons.actions";
-import { selectAllLessons } from "./Lessons.reducer";
+import { Section } from "src/models.model";
+import { SectionsService } from "src/Services/sections.service";
+import { AddSection, AddSection_Failed, AddSection_Success, dummyAction, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { selectAllSections } from "./sections.reducer";
 
 
 @Injectable({
     providedIn: 'root'
 })
-export class LessonsEffects
+export class SectionsEffects
 {
 
     constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
         private ServerErrorResponse: GetServerErrorResponseService,
         private activatedRoute: ActivatedRoute,
-        private LessonService: LessonsService, private store: Store,
+        private SectionService: SectionsService, private store: Store,
         private router: Router, private spinner: SpinnerService) { }
 
-    GetAllLessons$ = createEffect(() =>
+    GetAllSections$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(LoadLessons),
-            withLatestFrom(this.store.select(selectAllLessons)),
-            switchMap(([action, Lessons]) =>
+            ofType(LoadSections),
+            withLatestFrom(this.store.select(selectAllSections)),
+            switchMap(([action, Sections]) =>
             {
-                if (Lessons.length == 0)
-                    return this.LessonService.GetAll(CoursesController.GetLessons).pipe(
+                if (Sections.length == 0)
+                    return this.SectionService.GetAll(CoursesController.GetSections).pipe(
                         map((r) =>
                         {
                             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                            return LoadLessonsSuccess({ payload: r });
+                            return LoadSectionsSuccess({ payload: r });
                         }),
-                        catchError((e) => of(LoadLessonsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) => of(LoadSectionsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
                     );
                 return of(dummyAction());
             })
         )
     );
-    AddLesson$ = createEffect(() =>
+    AddSection$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(AddLesson),
+            ofType(AddSection),
             switchMap((action) =>
             {
                 this.spinner.fullScreenSpinner();
-                return this.LessonService.Add(CoursesController.AddLesson, action).pipe(
+                return this.SectionService.Add(CoursesController.AddSection, action).pipe(
                     map((r) =>
                     {
                         console.log("From effec", r);
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Lesson'));
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return AddLesson_Success(r);
+                        return AddSection_Success(r);
                     }),
                     catchError((e) =>
                     {
@@ -67,31 +67,31 @@ export class LessonsEffects
                         if (e.error.message && e.error.message.toLowerCase().includes('unique'))
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
                         else
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Lesson'));
-                        return of(AddLesson_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Section'));
+                        return of(AddSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })
         )
     );
-    UpdateLesson$ = createEffect(() =>
+    UpdateSection$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(UpdateLesson),
+            ofType(UpdateSection),
             switchMap((action) =>
             {
                 this.spinner.fullScreenSpinner();
-                return this.LessonService.Update(CoursesController.UpdateLesson, action).pipe(
+                return this.SectionService.Update(CoursesController.UpdateSection, action).pipe(
                     map((r) =>
                     {
                         console.log(r);
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Lesson'));
-                        let x: Update<Lesson> = {
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section'));
+                        let x: Update<Section> = {
                             id: action.id,
-                            changes: r.data as Lesson
+                            changes: r.data as Section
                         };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateLesson_Sucess({ Lesson: x });
+                        return UpdateSection_Sucess({ Section: x });
                     }),
                     catchError((e) =>
                     {
@@ -100,7 +100,7 @@ export class LessonsEffects
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
                         else
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
-                        return of(UpdateLesson_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })
@@ -108,23 +108,23 @@ export class LessonsEffects
     );
     RemovePost$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(RemoveLesson),
+            ofType(RemoveSection),
             switchMap((action) =>
             {
                 this.spinner.fullScreenSpinner();
-                return this.LessonService.Delete(CoursesController.DeleteLesson, action.id).pipe(
+                return this.SectionService.Delete(CoursesController.DeleteSection, action.id).pipe(
                     map((r) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Lesson'));
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return RemoveLesson_Success({ id: action.id });
+                        return RemoveSection_Success({ id: action.id });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Lesson'));
-                        return of(RemoveLesson_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Section'));
+                        return of(RemoveSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })

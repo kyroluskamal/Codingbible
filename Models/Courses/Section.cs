@@ -10,6 +10,8 @@ public class Section
     public int CourseId { get; set; }
     public Course Course { get; set; }
     public int Order { get; set; }
+    [Column(TypeName = "tinyint")]
+    public int Level { get; set; }
     public string FeatureImageUrl { get; set; }
     public bool IsLeafSection { get; set; }
     public string IntroductoryVideoUrl { get; set; }

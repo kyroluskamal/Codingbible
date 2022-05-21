@@ -11,6 +11,7 @@ import { CourseReducer } from "./CourseState/course.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
 import { LessonsReducer } from "./LessonsState/Lessons.reducer";
 import { PostReducer } from "./PostState/post.reducer";
+import { SectionsReducer } from "./SectionsState/sections.reducer";
 
 export interface AppState 
 {
@@ -23,6 +24,7 @@ export interface AppState
     courseCategory: CourseCategoryState;
     courseSections: CourseSectionsState;
     lessons: LessonsState;
+    sections: SectionsState;
 }
 export interface DesignState
 {
@@ -74,6 +76,10 @@ export interface LessonsState extends EntityState<Lesson>
 {
     ValidationErrors: ModelStateErrors[];
 }
+export interface SectionsState extends EntityState<Section>
+{
+    ValidationErrors: ModelStateErrors[];
+}
 
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,
@@ -84,5 +90,6 @@ export const AppReducers: ActionReducerMap<AppState> = {
     course: CourseReducer,
     courseCategory: CourseCategoryReducer,
     courseSections: CourseSectionsReducer,
-    lessons: LessonsReducer
+    lessons: LessonsReducer,
+    sections: SectionsReducer
 };

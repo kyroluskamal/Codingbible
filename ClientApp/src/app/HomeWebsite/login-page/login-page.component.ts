@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectIsLoggedIn } from 'src/State/AuthState/auth.reducer';
@@ -11,10 +12,10 @@ import { selectIsLoggedIn } from 'src/State/AuthState/auth.reducer';
 export class LoginPageComponent implements OnInit
 {
 
-  constructor() { }
+  constructor(private title: Title) { }
 
   ngOnInit(): void
   {
-
+    this.title.setTitle("Login");
   }
 }

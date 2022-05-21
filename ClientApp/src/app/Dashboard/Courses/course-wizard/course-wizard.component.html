@@ -27,7 +27,7 @@
             <span class="d-block d-flex flex-row gap-3 justify-content-between align-items-center">
                 <span class="fw-bold rounded-circle bg-primary text-white d-block d-flex justify-content-center align-items-center"
                       style="width: 32px; height: 32px;">2</span>
-                <span class="d-block fs-3">Builder</span>
+                <span class="d-block fs-3">Planner</span>
             </span>
             <!-- <button class="btn btn-dark"
                     (click)="ChangeStep(1,step1,'next')">Next</button> -->
@@ -40,6 +40,9 @@
     </div>
     <div class="d-block w-100"
          style="position:relative; transform: translateY(-1.7px);height: 190vh;">
+        <!--******************************************************************** 
+        *                           Step 1: Course Info
+        *********************************************************************-->
         <div id="step1"
              #step1
              class="step-container bg-white p-4">
@@ -460,12 +463,14 @@
                 </div>
             </div>
         </div>
+        <!--******************************************************************** 
+        *                           Step 2: Planner
+        *********************************************************************-->
         <div id="step2"
              #step2
              class="step-container bg-white p-4">
             <span>step2</span>
             <div class="d-flex align-items-center justify-content-end gap-3">
-
                 <button class="btn btn-dark"
                         (click)="ChangeStep(2,step1,'back')">Back</button>
             </div>
