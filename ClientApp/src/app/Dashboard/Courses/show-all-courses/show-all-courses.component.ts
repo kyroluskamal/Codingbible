@@ -9,8 +9,8 @@ import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { Attachments, Course } from 'src/models.model';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
-import { LoadCourses, RemoveCourse } from 'src/State/CourseState/course.actions';
-import { selectAllCourses } from 'src/State/CourseState/course.reducer';
+import { ChangeStatus, LoadCourses, RemoveCourse } from 'src/State/CourseState/course.actions';
+import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
 
 @Component({
   selector: 'app-show-all-courses',
@@ -35,7 +35,7 @@ export class ShowAllCoursesComponent implements OnInit
   CourseToAddOrUpdate: Course = new Course();
   CourseForm: FormGroup = new FormGroup({});
   DifficultyLevels = CourseDifficultyLevel;
-
+  SelectedCourse: Course = new Course();
   constructor(private store: Store, private title: Title,
     private router: Router, private NotificationService: NotificationsService)
   {
@@ -89,5 +89,21 @@ export class ShowAllCoursesComponent implements OnInit
     this.CourseToAddOrUpdate.featureImageUrl = "";
     this.CourseForm.get(FormControlNames.courseForm.featureImageUrl)?.setValue("");
   }
-
+  SelectCourse(event: Course)
+  {
+    console.log(event);
+    this.SelectedCourse = event;
+    this.CourseToAddOrUpdate = event;
+  }
+  ChangeStatus(status: number)
+  {
+    let CourseToUpdate = { ...this.SelectedCourse };
+    CourseToUpdate.status = status;
+    this.store.dispatch(ChangeStatus(CourseToUpdate));
+    this.store.select(selectCourseByID(this.SelectedCourse.id)).subscribe(course =>
+    {
+      if (course)
+        this.SelectCourse(course);
+    });
+  }
 }

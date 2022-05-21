@@ -12,7 +12,7 @@ import { NotificationMessage, PostType, sweetAlert } from "src/Helpers/constants
 import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Course } from "src/models.model";
 import { CourseService } from "src/Services/course.service";
-import { AddCourse, AddCourse_Failed, AddCourse_Success, dummyAction, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
+import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
 import { selectAllCourses } from "./course.reducer";
 
 @Injectable({
@@ -102,6 +102,58 @@ export class CoursesEffects
                         else
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
                         return of(UpdateCourse_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
+            })
+        )
+    );
+    RemovePost$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(RemoveCourse),
+            switchMap((action) =>
+            {
+                this.spinner.fullScreenSpinner();
+                return this.CourseService.Delete(CoursesController.DeleteCourse, action.id).pipe(
+                    map((r) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Course'));
+                        this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home]);
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return RemoveCourse_Success({ id: action.id });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Course'));
+                        return of(RemoveCourse_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
+            })
+        )
+    );
+    changeStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ChangeStatus),
+            switchMap((action) =>
+            {
+                return this.CourseService.ChangeStatus(action).pipe(
+                    map((r) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Course status'));
+                        let x: Update<Course> = {
+                            id: action.id,
+                            changes: action
+                        };
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return ChangeStatus_Success({ Course: x, currentCourseById: action });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Course status'));
+                        return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })

@@ -37,6 +37,7 @@ public class CoursesController : ControllerBase
         FunctionalService = functionalService;
         SitemapService = sitemapService;
     }
+    #region Course CRUDS
     /*****************************************************************************************
     *                                    Course Api Functions
     ******************************************************************************************/
@@ -322,6 +323,75 @@ public class CoursesController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(ChangStatus))]
+    public async Task<IActionResult> ChangStatus([FromBody] Course course)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getCourse = await UnitOfWork.Courses.GetAsync(course.Id);
+                if (getCourse == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(course.Title));
+                }
+                getCourse.Status = course.Status;
+                UnitOfWork.Courses.Update(getCourse);
+                var result = await UnitOfWork.SaveAsync();
+                /*
+                    ADD here the sitemap code
+                */
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess($"{getCourse.Title}"));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed($"{getCourse.Title}"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+              ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return BadRequest(ex);
+        }
+    }
+
+    [HttpDelete]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(DeleteCourse) + "/{id}")]
+    public async Task<IActionResult> DeleteCourse([FromRoute] int id)
+    {
+        var getCourse = await UnitOfWork.Courses.GetAsync(id);
+        if (getCourse == null)
+        {
+            return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Post"));
+        }
+
+        await UnitOfWork.Courses.RemoveAsync(id);
+        var result = await UnitOfWork.SaveAsync();
+        /*
+            remove here the sitemap 
+        */
+        if (result > 0)
+        {
+            return Ok(Constants.HttpResponses.Delete_Sucess($"Post({getCourse.Title})"));
+        }
+        return BadRequest(Constants.HttpResponses.Delete_Failed($"Post ({getCourse.Title})"));
+    }
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [Route(nameof(IsSlugUnique) + "/{slug}")]
+    public async Task<IActionResult> IsSlugUnique([FromRoute] string slug)
+    {
+        return Ok(await UnitOfWork.Courses.IsNotUnique(x => x.Slug == slug));
+    }
+    #endregion
     /******************************************************************************
     *                                   Categories CRUD
     *******************************************************************************/

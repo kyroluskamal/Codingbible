@@ -59,6 +59,9 @@ const controllers = {
             IsCatSlug_NOT_Unique: "IsCatSlug_NOT_Unique",
             AddCourse: "AddCourse",
             UpdateCourse: "UpdateCourse",
+            DeleteCourse: "DeleteCourse",
+            ChangStatus: "ChangStatus",
+            IsSlugUnique: "IsSlugUnique",
         }
     }
 };
@@ -108,6 +111,9 @@ export const CoursesController = {
     IsCatSlug_NOT_Unique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsCatSlug_NOT_Unique),
     AddCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddCourse),
     UpdateCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateCourse),
+    DeleteCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteCourse),
+    ChangStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangStatus),
+    IsSlugUnique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsSlugUnique),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

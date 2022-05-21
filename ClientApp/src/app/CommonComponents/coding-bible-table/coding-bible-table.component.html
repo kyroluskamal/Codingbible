@@ -12,30 +12,34 @@
         </div>
     </div>
     <div>
-        <div class="btn-group"
-             role="group"
-             aria-label="table menu">
-            <!-- add button -->
-            <button type="button"
-                    tooltip="Add (Ctrl+Alt+A)"
-                    (click)="AddButtonClick()"
-                    class="btn btn-outline-primary fw-bold"><i class="bi bi-plus-circle-fill"></i> </button>
-            <!-- Edit button -->
-            <button type="button"
-                    (click)="EditButtonClick()"
-                    class="btn  btn-outline-primary"
-                    [disabled]="SelectedRows.length === 0"
-                    tooltip="Edit (Ctrl+Alt+E)"><i class="bi bi-pen-fill"></i></button>
-            <button type="button"
-                    (click)="DeleteButtonClick()"
-                    [disabled]="SelectedRows.length === 0"
-                    tooltip="Delete (Ctrl+Alt+D)"
-                    class="btn  btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
-            <ng-container *ngFor="let button of Additional_Menu_buttons">
-                <ng-container *ngTemplateOutlet="button"></ng-container>
-            </ng-container>
+        <div class="d-flex flex-row align-items-center gap-2">
+            <div class="d-flex flex-row gap-1 align-items-center">
+                <ng-container *ngTemplateOutlet="CustomMenuButton"></ng-container>
+            </div>
+            <div class="btn-group"
+                 role="group"
+                 aria-label="table menu">
+                <!-- add button -->
+                <button type="button"
+                        tooltip="Add (Ctrl+Alt+A)"
+                        (click)="AddButtonClick()"
+                        class="btn btn-outline-primary fw-bold"><i class="bi bi-plus-circle-fill"></i> </button>
+                <!-- Edit button -->
+                <button type="button"
+                        (click)="EditButtonClick()"
+                        class="btn  btn-outline-primary"
+                        [disabled]="SelectedRows.length === 0"
+                        tooltip="Edit (Ctrl+Alt+E)"><i class="bi bi-pen-fill"></i></button>
+                <button type="button"
+                        (click)="DeleteButtonClick()"
+                        [disabled]="SelectedRows.length === 0"
+                        tooltip="Delete (Ctrl+Alt+D)"
+                        class="btn  btn-outline-danger"><i class="bi bi-trash3-fill"></i></button>
+                <ng-container *ngFor="let button of Additional_Menu_buttons">
+                    <ng-container *ngTemplateOutlet="button"></ng-container>
+                </ng-container>
+            </div>
         </div>
-
     </div>
 </div>
 <div class="overflow-auto">

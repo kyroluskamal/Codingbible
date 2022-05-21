@@ -9,6 +9,7 @@ import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Course, CourseCategory } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
@@ -34,6 +35,7 @@ export class CourseWizardComponent implements OnInit
   resetSelectedRow: boolean = false;
   isLoading = true;
   ActionType = PostType;
+  DashboardRoutes = DashboardRoutes;
   Action: string = "";
   VedioID = "";
   allCourses$ = this.store.select(selectAllCourses);
@@ -240,7 +242,7 @@ export class CourseWizardComponent implements OnInit
             this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
             this.CourseForm.markAllAsTouched();
             this.spinner.removeSpinner();
-            this.title.setTitle("Edit course" + this.CourseToAddOrUpdate.name);
+            this.title.setTitle("Edit course : " + this.CourseToAddOrUpdate.name);
           }
 
         },

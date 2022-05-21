@@ -21,6 +21,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @Input() isLoading: boolean = true;
   @Input() dataSource: any[] | null = null;
   @Input() Additional_Menu_buttons: TemplateRef<any>[] = [];
+  @Input() CustomMenuButton!: TemplateRef<any>;
   @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() row_Db_Click: EventEmitter<any> = new EventEmitter<any>();
   @Output() AddButtonClicked: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -86,7 +87,6 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   }
   rowClicked(row: any)
   {
-    this.rowClick.emit(row);
     if (this.SelectedRows.includes(row))
       this.SelectedRows = [];
     else
@@ -94,6 +94,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
       this.SelectedRows = [];
       this.SelectedRows.push(row);
     }
+    this.rowClick.emit(this.SelectedRows[0]);
   }
   dbClick(row: any)
   {

@@ -1,4 +1,12 @@
-<h1 class="my-3">Add new course</h1>
+<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
+    <h1 class="my-3"
+        *ngIf="Action === ActionType.Add">Add new course</h1>
+    <h1 class="my-3"
+        *ngIf="Action === ActionType.Edit">Edit course</h1>
+    <a class="cursor-pointer"
+       [routerLink]="['',DashboardRoutes.Home,
+    DashboardRoutes.Courses.Home]">View all</a>
+</div>
 <div class="d-block w-100"
      style="position:relative">
     <div class="d-flex flex-row justify-content-between align-items-center">

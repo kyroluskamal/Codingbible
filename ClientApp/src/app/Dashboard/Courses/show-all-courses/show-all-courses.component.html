@@ -3,11 +3,21 @@
     <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
               [ColumnDefs]="colDefs"
               [dataSource]="Courses$|async"
+              [CustomMenuButton]="ChangeStatusMenu"
               (AddButtonClicked)="AddNewCourse($event)"
               (EditButtonClicked)="EditCourse($event)"
               (DeleteButtonClicked)="DeleteCourse($event)"
               (row_Db_Click)="EditCourse($event)"
+              (rowClick)="SelectCourse($event)"
               [isLoading]="isLoading"
               [resetSelectedRow]="resetSelectedRow">
     </cb-table>
+    <ng-template #ChangeStatusMenu>
+        <a class="cursor-pointer"
+           (click)="ChangeStatus(1)"
+           *ngIf="SelectedCourse &&SelectedCourse.name!=='' &&SelectedCourse?.status===0">Set as published</a>
+        <a class="cursor-pointer"
+           (click)="ChangeStatus(0)"
+           *ngIf="SelectedCourse && SelectedCourse.name!=='' &&SelectedCourse?.status===1">Set as draft</a>
+    </ng-template>
 </main>
