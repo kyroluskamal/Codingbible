@@ -1,8 +1,9 @@
+<h1 class="my-3">Courses</h1>
 <main class="mt-5 bg-white mat-elevation-z3 rounded-2">
     <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
               [ColumnDefs]="colDefs"
               [dataSource]="Courses$|async"
-              (AddButtonClicked)="AddNewCourse($event, AddCourseModal)"
+              (AddButtonClicked)="AddNewCourse($event)"
               (EditButtonClicked)="EditCourse($event)"
               (DeleteButtonClicked)="DeleteCourse($event)"
               (row_Db_Click)="EditCourse($event)"
@@ -10,41 +11,3 @@
               [resetSelectedRow]="resetSelectedRow">
     </cb-table>
 </main>
-
-<bootstrap-modal #AddCourseModal
-                 ModalId="AddCourseModal"
-                 [VerticallyCentered]="true"
-                 [FullScreeen]="true"
-                 [Modal_Body_template]="AddCourseModal_Body"
-                 [Modal_Header_Template]="AddCourseModal_Header"
-                 Modal_Header_AdditionalClasses="bg-dark"
-                 [FullScreenClass]="'modal-xl'">
-</bootstrap-modal>
-<ng-template #AddCourseModal_Header>
-    <h4 class="modal-title">
-        <i class="fa fa-plus-circle"></i>
-        <span *ngIf="Action===ActionType.Add"
-              class="text-warning"><i class="bi bi-plus-circle-dotted text-white"></i> Add new</span>
-        <span *ngIf="Action===ActionType.Edit"
-              class="text-warning"><i class="bi bi-pencil-fill"></i> Edit</span>
-        <span class="text-white-50"> course</span>
-    </h4>
-</ng-template>
-<ng-template #AddCourseModal_Body>
-
-
-    name: string = "";
-    slug: string = "";
-    status: number = 0;
-    description: string = "";
-    whatWillYouLearn: string = "";
-    targetAudience: string = "";
-    requirementsOrInstructions: string = "";
-    courseFeatures: string = "";
-    difficultyLevel: string = "";
-    featureImageUrl: string = "";
-    introductoryVideoUrl: string = "";
-</ng-template>
-<ng-template #AddCourseModal_Footer>
-
-</ng-template>

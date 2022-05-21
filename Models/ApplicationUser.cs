@@ -11,6 +11,7 @@ namespace CodingBible.Models
         public bool IsActive { get; set; }
         public bool RememberMe { get; set; }
         public virtual ICollection<Post> Post { get; set; }
+        public virtual ICollection<Course> Course { get; set; }
         public virtual ICollection<StudentsPerCourse> Courses { get; set; }
     }
 }

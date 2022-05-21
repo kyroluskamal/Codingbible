@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
@@ -10,7 +9,6 @@ import { PostsController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Category } from "src/models.model";
 import { CategoryService } from "src/Services/category.service";
-import { dummyAction } from "../CourseCategoryState/CourseCategory.actions";
 import { AddCATEGORY, AddCATEGORY_Failed, AddCATEGORY_Success, LoadCATEGORYs, LoadCATEGORYsFail, LoadCATEGORYsSuccess, RemoveCATEGORY, RemoveCATEGORY_Failed, RemoveCATEGORY_Success, SetValidationErrors, UpdateCATEGORY, UpdateCATEGORY_Failed, UpdateCATEGORY_Sucess } from "./Category.actions";
 import { selectAllCategorys } from "./Category.reducer";
 
@@ -46,8 +44,10 @@ export class CategoryEffects
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
-
+                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        else
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
                         return of(AddCATEGORY_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
@@ -66,22 +66,16 @@ export class CategoryEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Category'));
-                        let parent = this.allCategories.find(c => c.id == action.parentKey);
-                        let x: Update<Category> = {
-                            id: action.id,
-                            changes: action
-                        };
-                        if (action.level !== parent?.level)
-                        {
-                            this.ServerErrorResponse.updateCategoryLevelInStore(action);
-                        }
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateCATEGORY_Sucess({ CATEGORY: x });
+                        return LoadCATEGORYs();
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
+                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        else
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
                         return of(UpdateCATEGORY_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
@@ -95,19 +89,15 @@ export class CategoryEffects
             withLatestFrom(this.store.select(selectAllCategorys)),
             switchMap(([action, categories]) =>
             {
-                if (categories.length === 0)
-                    return this.CategoryService.GetAll(PostsController.GetAllCategories).pipe(
-                        map((r) =>
-                        {
-                            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                            return LoadCATEGORYsSuccess({ payload: r });
-                        }),
-                        catchError((e) => of(LoadCATEGORYsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
-                    );
-                else
-                    return of(dummyAction());
-            }
-            )
+                return this.CategoryService.GetAll(PostsController.GetAllCategories).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return LoadCATEGORYsSuccess({ payload: r });
+                    }),
+                    catchError((e) => of(LoadCATEGORYsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                );
+            })
         )
     );
     RemoveCategory$ = createEffect(() =>
@@ -121,27 +111,8 @@ export class CategoryEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                        let children = this.allCategories.filter(c => c.parentKey == action.id);
-                        let elTodelete = this.allCategories.find(c => c.id == action.id);
-                        for (let child of children)
-                        {
-                            let temp = Object.assign({}, child);
-                            let childCopy: Category = { ...child, level: elTodelete?.level!, parentKey: elTodelete?.parentKey!, parent: elTodelete?.parent };
-                            let Children_of_child = this.allCategories.filter(c => c.parentKey == temp.id);
-                            for (let ch of Children_of_child)
-                            {
-                                let ch_of_Ch = new Category();
-                                ch_of_Ch = { ...ch_of_Ch, level: childCopy?.level!, parent: childCopy };
-                                this.ServerErrorResponse.updateCategoryLevelInStore(ch);
-                            }
-                            let x: Update<Category> = {
-                                id: childCopy.id,
-                                changes: childCopy
-                            };
-                            this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
-                        }
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return RemoveCATEGORY_Success({ id: action.id });
+                        return LoadCATEGORYs();
                     }),
                     catchError((e) =>
                     {

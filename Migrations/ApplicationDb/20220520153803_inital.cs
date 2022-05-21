@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodingBible.Migrations.ApplicationDb
 {
-    public partial class initial : Migration
+    public partial class inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -118,7 +118,6 @@ namespace CodingBible.Migrations.ApplicationDb
                     Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     Level = table.Column<byte>(type: "tinyint", nullable: false),
                     CourseCount = table.Column<int>(type: "int", nullable: false),
-                    FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentKey = table.Column<int>(type: "int", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -331,7 +330,8 @@ namespace CodingBible.Migrations.ApplicationDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     NumberOfStudents = table.Column<int>(type: "int", nullable: false),
@@ -345,10 +345,10 @@ namespace CodingBible.Migrations.ApplicationDb
                     CourseFeatures = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DifficultyLevel = table.Column<byte>(type: "tinyint", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 10, 21, 57, 4, 845, DateTimeKind.Local).AddTicks(6244)),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 10, 21, 57, 4, 845, DateTimeKind.Local).AddTicks(6970)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7183)),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7810)),
                     IntroductoryVideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuthorId = table.Column<int>(type: "int", nullable: false)
+                    AuthorId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -357,8 +357,7 @@ namespace CodingBible.Migrations.ApplicationDb
                         name: "FK_Courses_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -371,8 +370,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 10, 21, 57, 4, 845, DateTimeKind.Local).AddTicks(4000)),
-                    LasModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 10, 21, 57, 4, 845, DateTimeKind.Local).AddTicks(4688)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(4936)),
+                    LasModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(5679)),
                     PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Excerpt = table.Column<string>(type: "nvarchar(max)", nullable: false),

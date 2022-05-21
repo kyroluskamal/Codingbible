@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220510235142_UpdatePostCategory")]
-    partial class UpdatePostCategory
+    [Migration("20220520153803_inital")]
+    partial class inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -164,7 +164,7 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("AuthorId")
+                    b.Property<int?>("AuthorId")
                         .HasColumnType("int");
 
                     b.Property<string>("CourseFeatures")
@@ -173,7 +173,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 11, 1, 51, 41, 787, DateTimeKind.Local).AddTicks(3735));
+                        .HasDefaultValue(new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7183));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -196,15 +196,14 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 11, 1, 51, 41, 787, DateTimeKind.Local).AddTicks(4770));
+                        .HasDefaultValue(new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7810));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("NeedsEnrollment")
                         .ValueGeneratedOnAdd()
@@ -226,6 +225,11 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("TargetAudience")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("WhatWillYouLearn")
                         .IsRequired()
@@ -260,9 +264,6 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
-
-                    b.Property<string>("FeatureImageUrl")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte>("Level")
                         .HasColumnType("tinyint");
@@ -662,9 +663,6 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
 
-                    b.Property<string>("FeatureImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<byte>("Level")
                         .HasColumnType("tinyint");
 
@@ -717,7 +715,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 11, 1, 51, 41, 787, DateTimeKind.Local).AddTicks(1446));
+                        .HasDefaultValue(new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(4936));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -743,7 +741,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 11, 1, 51, 41, 787, DateTimeKind.Local).AddTicks(2176));
+                        .HasDefaultValue(new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(5679));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -892,10 +890,8 @@ namespace CodingBible.Migrations.ApplicationDb
             modelBuilder.Entity("CodingBible.Models.Courses.Course", b =>
                 {
                     b.HasOne("CodingBible.Models.ApplicationUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Course")
+                        .HasForeignKey("AuthorId");
 
                     b.Navigation("Author");
                 });
@@ -1132,6 +1128,8 @@ namespace CodingBible.Migrations.ApplicationDb
 
             modelBuilder.Entity("CodingBible.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("Course");
+
                     b.Navigation("Courses");
 
                     b.Navigation("Post");

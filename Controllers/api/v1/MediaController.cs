@@ -7,6 +7,7 @@ using CodingBible.UnitOfWork;
 using CodingBible.Models;
 using Microsoft.AspNetCore.Authorization;
 using CodingBible.Models.Posts;
+using Microsoft.AspNetCore.Cors;
 
 namespace CodingBible.Controllers.api.v1;
 [ApiVersion("1.0")]
@@ -129,7 +130,7 @@ public class MediaController : ControllerBase
             var data = await UnitOfWork.Attachments.GetAsync(id);
             if (data == null)
             {
-                return NotFound();
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("File"));
             }
             var relativePath = $"Uploads/{data.CreatedDate.Year}/{data.CreatedDate.Month}";
             var originalFilePath = Path.Combine(Env.WebRootPath, relativePath + "/" + data.FileName);
@@ -167,7 +168,7 @@ public class MediaController : ControllerBase
             var data = await UnitOfWork.Attachments.GetAsync(model.Id);
             if (data == null)
             {
-                return NotFound();
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(model.FileName));
             }
             data.Title = model.Title;
             data.Description = model.Description;

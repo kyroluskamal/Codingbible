@@ -9,7 +9,7 @@ import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-ma
 import
 {
   FormControlNames, LocalStorageKeys, PostType, FormFieldsNames,
-  FormValidationErrors, FormValidationErrorsNames
+  FormValidationErrors, FormValidationErrorsNames, BaseUrl
 } from 'src/Helpers/constants';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
@@ -48,6 +48,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   postsAttachments: PostAttachments[] = [];
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
+  BaseUrl = BaseUrl;
   @Input() postType: string = "";
   viewWidth: number = window.innerWidth;
   viewHeight: number = window.innerHeight;
@@ -334,14 +335,14 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     if (event)
     {
       this.post.featureImageUrl = event.fileUrl;
-      this.form.get(FormControlNames.postForm.featureimageurl)?.setValue(event.fileUrl);
+      this.form.get(FormControlNames.postForm.featureImageUrl)?.setValue(event.fileUrl);
     }
   }
   removeFeatureImage()
   {
     this.store.dispatch(SelectAttachment({ selectedFile: null }));
     this.post.featureImageUrl = "";
-    this.form.get(FormControlNames.postForm.featureimageurl)?.setValue("");
+    this.form.get(FormControlNames.postForm.featureImageUrl)?.setValue("");
   }
   selectCategory(selectedCatId: number)
   {

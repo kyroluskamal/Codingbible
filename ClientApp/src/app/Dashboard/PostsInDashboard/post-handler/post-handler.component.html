@@ -80,7 +80,7 @@
                     Write excerpt to be shown for post in the home page.
                 </li>
                 <li
-                    *ngIf="form.get(FormControlNames.postForm.featureimageurl)?.hasError(FormValidationErrorsNames.required)">
+                    *ngIf="form.get(FormControlNames.postForm.featureImageUrl)?.hasError(FormValidationErrorsNames.required)">
                     Choose feature image.
                 </li>
                 <li
@@ -209,7 +209,7 @@
             ------------------------------------------------------------------------------->
             <div class="card mt-3">
                 <div class="card-header">
-                    Choose categoris
+                    Choose categories
                 </div>
                 <div class="card-body"
                      style="height: 150px">
@@ -219,13 +219,15 @@
                              *ngFor="let cat of (cats$|async)">
                             <input type="checkbox"
                                    class="form-check-input"
+                                   [ngStyle]="{'margin-left':cat.level*10+'px'}"
                                    [id]="cat.id"
                                    (click)="selectCategory(cat.id)"
                                    [value]="cat.id"
                                    [checked]="selectedCategories.includes(cat.id)" />
                             <label class="form-check-label w-100"
                                    [for]="cat.id">
-                                <span *ngFor="let _ of [].constructor(cat.level)">— </span> {{cat.name}}
+                                {{cat.name}}
+                                <!-- <span *ngFor="let _ of [].constructor(cat.level)">— </span> {{cat.name}} -->
                             </label>
                         </div>
                     </div>

@@ -16,6 +16,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using CodingBible.Services.AuthenticationService;
 using CodingBible.Models.Menus;
+using Microsoft.AspNetCore.Cors;
 
 namespace CodingBible.Controllers.api.v1;
 [ApiVersion("1.0")]

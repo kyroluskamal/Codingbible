@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
-import { FormControlNames, PostType, validators } from 'src/Helpers/constants';
+import { FormControlNames, PostType, titleSeparatorCharacter, validators } from 'src/Helpers/constants';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { CourseCategory } from 'src/models.model';
+import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { LoadCATEGORYs } from 'src/State/CategoriesState/Category.actions';
 import { LoadCourseCategorys, RemoveCourseCategory } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
@@ -27,32 +28,27 @@ export class CourseCategoryComponent implements OnInit
   dataSource: CbTableDataSource<CourseCategory> = new CbTableDataSource<CourseCategory>();
   isLoading: boolean = true;
   Categories: CourseCategory[] = [];
+  CourseCategoryToUpdate: CourseCategory = new CourseCategory();
   CourseCats$ = this.store.select(selectAllCourseCategorys);
-  Form: FormGroup = new FormGroup({});
   @ViewChild("CourseCategoryHandler") Modal!: CourseCategoryHandlerComponent;
 
-  constructor(private store: Store, private fb: FormBuilder, private title: Title,
+  constructor(private store: Store, private title: Title,
+    private TableTree: TreeDataStructureService<CourseCategory>,
     private NotificationService: NotificationsService)
   {
-    this.store.dispatch(LoadCourseCategorys());
-
-    this.title.setTitle("Courses >> Category");
+    this.title.setTitle(`Category ${titleSeparatorCharacter} Courses`);
   }
 
   ngOnInit(): void
   {
+    this.store.dispatch(LoadCourseCategorys());
     this.CourseCats$.subscribe(cats =>
     {
       this.isLoading = false;
-      this.Categories = cats;
+      this.TableTree.setData(cats);
+      this.Categories = this.TableTree.finalFlatenArray();
     });
-    this.Form = this.fb.group({
-      id: [0],
-      name: ['', [validators.required]],
-      title: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
-      description: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      parentkey: [0, [validators.required]]
-    });
+
   }
 
   AddNewCategory(event: Boolean)
@@ -65,12 +61,8 @@ export class CourseCategoryComponent implements OnInit
   }
   EditCategory(event: CourseCategory)
   {
+    this.CourseCategoryToUpdate = event;
     this.ActionType = PostType.Edit;
-    this.Form.patchValue(event);
-    if (event.parentKey !== null)
-      this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(event.parentKey);
-    else
-      this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(0);
     this.Modal.Toggle();
   }
   DeleteCategory(event: CourseCategory)

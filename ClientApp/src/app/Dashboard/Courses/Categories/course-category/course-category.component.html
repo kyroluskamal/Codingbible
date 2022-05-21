@@ -1,9 +1,11 @@
+<h1 class="my-3">Courses categories</h1>
+
 <main class="mt-5 bg-white mat-elevation-z3 rounded-2">
     <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
               [ColumnDefs]="colDefs"
               [UseTree]="true"
               ParentKeyProperty="parentKey"
-              [dataSource]="CourseCats$|async"
+              [dataSource]="Categories"
               (AddButtonClicked)="AddNewCategory($event)"
               (EditButtonClicked)="EditCategory($event)"
               (DeleteButtonClicked)="DeleteCategory($event)"
@@ -12,5 +14,5 @@
               [resetSelectedRow]="resetSelectedRow"></cb-table>
 </main>
 <course-category-handler #CourseCategoryHandler
-                         [ActionType]="ActionType"
-                         [inputForm]="Form"></course-category-handler>
+                         [UpdateObject]="CourseCategoryToUpdate"
+                         [ActionType]="ActionType"></course-category-handler>

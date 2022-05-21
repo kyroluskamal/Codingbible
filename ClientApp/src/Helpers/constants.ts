@@ -121,10 +121,10 @@ export const FormControlNames = {
     postForm: {
         title: "title",
         slug: "slug",
-        htmlContent: "htmlcontent",
+        htmlContent: "htmlContent",
         description: "description",
         excerpt: "excerpt",
-        featureimageurl: "featureimageurl",
+        featureImageUrl: "featureImageUrl",
         categories: "categories",
     },
     AddEditCategoryForm: {
@@ -138,13 +138,34 @@ export const FormControlNames = {
         title: "title",
         slug: "slug",
         description: "description",
-        parentkey: "parentkey"
+        parentKey: "parentKey"
     },
     mediaForm: {
         title: "title",
         description: "description",
         caption: "caption",
-        alttext: "alttext",
+        altText: "altText",
+    },
+    courseForm: {
+        name: "name",
+        title: "title",
+        status: "status",
+        description: "description",
+        whatWillYouLearn: "whatWillYouLearn",
+        targetAudience: "targetAudience",
+        requirementsOrInstructions: "requirementsOrInstructions",
+        courseFeatures: "courseFeatures",
+        difficultyLevel: "difficultyLevel",
+        featureImageUrl: "featureImageUrl",
+        introductoryVideoUrl: "introductoryVideoUrl",
+        categories: "categories",
+    },
+    courseCategoryForm: {
+        name: "name",
+        title: "title",
+        slug: "slug",
+        description: "description",
+        parentKey: "parentKey"
     }
 };
 
@@ -169,30 +190,44 @@ export const FormFieldsNames = {
         title: "Title",
         slug: "Slug",
         description: "Description",
-        parentkey: "Parent"
+        parentKey: "Parent"
     },
     Media: {
         title: "Title",
         description: "Description",
         caption: "Caption",
-        alttext: "Alt Text",
+        altText: "Alt Text",
         url: "Url"
+    },
+    Course: {
+        name: "Name",
+        title: "Title",
+        status: "Status",
+        description: "Description",
+        whatWillYouLearn: "What Will You Learn",
+        targetAudience: "Target Audience",
+        requirementsOrInstructions: "Requirements Or Instructions",
+        courseFeatures: "Course Features",
+        difficultyLevel: "Difficulty Level",
+        featureImageUrl: "Feature Image",
+        introductoryVideoUrl: "Introductory Video Url",
     }
 };
 export const FormValidationErrors = {
-    PleaseCorrectErrors: "Please, correct the following errors",
-    EnterValidEmail: "Please, enter a valid email",
-    RequiredField: "This field is required",
+    PleaseCorrectErrors: "Please, correct the following errors.",
+    EnterValidEmail: "Please, enter a valid email.",
+    RequiredField: "This field is required.",
     Password: {
-        minLength: "At least 8 characters",
-        hasSpecialCharacters: "At least one special character",
-        hasSmallCase: "At least one small case letter",
-        hasCapitalCase: "At least one capital letter",
-        hasNumber: "At least one number",
+        minLength: "At least 8 characters.",
+        hasSpecialCharacters: "At least one special character.",
+        hasSmallCase: "At least one small case letter.",
+        hasCapitalCase: "At least one capital letter.",
+        hasNumber: "At least one number.",
         NoPassswordMatch: "Both passwords are not matching."
     },
-    SEO_Title_Length: "Title length must be between 60 and 70 characters",
-    SEO_Description_Length: "Description length must be between 50 and 160 characters",
+    SEO_Title_Length: "Title length must be between 60 and 70 characters.",
+    SEO_Description_Length: "Description length must be between 50 and 160 characters.",
+    youtubeUrl: "Enter valid youtube url."
 };
 
 export const FormValidationErrorsNames = {
@@ -468,7 +503,7 @@ export const validators = {
     SEO_DESCRIPTION_MIN_LENGTH: Validators.minLength(SEO_DESCRIPTION_MIN_LENGTH),
     SEO_DESCRIPTION_MAX_LENGTH: Validators.maxLength(SEO_DESCRIPTION_MAX_LENGTH),
     URL: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*(\.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/),
-    YoububeVideo: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(youtube\.com|youtu\.be)\/(watch?v=)?.+$/),
+    YoububeVideo: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(youtube\.com|youtu\.be)\/(watch?v=)?.+$|^$/),
     password: Validators.compose([
         CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
@@ -489,3 +524,13 @@ export const PostStatus = {
     Draft: 0,
     Published: 1,
 };
+
+export const CourseDifficultyLevel = {
+    Beginner: 0,
+    Intermediate: 1,
+    Advanced: 2,
+    Expert: 3,
+    AllLevels: 6
+};
+export const titleSeparatorCharacter = "»";
+export const BaseUrl = "https://localhost:5001";

@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, ElementRef, EventEmitter, HostListener, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { FormControlNames, FormValidationErrors, FormValidationErrorsNames, PostStatus, sweetAlert, validators } from 'src/Helpers/constants';
+import { BaseUrl, FormControlNames, FormValidationErrors, FormValidationErrorsNames, PostStatus, sweetAlert, validators } from 'src/Helpers/constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
 import { Attachments, Post, PostAttachments } from 'src/models.model';
 import { selectAllposts } from 'src/State/PostState/post.reducer';
@@ -60,6 +60,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   Attachments = this.store.select(selectAllAttachment);
   allAttachments: Attachments[] = [];
   postId: number = 0;
+  BaseUrl = BaseUrl;
   postsAttachments: PostAttachments[] = [];
   @ViewChild("anchorTagHandling") anchorTagHandling!: ElementRef<HTMLDivElement>;
   @ViewChild("ImageTagHandling") ImageTagHandling!: ElementRef<HTMLDivElement>;
@@ -224,6 +225,11 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     if (vedioLink.includes('youtu.be'))
     {
       vedioId = vedioLink.split('youtu.be');
+    }
+    else if (vedioLink.includes('list='))
+    {
+      let link = vedioLink.split('&list=')[0];
+      vedioId = link.split("youtube.com/watch?v=");
     }
     else
       vedioId = vedioLink.split("youtube.com/watch?v=");
@@ -1195,7 +1201,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   add_Image_ToView(fileName: string, url: string, alt: string, caption: string, width: number = 100)
   {
     let figureWithCaption = "";
-    let image = `<img id="${fileName}" 
+    let image = `<img id="${BaseUrl}${fileName}" 
     class="figure-img img-fluid rounded align-center"
     src="${url}" alt="${alt}" width="100%">`;
     figureWithCaption = `<figure class="figure align-center" style="width:${width}%">

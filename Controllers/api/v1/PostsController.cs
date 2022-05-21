@@ -10,6 +10,8 @@ using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Microsoft.AspNetCore.Cors;
+
 namespace CodingBible.Controllers.api.v1
 {
     [ApiVersion("1.0")]
@@ -62,16 +64,15 @@ namespace CodingBible.Controllers.api.v1
         public async Task<IActionResult> GetPostBySlug([FromRoute] string slug)
         {
             Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,PostsCategories,Attachments");
-            return post != null ? Ok(post) : NotFound();
+            return post != null ? Ok(post) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(post.Title));
         }
-
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Custom")]
         [Route(nameof(GetPostById) + "/{id}")]
         public async Task<IActionResult> GetPostById([FromRoute] int id)
         {
             Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,PostsCategories,Attachments");
-            return post != null ? Ok(post) : NotFound();
+            return post != null ? Ok(post) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(post.Title));
         }
 
         [HttpPost]
@@ -142,7 +143,8 @@ namespace CodingBible.Controllers.api.v1
                         await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
                     }
                     await UnitOfWork.SaveAsync();
-                    var postToResturn = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == Post.Slug);
+                    var postToResturn = await UnitOfWork.Posts
+                    .GetFirstOrDefaultAsync(x => x.Slug == Post.Slug, includeProperties: "Author,PostsCategories,Attachments");
                     postToResturn.Categories = Post.Categories;
                     return Ok(postToResturn);
                 }
@@ -161,7 +163,11 @@ namespace CodingBible.Controllers.api.v1
                 var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments");
                 if (getPost == null)
                 {
-                    return NotFound();
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(Post.Title));
+                }
+                if (getPost.Slug != Post.Slug && await UnitOfWork.Posts.IsNotUnique(x => x.Slug == Post.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(Post.Slug)));
                 }
                 var oldFeatureImageUrl = getPost.FeatureImageUrl;
                 getPost.CommentStatus = Post.CommentStatus;
@@ -182,8 +188,6 @@ namespace CodingBible.Controllers.api.v1
                     {
                         UnitOfWork.PostsCategories.Remove(cat);
                     }
-                    // await UnitOfWork.SaveAsync();
-
                     if (Post.Categories.Length > 0)
                     {
                         List<PostsCategory> postCategories = new();
@@ -237,7 +241,7 @@ namespace CodingBible.Controllers.api.v1
                     var getPost = await UnitOfWork.Posts.GetAsync(Post.Id);
                     if (getPost == null)
                     {
-                        return NotFound();
+                        return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(Post.Title));
                     }
                     getPost.Status = Post.Status;
                     UnitOfWork.Posts.Update(getPost);
@@ -280,7 +284,7 @@ namespace CodingBible.Controllers.api.v1
             var getPost = await UnitOfWork.Posts.GetAsync(id);
             if (getPost == null)
             {
-                return NotFound();
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Post"));
             }
 
             await UnitOfWork.Posts.RemoveAsync(id);
@@ -317,7 +321,7 @@ namespace CodingBible.Controllers.api.v1
         public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug)
         {
             var category = await UnitOfWork.Categories.GetBySlug(slug);
-            return category != null ? Ok(category) : NotFound();
+            return category != null ? Ok(category) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(category.Name));
         }
         [HttpPost]
         [Route(nameof(AddCategory))]
@@ -380,7 +384,11 @@ namespace CodingBible.Controllers.api.v1
                     var getCategory = await UnitOfWork.Categories.GetAsync(category.Id);
                     if (getCategory == null)
                     {
-                        return NotFound();
+                        return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(category.Name));
+                    }
+                    if (getCategory.Slug != category.Slug && await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
+                    {
+                        return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
                     }
                     var oldLevel = getCategory.Level;
                     getCategory = Mapper.Map(category, getCategory);
@@ -416,7 +424,7 @@ namespace CodingBible.Controllers.api.v1
                 var getCategory = await UnitOfWork.Categories.GetAsync(id);
                 if (getCategory == null)
                 {
-                    return NotFound();
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Category"));
                 }
                 var catToDeleteId = getCategory.Id;
                 var catToDelete_Level = getCategory.Level;
@@ -442,6 +450,7 @@ namespace CodingBible.Controllers.api.v1
                             await UpdateCategoryLevel(child);
                         }
                     }
+                    await UnitOfWork.SaveAsync();
                     return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
                 }
                 return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));

@@ -40,7 +40,7 @@ namespace CodingBible
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
-                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader()
+                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader().AllowCredentials()
             ));
 
             services.AddMvc();
@@ -161,14 +161,6 @@ namespace CodingBible
                     ClockSkew = TimeSpan.Zero
                 };
             });
-            services.AddCors(o =>
-            {
-                o.AddPolicy("basic", options =>
-                {
-                    options.WithOrigins("http://localhost:4000", "https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-                        .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
-                });
-            });
             /*---------------------------------------------------------------------------------------------------*/
             /*                              ENABLE API Versioning                                                */
             /*---------------------------------------------------------------------------------------------------*/
@@ -226,7 +218,8 @@ namespace CodingBible
             app.UseRouting();
             app.UseCors(policy =>
             {
-                policy.WithOrigins("http://localhost:4000", "https://localhost:5001").AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                policy.WithOrigins("http://localhost:4200", "http://localhost:4000", "https://localhost:5001")
+                .AllowAnyHeader().AllowAnyMethod().AllowCredentials()
                 .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
             });
             app.UseAuthorization();
@@ -270,23 +263,23 @@ namespace CodingBible
                 endpoints.MapRazorPages();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "ClientApp";
+            // app.UseSpa(spa =>
+            // {
+            //     spa.Options.SourcePath = "ClientApp";
 
-                //spa.UseSpaPrerendering(options =>
-                //{
-                //   //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-                //   options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
-                //   options.ExcludeUrls = new[] { "/sockjs-node" };
-                //});
+            //     //spa.UseSpaPrerendering(options =>
+            //     //{
+            //     //   //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+            //     //   options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
+            //     //   options.ExcludeUrls = new[] { "/sockjs-node" };
+            //     //});
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
-                }
-            });
+            //     if (env.IsDevelopment())
+            //     {
+            //         spa.UseAngularCliServer(npmScript: "start");
+            //         // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
+            //     }
+            // });
         }
     }
 }

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
@@ -45,7 +44,10 @@ export class CourseCategoryEffects
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
+                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        else
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
 
                         return of(AddCourseCategory_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
@@ -64,22 +66,16 @@ export class CourseCategoryEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Category'));
-                        let parent = this.allCategories.find(c => c.id == action.parentKey);
-                        let x: Update<CourseCategory> = {
-                            id: action.id,
-                            changes: action
-                        };
-                        if (action.level !== parent?.level)
-                        {
-                            this.ServerErrorResponse.updateCategoryLevelInCourses(action);
-                        }
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateCourseCategory_Sucess({ CourseCategory: x });
+                        return LoadCourseCategorys();
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Couese Category'));
+                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        else
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
                         return of(UpdateCourseCategory_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
@@ -93,20 +89,15 @@ export class CourseCategoryEffects
             withLatestFrom(this.store.select(selectAllCourseCategorys)),
             switchMap(([action, categories]) =>
             {
-                if (categories.length === 0)
-                    return this.CourseCategoryService.GetAll(CoursesController.GetAllCategories).pipe(
-                        map((r) =>
-                        {
-                            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                            return LoadCourseCategorysSuccess({ payload: r });
-                        }
-                        ),
-                        catchError((e) => of(LoadCourseCategorysFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
-                    );
-                else
-                    return of(dummyAction());
-            }
-            )
+                return this.CourseCategoryService.GetAll(CoursesController.GetAllCategories).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return LoadCourseCategorysSuccess({ payload: r });
+                    }),
+                    catchError((e) => of(LoadCourseCategorysFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                );
+            })
         )
     );
     RemoveCategory$ = createEffect(() =>
@@ -118,29 +109,12 @@ export class CourseCategoryEffects
                 return this.CourseCategoryService.Delete(CoursesController.DeleteCategory, action.id).pipe(
                     map((r) =>
                     {
+                        debugger;
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                        let children = this.allCategories.filter(c => c.parentKey == action.id);
-                        let elTodelete = this.allCategories.find(c => c.id == action.id);
-                        for (let child of children)
-                        {
-                            let temp = Object.assign({}, child);
-                            let childCopy: CourseCategory = { ...child, level: elTodelete?.level!, parentKey: elTodelete?.parentKey!, parent: elTodelete?.parent! };
-                            let Children_of_child = this.allCategories.filter(c => c.parentKey == temp.id);
-                            for (let ch of Children_of_child)
-                            {
-                                let ch_of_Ch = new CourseCategory();
-                                ch_of_Ch = { ...ch_of_Ch, level: childCopy?.level!, parent: childCopy };
-                                this.ServerErrorResponse.updateCategoryLevelInCourses(ch);
-                            }
-                            let x: Update<CourseCategory> = {
-                                id: childCopy.id,
-                                changes: childCopy
-                            };
-                            this.store.dispatch(UpdateCourseCategory_Sucess({ CourseCategory: x }));
-                        }
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return RemoveCourseCategory_Success({ id: action.id });
+
+                        return LoadCourseCategorys();
                     }),
                     catchError((e) =>
                     {

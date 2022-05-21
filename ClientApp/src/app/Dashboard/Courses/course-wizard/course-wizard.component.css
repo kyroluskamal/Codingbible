@@ -1,0 +1,24 @@
+.custom-shadow{
+    box-shadow:  4px 5px -2px #000000d4, inset 6px 6px 4px -6px #d1cece
+}
+.step-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border: 2px solid #3d5999;
+}
+.divider {
+    flex-grow: 1;
+    border-bottom: 6px solid #3d5999;
+    margin: 5px
+  }
+  /* .stepperBtn{
+      z-index: 2000;
+  } */
+  .stepperBtn{
+      border-bottom-left-radius: 0% !important;
+      border-bottom-right-radius: 0% !important;
+      z-index: 2;
+      border-bottom: none !important;
+  }

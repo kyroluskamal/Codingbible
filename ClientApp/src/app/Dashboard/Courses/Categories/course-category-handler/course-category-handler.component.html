@@ -26,34 +26,35 @@
         <div class="form-floating mb-3">
             <input [type]="InputFieldTypes.text"
                    required
-                   [formControlName]="FormControlNames.categoryForm.name"
-                   [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.name, Form)?'form-control':
-                               errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)?
+                   [formControlName]="FormControlNames.courseCategoryForm.name"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.courseCategoryForm.name, Form)?'form-control':
+                               errorState.isErrorState(FormControlNames.courseCategoryForm.name, Form, form)?
                                'form-control is-invalid':'form-control is-valid'"
-                   id="CatName">
+                   id="CatName"
+                   [placeholder]="FormFieldsNames.Category.name">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.name)?.hasError(FormValidationErrorsNames.required)
-                          &&errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.name)?.hasError(FormValidationErrorsNames.required)
+                          &&errorState.isErrorState(FormControlNames.courseCategoryForm.name, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
             </div>
             <label for="CatName">{{FormFieldsNames.Category.name}}</label>
         </div>
         <!-- *******************************************************************
-            *                           Parent Category
-            **********************************************************************-->
+        *                           Parent Category
+        **********************************************************************-->
         <div class="form-floating has-validation mb-3">
             <select #parent
                     required
-                    [class]="errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)?
+                    [class]="errorState.isErrorState(FormControlNames.courseCategoryForm.parentKey, Form, form)?
                                    'form-select is-invalid':'form-select is-valid'"
                     id="parentkey"
-                    [formControlName]="FormControlNames.categoryForm.parentkey"
+                    [formControlName]="FormControlNames.courseCategoryForm.parentKey"
                     (change)="onChange(parent)"
                     aria-label="Select parent category">
                 <option value="0">No parent</option>
-                <option *ngFor="let cat of (cats$|async)"
+                <option *ngFor="let cat of catsForSelectmenu"
                         [value]="cat.id"
                         [disabled]="cat.id === Form.get('id')?.value">
                     <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
@@ -62,42 +63,42 @@
 
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.parentkey)?.hasError(FormValidationErrorsNames.required)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.parentKey)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.parentKey, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
             </div>
             <label for="parentkey"
-                   class="form-label">{{FormFieldsNames.Category.parentkey}}</label>
+                   class="form-label">{{FormFieldsNames.Category.parentKey}}</label>
         </div>
         <!-- *******************************************************************
-         *                           Title
-         **********************************************************************-->
+        *                           Title
+        **********************************************************************-->
         <div class="form-floating mb-3">
             <input [type]="InputFieldTypes.text"
                    required
                    minlength="60"
                    maxlength="70"
-                   [formControlName]="FormControlNames.categoryForm.title"
-                   [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.title, Form)?'form-control':
-                                   errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)?
+                   [formControlName]="FormControlNames.courseCategoryForm.title"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.courseCategoryForm.title, Form)?'form-control':
+                                   errorState.isErrorState(FormControlNames.courseCategoryForm.title, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                    id="title"
-                   placeholder="example">
+                   [placeholder]="FormFieldsNames.Category.title">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.required)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.title)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.title, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.minlength)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.title, Form, form)">
                     {{FormValidationErrors.SEO_Title_Length}}
                 </span>
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.maxlength)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.title, Form, form)">
                     {{FormValidationErrors.SEO_Title_Length}}
                 </span>
             </div>
@@ -112,26 +113,26 @@
                       rows="5"
                       minlength="50"
                       maxlength="160"
-                      [formControlName]="FormControlNames.categoryForm.description"
-                      [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.description, Form)?'form-control':
-                                   errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)?
+                      [formControlName]="FormControlNames.courseCategoryForm.description"
+                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseCategoryForm.description, Form)?'form-control':
+                                   errorState.isErrorState(FormControlNames.courseCategoryForm.description, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                       id="description"
                       placeholder="example"></textarea>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.required)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.description)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.description, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.minlength)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.description, Form, form)">
                     {{FormValidationErrors.SEO_Description_Length}}
                 </span>
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.maxlength)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)">
+                      *ngIf="Form.get(FormControlNames.courseCategoryForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.courseCategoryForm.description, Form, form)">
                     {{FormValidationErrors.SEO_Description_Length}}
                 </span>
             </div>

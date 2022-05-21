@@ -10,6 +10,7 @@ import { LoadCATEGORYs, RemoveCATEGORY } from 'src/State/CategoriesState/Categor
 import { selectAllCategorys } from 'src/State/CategoriesState/Category.reducer';
 import { CategoryHandlerComponent } from '../category-handler/category-handler.component';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'app-gategory-home',
   templateUrl: './category-home.component.html',
@@ -30,9 +31,11 @@ export class CategoryHomeComponent implements OnInit
   Form: FormGroup = new FormGroup({});
   @ViewChild("Modal") Modal!: CategoryHandlerComponent;
 
-  constructor(private store: Store, private fb: FormBuilder,
+  constructor(private store: Store, private fb: FormBuilder, private title: Title,
+    private TableTree: TreeDataStructureService<Category>,
     private NotificationService: NotificationsService)
   {
+    this.title.setTitle("Post categories");
   }
 
   ngOnInit(): void
@@ -41,14 +44,15 @@ export class CategoryHomeComponent implements OnInit
     this.Cats$.subscribe(cats =>
     {
       this.isLoading = false;
-      this.Categories = cats;
+      this.TableTree.setData(cats);
+      this.Categories = this.TableTree.finalFlatenArray();
     });
     this.Form = this.fb.group({
       id: [0],
-      name: ['', [validators.required]],
-      title: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
-      description: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      parentkey: [0, [validators.required]]
+      [FormControlNames.categoryForm.name]: ['', [validators.required]],
+      [FormControlNames.categoryForm.title]: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
+      [FormControlNames.categoryForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
+      [FormControlNames.categoryForm.parentKey]: [0, [validators.required]]
     });
   }
 
@@ -65,9 +69,9 @@ export class CategoryHomeComponent implements OnInit
     this.Type = PostType.Edit;
     this.Form.patchValue(event);
     if (event.parentKey !== null)
-      this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(event.parentKey);
+      this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(event.parentKey);
     else
-      this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(0);
+      this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(0);
     this.Modal.Toggle();
   }
   DeleteCategory(event: Category)

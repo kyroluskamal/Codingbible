@@ -158,6 +158,7 @@ export class Course
 {
     id: number = 0;
     name: string = "";
+    title: string = "";
     slug: string = "";
     status: number = 0;
     numberOfStudents: number = 0;
@@ -169,12 +170,13 @@ export class Course
     targetAudience: string = "";
     requirementsOrInstructions: string = "";
     courseFeatures: string = "";
-    difficultyLevel: string = "";
+    difficultyLevel: number = 0;
     featureImageUrl: string = "";
     dateCreated: Date = new Date();
     lastModified: Date = new Date();
     introductoryVideoUrl: string = "";
     authorId: number = 0;
+    categories: number[] = [];
     author: ApplicationUser | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
     students: StudentsPerCourse[] = [];

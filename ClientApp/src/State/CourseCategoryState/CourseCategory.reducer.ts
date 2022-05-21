@@ -1,4 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { CourseCategory } from "src/models.model";
+import { TreeDataStructureService } from "src/Services/tree-data-structure.service";
 import { CourseCategoryState } from "../app.state";
 import { AddCourseCategory_Failed, AddCourseCategory_Success, dummyAction, GetCourseCategoryById_Failed, GetCourseCategoryById_Success, LoadCourseCategorysSuccess, RemoveCourseCategory_Failed, RemoveCourseCategory_Success, SetValidationErrors, UpdateCourseCategory_Failed, UpdateCourseCategory_Sucess } from "./CourseCategory.actions";
 import * as adapter from "./CourseCategory.adapter";
@@ -49,8 +51,11 @@ export const CourseCategoryReducer = createReducer(
     }),
     on(LoadCourseCategorysSuccess, (state, { payload }) =>
     {
+        let TreeDataStructure = new TreeDataStructureService<CourseCategory>();
+        TreeDataStructure.setData(payload);
+        let finalPayload = TreeDataStructure.finalFlatenArray();
         state = adapter.CourseCategoryAdapter.removeAll({ ...state });
-        return adapter.CourseCategoryAdapter.addMany(payload, state);
+        return adapter.CourseCategoryAdapter.addMany(finalPayload, state);
     }),
     on(SetValidationErrors, (state, res) =>
     {

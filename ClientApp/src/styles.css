@@ -245,3 +245,6 @@ figure.figure img{
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.noShadow{
+  box-shadow: none !important;
+}

@@ -1,20 +1,3 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
-    xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>
-    <url>
-        <loc>https://localhost:5001/CS50--sdfffffffffffffffffffffffffffffffff-;lk-llllllllllllllllllllllll</loc>
-        <lastmod>03/05/2022 03:41:35</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.5</priority>
-        <image:image>
-            <image:loc>https://localhost:5001/Uploads/2022/4/myimage-fdfd_Compressed.jpg</image:loc>
-            <image:caption>ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</image:caption>
-            <image:title>dsdsdsdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://localhost:5001/Uploads/2022/5/testphoto600_Compressed.jpg</image:loc>
-            <image:caption>fffffffffffffffffffffffffffffffffffffffffffffffffff</image:caption>
-            <image:title>ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</image:title>
-        </image:image>
-    </url>
-</urlset>
+                <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
+                xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'></urlset>

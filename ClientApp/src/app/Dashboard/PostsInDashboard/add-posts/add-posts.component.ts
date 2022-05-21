@@ -23,13 +23,13 @@ export class AddPostsComponent implements OnInit
   ngOnInit(): void
   {
     this.form = this.fb.group({
-      title: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
-      slug: [null],
-      excerpt: [null, [validators.required]],
-      description: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      htmlcontent: [null, [validators.required]],
-      featureimageurl: [null, [validators.required]],
-      categories: [[], [validators.required]],
+      [FormControlNames.postForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
+      [FormControlNames.postForm.slug]: [null],
+      [FormControlNames.postForm.excerpt]: [null, [validators.required]],
+      [FormControlNames.postForm.description]: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
+      [FormControlNames.postForm.htmlContent]: [null, [validators.required]],
+      [FormControlNames.postForm.featureImageUrl]: [null, [validators.required]],
+      [FormControlNames.postForm.categories]: [[], [validators.required]],
     });
 
   }

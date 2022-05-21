@@ -8,10 +8,13 @@ public class Course
 {
     public int Id { get; set; }
     [Required]
-    [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Title_length)]
     public string Name { get; set; }
+    [Required]
+    [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Title_length)]
+    public string Title { get; set; }
     public string Slug { get; set; }
-    public bool Status { get; set; } //draft of published
+    [Column(TypeName = "tinyint")]
+    public int Status { get; set; }
     public int NumberOfStudents { get; set; }
     public int Max_NumberOfStudents { get; set; }
     public bool NeedsEnrollment { get; set; }
@@ -32,8 +35,10 @@ public class Course
     public DateTime DateCreated { get; set; }
     public DateTime LastModified { get; set; }
     public string IntroductoryVideoUrl { get; set; }
+    [NotMapped]
+    public int[] Categories { get; set; }
     [ForeignKey(nameof(AuthorId))]
-    public int AuthorId { get; set; }
+    public int? AuthorId { get; set; }
     public virtual ApplicationUser Author { get; set; }
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
     public ICollection<StudentsPerCourse> Students { get; set; }

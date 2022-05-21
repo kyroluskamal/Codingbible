@@ -44,11 +44,11 @@
                         <span class=" text-white small text-wrap">{{f.fileName}}</span>
                     </span>
                     <ng-template #largeImage>
-                        <img [src]="f.fileUrl"
+                        <img [src]="BaseUrl+f.fileUrl"
                              class="img-fluid">
                     </ng-template>
                     <img *ngIf="f.thumbnailUrl!==''"
-                         [src]="f.thumbnailUrl"
+                         [src]="BaseUrl+f.thumbnailUrl"
                          [alt]="f.altText"
                          [tooltip]="largeImage"
                          containerClass="imageToolTip"
@@ -73,18 +73,18 @@
                     <h6 class="text-black-50">ATTACHMENT DETAILS</h6>
                     <div class="row">
                         <div
-                             class="placeholder-glow col-12 col-sm-5 pe-0 d-flex flex-row justify-content-center align-items-center">
+                             class="placeholder-glow col-12 col-md-5 pe-0 d-flex flex-row justify-content-center align-items-center">
                             <span *ngIf="(selectedFile$|async)?.thumbnailUrl===''"
                                   class="placeholder bg-gradient d-flex justify-content-center align-items-center"
                                   style="width: 100%; height: 150px; max-height: 200px;">
                                 <span class=" text-white small text-wrap">{{(selectedFile$|async)?.fileName}}</span>
                             </span>
                             <img *ngIf="(selectedFile$|async)?.thumbnailUrl!==''"
-                                 [src]="(selectedFile$|async)?.thumbnailUrl"
+                                 [src]="BaseUrl+(selectedFile$|async)?.thumbnailUrl"
                                  [alt]="(selectedFile$|async)?.altText"
                                  class="img-thumbnail">
                         </div>
-                        <div class="col-12 col-sm-7">
+                        <div class="col-12 col-md-7">
                             <div class="small text-black-50 fw-bold">{{(selectedFile$|async)?.fileName}}</div>
                             <div class="small text-black-50">{{(selectedFile$|async)?.createdDate| date}}</div>
                             <div class="small text-black-50">{{(selectedFile$|async)?.fileSize!| fileSize}}</div>
@@ -120,7 +120,6 @@
                                [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.title, form)?'form-control form-control-sm':
                                                        errorState.isErrorState(FormControlNames.mediaForm.title, form, Form)?
                                                        'form-control form-control-sm is-invalid':'form-control form-control-sm is-valid'"
-                               value=""
                                required
                                minlength="60"
                                maxlength="70"
@@ -143,28 +142,27 @@
                                 {{FormValidationErrors.SEO_Title_Length}}
                             </span>
                         </div>
-                        <label [for]="FormControlNames.mediaForm.alttext"
+                        <label [for]="FormControlNames.mediaForm.altText"
                                class="form-label">{{FormFieldsNames.Media.title}}</label>
                     </div><!-- end Title -->
                     <!-- Alt text -->
                     <div class="form-floating mb-3">
                         <input type="text"
-                               [id]="FormControlNames.mediaForm.alttext"
-                               [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.alttext, form)?'form-control form-control-sm':
-                                                   errorState.isErrorState(FormControlNames.mediaForm.alttext, form, Form)?
+                               [id]="FormControlNames.mediaForm.altText"
+                               [class]="!errorState.isTouchedOrDirty(FormControlNames.mediaForm.altText, form)?'form-control form-control-sm':
+                                                   errorState.isErrorState(FormControlNames.mediaForm.altText, form, Form)?
                                                    'form-control form-control-sm is-invalid':'form-control form-control-sm is-valid'"
-                               value=""
-                               [formControlName]="FormControlNames.mediaForm.alttext"
-                               [placeholder]="FormFieldsNames.Media.alttext">
+                               [formControlName]="FormControlNames.mediaForm.altText"
+                               [placeholder]="FormFieldsNames.Media.altText">
                         <div class="validationDiv">
                             <span class="invalid-feedback d-block m-0"
-                                  *ngIf="form.get(FormControlNames.mediaForm.alttext)?.hasError(FormValidationErrorsNames.required)
-                                              &&errorState.isErrorState(FormControlNames.mediaForm.alttext, form, Form)">
+                                  *ngIf="form.get(FormControlNames.mediaForm.altText)?.hasError(FormValidationErrorsNames.required)
+                                              &&errorState.isErrorState(FormControlNames.mediaForm.altText, form, Form)">
                                 {{FormValidationErrors.RequiredField}}
                             </span>
                         </div>
-                        <label [for]="FormControlNames.mediaForm.alttext"
-                               class="form-label">{{FormFieldsNames.Media.alttext}}</label>
+                        <label [for]="FormControlNames.mediaForm.altText"
+                               class="form-label">{{FormFieldsNames.Media.altText}}</label>
                     </div><!-- end Alt text -->
                     <!-- Description -->
                     <div class="form-floating mb-3">
@@ -231,12 +229,14 @@
             *ngIf="setFeatureImageButton"
             class="btn btn-primary"
             type="button"
+            [attr.data-bs-target]="'#'+data_bs_target_for_Previous_modal"
+            [attr.data-bs-toggle]="data_bs_target_for_Previous_modal==='none'?'none':'modal'"
             (click)="featureImageClicked()"
             data-bs-dismiss="modal">Set as feature image</button>
     <button [disabled]="(selectedFile$|async)===null"
             *ngIf="!setFeatureImageButton"
             class="btn btn-primary"
             type="button"
-            (click)="InsertImageIntoPost()"
-            data-bs-dismiss="modal">Insert Into Post</button>
+            data-bs-dismiss="modal"
+            (click)="InsertImageIntoPost()">Insert Into Post</button>
 </ng-template>

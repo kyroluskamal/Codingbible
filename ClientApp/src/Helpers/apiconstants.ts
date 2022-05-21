@@ -57,6 +57,8 @@ const controllers = {
             UpdateCategory: "UpdateCategory",
             DeleteCategory: "DeleteCategory",
             IsCatSlug_NOT_Unique: "IsCatSlug_NOT_Unique",
+            AddCourse: "AddCourse",
+            UpdateCourse: "UpdateCourse",
         }
     }
 };
@@ -104,6 +106,8 @@ export const CoursesController = {
     UpdateCategory: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateCategory),
     DeleteCategory: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteCategory),
     IsCatSlug_NOT_Unique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsCatSlug_NOT_Unique),
+    AddCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddCourse),
+    UpdateCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateCourse),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

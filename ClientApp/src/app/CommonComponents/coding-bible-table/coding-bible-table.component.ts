@@ -59,7 +59,6 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
       this.loading = this.isLoading;
       this.spinnerState();
     }
-    console.log(this.innerDataSource.Data);
   }
 
 

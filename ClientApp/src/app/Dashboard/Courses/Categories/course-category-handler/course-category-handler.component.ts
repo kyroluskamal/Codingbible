@@ -1,10 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, SimpleChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType } from 'src/Helpers/constants';
+import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, validators } from 'src/Helpers/constants';
 import { CourseCategory } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { AddCourseCategory, UpdateCourseCategory } from 'src/State/CourseCategoryState/CourseCategory.actions';
@@ -15,7 +15,7 @@ import { selectAllCourseCategorys, select_CourseCategorys_ValidationErrors } fro
   templateUrl: './course-category-handler.component.html',
   styleUrls: ['./course-category-handler.component.css'],
 })
-export class CourseCategoryHandlerComponent implements OnInit
+export class CourseCategoryHandlerComponent implements OnInit, OnChanges
 {
   @ViewChild("CourseCategoryHandler") modal!: BootstrapMoalComponent;
   ValidationErrors$ = this.store.select(select_CourseCategorys_ValidationErrors);
@@ -29,12 +29,13 @@ export class CourseCategoryHandlerComponent implements OnInit
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
   cats$ = this.store.select(selectAllCourseCategorys);
-  @Input() inputForm: FormGroup = new FormGroup({});
   category: CourseCategory = new CourseCategory();
   @Input() ActionType: string = "";
+  @Input() UpdateObject: CourseCategory = new CourseCategory();
   Form: FormGroup = new FormGroup({});
   OldLevel: number = 0;
-  constructor(private store: Store, private TreeDataStructure: TreeDataStructureService<CourseCategory>,
+  constructor(private store: Store, private fb: FormBuilder,
+    private TreeDataStructure: TreeDataStructureService<CourseCategory>,
     private clientSideSevice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
@@ -45,15 +46,22 @@ export class CourseCategoryHandlerComponent implements OnInit
   }
   ngOnChanges(changes: SimpleChanges): void
   {
-    if ("inputForm" in changes)
+    if ("UpdateObject" in changes)
     {
-      this.Form = this.inputForm;
+      this.Form.patchValue(this.UpdateObject);
+      this.Form.get("parentkey")?.setValue(this.UpdateObject.parentKey);
     }
   }
 
   ngOnInit(): void
   {
-    this.Form = this.inputForm;
+    this.Form = this.fb.group({
+      id: [0],
+      [FormControlNames.courseCategoryForm.name]: ['', [validators.required]],
+      [FormControlNames.courseCategoryForm.title]: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
+      [FormControlNames.courseCategoryForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
+      [FormControlNames.courseCategoryForm.parentKey]: [0, [validators.required]]
+    });
     this.cats$.subscribe(cats =>
     {
       this.TreeDataStructure.setData(cats);
@@ -67,10 +75,11 @@ export class CourseCategoryHandlerComponent implements OnInit
   }
   onChange(event: HTMLSelectElement)
   {
-    this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(Number(event.value));
+    this.Form.get(FormControlNames.courseCategoryForm.parentKey)?.setValue(Number(event.value));
   }
   Submit()
   {
+    debugger;
     this.Form.markAllAsTouched();
     let newCategory = new CourseCategory();
     this.clientSideSevice.FillObjectFromForm(newCategory, this.Form);

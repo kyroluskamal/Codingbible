@@ -15,14 +15,10 @@ import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCa
 
 export class GetServerErrorResponseService
 {
-  allCats$ = this.store.select(selectAllCategorys);
-  allCourseCats$ = this.store.select(selectAllCourseCategorys);
   allCats: Category[] = [];
   allCourseCats: CourseCategory[] = [];
   constructor(private store: Store)
   {
-    this.allCats$.subscribe(cats => this.allCats = cats);
-    this.allCourseCats$.subscribe(cats => this.allCourseCats = cats);
   }
   GetModelStateErrors(ModelStateErrors: any): ModelStateErrors[]
   {
@@ -66,54 +62,5 @@ export class GetServerErrorResponseService
       }
     return errors;
   }
-  updateCategoryLevelInStore(category: Category)
-  {
-    let children: Category[] = [];
-    for (let cat of this.allCats)
-    {
-      if (cat.parentKey === category.id)
-      {
-        children.push(cat);
-      }
-    }
-    if (children.length > 0)
-    {
-      children.forEach(child =>
-      {
-        let ch = new Category();
-        ch = { ...child, level: category.level! + 1 };
-        let x: Update<Category> = {
-          id: child.id,
-          changes: ch
-        };
-        this.store.dispatch(UpdateCATEGORY_Sucess({ CATEGORY: x }));
-        this.updateCategoryLevelInStore(child);
-      });
-    }
-  }
-  updateCategoryLevelInCourses(category: CourseCategory)
-  {
-    let children: CourseCategory[] = [];
-    for (let cat of this.allCourseCats)
-    {
-      if (cat.parentKey === category.id)
-      {
-        children.push(cat);
-      }
-    }
-    if (children.length > 0)
-    {
-      children.forEach(child =>
-      {
-        let ch = new CourseCategory();
-        ch = { ...child, level: category.level! + 1 };
-        let x: Update<CourseCategory> = {
-          id: child.id,
-          changes: ch
-        };
-        this.store.dispatch(UpdateCourseCategory_Sucess({ CourseCategory: x }));
-        this.updateCategoryLevelInCourses(child);
-      });
-    }
-  }
+
 }

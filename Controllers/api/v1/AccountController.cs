@@ -9,6 +9,7 @@ using CodingBible.Services.TokenService;
 using CodingBible.UnitOfWork;
 using CodingBible.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Serilog;
@@ -315,7 +316,7 @@ namespace CodingBible.Controllers.api.v1
         public async Task<IActionResult> Logout()
         {
             var result = await FunctionalService.Logout();
-            return result ? StatusCode(250, result):StatusCode(450, result);
+            return result ? StatusCode(250, result) : StatusCode(450, result);
         }
     }
 }

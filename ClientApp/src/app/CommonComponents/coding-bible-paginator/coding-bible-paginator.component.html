@@ -11,7 +11,7 @@
                         [disabled]="currentPageNo<=0 || DataInTables && DataForPages.length<=0"
                         (click)="PreviousPage()"><i class="bi bi-caret-left-fill"></i></button>
             </li>
-            <li *ngIf="pagesinNumber.length>=3"
+            <li *ngIf="pagesinNumber.length>=3&&currentPageNo!==0"
                 class="d-flex align-items-center mx-2"
                 style="width: 30px;"><i class="bi bi-three-dots"></i></li>
             <li *ngIf="currentPageNo-1>=0"
@@ -29,7 +29,7 @@
                 <button [class]="currentPageNo===pagesinNumber[currentPageNo+1]?'page-link border-0 mat-elevation-z9 rounded-2':'page-link border-0'"
                         (click)="ChangePage(pagesinNumber[currentPageNo+1])">{{pagesinNumber[currentPageNo+1]+1}}</button>
             </li>
-            <li *ngIf="pagesinNumber.length>=3"
+            <li *ngIf="pagesinNumber.length>=3&&currentPageNo!==pagesinNumber.length-1"
                 class="d-flex align-items-center mx-1"
                 style="width: 30px;"><i class="bi bi-three-dots"></i></li>
             <li

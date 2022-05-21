@@ -26,6 +26,7 @@ export const DashboardRoutes = {
     Courses: {
         Home: "courses",
         Categories: "categories",
+        Wizard: "wizard",
     },
     Appereance: {
         Menus: "menus",

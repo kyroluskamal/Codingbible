@@ -11,9 +11,9 @@
 <ng-template #header>
     <h4 class="modal-title text-white-50">
         <span class="text-warning"
-              *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white"></i> Add </span>
+              *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add </span>
         <span class="text-warning"
-              *ngIf="ActionType===PostType.Edit"> <i class="bi bi-pencil-fill text-white"></i> Edit </span>
+              *ngIf="ActionType===PostType.Edit"> <i class="bi bi-pencil-fill text-white small"></i> Edit </span>
         new category
     </h4>
 </ng-template>
@@ -31,6 +31,7 @@
                    [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.name, Form)?'form-control':
                                errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)?
                                'form-control is-invalid':'form-control is-valid'"
+                   [placeholder]="FormFieldsNames.Category.name"
                    id="CatName">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
@@ -47,10 +48,10 @@
         <div class="form-floating has-validation mb-3">
             <select #parent
                     required
-                    [class]="errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)?
+                    [class]="errorState.isErrorState(FormControlNames.categoryForm.parentKey, Form, form)?
                                    'form-select is-invalid':'form-select is-valid'"
-                    id="parentkey"
-                    [formControlName]="FormControlNames.categoryForm.parentkey"
+                    id="parentKey"
+                    [formControlName]="FormControlNames.categoryForm.parentKey"
                     (change)="onChange(parent)"
                     aria-label="Select parent category">
                 <option value="0">No parent</option>
@@ -63,13 +64,13 @@
 
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get(FormControlNames.categoryForm.parentkey)?.hasError(FormValidationErrorsNames.required)
-                              &&errorState.isErrorState(FormControlNames.categoryForm.parentkey, Form, form)">
+                      *ngIf="Form.get(FormControlNames.categoryForm.parentKey)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.parentKey, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
             </div>
-            <label for="parentkey"
-                   class="form-label">{{FormFieldsNames.Category.parentkey}}</label>
+            <label for="parentKey"
+                   class="form-label">{{FormFieldsNames.Category.parentKey}}</label>
         </div>
         <!-- *******************************************************************
          *                           Title
@@ -84,7 +85,8 @@
                                    errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                    id="title"
-                   placeholder="example">
+                   [placeholder]="FormFieldsNames.Category.title">
+
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="Form.get(FormControlNames.categoryForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -118,7 +120,8 @@
                                    errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                       id="description"
-                      placeholder="example"></textarea>
+                      [placeholder]="FormFieldsNames.Category.description">
+                    </textarea>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="Form.get(FormControlNames.categoryForm.description)?.hasError(FormValidationErrorsNames.required)

@@ -69,7 +69,7 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   }
   onChange(event: HTMLSelectElement)
   {
-    this.Form.get(FormControlNames.categoryForm.parentkey)?.setValue(Number(event.value));
+    this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(Number(event.value));
   }
   Submit()
   {

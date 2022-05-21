@@ -7,6 +7,7 @@ import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { GetServerErrorResponseService } from 'src/CommonServices/getServerErrorResponse.service';
 import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
+import { PostsController } from 'src/Helpers/apiconstants';
 import { NotificationMessage, sweetAlert } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Post, PostsCategory } from 'src/models.model';
@@ -43,6 +44,10 @@ export class PostEffects
           catchError((e) =>
           {
             this.spinner.removeSpinner();
+            if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+              this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+            else
+              this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
             return of(AddPOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
@@ -55,7 +60,7 @@ export class PostEffects
       switchMap((action) =>
       {
         this.spinner.fullScreenSpinner();
-        return this.postService.UpdatePost(action).pipe(
+        return this.postService.Update(PostsController.UpdatePost, action).pipe(
           map((r) =>
           {
             console.log(r);
@@ -71,8 +76,10 @@ export class PostEffects
           catchError((e) =>
           {
             this.spinner.removeSpinner();
-            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Post'));
-            return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+            if (e.error.message && e.error.message.toLowerCase().includes('unique'))
+              this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+            else
+              this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category')); return of(UpdatePOST_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
           })
         );
       })

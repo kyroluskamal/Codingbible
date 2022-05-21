@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using CodingBible.Services.FunctionalService;
 using CodingBible.Services.SitemapService;
 using CodingBible.Models.Posts;
+using Microsoft.AspNetCore.Cors;
 
 namespace CodingBible.Controllers.api.v1;
 

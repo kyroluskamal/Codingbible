@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using CodingBible.Services.AuthenticationService;
 using Serilog;
+using Microsoft.AspNetCore.Cors;
+
 namespace CodingBible.Controllers.api.v1;
 
 [Route("api/v1/[controller]")]
@@ -45,7 +47,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author");
+            var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author,CoursesPerCategories,Students");
             return Ok(courses.ToList());
         }
         catch (Exception e)
@@ -62,7 +64,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetAsync(id);
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,CoursesPerCategories,Students");
             return Ok(course);
         }
         catch (Exception e)
@@ -80,7 +82,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name);
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name, includeProperties: "Author,CoursesPerCategories,Students");
             return Ok(course);
         }
         catch (Exception e)
@@ -98,7 +100,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug);
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,CoursesPerCategories,Students");
             return Ok(course);
         }
         catch (Exception e)
@@ -178,20 +180,53 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
+                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                /*
+                 * This conditions is just preventive and protective step. It is never called
+                 * because if the username cookie is not found, then the Authorize attribute
+                 * will prevent the action call. This condition is only called if some can 
+                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                 */
+                Log.Information("The user {UserName} is trying to add a course", user.UserName);
+                if (user == null)
+                {
+                    await FunctionalService.Logout();
+                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
+                }
                 if (await UnitOfWork.Courses.IsNotUnique(x => x.Slug == course.Slug))
                 {
                     return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(course.Slug)));
                 }
-                await UnitOfWork.Courses.AddAsync(course);
+                var newCourse = new Course();
+                newCourse = Mapper.Map(course, newCourse);
+                newCourse.DateCreated = DateTime.Now;
+                newCourse.LastModified = DateTime.Now;
+                newCourse.AuthorId = user.Id;
+                await UnitOfWork.Courses.AddAsync(newCourse);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    return Ok(course);
+                    if (course.Categories.Length > 0)
+                    {
+                        List<CoursesPerCategory> coursesPerCategories = new();
+                        foreach (var cat in course.Categories)
+                        {
+                            coursesPerCategories.Add(new CoursesPerCategory()
+                            {
+                                CourseId = newCourse.Id,
+                                CourseCategoryId = cat,
+                            });
+                        }
+                        await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
+                    var courseToResturn = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == course.Slug,
+                    includeProperties: "Author,CoursesPerCategories,Students");
+                    courseToResturn.Categories = course.Categories;
+                    return Ok(courseToResturn);
                 }
-                else
-                {
-                    return BadRequest("Failed to add course");
-                }
+                return BadRequest("Failed to add course");
             }
             return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
@@ -203,9 +238,93 @@ public class CoursesController : ControllerBase
         }
     }
 
+    [HttpPut]
+    [Route(nameof(UpdateCourse))]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    public async Task<IActionResult> UpdateCourse([FromBody] Course course)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await UserManager.FindByIdAsync(CookierService.GetUserID());
+                /*
+                 * This conditions is just preventive and protective step. It is never called
+                 * because if the username cookie is not found, then the Authorize attribute
+                 * will prevent the action call. This condition is only called if some can 
+                 * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
+                 * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
+                 */
+                if (user == null)
+                {
+                    await FunctionalService.Logout();
+                    return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
+                }
+                var courseToUpdate = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == course.Id);
+                if (courseToUpdate == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(course.Name));
+                }
+                if (courseToUpdate.Slug != course.Slug && await UnitOfWork.Courses.IsNotUnique(x => x.Slug == course.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(course.Slug)));
+                }
+                // courseToUpdate = Mapper.Map(course, courseToUpdate);
+                courseToUpdate.Name = course.Name;
+                courseToUpdate.Title = course.Title;
+                courseToUpdate.Description = course.Description;
+                courseToUpdate.Slug = course.Slug;
+                courseToUpdate.LastModified = DateTime.Now;
+                courseToUpdate.Status = course.Status;
+                courseToUpdate.Categories = course.Categories;
+                courseToUpdate.WhatWillYouLearn = course.WhatWillYouLearn;
+                courseToUpdate.TargetAudience = course.TargetAudience;
+                courseToUpdate.RequirementsOrInstructions = course.RequirementsOrInstructions;
+                courseToUpdate.CourseFeatures = course.CourseFeatures;
+                courseToUpdate.DifficultyLevel = course.DifficultyLevel;
+                courseToUpdate.FeatureImageUrl = course.FeatureImageUrl;
+                courseToUpdate.IntroductoryVideoUrl = course.IntroductoryVideoUrl;
+                UnitOfWork.Courses.Update(courseToUpdate);
+                var result = await UnitOfWork.SaveAsync();
+                if (result > 0)
+                {
+                    courseToUpdate = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == course.Id, includeProperties: "CoursesPerCategories,Students");
+                    foreach (var cat in courseToUpdate.CoursesPerCategories)
+                    {
+                        UnitOfWork.CoursesPerCategories.Remove(cat);
+                    }
+                    if (course.Categories.Length > 0)
+                    {
+                        List<CoursesPerCategory> coursesPerCategories = new();
+                        foreach (var cat in course.Categories)
+                        {
+                            coursesPerCategories.Add(new CoursesPerCategory()
+                            {
+                                CourseId = courseToUpdate.Id,
+                                CourseCategoryId = cat,
+                            });
+                        }
+                        await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
+                    }
+
+                    await UnitOfWork.SaveAsync();
+                    return Ok(Constants.HttpResponses.Update_Sucess(courseToUpdate.Title, courseToUpdate));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed(courseToUpdate.Title));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while updating data to the database  {Error} {StackTrace} {InnerException} {Source}",
+                  e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
     /******************************************************************************
-        *                                   Categories CRUD
-        *******************************************************************************/
+    *                                   Categories CRUD
+    *******************************************************************************/
     #region Categories CRUD
     [HttpGet]
     [Route(nameof(GetAllCategories))]
@@ -262,7 +381,7 @@ public class CoursesController : ControllerBase
                     await FunctionalService.Logout();
                     return StatusCode(450, Constants.HttpResponses.NullUser_Error_Response());
                 }
-                if (await UnitOfWork.Categories.IsNotUnique(x => x.Slug == category.Slug))
+                if (await UnitOfWork.CourseCategories.IsNotUnique(x => x.Slug == category.Slug))
                 {
                     return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
                 }
@@ -300,7 +419,11 @@ public class CoursesController : ControllerBase
                 var getCategory = await UnitOfWork.CourseCategories.GetAsync(category.Id);
                 if (getCategory == null)
                 {
-                    return NotFound();
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(category.Name));
+                }
+                if (getCategory.Slug != category.Slug && await UnitOfWork.CourseCategories.IsNotUnique(x => x.Slug == category.Slug))
+                {
+                    return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
                 }
                 var oldLevel = getCategory.Level;
                 getCategory = Mapper.Map(category, getCategory);
@@ -336,7 +459,7 @@ public class CoursesController : ControllerBase
             var getCategory = await UnitOfWork.CourseCategories.GetAsync(id);
             if (getCategory == null)
             {
-                return NotFound();
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Categroy"));
             }
             var catToDeleteId = getCategory.Id;
             var catToDelete_Level = getCategory.Level;
@@ -362,6 +485,7 @@ public class CoursesController : ControllerBase
                         await UpdateCategoryLevel(child);
                     }
                 }
+                await UnitOfWork.SaveAsync();
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
             }
             return BadRequest(Constants.HttpResponses.Delete_Failed($"Category ({getCategory.Name})"));

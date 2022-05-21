@@ -7,7 +7,7 @@ import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, validators } from 'src/Helpers/constants';
+import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, validators } from 'src/Helpers/constants';
 import { Attachments } from 'src/models.model';
 import { MediaService } from 'src/Services/media.service';
 import { Add_ATTACHMENT, Add_ATTACHMENT_Success, LoadATTACHMENTSs, RemoveATTACHMENTS, SelectAttachment, UpdateATTACHMENTS } from 'src/State/Attachments/Attachments.actions';
@@ -34,6 +34,7 @@ export class MediaComponent implements OnInit
   form: FormGroup = new FormGroup({});
   FormControlNames = FormControlNames;
   FormFieldsNames = FormFieldsNames;
+  BaseUrl = BaseUrl;
   attachments: Attachments[] = [];
   attachments$ = this.store.select(selectAllAttachment);
   selectedFile$ = this.store.select(SelectSelected_Attachment);
@@ -41,6 +42,7 @@ export class MediaComponent implements OnInit
   @Input() FalseKeyboard: boolean = true;
   @Input() setFeatureImageButton: boolean = false;
   @Input() ModalId: string = "Model";
+  @Input() data_bs_target_for_Previous_modal: string = "none";
   @Output() setFeatureImage: EventEmitter<Attachments | null> = new EventEmitter();
   @Output() selectImage: EventEmitter<Attachments | null> = new EventEmitter();
   constructor(private ClientService: ClientSideValidationService,
@@ -58,10 +60,10 @@ export class MediaComponent implements OnInit
     });
     this.store.dispatch(LoadATTACHMENTSs());
     this.form = this.fb.group({
-      title: ['', [validators.required, validators.SEO_TITLE_MAX_LENGTH, validators.SEO_TITLE_MIN_LENGTH]],
-      description: ['', [validators.required, validators.SEO_DESCRIPTION_MAX_LENGTH, validators.SEO_DESCRIPTION_MIN_LENGTH]],
-      caption: [''],
-      alttext: ['', [validators.required]],
+      [FormControlNames.mediaForm.title]: ['', [validators.required, validators.SEO_TITLE_MAX_LENGTH, validators.SEO_TITLE_MIN_LENGTH]],
+      [FormControlNames.mediaForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MAX_LENGTH, validators.SEO_DESCRIPTION_MIN_LENGTH]],
+      [FormControlNames.mediaForm.caption]: [''],
+      [FormControlNames.mediaForm.altText]: ['', [validators.required]],
     });
   }
   Toggle()
@@ -95,21 +97,6 @@ export class MediaComponent implements OnInit
     this.store.dispatch(Add_ATTACHMENT({
       files: files, tempAttachments: this.attachments
     }));
-    // this.mediaService.SendImages(files)
-    //   .subscribe(res =>
-    //   {
-    //     for (let i = 0; i < res.length; i++)
-    //     {
-
-    //       let index = this.attachments.findIndex(att => att.fileName === res[i].fileName);
-    //       this.attachments[index] = res[i];
-    //       this.attachments = [...this.attachments];
-    //       if (res[i].fileName === this.selectedFile?.fileName)
-    //       {
-    //         this.selectedFile = res[i];
-    //       }
-    //     }
-    //   });
   }
   SelectFile(file: Attachments)
   {
@@ -122,15 +109,6 @@ export class MediaComponent implements OnInit
   DeleteAttachment()
   {
     this.store.dispatch(RemoveATTACHMENTS({ id: this.selectedFile?.id! }));
-    // this.Spinner.InsideContainerSpinner();
-    // this.mediaService.Delete(id).subscribe(res =>
-    // {
-    //   let index = this.attachments.findIndex(att => att.id === id);
-    //   this.attachments.splice(index, 1);
-    //   this.attachments = [...this.attachments];
-    //   this.selectedFile = null;
-    //   this.Spinner.removeSpinner();
-    // });
   }
   UpdateAttachment()
   {

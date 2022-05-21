@@ -60,6 +60,10 @@ namespace CodingBible.Data
                 .HasMany(e => e.Post)
                 .WithOne(e => e.Author)
                 .HasForeignKey(e => e.AuthorId);
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Course)
+                .WithOne(e => e.Author)
+                .HasForeignKey(e => e.AuthorId);
             /*********************************************************************************
             *                               Many to many relationShip 
             **********************************************************************************/
