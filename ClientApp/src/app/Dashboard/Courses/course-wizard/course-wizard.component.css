@@ -22,3 +22,7 @@
       z-index: 2;
       border-bottom: none !important;
   }
+.section{
+    background-color: #e8fdff;
+    min-height: 100px;
+}

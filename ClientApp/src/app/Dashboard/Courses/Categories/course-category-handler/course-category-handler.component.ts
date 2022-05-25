@@ -79,7 +79,6 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   }
   Submit()
   {
-    debugger;
     this.Form.markAllAsTouched();
     let newCategory = new CourseCategory();
     this.clientSideSevice.FillObjectFromForm(newCategory, this.Form);

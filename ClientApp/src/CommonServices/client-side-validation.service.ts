@@ -1,14 +1,25 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
-import { CardTitle, KeyValueForUniqueCheck, SweetAlertData } from '../Interfaces/interfaces';
+import { CardTitle, KeyValueForUniqueCheck, SelectedTextData, SweetAlertData } from '../Interfaces/interfaces';
 import { NotificationsService } from './notifications.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ClientSideValidationService
 {
-  constructor(private NotificationService: NotificationsService) { }
+  mousex: number = 0;
+  mousey: number = 0;
+  constructor(private NotificationService: NotificationsService,
+    @Inject(DOCUMENT) private document: Document)
+  {
+    this.document.addEventListener("mousemove", (e) =>
+    {
+      this.mousex = e.pageX;
+      this.mousey = e.pageY;
+    });
+  }
 
   refillForm(object: any, formGroup: FormGroup)
   {
@@ -110,5 +121,49 @@ export class ClientSideValidationService
     {
       ObjectToFill[k] = from[k];
     }
+  }
+  GetVideo(VideoUrl: string)
+  {
+    let vedioId;
+    if (VideoUrl.includes('youtu.be'))
+    {
+      vedioId = VideoUrl.split('youtu.be');
+    }
+    else if (VideoUrl.includes('list='))
+    {
+      let link = VideoUrl.split('&list=')[0];
+      vedioId = link.split("youtube.com/watch?v=");
+    }
+    else
+      vedioId = VideoUrl.split("youtube.com/watch?v=");
+    vedioId = vedioId[vedioId.length - 1];
+    return vedioId;
+  }
+  GetSelectedText()
+  {
+    var range: Range | undefined = new Range();
+    var selection: Selection | null = null;
+    if (window.getSelection && window.getSelection()?.rangeCount! > 0)
+    {
+      range = window.getSelection()?.getRangeAt(0);
+      selection = window.getSelection();
+    }
+    else if (this.document.getSelection() && this.document.getSelection()?.rangeCount! > 0)
+    {
+      range = this.document.getSelection()?.getRangeAt(0);
+      selection = this.document.getSelection();
+    }
+    let selectedText: SelectedTextData = {
+      documentFragment: range?.cloneRange().cloneContents(),
+      Range: range!,
+      text: selection!?.toString(),
+      start: range?.startOffset!,
+      end: range?.endOffset!,
+      anchorNode: selection?.anchorNode,
+      focusNode: selection?.focusNode,
+      mouseX: this.mousex,
+      mouseY: this.mousey
+    };
+    return selectedText;
   }
 }

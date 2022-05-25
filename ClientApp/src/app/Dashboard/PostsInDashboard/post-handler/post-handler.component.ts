@@ -231,7 +231,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     slug.value = title.value.trim().split(' ').join("-");
     this.form.get('slug')?.setValue(slug.value);
   }
-  GetSelectedText(view: HTMLDivElement)
+  GetSelectedText()
   {
     var range: Range | undefined = new Range();
     var selection: Selection | null = null;
@@ -245,19 +245,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
       range = this.document.getSelection()?.getRangeAt(0);
       selection = this.document.getSelection();
     }
-    this.selectedText = {
-      documentFragment: range?.cloneRange().cloneContents(),
-      Range: range!,
-      text: selection!?.toString(),
-      start: range?.startOffset!,
-      end: range?.endOffset!,
-      anchorNode: selection?.anchorNode,
-      focusNode: selection?.focusNode,
-      mouseX: this.mousex,
-      mouseY: this.mousey
-    };
-    console.log(this.selectedText);
-    console.log(range?.cloneRange().cloneContents());
+    this.selectedText = this.ClientSideService.GetSelectedText();
   }
   UpdateClicked()
   {

@@ -166,6 +166,27 @@ export const FormControlNames = {
         slug: "slug",
         description: "description",
         parentKey: "parentKey"
+    },
+    SectionForm: {
+        name: "name",
+        title: "title",
+        description: "description",
+        courseId: "courseId",
+        featureImageUrl: "featureImageUrl",
+        isLeafSection: "isLeafSection",
+        introductoryVideoUrl: "introductoryVideoUrl",
+        parentKey: "parentKey",
+        whatWillYouLearn: "whatWillYouLearn",
+    },
+    LessonForm: {
+        name: "name",
+        title: "title",
+        description: "description",
+        vedioUrl: "vedioUrl",
+        orderWithinSection: "orderWithinSection",
+        htmlContent: "htmlContent",
+        sectionId: "sectionId",
+        section: "section",
     }
 };
 
@@ -211,6 +232,17 @@ export const FormFieldsNames = {
         difficultyLevel: "Difficulty Level",
         featureImageUrl: "Feature Image",
         introductoryVideoUrl: "Introductory Video Url",
+    },
+    Section: {
+        name: "Name",
+        title: "Title",
+        description: "Description",
+        courseId: "Course Id",
+        featureImageUrl: "Feature Image",
+        isLeafSection: "Is Leaf Section",
+        introductoryVideoUrl: "Introductory Video Url",
+        parentKey: "Parent",
+        whatWillYouLearn: "What Will You Learn",
     }
 };
 export const FormValidationErrors = {

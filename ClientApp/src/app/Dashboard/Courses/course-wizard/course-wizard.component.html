@@ -469,7 +469,12 @@
         <div id="step2"
              #step2
              class="step-container bg-white p-4">
-            <span>step2</span>
+            <a (click)="SectionActionType='Add';SectionModal.Toggle();"
+               class="text-primary">Add section</a>
+            <div *ngFor="let s of AllCourseSections"
+                 class="section border border-1 mb-2 p-2">
+                {{s.name}}
+            </div>
             <div class="d-flex align-items-center justify-content-end gap-3">
                 <button class="btn btn-dark"
                         (click)="ChangeStep(2,step1,'back')">Back</button>
@@ -477,9 +482,14 @@
         </div>
     </div>
 </div>
+
 <app-media #CourseFeatureImageModal
            [ModalId]="'CourseFeatureImageModal'"
            [setFeatureImageButton]="true"
            (setFeatureImage)="SetFeatureImage($event)"></app-media>
+<section-modal #SectionModal
+               [ActionType]="SectionActionType"
+               [CourseId]="CourseId"
+               [ModalId]="'SectionModal'"></section-modal>
 <course-category-handler #CourseCategoryHandler
                          [ActionType]="ActionType.Add"></course-category-handler>

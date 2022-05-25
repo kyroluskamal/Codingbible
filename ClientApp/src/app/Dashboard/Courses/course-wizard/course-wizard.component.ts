@@ -10,13 +10,16 @@ import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { Attachments, Course, CourseCategory } from 'src/models.model';
+import { Attachments, Course, CourseCategory, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/course.actions';
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
+import { LoadSections } from 'src/State/SectionsState/sections.actions';
+import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
+import { SectionModalComponent } from '../Categories/section-modal/section-modal.component';
 
 @Component({
   selector: 'app-course-wizard',
@@ -39,11 +42,17 @@ export class CourseWizardComponent implements OnInit
   Action: string = "";
   VedioID = "";
   allCourses$ = this.store.select(selectAllCourses);
+  AllSections$ = this.store.select(selectAllSections);
+  AllCourseSections: Section[] = [];
+  CourseId: number = 0;
   allCourses: Course[] = [];
   CourseToAddOrUpdate: Course = new Course();
   CourseForm: FormGroup = new FormGroup({});
+  SectionForm: FormGroup = new FormGroup({});
   DifficultyLevels = CourseDifficultyLevel;
   BaseUrl = BaseUrl;
+  SectionActionType = "";
+  SectionPostType: string = "";
   FeatureImageUrl: string = "";
   selectedCategories: number[] = [];
   CourseCats = this.store.select(selectAllCourseCategorys);
@@ -59,6 +68,7 @@ export class CourseWizardComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.store.dispatch(LoadSections());
     this.store.dispatch(LoadCourseCategorys());
     this.store.dispatch(LoadCourses());
     this.CourseCats.subscribe(cats =>
@@ -96,6 +106,11 @@ export class CourseWizardComponent implements OnInit
       }
       else if (this.Action === PostType.Edit)
       {
+        this.CourseId = params['courseId'];
+        this.AllSections$.subscribe(res =>
+        {
+          this.AllCourseSections = res.filter(x => x.courseId == Number(params['courseId']));
+        });
         this.spinner.fullScreenSpinner();
 
         this.SelectCourseById(Number(params['courseId']));
@@ -104,30 +119,17 @@ export class CourseWizardComponent implements OnInit
     });
     this.allCourses$.subscribe(courses => this.allCourses = courses);
   }
+  /****************************************************************
+   *                    Step1:  Course Form handeling
+   ****************************************************************/
+  //#region Step1: Course addition deletion functions
   SetFeatureImage(attachment: Attachments | null)
   {
     console.log(attachment);
     this.FeatureImageUrl = attachment?.fileUrl!;
     this.CourseForm.get(FormControlNames.courseForm.featureImageUrl)?.setValue(attachment?.fileUrl);
   }
-  GetVideo(VideoUrl: string)
-  {
-    this.CourseForm.get(FormControlNames.courseForm.introductoryVideoUrl)?.setValue(VideoUrl);
-    let vedioId;
-    if (VideoUrl.includes('youtu.be'))
-    {
-      vedioId = VideoUrl.split('youtu.be');
-    }
-    else if (VideoUrl.includes('list='))
-    {
-      let link = VideoUrl.split('&list=')[0];
-      vedioId = link.split("youtube.com/watch?v=");
-    }
-    else
-      vedioId = VideoUrl.split("youtube.com/watch?v=");
-    vedioId = vedioId[vedioId.length - 1];
-    this.VedioID = vedioId;
-  }
+
   removeFeatureImage()
   {
     this.store.dispatch(SelectAttachment({ selectedFile: null }));
@@ -145,10 +147,12 @@ export class CourseWizardComponent implements OnInit
     if (action === 'next')
     {
       this.ShowCurrentStep(`step${stepNo + 1}`);
+      this.router.navigate([], { relativeTo: this.activatedRouter, queryParams: { action: this.Action, step: `step${stepNo + 1}`, courseId: this.CourseId } });
     }
     else if (action === 'back')
     {
       this.ShowCurrentStep(`step${stepNo - 1}`);
+      this.router.navigate([], { relativeTo: this.activatedRouter, queryParams: { action: this.Action, step: `step${stepNo - 1}`, courseId: this.CourseId } });
     }
   }
   AddCourse()
@@ -253,5 +257,37 @@ export class CourseWizardComponent implements OnInit
         }
       }
     );
+  }
+  //#endregion
+  /****************************************************************
+   *                    Step 2: Planner 
+   ****************************************************************/
+  //#region Step 2: Planner
+  OpenSectionDialog(sectonModal: SectionModalComponent)
+  {
+    this.SectionActionType = this.ActionType.Add;
+    sectonModal.Toggle();
+  }
+  //#endregion
+  /****************************************************************
+   *                   Helper functions
+   * ***************************************************************/
+  GetVideo(VideoUrl: string)
+  {
+    this.CourseForm.get(FormControlNames.courseForm.introductoryVideoUrl)?.setValue(VideoUrl);
+    let vedioId;
+    if (VideoUrl.includes('youtu.be'))
+    {
+      vedioId = VideoUrl.split('youtu.be');
+    }
+    else if (VideoUrl.includes('list='))
+    {
+      let link = VideoUrl.split('&list=')[0];
+      vedioId = link.split("youtube.com/watch?v=");
+    }
+    else
+      vedioId = VideoUrl.split("youtube.com/watch?v=");
+    vedioId = vedioId[vedioId.length - 1];
+    this.VedioID = vedioId;
   }
 }

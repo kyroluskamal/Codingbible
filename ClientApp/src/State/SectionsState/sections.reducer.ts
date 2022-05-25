@@ -68,7 +68,7 @@ export function prticleReducer(state: any, action: Action)
 }
 
 
-export const selectSectionsState = createFeatureSelector<SectionsState>('Sections');
+export const selectSectionsState = createFeatureSelector<SectionsState>('sections');
 
 export const selectSectionsByID = (id: number) => createSelector(
     selectSectionsState,

@@ -15,7 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HandleBooleanPipe } from 'src/Pipes/handle-boolean.pipe';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 const components = [
-  PostsDashboardComponent, AddPostsComponent, CodingBibleEditorComponent,
+  PostsDashboardComponent, AddPostsComponent,
   PostHandlerComponent, EditPostComponent];
 @NgModule({
   imports: [TooltipModule, FlexLayoutModule, ShareComponentsforDashboardModule,

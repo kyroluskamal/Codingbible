@@ -6,10 +6,11 @@ import { CourseCategoryComponent } from './course-category/course-category.compo
 import { SharedModule } from 'src/SharedModules/shared.module';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 import { SharedModuleForCoursesModule } from '../shared-module-for-courses/shared-module-for-courses.module';
+import { SectionChildComponent } from './section-child/section-child.component';
 
 
 @NgModule({
-  declarations: [CourseCategoryComponent],
+  declarations: [CourseCategoryComponent, SectionChildComponent],
   imports: [
     SharedModuleForCoursesModule,
     CourseCategoriesRoutingModule,

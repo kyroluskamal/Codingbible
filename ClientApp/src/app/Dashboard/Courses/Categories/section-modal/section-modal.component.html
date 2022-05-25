@@ -1,0 +1,288 @@
+<bootstrap-modal #SectionModal
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="SectionHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="SectionBody"
+                 [ModalId]="ModalId"
+                 [FullScreeen]="true"
+                 FullScreenClass="modal-lg"
+                 [Modal_Footer_template]="SectionFooter"></bootstrap-modal>
+
+<ng-template #SectionHeader>
+    <h4 class="modal-title text-white-50">
+        <span class="text-warning"
+              *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add new
+        </span>
+        <span class="text-warning"
+              *ngIf="ActionType===PostType.Edit"><i class="bi bi-pencil-fill text-white small"></i> Edit
+        </span>
+        section
+    </h4>
+</ng-template>
+<ng-template #SectionBody>
+    <form [formGroup]="SectionForm"
+          #form
+          (ngSubmit)="SectionForm.valid">
+        <div class="row">
+            <div class="col-sm-6 col-12">
+                <!-- *******************************************************************
+                *                           Name
+                **********************************************************************-->
+                <div class="form-floating mb-3">
+                    <input [type]="InputFieldTypes.text"
+                           required
+                           [formControlName]="FormControlNames.SectionForm.name"
+                           [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.name, SectionForm)?'form-control':
+                                   errorState.isErrorState(FormControlNames.SectionForm.name, SectionForm, form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                           id="CatName"
+                           [placeholder]="FormFieldsNames.Section.name">
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.name)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.SectionForm.name, SectionForm, form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                    </div>
+                    <label for="CatName">{{FormFieldsNames.Section.name}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-12 ">
+                <!-- *******************************************************************
+                *                           Title
+                **********************************************************************-->
+                <div class="form-floating mb-3">
+                    <input [type]="InputFieldTypes.text"
+                           required
+                           minlength="60"
+                           maxlength="70"
+                           [formControlName]="FormControlNames.SectionForm.title"
+                           [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.title, SectionForm)?'form-control':
+                                       errorState.isErrorState(FormControlNames.SectionForm.title, SectionForm, form)?
+                                       'form-control is-invalid':'form-control is-valid'"
+                           id="title"
+                           [placeholder]="FormFieldsNames.Category.title">
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.required)
+                                  &&errorState.isErrorState(FormControlNames.SectionForm.title, SectionForm, form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                                  &&errorState.isErrorState(FormControlNames.SectionForm.title, SectionForm, form)">
+                            {{FormValidationErrors.SEO_Title_Length}}
+                        </span>
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                                  &&errorState.isErrorState(FormControlNames.SectionForm.title, SectionForm, form)">
+                            {{FormValidationErrors.SEO_Title_Length}}
+                        </span>
+                    </div>
+                    <label for="title">{{FormFieldsNames.Category.title}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- *******************************************************************
+                *                           Parent Section
+                **********************************************************************-->
+                <div class="form-floating has-validation mb-3">
+                    <select #parent
+                            required
+                            [class]="errorState.isErrorState(FormControlNames.SectionForm.parentKey, SectionForm, form)?
+                                       'form-select is-invalid':'form-select is-valid'"
+                            id="parentkey"
+                            [formControlName]="FormControlNames.SectionForm.parentKey"
+                            (change)="onChange(parent)"
+                            aria-label="Select parent section">
+                        <option value="0">No parent</option>
+                        <option *ngFor="let sec of sectionssForSelectmenu"
+                                [value]="sec.id"
+                                [disabled]="sec.id === SectionForm.get('id')?.value">
+                            <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
+                        </option>
+                    </select>
+
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.parentKey)?.hasError(FormValidationErrorsNames.required)
+                                  &&errorState.isErrorState(FormControlNames.SectionForm.parentKey, SectionForm, form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                    </div>
+                    <label for="parentkey"
+                           class="form-label">{{FormFieldsNames.Category.parentKey}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-check ">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           value=""
+                           [formControlName]="FormControlNames.SectionForm.isLeafSection"
+                           id="isLeafSection">
+                    <label class="form-check-label fw-bold"
+                           for="isLeafSection">
+                        Contains Lessons
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3"
+             style="min-height: 300px;">
+            <div class=" col-sm-8 col-12 d-flex flex-column">
+                <!-- *******************************************************************
+                *                           Introductory video url
+                **********************************************************************-->
+                <div class="form-floating mb-2">
+                    <input [type]="InputFieldTypes.text"
+                           #YoutubeUrl
+                           (input)="GetVideo(YoutubeUrl.value)"
+                           [formControlName]="FormControlNames.courseForm.introductoryVideoUrl"
+                           [placeholder]="FormFieldsNames.Course.introductoryVideoUrl"
+                           [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.introductoryVideoUrl, SectionForm)?'form-control':
+                           errorState.isErrorState(FormControlNames.courseForm.introductoryVideoUrl, SectionForm, form)?
+                           'form-control is-invalid':'form-control is-valid'"
+                           [id]="FormControlNames.courseForm.introductoryVideoUrl">
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.courseForm.introductoryVideoUrl)?.hasError(FormValidationErrorsNames.pattern)
+                &&errorState.isErrorState(FormControlNames.courseForm.introductoryVideoUrl, SectionForm, form)">
+                            {{FormValidationErrors.youtubeUrl}}
+                        </span>
+                    </div>
+                    <label [for]="FormControlNames.courseForm.introductoryVideoUrl">
+                        {{FormFieldsNames.Course.introductoryVideoUrl}}
+                    </label>
+
+                </div> <!-- Introductor video url -->
+                <div class="d-flex align-items-center justify-content-center bg-light border border-1"
+                     style="flex-grow : 1;">
+                    <i class="bi bi-youtube fs-3"
+                       *ngIf="VedioID===''"></i>
+                    <div *ngIf="VedioID!==''"
+                         class="youtube-container align-center d-flex align-items-center justify-content-center"
+                         style="width:100%;">
+                        <iframe [src]="'https://www.youtube.com/embed/'  + VedioID |safeUrl"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; 
+                                encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-12">
+                <!-- -------------------------------------------------------------------------- 
+                |                                  Feature Image Card
+                ------------------------------------------------------------------------------->
+                <div class="card h-100">
+                    <div class="card-header">
+                        Feature image
+                    </div>
+                    <div (click)="SectionFeatureImageModal.Toggle();"
+                         class="card-body h-100 d-flex flex-column justify-content-center btn align-items-center p-0">
+                        <div [class]="FeatureImageUrl===''?
+                     'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center border border-danger'
+                     :'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center'">
+                            <div *ngIf="FeatureImageUrl===''">
+                                <i class="bi bi-image"></i>
+                            </div>
+                            <img *ngIf="FeatureImageUrl!==''"
+                                 [src]="BaseUrl+FeatureImageUrl"
+                                 class="img-thumbnail border border-success"
+                                 alt="feature image">
+                        </div>
+                        <div class="validationDiv my-1"
+                             *ngIf="FeatureImageUrl===''">
+                            <span class="invalid-feedback d-block m-0">
+                                Choose the feature image
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer py-1">
+                        <a *ngIf="FeatureImageUrl!==''"
+                           class="text-danger text-decoration-none cursor-pointer small"
+                           (click)="removeFeatureImage()">Remove feature image</a>
+                        <a *ngIf="FeatureImageUrl===''"
+                           class="text-secondary text-decoration-none small">Remove feature image</a>
+                    </div>
+                </div><!-- end feature image card -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-12">
+                <!-- *******************************************************************
+                *                           Description
+                **********************************************************************-->
+                <div class="form-floating mb-3">
+                    <textarea required
+                              style="resize: none;height: 150px;"
+                              row="5"
+                              minlength="50"
+                              maxlength="160"
+                              [formControlName]="FormControlNames.SectionForm.description"
+                              [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.description, SectionForm)?'form-control':
+                                   errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                              id="description"
+                              placeholder="example"></textarea>
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.description)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)">
+                            {{FormValidationErrors.SEO_Description_Length}}
+                        </span>
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)">
+                            {{FormValidationErrors.SEO_Description_Length}}
+                        </span>
+                    </div>
+                    <label for="description">{{FormFieldsNames.Section.description}}</label>
+                </div>
+            </div>
+            <div class="col-sm-6 col-12">
+                <!-- *******************************************************************
+                *                           What will you learn
+                **********************************************************************-->
+                <div class="form-floating mb-3">
+                    <textarea required
+                              style="resize: none;height: 150px;"
+                              row="5"
+                              minlength="50"
+                              maxlength="160"
+                              [formControlName]="FormControlNames.SectionForm.whatWillYouLearn"
+                              [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.whatWillYouLearn, SectionForm)?'form-control':
+                                   errorState.isErrorState(FormControlNames.SectionForm.whatWillYouLearn, SectionForm, form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                              id="description"
+                              placeholder="example"></textarea>
+                    <label for="description">{{FormFieldsNames.Section.whatWillYouLearn}}</label>
+                </div>
+            </div>
+        </div>
+    </form>
+</ng-template>
+<ng-template #SectionFooter>
+    <button class="btn btn-primary"
+            *ngIf="ActionType===PostType.Add"
+            (click)="AddNewSection()">Add</button>
+    <button class="btn btn-primary"
+            *ngIf="ActionType===PostType.Edit">Save</button>
+    <button class="btn btn-secondary"
+            (click)="SectionModal.Toggle()">Close</button>
+</ng-template>
+
+<app-media #SectionFeatureImageModal
+           [ModalId]="'SectionFeatureImageModal'"
+           [setFeatureImageButton]="true"
+           [data_bs_target_for_Previous_modal]="'SectionModal'"
+           (setFeatureImage)="SetFeatureImage($event)"></app-media>

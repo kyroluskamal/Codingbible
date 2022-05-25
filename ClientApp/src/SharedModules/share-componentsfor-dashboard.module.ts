@@ -11,8 +11,10 @@ import { FileSizePipe } from 'src/Pipes/file-size.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
 import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
+import { CodingBibleEditorComponent } from 'src/app/Dashboard/PostsInDashboard/editor/editor.component';
 const components = [MediaComponent, BootstrapMoalComponent,
   PostStatusPipe, FileSizePipe, BypassStylePipe, SafeUrlPipe,
+  CodingBibleEditorComponent,
   CodingBiblePaginatorComponent, CodingBibleTableComponent];
 
 @NgModule({

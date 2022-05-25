@@ -215,9 +215,11 @@ export class Lesson
 {
     id: number = 0;
     name: string = "";
+    title: string = "";
     slug: string = "";
     description: string = "";
     vedioUrl: string = "";
+    orderWithinSection: number = 0;
     htmlContent: string = "";
     sectionId: number = 0;
     section: Section | null = null;
@@ -226,12 +228,16 @@ export class Section
 {
     id: number = 0;
     name: string = "";
+    title: string = "";
     description: string = "";
+    slug: string = "";
     courseId: number = 0;
     course: Course | null = null;
     order: number = 0;
+    level: number = 0;
     featureImageUrl: string = "";
-    ssLeafSection: boolean = false;
+    whatWillYouLearn: string = "";
+    isLeafSection: boolean = false;
     introductoryVideoUrl: string = "";
     parentKey: number | null = null;
     parent: Section | null = null;

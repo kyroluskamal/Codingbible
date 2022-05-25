@@ -26,6 +26,8 @@ import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
 import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
 import { CoursesEffects } from 'src/State/CourseState/Course.effects';
 import { CourseCategoryEffects } from 'src/State/CourseCategoryState/CourseCategory.effects';
+import { SectionsEffects } from 'src/State/SectionsState/sections.effects';
+import { LessonsEffects } from 'src/State/LessonsState/Lessons.effects';
 
 export const enum MergeStrategy
 {
@@ -61,7 +63,9 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     BrowserAnimationsModule,
     SharedComponentsModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
-    EffectsModule.forRoot([PostEffects, AuthEffects, CategoryEffects, AttachmentsEffects,
+    EffectsModule.forRoot([PostEffects, AuthEffects, SectionsEffects,
+      LessonsEffects,
+      CategoryEffects, AttachmentsEffects,
       CoursesEffects, CourseCategoryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
     NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
