@@ -26,3 +26,7 @@
     background-color: #e8fdff;
     min-height: 100px;
 }
+
+::ng-deep .accordion-body app-section-child:last-child div:last-child{
+    margin-bottom: 0 !important;
+}

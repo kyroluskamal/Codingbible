@@ -471,9 +471,31 @@
              class="step-container bg-white p-4">
             <a (click)="SectionActionType='Add';SectionModal.Toggle();"
                class="text-primary">Add section</a>
-            <div *ngFor="let s of AllCourseSections"
-                 class="section border border-1 mb-2 p-2">
-                {{s.name}}
+            <div class="accordion"
+                 id="sectionAccordion">
+                <div class="accordion-item"
+                     *ngFor="let s of RootSections">
+                    <h2 class="accordion-header"
+                        [id]="'heading'+s.id">
+                        <button class="accordion-button"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#body'+s.id"
+                                aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                            {{s.name}}
+                        </button>
+                    </h2>
+                    <div [id]="'body'+s.id"
+                         class="accordion-collapse collapse show"
+                         aria-labelledby="panelsStayOpen-headingOne"
+                         data-bs-parent="#sectionAccordion">
+                        <div class="accordion-body p-0">
+                            <app-section-child [Section]="s"
+                                               [showSectionName]="false"></app-section-child>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="d-flex align-items-center justify-content-end gap-3">
                 <button class="btn btn-dark"

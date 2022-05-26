@@ -14,7 +14,7 @@ export const AddLesson_Failed = createAction(actionNames.LessonActions.ADD_Lesso
 export const ChangeStatus = createAction(actionNames.LessonActions.ChangeStatus,
     props<Lesson>());
 export const ChangeStatus_Success = createAction(actionNames.LessonActions.ChangeStatus_Success,
-    props<{ Lesson: Update<Lesson>; currentLessonById: Lesson; }>());
+    props<{ Lesson: Update<Lesson>; }>());
 export const ChangeStatus_Failed = createAction(actionNames.LessonActions.ChangeStatus_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const GetLessonById = createAction(actionNames.LessonActions.GetLessonById,

@@ -27,6 +27,7 @@ export const DashboardRoutes = {
         Home: "courses",
         Categories: "categories",
         Wizard: "wizard",
+        Sections: "sections"
     },
     Appereance: {
         Menus: "menus",
@@ -45,6 +46,8 @@ export const DashboardRoutesText = {
         Main: "LMS",
         All: "Courses",
         Categories: "Categories",
+        Wizard: "Wizard",
+        Sections: "Sections"
     },
     Appereance: {
         Main: "Appereance",

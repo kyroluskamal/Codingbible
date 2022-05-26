@@ -535,6 +535,9 @@ export const actionNames = {
         GetSectionById_Success: '[GetSectionById] Sucess',
         GetSectionById_Failed: '[GetSectionBy_Slug] Failed',
         Set_ValidationErrors: '[Section] Set Validation Errors',
+        ChangeStatus: '[Section ChangeStatus] request',
+        ChangeStatus_Success: '[Section ChangeStatus] Sucess',
+        ChangeStatus_Failed: '[Section ChangeStatus] Failed',
     }
 };
 

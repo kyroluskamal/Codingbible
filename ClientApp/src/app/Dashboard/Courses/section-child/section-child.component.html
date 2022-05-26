@@ -1,0 +1,21 @@
+<div class="mb-2">
+    <div *ngIf="Section && Section.isLeafSection"
+         class="section border border-1 p-1">
+        <h5 *ngIf="showSectionName"
+            class="bg-light p-1 border-bottom border-1 border-dark">
+            <span>{{Section.name}}</span>
+        </h5>
+        <div></div>
+    </div>
+    <div *ngIf="Section && getChildren().length > 0"
+         [id]="Section.name"
+         class="p-2 border border-1">
+        <h5 *ngIf="showSectionName"
+            class="bg-light p-1">
+            <span>{{Section.name}}</span>
+        </h5>
+        <div *ngFor="let ch of getChildren()">
+            <app-section-child [Section]="ch"></app-section-child>
+        </div>
+    </div>
+</div>

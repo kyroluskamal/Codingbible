@@ -72,6 +72,8 @@ const controllers = {
             AddSection: "AddSection",
             UpdateSection: "UpdateSection",
             DeleteSection: "DeleteSection",
+            ChangSectionStatus: "ChangSectionStatus",
+            ChangLessonStatus: "ChangLessonStatus",
         }
     }
 };
@@ -134,6 +136,8 @@ export const CoursesController = {
     AddSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddSection),
     UpdateSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateSection),
     DeleteSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteSection),
+    ChangSectionStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangSectionStatus),
+    ChangLessonStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangLessonStatus),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

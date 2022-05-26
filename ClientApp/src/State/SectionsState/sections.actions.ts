@@ -17,6 +17,12 @@ export const GetSectionById_Success = createAction(actionNames.SectionActions.Ge
     props<Section>());
 export const GetSectionById_Failed = createAction(actionNames.SectionActions.GetSectionById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const ChangeStatus = createAction(actionNames.SectionActions.ChangeStatus,
+    props<Section>());
+export const ChangeStatus_Success = createAction(actionNames.SectionActions.ChangeStatus_Success,
+    props<{ Course: Update<Section>; }>());
+export const ChangeStatus_Failed = createAction(actionNames.SectionActions.ChangeStatus_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateSection = createAction(actionNames.SectionActions.UPDATE_Section,
     props<Section>());
 export const UpdateSection_Sucess = createAction(actionNames.SectionActions.UPDATE_Section_Success,

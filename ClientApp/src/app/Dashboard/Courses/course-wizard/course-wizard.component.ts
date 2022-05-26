@@ -19,7 +19,7 @@ import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/cour
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
 import { LoadSections } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
-import { SectionModalComponent } from '../Categories/section-modal/section-modal.component';
+import { SectionModalComponent } from '../section-modal/section-modal.component';
 
 @Component({
   selector: 'app-course-wizard',
@@ -44,6 +44,7 @@ export class CourseWizardComponent implements OnInit
   allCourses$ = this.store.select(selectAllCourses);
   AllSections$ = this.store.select(selectAllSections);
   AllCourseSections: Section[] = [];
+  RootSections: Section[] = [];
   CourseId: number = 0;
   allCourses: Course[] = [];
   CourseToAddOrUpdate: Course = new Course();
@@ -59,6 +60,7 @@ export class CourseWizardComponent implements OnInit
   CourseCategorysArranged: CourseCategory[] = [];
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
+    private TreeForSection: TreeDataStructureService<Section>,
     private clientSideSevice: ClientSideValidationService,
     private spinner: SpinnerService, private Notifications: NotificationsService,
     private activatedRouter: ActivatedRoute, private router: Router,
@@ -109,6 +111,8 @@ export class CourseWizardComponent implements OnInit
         this.CourseId = params['courseId'];
         this.AllSections$.subscribe(res =>
         {
+          this.TreeForSection.setData(res);
+          this.RootSections = this.TreeForSection.getRawRoots();
           this.AllCourseSections = res.filter(x => x.courseId == Number(params['courseId']));
         });
         this.spinner.fullScreenSpinner();

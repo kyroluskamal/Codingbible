@@ -274,8 +274,10 @@
 <ng-template #SectionFooter>
     <button class="btn btn-primary"
             *ngIf="ActionType===PostType.Add"
+            [disabled]="!SectionForm.valid"
             (click)="AddNewSection()">Add</button>
     <button class="btn btn-primary"
+            [disabled]="!SectionForm.valid"
             *ngIf="ActionType===PostType.Edit">Save</button>
     <button class="btn btn-secondary"
             (click)="SectionModal.Toggle()">Close</button>

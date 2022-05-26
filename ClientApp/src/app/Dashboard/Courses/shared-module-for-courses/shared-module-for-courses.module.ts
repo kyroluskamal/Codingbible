@@ -4,15 +4,16 @@ import { CourseCategoryHandlerComponent } from '../Categories/course-category-ha
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { SharedModule } from 'src/SharedModules/shared.module';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
-import { SectionModalComponent } from '../Categories/section-modal/section-modal.component';
+import { SectionModalComponent } from '../section-modal/section-modal.component';
+import { SectionChildComponent } from '../section-child/section-child.component';
 
 
 
 @NgModule({
-  declarations: [CourseCategoryHandlerComponent, SectionModalComponent],
+  declarations: [CourseCategoryHandlerComponent, SectionModalComponent, SectionChildComponent],
   imports: [
     SharedModule, TooltipModule, ShareComponentsforDashboardModule,
   ], exports: [SectionModalComponent, CourseCategoryHandlerComponent,
-    SharedModule, ShareComponentsforDashboardModule, TooltipModule]
+    SharedModule, ShareComponentsforDashboardModule, TooltipModule, SectionChildComponent]
 })
 export class SharedModuleForCoursesModule { }

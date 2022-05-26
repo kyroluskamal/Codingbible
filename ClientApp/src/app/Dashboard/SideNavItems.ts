@@ -28,6 +28,7 @@ export let SideNav_items: ExpansionPanel[] = [
     expanded: false,
     links: [
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home], LinkText: DashboardRoutesText.Courses.All, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Sections], LinkText: DashboardRoutesText.Courses.Sections, state: false },
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Categories], LinkText: DashboardRoutesText.Courses.Categories, state: false },
     ],
     itemLevel: 2,

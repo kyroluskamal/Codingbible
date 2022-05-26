@@ -68,6 +68,7 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     if ("UpdateObject" in changes)
     {
+      console.log(this.UpdateObject);
       this.SectionForm.patchValue(this.UpdateObject);
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(this.UpdateObject.parent?.id);
     }

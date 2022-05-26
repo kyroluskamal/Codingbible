@@ -1,6 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { SectionsState } from "../app.state";
-import { AddSection_Failed, AddSection_Success, dummyAction, GetSectionById_Failed, GetSectionById_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionById_Failed, GetSectionById_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 
 import * as adapter from "./sections.adapter";
 
@@ -35,6 +35,14 @@ export const SectionsReducer = createReducer(
     on(UpdateSection_Sucess, (state, res) => adapter.SectionsAdapter.updateOne(res.Section, state)),
     on(RemoveSection_Success, (state, { id }) => adapter.SectionsAdapter.removeOne(id, state)),
     on(RemoveSection_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(ChangeStatus_Success, (state, res) => adapter.SectionsAdapter.updateOne(res.Course, { ...state })),
+    on(ChangeStatus_Failed, (state, res) =>
     {
         return {
             ...state,

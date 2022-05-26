@@ -219,6 +219,7 @@ export class Lesson
     slug: string = "";
     description: string = "";
     vedioUrl: string = "";
+    status: number = 0;
     orderWithinSection: number = 0;
     htmlContent: string = "";
     sectionId: number = 0;
@@ -235,6 +236,7 @@ export class Section
     course: Course | null = null;
     order: number = 0;
     level: number = 0;
+    status: number = 0;
     featureImageUrl: string = "";
     whatWillYouLearn: string = "";
     isLeafSection: boolean = false;
