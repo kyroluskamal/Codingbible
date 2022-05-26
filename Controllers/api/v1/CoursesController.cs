@@ -743,6 +743,42 @@ public class CoursesController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(ChangSectionStatus))]
+    public async Task<IActionResult> ChangSectionStatus([FromBody] Section section)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getSection = await UnitOfWork.Sections.GetAsync(section.Id);
+                if (getSection == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(section.Title));
+                }
+                getSection.Status = section.Status;
+                UnitOfWork.Sections.Update(getSection);
+                var result = await UnitOfWork.SaveAsync();
+                /*
+                    ADD here the sitemap code
+                */
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess($"{getSection.Title}"));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed($"{getSection.Title}"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+              ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return BadRequest(ex);
+        }
+    }
     #endregion
     /******************************************************************************
     *                                   Lessons CRUD
@@ -903,6 +939,42 @@ public class CoursesController : ControllerBase
             Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                               e.Message, e.StackTrace, e.InnerException, e.Source);
             return BadRequest(e.Message);
+        }
+    }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(ChangLessonStatus))]
+    public async Task<IActionResult> ChangLessonStatus([FromBody] Lesson lesson)
+    {
+        try
+        {
+            if (ModelState.IsValid)
+            {
+                var getLesson = await UnitOfWork.Lessons.GetAsync(lesson.Id);
+                if (getLesson == null)
+                {
+                    return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(lesson.Title));
+                }
+                getLesson.Status = lesson.Status;
+                UnitOfWork.Lessons.Update(getLesson);
+                var result = await UnitOfWork.SaveAsync();
+                /*
+                    ADD here the sitemap code
+                */
+                if (result > 0)
+                {
+                    return Ok(Constants.HttpResponses.Update_Sucess($"{getLesson.Title}"));
+                }
+                return BadRequest(Constants.HttpResponses.Update_Failed($"{getLesson.Title}"));
+            }
+            return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+              ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return BadRequest(ex);
         }
     }
     #endregion

@@ -18,6 +18,8 @@ public class Lesson
     public string Description { get; set; }
     public string VedioUrl { get; set; }
     public int OrderWithinSection { get; set; }
+    [Column(TypeName = "tinyint")]
+    public int Status { get; set; }
     public string HtmlContent { get; set; }
     [ForeignKey(nameof(SectionId))]
     public int SectionId { get; set; }

@@ -133,6 +133,8 @@ namespace CodingBible.Data
             builder.Entity<Course>().Property(x => x.DateCreated).HasDefaultValue(DateTime.Now);
             builder.Entity<Course>().Property(x => x.LastModified).HasDefaultValue(DateTime.Now);
             builder.Entity<Section>().Property(x => x.IsLeafSection).HasDefaultValue(false);
+            builder.Entity<Section>().Property(x => x.Status).HasDefaultValue(0);
+            builder.Entity<Lesson>().Property(x => x.Status).HasDefaultValue(0);
 
             /*************************************************************************
             *                            Set Unique values

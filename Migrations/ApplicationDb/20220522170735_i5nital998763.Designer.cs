@@ -4,6 +4,7 @@ using CodingBible.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220522170735_i5nital998763")]
+    partial class i5nital998763
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +173,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 25, 22, 24, 57, 834, DateTimeKind.Local).AddTicks(8111));
+                        .HasDefaultValue(new DateTime(2022, 5, 22, 19, 7, 35, 390, DateTimeKind.Local).AddTicks(7174));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -194,7 +196,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 25, 22, 24, 57, 834, DateTimeKind.Local).AddTicks(8792));
+                        .HasDefaultValue(new DateTime(2022, 5, 22, 19, 7, 35, 390, DateTimeKind.Local).AddTicks(7739));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -342,11 +344,6 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
-                        .HasDefaultValue((byte)0);
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(70)
@@ -403,14 +400,6 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.Property<int?>("ParentKey")
                         .HasColumnType("int");
-
-                    b.Property<string>("Slug")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("tinyint")
-                        .HasDefaultValue((byte)0);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -746,7 +735,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 25, 22, 24, 57, 834, DateTimeKind.Local).AddTicks(6295));
+                        .HasDefaultValue(new DateTime(2022, 5, 22, 19, 7, 35, 390, DateTimeKind.Local).AddTicks(5405));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -772,7 +761,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 25, 22, 24, 57, 834, DateTimeKind.Local).AddTicks(6857));
+                        .HasDefaultValue(new DateTime(2022, 5, 22, 19, 7, 35, 390, DateTimeKind.Local).AddTicks(5974));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
