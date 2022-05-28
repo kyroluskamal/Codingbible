@@ -11,7 +11,6 @@ import { selectAllSections, Select_AdditionState } from 'src/State/SectionsState
   selector: 'app-section-child',
   templateUrl: './section-child.component.html',
   styleUrls: ['./section-child.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionChildComponent implements OnInit
 {
@@ -47,7 +46,7 @@ export class SectionChildComponent implements OnInit
   }
   getChildren()
   {
-    this.children = this.TreeSection.getChilrenByParentId(this.Section?.id!);
+    this.children = this.AllSections.filter(section => section.parentKey == Number(this.Section?.id));
     return this.children;
   }
 }

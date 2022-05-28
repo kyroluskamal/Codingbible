@@ -37,12 +37,12 @@ export class CourseWizardComponent implements OnInit
   FormFieldsNames = FormFieldsNames;
   resetSelectedRow: boolean = false;
   isLoading = true;
+  SelectedSectionId: number = 0;
   ActionType = PostType;
   DashboardRoutes = DashboardRoutes;
   Action: string = "";
   VedioID = "";
   allCourses$ = this.store.select(selectAllCourses);
-  AllSections$ = this.store.select(selectAllSections);
   AllCourseSections: Section[] = [];
   RootSections: Section[] = [];
   CourseId: number = 0;
@@ -53,10 +53,13 @@ export class CourseWizardComponent implements OnInit
   DifficultyLevels = CourseDifficultyLevel;
   BaseUrl = BaseUrl;
   SectionActionType = "";
+  AllSections$ = this.store.select(selectAllSections);
+  sectionssForSelectmenu: Section[] = [];
   SectionPostType: string = "";
   FeatureImageUrl: string = "";
   selectedCategories: number[] = [];
   CourseCats = this.store.select(selectAllCourseCategorys);
+  SectionToEdit: Section = new Section();
   CourseCategorysArranged: CourseCategory[] = [];
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
@@ -163,7 +166,6 @@ export class CourseWizardComponent implements OnInit
   {
     this.clientSideSevice.FillObjectFromForm(this.CourseToAddOrUpdate, this.CourseForm);
     this.CourseToAddOrUpdate.slug = this.CourseToAddOrUpdate.title.toLowerCase().replace(/ ||/g, '-');
-    this.CourseToAddOrUpdate.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     let isUnique = this.clientSideSevice.isNotUnique(this.allCourses, 'slug', this.CourseToAddOrUpdate.slug);
     if (isUnique)
     {
@@ -228,7 +230,6 @@ export class CourseWizardComponent implements OnInit
     this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
     updatedCourse.slug = updatedSlug;
     updatedCourse.categories = this.selectedCategories;
-    updatedCourse.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     this.store.dispatch(UpdateCourse(updatedCourse));
     this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
     this.SelectCourseById(updatedCourse.id);
@@ -242,7 +243,6 @@ export class CourseWizardComponent implements OnInit
           if (course)
           {
             this.selectedCategories = [];
-            console.log(course);
             course?.coursesPerCategories?.forEach(cat => { this.selectCategory(cat.courseCategoryId); });
             if (course?.introductoryVideoUrl)
               this.GetVideo(course?.introductoryVideoUrl!);
@@ -282,5 +282,9 @@ export class CourseWizardComponent implements OnInit
   {
     this.CourseForm.get(FormControlNames.courseForm.introductoryVideoUrl)?.setValue(VideoUrl);
     this.VedioID = this.clientSideSevice.GetVideo(VideoUrl);
+  }
+  SelectSectionToEdit(selectorForSection: HTMLSelectElement)
+  {
+    this.SectionToEdit = this.AllCourseSections.filter(section => section.id === Number(selectorForSection.value))[0];
   }
 }

@@ -7,14 +7,15 @@
         </h5>
         <div></div>
     </div>
-    <div *ngIf="Section && children.length > 0"
-         [id]="Section.name"
-         class="p-2 border border-1">
+    <div *ngIf="Section && !Section.isLeafSection"
+         [id]="Section?.name"
+         class="p-2 border border-1 d-flex flex-column gap-2">
         <h5 *ngIf="showSectionName"
             class="bg-light p-1">
-            <span>{{Section.name}}</span>
+            <span>{{Section?.name}}</span>
         </h5>
-        <div *ngFor="let ch of getChildren()">
+        <div *ngFor="let ch of children"
+             class="d-flex flex-column gap-2">
             <app-section-child [Section]="ch"></app-section-child>
         </div>
     </div>

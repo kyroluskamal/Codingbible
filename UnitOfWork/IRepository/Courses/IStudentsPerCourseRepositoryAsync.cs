@@ -6,4 +6,3 @@ public interface IStudentsPerCourseRepositoryAsync : IRepositoryAsync<StudentsPe
 {
     void Update(StudentsPerCourse studentsPerCourse);
 }
-

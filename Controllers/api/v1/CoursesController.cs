@@ -738,10 +738,31 @@ public class CoursesController : ControllerBase
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
             }
-            UnitOfWork.Sections.Remove(getSection);
+            var SecToDeleteId = getSection.Id;
+            var SecToDelete_Level = getSection.Level;
+            var SecToDelete_ParentKey = getSection.ParentKey;
+            var children = await UnitOfWork.Sections.GetAllAsync(x => x.ParentKey == getSection.Id);
+            children = children.ToList();
+            if (children.Any())
+            {
+                foreach (var child in children)
+                {
+                    child.ParentKey = getSection.ParentKey;
+                    child.Level = getSection.Level;
+                }
+            }
+            await UnitOfWork.Sections.RemoveAsync(id);
             var result = await UnitOfWork.SaveAsync();
             if (result > 0)
             {
+                if (children.Any())
+                {
+                    foreach (var child in children)
+                    {
+                        await UpdateSectionLevel(child);
+                    }
+                }
+                await UnitOfWork.SaveAsync();
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Section ({getSection.Name})"));
             }
             return BadRequest(Constants.HttpResponses.Delete_Failed("Section"));

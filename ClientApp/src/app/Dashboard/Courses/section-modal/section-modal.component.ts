@@ -17,7 +17,6 @@ import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
   selector: 'section-modal',
   templateUrl: './section-modal.component.html',
   styleUrls: ['./section-modal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionModalComponent implements OnInit, OnChanges
 {
@@ -73,7 +72,6 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     if ("UpdateObject" in changes)
     {
-      console.log(this.UpdateObject);
       this.SectionForm.patchValue(this.UpdateObject);
       this.GetVideo(this.UpdateObject.introductoryVideoUrl);
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
@@ -109,6 +107,13 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       this.TreeStructure.setData(sections);
       this.sectionssForSelectmenu = this.TreeStructure.finalFlatenArray();
+      if (this.ActionType == PostType.Add)
+      {
+        this.SectionForm.reset();
+        this.FeatureImageUrl = "";
+        this.VedioID = "";
+        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(0);
+      }
     });
   }
   Toggle()
@@ -122,7 +127,6 @@ export class SectionModalComponent implements OnInit, OnChanges
 
   SetFeatureImage(attachment: Attachments | null)
   {
-    console.log(attachment);
     this.FeatureImageUrl = attachment?.fileUrl!;
     this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(attachment?.fileUrl);
   }
@@ -143,7 +147,6 @@ export class SectionModalComponent implements OnInit, OnChanges
     let section = new Section();
     this.clientSideSevrice.FillObjectFromForm(section, this.SectionForm);
     section.courseId = this.CourseId;
-    section.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     if (section.parentKey === 0)
       section.parentKey = null;
     let parent = this.sectionssForSelectmenu.filter(cat => cat.id == section.parentKey)[0];
@@ -164,7 +167,6 @@ export class SectionModalComponent implements OnInit, OnChanges
     let newSection = new Section();
     this.clientSideSevrice.FillObjectFromForm(newSection, this.SectionForm);
     newSection.courseId = this.CourseId;
-    newSection.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     if (newSection.parentKey === 0)
     {
       newSection.parentKey = null;

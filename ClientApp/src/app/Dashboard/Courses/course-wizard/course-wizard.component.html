@@ -469,9 +469,13 @@
         <div id="step2"
              #step2
              class="step-container bg-white p-4">
-            <a (click)="SectionActionType='Add';SectionModal.Toggle();"
-               class="text-primary">Add section</a>
-            <div class="accordion"
+            <div class="mb-2 d-flex flex-sm-row flex-colum gap-1">
+                <a (click)="SectionActionType=ActionType.Add;SectionModal.Toggle();"
+                   class="btn btn-sm btn-primary">Add section</a>
+                <a (click)="SectionActionType=ActionType.Edit;sectionSelector.Toggle();"
+                   class="btn btn-sm btn-primary">Edit section</a>
+            </div>
+            <div class="accordion mb-2"
                  id="sectionAccordion">
                 <div class="accordion-item"
                      *ngFor="let s of RootSections">
@@ -490,7 +494,7 @@
                          class="accordion-collapse collapse show"
                          aria-labelledby="panelsStayOpen-headingOne"
                          data-bs-parent="#sectionAccordion">
-                        <div class="accordion-body p-0">
+                        <div class="accordion-body p-0 d-flex flex-column gap-2">
                             <app-section-child [Section]="s"
                                                [showSectionName]="false"></app-section-child>
                         </div>
@@ -512,6 +516,46 @@
 <section-modal #SectionModal
                [ActionType]="SectionActionType"
                [CourseId]="CourseId"
+               [UpdateObject]="SectionToEdit"
                [ModalId]="'SectionModalInWizard'"></section-modal>
 <course-category-handler #CourseCategoryHandler
                          [ActionType]="ActionType.Add"></course-category-handler>
+<bootstrap-modal #sectionSelector
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="sectionSelectorHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="sectionSelectorBody"
+                 [ModalId]="'sectionSelector'"
+                 [FullScreeen]="true"
+                 FullScreenClass="modal-lg"
+                 [Modal_Footer_template]="sectionSelectorFooter"></bootstrap-modal>
+<ng-template #sectionSelectorHeader>
+    <h4 class="Modal-title text-white-50">
+        Choose Section to Edit</h4>
+</ng-template>
+<ng-template #sectionSelectorBody>
+    <div class="form-floating has-validation mb-3">
+        <select #selectorForSection
+                required
+                class="form-select"
+                id="sectionSelector"
+                [(ngModel)]="SelectedSectionId"
+                (change)="SelectSectionToEdit(selectorForSection)"
+                aria-label="Select section">
+            <option value="0">No parent</option>
+            <option *ngFor="let sec of AllCourseSections"
+                    [value]="sec.id"
+                    [disabled]="sec.id === SectionForm.get('id')?.value">
+                <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
+            </option>
+        </select>
+        <label for="sectionSelector"
+               class="form-label">Select Section</label>
+    </div>
+</ng-template>
+<ng-template #sectionSelectorFooter>
+    <button class="btn btn-primary"
+            (click)="SectionModal.Toggle()">Edit</button>
+    <button class="btn btn-secondary"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>
