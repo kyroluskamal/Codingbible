@@ -195,6 +195,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
     {
       this.SelectedRows.push(this.PagesData.get(this.currentPageNo)![0]);
     }
+    this.rowClicked(this.SelectedRows[0]);
   }
   spinnerState()
   {

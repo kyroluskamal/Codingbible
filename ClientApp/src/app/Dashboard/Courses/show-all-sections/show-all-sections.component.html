@@ -2,21 +2,23 @@
 <main class="mt-5 bg-white mat-elevation-z3 rounded-2">
     <select class="form-select mb-3"
             #CourseSelector
+            [(ngModel)]="SelectedCourseId"
             (change)="onCourseChange(CourseSelector.value)">
-        aria-label=".form-select-lg example">
         <option selected
-                [disabled]="true">Choose course</option>
+                [disabled]="true"
+                value="0">Choose course</option>
         <option [value]="c.id"
                 *ngFor="let c of (Courses$|async)">{{c.name}}</option>
     </select>
     <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
               [ColumnDefs]="colDefs"
               [dataSource]="selectedSections"
+              [UseTree]="true"
               [CustomMenuButton]="ChangeStatusMenu"
-              (AddButtonClicked)="AddNewSection($event)"
-              (EditButtonClicked)="EditSection($event)"
+              (AddButtonClicked)="AddNewSection($event,SectionModal)"
+              (EditButtonClicked)="EditSection($event,SectionModal)"
               (DeleteButtonClicked)="DeleteSection($event)"
-              (row_Db_Click)="EditSection($event)"
+              (row_Db_Click)="EditSection($event,SectionModal)"
               (rowClick)="SelectSection($event)"
               [isLoading]="isLoading"
               [resetSelectedRow]="resetSelectedRow">
@@ -30,3 +32,8 @@
            *ngIf="SelectedSection && SelectedSection.name!=='' &&SelectedSection?.status===1">Set as draft</a>
     </ng-template>
 </main>
+<section-modal #SectionModal
+               [ActionType]="SectionActionType"
+               [CourseId]="SelectedCourseId"
+               [UpdateObject]="SectionToAddOrUpdate"
+               [ModalId]="'SectionModalInShowAllSections'"></section-modal>

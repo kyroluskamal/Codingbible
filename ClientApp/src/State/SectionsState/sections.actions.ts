@@ -9,6 +9,10 @@ export const AddSection = createAction(actionNames.SectionActions.ADD_Section,
     props<Section>());
 export const AddSection_Success = createAction(actionNames.SectionActions.ADD_Section_Success,
     props<Section>());
+export const AdditionIsComplete = createAction(actionNames.SectionActions.AdditionIsCompleted,
+    props<{ status: boolean; }>());
+export const UpdateIsCompleted = createAction(actionNames.SectionActions.UpdateIsCompleted,
+    props<{ status: boolean; }>());
 export const AddSection_Failed = createAction(actionNames.SectionActions.ADD_Section_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const GetSectionById = createAction(actionNames.SectionActions.GetSectionById,
@@ -20,7 +24,7 @@ export const GetSectionById_Failed = createAction(actionNames.SectionActions.Get
 export const ChangeStatus = createAction(actionNames.SectionActions.ChangeStatus,
     props<Section>());
 export const ChangeStatus_Success = createAction(actionNames.SectionActions.ChangeStatus_Success,
-    props<{ Course: Update<Section>; }>());
+    props<{ Section: Update<Section>; }>());
 export const ChangeStatus_Failed = createAction(actionNames.SectionActions.ChangeStatus_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateSection = createAction(actionNames.SectionActions.UPDATE_Section,

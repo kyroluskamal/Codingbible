@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
-import { Store } from "@ngrx/store";
+import { props, Store } from "@ngrx/store";
 import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
@@ -11,7 +11,7 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Section } from "src/models.model";
 import { SectionsService } from "src/Services/sections.service";
-import { AddSection, AddSection_Failed, AddSection_Success, dummyAction, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 import { selectAllSections } from "./sections.reducer";
 
 
@@ -55,20 +55,18 @@ export class SectionsEffects
                 return this.SectionService.Add(CoursesController.AddSection, action).pipe(
                     map((r) =>
                     {
-                        console.log("From effec", r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return AddSection_Success(r);
+                        this.store.dispatch(AddSection_Success(r));
+                        return AdditionIsComplete({ status: true });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
-                        else
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Section'));
-                        return of(AddSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        this.store.dispatch(AddSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(AdditionIsComplete({ status: false }));
                     })
                 );
             })
@@ -91,16 +89,15 @@ export class SectionsEffects
                             changes: r.data as Section
                         };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateSection_Sucess({ Section: x });
+                        this.store.dispatch(UpdateSection_Sucess({ Section: x }));
+                        return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
-                        else
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
-                        return of(UpdateSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
+                        this.store.dispatch(UpdateSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateIsCompleted({ status: false }));
                     })
                 );
             })
@@ -118,13 +115,42 @@ export class SectionsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return RemoveSection_Success({ id: action.id });
+                        this.store.dispatch(RemoveSection_Success({ id: action.id }));
+                        return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Section'));
-                        return of(RemoveSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.store.dispatch(RemoveSection_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateIsCompleted({ status: false }));
+                    })
+                );
+            })
+        )
+    );
+    changeStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ChangeStatus),
+            switchMap((action) =>
+            {
+                return this.SectionService.ChangeStatus(action).pipe(
+                    map((r) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section status'));
+                        let x: Update<Section> = {
+                            id: action.id,
+                            changes: r.data as Section
+                        };
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return ChangeStatus_Success({ Section: x });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Course status'));
+                        return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })

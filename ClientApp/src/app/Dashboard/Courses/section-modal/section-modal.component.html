@@ -54,6 +54,7 @@
                 <div class="form-floating mb-3">
                     <input [type]="InputFieldTypes.text"
                            required
+                           #SectionTitle
                            minlength="60"
                            maxlength="70"
                            [formControlName]="FormControlNames.SectionForm.title"
@@ -79,7 +80,11 @@
                             {{FormValidationErrors.SEO_Title_Length}}
                         </span>
                     </div>
-                    <label for="title">{{FormFieldsNames.Category.title}}</label>
+                    <label for="title">{{FormFieldsNames.Category.title}}
+                        <sup class="text-danger">*</sup>
+                        <sup class="text-primary"> (you
+                            entered: {{SectionTitle.value.length}})</sup>
+                    </label>
                 </div>
             </div>
         </div>
@@ -218,7 +223,8 @@
                 *                           Description
                 **********************************************************************-->
                 <div class="form-floating mb-3">
-                    <textarea required
+                    <textarea #SectionDescribtion
+                              required
                               style="resize: none;height: 150px;"
                               row="5"
                               minlength="50"
@@ -246,7 +252,11 @@
                             {{FormValidationErrors.SEO_Description_Length}}
                         </span>
                     </div>
-                    <label for="description">{{FormFieldsNames.Section.description}}</label>
+                    <label for="description">{{FormFieldsNames.Section.description}}
+                        <sup class="text-danger">*</sup>
+                        <sup class="text-primary"> (you
+                            entered: {{SectionDescribtion.value.length}})</sup>
+                    </label>
                 </div>
             </div>
             <div class="col-sm-6 col-12">
@@ -257,8 +267,6 @@
                     <textarea required
                               style="resize: none;height: 150px;"
                               row="5"
-                              minlength="50"
-                              maxlength="160"
                               [formControlName]="FormControlNames.SectionForm.whatWillYouLearn"
                               [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.whatWillYouLearn, SectionForm)?'form-control':
                                    errorState.isErrorState(FormControlNames.SectionForm.whatWillYouLearn, SectionForm, form)?
@@ -275,10 +283,11 @@
     <button class="btn btn-primary"
             *ngIf="ActionType===PostType.Add"
             [disabled]="!SectionForm.valid"
-            (click)="AddNewSection()">Add</button>
+            (click)="AddNewSection();SectionModal.Toggle()">Add</button>
     <button class="btn btn-primary"
             [disabled]="!SectionForm.valid"
-            *ngIf="ActionType===PostType.Edit">Save</button>
+            *ngIf="ActionType===PostType.Edit"
+            (click)="Update();SectionModal.Toggle();">Save</button>
     <button class="btn btn-secondary"
             (click)="SectionModal.Toggle()">Close</button>
 </ng-template>
@@ -286,5 +295,5 @@
 <app-media #SectionFeatureImageModal
            [ModalId]="'SectionFeatureImageModal'"
            [setFeatureImageButton]="true"
-           [data_bs_target_for_Previous_modal]="'SectionModal'"
+           [data_bs_target_for_Previous_modal]="ModalId"
            (setFeatureImage)="SetFeatureImage($event)"></app-media>

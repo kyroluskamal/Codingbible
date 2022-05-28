@@ -90,7 +90,7 @@ export class CourseWizardComponent implements OnInit
       [FormControlNames.courseForm.difficultyLevel]: [0, [validators.required]],
       [FormControlNames.courseForm.status]: [0, [validators.required]],
       [FormControlNames.courseForm.featureImageUrl]: ['', [validators.required]],
-      [FormControlNames.courseForm.introductoryVideoUrl]: ['', [validators.YoububeVideo]],
+      [FormControlNames.courseForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.courseForm.categories]: ['', [validators.required]],
     });
     this.activatedRouter.queryParams.subscribe(params =>
@@ -163,6 +163,7 @@ export class CourseWizardComponent implements OnInit
   {
     this.clientSideSevice.FillObjectFromForm(this.CourseToAddOrUpdate, this.CourseForm);
     this.CourseToAddOrUpdate.slug = this.CourseToAddOrUpdate.title.toLowerCase().replace(/ ||/g, '-');
+    this.CourseToAddOrUpdate.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     let isUnique = this.clientSideSevice.isNotUnique(this.allCourses, 'slug', this.CourseToAddOrUpdate.slug);
     if (isUnique)
     {
@@ -227,6 +228,7 @@ export class CourseWizardComponent implements OnInit
     this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
     updatedCourse.slug = updatedSlug;
     updatedCourse.categories = this.selectedCategories;
+    updatedCourse.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     this.store.dispatch(UpdateCourse(updatedCourse));
     this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
     this.SelectCourseById(updatedCourse.id);
@@ -279,19 +281,6 @@ export class CourseWizardComponent implements OnInit
   GetVideo(VideoUrl: string)
   {
     this.CourseForm.get(FormControlNames.courseForm.introductoryVideoUrl)?.setValue(VideoUrl);
-    let vedioId;
-    if (VideoUrl.includes('youtu.be'))
-    {
-      vedioId = VideoUrl.split('youtu.be');
-    }
-    else if (VideoUrl.includes('list='))
-    {
-      let link = VideoUrl.split('&list=')[0];
-      vedioId = link.split("youtube.com/watch?v=");
-    }
-    else
-      vedioId = VideoUrl.split("youtube.com/watch?v=");
-    vedioId = vedioId[vedioId.length - 1];
-    this.VedioID = vedioId;
+    this.VedioID = this.clientSideSevice.GetVideo(VideoUrl);
   }
 }

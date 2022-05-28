@@ -21,7 +21,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
 import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

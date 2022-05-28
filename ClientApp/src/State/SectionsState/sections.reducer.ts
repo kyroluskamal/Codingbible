@@ -1,11 +1,13 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { SectionsState } from "../app.state";
-import { AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionById_Failed, GetSectionById_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AdditionIsComplete, AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionById_Failed, GetSectionById_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 
 import * as adapter from "./sections.adapter";
 
 export const initialState: SectionsState = adapter.SectionsAdapter.getInitialState({
     ValidationErrors: [],
+    AdditionState: false,
+    UpdateState: false,
 });
 // Creating reducer                        
 export const SectionsReducer = createReducer(
@@ -41,7 +43,7 @@ export const SectionsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(ChangeStatus_Success, (state, res) => adapter.SectionsAdapter.updateOne(res.Course, { ...state })),
+    on(ChangeStatus_Success, (state, res) => adapter.SectionsAdapter.updateOne(res.Section, { ...state })),
     on(ChangeStatus_Failed, (state, res) =>
     {
         return {
@@ -68,6 +70,20 @@ export const SectionsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
+    on(AdditionIsComplete, (state, res) =>
+    {
+        return {
+            ...state,
+            AdditionState: res.status
+        };
+    }),
+    on(UpdateIsCompleted, (state, res) =>
+    {
+        return {
+            ...state,
+            UpdateState: res.status
+        };
+    })
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -90,5 +106,6 @@ export const select_Sections_ValidationErrors = createSelector(
     selectSectionsState,
     (state) => state.ValidationErrors!
 );
-
+export const Select_AdditionState = createSelector(selectSectionsState, (state) => state.AdditionState);
+export const Select_UpdateState = createSelector(selectSectionsState, (state) => state.UpdateState);
 

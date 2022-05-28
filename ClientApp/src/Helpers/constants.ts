@@ -538,6 +538,8 @@ export const actionNames = {
         ChangeStatus: '[Section ChangeStatus] request',
         ChangeStatus_Success: '[Section ChangeStatus] Sucess',
         ChangeStatus_Failed: '[Section ChangeStatus] Failed',
+        AdditionIsCompleted: '[Section AdditionIsCompleted] request',
+        UpdateIsCompleted: '[Section UpdateIsCompleted] request',
     }
 };
 
@@ -556,7 +558,7 @@ export const validators = {
     SEO_DESCRIPTION_MIN_LENGTH: Validators.minLength(SEO_DESCRIPTION_MIN_LENGTH),
     SEO_DESCRIPTION_MAX_LENGTH: Validators.maxLength(SEO_DESCRIPTION_MAX_LENGTH),
     URL: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*(\.[a-z]{2,5})?(:[0-9]{1,5})?(\/.*)?$/),
-    YoububeVideo: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(youtube\.com|youtu\.be)\/(watch?v=)?.+$|^$/),
+    YoutubeVideo: Validators.pattern(/^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(youtube\.com|youtu\.be)\/(watch?v=)?.+$|^$/),
     password: Validators.compose([
         CustomValidators.patternValidator(/\d/, { hasNumber: true }),
         CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),

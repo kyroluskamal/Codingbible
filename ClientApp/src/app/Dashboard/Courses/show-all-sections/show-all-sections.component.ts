@@ -4,15 +4,16 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
-import { FormControlNames, PostType } from 'src/Helpers/constants';
+import { FormControlNames, PostType, sweetAlert } from 'src/Helpers/constants';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourses } from 'src/State/CourseState/course.actions';
 import { selectAllCourses } from 'src/State/CourseState/course.reducer';
-import { ChangeStatus, LoadSections, RemoveSection } from 'src/State/SectionsState/sections.actions';
-import { selectAllSections, selectSectionsByID } from 'src/State/SectionsState/sections.reducer';
+import { AdditionIsComplete, ChangeStatus, LoadSections, RemoveSection, UpdateIsCompleted } from 'src/State/SectionsState/sections.actions';
+import { selectAllSections, selectSectionsByID, Select_AdditionState, Select_UpdateState } from 'src/State/SectionsState/sections.reducer';
+import { SectionModalComponent } from '../section-modal/section-modal.component';
 
 @Component({
   selector: 'app-show-all-sections',
@@ -31,11 +32,12 @@ export class ShowAllSectionsComponent implements OnInit
   Sections$ = this.store.select(selectAllSections);
   Courses$ = this.store.select(selectAllCourses);
   isLoading = true;
-  Action: string = "";
+  SectionActionType: string = "";
+  ActionType = PostType;
   AllSections: Section[] = [];
+  SelectedCourseId: number = 0;
   selectedSections: Section[] = [];
   SectionToAddOrUpdate: Section = new Section();
-  SectionForm: FormGroup = new FormGroup({});
   SelectedSection: Section = new Section();
   constructor(private store: Store, private title: Title,
     private TreeSections: TreeDataStructureService<Section>,
@@ -53,23 +55,48 @@ export class ShowAllSectionsComponent implements OnInit
       this.isLoading = false;
       this.AllSections = Sections;
     });
+    this.store.select(Select_AdditionState).subscribe(state =>
+    {
+      if (state)
+      {
+        this.onCourseChange(this.SelectedCourseId.toString());
+        this.store.dispatch(AdditionIsComplete({ status: false }));
+      }
+    });
+    this.store.select(Select_UpdateState).subscribe(state =>
+    {
+      if (state)
+      {
+        this.onCourseChange(this.SelectedCourseId.toString());
+        this.store.dispatch(UpdateIsCompleted({ status: false }));
+      }
+    });
   }
 
-  AddNewSection(event: Boolean)
+  AddNewSection(event: Boolean, SectionModal: SectionModalComponent)
   {
     if (event)
     {
-      // this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Sections.Home, DashboardRoutes.Sections.Wizard], { queryParams: { action: PostType.Add } });
+      this.SectionActionType = PostType.Add;
+      if (this.SelectedCourseId == 0)
+      {
+        this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "<h3>Please select a course</h3>");
+      }
+      else
+      {
+        SectionModal.Toggle();
+      }
     }
   }
-  EditSection(event: Section)
+  EditSection(event: Section, SectionModal: SectionModalComponent)
   {
     if (event)
     {
-      // this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Sections.Home, DashboardRoutes.Sections.Wizard], { queryParams: { action: PostType.Edit, step: "step1", SectionId: event.id } });
+      this.SectionToAddOrUpdate = event;
+      this.SectionActionType = PostType.Edit;
+      this.SelectedCourseId = event.courseId;
+      SectionModal.Toggle();
     }
-    this.SectionToAddOrUpdate = event;
-    this.Action = PostType.Edit;
   }
   DeleteSection(event: Section)
   {
@@ -87,12 +114,7 @@ export class ShowAllSectionsComponent implements OnInit
   {
     this.SectionToAddOrUpdate.featureImageUrl = attachment?.fileUrl!;
   }
-  removeFeatureImage()
-  {
-    this.store.dispatch(SelectAttachment({ selectedFile: null }));
-    this.SectionToAddOrUpdate.featureImageUrl = "";
-    this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue("");
-  }
+
   SelectSection(event: Section)
   {
     this.SelectedSection = event;

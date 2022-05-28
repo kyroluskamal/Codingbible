@@ -79,6 +79,8 @@ export interface LessonsState extends EntityState<Lesson>
 export interface SectionsState extends EntityState<Section>
 {
     ValidationErrors: ModelStateErrors[];
+    AdditionState: boolean;
+    UpdateState: boolean;
 }
 
 export const AppReducers: ActionReducerMap<AppState> = {

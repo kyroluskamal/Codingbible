@@ -5,8 +5,8 @@ import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { Post } from 'src/models.model';
-import { LoadPOSTs, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
-import { selectAllposts } from 'src/State/PostState/post.reducer';
+import { ChangeStatus, LoadPOSTs, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
+import { selectAllposts, selectPostByID } from 'src/State/PostState/post.reducer';
 
 @Component({
   selector: 'app-posts-dashboard',
@@ -25,6 +25,7 @@ export class PostsDashboardComponent implements OnInit
     { field: "commentCount", icon: '<i class="bi bi-chat-left-fill"></i>' },
   ];
   resetSelectedRow: boolean = false;
+  SelectedPost: Post = new Post();
   dataSource: CbTableDataSource<Post> = new CbTableDataSource<Post>();
   posts$ = this.store.select(selectAllposts);
   isLoading = true;
@@ -65,5 +66,19 @@ export class PostsDashboardComponent implements OnInit
       }
     });
   }
-
+  SelectPost(selectedPost: Post)
+  {
+    this.SelectedPost = selectedPost;
+  }
+  ChangeStatus(status: number)
+  {
+    let PostToUpdate = { ...this.SelectedPost };
+    PostToUpdate.status = status;
+    this.store.dispatch(ChangeStatus(PostToUpdate));
+    this.store.select(selectPostByID(PostToUpdate.id)).subscribe(post =>
+    {
+      if (post)
+        this.SelectPost(post);
+    });
+  }
 }

@@ -691,8 +691,18 @@ public class CoursesController : ControllerBase
                     }
                 }
                 var oldLevel = getSection.Level;
-                getSection = Mapper.Map(section, getSection);
-
+                getSection.Name = section.Name;
+                getSection.Title = section.Title;
+                getSection.Description = section.Description;
+                getSection.Level = section.Level;
+                getSection.Slug = section.Slug;
+                getSection.Order = section.Order;
+                getSection.ParentKey = section.ParentKey;
+                getSection.FeatureImageUrl = section.FeatureImageUrl;
+                getSection.IsLeafSection = section.IsLeafSection;
+                getSection.WhatWillYouLearn = section.WhatWillYouLearn;
+                getSection.IntroductoryVideoUrl = section.IntroductoryVideoUrl;
+                getSection.Status = 0;
                 UnitOfWork.Sections.Update(getSection);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
@@ -702,7 +712,7 @@ public class CoursesController : ControllerBase
                         await UpdateSectionLevel(getSection);
                     }
                     await UnitOfWork.SaveAsync();
-                    return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name));
+                    return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name, getSection));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Section"));
             }
@@ -766,7 +776,7 @@ public class CoursesController : ControllerBase
                 */
                 if (result > 0)
                 {
-                    return Ok(Constants.HttpResponses.Update_Sucess($"{getSection.Title}"));
+                    return Ok(Constants.HttpResponses.Update_Sucess($"{getSection.Title}", getSection));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed($"{getSection.Title}"));
             }

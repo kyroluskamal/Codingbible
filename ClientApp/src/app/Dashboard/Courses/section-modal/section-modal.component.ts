@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, OnChanges, SimpleChanges, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
@@ -10,7 +10,7 @@ import { SelectedTextData } from 'src/Interfaces/interfaces';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
-import { AddSection } from 'src/State/SectionsState/sections.actions';
+import { AddSection, UpdateSection } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
@@ -53,6 +53,8 @@ export class SectionModalComponent implements OnInit, OnChanges
   @Input() UpdateObject: Section = new Section();
   @Input() ModalId: string = "SectionModal";
   @Input() CourseId: number = 0;
+  @Input() AddionIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() UpdateIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild("SectionModal") modal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private store: Store,
     private TreeStructure: TreeDataStructureService<Section>,
@@ -62,6 +64,9 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       let parent = this.sectionssForSelectmenu.filter(cat => cat.id == this.SectionForm.get("id")?.value)[0];
       this.OldLevel = parent?.level;
+    } else
+    {
+      this.SectionForm.reset();
     }
   }
   ngOnChanges(changes: SimpleChanges): void
@@ -70,7 +75,20 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       console.log(this.UpdateObject);
       this.SectionForm.patchValue(this.UpdateObject);
-      this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(this.UpdateObject.parent?.id);
+      this.GetVideo(this.UpdateObject.introductoryVideoUrl);
+      this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
+      this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
+      this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
+    }
+    if ("ActionType" in changes)
+    {
+      if (this.ActionType == PostType.Add)
+      {
+        this.SectionForm.reset();
+        this.FeatureImageUrl = "";
+        this.VedioID = "";
+        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(0);
+      }
     }
   }
 
@@ -83,7 +101,7 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       [FormControlNames.SectionForm.parentKey]: [0, [validators.required]],
       [FormControlNames.SectionForm.featureImageUrl]: ['', [validators.required]],
-      [FormControlNames.SectionForm.introductoryVideoUrl]: ['', [validators.YoububeVideo]],
+      [FormControlNames.SectionForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.SectionForm.whatWillYouLearn]: [""],
       [FormControlNames.SectionForm.isLeafSection]: [false],
     });
@@ -125,10 +143,11 @@ export class SectionModalComponent implements OnInit, OnChanges
     let section = new Section();
     this.clientSideSevrice.FillObjectFromForm(section, this.SectionForm);
     section.courseId = this.CourseId;
+    section.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
     if (section.parentKey === 0)
       section.parentKey = null;
     let parent = this.sectionssForSelectmenu.filter(cat => cat.id == section.parentKey)[0];
-    if (section.parentKey == null || section.parentKey == 0 || section.parent == null)
+    if (section.parentKey == null || section.parentKey == 0)
     {
       section.level = 0;
     } else
@@ -137,5 +156,29 @@ export class SectionModalComponent implements OnInit, OnChanges
     }
     section.slug = section.title.split(" ").join("-");
     this.store.dispatch(AddSection(section));
+    this.SectionForm.reset();
+  }
+  Update()
+  {
+    this.SectionForm.markAllAsTouched();
+    let newSection = new Section();
+    this.clientSideSevrice.FillObjectFromForm(newSection, this.SectionForm);
+    newSection.courseId = this.CourseId;
+    newSection.introductoryVideoUrl = `https://www.youtube.com/embed/${this.VedioID}`;
+    if (newSection.parentKey === 0)
+    {
+      newSection.parentKey = null;
+    }
+    let parent = this.sectionssForSelectmenu.filter(sec => sec.id == newSection.parentKey)[0];
+
+    if (newSection.parentKey === 0 || parent == null)
+    {
+      newSection.level = 0;
+    } else
+    {
+      newSection.level = parent?.level! + 1;
+    }
+    newSection.slug = newSection.title.replace("|", '-').split(" ").join("-");
+    this.store.dispatch(UpdateSection(newSection));
   }
 }

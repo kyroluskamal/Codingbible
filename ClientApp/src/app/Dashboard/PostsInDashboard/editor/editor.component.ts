@@ -167,7 +167,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       caption: [''],
     });
     this.VedioForm = this.fb.group({
-      src: ['', [validators.required, validators.YoububeVideo]],
+      src: ['', [validators.required, validators.YoutubeVideo]],
       width: [100, [validators.required]],
     });
     this.LinkTagForm = this.fb.group({

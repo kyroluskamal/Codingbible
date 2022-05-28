@@ -124,20 +124,27 @@ export class ClientSideValidationService
   }
   GetVideo(VideoUrl: string)
   {
-    let vedioId;
-    if (VideoUrl.includes('youtu.be'))
+    if (VideoUrl)
     {
-      vedioId = VideoUrl.split('youtu.be');
+      let vedioId;
+      if (VideoUrl.includes('youtu.be'))
+      {
+        vedioId = VideoUrl.split('youtu.be');
+      }
+      else if (VideoUrl.includes('list='))
+      {
+        let link = VideoUrl.split('&list=')[0];
+        vedioId = link.split("youtube.com/watch?v=");
+      } else if (VideoUrl.includes("youtube.com/embed/"))
+      {
+        vedioId = VideoUrl.split("youtube.com/embed/");
+      }
+      else
+        vedioId = VideoUrl.split("youtube.com/watch?v=");
+      vedioId = vedioId[vedioId.length - 1];
+      return vedioId;
     }
-    else if (VideoUrl.includes('list='))
-    {
-      let link = VideoUrl.split('&list=')[0];
-      vedioId = link.split("youtube.com/watch?v=");
-    }
-    else
-      vedioId = VideoUrl.split("youtube.com/watch?v=");
-    vedioId = vedioId[vedioId.length - 1];
-    return vedioId;
+    return "";
   }
   GetSelectedText()
   {
