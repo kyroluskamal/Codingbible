@@ -37,6 +37,8 @@ namespace CodingBible.Models.Posts
         public float Priority { get; set; }
         [NotMapped]
         public int[] Categories { get; set; }
+        [NotMapped]
+        public int[] TempAttach { get; set; }
         public ICollection<PostsCategory> PostsCategories { get; set; }
         public ICollection<PostAttachments> Attachments { get; set; }
     }

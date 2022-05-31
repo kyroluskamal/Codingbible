@@ -608,8 +608,8 @@ public class CoursesController : ControllerBase
         }
     }
     [HttpGet]
-    [Route(nameof(GetSectionsOfCourse) + "/{courseId}")]
-    public async Task<IActionResult> GetSectionsOfCourse([FromRoute] int courseId)
+    [Route(nameof(GetSectionsByCourseId) + "/{courseId}")]
+    public async Task<IActionResult> GetSectionsByCourseId([FromRoute] int courseId)
     {
         try
         {
@@ -822,7 +822,24 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lessons = await UnitOfWork.Lessons.GetAllAsync();
+            var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Section,Attachments");
+            return Ok(lessons);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [Route(nameof(GetLessonsByCourseId) + "/{courseId}")]
+    public async Task<IActionResult> GetLessonsByCourseId([FromRoute] int courseId)
+    {
+        try
+        {
+            var lessons = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments");
             return Ok(lessons);
         }
         catch (Exception e)
@@ -838,7 +855,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section");
+            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section,Attachments");
             if (lesson == null)
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -879,11 +896,28 @@ public class CoursesController : ControllerBase
                 }
                 var newLesson = new Lesson();
                 newLesson = Mapper.Map(lesson, newLesson);
+                newLesson.DateCreated = DateTime.Now;
+                newLesson.LasModified = DateTime.Now;
+                newLesson.Attachments = lesson.Attachments;
                 await UnitOfWork.Lessons.AddAsync(newLesson);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    return Ok(await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == newLesson.Id, includeProperties: "Section"));
+                    if (lesson.Attachments.ToArray().Length > 0)
+                    {
+                        List<LessonAttachments> lessonAttachments = new();
+                        foreach (var l in lesson.Attachments)
+                        {
+                            lessonAttachments.Add(new LessonAttachments()
+                            {
+                                LessonId = newLesson.Id,
+                                AttachmentId = l.AttachmentId
+                            });
+                        }
+                        await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
+                    return Ok(await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == newLesson.Id, includeProperties: "Section,Attachments"));
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Lesson"));
             }
@@ -906,7 +940,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getLesson = await UnitOfWork.Lessons.GetAsync(lesson.Id);
+                var getLesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == lesson.Id, includeProperties: "Section,Attachments");
                 if (getLesson == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -927,10 +961,30 @@ public class CoursesController : ControllerBase
                     return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
                 }
                 var updatedLesson = Mapper.Map(lesson, getLesson);
+                getLesson.LasModified = DateTime.Now;
+                getLesson.Attachments = lesson.Attachments;
                 UnitOfWork.Lessons.Update(updatedLesson);
+                foreach (var att in getLesson.Attachments)
+                {
+                    UnitOfWork.LessonAttachments.Remove(att);
+                }
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
+                    if (lesson.Attachments.ToArray().Length > 0)
+                    {
+                        List<LessonAttachments> lessonAttachments = new();
+                        foreach (var l in lesson.Attachments)
+                        {
+                            lessonAttachments.Add(new LessonAttachments()
+                            {
+                                LessonId = getLesson.Id,
+                                AttachmentId = l.AttachmentId
+                            });
+                        }
+                        await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
+                    }
+                    await UnitOfWork.SaveAsync();
                     return Ok(Constants.HttpResponses.Update_Sucess("Lesson"));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Lesson"));
@@ -1007,6 +1061,13 @@ public class CoursesController : ControllerBase
               ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
             return BadRequest(ex);
         }
+    }
+    [HttpGet]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [Route(nameof(IsLessonSlug_NOT_Unique) + "/{slug}")]
+    public async Task<IActionResult> IsLessonSlug_NOT_Unique([FromRoute] string slug)
+    {
+        return Ok(await UnitOfWork.Lessons.IsNotUnique(x => x.Slug == slug));
     }
     #endregion
 

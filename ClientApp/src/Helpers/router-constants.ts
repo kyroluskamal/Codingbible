@@ -27,11 +27,17 @@ export const DashboardRoutes = {
         Home: "courses",
         Categories: "categories",
         Wizard: "wizard",
-        Sections: "sections"
+        Sections: "sections",
+        Lessons: {
+            Home: "lessons",
+            AddLesson: "add-lesson",
+            EditLesson: "edit-lesson",
+        }
     },
     Appereance: {
         Menus: "menus",
-    }
+    },
+
 };
 export const DashboardRoutesText = {
     DashBoard: "Dashboard",
@@ -47,7 +53,10 @@ export const DashboardRoutesText = {
         All: "Courses",
         Categories: "Categories",
         Wizard: "Wizard",
-        Sections: "Sections"
+        Sections: "Sections",
+        Lessons: {
+            Home: "Lessons",
+        }
     },
     Appereance: {
         Main: "Appereance",

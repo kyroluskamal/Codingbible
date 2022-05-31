@@ -27,6 +27,7 @@ namespace CodingBible.UnitOfWork
         ILessonRepositoryAsync Lessons { get; }
         ISectionRepositoryAsync Sections { get; }
         IStudentsPerCourseRepositoryAsync StudentsPerCourses { get; }
+        ILessonAttachmentsRespositoryAsync LessonAttachments { get; }
         Task<int> SaveAsync();
         int Save();
     }

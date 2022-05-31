@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { FormControlNames, PostType, validators } from 'src/Helpers/constants';
-import { Post } from 'src/models.model';
+import { Post, PostAttachments } from 'src/models.model';
 import { AddPOST } from 'src/State/PostState/post.actions';
 
 @Component({
@@ -42,5 +42,9 @@ export class AddPostsComponent implements OnInit
     else if (type == "draft")
       this.newPost.status = 0;
     this.store.dispatch(AddPOST(this.newPost));
+  }
+  GetPostAttachments(PostAttachments: number[])
+  {
+    this.newPost.tempAttach = PostAttachments;
   }
 }

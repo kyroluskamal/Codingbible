@@ -6,7 +6,6 @@ import { AttachmentsReducer } from "./Attachments/Attachments.reducer";
 import { AuthReducer } from "./AuthState/auth.reducer";
 import { CategoryReducer } from "./CategoriesState/Category.reducer";
 import { CourseCategoryReducer } from "./CourseCategoryState/CourseCategory.reducer";
-import { CourseSectionsReducer } from "./CourseSectionsState/CourseSections.reducer";
 import { CourseReducer } from "./CourseState/course.reducer";
 import { DesignReducer } from "./DesignState/design.reducer";
 import { LessonsReducer } from "./LessonsState/Lessons.reducer";
@@ -22,7 +21,6 @@ export interface AppState
     attachment: AttachmentsState;
     course: CourseState;
     courseCategory: CourseCategoryState;
-    courseSections: CourseSectionsState;
     lessons: LessonsState;
     sections: SectionsState;
 }
@@ -75,6 +73,9 @@ export interface CourseSectionsState extends EntityState<Section>
 export interface LessonsState extends EntityState<Lesson>
 {
     ValidationErrors: ModelStateErrors[];
+    AdditionState: boolean;
+    UpdateState: boolean;
+    CurrentSelectedLesson: Lesson | null;
 }
 export interface SectionsState extends EntityState<Section>
 {
@@ -91,7 +92,6 @@ export const AppReducers: ActionReducerMap<AppState> = {
     attachment: AttachmentsReducer,
     course: CourseReducer,
     courseCategory: CourseCategoryReducer,
-    courseSections: CourseSectionsReducer,
     lessons: LessonsReducer,
     sections: SectionsReducer
 };

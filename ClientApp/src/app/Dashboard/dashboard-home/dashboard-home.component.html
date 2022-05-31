@@ -179,7 +179,7 @@
         <div class="container bg-light ">
             <xng-breadcrumb></xng-breadcrumb>
             <ngx-spinner name="general"></ngx-spinner>
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="HideStickyNotes()"></router-outlet>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

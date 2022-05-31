@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { Store } from '@ngrx/store';
 import { Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
-import { selectAllCourseSectionss } from 'src/State/CourseSectionsState/CourseSections.reducer';
 import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
 import { AdditionIsComplete } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections, Select_AdditionState } from 'src/State/SectionsState/sections.reducer';

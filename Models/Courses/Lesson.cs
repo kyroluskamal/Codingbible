@@ -21,7 +21,13 @@ public class Lesson
     [Column(TypeName = "tinyint")]
     public int Status { get; set; }
     public string HtmlContent { get; set; }
+    public DateTime DateCreated { get; set; }
+    public DateTime LasModified { get; set; }
+    public string FeatureImageUrl { get; set; }
+    public DateTime PublishedDate { get; set; }
     [ForeignKey(nameof(SectionId))]
     public int SectionId { get; set; }
     public Section Section { get; set; }
+    public int CourseId { get; set; }
+    public ICollection<LessonAttachments> Attachments { get; set; }
 }

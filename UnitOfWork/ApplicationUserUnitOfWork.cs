@@ -38,6 +38,7 @@ namespace CodingBible.UnitOfWork
         public ILessonRepositoryAsync Lessons { get; }
         public ISectionRepositoryAsync Sections { get; }
         public IStudentsPerCourseRepositoryAsync StudentsPerCourses { get; }
+        public ILessonAttachmentsRespositoryAsync LessonAttachments { get; }
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
         {
@@ -60,6 +61,7 @@ namespace CodingBible.UnitOfWork
             Lessons = new LessonRepositoryAsync(applicationDbContext);
             Sections = new SectionRepositoryAsync(applicationDbContext);
             StudentsPerCourses = new StudentsPerCourseRepositoryAsync(applicationDbContext);
+            LessonAttachments = new LessonAttachmentsRespositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

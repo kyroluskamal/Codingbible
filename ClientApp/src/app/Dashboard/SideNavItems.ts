@@ -30,6 +30,7 @@ export let SideNav_items: ExpansionPanel[] = [
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home], LinkText: DashboardRoutesText.Courses.All, state: false },
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Sections], LinkText: DashboardRoutesText.Courses.Sections, state: false },
       { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Categories], LinkText: DashboardRoutesText.Courses.Categories, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Lessons.Home], LinkText: DashboardRoutesText.Courses.Lessons.Home, state: false },
     ],
     itemLevel: 2,
     bootstrapIcon: "bi bi-book-fill"

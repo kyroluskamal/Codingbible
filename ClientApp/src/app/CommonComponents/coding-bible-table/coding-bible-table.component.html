@@ -108,7 +108,10 @@
                     class="bg-light">
                     <div class="d-flex align-items-center justify-content-center"
                          style="height: 100px;">
-                        <h4>No data found</h4>
+                        <div *ngIf="CustomNoDataMessage">
+                            <ng-container *ngTemplateOutlet="CustomNoDataMessage"></ng-container>
+                        </div>
+                        <h4 *ngIf="!CustomNoDataMessage">No data found</h4>
                     </div>
                 </td>
             </tr>

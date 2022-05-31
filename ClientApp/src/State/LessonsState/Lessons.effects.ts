@@ -5,13 +5,15 @@ import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
 import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
+import { NotificationsService } from "src/CommonServices/notifications.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
 import { SpinnerService } from "src/CommonServices/spinner.service";
 import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
+import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Lesson } from "src/models.model";
 import { LessonsService } from "src/Services/lessons.service";
-import { AddLesson, AddLesson_Failed, AddLesson_Success, dummyAction, LoadLessons, LoadLessonsFail, LoadLessonsSuccess, RemoveLesson, RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors, UpdateLesson, UpdateLesson_Failed, UpdateLesson_Sucess } from "./Lessons.actions";
+import { AddLesson, AddLesson_Failed, AddLesson_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetLessonById, GetLessonById_Failed, GetLessonById_Success, GetLessonsByCourseId, GetLessonsByCourseId_Failed, GetLessonsByCourseId_Success, LoadLessons, LoadLessonsFail, LoadLessonsSuccess, RemoveLesson, RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors, UpdateLesson, UpdateLesson_Failed, UpdateLesson_Sucess } from "./Lessons.actions";
 import { selectAllLessons } from "./Lessons.reducer";
 
 
@@ -23,9 +25,9 @@ export class LessonsEffects
 
     constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
         private ServerErrorResponse: GetServerErrorResponseService,
-        private activatedRoute: ActivatedRoute,
         private LessonService: LessonsService, private store: Store,
-        private router: Router, private spinner: SpinnerService) { }
+        private router: Router, private notifications: NotificationsService,
+        private spinner: SpinnerService) { }
 
     GetAllLessons$ = createEffect(() =>
         this.actions$.pipe(
@@ -46,6 +48,50 @@ export class LessonsEffects
             })
         )
     );
+    GetLessonsById$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetLessonById),
+            switchMap((action) =>
+            {
+                return this.LessonService.GetById(CoursesController.GetLessonById, action.id).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetLessonById_Success(r);
+                    }),
+                    catchError((e) =>
+                    {
+                        if (e.error)
+                            if (e.error.status.toLowerCase() == "notfound")
+                            {
+                                this.notifications.Error_Swal(sweetAlert.Title.Error,
+                                    sweetAlert.ButtonText.OK, `<h4>${e.error.message}</h4>`);
+                                this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home,
+                                    DashboardRoutes.Courses.Lessons.Home]);
+                            }
+                        return of(GetLessonById_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    }
+                    )
+                );
+            })
+        )
+    );
+    GetLessonsByCourseId$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetLessonsByCourseId),
+            switchMap((action) =>
+            {
+                return this.LessonService.GetLessonsByCourseId(action.courseId).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetLessonsByCourseId_Success({ payload: r });
+                    }),
+                    catchError((e) => of(GetLessonsByCourseId_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                );
+            })
+        )
+    );
     AddLesson$ = createEffect(() =>
         this.actions$.pipe(
             ofType(AddLesson),
@@ -59,6 +105,7 @@ export class LessonsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Lesson'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.EditPost], { queryParams: { id: r.id } });
                         return AddLesson_Success(r);
                     }),
                     catchError((e) =>
@@ -106,7 +153,7 @@ export class LessonsEffects
             })
         )
     );
-    RemovePost$ = createEffect(() =>
+    RemoveLesson$ = createEffect(() =>
         this.actions$.pipe(
             ofType(RemoveLesson),
             switchMap((action) =>
@@ -118,6 +165,8 @@ export class LessonsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Lesson'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        if (action.url === DashboardRoutes.Courses.Lessons.EditLesson)
+                            this.router.navigate(['', DashboardRoutes.Home]);
                         return RemoveLesson_Success({ id: action.id });
                     }),
                     catchError((e) =>
@@ -125,6 +174,33 @@ export class LessonsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Lesson'));
                         return of(RemoveLesson_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
+            })
+        )
+    );
+    changeStatus$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ChangeStatus),
+            switchMap((action) =>
+            {
+                return this.LessonService.ChangeStatus(action).pipe(
+                    map((r) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section status'));
+                        let x: Update<Lesson> = {
+                            id: action.id,
+                            changes: r.data as Lesson
+                        };
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return ChangeStatus_Success({ Lesson: x });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Course status'));
+                        return of(ChangeStatus_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })

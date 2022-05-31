@@ -4,14 +4,16 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
+import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { FormControlNames, PostType, sweetAlert } from 'src/Helpers/constants';
+import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { CbTableDataSource, ColDefs } from 'src/Interfaces/interfaces';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourses } from 'src/State/CourseState/course.actions';
 import { selectAllCourses } from 'src/State/CourseState/course.reducer';
-import { AdditionIsComplete, ChangeStatus, LoadSections, RemoveSection, UpdateIsCompleted } from 'src/State/SectionsState/sections.actions';
+import { AdditionIsComplete, ChangeStatus, GetSectionsByCourseId, LoadSections, RemoveSection, UpdateIsCompleted } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections, selectSectionsByID, Select_AdditionState, Select_UpdateState } from 'src/State/SectionsState/sections.reducer';
 import { SectionModalComponent } from '../section-modal/section-modal.component';
 
@@ -19,7 +21,6 @@ import { SectionModalComponent } from '../section-modal/section-modal.component'
   selector: 'app-show-all-sections',
   templateUrl: './show-all-sections.component.html',
   styleUrls: ['./show-all-sections.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShowAllSectionsComponent implements OnInit
 {
@@ -34,6 +35,7 @@ export class ShowAllSectionsComponent implements OnInit
   isLoading = true;
   SectionActionType: string = "";
   ActionType = PostType;
+  DashboardRoutes = DashboardRoutes;
   AllSections: Section[] = [];
   SelectedCourseId: number = 0;
   selectedSections: Section[] = [];
@@ -41,6 +43,7 @@ export class ShowAllSectionsComponent implements OnInit
   SelectedSection: Section = new Section();
   constructor(private store: Store, private title: Title,
     private TreeSections: TreeDataStructureService<Section>,
+    private spinner: SpinnerService,
     private router: Router, private NotificationService: NotificationsService)
   {
     this.title.setTitle("Sections");
@@ -49,11 +52,13 @@ export class ShowAllSectionsComponent implements OnInit
   ngOnInit(): void
   {
     this.store.dispatch(LoadCourses());
-    this.store.dispatch(LoadSections());
     this.Sections$.subscribe(Sections =>
     {
       this.isLoading = false;
       this.AllSections = Sections;
+      this.TreeSections.setData(this.AllSections.filter(Section => Section.courseId == this.SelectedCourseId));
+      this.selectedSections = this.TreeSections.finalFlatenArray();
+      this.dataSource.data = this.TreeSections.finalFlatenArray();
     });
     this.store.select(Select_AdditionState).subscribe(state =>
     {
@@ -133,10 +138,12 @@ export class ShowAllSectionsComponent implements OnInit
   }
   onCourseChange(CourseId: string)
   {
+    this.spinner.fullScreenSpinner();
     let courseId = Number(CourseId);
     if (courseId > 0)
     {
-      this.TreeSections.setData(this.AllSections.filter(Section => Section.courseId == courseId));
+      this.store.dispatch(GetSectionsByCourseId({ courseId: courseId }));
+      this.TreeSections.setData(this.AllSections.filter(Section => Section.courseId == this.SelectedCourseId));
       this.selectedSections = this.TreeSections.finalFlatenArray();
       this.dataSource.data = this.TreeSections.finalFlatenArray();
     }

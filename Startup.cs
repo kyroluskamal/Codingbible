@@ -117,7 +117,7 @@ namespace CodingBible
             services.AddTransient<IEMailService, EMailService>();
             services.AddTransient<ITokenServ, TokenServ>();
             services.AddTransient<IDbContextInitializer, DbContextInitializer>();
-            services.AddTransient<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
+            services.AddScoped<IUnitOfWork_ApplicationUser, ApplicationUserUnitOfWork>();
             services.AddAutoMapper(typeof(Startup));
 
             /*---------------------------------------------------------------------------------------------------*/

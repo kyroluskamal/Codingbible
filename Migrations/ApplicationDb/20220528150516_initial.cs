@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodingBible.Migrations.ApplicationDb
 {
-    public partial class inital : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -333,7 +333,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false),
                     NumberOfStudents = table.Column<int>(type: "int", nullable: false),
                     Max_NumberOfStudents = table.Column<int>(type: "int", nullable: false),
                     NeedsEnrollment = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
@@ -345,8 +345,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     CourseFeatures = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DifficultyLevel = table.Column<byte>(type: "tinyint", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7183)),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(7810)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(4243)),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(5258)),
                     IntroductoryVideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AuthorId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -370,8 +370,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(4936)),
-                    LasModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 20, 17, 38, 2, 267, DateTimeKind.Local).AddTicks(5679)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(2797)),
+                    LasModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(3233)),
                     PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Excerpt = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -442,12 +442,17 @@ namespace CodingBible.Migrations.ApplicationDb
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CourseId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
+                    Level = table.Column<byte>(type: "tinyint", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsLeafSection = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    WhatWillYouLearn = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IntroductoryVideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)0),
                     ParentKey = table.Column<int>(type: "int", nullable: true),
                     ParentId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -568,12 +573,16 @@ namespace CodingBible.Migrations.ApplicationDb
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     VedioUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OrderWithinSection = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)0),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SectionId = table.Column<int>(type: "int", nullable: false)
+                    SectionId = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

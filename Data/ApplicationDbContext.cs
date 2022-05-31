@@ -36,6 +36,7 @@ namespace CodingBible.Data
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<StudentsPerCourse> StudentsPerCourses { get; set; }
+        public DbSet<LessonAttachments> LessonAttachments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserRole>()
@@ -87,6 +88,17 @@ namespace CodingBible.Data
             builder.Entity<PostAttachments>()
                 .HasOne(x => x.Attachment)
                 .WithMany(x => x.Posts)
+                .HasForeignKey(x => x.AttachmentId);
+
+            builder.Entity<LessonAttachments>()
+                .HasKey(x => new { x.LessonId, x.AttachmentId });
+            builder.Entity<LessonAttachments>()
+                .HasOne(x => x.Lesson)
+                .WithMany(x => x.Attachments)
+                .HasForeignKey(x => x.LessonId);
+            builder.Entity<LessonAttachments>()
+                .HasOne(x => x.Attachments)
+                .WithMany(x => x.Lessons)
                 .HasForeignKey(x => x.AttachmentId);
 
             builder.Entity<MenuMenuItems>()

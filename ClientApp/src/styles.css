@@ -228,7 +228,7 @@ figure.figure img{
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 4px;
 }
 
 /* Track */
@@ -247,4 +247,12 @@ figure.figure img{
 }
 .noShadow{
   box-shadow: none !important;
+}
+.flex-grow-1{
+  flex-grow: 1;
+}
+.disabledAnchor{
+  pointer-events: none;
+  opacity: 0.5;
+  color: gray;
 }

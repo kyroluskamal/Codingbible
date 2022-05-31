@@ -23,6 +23,12 @@ export const GetLessonById_Success = createAction(actionNames.LessonActions.GetL
     props<Lesson>());
 export const GetLessonById_Failed = createAction(actionNames.LessonActions.GetLessonById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const GetLessonsByCourseId = createAction(actionNames.LessonActions.GetLessonsByCourseId,
+    props<{ courseId: number; sectionId: number; }>());
+export const GetLessonsByCourseId_Success = createAction(actionNames.LessonActions.GetLessonsByCourseId_Success,
+    props<{ payload: Lesson[]; }>());
+export const GetLessonsByCourseId_Failed = createAction(actionNames.LessonActions.GetLessonsByCourseId_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateLesson = createAction(actionNames.LessonActions.UPDATE_Lesson,
     props<Lesson>());
 export const UpdateLesson_Sucess = createAction(actionNames.LessonActions.UPDATE_Lesson_Success,
@@ -40,5 +46,11 @@ export const LoadLessonsSuccess = createAction(actionNames.LessonActions.LOAD_AL
     props<{ payload: Lesson[]; }>());
 export const SetValidationErrors = createAction(actionNames.LessonActions.Set_ValidationErrors,
     props<{ validationErrors: ModelStateErrors[]; }>());
+export const SetCurrentSelectedLesson = createAction(actionNames.LessonActions.SetCurrentSelectedLesson,
+    props<Lesson>());
 export const LoadLessonsFail = createAction(actionNames.LessonActions.LOAD_ALL_Lessons_FAILED,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const LessonAdditionIsComplete = createAction(actionNames.LessonActions.AdditionIsCompleted,
+    props<{ status: boolean; }>());
+export const LessonUpdateIsCompleted = createAction(actionNames.LessonActions.UpdateIsCompleted,
+    props<{ status: boolean; }>());

@@ -25,9 +25,10 @@
     <!-- ------------------------------------------------------------------------------- 
      |                               Sticky notes for errors
     ------------------------------------------------------------------------------------>
+
     <div class="d-flex flex-row"
          id="StickyNotesContainer"
-         #StickyNotesContainer>
+         #StickyNotesContainerPost>
         <div [class]="form.invalid?
         'alert alert-info d-flex justify-content-center align-items-center'
         :'alert alert-success d-flex justify-content-center align-items-center'"
@@ -150,47 +151,49 @@
             <!-- ------------------------------------------------------------------------------- 
             |                               View and Html 
             ------------------------------------------------------------------------------------>
-            <tabset class="h-50 mb-5">
-                <tab heading="View"
-                     id="tab1"
-                     style="max-height: 550px;"
-                     class="border ">
-                    <CodingBible-editor [view]="view"
-                                        [html]="html"
-                                        (bindAttachmentsToPost)="BindAttachmentsToPost($event)"
-                                        [selectedText]="selectedText">
-                    </CodingBible-editor>
-                    <!-- -------------------------------------------------------------------------- 
-                    |                               View  
-                    ------------------------------------------------------------------------------->
-                    <div #view
-                         style="max-height: 500px; display:inline-block;"
-                         [innerHtml]="Type===PostType.Edit?((postById|async)?.htmlContent| bypassStyle):''"
-                         (input)="UpdateHtml(html,view)"
-                         class="Editor bg-white p-2 overflow-auto"
-                         data-testid="view"
-                         id="EditorView"
-                         (mouseup)="GetSelectedText()"
-                         (keyup)="GetSelectedText()"
-                         contenteditable="true">
-                    </div>
-                </tab>
-                <tab heading="Html"
-                     style="max-height: 500px;">
-                    <!-- -------------------------------------------------------------------------- 
-                    |                               Html   
-                    ------------------------------------------------------------------------------->
-                    <textarea name=""
-                              [formControlName]="FormControlNames.postForm.htmlContent"
-                              class="Editor border border-top-0 p-2"
-                              id=""
-                              style="max-height: 500px; resize: none;"
-                              [value]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
-                              #html
-                              (input)="UpdateView(html, view)">
-                    </textarea>
-                </tab>
-            </tabset>
+            <div>
+                <tabset class="h-50 mb-5">
+                    <tab heading="View"
+                         id="tab1"
+                         style="max-height: 550px;"
+                         class="border ">
+                        <CodingBible-editor [view]="view"
+                                            [html]="html"
+                                            (bindAttachments)="BindAttachmentsToPost($event)"
+                                            [selectedText]="selectedText">
+                        </CodingBible-editor>
+                        <!-- -------------------------------------------------------------------------- 
+                        |                               View  
+                        ------------------------------------------------------------------------------->
+                        <div #view
+                             style="max-height: 500px; display:inline-block;"
+                             [innerHtml]="Type===PostType.Edit?((postById|async)?.htmlContent| bypassStyle):''"
+                             (input)="UpdateHtml(html,view)"
+                             class="Editor bg-white p-2 overflow-auto"
+                             data-testid="view"
+                             id="EditorView"
+                             (mouseup)="GetSelectedText()"
+                             (keyup)="GetSelectedText()"
+                             contenteditable="true">
+                        </div>
+                    </tab>
+                    <tab heading="Html"
+                         style="max-height: 500px;">
+                        <!-- -------------------------------------------------------------------------- 
+                        |                               Html   
+                        ------------------------------------------------------------------------------->
+                        <textarea name=""
+                                  [formControlName]="FormControlNames.postForm.htmlContent"
+                                  class="Editor border border-top-0 p-2"
+                                  id=""
+                                  style="max-height: 500px; resize: none;"
+                                  [value]="Type===PostType.Edit?(postById|async)?.htmlContent:''"
+                                  #html
+                                  (input)="UpdateView(html, view)">
+                        </textarea>
+                    </tab>
+                </tabset>
+            </div>
             <!-- <editor (onSelectionChange)="GetData()"
                     plugins=" autolink lists media anchor autolink pagebreak visualblocks lists nonbreaking table wordcount autoresize autosave charmap fullscreen importcss link
             code codesample  directionality emoticons help hr image insertdatetime preview searchreplace template"
@@ -207,7 +210,7 @@
             <!-- -------------------------------------------------------------------------- 
             |                                  Category Card
             ------------------------------------------------------------------------------->
-            <div class="card mt-3">
+            <div class="card mt-3 flex-grow-1">
                 <div class="card-header">
                     Choose categories
                 </div>
@@ -215,7 +218,7 @@
                      style="height: 150px">
                     <div
                          [class]="form.get(FormControlNames.postForm.categories)?.valid?'w-100 border border-2 rounded-1 border-success h-100 overflow-auto p-2':'w-100 border border-2 border-danger rounded-1 h-100 overflow-auto p-2'">
-                        <div class="form-check SelectCheckBoxes"
+                        <div class="form-check SelectCheckBoxes p-0 d-flex flex-row w-100 "
                              *ngFor="let cat of (cats$|async)">
                             <input type="checkbox"
                                    class="form-check-input"
@@ -224,7 +227,7 @@
                                    (click)="selectCategory(cat.id)"
                                    [value]="cat.id"
                                    [checked]="selectedCategories.includes(cat.id)" />
-                            <label class="form-check-label w-100"
+                            <label class="form-check-label ms-1 flex-grow-1"
                                    [for]="cat.id">
                                 {{cat.name}}
                                 <!-- <span *ngFor="let _ of [].constructor(cat.level)">— </span> {{cat.name}} -->

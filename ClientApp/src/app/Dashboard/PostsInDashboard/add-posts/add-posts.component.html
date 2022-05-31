@@ -1,4 +1,5 @@
 <app-post-handler [inputForm]="form"
                   [postType]="PostType.Add"
+                  (ChosenAttachment)="GetPostAttachments($event)"
                   (Draft)="SaveOrPublish($event,'draft')"
                   (Publish)="SaveOrPublish($event, 'publish')"></app-post-handler>

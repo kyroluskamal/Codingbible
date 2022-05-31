@@ -1,6 +1,6 @@
 <h1 class="my-3">Sections</h1>
-<main class="mt-5 bg-white mat-elevation-z3 rounded-2">
-    <select class="form-select mb-3"
+<div class="w-50 d-flex flex-row mb-3">
+    <select class="form-select"
             #CourseSelector
             [(ngModel)]="SelectedCourseId"
             (change)="onCourseChange(CourseSelector.value)">
@@ -10,10 +10,27 @@
         <option [value]="c.id"
                 *ngFor="let c of (Courses$|async)">{{c.name}}</option>
     </select>
+    <a class="btn btn-sm px-1 noShadow"
+       [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+       [queryParams]="{action:ActionType.Add}"
+       tooltip="Add new course"
+       target="_blank">
+        <i class="bi bi-plus-circle-fill text-primary "></i>
+    </a>
+    <a [class]="SelectedCourseId===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+       [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+       [queryParams]="{action:ActionType.Edit, courseId:SelectedCourseId, step: 'step1'}"
+       tooltip="Edit course"
+       target="_blank">
+        <i class="bi bi-pen-fill text-primary "></i>
+    </a>
+</div>
+<main class="mt-2 bg-white mat-elevation-z3 rounded-2">
     <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
               [ColumnDefs]="colDefs"
               [dataSource]="selectedSections"
               [UseTree]="true"
+              [CustomNoDataMessage]="CustomNoDataMessage"
               [CustomMenuButton]="ChangeStatusMenu"
               (AddButtonClicked)="AddNewSection($event,SectionModal)"
               (EditButtonClicked)="EditSection($event,SectionModal)"
@@ -23,6 +40,17 @@
               [isLoading]="isLoading"
               [resetSelectedRow]="resetSelectedRow">
     </cb-table>
+    <ng-template #CustomNoDataMessage>
+        <div *ngIf="SelectedCourseId===0">
+            <h4>Select course to view sections</h4>
+        </div>
+        <div *ngIf="SelectedCourseId>0&&selectedSections.length===0">
+            <div class="d-flex flex-column justify-content-between gap-2">
+                <h4>No sections are found</h4> <a class="btn text-primary"
+                   (click)="SectionActionType=ActionType.Add;SectionModal.Toggle()">Add new one</a>
+            </div>
+        </div>
+    </ng-template>
     <ng-template #ChangeStatusMenu>
         <a class="cursor-pointer"
            (click)="ChangeStatus(1)"

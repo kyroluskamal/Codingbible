@@ -1,3 +1,4 @@
+using CodingBible.Models.Courses;
 using CodingBible.Models.Posts;
 
 namespace CodingBible.Models;
@@ -19,4 +20,5 @@ public class Attachments
     public long FileSize { get; set; }
     public DateTime CreatedDate { get; set; }
     public ICollection<PostAttachments> Posts { get; set; }
+    public ICollection<LessonAttachments> Lessons { get; set; }
 }

@@ -11,7 +11,7 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Section } from "src/models.model";
 import { SectionsService } from "src/Services/sections.service";
-import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionsByCourseId, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 import { selectAllSections } from "./sections.reducer";
 
 
@@ -43,6 +43,27 @@ export class SectionsEffects
                         catchError((e) => of(LoadSectionsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
                     );
                 return of(dummyAction());
+            })
+        )
+    );
+    GetSectionsByCourseId$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetSectionsByCourseId),
+            switchMap((action) =>
+            {
+                return this.SectionService.GetSectionsByCourseId(action.courseId).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.spinner.removeSpinner();
+                        return GetSectionsByCourseId_Success({ payload: r });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        return of(GetSectionsByCourseId_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
             })
         )
     );

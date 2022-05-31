@@ -126,6 +126,7 @@ export const FormControlNames = {
         excerpt: "excerpt",
         featureImageUrl: "featureImageUrl",
         categories: "categories",
+        postAttachments: "postAttachments",
     },
     AddEditCategoryForm: {
         name: "name",
@@ -186,7 +187,9 @@ export const FormControlNames = {
         orderWithinSection: "orderWithinSection",
         htmlContent: "htmlContent",
         sectionId: "sectionId",
-        section: "section",
+        courseId: "courseId",
+        featureImageUrl: "featureImageUrl",
+        slug: "slug",
     }
 };
 
@@ -243,6 +246,11 @@ export const FormFieldsNames = {
         introductoryVideoUrl: "Introductory Video Url",
         parentKey: "Parent",
         whatWillYouLearn: "What Will You Learn",
+    },
+    Lesson: {
+        name: "Name",
+        title: "Title",
+        vedioUrl: "Lesson video Url",
     }
 };
 export const FormValidationErrors = {
@@ -473,27 +481,6 @@ export const actionNames = {
         GetCourseCategoryBy_Slug_Failed: '[GetCourseCategoryBy_Slug] Failed',
         Set_ValidationErrors: '[CourseCategory] Set Validation Errors',
     },
-    CourseSectionsActions: {
-        ADD_CourseSections: '[Add CourseSection] Request',
-        ADD_CourseSections_Success: '[Add CourseSection] SUCCESS',
-        ADD_CourseSections_Failed: '[Add CourseSection] FAILED',
-        UPDATE_CourseSections: '[Update CourseSection] Request',
-        UPDATE_CourseSections_Success: '[Update CourseSection] SUCCESS',
-        UPDATE_CourseSections_Failed: '[Update CourseSection] FAILED',
-        REMOVE_CourseSections: '[Delete CourseSection] Request',
-        REMOVE_CourseSections_Success: '[Delete CourseSection] SUCCESS',
-        REMOVE_CourseSections_Failed: '[Delete CourseSection] FAILED',
-        LOAD_ALL_CourseSections: '[CourseSection] Load All CourseSections',
-        LOAD_ALL_CourseSections_SUCCESS: '[Load CourseSections] Success',
-        LOAD_ALL_CourseSections_FAILED: '[Load CourseSections] FAILED',
-        GetCourseSectionById: '[GetCourseSectionById] request',
-        GetCourseSectionById_Success: '[GetCourseSectionById] Sucess',
-        GetCourseSectionById_Failed: '[GetCourseSectionBy_Slug] Failed',
-        GetCourseSectionBy_Slug: '[GetCourseSectionBy_Slug] request',
-        GetCourseSectionBy_Slug_Success: '[GetCourseSectionBy_Slug] Sucess',
-        GetCourseSectionBy_Slug_Failed: '[GetCourseSectionBy_Slug] Failed',
-        Set_ValidationErrors: '[CourseSection] Set Validation Errors',
-    },
     LessonActions: {
         ADD_Lesson: '[Add Lesson] Request',
         ADD_Lesson_Success: '[Add Lesson] SUCCESS',
@@ -517,6 +504,12 @@ export const actionNames = {
         ChangeStatus_Success: '[Lesson ChangeStatus] Sucess',
         ChangeStatus_Failed: '[Lesson ChangeStatus] Failed',
         Set_ValidationErrors: '[Lesson] Set Validation Errors',
+        GetLessonsByCourseId: '[GetLessonsByCourseId] request',
+        GetLessonsByCourseId_Success: '[GetLessonsByCourseId] Sucess',
+        GetLessonsByCourseId_Failed: '[GetLessonsByCourseId] Failed',
+        UpdateIsCompleted: '[Lesson UpdateIsCompleted] request',
+        AdditionIsCompleted: '[Lesson AdditionIsCompleted] Sucess',
+        SetCurrentSelectedLesson: '[Lesson SetCurrentSelectedLesson] request',
     },
     SectionActions: {
         ADD_Section: '[Add Section] Request',
@@ -540,6 +533,9 @@ export const actionNames = {
         ChangeStatus_Failed: '[Section ChangeStatus] Failed',
         AdditionIsCompleted: '[Section AdditionIsCompleted] request',
         UpdateIsCompleted: '[Section UpdateIsCompleted] request',
+        GetSectionsByCourseId: '[GetSectionsByCourseId] request',
+        GetSectionsByCourseId_Success: '[GetSectionsByCourseId] Sucess',
+        GetSectionsByCourseId_Failed: '[GetSectionsByCourseId] Failed',
     }
 };
 

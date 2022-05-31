@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingBible.Migrations.ApplicationDb
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220521182544_inital667763")]
-    partial class inital667763
+    [Migration("20220528180124_addLessonAttachments")]
+    partial class addLessonAttachments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,7 +173,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 21, 20, 25, 44, 42, DateTimeKind.Local).AddTicks(9559));
+                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 1, 24, 590, DateTimeKind.Local).AddTicks(54));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -196,7 +196,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 21, 20, 25, 44, 42, DateTimeKind.Local).AddTicks(9982));
+                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 1, 24, 590, DateTimeKind.Local).AddTicks(707));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -323,6 +323,12 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(160)
@@ -331,6 +337,9 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("HtmlContent")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("LasModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -338,11 +347,19 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<int>("OrderWithinSection")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
                     b.Property<string>("Slug")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)0);
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -359,6 +376,21 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.ToTable("Lessons");
                 });
 
+            modelBuilder.Entity("CodingBible.Models.Courses.LessonAttachments", b =>
+                {
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AttachmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LessonId", "AttachmentId");
+
+                    b.HasIndex("AttachmentId");
+
+                    b.ToTable("LessonAttachments");
+                });
+
             modelBuilder.Entity("CodingBible.Models.Courses.Section", b =>
                 {
                     b.Property<int>("Id")
@@ -371,12 +403,11 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(160)
+                        .HasColumnType("nvarchar(160)");
 
                     b.Property<string>("FeatureImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HtmlContent")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IntroductoryVideoUrl")
@@ -401,6 +432,22 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.Property<int?>("ParentKey")
                         .HasColumnType("int");
+
+                    b.Property<string>("Slug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)0);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<string>("WhatWillYouLearn")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -728,7 +775,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 21, 20, 25, 44, 42, DateTimeKind.Local).AddTicks(8078));
+                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 1, 24, 589, DateTimeKind.Local).AddTicks(8300));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -754,7 +801,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 21, 20, 25, 44, 42, DateTimeKind.Local).AddTicks(8513));
+                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 1, 24, 589, DateTimeKind.Local).AddTicks(8908));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -946,6 +993,25 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired();
 
                     b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.LessonAttachments", b =>
+                {
+                    b.HasOne("CodingBible.Models.Attachments", "Attachments")
+                        .WithMany("Lessons")
+                        .HasForeignKey("AttachmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CodingBible.Models.Courses.Lesson", "Lesson")
+                        .WithMany("Attachments")
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attachments");
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Courses.Section", b =>
@@ -1150,6 +1216,8 @@ namespace CodingBible.Migrations.ApplicationDb
 
             modelBuilder.Entity("CodingBible.Models.Attachments", b =>
                 {
+                    b.Navigation("Lessons");
+
                     b.Navigation("Posts");
                 });
 
@@ -1163,6 +1231,11 @@ namespace CodingBible.Migrations.ApplicationDb
             modelBuilder.Entity("CodingBible.Models.Courses.CourseCategory", b =>
                 {
                     b.Navigation("CoursesPerCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Lesson", b =>
+                {
+                    b.Navigation("Attachments");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>

@@ -98,6 +98,14 @@ export class CourseWizardComponent implements OnInit
     });
     this.activatedRouter.queryParams.subscribe(params =>
     {
+      if (!params['action'])
+      {
+        this.invalidParams("<h4>No Action Is Selected</h4>");
+      }
+      // if (!params['step'])
+      // {
+      //   this.router.navigate([], { relativeTo: this.activatedRouter, queryParams: { action: params['action'], step: "1" } });
+      // }
       this.Action = params['action'];
       if (this.Action === PostType.Add)
       {
@@ -111,17 +119,31 @@ export class CourseWizardComponent implements OnInit
       }
       else if (this.Action === PostType.Edit)
       {
-        this.CourseId = params['courseId'];
-        this.AllSections$.subscribe(res =>
+        if (!params['courseId'])
         {
-          this.TreeForSection.setData(res);
-          this.RootSections = this.TreeForSection.getRawRoots();
-          this.AllCourseSections = res.filter(x => x.courseId == Number(params['courseId']));
-        });
-        this.spinner.fullScreenSpinner();
+          this.invalidParams();
+        } else
+        {
+          this.CourseId = params['courseId'];
+          if (this.CourseId == 0)
+          {
+            this.invalidParams("<h4>Invalid Action for course <span class='text-primary'>Id</span></h4>");
+          } else
+          {
+            this.AllSections$.subscribe(res =>
+            {
+              this.TreeForSection.setData(res);
+              this.RootSections = this.TreeForSection.getRawRoots();
+              this.AllCourseSections = res.filter(x => x.courseId == Number(params['courseId']));
+            });
+            this.spinner.fullScreenSpinner();
 
-        this.SelectCourseById(Number(params['courseId']));
-        this.ShowCurrentStep(params['step']);
+            this.SelectCourseById(Number(params['courseId']));
+            this.ShowCurrentStep(params['step']);
+          }
+
+        }
+
       }
     });
     this.allCourses$.subscribe(courses => this.allCourses = courses);
@@ -215,7 +237,6 @@ export class CourseWizardComponent implements OnInit
   }
   UpdateCourseInfo()
   {
-    debugger;
     let updatedSlug = this.CourseForm.get(FormControlNames.courseForm.title)?.value.replace(" ", '-').replace("|-", "");
     if (this.CourseToAddOrUpdate.slug !== updatedSlug)
     {
@@ -286,5 +307,10 @@ export class CourseWizardComponent implements OnInit
   SelectSectionToEdit(selectorForSection: HTMLSelectElement)
   {
     this.SectionToEdit = this.AllCourseSections.filter(section => section.id === Number(selectorForSection.value))[0];
+  }
+  invalidParams(message: string = "<h4>Invalid Action for course wizard</h4>")
+  {
+    this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, message);
+    this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home]);
   }
 }

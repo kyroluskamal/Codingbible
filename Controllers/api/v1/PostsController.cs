@@ -107,13 +107,11 @@ namespace CodingBible.Controllers.api.v1
                 newPost.AuthorId = user.Id;
                 newPost.CommentCount = 0;
                 newPost.CommentStatus = true;
-                newPost.Attachments = Post.Attachments;
                 await UnitOfWork.Posts.AddAsync(newPost);
 
                 var result = await UnitOfWork.SaveAsync();
                 //add the post to the sitemap if it is published
-                if (newPost.Status == (int)Constants.PostStatus.Published)
-                    await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
+
                 if (result > 0)
                 {
                     if (Post.Categories.Length > 0)
@@ -129,15 +127,15 @@ namespace CodingBible.Controllers.api.v1
                         }
                         await UnitOfWork.PostsCategories.AddRangeAsync(postCategories.ToArray());
                     }
-                    if (Post.Attachments.ToArray().Length > 0)
+                    if (Post.TempAttach.ToArray().Length > 0)
                     {
                         List<PostAttachments> postAttachments = new();
-                        foreach (var p in Post.Attachments)
+                        foreach (var p in Post.TempAttach)
                         {
                             postAttachments.Add(new PostAttachments()
                             {
                                 PostId = newPost.Id,
-                                AttachmentId = p.AttachmentId
+                                AttachmentId = p
                             });
                         }
                         await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
@@ -146,6 +144,8 @@ namespace CodingBible.Controllers.api.v1
                     var postToResturn = await UnitOfWork.Posts
                     .GetFirstOrDefaultAsync(x => x.Slug == Post.Slug, includeProperties: "Author,PostsCategories,Attachments");
                     postToResturn.Categories = Post.Categories;
+                    if (newPost.Status == (int)Constants.PostStatus.Published)
+                        await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
                     return Ok(postToResturn);
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed($"The {Post.Title} post"));
@@ -207,15 +207,15 @@ namespace CodingBible.Controllers.api.v1
                     }
                     await UnitOfWork.SaveAsync();
 
-                    if (Post.Attachments.ToArray().Length > 0)
+                    if (Post.TempAttach.ToArray().Length > 0)
                     {
                         List<PostAttachments> postAttachments = new();
-                        foreach (var p in Post.Attachments)
+                        foreach (var p in Post.TempAttach)
                         {
                             postAttachments.Add(new PostAttachments()
                             {
                                 PostId = getPost.Id,
-                                AttachmentId = p.AttachmentId
+                                AttachmentId = p
                             });
                         }
                         await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());

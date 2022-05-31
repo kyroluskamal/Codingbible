@@ -109,7 +109,6 @@ export class CourseCategoryEffects
                 return this.CourseCategoryService.Delete(CoursesController.DeleteCategory, action.id).pipe(
                     map((r) =>
                     {
-                        debugger;
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));

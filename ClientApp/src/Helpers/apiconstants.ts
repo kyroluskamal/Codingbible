@@ -68,12 +68,14 @@ const controllers = {
             UpdateLesson: "UpdateLesson",
             DeleteLesson: "DeleteLesson",
             GetSections: "GetSections",
-            GetSectionsOfCourse: "GetSectionsOfCourse",
+            GetSectionsByCourseId: "GetSectionsByCourseId",
             AddSection: "AddSection",
             UpdateSection: "UpdateSection",
             DeleteSection: "DeleteSection",
             ChangSectionStatus: "ChangSectionStatus",
             ChangLessonStatus: "ChangLessonStatus",
+            GetLessonsByCourseId: "GetLessonsByCourseId",
+            IsLessonSlug_NOT_Unique: "IsLessonSlug_NOT_Unique",
         }
     }
 };
@@ -132,12 +134,14 @@ export const CoursesController = {
     UpdateLesson: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateLesson),
     DeleteLesson: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteLesson),
     GetSections: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetSections),
-    GetSectionsOfCourse: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetSectionsOfCourse),
+    GetSectionsByCourseId: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetSectionsByCourseId),
     AddSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.AddSection),
     UpdateSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateSection),
     DeleteSection: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.DeleteSection),
     ChangSectionStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangSectionStatus),
     ChangLessonStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangLessonStatus),
+    GetLessonsByCourseId: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonsByCourseId),
+    IsLessonSlug_NOT_Unique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsLessonSlug_NOT_Unique),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

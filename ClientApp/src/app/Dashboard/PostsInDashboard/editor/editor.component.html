@@ -242,10 +242,10 @@
                              hidden
                              class="bg-white border mat-elevation-z4 rounded-bottom">
                                 <ul class="list-unstyled my-0 autocomplete">
-                                        <li (mouseover)="selectedPost=null"
-                                            (click)="searchBoxForUrl.value=p.slug;posts.hidden=true;selectedPost=p"
-                                            [class]="selectedPost?.title===p.title?'p-2 small activeOption':'p-2 small'"
-                                            *ngFor="let p of filteredPosts">{{p.title}}</li>
+                                        <li (mouseover)="selectedSearchItem=null"
+                                            (click)="searchBoxForUrl.value=i.slug;posts.hidden=true;selectedSearchItem=i"
+                                            [class]="selectedSearchItem?.title===i.title?'p-2 small activeOption':'p-2 small'"
+                                            *ngFor="let i of ItemsForSearch_filtered">{{i.type}} | {{i.title}}</li>
                                 </ul>
                         </div>
                         <span class="input-group-text"><i class="bi bi-search"></i></span>
@@ -445,9 +445,9 @@
                 <span class="input-group-text"><i class="bi bi-search"></i></span>
         </div>
         <ul class="list-unstyled my-0 border border-2 autocomplete">
-                <li [class]="selectedPost?.title===p.title?'p-2 small activeOption':'p-2 small'"
-                    (click)="href.value =p.slug; LinkTagForm.get('href')?.setValue(p.slug);selectedPost=p"
-                    *ngFor="let p of filteredPosts">{{p.title}}</li>
+                <li [class]="selectedSearchItem?.title===i.title?'p-2 small activeOption':'p-2 small'"
+                    (click)="href.value =i.slug; LinkTagForm.get('href')?.setValue(i.slug);selectedSearchItem=i"
+                    *ngFor="let i of ItemsForSearch_filtered">{{i.title}}</li>
         </ul>
 </ng-template>
 <ng-template #LinkFooter>

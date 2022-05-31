@@ -1,0 +1,108 @@
+<h1 class="my-3">Lessons</h1>
+<div class="row mb-3">
+    <div class="col-6 d-flex flex-row">
+        <select class="form-select"
+                #CourseSelector
+                [(ngModel)]="SelectedCourseId"
+                (change)="onCourseChange(CourseSelector.value)">
+            <option selected
+                    [disabled]="true"
+                    value="0">Choose course</option>
+            <option [value]="c.id"
+                    *ngFor="let c of (Courses$|async)">{{c.name}}</option>
+        </select>
+        <a class="btn btn-sm px-1 noShadow"
+           [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+           [queryParams]="{action:ActionType.Add}"
+           tooltip="Add new course"
+           target="_blank">
+            <i class="bi bi-plus-circle-fill text-primary "></i>
+        </a>
+        <a [class]="SelectedCourseId===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+           [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+           [queryParams]="{action:ActionType.Edit, courseId:SelectedCourseId, step: 'step1'}"
+           tooltip="Edit course"
+           target="_blank">
+            <i class="bi bi-pen-fill text-primary "></i>
+        </a>
+    </div>
+    <div class="d-flex flex-row col-6">
+        <select class="form-select"
+                [disabled]="SelectedCourseId===0"
+                #SectionSelector
+                [(ngModel)]="SelectedSectionId"
+                [ngModelOptions]="{standalone: true}"
+                (change)="onSectionChange(SectionSelector.value)">
+            <option selected
+                    [disabled]="true"
+                    value="0">Choose section</option>
+            <option [value]="c.id"
+                    [disabled]="!c.isLeafSection"
+                    *ngFor="let c of SectionsOfSelectedCourse">
+                <span *ngFor="let _ of [].constructor(c.level)">&nbsp;&nbsp;</span>{{c.name}}
+            </option>
+        </select>
+        <a class="btn btn-sm px-1 noShadow"
+           tooltip="Add new section"
+           (click)="SectionActionType=ActionType.Add;SectionModal.Toggle()">
+            <i class="bi bi-plus-circle-fill text-primary "></i>
+        </a>
+        <a [class]="SelectedCourseId===0||SectionToAddOrUpdate.id===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+           tooltip="Edit section"
+           (click)="SectionActionType=ActionType.Edit;SectionModal.Toggle()">
+            <i class="bi bi-pen-fill text-primary "></i>
+        </a>
+    </div>
+</div>
+<main class="mt-2 bg-white mat-elevation-z3 rounded-2">
+
+    <cb-table [tableTagClass]="['table', 'table-stripped', 'table-hover']"
+              [ColumnDefs]="colDefs"
+              [dataSource]="selectedLessons"
+              [CustomMenuButton]="ChangeStatusMenu"
+              [CustomNoDataMessage]="CustomNoDataMessage"
+              (AddButtonClicked)="AddNewLesson($event)"
+              (EditButtonClicked)="EditLesson($event)"
+              (DeleteButtonClicked)="DeleteLesson($event)"
+              (row_Db_Click)="EditLesson($event)"
+              (rowClick)="SelectLesson($event)"
+              [isLoading]="isLoading"
+              [resetSelectedRow]="resetSelectedRow">
+    </cb-table>
+    <ng-template #CustomNoDataMessage>
+        <div *ngIf="SelectedCourseId===0&&SelectedSectionId===0">
+            <h4 class="text-center">Select a <span class="text-decoration-underline">course</span> and a <span
+                      class="text-decoration-underline">section</span> to view lessons</h4>
+        </div>
+        <div *ngIf="SelectedCourseId>0&&SectionsOfSelectedCourse.length===0">
+            <h4 class="text-center">You selected the <span class="text-decoration-line-through">course</span> but this
+                course doesn't have
+                sections yet.</h4>
+            <a class="btn text-primary w-100"
+               (click)="SectionActionType=ActionType.Add; SectionModal.Toggle()">Add new section</a>
+        </div>
+        <div *ngIf="SelectedCourseId>0&&SelectedSectionId===0&&SectionsOfSelectedCourse.length>0">
+            <h4 class="text-center">You selected the <span class="text-decoration-line-through">course</span> but forget
+                to select <span class="text-decoration-underline">section</span></h4>
+        </div>
+        <div *ngIf="SelectedCourseId>0&&SelectedSectionId>0&&selectedLessons.length===0">
+            <div class="d-flex flex-column justify-content-between gap-2">
+                <h4 class="text-center">No lessons are found</h4> <a class="btn text-primary"
+                   (click)="AddNewLesson(true)">Add new one</a>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #ChangeStatusMenu>
+        <a class="cursor-pointer"
+           (click)="ChangeStatus(1)"
+           *ngIf="SelectedLesson &&SelectedLesson.name!=='' &&SelectedLesson?.status===0">Set as published</a>
+        <a class="cursor-pointer"
+           (click)="ChangeStatus(0)"
+           *ngIf="SelectedLesson && SelectedLesson.name!=='' &&SelectedLesson?.status===1">Set as draft</a>
+    </ng-template>
+</main>
+<section-modal #SectionModal
+               [ActionType]="SectionActionType"
+               [CourseId]="SelectedCourseId"
+               [UpdateObject]="SectionToAddOrUpdate"
+               [ModalId]="'SectionModalInShowAllLessons'"></section-modal>

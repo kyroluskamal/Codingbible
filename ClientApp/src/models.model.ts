@@ -89,6 +89,7 @@ export class Post
     editFrequency: string = "";
     priority: number = 0;
     categories: number[] = [];
+    tempAttach: number[] = [];
     postsCategories: PostsCategory[] = [];
     attachments: PostAttachments[] = [];
 }
@@ -221,9 +222,16 @@ export class Lesson
     vedioUrl: string = "";
     status: number = 0;
     orderWithinSection: number = 0;
+    featureImageUrl: string = "";
     htmlContent: string = "";
     sectionId: number = 0;
     section: Section | null = null;
+    courseId: number = 0;
+    dateCreated: Date = new Date();
+    lasModified: Date = new Date();
+    publishedDate: Date = new Date();
+    attachments: LessonAttachments[] = [];
+    tempAttach: number[] = [];
 }
 export class Section
 {
@@ -243,4 +251,11 @@ export class Section
     introductoryVideoUrl: string = "";
     parentKey: number | null = null;
     parent: Section | null = null;
+}
+export class LessonAttachments
+{
+    lessonId: number = 0;
+    lesson?: Lesson | null = null;
+    attachmentId: number = 0;
+    attachments?: Attachments | null = null;
 }

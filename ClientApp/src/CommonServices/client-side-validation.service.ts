@@ -173,4 +173,8 @@ export class ClientSideValidationService
     };
     return selectedText;
   }
+  GenerateSlug(title: string)
+  {
+    return title.toLowerCase().replace(/\|/g, ' ').replace(/[^\w-]+/g, '-');
+  }
 }

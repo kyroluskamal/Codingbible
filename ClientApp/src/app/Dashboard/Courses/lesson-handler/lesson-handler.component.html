@@ -1,0 +1,461 @@
+<form [formGroup]="inputForm"
+      #Form
+      class="mt-2 mx-2 needs-validation pb-5"
+      novalidate>
+    <!-- ------------------------------------------------------------------------------- 
+        |                               Title Add ot Edit
+       ------------------------------------------------------------------------------------>
+    <h1 class="my-4">
+        <span *ngIf="ActionType===PostType.Add">Add new lesson</span>
+        <span *ngIf="ActionType===PostType.Edit">Edit Lesson : #{{(LessonById|async)?.id}}</span>
+    </h1>
+    <!-- ------------------------------------------------------------------------------- 
+    |                               Title Add ot Edit
+    ------------------------------------------------------------------------------------>
+    <div class="row mb-3 d-flex flex-column gap-2">
+        <div class="d-flex flex-row col-md-9 col-12">
+            <select class="form-select"
+                    #CourseSelector
+                    [(ngModel)]="SelectedCourseId"
+                    [ngModelOptions]="{standalone: true}"
+                    (change)="onCourseChange(CourseSelector.value)">
+                <option selected
+                        [disabled]="true"
+                        value="0">Choose course</option>
+                <option [value]="c.id"
+                        *ngFor="let c of (Courses$|async)">{{c.name}}</option>
+            </select>
+            <a class="btn btn-sm px-1 noShadow"
+               [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+               [queryParams]="{action:PostType.Add}"
+               tooltip="Add new course"
+               target="_blank">
+                <i class="bi bi-plus-circle-fill text-primary "></i>
+            </a>
+            <a [class]="SelectedCourseId===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+               [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,DashboardRoutes.Courses.Wizard]"
+               [queryParams]="{action:PostType.Edit, courseId:SelectedCourseId, step: 'step1'}"
+               tooltip="Edit course"
+               target="_blank">
+                <i class="bi bi-pen-fill text-primary "></i>
+            </a>
+        </div>
+        <div class="d-flex flex-row col-md-9 col-12">
+            <select class="form-select"
+                    [disabled]="SelectedCourseId===0"
+                    #SectionSelector
+                    [(ngModel)]="SelectedSectionId"
+                    [ngModelOptions]="{standalone: true}"
+                    (change)="onSectionChange(SectionSelector.value)">
+                <option selected
+                        [disabled]="true"
+                        value="0">Choose section</option>
+                <option [value]="c.id"
+                        [disabled]="!c.isLeafSection"
+                        [style.margin-left]="c.level*10+'px'"
+                        *ngFor="let c of SectionsOfSelectedCourse">{{c.name}}</option>
+            </select>
+            <a class="btn btn-sm px-1 noShadow"
+               tooltip="Add new section"
+               (click)="SectionActionType=PostType.Add;SectionModal.Toggle()">
+                <i class="bi bi-plus-circle-fill text-primary "></i>
+            </a>
+            <a [class]="SelectedCourseId===0||SectionToAddOrUpdate.id===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+               tooltip="Edit section"
+               (click)="SectionActionType=PostType.Edit;SectionModal.Toggle()">
+                <i class="bi bi-pen-fill text-primary "></i>
+            </a>
+        </div>
+    </div>
+    <!-- ------------------------------------------------------------------------------- 
+     |                               Validation Errors
+    ------------------------------------------------------------------------------------>
+    <div class="alert alert-danger"
+         *ngIf="(ValidationErrors$!|async)?.length!>0">
+        <p><strong>{{FormValidationErrors.PleaseCorrectErrors}}</strong></p>
+        <ul>
+            <li *ngFor="let error of (ValidationErrors$|async)">
+                <strong>{{error.key}}</strong> : {{error.message}}
+            </li>
+        </ul>
+    </div>
+    <!-- ------------------------------------------------------------------------------- 
+     |                               Sticky notes for errors
+    ------------------------------------------------------------------------------------>
+    <div class="d-flex flex-row"
+         id="StickyNotesContainer"
+         #StickyNotesContainer>
+        <div [class]="inputForm.invalid?
+        'alert alert-info d-flex justify-content-center align-items-center'
+        :'alert alert-success d-flex justify-content-center align-items-center'"
+             #StickyNotesHandler
+             (click)="ToggleStickyNotes()"
+             (mouseleave)="closeStickyNotes()">
+            <i class="bi bi-info-circle-fill"
+               *ngIf="inputForm.invalid"></i>
+            <i class="bi bi-check-lg"
+               *ngIf="inputForm.valid"></i>
+        </div>
+        <div class="alert alert-info mb-0 small mb-2"
+             #StickyNotes
+             *ngIf="inputForm.invalid"
+             (mouseleave)="closeStickyNotes()">
+            <p><strong>You have to do the following</strong></p>
+            <ul class="mb-0">
+                <li
+                    *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.required)">
+                    Add Lesson title
+                </li>
+                <li *ngIf="
+                inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                || 
+                inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.maxlength)">
+                    Title shuold be 60 to 70 character long. <span class="text-danger">You entered
+                        {{title.value.length}}
+                        characters only</span>
+                </li>
+                <li *ngIf="
+                inputForm.get(FormControlNames.LessonForm.slug)?.hasError('notUnique')
+                || 
+                inputForm.get(FormControlNames.LessonForm.slug)?.hasError('notUnique')"
+                    class="text-danger">
+                    Slug should be unique. If you see this, this means that you have a post with the same title
+                </li>
+                <li
+                    *ngIf="!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value">
+                    You must add video url or written content or both.
+                </li>
+                <li
+                    *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.required)">
+                    Write decription used by search engines for SEO.
+                </li>
+                <li *ngIf="
+                inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                ||
+                inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.maxlength)">
+                    Description shuold be 50 to 160 character long. <span class="text-danger">You entered
+                        {{desc.value.length}}
+                        characters only</span>
+                </li>
+
+                <li *ngIf="inputForm.get(FormControlNames.LessonForm.vedioUrl)?.hasError(FormValidationErrorsNames.pattern)"
+                    class="text-danger">
+                    Enter valid Youtube link.
+                </li>
+                <li
+                    *ngIf="inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.hasError(FormValidationErrorsNames.required)">
+                    Choose feature image.
+                </li>
+                <li *ngIf="SelectedCourseId===0">
+                    Choose course.
+                </li>
+                <li *ngIf="SelectedSectionId===0">
+                    Choose section.
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="inputForm.valid"
+             class="alert alert-success">
+            <span>You are ready to add the post</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-12">
+            <!-- ------------------------------------------------------------------------------- 
+            |                               name Input 
+            ------------------------------------------------------------------------------------>
+            <div class="form-floating mb-3">
+                <input [type]="InputFieldTypes.text"
+                       required
+                       value=""
+                       [formControlName]="FormControlNames.LessonForm.name"
+                       [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.name, inputForm)?'form-control':
+                       errorState.isErrorState(FormControlNames.LessonForm.name, inputForm, Form)?
+                       'form-control is-invalid':'form-control is-valid'"
+                       [placeholder]="FormFieldsNames.Lesson.name"
+                       id="CourseName">
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.name)?.hasError(FormValidationErrorsNames.required)
+                  &&errorState.isErrorState(FormControlNames.LessonForm.name, inputForm, Form)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="CourseName">{{FormFieldsNames.Lesson.name}}<sup class="text-danger">*</sup></label>
+            </div>
+            <!-- ------------------------------------------------------------------------------- 
+            |                               Title 
+            ------------------------------------------------------------------------------------>
+            <div class="form-floating mb-3">
+                <input [type]="InputFieldTypes.text"
+                       #title
+                       required
+                       maxlength="70"
+                       minlength="60"
+                       value=""
+                       [formControlName]="FormControlNames.LessonForm.title"
+                       [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.title, inputForm)?'form-control':
+                       errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
+                       'form-control is-invalid':'form-control is-valid'"
+                       [placeholder]="FormFieldsNames.Lesson.title"
+                       (input)="CheckIfSulgNotUnique(title.value)"
+                       id="CourseName">
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.required)
+                      &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                        {{FormValidationErrors.SEO_Title_Length}}
+                    </span>
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                        {{FormValidationErrors.SEO_Title_Length}}
+                    </span>
+                </div>
+                <label for="CourseTitle">{{FormFieldsNames.Lesson.title}}<sup class="text-danger">*</sup>
+                    <sup class="text-primary"> (you
+                        entered: {{title.value.length}})</sup></label>
+            </div>
+            <div class="d-flex flex-column mb-2">
+                <!-- *******************************************************************
+                *                           Introductory video url
+                **********************************************************************-->
+                <div class="form-floating mb-1">
+                    <input [type]="InputFieldTypes.text"
+                           #YoutubeUrl
+                           (input)="GetVideo(YoutubeUrl.value)"
+                           [formControlName]="FormControlNames.LessonForm.vedioUrl"
+                           [placeholder]="FormFieldsNames.Lesson.vedioUrl"
+                           [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.vedioUrl, inputForm)?'form-control':
+                   errorState.isErrorState(FormControlNames.LessonForm.vedioUrl, inputForm, Form)?
+                   'form-control is-invalid':'form-control is-valid'"
+                           [id]="FormControlNames.LessonForm.vedioUrl">
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="inputForm.get(FormControlNames.LessonForm.vedioUrl)?.hasError(FormValidationErrorsNames.pattern)
+        &&errorState.isErrorState(FormControlNames.LessonForm.vedioUrl, inputForm, Form)">
+                            {{FormValidationErrors.youtubeUrl}}
+                        </span>
+                    </div>
+                    <label [for]="FormControlNames.LessonForm.vedioUrl">
+                        {{FormFieldsNames.Course.introductoryVideoUrl}}
+                    </label>
+
+                </div> <!-- Introductor video url -->
+                <div class="d-flex align-items-center justify-content-center bg-white border border-1 flex-grow-1"
+                     style="min-height: 200px;">
+                    <i class="bi bi-youtube fs-3"
+                       *ngIf="VedioID===''|| inputForm.get(FormControlNames.LessonForm.vedioUrl)?.invalid"></i>
+                    <div *ngIf="VedioID!=='' && inputForm.get(FormControlNames.LessonForm.vedioUrl)?.valid"
+                         class="youtube-container align-center d-flex align-items-center justify-content-center"
+                         style="width:100%;">
+                        <iframe [src]="'https://www.youtube.com/embed/'  + VedioID |safeUrl"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; 
+                        encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- ------------------------------------------------------------------------------- 
+            |                               View and Html 
+            ------------------------------------------------------------------------------------>
+            <div>
+                <tabset class="h-50 mb-5">
+                    <tab heading="View"
+                         id="tab1"
+                         style="max-height: 550px;"
+                         class="border ">
+                        <CodingBible-editor [view]="view"
+                                            [html]="html"
+                                            [selectedText]="selectedText">
+                        </CodingBible-editor>
+                        <!-- -------------------------------------------------------------------------- 
+                        |                               View  
+                        ------------------------------------------------------------------------------->
+                        <div #view
+                             style="max-height: 300px; display:inline-block;"
+                             [innerHtml]="ActionType===PostType.Edit?((LessonById|async)?.htmlContent| bypassStyle):''"
+                             (input)="UpdateHtml(html,view)"
+                             class="Editor bg-white p-2 overflow-auto"
+                             data-testid="view"
+                             id="EditorView"
+                             (mouseup)="GetSelectedText()"
+                             (keyup)="GetSelectedText()"
+                             contenteditable="true">
+                        </div>
+                    </tab>
+                    <tab heading="Html"
+                         style="max-height: 500px;">
+                        <!-- -------------------------------------------------------------------------- 
+                        |                               Html   
+                        ------------------------------------------------------------------------------->
+                        <textarea name=""
+                                  [formControlName]="FormControlNames.LessonForm.htmlContent"
+                                  class="Editor border border-top-0 p-2"
+                                  id=""
+                                  style="max-height: 500px; resize: none;"
+                                  [value]="ActionType===PostType.Edit?(LessonById|async)?.htmlContent:''"
+                                  #html
+                                  (input)="UpdateView(html, view)">
+                        </textarea>
+                    </tab>
+                </tabset>
+            </div>
+
+        </div>
+        <!-- -------------------------------------------------------------------------- 
+        |                                  Side Bar
+        ------------------------------------------------------------------------------->
+        <div class="col-md-3 col-12 d-flex flex-column gap-2">
+            <!-- -------------------------------------------------------------------------- 
+             |                                  Publish Card
+             ------------------------------------------------------------------------------->
+            <div class="card">
+                <div class="card-header">
+                    Publish
+                </div>
+                <div class="card-body d-flex flex-column small">
+                    <span *ngIf="(LessonById|async) && ActionType!=PostType.Add"><strong>Status: </strong>
+                        <span *ngIf="(LessonById|async)?.status===0">Draft</span>
+                        <span *ngIf="(LessonById|async)?.status===1">Published</span>
+                        <a *ngIf="(LessonById|async)?.status===1 && ActionType!=PostType.Add"
+                           class="cursor-pointer ps-1"
+                           (click)="changeStatus(0)">Set as draft</a>
+
+                        <a *ngIf="(LessonById|async)?.status===0 && ActionType!=PostType.Add"
+                           class="cursor-pointer ps-1"
+                           (click)="changeStatus(1)">Publish</a>
+                    </span>
+                    <span *ngIf="(LessonById|async)"><strong>Created At: </strong>
+                        <span *ngIf="ActionType!=PostType.Add">{{(LessonById|async)?.dateCreated|date}}</span>
+                    </span>
+                    <span *ngIf="!(LessonById|async)&&ActionType==PostType.Add"><strong>Created At: </strong>
+                        <span>{{Today|date}}</span>
+                    </span>
+                    <span *ngIf="(LessonById|async) &&ActionType!=PostType.Add"><strong>Last modified: </strong>
+                        <span>{{(LessonById|async)?.lasModified|date}}</span>
+                    </span>
+                    <span *ngIf="(LessonById|async) &&ActionType!=PostType.Add"><strong>Published At: </strong>
+                        <span>{{(LessonById|async)?.publishedDate|date}}</span>
+                    </span>
+                </div>
+                <!-- -------------------------------------------------------------------------- 
+                |                         Update and delete buttons
+                ------------------------------------------------------------------------------->
+                <div class="card-footer text-muted"
+                     *ngIf="ActionType == PostType.Edit">
+                    <button type="button"
+                            (click)="UpdateClicked()"
+                            [disabled]="inputForm.invalid || !ClientSideService.isUpdated(lesson, inputForm)||SelectedCourseId===0||SelectedSectionId===0"
+                            class="btn btn-outline-primary btn-sm">Update</button>
+                    <button type="button"
+                            (click)="DeleteClicked()"
+                            class="btn btn-danger btn-sm">Delete</button>
+                </div>
+                <!-- -------------------------------------------------------------------------- 
+                |                      Save as draft and publish buttons
+                ------------------------------------------------------------------------------->
+                <div class="card-footer text-muted "
+                     *ngIf="ActionType == PostType.Add">
+                    <button type="button"
+                            (click)="DraftOrPublish(view, 'Draft')"
+                            [disabled]="inputForm.invalid||SelectedCourseId===0||SelectedSectionId===0"
+                            data-testid="DraftBtn"
+                            class="btn btn-outline-primary btn-sm">Save as Draft</button>
+                    <button type="button"
+                            data-testid="PublishBtn"
+                            [disabled]="inputForm.invalid||SelectedCourseId===0||SelectedSectionId===0"
+                            class="btn btn-outline-primary btn-sm"
+                            (click)="DraftOrPublish(view,'Publish')">Publish</button>
+                </div>
+            </div>
+
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Description Card
+            ------------------------------------------------------------------------------->
+            <div class="card h-50">
+                <div class="card-header">
+                    Description (for SEO)
+                </div>
+                <div class="card-body"
+                     style="height: 120px;">
+                    <textarea #desc
+                              [formControlName]="FormControlNames.LessonForm.description"
+                              [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'h-100 form-control w-100 h-100': errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)?
+                              'form-control h-100 is-invalid w-100 h-100':'h-100 form-control is-valid w-100 h-100'"
+                              minlength="50"
+                              maxlength="160"
+                              [value]="ActionType===PostType.Edit?(LessonById|async)?.description:''"
+                              style="resize: none;"></textarea>
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.required)
+                                                &&errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="(inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                              ||inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.minlength)||desc.value.length<=160)
+                                                &&errorState.isErrorState('src', inputForm, Form)">
+                            <span>50 to 160 character long.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer text-muted d-flex justify-content-between">
+                    <span class="text-primary small">Character count: {{desc.value.length}}
+                    </span>
+                </div>
+            </div>
+            <!-- -------------------------------------------------------------------------- 
+            |                                  Feature Image Card
+            ------------------------------------------------------------------------------->
+            <div class="card h-50">
+                <div class="card-header">
+                    Feature image
+                </div>
+                <div (click)="media.Toggle()"
+                     class="card-body d-flex flex-column justify-content-center btn align-items-center p-0"
+                     style="height: 130px">
+                    <div *ngIf="lesson.featureImageUrl===''"
+                         class="w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center border border-danger">
+                        <i class="bi bi-image"></i>
+                    </div>
+                    <img *ngIf="lesson.featureImageUrl!==''"
+                         [src]="lesson.featureImageUrl"
+                         class="img-thumbnail border border-success"
+                         alt="feature image">
+                    <div class="validationDiv mb-2"
+                         *ngIf="lesson.featureImageUrl===''">
+                        <span class="invalid-feedback d-block m-0">
+                            Choose the feature image
+                        </span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a *ngIf="lesson.featureImageUrl!==''"
+                       class="text-danger text-decoration-none cursor-pointer"
+                       (click)="removeFeatureImage()">Remove feature image</a>
+                    <a *ngIf="lesson.featureImageUrl===''"
+                       class="text-secondary text-decoration-none">Remove feature image</a>
+                </div>
+            </div><!-- end feature image card -->
+        </div>
+    </div>
+
+</form>
+<app-media #media
+           [setFeatureImageButton]="true"
+           (setFeatureImage)="SetFeatureImage($event)"></app-media>
+<section-modal #SectionModal
+               [ActionType]="SectionActionType"
+               [CourseId]="SelectedCourseId"
+               [UpdateObject]="SectionToAddOrUpdate"
+               [ModalId]="'SectionModalInLessonHandler'"></section-modal>

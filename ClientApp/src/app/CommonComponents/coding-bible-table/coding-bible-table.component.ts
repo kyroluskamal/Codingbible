@@ -22,6 +22,7 @@ export class CodingBibleTableComponent implements OnInit, OnChanges
   @Input() dataSource: any[] | null = null;
   @Input() Additional_Menu_buttons: TemplateRef<any>[] = [];
   @Input() CustomMenuButton!: TemplateRef<any>;
+  @Input() CustomNoDataMessage!: TemplateRef<any>;
   @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
   @Output() row_Db_Click: EventEmitter<any> = new EventEmitter<any>();
   @Output() AddButtonClicked: EventEmitter<boolean> = new EventEmitter<boolean>();

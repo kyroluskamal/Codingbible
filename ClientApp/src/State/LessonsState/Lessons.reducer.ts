@@ -4,14 +4,22 @@ import
 {
     AddLesson_Failed, AddLesson_Success, ChangeStatus_Failed,
     ChangeStatus_Success, dummyAction, GetLessonById_Failed, GetLessonById_Success,
+    GetLessonsByCourseId_Failed,
+    GetLessonsByCourseId_Success,
+    LessonAdditionIsComplete,
+    LessonUpdateIsCompleted,
+    LoadLessonsFail,
     LoadLessonsSuccess,
-    RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors,
+    RemoveLesson_Failed, RemoveLesson_Success, SetCurrentSelectedLesson, SetValidationErrors,
     UpdateLesson_Failed, UpdateLesson_Sucess
 } from "./Lessons.actions";
 import * as adapter from "./Lessons.adapter";
 
 export const initialState: LessonsState = adapter.LessonsAdapter.getInitialState({
     ValidationErrors: [],
+    AdditionState: false,
+    UpdateState: false,
+    CurrentSelectedLesson: null
 });
 // Creating reducer                        
 export const LessonsReducer = createReducer(
@@ -26,10 +34,7 @@ export const LessonsReducer = createReducer(
     }),
     on(GetLessonById_Success, (state, Lessons) => 
     {
-        return {
-            ...state,
-            CurrentLessonsById: Lessons
-        };
+        return adapter.LessonsAdapter.upsertOne(Lessons, state);
     }),
     on(GetLessonById_Failed, (state, res) =>
     {
@@ -62,10 +67,16 @@ export const LessonsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
+    on(LoadLessonsFail, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
     on(LoadLessonsSuccess, (state, { payload }) =>
     {
-        state = adapter.LessonsAdapter.removeAll({ ...state });
-        return adapter.LessonsAdapter.addMany(payload, state);
+        return adapter.LessonsAdapter.upsertMany(payload, state);
     }),
     on(SetValidationErrors, (state, res) =>
     {
@@ -81,6 +92,38 @@ export const LessonsReducer = createReducer(
             initialState
         };
     }),
+    on(GetLessonsByCourseId_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(GetLessonsByCourseId_Success, (state, { payload }) =>
+    {
+        return adapter.LessonsAdapter.upsertMany(payload, state);
+    }),
+    on(LessonAdditionIsComplete, (state, res) =>
+    {
+        return {
+            ...state,
+            AdditionState: res.status
+        };
+    }),
+    on(LessonUpdateIsCompleted, (state, res) =>
+    {
+        return {
+            ...state,
+            UpdateState: res.status
+        };
+    }),
+    on(SetCurrentSelectedLesson, (state, res) =>
+    {
+        return {
+            ...state,
+            CurrentSelectedLesson: res
+        };
+    })
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -103,5 +146,5 @@ export const select_Lessons_ValidationErrors = createSelector(
     selectLessonsState,
     (state) => state.ValidationErrors!
 );
-
-
+export const Select_Lesson_AdditionState = createSelector(selectLessonsState, (state) => state.AdditionState);
+export const Select_Lesson_UpdateState = createSelector(selectLessonsState, (state) => state.UpdateState);

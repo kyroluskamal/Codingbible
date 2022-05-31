@@ -19,4 +19,8 @@ export class SectionsService extends ApiCallService<Section>
   {
     return this.HttpClient.put<HttpResponsesObject>(CoursesController.ChangSectionStatus, section);
   }
+  GetSectionsByCourseId(courseId: number): Observable<Section[]>
+  {
+    return this.HttpClient.get<Section[]>(`${CoursesController.GetSectionsByCourseId}/${courseId}`);
+  }
 }

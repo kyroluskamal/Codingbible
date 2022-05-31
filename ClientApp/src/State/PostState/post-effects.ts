@@ -118,16 +118,14 @@ export class PostEffects
       withLatestFrom(this.store.select(selectAllposts)),
       switchMap(([action, posts]) =>
       {
-        if (posts.length == 0)
-          return this.postService.getAllPosts().pipe(
-            map((r) =>
-            {
-              this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-              return LoadPOSTsSuccess({ payload: r });
-            }),
-            catchError((e) => of(LoadPOSTsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
-          );
-        return of(dummyAction());
+        return this.postService.getAllPosts().pipe(
+          map((r) =>
+          {
+            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+            return LoadPOSTsSuccess({ payload: r });
+          }),
+          catchError((e) => of(LoadPOSTsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+        );
       }
       )
     )

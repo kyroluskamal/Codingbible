@@ -4,13 +4,23 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BaseUrl, FormControlNames, FormValidationErrors, FormValidationErrorsNames, PostStatus, sweetAlert, validators } from 'src/Helpers/constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Attachments, Post, PostAttachments } from 'src/models.model';
+import { Attachments, Post } from 'src/models.model';
 import { selectAllposts } from 'src/State/PostState/post.reducer';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { selectAllAttachment } from 'src/State/Attachments/Attachments.reducer';
-import { selectPostByID } from 'src/State/PostState/post.reducer';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
+import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
+import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
+import { selectAllCourses } from 'src/State/CourseState/course.reducer';
+import { selectAllCategorys } from 'src/State/CategoriesState/Category.reducer';
+import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
+import { LoadPOSTs } from 'src/State/PostState/post.actions';
+import { LoadCourses } from 'src/State/CourseState/course.actions';
+import { LoadSections } from 'src/State/SectionsState/sections.actions';
+import { LoadCATEGORYs } from 'src/State/CategoriesState/Category.actions';
+import { LoadLessons } from 'src/State/LessonsState/Lessons.actions';
+import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
+import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 @Component({
   selector: 'CodingBible-editor',
   templateUrl: './editor.component.html',
@@ -41,14 +51,18 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   tag: string = "";
   currentPost: Post = new Post();
   posts$ = this.store.select(selectAllposts);
+  sections$ = this.store.select(selectAllSections);
+  lessons$ = this.store.select(selectAllLessons);
+  courses$ = this.store.select(selectAllCourses);
+  postCategories$ = this.store.select(selectAllCategorys);
+  courseCategories = this.store.select(selectAllCourseCategorys);
   @Input() selectedText: SelectedTextData = { Range: new Range(), text: "", start: -1, end: -1, anchorNode: null, focusNode: null };
   @Input() view!: HTMLDivElement;
   @Input() html!: HTMLTextAreaElement;
-  @Output() bindAttachmentsToPost: EventEmitter<PostAttachments[]> = new EventEmitter<PostAttachments[]>();
-  allPostst: Post[] = [];
-  allPostsWithOutFiltering: Post[] = [];
-  filteredPosts: Post[] = [];
-  selectedPost: Post | null = null;
+  @Output() bindAttachments: EventEmitter<number[]> = new EventEmitter<number[]>();
+  ItemsForSearch_Unfiltered: { title: string, slug: string, type: string; }[] = [];
+  ItemsForSearch_filtered: { title: string, slug: string, type: string; }[] = [];
+  selectedSearchItem: { title: string, slug: string, type: string; } | null = null;
   focusedAnchorTag: string = "";
   linkTag_Parts: { href: string, text: string, target?: boolean; } = { href: "", text: "" };
   LinkTagForm: FormGroup = new FormGroup({});
@@ -61,7 +75,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   allAttachments: Attachments[] = [];
   postId: number = 0;
   BaseUrl = BaseUrl;
-  postsAttachments: PostAttachments[] = [];
   @ViewChild("anchorTagHandling") anchorTagHandling!: ElementRef<HTMLDivElement>;
   @ViewChild("ImageTagHandling") ImageTagHandling!: ElementRef<HTMLDivElement>;
   @ViewChild("anchorTagHandling_FilledAnchor") anchorTagHandling_FilledAnchor!: ElementRef<HTMLDivElement>;
@@ -75,7 +88,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   /**********************************************************************
    *                            Constructor.
    *********************************************************************/
-  constructor(@Inject(DOCUMENT) private document: Document, private router: ActivatedRoute,
+  constructor(@Inject(DOCUMENT) private document: Document,
+    private clientService: ClientSideValidationService,
     private fb: FormBuilder, private store: Store, private Notifications: NotificationsService) { }
   /**********************************************************************
    *                            ngOnChanges.
@@ -88,7 +102,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     }
     //attach click event to all images
     let images = this.view.getElementsByTagName("img");
-    console.log(images);
 
     if (images.length > 0)
       for (let i = 0; i < images.length; i++)
@@ -107,9 +120,9 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
               this.widthChangeFormControl.setValue(images[i].getAttribute("width"));
               this.ImageForm.get('width')?.setValue(Number(images[i].getAttribute("width")?.replace("%", "")));
             }
-          this.selectedImage = images[i];
-          this.ImageForm.get('src')?.setValue(this.selectedImage.src);
-          this.ImageForm.get('alt')?.setValue(this.selectedImage.alt);
+          this.selectedImage = <HTMLImageElement>images[i];
+          this.ImageForm.get('src')?.setValue(this.selectedImage?.src);
+          this.ImageForm.get('alt')?.setValue(this.selectedImage?.alt);
           this.ImageForm.markAllAsTouched();
           this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
           this.anchorTagHandling_FilledAnchor.nativeElement.setAttribute("class", "d-none");
@@ -138,28 +151,34 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   *********************************************************************/
   ngOnInit(): void
   {
+    this.store.dispatch(LoadPOSTs());
+    this.store.dispatch(LoadCourses());
+    this.store.dispatch(LoadSections());
+    this.store.dispatch(LoadCATEGORYs());
+    this.store.dispatch(LoadLessons());
+    this.store.dispatch(LoadCourseCategorys());
     this.Attachments.subscribe(attachments => { this.allAttachments = attachments; });
-    this.router.queryParams.subscribe(x =>
-    {
-      if (x['id'])
-      {
-        this.postId = Number(x['id']);
-      }
-    });
-    this.store.select(selectPostByID(this.postId)).subscribe(post =>
-    {
-      this.currentPost = post!;
-      this.postsAttachments = [];
-      for (let i = 0; i < post?.attachments.length!; i++)
-      {
-        let temp: PostAttachments = new PostAttachments();
-        temp.postId = post?.id!;
-        temp.attachmentId = post?.attachments[i]?.attachmentId!;
-        temp.attachment = null;
-        temp.post = null;
-        this.postsAttachments.push(temp);
-      }
-    });
+    // this.router.queryParams.subscribe(x =>
+    // {
+    //   if (x['id'])
+    //   {
+    //     this.postId = Number(x['id']);
+    //   }
+    // });
+    // this.store.select(selectPostByID(this.postId)).subscribe(post =>
+    // {
+    //   this.currentPost = post!;
+    //   this.postsAttachments = [];
+    //   for (let i = 0; i < post?.attachments.length!; i++)
+    //   {
+    //     let temp: PostAttachments = new PostAttachments();
+    //     temp.postId = post?.id!;
+    //     temp.attachmentId = post?.attachments[i]?.attachmentId!;
+    //     temp.attachment = null;
+    //     temp.post = null;
+    //     this.postsAttachments.push(temp);
+    //   }
+    // });
     this.ImageForm = this.fb.group({
       src: ['', [validators.required, validators.URL]],
       alt: ['', [validators.required]],
@@ -207,12 +226,84 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
           //   this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
           // }
         }
-
     });
-    this.posts$.subscribe(posts =>
+    this.posts$.subscribe(items =>
     {
-      this.allPostst = posts.filter(post => post.status === PostStatus.Published);
-      this.filteredPosts = [...this.allPostst];
+      for (let i of items)
+      {
+        if (i.status == PostStatus.Published)
+        {
+          this.ItemsForSearch_Unfiltered.push({
+            title: i.title,
+            slug: i.slug,
+            type: "Post"
+          });
+        }
+      }
+    });
+    this.sections$.subscribe(items =>
+    {
+      for (let i of items)
+      {
+        if (i.status == PostStatus.Published)
+        {
+          this.ItemsForSearch_Unfiltered.push({
+            title: i.title,
+            slug: i.slug,
+            type: "Course Section"
+          });
+        }
+      }
+    });
+    this.lessons$.subscribe(items =>
+    {
+      for (let i of items)
+      {
+        if (i.status == PostStatus.Published)
+        {
+          this.ItemsForSearch_Unfiltered.push({
+            title: i.title,
+            slug: i.slug,
+            type: "Lesson"
+          });
+        }
+      }
+    });
+    this.courses$.subscribe(items =>
+    {
+      for (let i of items)
+      {
+        if (i.status == PostStatus.Published)
+        {
+          this.ItemsForSearch_Unfiltered.push({
+            title: i.title,
+            slug: i.slug,
+            type: "Course"
+          });
+        }
+      }
+    });
+    this.postCategories$.subscribe(items =>
+    {
+      for (let i of items)
+      {
+        this.ItemsForSearch_Unfiltered.push({
+          title: i.title,
+          slug: i.slug,
+          type: "Post Category"
+        });
+      }
+    });
+    this.courseCategories.subscribe(items =>
+    {
+      for (let i of items)
+      {
+        this.ItemsForSearch_Unfiltered.push({
+          title: i.title,
+          slug: i.slug,
+          type: "Course Category"
+        });
+      }
     });
   }
   /**********************************************************************************
@@ -220,20 +311,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
    **********************************************************************************/
   AddNewVedio()
   {
-    let vedioLink = this.VedioForm.get('src')?.value;
-    let vedioId;
-    if (vedioLink.includes('youtu.be'))
-    {
-      vedioId = vedioLink.split('youtu.be');
-    }
-    else if (vedioLink.includes('list='))
-    {
-      let link = vedioLink.split('&list=')[0];
-      vedioId = link.split("youtube.com/watch?v=");
-    }
-    else
-      vedioId = vedioLink.split("youtube.com/watch?v=");
-    vedioId = vedioId[vedioId.length - 1];
+    let vedioId = this.clientService.GetVideo(this.VedioForm.get('src')?.value);
     this.prepare_AnchorNode_and_FocusNode();
     this.Add_vedio_toView(vedioId, this.VedioForm.get('width')?.value);
     let vedio = this.view.querySelector(`[id="${vedioId}"]`);
@@ -296,25 +374,14 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   {
     if (event)
     {
-      let findInDom = this.view.querySelector("[src='" + event.fileUrl + "']");
+      let findInDom = this.view.querySelector("[data-atachid='" + event.id + "']");
       if (findInDom !== null)
       {
         this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "You added this image before");
         return;
       }
-      console.log(this.postsAttachments.find(x => x.postId === this.postId && x.attachmentId === event.id));
-      if (!this.postsAttachments.find(x => x.postId === this.postId && x.attachmentId === event.id))
-      {
-        let temp: PostAttachments = new PostAttachments();
-        temp.postId = this.postId;
-        temp.attachmentId = event.id;
-        temp.attachment = null;
-        temp.post = null;
-        this.postsAttachments.push(<PostAttachments>temp);
-      }
       this.prepare_AnchorNode_and_FocusNode();
-      this.add_Image_ToView(event.fileName, event.fileUrl, event.altText, event.caption);
-      this.bindAttachmentsToPost.emit(this.postsAttachments);
+      this.add_Image_ToView(event.fileName, event.fileUrl, event.altText, event.caption, event.id);
     }
   }
   changeImageAligment(alignmentType: string)
@@ -336,8 +403,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   deleteImage()
   {
-    let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    let attachment = this.allAttachments.filter(attachment => attachment.fileUrl === image?.getAttribute("src"))[0];
+    let image = this.view.querySelector(`[data-atachid="${this.selectedImage?.getAttribute("data-atachid")}"]`);
+    let attachment = this.allAttachments.filter(attachment => attachment.id === Number(image?.getAttribute("data-atachId")))[0];
     if (image?.parentElement?.nodeName.toLowerCase() === "figure")
       image.parentElement.remove();
     else
@@ -345,9 +412,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     this.UpdateHtml();
     this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
     this.selectedImage = null;
-    this.postsAttachments = this.postsAttachments.filter(x => x.attachmentId !== attachment.id &&
-      x.postId === this.postId);
-    this.bindAttachmentsToPost.emit(this.postsAttachments);
   }
   removeImageAlignment()
   {
@@ -438,9 +502,9 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   searchPosts(value: string)
   {
-    this.filteredPosts = this.allPostst.filter(post =>
+    this.ItemsForSearch_filtered = this.ItemsForSearch_Unfiltered.filter(post =>
     {
-      return post.title.toLowerCase().includes(value.toLowerCase()) && post.status === PostStatus.Published;
+      return post.title.toLowerCase().includes(value.toLowerCase());
     });
   }
   AddLink(href: string)
@@ -1198,17 +1262,18 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     return classList.filter(x => x !== 'align-center' && x !== 'align-right' && x !== 'align-left');
   }
 
-  add_Image_ToView(fileName: string, url: string, alt: string, caption: string, width: number = 100)
+  add_Image_ToView(fileName: string, url: string, alt: string, caption: string, attachId: number, width: number = 100,)
   {
     let figureWithCaption = "";
-    let image = `<img id="${BaseUrl}${fileName}" 
+    let editedUrl = url.includes('http') ? url : `${this.BaseUrl}${url}`;
+    let image = `<img id="${BaseUrl}${fileName}" data-atachId="${attachId}"
     class="figure-img img-fluid rounded align-center"
-    src="${url}" alt="${alt}" width="100%">`;
+    src="${editedUrl}" alt="${alt}" width="100%">`;
     figureWithCaption = `<figure class="figure align-center" style="width:${width}%">
       ${image}
       <figcaption class="figure-caption text-center">${caption}</figcaption>
     </figure>`;
-    if (caption !== null || caption !== '')
+    if (caption)
     {
       if (this.text.anchorNode?.isSameNode(this.view))
       {
@@ -1290,31 +1355,31 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   {
     if (event.key === "ArrowDown" || event.key === "ArrowUp")
     {
-      if (this.selectedPost === null)
+      if (this.selectedSearchItem === null)
       {
-        this.selectedPost = this.filteredPosts[0];
+        this.selectedSearchItem = this.ItemsForSearch_filtered[0];
       } else
       {
         if (event.key === "ArrowDown")
         {
-          let index = this.filteredPosts.indexOf(this.selectedPost);
-          if (index < this.filteredPosts.length - 1)
+          let index = this.ItemsForSearch_filtered.indexOf(this.selectedSearchItem);
+          if (index < this.ItemsForSearch_filtered.length - 1)
           {
-            this.selectedPost = this.filteredPosts[index + 1];
+            this.selectedSearchItem = this.ItemsForSearch_filtered[index + 1];
           } else
           {
-            this.selectedPost = this.filteredPosts[0];
+            this.selectedSearchItem = this.ItemsForSearch_filtered[0];
           }
         }
         else if (event.key === "ArrowUp")
         {
-          let index = this.filteredPosts.indexOf(this.selectedPost);
+          let index = this.ItemsForSearch_filtered.indexOf(this.selectedSearchItem);
           if (index > 0)
           {
-            this.selectedPost = this.filteredPosts[index - 1];
+            this.selectedSearchItem = this.ItemsForSearch_filtered[index - 1];
           } else
           {
-            this.selectedPost = this.filteredPosts[this.filteredPosts.length - 1];
+            this.selectedSearchItem = this.ItemsForSearch_filtered[this.ItemsForSearch_filtered.length - 1];
           }
         }
       }
@@ -1324,4 +1389,19 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       this.document.execCommand('formatBlock', true, 'p');
     }
   }
+  // UpdateImageSrc()
+  // {
+  //   let images = this.view.querySelectorAll('img');
+  //   console.log(images);
+  //   for (let i = 0; i < images.length; i++)
+  //   {
+  //     let img = <HTMLImageElement>images[i];
+  //     let src = img.src;
+  //     if (!src.includes("http"))
+  //     {
+  //       let newSrc = this.BaseUrl + src;
+  //       img.setAttribute('src', newSrc);
+  //     }
+  //   }
+  // }
 }

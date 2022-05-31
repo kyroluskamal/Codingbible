@@ -38,14 +38,13 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   ValidationErrors$ = this.store.select(select_Post_ValidationErrors);
   pinned = Boolean(localStorage.getItem(LocalStorageKeys.FixedSidnav));
   PostType = PostType;
-
   FormControlNames = FormControlNames;
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
   errorState = new BootstrapErrorStateMatcher();
   cats$ = this.store.select(selectAllCategorys);
-  postsAttachments: PostAttachments[] = [];
+  postsAttachments: number[] = [];
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
   BaseUrl = BaseUrl;
@@ -56,10 +55,10 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   @Output() Publish: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Draft: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Delete: EventEmitter<number> = new EventEmitter();
-  @Output() ChosenAttachment: EventEmitter<PostAttachments[]> = new EventEmitter<PostAttachments[]>();
+  @Output() ChosenAttachment: EventEmitter<number[]> = new EventEmitter<number[]>();
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("StickyNotesHandler", { read: ElementRef }) StickyNotesHandler: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
-  @ViewChild("StickyNotesContainer", { read: ElementRef }) StickyNotesContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
+  @ViewChild("StickyNotesContainerPost", { read: ElementRef }) StickyNotesContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("StickyNotes", { read: ElementRef }) StickyNotes: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
   @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
@@ -104,6 +103,8 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   ngAfterViewInit(): void
   {
+    this.document.body.append(this.StickyNotesContainer.nativeElement);
+    this.StickyNotesContainer.nativeElement.style.zIndex = "1 !important";
     let matSideNav = this.document.getElementsByTagName('mat-sidenav')[0];
     this.pinned$.subscribe((x) =>
     {
@@ -118,7 +119,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
       }
     });
     this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
-      this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+      this.StickyNotesHandler.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
   }
   ToggleStickyNotes()
   {
@@ -126,10 +127,10 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.StickyNotesContainer.nativeElement.style.transition = "all 0.5s ease-in-out";
     if (this.stickyNodeIsOpened)
       this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
-        this.StickyNotesContainer.nativeElement.offsetWidth - 20 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+        this.StickyNotesContainer.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
     else
       this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
-        this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+        this.StickyNotesHandler.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
   }
   // openStickyNotes()
   // {
@@ -143,7 +144,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.stickyNodeIsOpened = false;
     this.StickyNotesContainer.nativeElement.style.transition = "all 0.5s ease-in-out";
     this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
-      this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+      this.StickyNotesHandler.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
   }
   ngOnChanges(changes: SimpleChanges): void
   {
@@ -159,14 +160,13 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
 
   ngOnInit(): void
   {
-
     window.addEventListener('resize', () =>
     {
       this.viewWidth = window.innerWidth;
       this.viewHeight = window.innerHeight;
       this.stickyNodeIsOpened = false;
       this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
-        this.StickyNotesHandler.nativeElement.offsetWidth * 1.4 - this.sideBarWidth}px,${this.viewHeight * 0.001}px)`;
+        this.StickyNotesHandler.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
     });
     this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
     this.document.addEventListener("mousemove", (e) =>
@@ -194,10 +194,18 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
           this.selectedCategories = [];
           post.postsCategories.forEach(x => this.selectedCategories.push(x.categoryId));
           this.post = Object.assign({}, r);
-          this.ClientSideService.refillForm(r, this.form);
+          this.form.patchValue(this.post);
           this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
           this.title.setTitle(`Edit post - ${this.post.title}`);
+          this.post.featureImageUrl = this.post.featureImageUrl.includes("http") ? this.post.featureImageUrl : `${this.BaseUrl}${this.post.featureImageUrl}`;
+          let tempAttachments = [];
+          for (let i = 0; i < post?.attachments.length!; i++)
+          {
+            tempAttachments.push(post.attachments[i].attachmentId);
+          }
+          this.postsAttachments = tempAttachments;
         }
+        this.form.markAllAsTouched();
       });
     }
     if (this.postType === PostType.Add)
@@ -226,10 +234,10 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.post.description = String(this.form.get(FormControlNames.postForm.description)?.value);
     this.post.excerpt = String(this.form.get(FormControlNames.postForm.excerpt)?.value);
     this.post.htmlContent = this.view.nativeElement.innerHTML;
-    this.post.slug = String(this.slug.nativeElement.value);
+    this.post.slug = this.ClientSideService.GenerateSlug(this.post.title);
     this.post.author = null;
-    slug.value = title.value.trim().split(' ').join("-");
-    this.form.get('slug')?.setValue(slug.value);
+    slug.value = this.ClientSideService.GenerateSlug(this.post.title);
+    this.form.get('slug')?.setValue(this.post.slug);
   }
   GetSelectedText()
   {
@@ -249,6 +257,15 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   UpdateClicked()
   {
+    this.postsAttachments = [];
+    let allImages = this.view.nativeElement.querySelectorAll("img[data-atachId]");
+    console.log(allImages);
+    for (let i = 0; i < allImages.length; i++)
+    {
+      let img = <HTMLImageElement>allImages[i];
+      let atachId = img.getAttribute("data-atachId");
+      this.postsAttachments.push(Number(atachId));
+    }
     this.post.title = String(this.form.get(FormControlNames.postForm.title)?.value);
     this.post.description = String(this.form.get(FormControlNames.postForm.description)?.value);
     this.post.excerpt = String(this.form.get(FormControlNames.postForm.excerpt)?.value);
@@ -256,22 +273,31 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.post.slug = String(this.slug.nativeElement.value);
     this.post.author = null;
     this.post.categories = this.selectedCategories;
-    this.post.attachments = this.postsAttachments;
+    this.post.tempAttach = this.postsAttachments;
 
     this.store.dispatch(UpdatePOST(this.post));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
   {
+    this.postsAttachments = [];
+    let allImages = this.view.nativeElement.querySelectorAll("img[data-atachId]");
+    console.log(allImages);
+    for (let i = 0; i < allImages.length; i++)
+    {
+      let img = <HTMLImageElement>allImages[i];
+      let atachId = img.getAttribute("data-atachId");
+      this.postsAttachments.push(Number(atachId));
+    }
     this.form.get(FormControlNames.postForm.htmlContent)?.setValue(view.innerHTML);
     if (draftOrPublish === "Draft")
     {
-      this.Draft.emit(this.form);
       this.ChosenAttachment.emit(this.postsAttachments);
+      this.Draft.emit(this.form);
     }
     else
     {
-      this.Publish.emit(this.form);
       this.ChosenAttachment.emit(this.postsAttachments);
+      this.Publish.emit(this.form);
     }
   }
   CheckIfSulgNotUnique(slug: HTMLInputElement)
@@ -288,9 +314,9 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   {
     this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.EditPost }));
   }
-  BindAttachmentsToPost(postsAttachments: PostAttachments[])
+  BindAttachmentsToPost(Attachments: number[])
   {
-    this.postsAttachments = postsAttachments;
+    this.postsAttachments = Attachments;
   }
   isSlugUnique(slug: HTMLInputElement)
   {
@@ -322,7 +348,8 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   {
     if (event)
     {
-      this.post.featureImageUrl = event.fileUrl;
+      let editedUrl = event.fileUrl.includes("http") ? event.fileUrl : `${this.BaseUrl}${event.fileUrl}`;
+      this.post.featureImageUrl = editedUrl;
       this.form.get(FormControlNames.postForm.featureImageUrl)?.setValue(event.fileUrl);
     }
   }
