@@ -5,7 +5,41 @@
             class="bg-light p-1 border-bottom border-1 border-dark">
             <span>{{Section.name}}</span>
         </h5>
-        <div></div>
+        <div class="p-2 lessons">
+            <div *ngFor="let s of selectedLessons"
+                 class="d-flex flex-sm-row flex-column justify-content-between bg-white rounded-1 my-3 p-2 mat-elevation-z3 border-purple">
+                <div class="text-center">
+                    {{s.name}}
+                </div>
+                <div class="d-flex flex-row justify-content-center gap-2 small">
+                    <span class="text-dark"
+                          *ngIf="s.vedioUrl!==''&&s.htmlContent!==''">
+                        <span class="text-success">Video</span> |
+                        <span class="text-success">Content</span>
+                    </span>
+                    <span class="text-dark"
+                          *ngIf="s.vedioUrl!==''&&s.htmlContent===''">
+                        <span class="text-success">Video</span> |
+                        <span class="text-danger text-decoration-line-through">Content</span>
+                    </span>
+                    <span class="text-dark"
+                          *ngIf="s.vedioUrl===''&&s.htmlContent!==''">
+                        <span class="text-danger text-decoration-line-through">Video</span> |
+                        <span class="text-success">Content</span>
+                    </span>
+                    <span class="text-dark"
+                          *ngIf="s.vedioUrl===''&&s.htmlContent===''">
+                        <span class="text-danger text-decoration-line-through">Video</span> |
+                        <span class="text-danger text-decoration-line-through">Content</span>
+                    </span>
+                    <span class="text-dark">
+                        {{s.status===PostStatus.Draft?'Draft':'Published'}}
+                    </span>
+                    <a class="btn py-0 px-1 text-primary small"
+                       (click)="openToEdit(s.id)">Edit</a>
+                </div>
+            </div>
+        </div>
     </div>
     <div *ngIf="Section && !Section.isLeafSection"
          [id]="Section?.name"

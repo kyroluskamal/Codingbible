@@ -9,16 +9,18 @@ import { ShowAllLessonsComponent } from '../show-all-lessons/show-all-lessons.co
 import { LessonHandlerComponent } from '../lesson-handler/lesson-handler.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { RouterModule } from '@angular/router';
+import { LessonForPlannerModalComponent } from '../lesson-for-planner-modal/lesson-for-planner-modal.component';
 
 
 
 @NgModule({
   declarations: [CourseCategoryHandlerComponent, SectionModalComponent,
-    LessonHandlerComponent, SectionChildComponent,
+    LessonHandlerComponent, SectionChildComponent, LessonForPlannerModalComponent,
     ShowAllLessonsComponent],
   imports: [RouterModule,
     SharedModule, TooltipModule, ShareComponentsforDashboardModule, TabsModule,
   ], exports: [SectionModalComponent, CourseCategoryHandlerComponent, LessonHandlerComponent, ShowAllLessonsComponent,
-    SharedModule, ShareComponentsforDashboardModule, TooltipModule, SectionChildComponent]
+    SharedModule, ShareComponentsforDashboardModule, TooltipModule, LessonForPlannerModalComponent,
+    SectionChildComponent]
 })
 export class SharedModuleForCoursesModule { }

@@ -1,0 +1,155 @@
+<bootstrap-modal #LessonModal
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="LessonHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="LessonBody"
+                 [ModalId]="ModalId"
+                 [Modal_Footer_template]="LessonFooter"></bootstrap-modal>
+<ng-template #LessonHeader>
+    <h4 class="modal-title text-white-50">
+        <span class="text-warning"
+              *ngIf="LessonActionType===ActionType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add
+            new
+        </span>
+        <span class="text-warning"
+              *ngIf="LessonActionType===ActionType.Edit"><i class="bi bi-pencil-fill text-white small"></i> Edit
+        </span>
+        lesson <span class="small text-decoration-underline">(for planner only)</span>
+    </h4>
+</ng-template>
+<ng-template #LessonBody>
+    <select class="form-select mb-3"
+            [disabled]="courseId===0||LessonActionType===ActionType.Edit"
+            #SectionSelector
+            [(ngModel)]="SelectedSectionId"
+            [ngModelOptions]="{standalone: true}"
+            (change)="onSectionChange()">
+        >
+        <option selected
+                [disabled]="true"
+                value="0">Choose section</option>
+        <option [value]="c.id"
+                [disabled]="!c.isLeafSection"
+                *ngFor="let c of selectedSections">
+            <span *ngFor="let _ of [].constructor(c.level)">&nbsp;&nbsp;</span>{{c.name}}
+        </option>
+    </select>
+    <form [formGroup]="inputForm"
+          #Form>
+        <!-- ------------------------------------------------------------------------------- 
+            |                               name Input 
+            ------------------------------------------------------------------------------------>
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   required
+                   value=""
+                   [formControlName]="FormControlNames.LessonForm.name"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.name, inputForm)?'form-control':
+                       errorState.isErrorState(FormControlNames.LessonForm.name, inputForm, Form)?
+                       'form-control is-invalid':'form-control is-valid'"
+                   [placeholder]="FormFieldsNames.Lesson.name"
+                   id="CourseName">
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.name)?.hasError(FormValidationErrorsNames.required)
+                  &&errorState.isErrorState(FormControlNames.LessonForm.name, inputForm, Form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="CourseName">{{FormFieldsNames.Lesson.name}}<sup class="text-danger">*</sup></label>
+        </div>
+        <!-- ------------------------------------------------------------------------------- 
+            |                               Title 
+            ------------------------------------------------------------------------------------>
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   #title
+                   required
+                   maxlength="70"
+                   minlength="60"
+                   value=""
+                   [formControlName]="FormControlNames.LessonForm.title"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.title, inputForm)?'form-control':
+                       errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
+                       'form-control is-invalid':'form-control is-valid'"
+                   [placeholder]="FormFieldsNames.Lesson.title"
+                   (input)="CheckIfSulgNotUnique(title.value)"
+                   id="CourseName">
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.required)
+                      &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                    {{FormValidationErrors.SEO_Title_Length}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
+                    {{FormValidationErrors.SEO_Title_Length}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError('notUnique')">
+                    {{FormValidationErrors.Slug_Not_Unique}}
+                </span>
+            </div>
+            <label for="CourseTitle">{{FormFieldsNames.Lesson.title}}<sup class="text-danger">*</sup>
+                <sup class="text-primary"> (you
+                    entered: {{title.value.length}})</sup></label>
+        </div>
+        <!-- *******************************************************************
+                *                           Description
+                **********************************************************************-->
+        <div class="form-floating">
+            <textarea #SectionDescribtion
+                      required
+                      style="resize: none;height: 150px;"
+                      row="5"
+                      minlength="50"
+                      maxlength="160"
+                      [formControlName]="FormControlNames.LessonForm.description"
+                      [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'form-control':
+                                   errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                      id="description"
+                      placeholder="example"></textarea>
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)">
+                    {{FormValidationErrors.SEO_Description_Length}}
+                </span>
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)">
+                    {{FormValidationErrors.SEO_Description_Length}}
+                </span>
+            </div>
+            <label for="description">{{FormFieldsNames.Section.description}}
+                <sup class="text-danger">*</sup>
+                <sup class="text-primary"> (you
+                    entered: {{SectionDescribtion.value.length}})</sup>
+            </label>
+        </div>
+    </form>
+</ng-template>
+<ng-template #LessonFooter>
+    <button class="btn btn-primary"
+            *ngIf="LessonActionType===ActionType.Add"
+            [disabled]="!inputForm.valid"
+            (click)="AddNewLesson();LessonModal.Toggle();inputForm.reset(); SelectedSectionId=0;onSectionChange()">Add</button>
+    <button class="btn btn-primary"
+            [disabled]="!inputForm.valid"
+            *ngIf="LessonActionType===ActionType.Edit"
+            (click)="Update();LessonModal.Toggle();">Save</button>
+    <button class="btn btn-secondary"
+            (click)="LessonModal.Toggle(); inputForm.reset(); SelectedSectionId=0;onSectionChange()">Close</button>
+</ng-template>

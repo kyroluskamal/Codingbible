@@ -105,7 +105,6 @@ export class LessonsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Lesson'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.EditPost], { queryParams: { id: r.id } });
                         return AddLesson_Success(r);
                     }),
                     catchError((e) =>
@@ -146,7 +145,7 @@ export class LessonsEffects
                         if (e.error.message && e.error.message.toLowerCase().includes('unique'))
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
                         else
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
+                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.message);
                         return of(UpdateLesson_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );

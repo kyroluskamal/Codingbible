@@ -104,6 +104,10 @@ namespace CodingBible.Controllers.api.v1
                 newPost = Mapper.Map(Post, newPost);
                 newPost.DateCreated = DateTime.Now;
                 newPost.LasModified = DateTime.Now;
+                if (newPost.Status == (int)Constants.PostStatus.Published)
+                {
+                    newPost.PublishedDate = DateTime.Now;
+                }
                 newPost.AuthorId = user.Id;
                 newPost.CommentCount = 0;
                 newPost.CommentStatus = true;
@@ -178,7 +182,10 @@ namespace CodingBible.Controllers.api.v1
                 getPost.FeatureImageUrl = Post.FeatureImageUrl;
                 getPost.Title = Post.Title;
                 getPost.Slug = Post.Slug;
-
+                if (getPost.Status == (int)Constants.PostStatus.Draft && Post.Status == (int)Constants.PostStatus.Published)
+                {
+                    getPost.PublishedDate = DateTime.Now;
+                }
                 UnitOfWork.Posts.Update(getPost);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)

@@ -32,6 +32,7 @@
             ],
             "optimization": true,
             "statsJson": true,
+            "namedChunks": false,
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./src/styles.css",
@@ -88,10 +89,7 @@
               "browserTarget": "ClientApp:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": {
-            "proxyConfig": "proxy.conf.json"
-          }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

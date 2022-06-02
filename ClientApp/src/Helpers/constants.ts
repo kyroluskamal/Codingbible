@@ -267,7 +267,8 @@ export const FormValidationErrors = {
     },
     SEO_Title_Length: "Title length must be between 60 and 70 characters.",
     SEO_Description_Length: "Description length must be between 50 and 160 characters.",
-    youtubeUrl: "Enter valid youtube url."
+    youtubeUrl: "Enter valid youtube url.",
+    Slug_Not_Unique: "There is a lesson with the same title"
 };
 
 export const FormValidationErrorsNames = {

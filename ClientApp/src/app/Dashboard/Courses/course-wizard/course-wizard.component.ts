@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
@@ -10,13 +10,14 @@ import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { Attachments, Course, CourseCategory, Section } from 'src/models.model';
+import { Attachments, Course, CourseCategory, Lesson, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/course.actions';
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
+import { LoadLessons } from 'src/State/LessonsState/Lessons.actions';
 import { LoadSections } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 import { SectionModalComponent } from '../section-modal/section-modal.component';
@@ -58,8 +59,10 @@ export class CourseWizardComponent implements OnInit
   SectionPostType: string = "";
   FeatureImageUrl: string = "";
   selectedCategories: number[] = [];
+  LessonActionType: string = "";
   CourseCats = this.store.select(selectAllCourseCategorys);
   SectionToEdit: Section = new Section();
+  LessonToUpdate: Lesson = new Lesson();
   CourseCategorysArranged: CourseCategory[] = [];
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
@@ -76,6 +79,7 @@ export class CourseWizardComponent implements OnInit
     this.store.dispatch(LoadSections());
     this.store.dispatch(LoadCourseCategorys());
     this.store.dispatch(LoadCourses());
+    this.store.dispatch(LoadLessons());
     this.CourseCats.subscribe(cats =>
     {
       this.isLoading = false;
@@ -312,5 +316,22 @@ export class CourseWizardComponent implements OnInit
   {
     this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, message);
     this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home]);
+  }
+  changeStepInRoute(step: string)
+  {
+    let parmas: Params;
+    if (this.CourseId > 0)
+      parmas = {
+        action: this.Action, step: step, courseId: this.CourseId
+      };
+    else
+    {
+      parmas = {
+        action: this.Action, step: step
+      };
+    }
+    this.router.navigate([], {
+      relativeTo: this.activatedRouter, queryParams: parmas
+    });
   }
 }

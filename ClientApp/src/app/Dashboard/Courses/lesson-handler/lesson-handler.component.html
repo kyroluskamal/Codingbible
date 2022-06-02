@@ -60,7 +60,7 @@
                (click)="SectionActionType=PostType.Add;SectionModal.Toggle()">
                 <i class="bi bi-plus-circle-fill text-primary "></i>
             </a>
-            <a [class]="SelectedCourseId===0||SectionToAddOrUpdate.id===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
+            <a [class]="SelectedCourseId===0||SelectedSectionId===0?'btn btn-sm px-1 noShadow disabledAnchor':'btn btn-sm px-1 noShadow'"
                tooltip="Edit section"
                (click)="SectionActionType=PostType.Edit;SectionModal.Toggle()">
                 <i class="bi bi-pen-fill text-primary "></i>
@@ -424,26 +424,26 @@
                 <div (click)="media.Toggle()"
                      class="card-body d-flex flex-column justify-content-center btn align-items-center p-0"
                      style="height: 130px">
-                    <div *ngIf="lesson.featureImageUrl===''"
+                    <div *ngIf="!lesson.featureImageUrl"
                          class="w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center border border-danger">
                         <i class="bi bi-image"></i>
                     </div>
-                    <img *ngIf="lesson.featureImageUrl!==''"
+                    <img *ngIf="lesson.featureImageUrl"
                          [src]="lesson.featureImageUrl"
                          class="img-thumbnail border border-success"
                          alt="feature image">
                     <div class="validationDiv mb-2"
-                         *ngIf="lesson.featureImageUrl===''">
+                         *ngIf="!lesson.featureImageUrl">
                         <span class="invalid-feedback d-block m-0">
                             Choose the feature image
                         </span>
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a *ngIf="lesson.featureImageUrl!==''"
+                    <a *ngIf="lesson.featureImageUrl"
                        class="text-danger text-decoration-none cursor-pointer"
                        (click)="removeFeatureImage()">Remove feature image</a>
-                    <a *ngIf="lesson.featureImageUrl===''"
+                    <a *ngIf="!lesson.featureImageUrl"
                        class="text-secondary text-decoration-none">Remove feature image</a>
                 </div>
             </div><!-- end feature image card -->

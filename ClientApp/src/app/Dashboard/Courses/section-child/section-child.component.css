@@ -2,3 +2,10 @@
     background-color: #f4feff;
     min-height: 100px;
 }
+
+.lessons div:first-child{
+    margin-top: 0 !important;
+}
+.lessons div:last-child{
+    margin-bottom: 0 !important;
+}

@@ -256,3 +256,6 @@ figure.figure img{
   opacity: 0.5;
   color: gray;
 }
+.border-purple{
+  border: 1px solid #6328d0c4;
+}

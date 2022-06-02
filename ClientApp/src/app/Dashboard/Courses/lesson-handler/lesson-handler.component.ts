@@ -19,7 +19,7 @@ import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourses } from 'src/State/CourseState/course.actions';
 import { selectAllCourses } from 'src/State/CourseState/course.reducer';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
-import { ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
+import { AddLesson, ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
 import { GetSectionsByCourseId, LoadSections } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
@@ -62,7 +62,6 @@ export class LessonHandlerComponent implements OnInit
   @ViewChild("StickyNotesContainer", { read: ElementRef }) StickyNotesContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("StickyNotes", { read: ElementRef }) StickyNotes: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("html", { read: ElementRef }) html: ElementRef<HTMLTextAreaElement> = {} as ElementRef<HTMLTextAreaElement>;
-  @ViewChild("slug", { read: ElementRef }) slug: ElementRef<HTMLInputElement> = {} as ElementRef<HTMLInputElement>;
   mousex: number = 0;
   mousey: number = 0;
   validators = Validators;
@@ -209,6 +208,7 @@ export class LessonHandlerComponent implements OnInit
           this.SelectedSectionId = lesson.sectionId;
           this.lesson = Object.assign({}, r);
           this.inputForm.patchValue(this.lesson);
+          console.log(this.lesson);
           this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
           this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
           for (let i = 0; i < lesson?.attachments.length!; i++)
@@ -217,6 +217,7 @@ export class LessonHandlerComponent implements OnInit
           }
         }
         this.inputForm.markAllAsTouched();
+        console.log(this.lesson);
       });
     }
     if (this.ActionType === PostType.Add)
@@ -274,10 +275,10 @@ export class LessonHandlerComponent implements OnInit
     this.lesson.title = String(this.inputForm.get(FormControlNames.LessonForm.title)?.value);
     this.lesson.description = String(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
     this.lesson.htmlContent = this.view.nativeElement.innerHTML;
-    this.lesson.slug = String(this.slug.nativeElement.value);
+    this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
     this.lesson.tempAttach = this.lessonsAttachments;
-
-    this.store.dispatch(UpdateLesson(this.lesson));
+    console.log(this.lesson);
+    // this.store.dispatch(UpdateLesson(this.lesson));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
   {
@@ -301,7 +302,7 @@ export class LessonHandlerComponent implements OnInit
     {
       this.lesson.status = PostStatus.Published;
     }
-    console.log(this.lesson);
+    this.store.dispatch(AddLesson(this.lesson));
   }
   CheckIfSulgNotUnique(title: string)
   {

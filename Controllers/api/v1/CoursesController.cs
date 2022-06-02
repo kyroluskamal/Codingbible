@@ -895,10 +895,25 @@ public class CoursesController : ControllerBase
                     return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
                 }
                 var newLesson = new Lesson();
-                newLesson = Mapper.Map(lesson, newLesson);
+                newLesson.Name = lesson.Name;
+                newLesson.Title = lesson.Title;
+                newLesson.Slug = lesson.Slug;
+                newLesson.Description = lesson.Description;
+                newLesson.VedioUrl = lesson.VedioUrl;
+                newLesson.OrderWithinSection = lesson.OrderWithinSection;
+                newLesson.Status = lesson.Status;
+                newLesson.HtmlContent = lesson.HtmlContent;
+                newLesson.FeatureImageUrl = lesson.FeatureImageUrl;
+                newLesson.SectionId = lesson.SectionId;
                 newLesson.DateCreated = DateTime.Now;
                 newLesson.LasModified = DateTime.Now;
                 newLesson.Attachments = lesson.Attachments;
+                newLesson.CourseId = lesson.CourseId;
+                if (lesson.Status == (int)Constants.PostStatus.Published)
+                {
+                    newLesson.PublishedDate = DateTime.Now;
+                }
+
                 await UnitOfWork.Lessons.AddAsync(newLesson);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
@@ -955,15 +970,27 @@ public class CoursesController : ControllerBase
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
                 }
-                var getLessonByName = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lesson.SectionId && x.Name == lesson.Name);
-                if (getLessonByName.Any())
-                {
-                    return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
-                }
-                var updatedLesson = Mapper.Map(lesson, getLesson);
+
+                getLesson.Name = lesson.Name;
+                getLesson.Title = lesson.Title;
+                getLesson.Slug = lesson.Slug;
+                getLesson.Description = lesson.Description;
+                getLesson.VedioUrl = lesson.VedioUrl;
+                getLesson.OrderWithinSection = lesson.OrderWithinSection;
+                getLesson.Status = lesson.Status;
+                getLesson.HtmlContent = lesson.HtmlContent;
+                getLesson.FeatureImageUrl = lesson.FeatureImageUrl;
+                getLesson.SectionId = lesson.SectionId;
                 getLesson.LasModified = DateTime.Now;
                 getLesson.Attachments = lesson.Attachments;
-                UnitOfWork.Lessons.Update(updatedLesson);
+                getLesson.CourseId = lesson.CourseId;
+                if (getLesson.Status == (int)Constants.PostStatus.Draft && lesson.Status == (int)Constants.PostStatus.Published)
+                {
+                    getLesson.PublishedDate = DateTime.Now;
+                }
+                getLesson.LasModified = DateTime.Now;
+                getLesson.Attachments = lesson.Attachments;
+                UnitOfWork.Lessons.Update(getLesson);
                 foreach (var att in getLesson.Attachments)
                 {
                     UnitOfWork.LessonAttachments.Remove(att);

@@ -130,6 +130,7 @@ export class ShowAllLessonsComponent implements OnInit
     if (lesson)
     {
       this.router.navigate(["", DashboardRoutes.Home, DashboardRoutes.Courses.Home,
+        DashboardRoutes.Courses.Lessons.Home,
         DashboardRoutes.Courses.Lessons.EditLesson], { queryParams: { id: lesson.id } });
     }
   }
