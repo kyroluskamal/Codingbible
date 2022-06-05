@@ -15,4 +15,8 @@ public class SectionRepositoryAsync : ApplicationUserRepositoryAsync<Section>, I
     {
         ApplicationDbContext.Sections.Update(section);
     }
+    public void UpdateRange(IEnumerable<Section> sections)
+    {
+        ApplicationDbContext.Sections.UpdateRange(sections);
+    }
 }

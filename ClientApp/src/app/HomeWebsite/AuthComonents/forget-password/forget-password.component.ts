@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
 import { ForgetPasswordModel } from '../../../../models.model';
@@ -22,7 +22,7 @@ export class ForgetPasswordComponent implements OnInit
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormConstants = FormConstants;
-  ForgetPassworForm = new FormGroup({});
+  ForgetPassworForm = new UntypedFormGroup({});
   customErrorStateMatcher: CustomErrorStateMatcher = new CustomErrorStateMatcher();
   ValidationErrors = this.store.select(selectValidationErrors);
   loading = this.store.select(selectIsInProgress);
@@ -36,7 +36,7 @@ export class ForgetPasswordComponent implements OnInit
   {
 
     this.ForgetPassworForm = this.formBuilder.group({
-      email: [null,
+      email: [,
         [validators.email, validators.required]
       ]
     });

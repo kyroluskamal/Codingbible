@@ -39,6 +39,12 @@ export const UpdateSection_Sucess = createAction(actionNames.SectionActions.UPDA
     props<{ Section: Update<Section>; }>());
 export const UpdateSection_Failed = createAction(actionNames.SectionActions.UPDATE_Section_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const UpdateSectionOrder = createAction(actionNames.SectionActions.UpdateSectionOrder,
+    props<{ payload: Section[]; }>());
+export const UpdateSectionOrder_Sucess = createAction(actionNames.SectionActions.UpdateSectionOrder_Success,
+    props<{ payload: Section[]; }>());
+export const UpdateSectionOrder_Failed = createAction(actionNames.SectionActions.UpdateSectionOrder_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveSection = createAction(actionNames.SectionActions.REMOVE_Section,
     props<{ id: number; url: string; }>());
 export const RemoveSection_Success = createAction(actionNames.SectionActions.REMOVE_Section_Success,

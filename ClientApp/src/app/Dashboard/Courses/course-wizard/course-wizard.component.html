@@ -13,10 +13,11 @@
         <button id="step1btn"
                 (click)="ShowCurrentStep('step1');changeStepInRoute('step1')"
                 class="noShadow stepperBtn p-3 btn d-flex flex-row justify-content-between align-items-center">
-            <span class="d-block d-flex flex-row gap-3 justify-content-between align-items-center">
+            <span class="d-block d-flex flex-sm-row flex-column gap-3 justify-content-between align-items-center">
                 <span class="fw-bold rounded-circle bg-primary text-white d-block d-flex justify-content-center align-items-center"
                       style="width: 32px; height: 32px;">1</span>
-                <span class="d-block fs-3">Course info</span>
+                <span class="d-none d-sm-block fs-3">Course info</span>
+                <span class="d-block d-sm-none fw-bold">Course info</span>
             </span>
         </button>
         <span class="divider"></span>
@@ -24,10 +25,11 @@
                 [disabled]="Action === ActionType.Add"
                 (click)="ShowCurrentStep('step2');changeStepInRoute('step2')"
                 class="noShadow stepperBtn p-3 btn d-flex flex-row justify-content-between align-items-center">
-            <span class="d-block d-flex flex-row gap-3 justify-content-between align-items-center">
+            <span class="d-block d-flex flex-sm-row flex-column gap-3 justify-content-between align-items-center">
                 <span class="fw-bold rounded-circle bg-primary text-white d-block d-flex justify-content-center align-items-center"
                       style="width: 32px; height: 32px;">2</span>
-                <span class="d-block fs-3">Planner</span>
+                <span class="d-none d-sm-block fs-3">Planner</span>
+                <span class="d-block d-sm-none fw-bold">Planner</span>
             </span>
             <!-- <button class="btn btn-dark"
                     (click)="ChangeStep(1,step1,'next')">Next</button> -->
@@ -480,6 +482,16 @@
                         <a (click)="LessonActionType=ActionType.Add;LessonModal.Toggle();"
                            class="btn btn-sm btn-success">Add Lesson</a>
                     </div>
+                    <div class="d-flex flex-row gap-1">
+                        <a (click)="SelectedSectionsId_ForFindingLessons=0;
+                        SelectedLessonId=0;LessonOrderChanged=false;this.selectedLessonOrder.disable();LessonrOrder.Toggle();"
+                           class="btn btn-sm btn-info">Order Lesson</a>
+                    </div>
+                    <div class="d-flex flex-row gap-1">
+                        <a (click)="SelectedSectionsId_ForFindingLessons=0;
+                        SelectedSectionsId_For_SectionOrder=0;SectionOrderChanged=false;this.selectedSectionOrder.disable();SectionOrder.Toggle();"
+                           class="btn btn-sm btn-info">Order Section</a>
+                    </div>
                 </div>
             </div>
             <div class="accordion mb-2"
@@ -549,7 +561,7 @@
                 [(ngModel)]="SelectedSectionId"
                 (change)="SelectSectionToEdit(selectorForSection)"
                 aria-label="Select section">
-            <option value="0">No parent</option>
+            <option value="0">No section</option>
             <option *ngFor="let sec of AllCourseSections"
                     [value]="sec.id"
                     [disabled]="sec.id === SectionForm.get('id')?.value">
@@ -573,3 +585,198 @@
                           [Action]="LessonActionType"
                           [UpdateObject]="LessonToUpdate">
 </lesson-for-planner-modal>
+
+<!-------------------------------------------------------- 
+                        Update Lesson Order
+--------------------------------------------------------->
+<bootstrap-modal #LessonrOrder
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="LessonrOrderHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="LessonrOrderBody"
+                 [ModalId]="'LessonrOrder'"
+                 [Modal_Footer_template]="LessonrOrderFooter"></bootstrap-modal>
+<ng-template #LessonrOrderHeader>
+    <h4 class="Modal-title text-white-50">
+        Update Lesson Order</h4>
+</ng-template>
+<ng-template #LessonrOrderBody>
+    <div class="form-floating has-validation mb-3">
+        <select #SectionSelectorForLesson
+                required
+                class="form-select"
+                id="SectionsForLessonOrder"
+                [(ngModel)]="SelectedSectionsId_ForFindingLessons"
+                (change)="SelectLessonBySection()"
+                aria-label="Select section">
+            <option value="0"
+                    selected>No Sections</option>
+            <option *ngFor="let sec of AllCourseSections"
+                    [value]="sec.id"
+                    [disabled]="!sec.isLeafSection">
+                <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
+            </option>
+        </select>
+        <label for="SectionsForLessonOrder"
+               class="form-label">Select Section</label>
+    </div>
+    <div class="form-floating has-validation mb-3">
+        <select #selectorForLesson
+                required
+                class="form-select"
+                id="LessonSelectors"
+                [(ngModel)]="SelectedLessonId"
+                (change)="SelectLesson()"
+                aria-label="Select Lesson">
+            <option value="0"
+                    selected>No lesson</option>
+            <option *ngFor="let l of selectedLessonsBySectionId"
+                    [value]="l.id">
+                {{l.name}}
+            </option>
+        </select>
+        <label for="LessonSelectors"
+               class="form-label">Select Lesson</label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="number"
+               [formControl]="selectedLessonOrder"
+               min="1"
+               [max]="selectedLessonsBySectionId.length"
+               placeholder="Lesson Order"
+               class="form-control"
+               id="LessonOrderINput"
+               (input)="LessonOrderChanged=true;GetNewLessonPostion()">
+        <label for="LessonOrderINput">
+            Lesson order
+        </label>
+    </div>
+    <div *ngIf="SelectedLessonId>0"
+         class="mb-2">
+        <h5>Current position</h5>
+        <div *ngIf="!PreviousLesson">First lesson</div>
+        <div *ngIf="!NextLesson">Last lesson</div>
+        <div *ngIf="PreviousLesson && NextLesson">
+            <div>
+                <span>After:</span>
+                <span>{{PreviousLesson.name}}</span>
+            </div>
+            <div>
+                <span>Before:</span>
+                <span>{{NextLesson.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="SelectedLessonId>0&&LessonOrderChanged">
+        <h5>New position</h5>
+        <div *ngIf="!NewPreviousLesson">First lesson</div>
+        <div *ngIf="!NewNextLesson">Last lesson</div>
+        <div *ngIf="NewPreviousLesson && NewNextLesson">
+            <div>
+                <span>After:</span>
+                <span>{{NewPreviousLesson.name}}</span>
+            </div>
+            <div>
+                <span>Before:</span>
+                <span>{{NewNextLesson.name}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #LessonrOrderFooter>
+    <button class="btn btn-primary"
+            [disabled]="!LessonOrderChanged"
+            (click)="UpdateLessonOrder();LessonrOrder.Toggle()">Update</button>
+    <button class="btn btn-secondary"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>
+<!-------------------------------------------------------- 
+                        Update Section Order
+--------------------------------------------------------->
+<bootstrap-modal #SectionOrder
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="SectionOrderHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="SectionOrderBody"
+                 [ModalId]="'SectionOrder'"
+                 [Modal_Footer_template]="SectionOrderFooter"></bootstrap-modal>
+<ng-template #SectionOrderHeader>
+    <h4 class="Modal-title text-white-50">
+        Update Section Order</h4>
+</ng-template>
+<ng-template #SectionOrderBody>
+    <div class="form-floating has-validation mb-3">
+        <select #SectionSelectorForSectionOrder
+                required
+                class="form-select"
+                id="SectionSelectorForSectionOrder"
+                [(ngModel)]="SelectedSectionsId_For_SectionOrder"
+                (change)="SelectSectionForOrderChange()"
+                aria-label="Select section">
+            <option value="0"
+                    selected>No Sections</option>
+            <option *ngFor="let sec of AllCourseSections"
+                    [value]="sec.id">
+                <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
+            </option>
+        </select>
+        <label for="SectionSelectorForSectionOrder"
+               class="form-label">Select Section</label>
+    </div>
+    <div class="form-floating mb-2">
+        <input type="number"
+               [formControl]="selectedSectionOrder"
+               min="1"
+               [max]="SectionSplings.length"
+               placeholder="Section Order"
+               class="form-control"
+               id="SectionOrderInput"
+               (input)="SectionOrderChanged=true;GetNewSectionPostion()">
+        <label for="SectionOrderInput">
+            Section order
+        </label>
+    </div>
+    <div *ngIf="SelectedSectionsId_For_SectionOrder>0"
+         class="mb-2">
+        <h5>Current position</h5>
+        <div *ngIf="SectionSplings.length===1">
+            <div>It is the only section</div>
+        </div>
+        <div *ngIf="SectionSplings.length>1">
+            <div *ngIf="!PreviousSection">First Section</div>
+            <div *ngIf="!NextSection">Last Section</div>
+        </div>
+        <div *ngIf="PreviousSection && NextSection">
+            <div>
+                <span>After:</span>
+                <span>{{PreviousSection.name}}</span>
+            </div>
+            <div>
+                <span>Before:</span>
+                <span>{{NextSection.name}}</span>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="SelectedSectionsId_For_SectionOrder>0&&SectionOrderChanged">
+        <h5>New position</h5>
+        <div *ngIf="!NewPreviousSection">First Section</div>
+        <div *ngIf="!NewNextSection">Last Section</div>
+        <div *ngIf="NewPreviousSection && NewNextSection">
+            <div>
+                <span>After:</span>
+                <span>{{NewPreviousSection.name}}</span>
+            </div>
+            <div>
+                <span>Before:</span>
+                <span>{{NewNextSection.name}}</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #SectionOrderFooter>
+    <button class="btn btn-primary"
+            [disabled]="!SectionOrderChanged"
+            (click)="UpdateSectionOrder();SectionOrder.Toggle()">Update</button>
+    <button class="btn btn-secondary"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>

@@ -81,7 +81,7 @@ describe("AddPostsComponent", () =>
                         htmlContent: new FormControl("This is description This is description This is description This is description ", [validators.required])
                     });
                     spectator.triggerEventHandler("app-post-handler", "Draft", form);
-                    expect(spectator.component.newPost.slug).toBe(form.get("slug")?.value);
+                    expect(spectator.component.newPost.slug).toBe(form.get("slug")?.value!);
                     expect(spectator.component.newPost.status).toBe(0);
                 });
                 it("repsonds to Publish event", () =>
@@ -94,7 +94,7 @@ describe("AddPostsComponent", () =>
                         htmlContent: new FormControl("This is description This is description This is description This is description ", [validators.required])
                     });
                     spectator.triggerEventHandler("app-post-handler", "Publish", form);
-                    expect(spectator.component.newPost.slug).toBe(form.get("slug")?.value);
+                    expect(spectator.component.newPost.slug).toBe(form.get("slug")?.value!);
                     expect(spectator.component.newPost.status).toBe(1);
                 });
             });

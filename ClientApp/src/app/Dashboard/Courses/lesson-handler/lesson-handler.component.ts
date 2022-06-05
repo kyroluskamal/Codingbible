@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, ElementRef, Inject, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
@@ -94,6 +94,7 @@ export class LessonHandlerComponent implements OnInit
     @Inject(DOCUMENT) private document: Document, private title: Title,
     private fb: FormBuilder, private RouterOutlet: Router,
     private Notifications: NotificationsService,
+    private ChangeDetection: ChangeDetectorRef,
     private treeDataStructure: TreeDataStructureService<Section>,
     public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
   {
@@ -125,7 +126,7 @@ export class LessonHandlerComponent implements OnInit
       this.treeDataStructure.setData(tmep);
       this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
     });
-
+    this.ChangeDetection.detectChanges();
   }
   ToggleStickyNotes()
   {
@@ -166,7 +167,6 @@ export class LessonHandlerComponent implements OnInit
       [FormControlNames.LessonForm.vedioUrl]: [null, [validators.YoutubeVideo]],
       [FormControlNames.LessonForm.htmlContent]: [null],
       [FormControlNames.LessonForm.featureImageUrl]: [null, [validators.required]],
-      [FormControlNames.LessonForm.slug]: [null],
     });
     window.addEventListener('resize', () =>
     {
@@ -204,28 +204,36 @@ export class LessonHandlerComponent implements OnInit
         if (r)
         {
           let lesson = r as Lesson;
+          this.onCourseChange(lesson.courseId.toString());
+          this.onSectionChange(lesson.sectionId.toString());
           this.SelectedCourseId = lesson.courseId;
           this.SelectedSectionId = lesson.sectionId;
           this.lesson = Object.assign({}, r);
           this.inputForm.patchValue(this.lesson);
-          console.log(this.lesson);
           this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
           this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
+          this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
           for (let i = 0; i < lesson?.attachments.length!; i++)
           {
             this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
           }
+          this.VedioID = this.ClientSideService.GetVideo(this.lesson.vedioUrl);
         }
+        this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
         this.inputForm.markAllAsTouched();
-        console.log(this.lesson);
       });
     }
     if (this.ActionType === PostType.Add)
       this.title.setTitle("Add new lesson");
+    if (this.SelectedCourseId === 0 || this.SelectedSectionId === 0)
+    {
+      this.inputForm.disable();
+    }
   }
   UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
   {
     view.innerHTML = html.value;
+    this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(view.innerHTML);
   }
 
   UpdateHtml(html: HTMLTextAreaElement, view: HTMLDivElement)
@@ -244,7 +252,7 @@ export class LessonHandlerComponent implements OnInit
     this.lesson.htmlContent = this.view.nativeElement.innerHTML;
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
     slug.value = this.ClientSideService.GenerateSlug(this.lesson.title);
-    this.inputForm.get('slug')?.setValue(this.lesson.slug);
+    this.inputForm.get(FormControlNames.LessonForm.title)?.setValue(this.lesson.slug);
   }
   GetSelectedText()
   {
@@ -272,13 +280,12 @@ export class LessonHandlerComponent implements OnInit
       let atachId = img.getAttribute("data-atachId");
       this.lessonsAttachments.push(Number(atachId));
     }
-    this.lesson.title = String(this.inputForm.get(FormControlNames.LessonForm.title)?.value);
-    this.lesson.description = String(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
+    this.ClientSideService.FillObjectFromForm(this.lesson, this.inputForm);
     this.lesson.htmlContent = this.view.nativeElement.innerHTML;
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
     this.lesson.tempAttach = this.lessonsAttachments;
     console.log(this.lesson);
-    // this.store.dispatch(UpdateLesson(this.lesson));
+    this.store.dispatch(UpdateLesson(this.lesson));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
   {
@@ -290,9 +297,11 @@ export class LessonHandlerComponent implements OnInit
       let atachId = img.getAttribute("data-atachId");
       this.lessonsAttachments.push(Number(atachId));
     }
-    this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(view.innerHTML);
     this.ClientSideService.FillObjectFromForm(this.lesson, this.inputForm);
+    this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(view.innerHTML);
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
+    this.lesson.courseId = Number(this.SelectedCourseId);
+    this.lesson.sectionId = Number(this.SelectedSectionId);
     this.lesson.tempAttach = this.lessonsAttachments;
     if (draftOrPublish === "Draft")
     {
@@ -302,6 +311,12 @@ export class LessonHandlerComponent implements OnInit
     {
       this.lesson.status = PostStatus.Published;
     }
+    let selectedLessonsBySection = this.lessons.filter(x => x.sectionId === Number(this.SelectedSectionId)
+      && x.courseId === Number(this.SelectedCourseId)).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
+    if (selectedLessonsBySection.length > 0)
+      this.lesson.orderWithinSection = selectedLessonsBySection[selectedLessonsBySection.length - 1].orderWithinSection + 1;
+    else
+      this.lesson.orderWithinSection = 1;
     this.store.dispatch(AddLesson(this.lesson));
   }
   CheckIfSulgNotUnique(title: string)
@@ -312,7 +327,8 @@ export class LessonHandlerComponent implements OnInit
       this.isSlugUnique(slug);
     } else if (this.ActionType === PostType.Edit && this.ClientSideService.isUpdated(this.lesson, this.inputForm))
     {
-      this.isSlugUnique(slug);
+      if (this.lesson.slug !== slug)
+        this.isSlugUnique(slug);
     }
   }
   DeleteClicked()
@@ -321,22 +337,15 @@ export class LessonHandlerComponent implements OnInit
   }
   isSlugUnique(slug: string)
   {
-    if (this.lessons.length > 0)
-    {
-      if (this.ClientSideService.isNotUnique(this.lessons, 'slug', slug))
-        this.inputForm.get('slug')?.setErrors({ notUnique: true });
-      else
-        this.inputForm.get('slug')?.clearValidators();
-    } else
-      this.LessonService.IsLessonSlug_NOT_Unique(slug).subscribe(
-        r =>
-        {
-          if (r)
-            this.inputForm.get('slug')?.setErrors({ notUnique: true });
-          else
-            this.inputForm.get('slug')?.clearValidators();
-        }
-      );
+    this.LessonService.IsLessonSlug_NOT_Unique(slug, this.SelectedSectionId, this.SelectedCourseId).subscribe(
+      r =>
+      {
+        if (r)
+          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: true });
+        else
+          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors(null);
+      }
+    );
   }
   changeStatus(status: number)
   {
@@ -369,6 +378,11 @@ export class LessonHandlerComponent implements OnInit
     {
       this.lesson.courseId = courseId;
       this.store.dispatch(GetSectionsByCourseId({ courseId: courseId }));
+      let temp = this.AllSections.filter(Section => Section.courseId == this.SelectedCourseId);
+      this.treeDataStructure.setData(temp);
+      this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
+      this.SelectedSectionId = 0;
+      this.inputForm.disable();
     }
   }
   onSectionChange(SectionId: string)
@@ -376,11 +390,15 @@ export class LessonHandlerComponent implements OnInit
     let sectionId = Number(SectionId);
     if (sectionId > 0)
     {
+      this.inputForm.enable();
       this.lesson.sectionId = sectionId;
       let temp = this.AllSections.filter(Section => Section.courseId == this.SelectedCourseId);
       this.treeDataStructure.setData(temp);
       this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
       this.SectionToAddOrUpdate = this.SectionsOfSelectedCourse.filter(s => s.id === sectionId)[0];
+    } else
+    {
+      this.inputForm.disable();
     }
   }
 }

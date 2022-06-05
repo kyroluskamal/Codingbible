@@ -6,7 +6,6 @@ import { ClientSideValidationService } from 'src/CommonServices/client-side-vali
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { SelectedTextData } from 'src/Interfaces/interfaces';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
@@ -39,15 +38,7 @@ export class SectionModalComponent implements OnInit, OnChanges
   AllSections$ = this.store.select(selectAllSections);
   OldLevel: number = 0;
   VedioID = "";
-  selectedText: SelectedTextData = {
-    Range: new Range(),
-    text: "",
-    start: -1,
-    end: -1,
-    anchorNode: null,
-    focusNode: null,
-  };
-  sectionssForSelectmenu: Section[] = [];
+  sectionsForSelectmenu: Section[] = [];
   @Input() ActionType: string = "";
   @Input() UpdateObject: Section = new Section();
   @Input() ModalId: string = "SectionModal";
@@ -61,7 +52,7 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     if (this.ActionType == PostType.Edit)
     {
-      let parent = this.sectionssForSelectmenu.filter(cat => cat.id == this.SectionForm.get("id")?.value)[0];
+      let parent = this.sectionsForSelectmenu.filter(cat => cat.id == this.SectionForm.get("id")?.value)[0];
       this.OldLevel = parent?.level;
     } else
     {
@@ -106,7 +97,7 @@ export class SectionModalComponent implements OnInit, OnChanges
     this.AllSections$.subscribe(sections =>
     {
       this.TreeStructure.setData(sections);
-      this.sectionssForSelectmenu = this.TreeStructure.finalFlatenArray();
+      this.sectionsForSelectmenu = this.TreeStructure.finalFlatenArray();
       if (this.ActionType == PostType.Add)
       {
         this.SectionForm.reset();
@@ -149,7 +140,7 @@ export class SectionModalComponent implements OnInit, OnChanges
     section.courseId = this.CourseId;
     if (section.parentKey === 0)
       section.parentKey = null;
-    let parent = this.sectionssForSelectmenu.filter(cat => cat.id == section.parentKey)[0];
+    let parent = this.sectionsForSelectmenu.filter(cat => cat.id == section.parentKey)[0];
     if (section.parentKey == null || section.parentKey == 0)
     {
       section.level = 0;
@@ -158,6 +149,15 @@ export class SectionModalComponent implements OnInit, OnChanges
       section.level = parent?.level + 1;
     }
     section.slug = section.title.split(" ").join("-");
+    let sbllings = this.sectionsForSelectmenu.filter(cat => cat.parentKey == section.parentKey);
+    if (sbllings.length > 0)
+    {
+      section.order = sbllings[sbllings.length - 1].order + 1;
+    }
+    else
+    {
+      section.order = 1;
+    }
     this.store.dispatch(AddSection(section));
     this.SectionForm.reset();
   }
@@ -171,7 +171,7 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       newSection.parentKey = null;
     }
-    let parent = this.sectionssForSelectmenu.filter(sec => sec.id == newSection.parentKey)[0];
+    let parent = this.sectionsForSelectmenu.filter(sec => sec.id == newSection.parentKey)[0];
 
     if (newSection.parentKey === 0 || parent == null)
     {

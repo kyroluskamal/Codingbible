@@ -5,38 +5,56 @@
             class="bg-light p-1 border-bottom border-1 border-dark">
             <span>{{Section.name}}</span>
         </h5>
-        <div class="p-2 lessons">
+        <div class="lessons">
             <div *ngFor="let s of selectedLessons"
-                 class="d-flex flex-sm-row flex-column justify-content-between bg-white rounded-1 my-3 p-2 mat-elevation-z3 border-purple">
-                <div class="text-center">
-                    {{s.name}}
+                 class="mx-1 row bg-white rounded-1 my-3 p-2 mat-elevation-z3 border-purple">
+                <div class="col-sm-7 col-12 ps-1">
+                    <div class="row">
+                        <div class="col-1">
+                            <div class="d-flex align-items-center h-100">
+                                <div class="fw-bold badge bg-primary">{{s.orderWithinSection}} </div>
+                            </div>
+                        </div>
+                        <div class="col-11">
+                            <div class="d-flex align-items-center h-100">
+                                {{s.name}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex flex-row justify-content-center gap-2 small">
-                    <span class="text-dark"
-                          *ngIf="s.vedioUrl!==''&&s.htmlContent!==''">
-                        <span class="text-success">Video</span> |
-                        <span class="text-success">Content</span>
-                    </span>
-                    <span class="text-dark"
-                          *ngIf="s.vedioUrl!==''&&s.htmlContent===''">
-                        <span class="text-success">Video</span> |
-                        <span class="text-danger text-decoration-line-through">Content</span>
-                    </span>
-                    <span class="text-dark"
-                          *ngIf="s.vedioUrl===''&&s.htmlContent!==''">
-                        <span class="text-danger text-decoration-line-through">Video</span> |
-                        <span class="text-success">Content</span>
-                    </span>
-                    <span class="text-dark"
-                          *ngIf="s.vedioUrl===''&&s.htmlContent===''">
-                        <span class="text-danger text-decoration-line-through">Video</span> |
-                        <span class="text-danger text-decoration-line-through">Content</span>
-                    </span>
-                    <span class="text-dark">
-                        {{s.status===PostStatus.Draft?'Draft':'Published'}}
-                    </span>
-                    <a class="btn py-0 px-1 text-primary small"
-                       (click)="openToEdit(s.id)">Edit</a>
+                <div class="col-sm-5 col-12 small ps-1 ">
+                    <div class="h-100 d-flex flex-row flex-wrap align-items-center gap-2 justify-content-between">
+                        <span *ngIf="s.vedioUrl&&s.htmlContent"
+                              class="d-flex gap-1">
+                            <span class="badge bg-success">Video</span>
+                            <span class="badge bg-success">Content</span>
+                        </span>
+                        <span *ngIf="s.vedioUrl&&!s.htmlContent"
+                              class="d-flex gap-1">
+                            <span class="badge bg-success">Video</span>
+                            <span class="badge bg-danger">Content</span>
+                        </span>
+                        <span *ngIf="!s.vedioUrl&&s.htmlContent"
+                              class="d-flex gap-1">
+                            <span class="badge bg-danger">Video</span>
+                            <span class="badge bg-success">Content</span>
+                        </span>
+                        <span *ngIf="!s.vedioUrl&&!s.htmlContent"
+                              class="d-flex gap-1">
+                            <span class="badge bg-danger">Video</span>
+                            <span class="badge bg-danger">Content</span>
+                        </span>
+                        <span class="badge bg-info text-dark"
+                              *ngIf="s.status===PostStatus.Published">
+                            Published
+                        </span>
+                        <span class="badge bg-warning text-dark"
+                              *ngIf="s.status===PostStatus.Draft">
+                            Draft
+                        </span>
+                        <a class="btn py-0 px-1 text-primary d-flex justify-content-end"
+                           (click)="openToEdit(s.id)"><small>Edit</small></a>
+                    </div>
                 </div>
             </div>
         </div>

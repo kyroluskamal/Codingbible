@@ -23,6 +23,12 @@ export const GetLessonById_Success = createAction(actionNames.LessonActions.GetL
     props<Lesson>());
 export const GetLessonById_Failed = createAction(actionNames.LessonActions.GetLessonById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const GetLessonByCourseId = createAction(actionNames.LessonActions.GetLessonByCourseId,
+    props<{ courseId: number; }>());
+export const GetLessonByCourseId_Success = createAction(actionNames.LessonActions.GetLessonByCourseId_Success,
+    props<{ payload: Lesson[]; }>());
+export const GetLessonByCourseId_Failed = createAction(actionNames.LessonActions.GetLessonByCourseId_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const GetLessonsByCourseId = createAction(actionNames.LessonActions.GetLessonsByCourseId,
     props<{ courseId: number; sectionId: number; }>());
 export const GetLessonsByCourseId_Success = createAction(actionNames.LessonActions.GetLessonsByCourseId_Success,
@@ -34,6 +40,12 @@ export const UpdateLesson = createAction(actionNames.LessonActions.UPDATE_Lesson
 export const UpdateLesson_Sucess = createAction(actionNames.LessonActions.UPDATE_Lesson_Success,
     props<{ Lesson: Update<Lesson>; }>());
 export const UpdateLesson_Failed = createAction(actionNames.LessonActions.UPDATE_Lesson_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const UpdateLesson_Order = createAction(actionNames.LessonActions.UpdateLesson_Order,
+    props<{ Lessons: Lesson[]; }>());
+export const UpdateLesson_Order_Success = createAction(actionNames.LessonActions.UpdateLesson_Order,
+    props<{ Lessons: Lesson[]; }>());
+export const UpdateLesson_Order_Failed = createAction(actionNames.LessonActions.UpdateLesson_Order,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveLesson = createAction(actionNames.LessonActions.REMOVE_Lesson,
     props<{ id: number; url: string; }>());

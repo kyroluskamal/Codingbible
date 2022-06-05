@@ -1,6 +1,6 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { SectionsState } from "../app.state";
-import { AdditionIsComplete, AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionById_Failed, GetSectionById_Success, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AdditionIsComplete, AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, GetSectionById_Failed, GetSectionById_Success, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSectionOrder_Failed, UpdateSectionOrder_Sucess, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 
 import * as adapter from "./sections.adapter";
 
@@ -89,6 +89,14 @@ export const SectionsReducer = createReducer(
         return adapter.SectionsAdapter.upsertMany(res.payload, state);
     }),
     on(GetSectionsByCourseId_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(UpdateSectionOrder_Sucess, (state, res) => adapter.SectionsAdapter.upsertMany(res.payload, state)),
+    on(UpdateSectionOrder_Failed, (state, res) =>
     {
         return {
             ...state,

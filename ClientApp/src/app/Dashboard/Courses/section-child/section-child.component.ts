@@ -50,12 +50,14 @@ export class SectionChildComponent implements OnInit
     });
     this.AllLessons$.subscribe(lessons =>
     {
-      this.selectedLessons = lessons.filter(lesson => lesson.sectionId == this.Section?.id);
+      this.selectedLessons = lessons.filter(lesson => lesson.sectionId == this.Section?.id)
+        .sort((a, b) => a.orderWithinSection - b.orderWithinSection);
     });
   }
   getChildren()
   {
-    this.children = this.AllSections.filter(section => section.parentKey == Number(this.Section?.id));
+    this.children = this.AllSections.filter(section => section.parentKey == Number(this.Section?.id))
+      .sort((a, b) => a.order - b.order);
     return this.children;
   }
   openToEdit(LessonId: number)

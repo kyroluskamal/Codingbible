@@ -138,7 +138,9 @@ export class ShowAllLessonsComponent implements OnInit
   {
     if (lesson)
     {
-      this.store.dispatch(RemoveLesson({ id: lesson.id, url: DashboardRoutes.Courses.Lessons.EditLesson }));
+      this.store.dispatch(RemoveLesson({ id: lesson.id, url: "" }));
+      this.selectedLessons = this.AllLessons.filter(Section => Section.courseId == this.SelectedCourseId &&
+        Section.sectionId == lesson.sectionId);
     }
   }
   onSectionChange(SectionId: string)

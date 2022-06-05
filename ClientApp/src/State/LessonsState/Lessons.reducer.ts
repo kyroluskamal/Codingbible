@@ -11,7 +11,7 @@ import
     LoadLessonsFail,
     LoadLessonsSuccess,
     RemoveLesson_Failed, RemoveLesson_Success, SetCurrentSelectedLesson, SetValidationErrors,
-    UpdateLesson_Failed, UpdateLesson_Sucess
+    UpdateLesson_Failed, UpdateLesson_Order_Failed, UpdateLesson_Order_Success, UpdateLesson_Sucess
 } from "./Lessons.actions";
 import * as adapter from "./Lessons.adapter";
 
@@ -123,7 +123,23 @@ export const LessonsReducer = createReducer(
             ...state,
             CurrentSelectedLesson: res
         };
-    })
+    }),
+    on(GetLessonsByCourseId_Success, (state, res) => adapter.LessonsAdapter.upsertMany(res.payload, state)),
+    on(GetLessonsByCourseId_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
+    on(UpdateLesson_Order_Success, (state, res) => adapter.LessonsAdapter.upsertMany(res.Lessons, state)),
+    on(UpdateLesson_Order_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
 );
 
 export function prticleReducer(state: any, action: Action)

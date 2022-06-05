@@ -73,7 +73,7 @@
                        errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
                        'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Lesson.title"
-                   (input)="CheckIfSulgNotUnique(title.value)"
+                   (blur)="CheckIfSulgNotUnique(title.value)"
                    id="CourseName">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"

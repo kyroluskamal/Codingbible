@@ -10,7 +10,7 @@
         <span *ngIf="ActionType===PostType.Edit">Edit Lesson : #{{(LessonById|async)?.id}}</span>
     </h1>
     <!-- ------------------------------------------------------------------------------- 
-    |                               Title Add ot Edit
+    |                               Course and Section selectors
     ------------------------------------------------------------------------------------>
     <div class="row mb-3 d-flex flex-column gap-2">
         <div class="d-flex flex-row col-md-9 col-12">
@@ -53,7 +53,9 @@
                 <option [value]="c.id"
                         [disabled]="!c.isLeafSection"
                         [style.margin-left]="c.level*10+'px'"
-                        *ngFor="let c of SectionsOfSelectedCourse">{{c.name}}</option>
+                        *ngFor="let c of SectionsOfSelectedCourse">
+                    <span *ngFor="let _ of [].constructor(c.level)">&nbsp;&nbsp;</span>{{c.name}}
+                </option>
             </select>
             <a class="btn btn-sm px-1 noShadow"
                tooltip="Add new section"
@@ -83,7 +85,7 @@
      |                               Sticky notes for errors
     ------------------------------------------------------------------------------------>
     <div class="d-flex flex-row"
-         id="StickyNotesContainer"
+         id="StickyNotesContainerLesson"
          #StickyNotesContainer>
         <div [class]="inputForm.invalid?
         'alert alert-info d-flex justify-content-center align-items-center'
@@ -115,11 +117,11 @@
                         characters only</span>
                 </li>
                 <li *ngIf="
-                inputForm.get(FormControlNames.LessonForm.slug)?.hasError('notUnique')
+                inputForm.get(FormControlNames.LessonForm.title)?.hasError('notUnique')
                 || 
-                inputForm.get(FormControlNames.LessonForm.slug)?.hasError('notUnique')"
+                inputForm.get(FormControlNames.LessonForm.title)?.hasError('notUnique')"
                     class="text-danger">
-                    Slug should be unique. If you see this, this means that you have a post with the same title
+                    Title should be unique. If you see this, this means that you have a post with the same title
                 </li>
                 <li
                     *ngIf="!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value">
@@ -199,7 +201,7 @@
                        errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
                        'form-control is-invalid':'form-control is-valid'"
                        [placeholder]="FormFieldsNames.Lesson.title"
-                       (input)="CheckIfSulgNotUnique(title.value)"
+                       (blur)="CheckIfSulgNotUnique(title.value)"
                        id="CourseName">
                 <div class="validationDiv">
                     <span class="invalid-feedback d-block m-0"
@@ -216,6 +218,10 @@
                           *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError(FormValidationErrorsNames.maxlength)
                 &&errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)">
                         {{FormValidationErrors.SEO_Title_Length}}
+                    </span>
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.title)?.hasError('notUnique')">
+                        {{FormValidationErrors.Slug_Not_Unique}}
                     </span>
                 </div>
                 <label for="CourseTitle">{{FormFieldsNames.Lesson.title}}<sup class="text-danger">*</sup>
@@ -326,13 +332,12 @@
                     <span *ngIf="(LessonById|async) && ActionType!=PostType.Add"><strong>Status: </strong>
                         <span *ngIf="(LessonById|async)?.status===0">Draft</span>
                         <span *ngIf="(LessonById|async)?.status===1">Published</span>
-                        <a *ngIf="(LessonById|async)?.status===1 && ActionType!=PostType.Add"
-                           class="cursor-pointer ps-1"
-                           (click)="changeStatus(0)">Set as draft</a>
-
-                        <a *ngIf="(LessonById|async)?.status===0 && ActionType!=PostType.Add"
-                           class="cursor-pointer ps-1"
-                           (click)="changeStatus(1)">Publish</a>
+                        <span *ngIf="(LessonById|async)?.status===1 && ActionType!=PostType.Add"> (<a
+                               class="cursor-pointer"
+                               (click)="changeStatus(0)">Set as draft</a>)</span>
+                        <span *ngIf="(LessonById|async)?.status===0 && ActionType!=PostType.Add">
+                            (<a [class]="inputForm.valid||(LessonById|async)?.htmlContent ||(LessonById|async)?.vedioUrl"
+                               (click)="changeStatus(1)">Publish</a>)</span>
                     </span>
                     <span *ngIf="(LessonById|async)"><strong>Created At: </strong>
                         <span *ngIf="ActionType!=PostType.Add">{{(LessonById|async)?.dateCreated|date}}</span>

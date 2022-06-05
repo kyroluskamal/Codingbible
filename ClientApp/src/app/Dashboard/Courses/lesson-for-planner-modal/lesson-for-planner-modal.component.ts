@@ -29,6 +29,7 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   lessons: Lesson[] = [];
   lesson: Lesson = new Lesson();
   SelectedSectionId: number = 0;
+  SelectedSection: Section = new Section();
   Sections$ = this.store.select(selectAllSections);
   errorState = new BootstrapErrorStateMatcher();
   selectedSections: Section[] = [];
@@ -61,7 +62,6 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       if ("UpdateObject" in changes)
       {
         this.UpdateObject = changes['UpdateObject'].currentValue;
-        console.log(this.UpdateObject);
         this.inputForm.get(FormControlNames.LessonForm.name)?.setValue(this.UpdateObject.name);
         this.inputForm.get(FormControlNames.LessonForm.description)?.setValue(this.UpdateObject.description);
         this.inputForm.get(FormControlNames.LessonForm.title)?.setValue(this.UpdateObject.title);
@@ -105,27 +105,24 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       this.isSlugUnique(slug);
     } else if (this.LessonActionType === PostType.Edit && this.ClientSideService.isUpdated(this.lesson, this.inputForm))
     {
-      this.isSlugUnique(slug);
+      if (this.lesson.slug !== slug)
+        this.isSlugUnique(slug);
     }
   }
   isSlugUnique(slug: string)
   {
-    if (this.lessons.length > 0)
-    {
-      if (this.ClientSideService.isNotUnique(this.lessons, 'slug', slug))
-        this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: true });
-      else
-        this.inputForm.get(FormControlNames.LessonForm.title)?.clearValidators();
-    } else
-      this.LessonService.IsLessonSlug_NOT_Unique(slug).subscribe(
-        r =>
+    this.LessonService.IsLessonSlug_NOT_Unique(slug, this.SelectedSectionId, this.courseId).subscribe(
+      r =>
+      {
+        if (r)
+          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: r });
+        else
         {
-          if (r)
-            this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: true });
-          else
-            this.inputForm.get(FormControlNames.LessonForm.title)?.clearValidators();
+          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors(null);
+
         }
-      );
+      }
+    );
   }
   AddNewLesson()
   {
@@ -139,6 +136,7 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   {
     if (this.SelectedSectionId > 0)
     {
+      this.SelectedSection = this.selectedSections.filter(section => section.id === this.SelectedSectionId)[0];
       this.inputForm.enable();
     }
     else
@@ -155,6 +153,15 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     lesson.slug = this.ClientSideService.GenerateSlug(lesson.title);
     lesson.sectionId = this.SelectedSectionId;
     lesson.courseId = this.courseId;
+    if (this.LessonActionType === PostType.Add)
+    {
+      let selectedLessonsBySection = this.lessons.filter(x => x.sectionId === Number(this.SelectedSectionId)
+        && x.courseId === Number(this.SelectedSection.courseId)).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
+      if (selectedLessonsBySection.length > 0)
+        lesson.orderWithinSection = selectedLessonsBySection[selectedLessonsBySection.length - 1].orderWithinSection + 1;
+      else
+        lesson.orderWithinSection = 1;
+    }
     return lesson;
   }
 }

@@ -511,6 +511,12 @@ export const actionNames = {
         UpdateIsCompleted: '[Lesson UpdateIsCompleted] request',
         AdditionIsCompleted: '[Lesson AdditionIsCompleted] Sucess',
         SetCurrentSelectedLesson: '[Lesson SetCurrentSelectedLesson] request',
+        GetLessonByCourseId: '[Lesson GetLessonByCourseId] request',
+        GetLessonByCourseId_Success: '[Lesson GetLessonByCourseId] Sucess',
+        GetLessonByCourseId_Failed: '[Lesson GetLessonByCourseId] Failed',
+        UpdateLesson_Order: '[Lesson UpdateLesson_Order] request',
+        UpdateLesson_Order_Success: '[Lesson UpdateLesson_Order] Sucess',
+        UpdateLesson_Order_Failed: '[Lesson UpdateLesson_Order] Failed',
     },
     SectionActions: {
         ADD_Section: '[Add Section] Request',
@@ -537,6 +543,9 @@ export const actionNames = {
         GetSectionsByCourseId: '[GetSectionsByCourseId] request',
         GetSectionsByCourseId_Success: '[GetSectionsByCourseId] Sucess',
         GetSectionsByCourseId_Failed: '[GetSectionsByCourseId] Failed',
+        UpdateSectionOrder: '[Section UpdateSectionOrder] request',
+        UpdateSectionOrder_Success: '[Section UpdateSectionOrder] Sucess',
+        UpdateSectionOrder_Failed: '[Section UpdateSectionOrder] Failed',
     }
 };
 

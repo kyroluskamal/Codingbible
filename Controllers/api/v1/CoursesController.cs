@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using CodingBible.Services.AuthenticationService;
 using Serilog;
 using Microsoft.AspNetCore.Cors;
+using System.Collections.Generic;
 
 namespace CodingBible.Controllers.api.v1;
 
@@ -810,6 +811,40 @@ public class CoursesController : ControllerBase
             return BadRequest(ex);
         }
     }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(UpdateSectionOrder))]
+    public async Task<IActionResult> UpdateSectionOrder([FromBody] Section[] sections)
+    {
+        try
+        {
+            var getSections = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == sections[0].CourseId && x.ParentKey == sections[0].ParentKey);
+
+            foreach (var section in sections)
+            {
+                var getSection = getSections.FirstOrDefault(x => x.Id == section.Id);
+                if (getSection != null)
+                {
+                    getSection.Order = section.Order;
+                }
+            }
+            UnitOfWork.Sections.UpdateRange(getSections);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Update_Sucess("Section Order", getSections));
+            }
+            return BadRequest(Constants.HttpResponses.Update_Failed("Section Order"));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+              ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return BadRequest(ex);
+        }
+    }
+
     #endregion
     /******************************************************************************
     *                                   Lessons CRUD
@@ -869,6 +904,26 @@ public class CoursesController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+    [HttpGet]
+    [Route(nameof(GetLessonByCourseId) + "/{courseId}")]
+    public async Task<IActionResult> GetLessonByCourseId([FromRoute] int courseId)
+    {
+        try
+        {
+            var lesson = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments");
+            if (lesson == null)
+            {
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
+            }
+            return Ok(lesson);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
     [HttpPost]
     [Authorize(AuthenticationSchemes = "Custom")]
     [ValidateAntiForgeryTokenCustom]
@@ -894,7 +949,7 @@ public class CoursesController : ControllerBase
                 {
                     return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
                 }
-                var newLesson = new Lesson();
+                Lesson newLesson = new();
                 newLesson.Name = lesson.Name;
                 newLesson.Title = lesson.Title;
                 newLesson.Slug = lesson.Slug;
@@ -1076,7 +1131,7 @@ public class CoursesController : ControllerBase
                 */
                 if (result > 0)
                 {
-                    return Ok(Constants.HttpResponses.Update_Sucess($"{getLesson.Title}"));
+                    return Ok(Constants.HttpResponses.Update_Sucess($"{getLesson.Title}", getLesson));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed($"{getLesson.Title}"));
             }
@@ -1089,12 +1144,40 @@ public class CoursesController : ControllerBase
             return BadRequest(ex);
         }
     }
+    [HttpPut]
+    [Authorize(AuthenticationSchemes = "Custom")]
+    [ValidateAntiForgeryTokenCustom]
+    [Route(nameof(ChangeLessonOrder))]
+    public async Task<IActionResult> ChangeLessonOrder([FromBody] Lesson[] lessons)
+    {
+        try
+        {
+            var getLessons = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lessons[0].SectionId && x.CourseId == lessons[0].CourseId);
+            foreach (var l in lessons)
+            {
+                getLessons.FirstOrDefault(x => x.Id == l.Id).OrderWithinSection = l.OrderWithinSection;
+            }
+            UnitOfWork.Lessons.UpdateRange(getLessons);
+            var result = await UnitOfWork.SaveAsync();
+            if (result > 0)
+            {
+                return Ok(Constants.HttpResponses.Update_Sucess("Lesson", getLessons));
+            }
+            return BadRequest(Constants.HttpResponses.Update_Failed("Lesson"));
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+              ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return BadRequest(ex);
+        }
+    }
     [HttpGet]
     [Authorize(AuthenticationSchemes = "Custom")]
-    [Route(nameof(IsLessonSlug_NOT_Unique) + "/{slug}")]
-    public async Task<IActionResult> IsLessonSlug_NOT_Unique([FromRoute] string slug)
+    [Route(nameof(IsLessonSlug_NOT_Unique) + "/{slug}/{sectionId}/{courseId}")]
+    public async Task<IActionResult> IsLessonSlug_NOT_Unique([FromRoute] string slug, [FromRoute] int sectionId, [FromRoute] int courseId)
     {
-        return Ok(await UnitOfWork.Lessons.IsNotUnique(x => x.Slug == slug));
+        return Ok(await UnitOfWork.Lessons.IsSlugNotUniqueInSection(slug, sectionId, courseId));
     }
     #endregion
 

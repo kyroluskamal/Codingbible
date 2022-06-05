@@ -17,11 +17,10 @@ import { selectAllposts } from 'src/State/PostState/post.reducer';
 })
 export class MenusComponent implements OnInit
 {
-  constructor(private title: Title, public spinner: SpinnerService,
+  constructor(public spinner: SpinnerService,
     private store: Store, private fb: FormBuilder, private TreeDataStructure: TreeDataStructureService<MenuItem>,
     @Inject(DOCUMENT) private document: Document) 
   {
-    this.title.setTitle('Menus');
   }
   Form: FormGroup = this.fb.group({
     parent: [],

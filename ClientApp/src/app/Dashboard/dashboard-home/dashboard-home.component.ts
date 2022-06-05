@@ -255,15 +255,20 @@ export class DashboardHomeComponent implements OnInit
   HideStickyNotes()
   {
     let url = this.router.url;
+    let stickyNote = this.document.getElementById("StickyNotesContainer");
+    let stickyNoteLesson = this.document.getElementById("StickyNotesContainerLesson");
     if (!url.includes(DashboardRoutes.Posts.AddPost)
       && !url.includes(DashboardRoutes.Posts.EditPost)
-      && !url.includes(DashboardRoutes.Courses.Lessons.AddLesson)
-      && !url.includes(DashboardRoutes.Courses.Lessons.EditLesson)
     )
     {
-      let stickyNote = this.document.getElementById("StickyNotesContainer");
       if (stickyNote)
-        stickyNote?.remove();
+        stickyNote.remove();
+    }
+    if (!url.includes(DashboardRoutes.Courses.Lessons.AddLesson)
+      && !url.includes(DashboardRoutes.Courses.Lessons.EditLesson))
+    {
+      if (stickyNoteLesson)
+        stickyNoteLesson.remove();
     }
   }
 }

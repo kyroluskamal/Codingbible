@@ -23,8 +23,16 @@ export class LessonsService extends ApiCallService<Lesson>
   {
     return this.HttpClient.put<HttpResponsesObject>(CoursesController.ChangLessonStatus, Lesson);
   }
-  IsLessonSlug_NOT_Unique(slug: string)
+  IsLessonSlug_NOT_Unique(slug: string, sectionId: number, courseId: number)
   {
-    return this.HttpClient.get<HttpResponsesObject>(`${CoursesController.IsLessonSlug_NOT_Unique}/${slug}`);
+    return this.HttpClient.get<boolean>(`${CoursesController.IsLessonSlug_NOT_Unique}/${slug}/${sectionId}/${courseId}`);
+  }
+  GetLessonByCourseId(courseId: number): Observable<Lesson[]>
+  {
+    return this.HttpClient.get<Lesson[]>(`${CoursesController.GetLessonsByCourseId}/${courseId}`);
+  }
+  ChangeLessonOrder(lesson: Lesson[]): Observable<HttpResponsesObject>
+  {
+    return this.HttpClient.put<HttpResponsesObject>(CoursesController.ChangeLessonOrder, lesson);
   }
 }

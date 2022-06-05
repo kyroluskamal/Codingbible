@@ -103,7 +103,7 @@
                             (change)="onChange(parent)"
                             aria-label="Select parent section">
                         <option value="0">No parent</option>
-                        <option *ngFor="let sec of sectionssForSelectmenu"
+                        <option *ngFor="let sec of sectionsForSelectmenu"
                                 [value]="sec.id"
                                 [disabled]="sec.id === SectionForm.get('id')?.value || sec.isLeafSection">
                             <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}

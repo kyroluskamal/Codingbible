@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
 import { props, Store } from "@ngrx/store";
-import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
+import { catchError, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
 import { SpinnerService } from "src/CommonServices/spinner.service";
@@ -11,7 +11,7 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Section } from "src/models.model";
 import { SectionsService } from "src/Services/sections.service";
-import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionsByCourseId, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionsByCourseId, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSectionOrder, UpdateSectionOrder_Sucess, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 import { selectAllSections } from "./sections.reducer";
 
 
@@ -177,4 +177,28 @@ export class SectionsEffects
             })
         )
     );
+    UpdateSectionOrder$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UpdateSectionOrder),
+            mergeMap((action) =>
+            {
+                return this.SectionService.UpdateSectionOrder(action.payload).pipe(
+                    map((r) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section order'));
+                        this.store.dispatch(UpdateSectionOrder_Sucess({ payload: r.data as Section[] }));
+                        return UpdateIsCompleted({ status: true });
+                    }),
+                    catchError((e) =>
+                    {
+                        this.spinner.removeSpinner();
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Update('Section order'));
+                        return of(UpdateIsCompleted({ status: false }));
+                    })
+                );
+            })
+        )
+    );
 }
+

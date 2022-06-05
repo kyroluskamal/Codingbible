@@ -137,7 +137,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       {
         this.selected_Vedio = <HTMLIFrameElement>this.document.activeElement;
         this.VedioForm.get('src')?.setValue(this.selected_Vedio.src);
-        this.VedioForm.get('width')?.setValue(Number(this.selected_Vedio?.parentElement?.style.width.replace("%", "")));
+        this.VedioForm.get('width')?.setValue(Number(this.selected_Vedio.parentElement?.style.width.replace("%", "")));
         this.widthOfVedio.setValue(Number(this.selected_Vedio.parentElement?.style.width.replace("%", "")));
         this.VedioTagHandling.nativeElement.setAttribute("class", 'd-block');
         this.anchorTagHandling.nativeElement.setAttribute("class", "d-none");
@@ -335,24 +335,33 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
       vedioId = vedioLink.split("youtube.com/watch?v=");
     vedioId = vedioId[vedioId.length - 1];
     this.widthOfVedio.setValue(this.VedioForm.get('width')?.value);
-    (<HTMLIFrameElement>this.selected_Vedio?.parentElement).style.width = `${this.widthOfVedio.value}%`;
-    this.selected_Vedio?.setAttribute("src", `https://www.youtube.com/embed/${vedioId}`);
-    this.selected_Vedio?.parentElement?.setAttribute("id", `${vedioId}`);
-    this.selected_Vedio?.parentElement?.setAttribute("data-source", `${vedioLink}`);
+    if (this.selected_Vedio)
+    {
+      (<HTMLIFrameElement>this.selected_Vedio.parentElement).style.width = `${this.widthOfVedio.value}%`;
+      this.selected_Vedio.setAttribute("src", `https://www.youtube.com/embed/${vedioId}`);
+      this.selected_Vedio.parentElement?.setAttribute("id", `${vedioId}`);
+      this.selected_Vedio.parentElement?.setAttribute("data-source", `${vedioLink}`);
+    }
     this.UpdateHtml();
   }
   changeVideoALignment(alignmentType: string)
   {
-    let classList = this.removeAlignments(this.selected_Vedio?.parentElement?.getAttribute("class")!);
-    classList?.push(`align-${alignmentType}`);
-    this.selected_Vedio?.parentElement?.setAttribute("class", classList.join(" "));
-    this.UpdateHtml();
+    if (this.selected_Vedio)
+    {
+      let classList = this.removeAlignments(this.selected_Vedio.parentElement?.getAttribute("class")!);
+      classList?.push(`align-${alignmentType}`);
+      this.selected_Vedio.parentElement?.setAttribute("class", classList.join(" "));
+      this.UpdateHtml();
+    }
   }
   removeVedioAlignment()
   {
-    let classList = this.removeAlignments(this.selected_Vedio?.parentElement?.getAttribute("class")!);
-    this.selected_Vedio?.parentElement?.setAttribute("class", classList.join(" "));
-    this.UpdateHtml();
+    if (this.selected_Vedio)
+    {
+      let classList = this.removeAlignments(this.selected_Vedio.parentElement?.getAttribute("class")!);
+      this.selected_Vedio.parentElement?.setAttribute("class", classList.join(" "));
+      this.UpdateHtml();
+    }
   }
   deleteVedio()
   {
@@ -364,7 +373,8 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   {
     console.log(width);
     this.VedioForm.get('width')?.setValue(Number(width));
-    (<HTMLDivElement>this.selected_Vedio?.parentElement).style.width = `${width}%`;
+    if (this.selected_Vedio)
+      (<HTMLDivElement>this.selected_Vedio.parentElement).style.width = `${width}%`;
     this.UpdateHtml();
   }
   /**********************************************************************************
@@ -387,28 +397,32 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   changeImageAligment(alignmentType: string)
   {
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    if (image)
     {
-      let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
-      classList?.push(`align-${alignmentType}`);
-      image.parentElement.setAttribute("class", classList.join(" "));
+      if (image.parentElement?.nodeName.toLowerCase() === "figure")
+      {
+        let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
+        classList?.push(`align-${alignmentType}`);
+        image.parentElement.setAttribute("class", classList.join(" "));
+      }
+      else
+      {
+        let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
+        classList?.push(`align-${alignmentType}`);
+        image?.setAttribute("class", classList?.join(" ")!);
+      }
+      this.UpdateHtml();
     }
-    else
-    {
-      let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
-      classList?.push(`align-${alignmentType}`);
-      image?.setAttribute("class", classList?.join(" ")!);
-    }
-    this.UpdateHtml();
   }
   deleteImage()
   {
     let image = this.view.querySelector(`[data-atachid="${this.selectedImage?.getAttribute("data-atachid")}"]`);
     let attachment = this.allAttachments.filter(attachment => attachment.id === Number(image?.getAttribute("data-atachId")))[0];
-    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
-      image.parentElement.remove();
-    else
-      image?.remove();
+    if (image)
+      if (image.parentElement?.nodeName.toLowerCase() === "figure")
+        image.parentElement.remove();
+      else
+        image.remove();
     this.UpdateHtml();
     this.ImageTagHandling.nativeElement.setAttribute("class", "d-none");
     this.selectedImage = null;
@@ -416,32 +430,36 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   removeImageAlignment()
   {
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    if (image)
     {
-      let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
-      image.parentElement.setAttribute("class", classList.join(" "));
-    } else
-    {
-      let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
-      image?.setAttribute("class", classList?.join(" ")!);
+      if (image.parentElement?.nodeName.toLowerCase() === "figure")
+      {
+        let classList = this.removeAlignments(image.parentElement.getAttribute("class")!);
+        image.parentElement.setAttribute("class", classList.join(" "));
+      } else
+      {
+        let classList = this.removeAlignments(this.selectedImage?.getAttribute("class")!);
+        image.setAttribute("class", classList?.join(" ")!);
+      }
+      this.UpdateHtml();
     }
-    this.UpdateHtml();
   }
   changeImageSize(width: string)
   {
     this.ImageForm.get("width")?.setValue(Number(width));
     let image = <HTMLImageElement>this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
-    {
-      image.parentElement.style.width = width + "%";
-      let classList = image.parentElement.getAttribute("class")!.split(" ");
-      classList = classList.filter(className => className !== 'w-100');
-      image.parentElement.setAttribute("class", classList.join(" "));
-    }
-    else
-    {
-      image?.setAttribute("width", width + "%");
-    }
+    if (image)
+      if (image.parentElement?.nodeName.toLowerCase() === "figure")
+      {
+        image.parentElement.style.width = width + "%";
+        let classList = image.parentElement.getAttribute("class")!.split(" ");
+        classList = classList.filter(className => className !== 'w-100');
+        image.parentElement.setAttribute("class", classList.join(" "));
+      }
+      else
+      {
+        image.setAttribute("width", width + "%");
+      }
     this.UpdateHtml();
   }
   AddNewImage()
@@ -455,42 +473,49 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   editImage()
   {
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    this.widthChangeFormControl.setValue(image?.getAttribute("width"));
-    image?.setAttribute("alt", this.ImageForm.get("alt")?.value);
-    image?.setAttribute("src", this.ImageForm.get("src")?.value);
-    if (image?.parentElement?.nodeName.toLowerCase() === "figure")
+    if (image)
     {
-      (<HTMLElement>image?.parentElement?.getElementsByTagName("figcaption")[0]).innerText = this.ImageForm.get("caption")?.value;
-      image.parentElement.style.width = this.ImageForm.get("width")?.value + "%";
-    } else if (image?.parentElement?.nodeName.toLowerCase() !== "figure" && this.ImageForm.get("caption")?.value !== '')
-    {
-      image?.setAttribute("width", "100%");
-      let figureWithCaption = `<figure class="figure align-center" style="width:${this.ImageForm.get("width")?.value}%">
-      ${image?.outerHTML}
-      <figcaption class="figure-caption text-center">${this.ImageForm.get("caption")?.value}</figcaption>
-    </figure>`;
-      image?.insertAdjacentHTML("beforebegin", figureWithCaption);
-      image?.remove();
-    } else if (image?.parentElement?.nodeName.toLowerCase() === "figure" && this.ImageForm.get("caption")?.value === '')
-    {
-      let imageCopy = image.cloneNode(true);
-      (<HTMLImageElement>imageCopy).setAttribute("width", this.ImageForm.get("width")?.value + "%");
-      (<HTMLImageElement>imageCopy).setAttribute("src", this.ImageForm.get("src")?.value + "%");
-      (<HTMLImageElement>imageCopy).setAttribute("alt", this.ImageForm.get("alt")?.value + "%");
-      image.parentElement.replaceWith(imageCopy);
+      this.widthChangeFormControl.setValue(image.getAttribute("width"));
+      image.setAttribute("alt", this.ImageForm.get("alt")?.value);
+      image.setAttribute("src", this.ImageForm.get("src")?.value);
+      if (image.parentElement)
+        if (image.parentElement.nodeName.toLowerCase() === "figure")
+        {
+          (<HTMLElement>image.parentElement.getElementsByTagName("figcaption")[0]).innerText = this.ImageForm.get("caption")?.value;
+          image.parentElement.style.width = this.ImageForm.get("width")?.value + "%";
+        } else if (image.parentElement.nodeName.toLowerCase() !== "figure" && this.ImageForm.get("caption")?.value !== '')
+        {
+          image.setAttribute("width", "100%");
+          let figureWithCaption = `<figure class="figure align-center" style="width:${this.ImageForm.get("width")?.value}%">
+                    ${image?.outerHTML}
+                    <figcaption class="figure-caption text-center">${this.ImageForm.get("caption")?.value}</figcaption>
+                    </figure>`;
+          image.insertAdjacentHTML("beforebegin", figureWithCaption);
+          image.remove();
+        } else if (image.parentElement?.nodeName.toLowerCase() === "figure" && this.ImageForm.get("caption")?.value === '')
+        {
+          let imageCopy = image.cloneNode(true);
+          (<HTMLImageElement>imageCopy).setAttribute("width", this.ImageForm.get("width")?.value + "%");
+          (<HTMLImageElement>imageCopy).setAttribute("src", this.ImageForm.get("src")?.value + "%");
+          (<HTMLImageElement>imageCopy).setAttribute("alt", this.ImageForm.get("alt")?.value + "%");
+          image.parentElement.replaceWith(imageCopy);
+        }
+        else
+          image.setAttribute("width", this.ImageForm.get("width")?.value + '%');
+      this.UpdateHtml();
     }
-    else
-      image?.setAttribute("width", this.ImageForm.get("width")?.value + '%');
-    this.UpdateHtml();
   }
   removeCaption()
   {
     let image = this.view.querySelector(`[src="${this.selectedImage?.getAttribute("src")}"]`);
-    let imageCopy = image?.cloneNode(true);
-    (<HTMLImageElement>imageCopy).setAttribute("width", image?.parentElement?.style.width!);
-    image?.parentElement?.replaceWith(imageCopy!);
-    this.ImageForm.get("caption")?.setValue("");
-    this.UpdateHtml();
+    if (image)
+    {
+      let imageCopy = image.cloneNode(true);
+      (<HTMLImageElement>imageCopy).setAttribute("width", image.parentElement?.style.width!);
+      image.parentElement?.replaceWith(imageCopy!);
+      this.ImageForm.get("caption")?.setValue("");
+      this.UpdateHtml();
+    }
   }
   /**********************************************************************************
    *                               Link handling

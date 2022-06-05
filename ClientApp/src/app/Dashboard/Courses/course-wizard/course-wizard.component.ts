@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -17,8 +17,9 @@ import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategor
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/course.actions';
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
-import { LoadLessons } from 'src/State/LessonsState/Lessons.actions';
-import { LoadSections } from 'src/State/SectionsState/sections.actions';
+import { LoadLessons, UpdateLesson_Order, UpdateLesson_Order_Success } from 'src/State/LessonsState/Lessons.actions';
+import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
+import { LoadSections, UpdateSectionOrder } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 import { SectionModalComponent } from '../section-modal/section-modal.component';
 
@@ -43,27 +44,49 @@ export class CourseWizardComponent implements OnInit
   DashboardRoutes = DashboardRoutes;
   Action: string = "";
   VedioID = "";
+  selectedLessonOrder = new FormControl(1);
   allCourses$ = this.store.select(selectAllCourses);
   AllCourseSections: Section[] = [];
   RootSections: Section[] = [];
   CourseId: number = 0;
   allCourses: Course[] = [];
+  SelectedLesson: Lesson = new Lesson();
+  SelectedLessonId: number = 0;
   CourseToAddOrUpdate: Course = new Course();
   CourseForm: FormGroup = new FormGroup({});
   SectionForm: FormGroup = new FormGroup({});
   DifficultyLevels = CourseDifficultyLevel;
   BaseUrl = BaseUrl;
   SectionActionType = "";
+  PreviousLesson: Lesson | null = null;
+  NextLesson: Lesson | null = null;
+  NewPreviousLesson: Lesson | null = null;
+  NewNextLesson: Lesson | null = null;
   AllSections$ = this.store.select(selectAllSections);
+  AllLessons$ = this.store.select(selectAllLessons);
+  AllLessons: Lesson[] = [];
   sectionssForSelectmenu: Section[] = [];
   SectionPostType: string = "";
   FeatureImageUrl: string = "";
   selectedCategories: number[] = [];
+  selectedLessonsBySectionId: Lesson[] = [];
   LessonActionType: string = "";
+  LessonOrderChanged: boolean = false;
+  SelectedSectionsId_ForFindingLessons: number = 0;
   CourseCats = this.store.select(selectAllCourseCategorys);
   SectionToEdit: Section = new Section();
   LessonToUpdate: Lesson = new Lesson();
   CourseCategorysArranged: CourseCategory[] = [];
+  SelectedSectionsId_For_SectionOrder: number = 0;
+  selectedSectionOrder: FormControl = new FormControl(1);
+  SectionSplings: Section[] = [];
+  SectionOrderChanged: boolean = false;
+  PreviousSection: Section | null = null;
+  NextSection: Section | null = null;
+  NewPreviousSection: Section | null = null;
+  NewNextSection: Section | null = null;
+  SeclectedSectionForOrderChange: Section | null = null;
+
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
     private TreeForSection: TreeDataStructureService<Section>,
@@ -76,6 +99,7 @@ export class CourseWizardComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.selectedLessonOrder.disable();
     this.store.dispatch(LoadSections());
     this.store.dispatch(LoadCourseCategorys());
     this.store.dispatch(LoadCourses());
@@ -136,18 +160,16 @@ export class CourseWizardComponent implements OnInit
           {
             this.AllSections$.subscribe(res =>
             {
-              this.TreeForSection.setData(res);
-              this.RootSections = this.TreeForSection.getRawRoots();
-              this.AllCourseSections = res.filter(x => x.courseId == Number(params['courseId']));
+              this.TreeForSection.setData(res.filter(x => x.courseId == Number(params['courseId'])));
+              this.RootSections = this.TreeForSection.getRawRoots().sort((a, b) => a.order - b.order);
+              this.AllCourseSections = this.TreeForSection.finalFlatenArray();
+              this.AllLessons$.subscribe(lessons => this.AllLessons = lessons);
             });
             this.spinner.fullScreenSpinner();
-
             this.SelectCourseById(Number(params['courseId']));
             this.ShowCurrentStep(params['step']);
           }
-
         }
-
       }
     });
     this.allCourses$.subscribe(courses => this.allCourses = courses);
@@ -333,5 +355,94 @@ export class CourseWizardComponent implements OnInit
     this.router.navigate([], {
       relativeTo: this.activatedRouter, queryParams: parmas
     });
+  }
+  SelectLessonBySection()
+  {
+    if (this.SelectedSectionsId_ForFindingLessons > 0)
+    {
+      this.selectedLessonsBySectionId = this.AllLessons.filter(lesson =>
+        lesson.sectionId === Number(this.SelectedSectionsId_ForFindingLessons)
+      );
+      this.selectedLessonsBySectionId.sort((a, b) => a.orderWithinSection - b.orderWithinSection);
+    }
+    else
+    {
+      this.selectedLessonsBySectionId = [];
+    }
+  }
+  SelectLesson()
+  {
+    if (this.SelectedLessonId > 0)
+    {
+      this.SelectedLesson = this.selectedLessonsBySectionId.filter(lesson => lesson.id === Number(this.SelectedLessonId))[0];
+      this.selectedLessonOrder.enable();
+      this.selectedLessonOrder.setValue(this.SelectedLesson.orderWithinSection);
+    } else
+    {
+      this.selectedLessonOrder.disable();
+    }
+    let currentLessonIndex = this.selectedLessonsBySectionId.indexOf(this.SelectedLesson);
+    this.PreviousLesson = currentLessonIndex > 0 ? this.selectedLessonsBySectionId[currentLessonIndex - 1] : null;
+    this.NextLesson = currentLessonIndex < this.selectedLessonsBySectionId.length - 1 ? this.selectedLessonsBySectionId[currentLessonIndex + 1] : null;
+  }
+  GetNewLessonPostion()
+  {
+    let newIndex = this.selectedLessonsBySectionId.findIndex(x => x.orderWithinSection === Number(this.selectedLessonOrder.value));
+    this.NewPreviousLesson = newIndex > 0 ? this.selectedLessonsBySectionId[newIndex - 1] : null;
+    this.NewNextLesson = newIndex < this.selectedLessonsBySectionId.length - 1 ? this.selectedLessonsBySectionId[newIndex + 1] : null;
+  }
+  UpdateLessonOrder()
+  {
+    let currentLessonIndex = this.selectedLessonsBySectionId.indexOf(this.SelectedLesson);
+    this.selectedLessonsBySectionId.splice(currentLessonIndex, 1);
+    this.selectedLessonsBySectionId.splice(Number(this.selectedLessonOrder.value) - 1, 0, this.SelectedLesson);
+    let cloneArray: Lesson[] = [];
+    cloneArray = JSON.parse(JSON.stringify(this.selectedLessonsBySectionId));
+    cloneArray.forEach((lesson, index) =>
+    {
+      lesson.orderWithinSection = index + 1;
+    }
+    );
+    this.store.dispatch(UpdateLesson_Order({ Lessons: cloneArray }));
+  }
+  SelectSectionForOrderChange()
+  {
+    this.SeclectedSectionForOrderChange = this.AllCourseSections.filter(section => section.id === Number(this.SelectedSectionsId_For_SectionOrder))[0];
+    if (this.SeclectedSectionForOrderChange)
+    {
+      this.SectionSplings = this.AllCourseSections.filter(section => section.parentKey === this.SeclectedSectionForOrderChange?.parentKey)
+        .sort((a, b) => a.order - b.order);
+      this.selectedSectionOrder.enable();
+      this.selectedSectionOrder.setValue(this.SeclectedSectionForOrderChange.order);
+      let currentIndex = this.SectionSplings.findIndex(x => x.id === Number(this.SelectedSectionsId_For_SectionOrder));
+      this.PreviousSection = currentIndex > 0 ? this.SectionSplings[currentIndex - 1] : null;
+      this.NextSection = currentIndex < this.SectionSplings.length - 1 ? this.SectionSplings[currentIndex + 1] : null;
+    }
+    else
+    {
+      this.selectedSectionOrder.disable();
+    }
+    this.SectionOrderChanged = false;
+  }
+  GetNewSectionPostion()
+  {
+    let newIndex = this.SectionSplings.findIndex(x => x.order === Number(this.selectedSectionOrder.value));
+    this.NewPreviousSection = newIndex > 0 ? this.SectionSplings[newIndex - 1] : null;
+    this.NewNextSection = newIndex < this.SectionSplings.length - 1 ? this.SectionSplings[newIndex + 1] : null;
+    console.log(this.NewPreviousSection, this.NewNextSection);
+  }
+  UpdateSectionOrder()
+  {
+    let currentSectionIndex = this.SectionSplings.indexOf(this.SeclectedSectionForOrderChange!);
+    this.SectionSplings.splice(currentSectionIndex, 1);
+    this.SectionSplings.splice(Number(this.selectedSectionOrder.value) - 1, 0, this.SeclectedSectionForOrderChange!);
+    let cloneArray: Section[] = [];
+    cloneArray = JSON.parse(JSON.stringify(this.SectionSplings));
+    cloneArray.forEach((sec, index) =>
+    {
+      sec.order = index + 1;
+    }
+    );
+    this.store.dispatch(UpdateSectionOrder({ payload: cloneArray }));
   }
 }

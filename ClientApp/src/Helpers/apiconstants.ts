@@ -76,6 +76,9 @@ const controllers = {
             ChangLessonStatus: "ChangLessonStatus",
             GetLessonsByCourseId: "GetLessonsByCourseId",
             IsLessonSlug_NOT_Unique: "IsLessonSlug_NOT_Unique",
+            GetLessonByCourseId: "GetLessonByCourseId",
+            ChangeLessonOrder: "ChangeLessonOrder",
+            UpdateSectionOrder: "UpdateSectionOrder",
         }
     }
 };
@@ -142,6 +145,9 @@ export const CoursesController = {
     ChangLessonStatus: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangLessonStatus),
     GetLessonsByCourseId: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonsByCourseId),
     IsLessonSlug_NOT_Unique: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.IsLessonSlug_NOT_Unique),
+    GetLessonByCourseId: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonByCourseId),
+    ChangeLessonOrder: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangeLessonOrder),
+    UpdateSectionOrder: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateSectionOrder),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

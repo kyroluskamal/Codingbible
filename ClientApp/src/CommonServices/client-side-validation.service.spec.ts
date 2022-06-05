@@ -48,23 +48,23 @@ describe("ClientSideValidationService", () =>
         });
         it("returns [TRUE] if it is unique [without] adding id", () =>
         {
-            expect(spectator.service.isUnique(arr, "name", "Name 5")).not.toBeFalse();
+            expect(spectator.service.isNotUnique(arr, "name", "Name 5")).not.toBeFalse();
         });
         it("returns [FALSE] if it is not unique [without] adding id", () =>
         {
-            expect(spectator.service.isUnique(arr, "name", "Name 4")).not.toBeTrue();
-            expect(spectator.service.isUnique(arr, "age", "25")).not.toBeTrue();
-            expect(spectator.service.isUnique(arr, "university", "Cairo")).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "name", "Name 4")).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "age", "25")).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "university", "Cairo")).not.toBeTrue();
         });
         it("returns [TRUE] if it is unique [With] adding id", () =>
         {
-            expect(spectator.service.isUnique(arr, "name", "Name 4", 4)).not.toBeFalse();
+            expect(spectator.service.isNotUnique(arr, "name", "Name 4", 4)).not.toBeFalse();
         });
         it("returns [FALSE] if it is not unique [With] adding id", () =>
         {
-            expect(spectator.service.isUnique(arr, "name", "Name 4", 5)).not.toBeTrue();
-            expect(spectator.service.isUnique(arr, "age", "25", 5)).not.toBeTrue();
-            expect(spectator.service.isUnique(arr, "university", "Cairo", 5)).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "name", "Name 4", 5)).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "age", "25", 5)).not.toBeTrue();
+            expect(spectator.service.isNotUnique(arr, "university", "Cairo", 5)).not.toBeTrue();
         });
     });
     describe("isUniqueMany()", () =>
