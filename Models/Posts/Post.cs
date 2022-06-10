@@ -1,8 +1,7 @@
 using CodingBible.Services.ConstantsService;
-using System.ComponentModel;
+using CodingBible.Models.SlugMap;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AspNetCore.SEOHelper.Sitemap;
 namespace CodingBible.Models.Posts
 {
     public class Post
@@ -41,5 +40,7 @@ namespace CodingBible.Models.Posts
         public int[] TempAttach { get; set; }
         public ICollection<PostsCategory> PostsCategories { get; set; }
         public ICollection<PostAttachments> Attachments { get; set; }
+        public SlugMap_Posts SlugMap { get; set; }
+        public bool IsArabic { get; set; }
     }
 }

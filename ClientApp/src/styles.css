@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Pacifico&display=swap');/*'Chewy'*/
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;600;700&family=Nunito:wght@500;600;700;900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Pacifico&display=swap');/*'Chewy'*/
 @import url("./assets/Fonts/Chewy/stylesheet.css");
 /*'Fredoka One'*/
 @import url("./assets/Fonts/Fredoka_One/stylesheet.css");
@@ -43,6 +43,14 @@
   --DangerColor: #f5365c;
   --PrimaryColor_Active: #324cdd;
   --PrimaryColor: #5e72e4;
+  --main-color:#1a0f91;
+  --ButtonColor-orange: #c9493d;
+  --Nuito-font:'Nunito', sans-serif;
+  --bg-main-color: #f0f2f5;
+  --my-shadow: 2px 2px 11px -3px #cfcfcf;
+  --homepage-titles-color:#0b0161;
+  --FiraCode-font:'Fira Code', monospace;
+  --dark-color: rgba(33,37,41)
 }
 .calibri-font{
   font-family: var(--Calibri) !important;
@@ -258,4 +266,7 @@ figure.figure img{
 }
 .border-purple{
   border: 1px solid #6328d0c4;
+}
+.myShadow{
+  box-shadow: var(--my-shadow);
 }

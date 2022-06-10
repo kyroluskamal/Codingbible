@@ -15,7 +15,6 @@ import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { metaReducers } from "src/app/app.module";
 import { ClientSideValidationService } from "src/CommonServices/client-side-validation.service";
-import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { CustomValidators } from "src/Helpers/custom-validators";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
@@ -35,7 +34,6 @@ describe("RegisterComponent", () =>
     let userNameInput: HTMLInputElement | null;
     let registerBtn: HTMLInputElement | null;
     let spectator: Spectator<RegisterComponent>;
-    let DialogMocks = MockService(DialogHandlerService);
 
     const createComponent = createRoutingFactory({
         component: RegisterComponent,
@@ -44,7 +42,7 @@ describe("RegisterComponent", () =>
             MatFormFieldModule, MatCardModule, TooltipModule.forRoot(), MatInputModule,
         RouterTestingModule.withRoutes(RoutesForHomeModule), MatButtonModule
         ],
-        providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
+        providers: [FormBuilder, Store, HttpClient],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         mocks: [ClientSideValidationService],
         stubsEnabled: false,
@@ -451,7 +449,6 @@ describe("RegisterComponent", () =>
             {
                 spectator.component.ShowCardFooter = false;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(DialogMocks, "CloseDialog");
                 Login_CardFooterFalse = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterFalse"));
             });
             it("exists", fakeAsync(
@@ -485,8 +482,6 @@ describe("RegisterComponent", () =>
             {
                 spectator.component.ShowCardFooter = true;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
-                spOpenLogin = spyOn(spectator.component.dialogHandler, "OpenLogin");
                 Login_CardFooterTrue = spectator.query<HTMLAnchorElement>(byTestId("Login_CardFooterTrue"));
             });
             it("Join now link is found", fakeAsync(
@@ -529,7 +524,6 @@ describe("RegisterComponent", () =>
             {
                 spectator.component.CloseIconHide = false;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
             });
             it("exists", fakeAsync(

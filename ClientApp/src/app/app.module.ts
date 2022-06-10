@@ -19,7 +19,7 @@ import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { UrlSerializer } from '@angular/router';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { PostEffects } from 'src/State/PostState/post-effects';
-import { MatDialogModule } from '@angular/material/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
@@ -28,6 +28,8 @@ import { CoursesEffects } from 'src/State/CourseState/Course.effects';
 import { CourseCategoryEffects } from 'src/State/CourseCategoryState/CourseCategory.effects';
 import { SectionsEffects } from 'src/State/SectionsState/sections.effects';
 import { LessonsEffects } from 'src/State/LessonsState/Lessons.effects';
+import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 export const enum MergeStrategy
 {
@@ -59,9 +61,10 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     // TransferHttpCacheModule,
     MatDialogModule,
+    TranslateModule.forRoot(),
     BrowserTransferStateModule,
     BrowserAnimationsModule,
-    SharedComponentsModule,
+    SharedComponentsModule, SharedModuleForHomeModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
     EffectsModule.forRoot([PostEffects, AuthEffects, SectionsEffects,
       LessonsEffects,

@@ -37,6 +37,7 @@
     "@ngrx/store-devtools": "^13.2.0",
     "@nguniversal/common": "^14.0.0",
     "@nguniversal/express-engine": "^14.0.0",
+    "@ngx-translate/core": "^14.0.0",
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "@tinymce/tinymce-angular": "^5.0.1",
     "@trellisorg/ngrx-universal-rehydrate": "^0.0.12",

@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { UrlSerializer } from '@angular/router';
+import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 // export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 // {
 //   return localStorageSync({
@@ -43,7 +44,7 @@ import { UrlSerializer } from '@angular/router';
 const Commponents = [
   LoginComponent, RegisterComponent,
   ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
-  LoginPageComponent, RegisterPageComponent
+  LoginPageComponent, RegisterPageComponent,
 ];
 @NgModule({
   declarations: [Commponents],

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.ConstantsService;
 
 namespace CodingBible.Models.Courses;
@@ -29,4 +30,6 @@ public class Section
     [ForeignKey(nameof(ParentKey))]
     public int? ParentKey { get; set; }
     public Section Parent { get; set; }
+    public SlugMap_Sections SlugMap { get; set; }
+    public bool IsArabic { get; set; }
 }

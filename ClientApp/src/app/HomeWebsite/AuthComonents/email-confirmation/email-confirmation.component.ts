@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
 import { AccountService } from '../../../../Services/account.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { HttpResponsesObject } from 'src/models.model';

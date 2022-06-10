@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.ConstantsService;
 
 namespace CodingBible.Models.Courses;
@@ -42,4 +43,6 @@ public class Course
     public virtual ApplicationUser Author { get; set; }
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
     public ICollection<StudentsPerCourse> Students { get; set; }
+    public SlugMap_Courses SlugMap { get; set; }
+    public bool IsArabic { get; set; }
 }

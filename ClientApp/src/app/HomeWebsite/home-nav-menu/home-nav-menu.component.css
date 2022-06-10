@@ -1,5 +1,4 @@
-
-div.dropdown>.dropdown-menu {    
+/* div.dropdown>.dropdown-menu {    
     display: inherit;
     top: 95%;
     right: 0;
@@ -17,4 +16,60 @@ div.dropdown>.dropdown-menu.show {
     display: inherit;
     transform: translateY(0);
     visibility: visible;
+} */
+.navBarSahdow{  
+    box-shadow: var(--my-shadow)
+
+}
+.navbar-nav .nav-item .nav-link{
+    font-size: 16.5px;
+}
+.navbar-nav .nav-item .nav-link:hover,
+.navbar-nav .nav-item .nav-link.active,
+.navbar-nav .nav-item .nav-link:focus{
+    color: var(--main-color);
+}
+.dropdown-menu{
+    display: block;
+    min-width: 200px;
+    visibility: hidden;
+    box-shadow: 2px 2px 11px -3px #cfcfcf;
+    border: none;
+    border-top: 3px solid var(--main-color);
+    transform: translateY(40px);
+    transition: visibility transform  200ms cubic-bezier(.52,.5,.7,.71);
+}
+.dropdown-menu.show{
+    visibility: visible;
+    transform: translateY(15px);
+    transition: all 200ms cubic-bezier(.52,.5,.7,.71);
+}
+.dropdown-item:hover,.dropdown-item:focus{
+    background: none;
+    color: var(--main-color);
+    font-weight: 500;
+}
+.nav-item{
+    padding: 1rem !important;
+    font-family: var(--Nuito-font);
+    font-weight: 700;
+}
+header{
+    position: fixed;
+    width: 100vw;
+    z-index: 1;
+}
+.navbar-brand{
+    font-family: var(--FiraCode-font) !important;
+}
+.langBtn{
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+.langBtn:hover, .buttonAction{
+    background: var(--dark-color);
+    color: white !important;
+    transition: all 0.3s ease-in-out;
 }

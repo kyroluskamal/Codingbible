@@ -4,11 +4,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardHomeComponent } from './dashboard-home/dashboard-home.component';
 import { MaterialModule } from '../../SharedModules/material.module';
 import { SharedModule } from '../../SharedModules/shared.module';
-import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { UrlSerializer } from '@angular/router';
-import { MediaComponent } from './media/media.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const components = [
@@ -24,7 +21,6 @@ const components = [
   ,
   providers: [
     { provide: UrlSerializer, useClass: LowerCaseUrlSerializer },
-    DialogHandlerService
   ]
 })
 export class DashboardModule { }

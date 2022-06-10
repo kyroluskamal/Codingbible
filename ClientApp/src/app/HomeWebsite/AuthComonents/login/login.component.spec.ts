@@ -11,10 +11,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { RouterTestingModule } from "@angular/router/testing";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
-import { MockService } from "ng-mocks";
 import { TooltipModule } from "ngx-bootstrap/tooltip";
 import { metaReducers } from "src/app/app.module";
-import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, FormValidationErrorsNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
@@ -28,7 +26,6 @@ describe("LoginComponent [Unit test]", () =>
     let passwordInput: HTMLInputElement | null;
     let loginBtn: HTMLButtonElement | null;
     let spectator: SpectatorRouting<LoginComponent>;
-    let DialogMocks = MockService(DialogHandlerService);
     const createComponent = createRoutingFactory({
         component: LoginComponent,
         imports: [StoreModule.forRoot(AppReducers, { metaReducers }), ReactiveFormsModule,
@@ -37,7 +34,7 @@ describe("LoginComponent [Unit test]", () =>
             MatIconModule, MatButtonModule
         ],
 
-        providers: [FormBuilder, Store, HttpClient, { provide: DialogHandlerService, useValue: DialogMocks }],
+        providers: [FormBuilder, Store, HttpClient],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         stubsEnabled: false,
         shallow: false
@@ -306,33 +303,7 @@ describe("LoginComponent [Unit test]", () =>
             ));
         });
     });
-    describe("forget password link [Integration test with DialogHandlerService]", () =>
-    {
-        let forgetPassword: HTMLElement | null;
-        let spCloseDialog: jasmine.Spy;
-        let spOpenForgetPassword: jasmine.Spy;
 
-        beforeEach(() =>
-        {
-            spOpenForgetPassword = spyOn(DialogMocks, "OpenForgetPassword");
-            spCloseDialog = spyOn(DialogMocks, "CloseDialog");
-            forgetPassword = spectator.query(byTestId("forgetpass"));
-        });
-        it("finds forgetPassword link", () =>
-        {
-            expect(forgetPassword).toExist();
-        });
-        it("close dialog is called after forget password is clicked", () =>
-        {
-            spectator.click(byTestId("forgetpass"));
-            expect(spCloseDialog).toHaveBeenCalled();
-        });
-        it("openForgetPasswordDialog is called after forget password is clicked", () =>
-        {
-            spectator.click(byTestId("forgetpass"));
-            expect(spOpenForgetPassword).toHaveBeenCalled();
-        });
-    });
     describe("Join now link", () =>
     {
         describe("If ShowCardFooter = false", () =>
@@ -346,7 +317,6 @@ describe("LoginComponent [Unit test]", () =>
                 spectator.detectComponentChanges();
                 spectator.component.ShowCardFooter = false;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(DialogMocks, "CloseDialog");
                 joinNow_CardFooterFalse = spectator.query<HTMLAnchorElement>(byTestId("joinNow_CardFooterFalse"));
             });
             it("exists", fakeAsync(
@@ -366,8 +336,6 @@ describe("LoginComponent [Unit test]", () =>
             {
                 spectator.component.ShowCardFooter = true;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
-                spOpenRegister = spyOn(spectator.component.dialogHandler, "OpenRegister");
                 joinNow_CardFooterTrue = spectator.query<HTMLAnchorElement>(byTestId("joinNow_CardFooterTrue"));
             });
             it("Join now link is found", fakeAsync(
@@ -410,7 +378,6 @@ describe("LoginComponent [Unit test]", () =>
             {
                 spectator.component.CloseIconHide = false;
                 spectator.detectComponentChanges();
-                spCloseDialog = spyOn(spectator.component.dialogHandler, "CloseDialog");
                 closeBtn = spectator.query<HTMLButtonElement>(byTestId("closeBtn"));
             });
             it("exists", fakeAsync(

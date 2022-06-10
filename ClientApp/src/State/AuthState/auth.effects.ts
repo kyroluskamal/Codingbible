@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, of, exhaustMap, map, tap, mergeMap } from 'rxjs';
-import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { ServerResponseHandelerService } from 'src/CommonServices/server-response-handeler.service';
 import { AuthRoutes, DashboardRoutes, HomeRoutes } from 'src/Helpers/router-constants';
 import { AccountService } from 'src/Services/account.service';
@@ -62,7 +61,6 @@ export class AuthEffects
                 tap((r) =>
                 {
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                    this.dialogHandler.CloseDialog();
                     if (this.router.url.includes(AuthRoutes.Login))
                         this.router.navigateByUrl(DashboardRoutes.Home);
                 })
@@ -102,7 +100,6 @@ export class AuthEffects
                 tap((r) =>
                 {
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                    this.dialogHandler.CloseDialog();
                     if (this.router.url.includes(AuthRoutes.Register))
                         this.router.navigateByUrl(AuthRoutes.Login);
                 })
@@ -135,7 +132,6 @@ export class AuthEffects
                 tap((r) =>
                 {
                     this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                    this.dialogHandler.CloseDialog();
                 })
             ),
         { dispatch: false }
@@ -200,7 +196,7 @@ export class AuthEffects
     );
     constructor(
         private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
-        public dialogHandler: DialogHandlerService, private ServerError: GetServerErrorResponseService,
+        private ServerError: GetServerErrorResponseService,
         private accoutnService: AccountService,
         private router: Router, private store: Store
     ) { }

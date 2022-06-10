@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.ConstantsService;
 
 namespace CodingBible.Models.Courses;
@@ -30,4 +31,6 @@ public class Lesson
     public Section Section { get; set; }
     public int CourseId { get; set; }
     public ICollection<LessonAttachments> Attachments { get; set; }
+    public SlugMap_Lessons SlugMap { get; set; }
+    public bool IsArabic { get; set; }
 }

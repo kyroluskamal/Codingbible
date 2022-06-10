@@ -14,6 +14,8 @@ using CodingBible.UnitOfWork.IRepository.Menus;
 using CodingBible.UnitOfWork.Repository.Menus;
 using CodingBible.UnitOfWork.IRepository.Courses;
 using CodingBible.UnitOfWork.Repository.Courses;
+using CodingBible.UnitOfWork.IRepository.SlugMap;
+using CodingBible.UnitOfWork.Repository.SlugMap;
 
 namespace CodingBible.UnitOfWork
 {
@@ -39,6 +41,12 @@ namespace CodingBible.UnitOfWork
         public ISectionRepositoryAsync Sections { get; }
         public IStudentsPerCourseRepositoryAsync StudentsPerCourses { get; }
         public ILessonAttachmentsRespositoryAsync LessonAttachments { get; }
+        public ISlugMap_CoursesRespositoryAsync SlugMap_Courses { get; }
+        public ISlugMap_PostsRespositoryAsync SlugMap_Posts { get; }
+        public ISlugMap_LessonsRespositoryAsync SlugMap_Lessons { get; }
+        public ISlugMap_SectionsRespositoryAsync SlugMap_Sections { get; }
+        public ISlugMap_CategoryRespositoryAsync SlugMap_Categories { get; }
+        public ISlugMap_CourseCategoryRespositoryAsync SlugMap_CourseCategories { get; }
         public ApplicationUserUnitOfWork(ApplicationDbContext applicationDbContext,
             ApplicationUserRoleManager roleManager)
         {
@@ -62,6 +70,12 @@ namespace CodingBible.UnitOfWork
             Sections = new SectionRepositoryAsync(applicationDbContext);
             StudentsPerCourses = new StudentsPerCourseRepositoryAsync(applicationDbContext);
             LessonAttachments = new LessonAttachmentsRespositoryAsync(applicationDbContext);
+            SlugMap_Courses = new SlugMap_CoursesRespositoryAsync(applicationDbContext);
+            SlugMap_Posts = new SlugMap_PostsRepositoryAsync(applicationDbContext);
+            SlugMap_Lessons = new SlugMap_LessonsRespositoryAsync(applicationDbContext);
+            SlugMap_Sections = new SlugMap_SectionsRespositoryAsync(applicationDbContext);
+            SlugMap_Categories = new SlugMap_CategoryRespositoryAsync(applicationDbContext);
+            SlugMap_CourseCategories = new SlugMap_CourseCategoryRespositoryAsync(applicationDbContext);
         }
         public async void Dispose()
         {

@@ -59,6 +59,7 @@ export class Category
     parentKey: number | null = null;
     parent: any;
     postsCategories: PostsCategory[] = [];
+    IsArabic: boolean = false;
 }
 
 export class PostsCategory
@@ -92,6 +93,7 @@ export class Post
     tempAttach: number[] = [];
     postsCategories: PostsCategory[] = [];
     attachments: PostAttachments[] = [];
+    IsArabic: boolean = false;
 }
 
 export class Attachments
@@ -181,6 +183,7 @@ export class Course
     author: ApplicationUser | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
     students: StudentsPerCourse[] = [];
+    IsArabic: boolean = false;
 }
 
 export class CourseCategory
@@ -195,6 +198,7 @@ export class CourseCategory
     parentKey: number | null = null;
     parent: CourseCategory | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
+    IsArabic: boolean = false;
 }
 export class CoursesPerCategory
 {
@@ -232,6 +236,7 @@ export class Lesson
     publishedDate: Date = new Date();
     attachments: LessonAttachments[] = [];
     tempAttach: number[] = [];
+    IsArabic: boolean = false;
 }
 export class Section
 {
@@ -251,6 +256,7 @@ export class Section
     introductoryVideoUrl: string = "";
     parentKey: number | null = null;
     parent: Section | null = null;
+    IsArabic: boolean = false;
 }
 export class LessonAttachments
 {
@@ -258,4 +264,52 @@ export class LessonAttachments
     lesson?: Lesson | null = null;
     attachmentId: number = 0;
     attachments?: Attachments | null = null;
+}
+export class SlugMap_Courses
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    CourseId: number = 0;
+    Course: Course | null = null;
+}
+export class SlugMap_Posts
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    PostId: number = 0;
+    Post: Post | null = null;
+}
+export class SlugMap_Category
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    CategoryId: number = 0;
+    Category: Category | null = null;
+}
+export class SlugMap_CourseCategory
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    CourseCategoryId: number = 0;
+    CourseCategory: CourseCategory | null = null;
+}
+export class SlugMap_Sections
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    SectionId: number = 0;
+    Section: Section | null = null;
+}
+export class SlugMap_Lessons
+{
+    id: number = 0;
+    enSlug: string = "";
+    arSlug: string = "";
+    LessonId: number = 0;
+    Lesson: Lesson | null = null;
 }

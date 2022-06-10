@@ -12,9 +12,7 @@ import { MatInputModule } from "@angular/material/input";
 import { BrowserModule } from "@angular/platform-browser";
 import { byTestId, createRoutingFactory, SpectatorRouting } from "@ngneat/spectator";
 import { Store, StoreModule } from "@ngrx/store";
-import { MockService } from "ng-mocks";
 import { metaReducers } from "src/app/app.module";
-import { DialogHandlerService } from "src/CommonServices/dialog-handler.service";
 import { FormControlNames, InputElementsAttributes, InputFieldTypes, validators } from "src/Helpers/constants";
 import { spectatorSelectByControlName, toTitleCase } from "src/Helpers/helper-functions";
 import { AppReducers } from "src/State/app.state";
@@ -26,7 +24,6 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
     let emailInput: HTMLInputElement | null;
     let SendBtn: HTMLButtonElement | null;
     let spectator: SpectatorRouting<ForgetPasswordComponent>;
-    let DialogMocks = MockService(DialogHandlerService);
 
     const createComponent = createRoutingFactory({
         component: ForgetPasswordComponent,
@@ -35,7 +32,7 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
             ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
             MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
         ],
-        providers: [FormBuilder, Store, { provide: DialogHandlerService, useValue: DialogMocks }],
+        providers: [FormBuilder, Store,],
         schemas: [CUSTOM_ELEMENTS_SCHEMA],
         stubsEnabled: false,
         shallow: false
@@ -163,7 +160,6 @@ describe("ForgetPasswordComponent [Unit Test]", () =>
         let CloseDialog: jasmine.Spy;
         beforeEach(() =>
         {
-            CloseDialog = spyOn(DialogMocks, "CloseDialog");
             closeBtn_ForgetPassword = spectator.query<HTMLAnchorElement>(byTestId("closeBtn_ForgetPassword"));
         });
         it("has a close button", () =>

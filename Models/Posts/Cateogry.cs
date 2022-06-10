@@ -1,3 +1,4 @@
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.ConstantsService;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,5 +25,7 @@ namespace CodingBible.Models.Posts
         public int? ParentKey { get; set; }
         public virtual Category Parent { get; set; }
         public ICollection<PostsCategory> PostsCategories { get; set; }
+        public SlugMap_Category SlugMap { get; set; }
+        public bool IsArabic { get; set; }
     }
 }

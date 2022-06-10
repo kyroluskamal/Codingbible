@@ -1,4 +1,94 @@
-<app-home-nav-menu></app-home-nav-menu>
-<div class="container">
-    <p>Home works</p>
-</div>
+<app-home-nav-menu style="z-index: 1;"></app-home-nav-menu>
+<main id="HomeBody"
+      class="container-fluid flex-grow-1 p-0 ">
+    <section class="row vh-100 px-5 m-0 p-0 pt-5">
+        <div class="col-md-6 col-12">
+            <div class="px-3 d-flex flex-column align-items-center justify-content-center h-100">
+                <h1>Learn Computer Science and progrmming</h1>
+                <div class="mt-3 text-justify">
+                    Computer science is not about just learning programming languages. It is about learning how to find
+                    the
+                    best algorithms to solve problems and use programming languages to solve them.
+                </div>
+                <div class="w-100 d-flex justify-content-start mt-5">
+                    <button class="btn HomePageButton">View all course</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-12 h-100">
+            <div class="d-flex flex-column justify-content-md-center justify-content-start h-100">
+                <img src="../../../assets/img/learn comuter science and programming 2.svg"
+                     class="noShadow img-fluid">
+            </div>
+        </div>
+    </section>
+    <section class="vh-100 d-flex align-items-center">
+        <div class="secondSection"
+             style="margin: auto;">
+            <h2 class="text-center p-3">Our Goal</h2>
+            <div class=" d-md-block d-none">
+                <div class="row w-100 m-0 px-4">
+                    <div class="col-md-6 col-12 d-flex align-items-center">
+                        <img src="../../../assets/img/Ourgoal.svg"
+                             class="noShadow img-fluid"
+                             alt="Our goal image">
+                    </div>
+                    <div class="col-md-6 col-12 d-flex align-items-center">
+                        <ng-container *ngTemplateOutlet="Menu"></ng-container>
+                    </div>
+                </div>
+            </div>
+            <div class="d-md-none d-block">
+                <div class="d-flex flex-column justify-content-center">
+                    <div>
+                        <ng-container *ngTemplateOutlet="Menu"></ng-container>
+                    </div>
+                    <img src="../../../assets/img/Ourgoal.svg"
+                         class="noShadow img-fluid"
+                         alt="Our goal image">
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>
+<ng-template #Menu>
+    <ul class="m-0 d-flex flex-column justify-content-between h-100 list-unstyled text-justify">
+        <li class="p-3 d-flex flex-row bg-light rounded-1 gap-2">
+            <div>
+                <i class="bi bi-book"></i>
+            </div>
+            <div class="d-flex flex-column justify-content-center">
+                <h3>Learn basics</h3>
+                <p>
+                    Teach you the basics of computer science before teaching
+                    programming languages by teaching you the fundamental courses
+                    such as <span>data structure</span> and <span>algorithms</span>.
+                </p>
+            </div>
+        </li>
+        <li class="p-3 d-flex flex-row bg-light rounded-1 gap-2">
+            <div>
+                <i class="bi bi-lightbulb"></i>
+            </div>
+            <div class="d-flex flex-column justify-content-center">
+                <h3>Problem solving</h3>
+                <p>
+                    Teaching you how to program by teaching you how to solve problems using
+                    best algorithms.
+                </p>
+            </div>
+        </li>
+        <li class="p-3 d-flex flex-row bg-light rounded-1 gap-2">
+            <div>
+                <i class="bi bi-code-slash"></i>
+            </div>
+            <div class=" d-flex flex-column justify-content-center">
+                <h3>Write code</h3>
+                <p>
+                    Teaching you how to use programming languages to solve problems.
+                </p>
+            </div>
+        </li>
+    </ul>
+</ng-template>

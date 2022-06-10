@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.ConstantsService;
 
 namespace CodingBible.Models.Courses;
@@ -23,4 +24,6 @@ public class CourseCategory
     public int? ParentKey { get; set; }
     public virtual CourseCategory Parent { get; set; }
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
+    public SlugMap_CourseCategory SlugMap { get; set; }
+    public bool IsArabic { get; set; }
 }

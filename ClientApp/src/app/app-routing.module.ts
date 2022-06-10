@@ -8,6 +8,7 @@ export const routes: Routes = [
   { path: "", component: HomeComponent, pathMatch: "full" },
   { path: DashboardRoutes.Home, loadChildren: () => import('./Dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
   { path: "account", loadChildren: () => import('./HomeWebsite/home-website.module').then(m => m.HomeWebsiteModule) },
+  { path: 'ar', loadChildren: () => import('./arabic/arabic.module').then(m => m.ArabicModule) },
   { path: "**", component: NotFoundComponent }
 ];
 

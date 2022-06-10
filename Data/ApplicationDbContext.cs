@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using CodingBible.Models.Courses;
+using CodingBible.Models.SlugMap;
 
 namespace CodingBible.Data
 {
@@ -37,6 +38,14 @@ namespace CodingBible.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<StudentsPerCourse> StudentsPerCourses { get; set; }
         public DbSet<LessonAttachments> LessonAttachments { get; set; }
+        public DbSet<SlugMap_Courses> SlugMap_Courses { get; set; }
+        public DbSet<SlugMap_Posts> SlugMap_Posts { get; set; }
+        public DbSet<SlugMap_Lessons> SlugMap_Lessons { get; set; }
+        public DbSet<SlugMap_Sections> SlugMap_Sections { get; set; }
+        public DbSet<SlugMap_Category> SlugMap_Categories { get; set; }
+        public DbSet<SlugMap_CourseCategory> SlugMap_CourseCategories { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ApplicationUserRole>()
