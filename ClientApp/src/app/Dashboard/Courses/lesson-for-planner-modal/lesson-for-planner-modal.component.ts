@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControlName, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, validators } from 'src/Helpers/constants';
+import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
 import { Lesson, Section } from 'src/models.model';
 import { LessonsService } from 'src/Services/lessons.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -65,6 +65,10 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
         this.inputForm.get(FormControlNames.LessonForm.name)?.setValue(this.UpdateObject.name);
         this.inputForm.get(FormControlNames.LessonForm.description)?.setValue(this.UpdateObject.description);
         this.inputForm.get(FormControlNames.LessonForm.title)?.setValue(this.UpdateObject.title);
+        if (this.UpdateObject.status === PostStatus.Published)
+        {
+          this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
+        }
       }
     }
     if ("CourseId" in changes)
@@ -81,6 +85,8 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       [FormControlNames.LessonForm.name]: [null, [validators.required]],
       [FormControlNames.LessonForm.description]: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       [FormControlNames.LessonForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
+      [FormControlNames.LessonForm.isArabic]: [false]
+
     });
     if (this.SelectedSectionId === 0)
     {

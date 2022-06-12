@@ -55,7 +55,6 @@ export class CoursesEffects
                 return this.CourseService.Add(CoursesController.AddCourse, action).pipe(
                     map((r) =>
                     {
-                        console.log("From effec", r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Course'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));

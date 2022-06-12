@@ -59,7 +59,8 @@ export class Category
     parentKey: number | null = null;
     parent: any;
     postsCategories: PostsCategory[] = [];
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enCategoryId: number = 0;
 }
 
 export class PostsCategory
@@ -93,7 +94,8 @@ export class Post
     tempAttach: number[] = [];
     postsCategories: PostsCategory[] = [];
     attachments: PostAttachments[] = [];
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enPostId: number = 0;
 }
 
 export class Attachments
@@ -127,31 +129,26 @@ export class Menu
 {
     id: number = 0;
     name: string = "";
-    menuPositionsId: number = 0;
-    menuPositions: MenuPositions | null = null;
+    menuLocationsId: number = 0;
+    menuLocations: MenuLocations | null = null;
     menuItems: MenuItem[] = [];
 }
 export class MenuItem
 {
     id: number = 0;
-    name: string = "";
-    url: string = "";
+    enName: string = "";
+    enUrl: string = "";
+    arName: string = "";
+    arUrl: string = "";
     level: number = 0;
     orderWithinParent: number = 0;
     parentKey: number | null = null;
     parent: MenuItem | null = null;
-    associatedMenus: MenuMenuItems[] = [];
-    orderInMenu: number = 0;
-
-}
-export class MenuMenuItems
-{
-    menuItemId: number = 0;
-    menuItem: MenuItem | null = null;
     menuId: number = 0;
     menu: Menu | null = null;
 }
-export class MenuPositions
+
+export class MenuLocations
 {
     id: number = 0;
     name: string = "";
@@ -183,7 +180,8 @@ export class Course
     author: ApplicationUser | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
     students: StudentsPerCourse[] = [];
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enCourseId: number = 0;
 }
 
 export class CourseCategory
@@ -198,7 +196,8 @@ export class CourseCategory
     parentKey: number | null = null;
     parent: CourseCategory | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enCourseCategoryId: number = 0;
 }
 export class CoursesPerCategory
 {
@@ -236,7 +235,8 @@ export class Lesson
     publishedDate: Date = new Date();
     attachments: LessonAttachments[] = [];
     tempAttach: number[] = [];
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enLessonId: number = 0;
 }
 export class Section
 {
@@ -256,7 +256,8 @@ export class Section
     introductoryVideoUrl: string = "";
     parentKey: number | null = null;
     parent: Section | null = null;
-    IsArabic: boolean = false;
+    isArabic: boolean = false;
+    enSectionId: number = 0;
 }
 export class LessonAttachments
 {

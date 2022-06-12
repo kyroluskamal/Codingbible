@@ -7,7 +7,7 @@ public class Menu
     public int Id { get; set; }
     public string Name { get; set; }
     [ForeignKey(nameof(MenuLocationsId))]
-    public int? MenuLocationsId { get; set; }
+    public int MenuLocationsId { get; set; }
     public MenuLocations MenuLocations { get; set; }
-    public ICollection<MenuMenuItems> MenuItems { get; set; }
+    public ICollection<MenuItem> MenuItems { get; set; }
 }

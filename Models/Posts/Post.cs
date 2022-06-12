@@ -42,5 +42,7 @@ namespace CodingBible.Models.Posts
         public ICollection<PostAttachments> Attachments { get; set; }
         public SlugMap_Posts SlugMap { get; set; }
         public bool IsArabic { get; set; }
+        [NotMapped]
+        public int EnPostId { get; set; }
     }
 }

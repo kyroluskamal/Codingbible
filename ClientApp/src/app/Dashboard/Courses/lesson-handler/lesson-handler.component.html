@@ -87,20 +87,20 @@
     <div class="d-flex flex-row"
          id="StickyNotesContainerLesson"
          #StickyNotesContainer>
-        <div [class]="inputForm.invalid?
+        <div [class]="inputForm.invalid || (!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&!inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)?
         'alert alert-info d-flex justify-content-center align-items-center'
         :'alert alert-success d-flex justify-content-center align-items-center'"
              #StickyNotesHandler
              (click)="ToggleStickyNotes()"
              (mouseleave)="closeStickyNotes()">
             <i class="bi bi-info-circle-fill"
-               *ngIf="inputForm.invalid"></i>
+               *ngIf="inputForm.invalid || (!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&!inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)"></i>
             <i class="bi bi-check-lg"
-               *ngIf="inputForm.valid"></i>
+               *ngIf="inputForm.valid && (inputForm.get(FormControlNames.LessonForm.htmlContent)?.value || inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)"></i>
         </div>
         <div class="alert alert-info mb-0 small mb-2"
              #StickyNotes
-             *ngIf="inputForm.invalid"
+             *ngIf="inputForm.invalid || (!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&!inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)"
              (mouseleave)="closeStickyNotes()">
             <p><strong>You have to do the following</strong></p>
             <ul class="mb-0">
@@ -124,7 +124,7 @@
                     Title should be unique. If you see this, this means that you have a post with the same title
                 </li>
                 <li
-                    *ngIf="!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value">
+                    *ngIf="!inputForm.get(FormControlNames.LessonForm.htmlContent)?.value&&!inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value">
                     You must add video url or written content or both.
                 </li>
                 <li
@@ -156,7 +156,7 @@
                 </li>
             </ul>
         </div>
-        <div *ngIf="inputForm.valid"
+        <div *ngIf="inputForm.valid && (inputForm.get(FormControlNames.LessonForm.htmlContent)?.value||inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)"
              class="alert alert-success">
             <span>You are ready to add the post</span>
         </div>
@@ -324,6 +324,16 @@
             <!-- -------------------------------------------------------------------------- 
              |                                  Publish Card
              ------------------------------------------------------------------------------->
+            <div class="form-check mb-2">
+                <input class="form-check-input"
+                       type="checkbox"
+                       [formControlName]="FormControlNames.LessonForm.isArabic"
+                       id="isArabic">
+                <label class="form-check-label fw-bold"
+                       for="isArabic">
+                    In Arabic
+                </label>
+            </div>
             <div class="card">
                 <div class="card-header">
                     Publish

@@ -45,6 +45,12 @@ const controllers = {
         name: "Menu",
         Actions: {
             GetMenus: "GetMenus",
+            GetMenuByLocationName: "GetMenuByLocationName",
+            AddMenu: "AddMenu",
+            UpdateMenu: "UpdateMenu",
+            DeleteMenu: "DeleteMenu",
+            DeleteMenuItem: "DeleteMenuItem",
+            GetMenuLocations: "GetMenuLocations",
         }
     },
     Courses: {
@@ -79,6 +85,18 @@ const controllers = {
             GetLessonByCourseId: "GetLessonByCourseId",
             ChangeLessonOrder: "ChangeLessonOrder",
             UpdateSectionOrder: "UpdateSectionOrder",
+            Get_All_SlugMap_Courses: "Get_All_SlugMap_Courses",
+            Get_All_SlugMap_Sections: "Get_All_SlugMap_Sections",
+            Get_All_SlugMap_Posts: "Get_All_SlugMap_Posts",
+            Get_All_SlugMap_Categories: "Get_All_SlugMap_Categories",
+            Get_All_SlugMap_CourseCategories: "Get_All_SlugMap_CourseCategories",
+            Get_All_SlugMap_Lessons: "Get_All_SlugMap_Lessons",
+            Get_SlugMap_Posts_By_SlugAndLang: "Get_SlugMap_Posts_By_SlugAndLang",
+            Get_SlugMap_CourseCategories_By_SlugAndLang: "Get_SlugMap_CourseCategories_By_SlugAndLang",
+            Get_SlugMap_Categories_By_SlugAndLang: "Get_SlugMap_Categories_By_SlugAndLang",
+            Get_SlugMap_Lessons_By_SlugAndLang: "Get_SlugMap_Lessons_By_SlugAndLang",
+            Get_SlugMap_Sections_By_SlugAndLang: "Get_SlugMap_Sections_By_SlugAndLang",
+            Get_SlugMap_Courses_By_SlugAndLang: "Get_SlugMap_Courses_By_SlugAndLang",
         }
     }
 };
@@ -116,6 +134,12 @@ export const MediaController = {
 };
 export const MenusController = {
     GetMenus: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.GetMenus),
+    GetMenuByLocationName: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.GetMenuByLocationName),
+    AddMenu: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.AddMenu),
+    UpdateMenu: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.UpdateMenu),
+    DeleteMenu: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.DeleteMenu),
+    DeleteMenuItem: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.DeleteMenuItem),
+    GetMenuLocations: getApiUrl(version, controllers.menus.name, controllers.menus.Actions.GetMenuLocations),
 };
 
 export const CoursesController = {
@@ -148,6 +172,18 @@ export const CoursesController = {
     GetLessonByCourseId: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonByCourseId),
     ChangeLessonOrder: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.ChangeLessonOrder),
     UpdateSectionOrder: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.UpdateSectionOrder),
+    Get_All_SlugMap_Courses: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Courses),
+    Get_All_SlugMap_Lessons: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Lessons),
+    Get_All_SlugMap_Sections: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Sections),
+    Get_All_SlugMap_Categories: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Categories),
+    Get_All_SlugMap_CourseCategories: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_CourseCategories),
+    Get_All_SlugMap_Posts: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Posts),
+    Get_SlugMap_Posts_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Posts_By_SlugAndLang),
+    Get_SlugMap_CourseCategories_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_CourseCategories_By_SlugAndLang),
+    Get_SlugMap_Categories_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Categories_By_SlugAndLang),
+    Get_SlugMap_Sections_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Sections_By_SlugAndLang),
+    Get_SlugMap_Lessons_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Lessons_By_SlugAndLang),
+    Get_SlugMap_Courses_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Courses_By_SlugAndLang),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

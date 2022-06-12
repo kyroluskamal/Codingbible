@@ -1,13 +1,17 @@
 #HomeBody,main{
     background-color:var(--bg-main-color);
 }
-h1+div, h1{
+h1+div, h1,h2{
     font-family: var(--Nuito-font);
 }
 h1+div{
     font-size: 1.6vmax;
     color: var( --homepage-titles-color);
     opacity: 0.9;
+}
+[dir='rtl'] h1+div, [dir='rtl'] h1,[dir='rtl'] h2,
+[dir='rtl'] .HomePageButton, [dir='rtl'] ul li, [dir='rtl'] .h6{
+    font-family: var(--NotoSansArabic);
 }
 h1{
     font-size: 5vmax;
@@ -27,7 +31,6 @@ main section:first-child{
 }
 h2{
     color: var(--homepage-titles-color);
-    font-family: var(--Nuito-font);
     font-size: 3.5vmax;
     font-weight: 700;
 }

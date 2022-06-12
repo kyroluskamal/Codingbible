@@ -29,7 +29,7 @@ namespace CodingBible.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<Menu> Menus { get; set; }
-        public DbSet<MenuMenuItems> MenuMenuItems { get; set; }
+        // public DbSet<MenuMenuItems> MenuMenuItems { get; set; }
         public DbSet<MenuLocations> MenuLocations { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<CourseCategory> CourseCategories { get; set; }
@@ -44,7 +44,6 @@ namespace CodingBible.Data
         public DbSet<SlugMap_Sections> SlugMap_Sections { get; set; }
         public DbSet<SlugMap_Category> SlugMap_Categories { get; set; }
         public DbSet<SlugMap_CourseCategory> SlugMap_CourseCategories { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -74,6 +73,10 @@ namespace CodingBible.Data
                 .HasMany(e => e.Course)
                 .WithOne(e => e.Author)
                 .HasForeignKey(e => e.AuthorId);
+            builder.Entity<Menu>()
+                .HasMany(e => e.MenuItems)
+                .WithOne(e => e.Menu)
+                .HasForeignKey(e => e.MenuId);
             /*********************************************************************************
             *                               Many to many relationShip 
             **********************************************************************************/
@@ -110,16 +113,16 @@ namespace CodingBible.Data
                 .WithMany(x => x.Lessons)
                 .HasForeignKey(x => x.AttachmentId);
 
-            builder.Entity<MenuMenuItems>()
-                .HasKey(x => new { x.MenuId, x.MenuItemId });
-            builder.Entity<MenuMenuItems>()
-                .HasOne(x => x.Menu)
-                .WithMany(x => x.MenuItems)
-                .HasForeignKey(x => x.MenuId);
-            builder.Entity<MenuMenuItems>()
-                .HasOne(x => x.MenuItem)
-                .WithMany(x => x.AssociatedMenus)
-                .HasForeignKey(x => x.MenuItemId);
+            // builder.Entity<MenuMenuItems>()
+            //     .HasKey(x => new { x.MenuId, x.MenuItemId });
+            // builder.Entity<MenuMenuItems>()
+            //     .HasOne(x => x.Menu)
+            //     .WithMany(x => x.MenuItems)
+            //     .HasForeignKey(x => x.MenuId);
+            // builder.Entity<MenuMenuItems>()
+            //     .HasOne(x => x.MenuItem)
+            //     .WithMany(x => x.AssociatedMenus)
+            //     .HasForeignKey(x => x.MenuItemId);
 
             builder.Entity<CoursesPerCategory>()
                 .HasKey(x => new { x.CourseId, x.CourseCategoryId });
@@ -166,6 +169,8 @@ namespace CodingBible.Data
             builder.Entity<Category>().HasIndex(x => x.Slug).IsUnique();
             builder.Entity<CourseCategory>().HasIndex(x => x.Slug).IsUnique();
             builder.Entity<CourseCategory>().HasIndex(x => x.Name).IsUnique();
+            builder.Entity<Menu>().HasIndex(x => x.Name).IsUnique();
+            builder.Entity<MenuLocations>().HasIndex(x => x.Name).IsUnique();
 
             base.OnModelCreating(builder);
         }

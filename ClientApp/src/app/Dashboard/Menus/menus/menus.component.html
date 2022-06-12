@@ -10,19 +10,38 @@
                     #LocationSelection
                     (change)="ShowMenus(LocationSelection.value)">
                 <option disabled
-                        selected>Select Position</option>
-                <option *ngFor="let p of MenuPositions"
-                        [value]="p.id">{{p.name}}</option>
+                        selected>Select Location</option>
+                <option *ngFor="let p of MenuLocations"
+                        [value]="p.id">{{p.name|titlecase}}</option>
             </select>
         </div>
         <div style="width:49%;"
              class="ms-2 border border-1">
-            <h4 class="bg-dark text-white text-center">Menus in : Loc name</h4>
-            <ul class="list-unstyled styledMenus"
+            <h4 class="bg-dark text-white text-center">Menus in : {{selectedLocation?.name|titlecase}}</h4>
+            <span *ngIf="selectedLocation && selectedMenus.length===0"
+                  class="px-2">
+                No menus found. <a class="cursor-pointer"
+                   (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Add;MenuModelHandler.Toggle()">Add new</a>.
+            </span>
+            <span *ngIf="!selectedLocation"
+                  class="px-2 text-danger">
+                Choose location.
+            </span>
+            <ul *ngIf="selectedLocation && selectedMenus.length>0"
+                class="list-unstyled styledMenus mb-0"
                 id="SelectedMenuList">
                 <li *ngFor="let m of selectedMenus"
                     (click)="ShowItemMenus(m)"
-                    class="px-2">{{m.name}}</li>
+                    class="px-2 d-flex justify-content-between">
+                    <span>{{m.name}}</span>
+                    <div class="d-flex flex-row gap-2">
+                        <button class="btn p-0"
+                                (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Edit;MenuForm.patchValue(m);MenuModelHandler.Toggle()"><i
+                               class="bi bi-pen-fill text-primary"></i></button>
+                        <button class="btn py-0"
+                                (click)="DeleteMenu(m.id)"><i class="bi bi-trash2-fill text-danger"></i></button>
+                    </div>
+                </li>
             </ul>
         </div>
     </div><!-- end card body -->
@@ -72,7 +91,7 @@
                     [attr.data-index]="i"
                     [attr.data-level]="item.level">
                     <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div class="small fw-bold">{{item.name}}</div>
+                        <div class="small fw-bold">{{item.enName}}</div>
                         <div class="d-flex flex-row align-items-center">
 
                             <button class="btn rounded-circle me-1"
@@ -115,7 +134,7 @@
                 <option *ngFor="let cat of currentMenu.menuItems"
                         [value]="cat.id"
                         [disabled]="cat.id === CurrentItem.id">
-                    <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
+                    <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.enName}}
                 </option>
             </select>
 
@@ -144,7 +163,7 @@
                         [value]="el.orderWithinParent"
                         [disabled]="el.id === CurrentItem.id || currentItemSblings.length>1">
                     {{el.orderWithinParent}} <span *ngIf="i+1!==currentItemSblings.length">- Before
-                        {{currentItemSblings[i+1].name}}</span>
+                        {{currentItemSblings[i+1].enName}}</span>
                     <span *ngIf="i+1===currentItemSblings.length">- At the end</span>
                     <span *ngIf="currentItemSblings.indexOf(CurrentItem)===i"> (Current location)</span>
                 </option>
@@ -198,5 +217,59 @@
     <button class="btn btn-secondary"
             type="button"
             (click)="Form.reset()"
+            data-bs-dismiss="modal">Close</button>
+</ng-template>
+<!-- -------------------------------------------------------------------------------------
+                                Add or Edit Menu
+------------------------------------------------------------------------------------------>
+<bootstrap-modal #MenuModelHandler
+                 [VerticallyCentered]="true"
+                 [Modal_Header_Template]="MenuModelHeader"
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 [Modal_Body_template]="MenuModelBody"
+                 ModalId="CourseCategoryHandler"
+                 [Modal_Footer_template]="MenuModelFooter"></bootstrap-modal>
+<ng-template #MenuModelHeader>
+    <h4 class="modal-title text-white-50">
+        <span class="text-warning"
+              *ngIf="ActionTypeMenu===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add
+            new</span>
+        <span class="text-warning"
+              *ngIf="ActionTypeMenu===PostType.Edit"><i class="bi bi-pencil-fill text-white small"></i> Edit </span>
+        Menu
+    </h4>
+</ng-template>
+<ng-template #MenuModelBody>
+    <h5>Location : {{selectedLocation?.name |titlecase}}</h5>
+    <form [formGroup]="MenuForm"
+          #form>
+        <input type="text"
+               required
+               [formControlName]="FormControlNames.MenuForm.name"
+               [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuForm.name, MenuForm)?'form-control':
+                               errorState.isErrorState(FormControlNames.MenuForm.name, MenuForm, form)?
+                               'form-control is-invalid':'form-control is-valid'"
+               id="CatName"
+               [placeholder]="FormFieldsNames.MenuForm.name">
+    </form>
+</ng-template>
+<ng-template #MenuModelFooter>
+    <button type="button"
+            *ngIf="ActionTypeMenu===PostType.Add"
+            class="btn btn-primary"
+            (click)="AddMenu()"
+            data-bs-dismiss="modal">
+        Add
+    </button>
+    <button type="button"
+            *ngIf="ActionTypeMenu===PostType.Edit"
+            class="btn btn-primary"
+            (click)="EditMenu()"
+            data-bs-dismiss="modal">
+        Save
+    </button>
+    <button class="btn btn-secondary"
+            type="button"
+            (click)="MenuForm.reset()"
             data-bs-dismiss="modal">Close</button>
 </ng-template>

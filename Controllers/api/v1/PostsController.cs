@@ -50,7 +50,7 @@ namespace CodingBible.Controllers.api.v1
         [AllowAnonymous]
         public async Task<IActionResult> GetPosts()
         {
-            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author,PostsCategories,Attachments");
+            var allPosts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Author,PostsCategories,Attachments,SlugMap");
             return Ok(allPosts.ToList());
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(GetPostBySlug) + "/{slug}")]
         public async Task<IActionResult> GetPostBySlug([FromRoute] string slug)
         {
-            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,PostsCategories,Attachments");
+            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
             return post != null ? Ok(post) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(post.Title));
         }
         [HttpGet]
@@ -71,7 +71,7 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(GetPostById) + "/{id}")]
         public async Task<IActionResult> GetPostById([FromRoute] int id)
         {
-            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,PostsCategories,Attachments");
+            Post post = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
             return post != null ? Ok(post) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(post.Title));
         }
 
@@ -146,7 +146,7 @@ namespace CodingBible.Controllers.api.v1
                     }
                     await UnitOfWork.SaveAsync();
                     var postToResturn = await UnitOfWork.Posts
-                    .GetFirstOrDefaultAsync(x => x.Slug == Post.Slug, includeProperties: "Author,PostsCategories,Attachments");
+                    .GetFirstOrDefaultAsync(x => x.Slug == Post.Slug, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
                     postToResturn.Categories = Post.Categories;
                     if (newPost.Status == (int)Constants.PostStatus.Published)
                         await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
@@ -164,7 +164,7 @@ namespace CodingBible.Controllers.api.v1
         {
             if (ModelState.IsValid)
             {
-                var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments");
+                var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
                 if (getPost == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(Post.Title));
@@ -190,7 +190,7 @@ namespace CodingBible.Controllers.api.v1
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments");
+                    getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
                     foreach (var cat in getPost.PostsCategories)
                     {
                         UnitOfWork.PostsCategories.Remove(cat);
@@ -245,7 +245,7 @@ namespace CodingBible.Controllers.api.v1
             {
                 if (ModelState.IsValid)
                 {
-                    var getPost = await UnitOfWork.Posts.GetAsync(Post.Id);
+                    var getPost = await UnitOfWork.Posts.GetFirstOrDefaultAsync(x => x.Id == Post.Id, includeProperties: "Author,PostsCategories,Attachments,SlugMap");
                     if (getPost == null)
                     {
                         return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(Post.Title));
@@ -320,14 +320,14 @@ namespace CodingBible.Controllers.api.v1
         [Route(nameof(GetAllCategories))]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await UnitOfWork.Categories.GetAllAsync();
+            var categories = await UnitOfWork.Categories.GetAllAsync(includeProperties: "SlugMap,PostsCategories,Parent");
             return Ok(categories);
         }
         [HttpGet]
         [Route(nameof(GetCategoryBySlug) + "/{slug}")]
         public async Task<IActionResult> GetCategoryBySlug([FromRoute] string slug)
         {
-            var category = await UnitOfWork.Categories.GetBySlug(slug);
+            var category = await UnitOfWork.Categories.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "SlugMap,PostsCategories,Parent");
             return category != null ? Ok(category) : NotFound(Constants.HttpResponses.NotFound_ERROR_Response(category.Name));
         }
         [HttpPost]
@@ -388,7 +388,7 @@ namespace CodingBible.Controllers.api.v1
             {
                 if (ModelState.IsValid)
                 {
-                    var getCategory = await UnitOfWork.Categories.GetAsync(category.Id);
+                    var getCategory = await UnitOfWork.Categories.GetFirstOrDefaultAsync(x => x.Id == category.Id, includeProperties: "SlugMap,PostsCategories,Parent");
                     if (getCategory == null)
                     {
                         return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(category.Name));

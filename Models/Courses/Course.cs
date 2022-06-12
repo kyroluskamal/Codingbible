@@ -45,4 +45,7 @@ public class Course
     public ICollection<StudentsPerCourse> Students { get; set; }
     public SlugMap_Courses SlugMap { get; set; }
     public bool IsArabic { get; set; }
+    [NotMapped]
+    public int EnCourseId { get; set; }
+
 }

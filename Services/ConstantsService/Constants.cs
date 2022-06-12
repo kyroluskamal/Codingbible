@@ -210,9 +210,9 @@ namespace CodingBible.Services.ConstantsService
             {
                 return new HttpResponsesObject("DELETE_FAILED", $"{op} deletion is failed.");
             }
-            public static object Delete_Sucess(string op)
+            public static object Delete_Sucess(string op, dynamic data = null)
             {
-                return new HttpResponsesObject("DELETE_SUCCESS", $"{op} Deletion is succeeded.");
+                return new HttpResponsesObject("DELETE_SUCCESS", $"{op} Deletion is succeeded.", data);
             }
             public static object NotUnique_ERROR_Response(string prop)
             {

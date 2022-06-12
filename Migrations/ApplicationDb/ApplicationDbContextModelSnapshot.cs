@@ -171,7 +171,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 16, 37, 999, DateTimeKind.Local).AddTicks(9597));
+                        .HasDefaultValue(new DateTime(2022, 6, 12, 20, 51, 50, 48, DateTimeKind.Local).AddTicks(2522));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -191,10 +191,13 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("IntroductoryVideoUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 16, 38, 0, DateTimeKind.Local).AddTicks(334));
+                        .HasDefaultValue(new DateTime(2022, 6, 12, 20, 51, 50, 48, DateTimeKind.Local).AddTicks(3440));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -262,6 +265,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
+
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
 
                     b.Property<byte>("Level")
                         .HasColumnType("tinyint");
@@ -338,6 +344,9 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("HtmlContent")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LasModified")
                         .HasColumnType("datetime2");
 
@@ -413,6 +422,9 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     b.Property<string>("IntroductoryVideoUrl")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsLeafSection")
                         .ValueGeneratedOnAdd()
@@ -637,15 +649,19 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("MenuLocationsId")
+                    b.Property<int>("MenuLocationsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MenuLocationsId");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("Menus");
                 });
@@ -658,11 +674,23 @@ namespace CodingBible.Migrations.ApplicationDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("ArName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ArUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<byte>("Level")
                         .HasColumnType("tinyint");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("MenuId")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrderWithinParent")
                         .HasColumnType("int");
@@ -670,10 +698,9 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<int?>("ParentKey")
                         .HasColumnType("int");
 
-                    b.Property<string>("Url")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("MenuId");
 
                     b.HasIndex("ParentKey");
 
@@ -689,26 +716,15 @@ namespace CodingBible.Migrations.ApplicationDb
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
                     b.ToTable("MenuLocations");
-                });
-
-            modelBuilder.Entity("CodingBible.Models.Menus.MenuMenuItems", b =>
-                {
-                    b.Property<int>("MenuId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MenuItemId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MenuId", "MenuItemId");
-
-                    b.HasIndex("MenuItemId");
-
-                    b.ToTable("MenuMenuItems");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
@@ -723,6 +739,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("nvarchar(160)");
+
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
 
                     b.Property<byte>("Level")
                         .HasColumnType("tinyint");
@@ -776,7 +795,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 16, 37, 999, DateTimeKind.Local).AddTicks(7790));
+                        .HasDefaultValue(new DateTime(2022, 6, 12, 20, 51, 50, 48, DateTimeKind.Local).AddTicks(485));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -799,10 +818,13 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsArabic")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 5, 28, 20, 16, 37, 999, DateTimeKind.Local).AddTicks(8411));
+                        .HasDefaultValue(new DateTime(2022, 6, 12, 20, 51, 50, 48, DateTimeKind.Local).AddTicks(1127));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()
@@ -862,6 +884,156 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.HasIndex("CategoryId");
 
                     b.ToTable("PostsCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_Categories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_CourseCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseCategoryId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_CourseCategories");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Courses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_Courses");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Lessons", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LessonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LessonId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_Lessons");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Posts", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_Posts");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Sections", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ArSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EnSlug")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId")
+                        .IsUnique();
+
+                    b.ToTable("SlugMap_Sections");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1075,21 +1247,14 @@ namespace CodingBible.Migrations.ApplicationDb
                 {
                     b.HasOne("CodingBible.Models.Menus.MenuLocations", "MenuLocations")
                         .WithMany()
-                        .HasForeignKey("MenuLocationsId");
+                        .HasForeignKey("MenuLocationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("MenuLocations");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Menus.MenuItem", b =>
-                {
-                    b.HasOne("CodingBible.Models.Menus.MenuItem", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentKey");
-
-                    b.Navigation("Parent");
-                });
-
-            modelBuilder.Entity("CodingBible.Models.Menus.MenuMenuItems", b =>
                 {
                     b.HasOne("CodingBible.Models.Menus.Menu", "Menu")
                         .WithMany("MenuItems")
@@ -1097,15 +1262,13 @@ namespace CodingBible.Migrations.ApplicationDb
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CodingBible.Models.Menus.MenuItem", "MenuItem")
-                        .WithMany("AssociatedMenus")
-                        .HasForeignKey("MenuItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("CodingBible.Models.Menus.MenuItem", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentKey");
 
                     b.Navigation("Menu");
 
-                    b.Navigation("MenuItem");
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
@@ -1162,6 +1325,72 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("Categories");
 
                     b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Category", b =>
+                {
+                    b.HasOne("CodingBible.Models.Posts.Category", "Category")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_Category", "CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_CourseCategory", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.CourseCategory", "CourseCategory")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_CourseCategory", "CourseCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CourseCategory");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Courses", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Course", "Course")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_Courses", "CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Lessons", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Lesson", "Lesson")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_Lessons", "LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Lesson");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Posts", b =>
+                {
+                    b.HasOne("CodingBible.Models.Posts.Post", "Post")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_Posts", "PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.SlugMap.SlugMap_Sections", b =>
+                {
+                    b.HasOne("CodingBible.Models.Courses.Section", "Section")
+                        .WithOne("SlugMap")
+                        .HasForeignKey("CodingBible.Models.SlugMap.SlugMap_Sections", "SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -1226,17 +1455,28 @@ namespace CodingBible.Migrations.ApplicationDb
                 {
                     b.Navigation("CoursesPerCategories");
 
+                    b.Navigation("SlugMap");
+
                     b.Navigation("Students");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Courses.CourseCategory", b =>
                 {
                     b.Navigation("CoursesPerCategories");
+
+                    b.Navigation("SlugMap");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Courses.Lesson", b =>
                 {
                     b.Navigation("Attachments");
+
+                    b.Navigation("SlugMap");
+                });
+
+            modelBuilder.Entity("CodingBible.Models.Courses.Section", b =>
+                {
+                    b.Navigation("SlugMap");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Identity.ApplicationUserRole", b =>
@@ -1249,14 +1489,11 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("MenuItems");
                 });
 
-            modelBuilder.Entity("CodingBible.Models.Menus.MenuItem", b =>
-                {
-                    b.Navigation("AssociatedMenus");
-                });
-
             modelBuilder.Entity("CodingBible.Models.Posts.Category", b =>
                 {
                     b.Navigation("PostsCategories");
+
+                    b.Navigation("SlugMap");
                 });
 
             modelBuilder.Entity("CodingBible.Models.Posts.Post", b =>
@@ -1264,6 +1501,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Navigation("Attachments");
 
                     b.Navigation("PostsCategories");
+
+                    b.Navigation("SlugMap");
                 });
 #pragma warning restore 612, 618
         }

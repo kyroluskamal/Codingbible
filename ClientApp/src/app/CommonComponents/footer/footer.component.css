@@ -2,13 +2,16 @@ h4{
     font-family: var(--FiraCode-font) !important;
     font-weight: 600;
 }
-h4,.h6{
+h4, .h6{
     color:lightgray;
 }
-.h6,ul{
+.h6, ul{
     font-family: var(--Nuito-font) !important;
 }
-ul, ul a,footer div p{
+[dir='rtl'] ul, [dir='rtl'] .h6{
+    font-family: var(--NotoSansArabic) !important;
+}
+ul, ul a, footer div p{
     color: #999999;
 }
 ul a:hover{
@@ -20,4 +23,7 @@ ul{
 }
 footer{
     min-height: 250px;
+}
+[dir='rtl'] .h6{
+    font-family: var(--NotoSansArabic);
 }

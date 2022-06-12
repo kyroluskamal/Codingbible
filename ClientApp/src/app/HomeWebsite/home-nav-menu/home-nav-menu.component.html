@@ -1,4 +1,4 @@
-<header>
+<header [dir]="(isArabic|async)?'rtl':'ltr'">
     <nav class="navbar navbar-expand-lg navbar-light p-0 navBarSahdow bg-white">
         <div class="container-fluid px-5">
             <div class=" d-md-block d-none">
@@ -10,14 +10,14 @@
                              style>
                     </div>
                     <a class="navbar-brand fs-4"
-                       [routerLink]="['']">
+                       [routerLink]="(isArabic|async)?['','ar']:['']">
                         <span class="fw-bold">C</span>oding <span class="fw-bold">B</span>ible</a>
                 </div>
             </div>
             <div class="d-md-none d-block">
                 <div class="d-flex flex-row h-100 align-content-center gap-2 ">
                     <a class="navbar-brand fs-4"
-                       [routerLink]="['']">
+                       [routerLink]="(isArabic|async)?['','ar']:['']">
                         <span class="fw-bold">C</span>oding <span class="fw-bold">B</span>ible</a>
                 </div>
             </div>
@@ -37,17 +37,20 @@
                         <li class="nav-item">
                             <a class="nav-link active"
                                aria-current="page"
-                               href="#">Home</a>
+                               [routerLink]="(isArabic|async)?['','ar']:['']">{{'Home'| translate}}</a>
                         </li>
-                        <li class="nav-item">
+                        <li *ngFor="let m of selectedMenu?.menuItems">
                             <a class="nav-link"
-                               href="#">Features</a>
+                               [routerLink]="(isArabic|async)?['','ar',m.arUrl]:[m.enUrl]">
+                                <span *ngIf="(isArabic|async)">
+                                    {{m.arName}}
+                                </span>
+                                <span *ngIf="!(isArabic|async)">
+                                    {{m.enName}}
+                                </span>
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                                href="#"
                                id="navbarDropdownMenuLink"
@@ -61,20 +64,20 @@
                                 <li><a class="dropdown-item"
                                        href="#">Action</a></li>
                                 <li><a class="dropdown-item"
-                                       href="#">{{'Another action'|translate}} </a></li>
+                                       href="#">Another action </a></li>
                                 <li><a class="dropdown-item"
                                        href="#">Something else here</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                     </ul>
                 </div>
                 <div class="d-flex flex-row gap-1">
                     <button #en
-                            class="btn text-dark noShadow langBtn"
-                            (click)="lang='en'">En</button>
+                            [class]="!(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                            (click)="gotToEnglish()">En</button>
                     <button #ar
-                            class="btn text-dark noShadow langBtn"
-                            (click)="lang='ar'">Ar</button>
+                            [class]="(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                            (click)=" gotToArabic()">Ar</button>
                 </div>
                 <!-- <div class="btn-group w-25"
                      role="group"

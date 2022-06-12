@@ -12,8 +12,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
 import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { HomeComponent } from './HomeWebsite/home/home.component';
-import { SharedComponentsModule } from 'src/SharedModules/SharedComponents.module';
 import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { UrlSerializer } from '@angular/router';
@@ -30,6 +28,8 @@ import { SectionsEffects } from 'src/State/SectionsState/sections.effects';
 import { LessonsEffects } from 'src/State/LessonsState/Lessons.effects';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';
+import { MenuEffects } from 'src/State/Menu/menu.effects';
 
 export const enum MergeStrategy
 {
@@ -44,6 +44,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
       { post: [] },
       { auth: ['user', 'roles', 'isLoggedIn'] },
       { design: ['pinned'] },
+      { lang: ['isArabic'] },
     ],
     rehydrate: true,
     removeOnUndefined: true
@@ -54,20 +55,19 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
 
 @NgModule({
   declarations: [
-    AppComponent, NotFoundComponent, HomeComponent
+    AppComponent, NotFoundComponent
   ],
   imports: [
+    CommonModule,
     AppRoutingModule, HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    // TransferHttpCacheModule,
     MatDialogModule,
-    TranslateModule.forRoot(),
     BrowserTransferStateModule,
     BrowserAnimationsModule,
-    SharedComponentsModule, SharedModuleForHomeModule,
+    SharedModuleForHomeModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
     EffectsModule.forRoot([PostEffects, AuthEffects, SectionsEffects,
-      LessonsEffects,
+      LessonsEffects, MenuEffects,
       CategoryEffects, AttachmentsEffects,
       CoursesEffects, CourseCategoryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),

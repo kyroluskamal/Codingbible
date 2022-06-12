@@ -26,4 +26,6 @@ public class CourseCategory
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
     public SlugMap_CourseCategory SlugMap { get; set; }
     public bool IsArabic { get; set; }
+    [NotMapped]
+    public int EnCourseCategoryId { get; set; }
 }

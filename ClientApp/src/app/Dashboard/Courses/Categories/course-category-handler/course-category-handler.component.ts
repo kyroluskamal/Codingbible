@@ -50,6 +50,10 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
     {
       this.Form.patchValue(this.UpdateObject);
       this.Form.get("parentkey")?.setValue(this.UpdateObject.parentKey);
+      if (this.ActionType == PostType.Edit)
+      {
+        this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.disable();
+      }
     }
   }
 
@@ -60,7 +64,8 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
       [FormControlNames.courseCategoryForm.name]: ['', [validators.required]],
       [FormControlNames.courseCategoryForm.title]: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
       [FormControlNames.courseCategoryForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      [FormControlNames.courseCategoryForm.parentKey]: [0, [validators.required]]
+      [FormControlNames.courseCategoryForm.parentKey]: [0, [validators.required]],
+      [FormControlNames.courseCategoryForm.isArabic]: [false],
     });
     this.cats$.subscribe(cats =>
     {

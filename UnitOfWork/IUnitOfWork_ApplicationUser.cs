@@ -20,8 +20,7 @@ namespace CodingBible.UnitOfWork
         IPostsCategoryRepositoryAsync PostsCategories { get; }
         IMenuItemsRepositoryAsync MenuItems { get; }
         IMenuRepositoryAsync Menus { get; }
-        IMenuMenuItemsRepositoryAsync MenuMenuItems { get; }
-        IMenuLocationsRespositoryAsync MenuLocations { get; }
+        IMenuLocationsRepositoryAsync MenuLocations { get; }
         ICourseCategoryRepositoryAsync CourseCategories { get; }
         ICourseRepositoryAsync Courses { get; }
         ICoursesPerCategoryRepositoryAsync CoursesPerCategories { get; }

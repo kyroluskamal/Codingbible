@@ -127,19 +127,22 @@ export const FormControlNames = {
         featureImageUrl: "featureImageUrl",
         categories: "categories",
         postAttachments: "postAttachments",
+        isArabic: "isArabic",
     },
     AddEditCategoryForm: {
         name: "name",
         title: "title",
         slug: "slug",
-        description: "description"
+        description: "description",
+        isArabic: "isArabic",
     },
     categoryForm: {
         name: "name",
         title: "title",
         slug: "slug",
         description: "description",
-        parentKey: "parentKey"
+        parentKey: "parentKey",
+        isArabic: "isArabic",
     },
     mediaForm: {
         title: "title",
@@ -160,13 +163,15 @@ export const FormControlNames = {
         featureImageUrl: "featureImageUrl",
         introductoryVideoUrl: "introductoryVideoUrl",
         categories: "categories",
+        isArabic: "isArabic",
     },
     courseCategoryForm: {
         name: "name",
         title: "title",
         slug: "slug",
         description: "description",
-        parentKey: "parentKey"
+        parentKey: "parentKey",
+        isArabic: "isArabic",
     },
     SectionForm: {
         name: "name",
@@ -178,6 +183,7 @@ export const FormControlNames = {
         introductoryVideoUrl: "introductoryVideoUrl",
         parentKey: "parentKey",
         whatWillYouLearn: "whatWillYouLearn",
+        isArabic: "isArabic",
     },
     LessonForm: {
         name: "name",
@@ -190,6 +196,11 @@ export const FormControlNames = {
         courseId: "courseId",
         featureImageUrl: "featureImageUrl",
         slug: "slug",
+        isArabic: "isArabic",
+    },
+    MenuForm: {
+        name: "name",
+        menuLocationsId: "menuLocationsId",
     }
 };
 
@@ -251,6 +262,9 @@ export const FormFieldsNames = {
         name: "Name",
         title: "Title",
         vedioUrl: "Lesson video Url",
+    },
+    MenuForm: {
+        name: "Name",
     }
 };
 export const FormValidationErrors = {
@@ -482,6 +496,9 @@ export const actionNames = {
         GetCourseCategoryBy_Slug_Failed: '[GetCourseCategoryBy_Slug] Failed',
         Set_ValidationErrors: '[CourseCategory] Set Validation Errors',
     },
+    LangAction: {
+        SET_LANGUAGE: '[Set Language] Request',
+    },
     LessonActions: {
         ADD_Lesson: '[Add Lesson] Request',
         ADD_Lesson_Success: '[Add Lesson] SUCCESS',
@@ -546,6 +563,30 @@ export const actionNames = {
         UpdateSectionOrder: '[Section UpdateSectionOrder] request',
         UpdateSectionOrder_Success: '[Section UpdateSectionOrder] Sucess',
         UpdateSectionOrder_Failed: '[Section UpdateSectionOrder] Failed',
+    },
+    MenuActions: {
+        ADD_Menu: '[Add Menu] Request',
+        ADD_Menu_Success: '[Add Menu] SUCCESS',
+        ADD_Menu_Failed: '[Add Menu] FAILED',
+        UPDATE_Menu: '[Update Menu] Request',
+        UPDATE_Menu_Success: '[Update Menu] SUCCESS',
+        UPDATE_Menu_Failed: '[Update Menu] FAILED',
+        REMOVE_Menu: '[Delete Menu] Request',
+        REMOVE_Menu_Success: '[Delete Menu] SUCCESS',
+        REMOVE_Menu_Failed: '[Delete Menu] FAILED',
+        LOAD_ALL_Menus: '[Menu] Load All Menus',
+        LOAD_ALL_Menus_SUCCESS: '[Load Menus] Success',
+        LOAD_ALL_Menus_FAILED: '[Load Menus] FAILED',
+        GetMenuById: '[GetMenuById] request',
+        GetMenuById_Success: '[GetMenuById] Sucess',
+        GetMenuById_Failed: '[GetMenuBy_Slug] Failed',
+        Set_ValidationErrors: '[Menu] Set Validation Errors',
+        GetMenuByLocationName: '[GetMenuByLocationName] request',
+        GetMenuByLocationName_Success: '[GetMenuByLocationName] Sucess',
+        GetMenuByLocationName_Failed: '[GetMenuByLocationName] Failed',
+        RemoveMenuItem: '[RemoveMenuItem] request',
+        RemoveMenuItem_Success: '[RemoveMenuItem] Sucess',
+        RemoveMenuItem_Failed: '[RemoveMenuItem] Failed',
     }
 };
 

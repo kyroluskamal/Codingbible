@@ -27,5 +27,7 @@ namespace CodingBible.Models.Posts
         public ICollection<PostsCategory> PostsCategories { get; set; }
         public SlugMap_Category SlugMap { get; set; }
         public bool IsArabic { get; set; }
+        [NotMapped]
+        public int EnCategoryId { get; set; }
     }
 }

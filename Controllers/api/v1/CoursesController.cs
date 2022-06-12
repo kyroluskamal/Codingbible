@@ -49,7 +49,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author,CoursesPerCategories,Students");
+            var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author,CoursesPerCategories,Students,SlugMap");
             return Ok(courses.ToList());
         }
         catch (Exception e)
@@ -66,7 +66,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,CoursesPerCategories,Students");
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,CoursesPerCategories,Students,SlugMap");
             return Ok(course);
         }
         catch (Exception e)
@@ -84,7 +84,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name, includeProperties: "Author,CoursesPerCategories,Students");
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name, includeProperties: "Author,CoursesPerCategories,Students,SlugMap");
             return Ok(course);
         }
         catch (Exception e)
@@ -102,7 +102,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,CoursesPerCategories,Students");
+            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,CoursesPerCategories,Students,SlugMap");
             return Ok(course);
         }
         catch (Exception e)
@@ -335,7 +335,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getCourse = await UnitOfWork.Courses.GetAsync(course.Id);
+                var getCourse = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == course.Id, includeProperties: "Author,CoursesPerCategories,Students,SlugMap");
                 if (getCourse == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(course.Title));
@@ -598,7 +598,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var sections = await UnitOfWork.Sections.GetAllAsync(includeProperties: "Course,Parent");
+            var sections = await UnitOfWork.Sections.GetAllAsync(includeProperties: "Course,Parent,SlugMap");
             return Ok(sections);
         }
         catch (Exception e)
@@ -614,7 +614,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var section = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Course,Parent");
+            var section = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Course,Parent,SlugMap");
             return Ok(section);
         }
         catch (Exception e)
@@ -650,7 +650,7 @@ public class CoursesController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    return Ok(await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == newSection.Id, includeProperties: "Course,Parent"));
+                    return Ok(await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == newSection.Id, includeProperties: "Course,Parent,SlugMap"));
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Section"));
             }
@@ -673,7 +673,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getSection = await UnitOfWork.Sections.GetAsync(section.Id);
+                var getSection = await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == section.Id, includeProperties: "Course,Parent,SlugMap");
                 if (getSection == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Section"));
@@ -785,7 +785,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getSection = await UnitOfWork.Sections.GetAsync(section.Id);
+                var getSection = await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == section.Id, includeProperties: "Course,Parent,SlugMap");
                 if (getSection == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(section.Title));
@@ -819,7 +819,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var getSections = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == sections[0].CourseId && x.ParentKey == sections[0].ParentKey);
+            var getSections = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == sections[0].CourseId && x.ParentKey == sections[0].ParentKey, includeProperties: "Course,Parent,SlugMap");
 
             foreach (var section in sections)
             {
@@ -857,7 +857,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Section,Attachments");
+            var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Section,Attachments,SlugMap");
             return Ok(lessons);
         }
         catch (Exception e)
@@ -874,7 +874,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lessons = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments");
+            var lessons = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments,SlugMap");
             return Ok(lessons);
         }
         catch (Exception e)
@@ -890,7 +890,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section,Attachments");
+            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section,Attachments,SlugMap");
             if (lesson == null)
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -910,7 +910,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var lesson = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments");
+            var lesson = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments,SlugMap");
             if (lesson == null)
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -949,21 +949,23 @@ public class CoursesController : ControllerBase
                 {
                     return BadRequest(Constants.HttpResponses.Already_Exists_ERROR_Response("Lesson"));
                 }
-                Lesson newLesson = new();
-                newLesson.Name = lesson.Name;
-                newLesson.Title = lesson.Title;
-                newLesson.Slug = lesson.Slug;
-                newLesson.Description = lesson.Description;
-                newLesson.VedioUrl = lesson.VedioUrl;
-                newLesson.OrderWithinSection = lesson.OrderWithinSection;
-                newLesson.Status = lesson.Status;
-                newLesson.HtmlContent = lesson.HtmlContent;
-                newLesson.FeatureImageUrl = lesson.FeatureImageUrl;
-                newLesson.SectionId = lesson.SectionId;
-                newLesson.DateCreated = DateTime.Now;
-                newLesson.LasModified = DateTime.Now;
-                newLesson.Attachments = lesson.Attachments;
-                newLesson.CourseId = lesson.CourseId;
+                Lesson newLesson = new()
+                {
+                    Name = lesson.Name,
+                    Title = lesson.Title,
+                    Slug = lesson.Slug,
+                    Description = lesson.Description,
+                    VedioUrl = lesson.VedioUrl,
+                    OrderWithinSection = lesson.OrderWithinSection,
+                    Status = lesson.Status,
+                    HtmlContent = lesson.HtmlContent,
+                    FeatureImageUrl = lesson.FeatureImageUrl,
+                    SectionId = lesson.SectionId,
+                    DateCreated = DateTime.Now,
+                    LasModified = DateTime.Now,
+                    Attachments = lesson.Attachments,
+                    CourseId = lesson.CourseId
+                };
                 if (lesson.Status == (int)Constants.PostStatus.Published)
                 {
                     newLesson.PublishedDate = DateTime.Now;
@@ -1010,7 +1012,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getLesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == lesson.Id, includeProperties: "Section,Attachments");
+                var getLesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == lesson.Id, includeProperties: "Section,Attachments,SlugMap");
                 if (getLesson == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -1118,7 +1120,7 @@ public class CoursesController : ControllerBase
         {
             if (ModelState.IsValid)
             {
-                var getLesson = await UnitOfWork.Lessons.GetAsync(lesson.Id);
+                var getLesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == lesson.Id, includeProperties: "Section,Attachments,SlugMap");
                 if (getLesson == null)
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(lesson.Title));
@@ -1152,7 +1154,7 @@ public class CoursesController : ControllerBase
     {
         try
         {
-            var getLessons = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lessons[0].SectionId && x.CourseId == lessons[0].CourseId);
+            var getLessons = await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == lessons[0].SectionId && x.CourseId == lessons[0].CourseId, includeProperties: "Section,Attachments,SlugMap");
             foreach (var l in lessons)
             {
                 getLessons.FirstOrDefault(x => x.Id == l.Id).OrderWithinSection = l.OrderWithinSection;
@@ -1201,4 +1203,208 @@ public class CoursesController : ControllerBase
             await UpdateSectionLevel(child);
         }
     }
+    /******************************************************************************
+    *                                  SlugMap
+    *******************************************************************************/
+    #region SlugMap
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_Courses))]
+    public async Task<IActionResult> Get_All_SlugMap_Courses()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_Courses.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_Sections))]
+    public async Task<IActionResult> Get_All_SlugMap_Sections()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_Sections.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_Lessons))]
+    public async Task<IActionResult> Get_All_SlugMap_Lessons()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_Lessons.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_Categories))]
+    public async Task<IActionResult> Get_All_SlugMap_Categories()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_Categories.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_CourseCategories))]
+    public async Task<IActionResult> Get_All_SlugMap_CourseCategories()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_CourseCategories.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_All_SlugMap_Posts))]
+    public async Task<IActionResult> Get_All_SlugMap_Posts()
+    {
+        try
+        {
+            return Ok(await UnitOfWork.SlugMap_Posts.GetAllAsync());
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_Courses_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_Courses_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_Sections_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_Sections_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_Lessons_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_Lessons_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_Categories_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_Categories_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_CourseCategories_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_CourseCategories_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    [HttpGet]
+    [Route(nameof(Get_SlugMap_Posts_By_SlugAndLang))]
+    public async Task<IActionResult> Get_SlugMap_Posts_By_SlugAndLang([FromQuery] string slug, [FromQuery] bool isArabic)
+    {
+        try
+        {
+            if (isArabic)
+                return Ok(await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x => x.ArSlug == slug));
+            else
+                return Ok(await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x => x.EnSlug == slug));
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+    #endregion
 }

@@ -32,4 +32,6 @@ public class Section
     public Section Parent { get; set; }
     public SlugMap_Sections SlugMap { get; set; }
     public bool IsArabic { get; set; }
+    [NotMapped]
+    public int EnSectionId { get; set; }
 }

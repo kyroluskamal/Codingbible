@@ -1,32 +1,36 @@
-<footer class="bg-dark container-fluid pt-5">
+<footer class="bg-dark container-fluid pt-5"
+        [dir]="(isArabic|async)?'rtl':'ltr'">
     <div class="row p-0 m-0 w-100">
         <div class="col-12 col-md-3">
             <h4>Coding Bible</h4>
             <p>
-                Start learning coding today!
+                {{'Start learning coding today!'| translate}}
             </p>
             <p>
-                If you have any question, please contact us.
+                {{'If you have any question, please contact us.'| translate}}
             </p>
         </div>
         <div class="col-12 col-md-3">
-            <h5 class="h6">Pages</h5>
+            <h5 class="h6">{{'Pages'| translate}}</h5>
             <ul>
-                <li>Privacy policy</li>
+                <li>{{'Privacy policy'| translate}}</li>
             </ul>
         </div>
         <div class="col-12 col-md-3">
-            <h5 class="h6">Contact us</h5>
+            <h5 class="h6">{{'Contact us'| translate}}</h5>
             <ul>
                 <li>admin@coding-bible.com</li>
             </ul>
         </div>
         <div class="col-12 col-md-3">
-            <h5 class="h6">Follow us</h5>
+            <h5 class="h6">{{'Follow us'| translate}}</h5>
             <ul class="d-flex flex-row gap-2">
-                <li><a href="https://www.facebook.com/codingbibleEnglish"><i class="bi bi-facebook"></i></a>
+                <li><a [href]="(isArabic|async)?'https://www.facebook.com/codingbibleArabic':'https://www.facebook.com/codingbibleEnglish'"
+                       target="_blank"><i class="bi bi-facebook"></i></a>
                 </li>
-                <li><a href="https://twitter.com/CodingBibleEN"><i class="bi bi-twitter"></i></a></li>
+                <li><a
+                       [href]="(isArabic|async)?'https://twitter.com/CodingbibleAr':'https://twitter.com/CodingBibleEN'"><i
+                           class="bi bi-twitter"></i></a></li>
             </ul>
         </div>
     </div>

@@ -5,9 +5,12 @@ import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormValidationErrors, FormValidationErrorsNames } from 'src/Helpers/constants';
-import { Menu, MenuItem, MenuPositions, Post } from 'src/models.model';
+import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, PostType, validators } from 'src/Helpers/constants';
+import { Menu, MenuItem, MenuLocations, Post } from 'src/models.model';
+import { MenuService } from 'src/Services/menu.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
+import { AddMenu, LoadMenus, RemoveMenu, UpdateMenu } from 'src/State/Menu/menu.actions';
+import { selectAll_Menus } from 'src/State/Menu/menu.reducer';
 import { selectAllposts } from 'src/State/PostState/post.reducer';
 
 @Component({
@@ -19,16 +22,14 @@ export class MenusComponent implements OnInit
 {
   constructor(public spinner: SpinnerService,
     private store: Store, private fb: FormBuilder, private TreeDataStructure: TreeDataStructureService<MenuItem>,
-    @Inject(DOCUMENT) private document: Document) 
+    @Inject(DOCUMENT) private document: Document, private MenuService: MenuService) 
   {
   }
   Form: FormGroup = this.fb.group({
     parent: [],
     order: [],
   });
-  MenuPositions: MenuPositions[] = [
-    { id: 1, name: 'Blog Menu' },
-  ];
+  MenuLocations: MenuLocations[] = [];
   selectedMenus: Menu[] = [];
   Posts = this.store.select(selectAllposts);
   selectedMenuItems: MenuItem[] = [];
@@ -41,26 +42,30 @@ export class MenusComponent implements OnInit
   dragabale_TempHolder!: HTMLElement;
   menuItemsOrder: number[] = [];
   roots: MenuItem[] = [];
+  FormControlNames = FormControlNames;
+  FormFieldsNames = FormFieldsNames;
+  selectedLocation: MenuLocations | null = null;
+  PostType = PostType;
   errorState = new BootstrapErrorStateMatcher();
+  ActionTypeMenu: string = "";
+  MenuForm: FormGroup = new FormGroup({});
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   ParentToChildrenMap: Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]> = new Map<{ parent: MenuItem, isRoot: boolean; }, MenuItem[]>();
   @ViewChild("menuStructureContainer", { read: ElementRef }) menuStructureContainer: ElementRef<HTMLUListElement> = {} as ElementRef<HTMLUListElement>;
-  Menus: Menu[] = [
-    {
-      id: 1, name: "BlogMenu", menuPositionsId: 1, menuPositions: null, menuItems: [
-        { id: 1, name: "Home", url: "/", level: 0, orderWithinParent: 1, parentKey: null, parent: null, associatedMenus: [], orderInMenu: 0 },
-        { id: 2, name: "About", url: "/about", level: 2, orderWithinParent: 0, parentKey: 4, parent: null, associatedMenus: [], orderInMenu: 0 },
-        { id: 3, name: "Contact", url: "/contact", level: 2, orderWithinParent: 1, parentKey: 4, parent: null, associatedMenus: [], orderInMenu: 0 },
-        { id: 4, name: "Blog", url: "/blog", level: 1, orderWithinParent: 0, parentKey: 1, parent: null, associatedMenus: [], orderInMenu: 0 },
-        { id: 5, name: "Blog Details", url: "/blog-details", level: 0, orderWithinParent: 0, parentKey: null, parent: null, associatedMenus: [], orderInMenu: 0 },
-
-      ]
-    }
-  ];
+  Menus: Menu[] = [];
+  Menus$ = this.store.select(selectAll_Menus);
   ngOnInit(): void
   {
     this.dragStart();
+    this.MenuService.GetMenuLocations().subscribe(r => this.MenuLocations = r);
+    this.store.dispatch(LoadMenus());
+    this.Menus$.subscribe(r => { this.Menus = r; this.ShowMenus(this.selectedLocation?.id); });
+    this.MenuForm = this.fb.group({
+      id: [0],
+      [FormControlNames.MenuForm.name]: ['', [validators.required]],
+      [FormControlNames.MenuForm.menuLocationsId]: [0, [validators.required]],
+    });
   }
   SetParent(itemId: number)
   {
@@ -122,10 +127,7 @@ export class MenusComponent implements OnInit
     this.currentMenu.menuItems = this.reArrangeMenuItems(this.currentMenu.menuItems);
     console.log(this.currentMenu.menuItems);
   }
-  ShowMenus(value: any)
-  {
-    this.selectedMenus.push(...this.Menus.filter(x => x.menuPositionsId === Number(value)));
-  }
+
   ShowItemMenus(menu: Menu)
   {
     this.currentMenu = menu;
@@ -134,24 +136,7 @@ export class MenusComponent implements OnInit
   }
   AddToOpenedList(post: Post)
   {
-    let newMenuItem: MenuItem = {
-      id: 0,
-      name: post.title,
-      url: post.slug,
-      level: 0,
-      orderWithinParent: 0,
-      parentKey: 0,
-      parent: null,
-      associatedMenus: [{
-        menuId: this.currentMenu.id,
-        menuItemId: 0,
-        menuItem: null,
-        menu: null
-      }]
-      , orderInMenu: 0
-    };
 
-    this.currentMenu.menuItems.push(newMenuItem);
   }
   dragStart()
   {
@@ -334,7 +319,7 @@ export class MenusComponent implements OnInit
     menuItems = FlatentArrangedArray;
     for (let i = 0; i < menuItems.length; i++)
     {
-      menuItems[i].orderInMenu = i;
+      menuItems[i].orderWithinParent = i;
     }
     return menuItems;
   }
@@ -346,5 +331,35 @@ export class MenusComponent implements OnInit
       child.level = item.level + 1;
       this.recalulateLevels(child);
     }
+  }
+  /***************************************************************************************
+  *                                        Menu Handeling
+  **************************************************************************************/
+  AddMenu()
+  {
+    let menu = new Menu();
+    menu.name = this.MenuForm.get(FormControlNames.MenuForm.name)?.value;
+    menu.menuLocationsId = this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.value;
+    this.store.dispatch(AddMenu(menu));
+  }
+  DeleteMenu(id: number)
+  {
+    this.store.dispatch(RemoveMenu({ id: id }));
+  }
+  EditMenu()
+  {
+    let menuToUpdate = new Menu();
+    menuToUpdate.id = Number(this.MenuForm.get('id')?.value);
+    menuToUpdate.name = this.MenuForm.get(FormControlNames.MenuForm.name)?.value;
+    menuToUpdate.menuLocationsId = this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.value;
+    this.store.dispatch(UpdateMenu(menuToUpdate));
+  }
+  ShowMenus(value: any)
+  {
+    debugger;
+    this.selectedMenus = [];
+    this.selectedLocation = this.MenuLocations.filter(x => x.id === Number(value))[0];
+    this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.setValue(Number(value));
+    this.selectedMenus.push(...this.Menus.filter(x => x.menuLocationsId === Number(value)));
   }
 }

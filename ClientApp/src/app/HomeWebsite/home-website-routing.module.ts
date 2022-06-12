@@ -9,14 +9,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const RoutesForHomeModule: Routes = [
-
   {
-    path: "", children: [
-      { path: AuthRoutes.Login, component: LoginPageComponent },
-      { path: AuthRoutes.Register, component: RegisterPageComponent },
-      { path: AuthRoutes.ResetPassword, component: ResetPasswordComponent },
-      { path: AuthRoutes.emailConfirmation, component: EmailConfirmationComponent }
-    ]
+    path: "", component: HomeComponent
   }
 ];
 

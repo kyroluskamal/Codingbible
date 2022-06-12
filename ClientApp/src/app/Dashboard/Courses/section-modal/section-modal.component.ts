@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, validators } from 'src/Helpers/constants';
+import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -68,6 +68,10 @@ export class SectionModalComponent implements OnInit, OnChanges
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
       this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
       this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
+      if (this.UpdateObject.status === PostStatus.Published)
+      {
+        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.disable();
+      }
     }
     if ("ActionType" in changes)
     {
@@ -93,6 +97,7 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.SectionForm.whatWillYouLearn]: [""],
       [FormControlNames.SectionForm.isLeafSection]: [false],
+      [FormControlNames.SectionForm.isArabic]: [false],
     });
     this.AllSections$.subscribe(sections =>
     {

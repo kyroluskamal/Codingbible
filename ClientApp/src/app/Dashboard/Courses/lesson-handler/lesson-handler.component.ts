@@ -33,6 +33,7 @@ export class LessonHandlerComponent implements OnInit
 {
   ValidationErrors$ = this.store.select(select_Lessons_ValidationErrors);
   PostType = PostType;
+  PostStatus = PostStatus;
   FormControlNames = FormControlNames;
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
@@ -167,6 +168,7 @@ export class LessonHandlerComponent implements OnInit
       [FormControlNames.LessonForm.vedioUrl]: [null, [validators.YoutubeVideo]],
       [FormControlNames.LessonForm.htmlContent]: [null],
       [FormControlNames.LessonForm.featureImageUrl]: [null, [validators.required]],
+      [FormControlNames.LessonForm.isArabic]: [false],
     });
     window.addEventListener('resize', () =>
     {
@@ -211,8 +213,14 @@ export class LessonHandlerComponent implements OnInit
           this.lesson = Object.assign({}, r);
           this.inputForm.patchValue(this.lesson);
           this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
+          console.log("html", !this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.value);
+          console.log("VedioUrl", !this.inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value);
           this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
           this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
+          if (this.lesson.status === PostStatus.Published)
+          {
+            this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
+          }
           for (let i = 0; i < lesson?.attachments.length!; i++)
           {
             this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);

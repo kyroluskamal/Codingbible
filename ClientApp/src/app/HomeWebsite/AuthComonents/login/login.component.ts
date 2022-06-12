@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthRoutes } from '../../../../Helpers/router-constants';
+import { AuthRoutes, DashboardRoutes } from '../../../../Helpers/router-constants';
 import { DialogHandlerService } from '../../../../CommonServices/dialog-handler.service';
 import { defaultFormAppearance, FormConstants, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PASSWORD_MINLENGTH, validators } from '../../../../Helpers/constants';
 import { CustomErrorStateMatcher } from '../../../../Helpers/custom-error-state-matcher';
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit, OnChanges
     {
       if (x.isLoggedIn)
       {
-        this.router.navigate(['']);
+        this.router.navigate(['', DashboardRoutes.Home]);
       }
     });
   }

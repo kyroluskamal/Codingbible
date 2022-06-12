@@ -15,7 +15,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SharedComponentsModule } from 'src/SharedModules/SharedComponents.module';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { ActionReducer, MetaReducer, StoreModule } from '@ngrx/store';
@@ -41,24 +40,18 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 // }
 
 // export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
-const Commponents = [
-  LoginComponent, RegisterComponent,
-  ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
-  LoginPageComponent, RegisterPageComponent,
-];
+
 @NgModule({
-  declarations: [Commponents],
-  imports: [SharedComponentsModule,
+  declarations: [],
+  imports: [SharedModuleForHomeModule,
     // StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
-    ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
-    MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
+
     // EffectsModule.forFeature([AuthEffects]),
     // NgrxUniversalRehydrateBrowserModule.forFeature(['auth', 'design']),
 
     HomeWebsiteRoutingModule, TooltipModule.forRoot(), MatProgressSpinnerModule
   ],
-  exports: [Commponents],
-  providers: [DialogHandlerService,
+  providers: [
     { provide: UrlSerializer, useClass: LowerCaseUrlSerializer }
   ]
 })

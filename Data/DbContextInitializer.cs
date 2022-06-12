@@ -1,5 +1,6 @@
 ﻿using CodingBible.Models;
 using CodingBible.Models.Courses;
+using CodingBible.Models.Menus;
 using CodingBible.Models.Posts;
 using CodingBible.Services.FunctionalService;
 using Microsoft.EntityFrameworkCore;
@@ -89,6 +90,25 @@ namespace CodingBible.Data
                 await ApplicationDbContext.CourseCategories.AddAsync(Uncategorized_Course_Category);
                 await ApplicationDbContext.SaveChangesAsync();
             }
+            if (!ApplicationDbContext.MenuLocations.Any())
+            {
+                MenuLocations[] MenuLocations =
+                {
+                   new MenuLocations(){
+                        Name = "home",
+                    },
+                     new MenuLocations(){
+                        Name = "courses",
+                    }
+                    ,
+                     new MenuLocations(){
+                        Name = "blog",
+                    }
+                };
+                await ApplicationDbContext.MenuLocations.AddRangeAsync(MenuLocations);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+
             //// If empty create Admin User and App User
             //await functionalSvc.CreateDefaultUser();
 

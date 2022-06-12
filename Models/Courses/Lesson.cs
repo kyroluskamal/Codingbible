@@ -33,4 +33,6 @@ public class Lesson
     public ICollection<LessonAttachments> Attachments { get; set; }
     public SlugMap_Lessons SlugMap { get; set; }
     public bool IsArabic { get; set; }
+    [NotMapped]
+    public int EnLessonId { get; set; }
 }

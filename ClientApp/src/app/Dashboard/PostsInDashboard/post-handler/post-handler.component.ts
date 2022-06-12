@@ -9,7 +9,7 @@ import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-ma
 import
 {
   FormControlNames, LocalStorageKeys, PostType, FormFieldsNames,
-  FormValidationErrors, FormValidationErrorsNames, BaseUrl
+  FormValidationErrors, FormValidationErrorsNames, BaseUrl, PostStatus
 } from 'src/Helpers/constants';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
@@ -197,6 +197,10 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
           this.form.patchValue(this.post);
           this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
           this.title.setTitle(`Edit post - ${this.post.title}`);
+          if (this.post.status === PostStatus.Published)
+          {
+            this.form.get(FormControlNames.postForm.isArabic)?.disable();
+          }
           this.post.featureImageUrl = this.post.featureImageUrl.includes("http") ? this.post.featureImageUrl : `${this.BaseUrl}${this.post.featureImageUrl}`;
           let tempAttachments = [];
           for (let i = 0; i < post?.attachments.length!; i++)

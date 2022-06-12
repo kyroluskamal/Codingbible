@@ -172,8 +172,18 @@
                         </div>
 
                     </div>
-                    <div class="col-sm-4 col-12"
+                    <div class="col-sm-4 col-12 d-flex flex-column"
                          style="padding-bottom: 1.8rem;">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   [formControlName]="FormControlNames.courseForm.isArabic"
+                                   id="isArabic">
+                            <label class="form-check-label fw-bold"
+                                   for="isArabic">
+                                In Arabic
+                            </label>
+                        </div>
                         <!-- -------------------------------------------------------------------------- 
                         |                                  Feature Image Card
                         ------------------------------------------------------------------------------->

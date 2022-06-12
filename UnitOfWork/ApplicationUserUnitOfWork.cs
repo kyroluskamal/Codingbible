@@ -32,8 +32,7 @@ namespace CodingBible.UnitOfWork
         public IPostsCategoryRepositoryAsync PostsCategories { get; }
         public IMenuItemsRepositoryAsync MenuItems { get; }
         public IMenuRepositoryAsync Menus { get; }
-        public IMenuMenuItemsRepositoryAsync MenuMenuItems { get; }
-        public IMenuLocationsRespositoryAsync MenuLocations { get; }
+        public IMenuLocationsRepositoryAsync MenuLocations { get; }
         public ICourseCategoryRepositoryAsync CourseCategories { get; }
         public ICourseRepositoryAsync Courses { get; }
         public ICoursesPerCategoryRepositoryAsync CoursesPerCategories { get; }
@@ -61,7 +60,6 @@ namespace CodingBible.UnitOfWork
             PostsCategories = new PostsCategoryRepositoryAsync(applicationDbContext);
             MenuItems = new MenuItemRepositoryAsync(applicationDbContext);
             Menus = new MenuRespositoryAsync(applicationDbContext);
-            MenuMenuItems = new MenuMenuItemsRepositoryAsync(applicationDbContext);
             MenuLocations = new MenuLocationsRepositoryAsync(applicationDbContext);
             CourseCategories = new CourseCategoryRepositoryAsync(applicationDbContext);
             Courses = new CourseRepositoryAsync(applicationDbContext);

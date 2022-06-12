@@ -3,6 +3,8 @@
 }
 .styledMenus li:hover{
     background-color: #0d6efd !important;
+}
+.styledMenus li:hover, .styledMenus li:hover i{
     color: #fff !important;
         font-weight: bold;
 }

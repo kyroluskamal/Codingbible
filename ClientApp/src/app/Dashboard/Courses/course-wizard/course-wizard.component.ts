@@ -8,7 +8,7 @@ import { ClientSideValidationService } from 'src/CommonServices/client-side-vali
 import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Course, CourseCategory, Lesson, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -123,6 +123,7 @@ export class CourseWizardComponent implements OnInit
       [FormControlNames.courseForm.featureImageUrl]: ['', [validators.required]],
       [FormControlNames.courseForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.courseForm.categories]: ['', [validators.required]],
+      [FormControlNames.courseForm.isArabic]: [false],
     });
     this.activatedRouter.queryParams.subscribe(params =>
     {
@@ -294,6 +295,10 @@ export class CourseWizardComponent implements OnInit
             if (course?.introductoryVideoUrl)
               this.GetVideo(course?.introductoryVideoUrl!);
             this.CourseToAddOrUpdate = course!;
+            if (this.CourseToAddOrUpdate.status == PostStatus.Published)
+            {
+              this.CourseForm.get(FormControlNames.courseForm.isArabic)?.disable();
+            }
             this.FeatureImageUrl = course?.featureImageUrl!;
             this.CourseForm.patchValue(course!);
             this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
