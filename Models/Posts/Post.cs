@@ -43,6 +43,6 @@ namespace CodingBible.Models.Posts
         public SlugMap_Posts SlugMap { get; set; }
         public bool IsArabic { get; set; }
         [NotMapped]
-        public int EnPostId { get; set; }
+        public string OtherSlug { get; set; }
     }
 }

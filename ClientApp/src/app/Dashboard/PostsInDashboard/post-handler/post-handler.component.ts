@@ -14,7 +14,7 @@ import
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Attachments, Post, PostAttachments } from 'src/models.model';
+import { Attachments, Category, Post, PostAttachments } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { selectUser } from 'src/State/AuthState/auth.reducer';
@@ -25,6 +25,7 @@ import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
 import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
 import { Title } from '@angular/platform-browser';
+import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 
 @Component({
   selector: 'app-post-handler',
@@ -44,6 +45,8 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   FormFieldsNames = FormFieldsNames;
   errorState = new BootstrapErrorStateMatcher();
   cats$ = this.store.select(selectAllCategorys);
+  AllCategories: Category[] = [];
+  CategoriesByLang: Category[] = [];
   postsAttachments: number[] = [];
   @Input() inputForm: FormGroup = new FormGroup({});
   post: Post = new Post();
@@ -51,6 +54,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   @Input() postType: string = "";
   viewWidth: number = window.innerWidth;
   viewHeight: number = window.innerHeight;
+  selectedTranslation: Post[] = [];
   @Output() Update: EventEmitter<Post> = new EventEmitter();
   @Output() Publish: EventEmitter<FormGroup> = new EventEmitter();
   @Output() Draft: EventEmitter<FormGroup> = new EventEmitter();
@@ -214,6 +218,9 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     }
     if (this.postType === PostType.Add)
       this.title.setTitle("Add new post");
+    this.cats$.subscribe(x => this.AllCategories = x);
+    this.posts$.subscribe(x => this.posts = x);
+    this.SelectTranslation();
   }
   UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
   {
@@ -324,7 +331,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   isSlugUnique(slug: HTMLInputElement)
   {
-    this.posts$.subscribe(x => this.posts = x);
+
 
     if (this.posts.length > 0)
     {
@@ -372,5 +379,14 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
       : temp.push(selectedCatId);
     this.selectedCategories = temp;
     this.form.get(FormControlNames.postForm.categories)?.setValue(this.selectedCategories);
+  }
+  SelectTranslation()
+  {
+    let tree = new TreeDataStructureService<Category>();
+    tree.setData(this.AllCategories.filter(x => x.isArabic
+      === Boolean(this.form.get(FormControlNames.postForm.isArabic)?.value)));
+    this.CategoriesByLang = tree.finalFlatenArray();
+    this.selectedTranslation = this.posts.filter(x => x.isArabic
+      !== Boolean(this.form.get(FormControlNames.postForm.isArabic)?.value));
   }
 }

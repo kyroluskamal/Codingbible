@@ -58,6 +58,7 @@ export class LessonHandlerComponent implements OnInit
   viewWidth: number = window.innerWidth;
   viewHeight: number = window.innerHeight;
   ActionType: string = "";
+  selectedTranslation: Lesson[] = [];
   @ViewChild("view", { read: ElementRef }) view: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("StickyNotesHandler", { read: ElementRef }) StickyNotesHandler: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   @ViewChild("StickyNotesContainer", { read: ElementRef }) StickyNotesContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
@@ -408,5 +409,10 @@ export class LessonHandlerComponent implements OnInit
     {
       this.inputForm.disable();
     }
+  }
+  SelectTranslation()
+  {
+    this.selectedTranslation = this.lessons.filter(x => x.isArabic !==
+      Boolean(this.inputForm.get(FormControlNames.LessonForm.isArabic)?.value));
   }
 }

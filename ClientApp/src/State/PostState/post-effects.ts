@@ -97,7 +97,7 @@ export class PostEffects
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Post status'));
             let x: Update<Post> = {
               id: action.id,
-              changes: action
+              changes: r.data as Post
             };
             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
             return ChangeStatus_Success({ POST: x, currentPostById: action });

@@ -175,6 +175,6 @@ export class ClientSideValidationService
   }
   GenerateSlug(title: string)
   {
-    return title.toLowerCase().replace(/\|/g, ' ').replace(/[^\w-]+/g, '-');
+    return title.toLowerCase().replace(/\|/g, ' ').replace(/\s/g, '-');
   }
 }

@@ -91,12 +91,12 @@ const controllers = {
             Get_All_SlugMap_Categories: "Get_All_SlugMap_Categories",
             Get_All_SlugMap_CourseCategories: "Get_All_SlugMap_CourseCategories",
             Get_All_SlugMap_Lessons: "Get_All_SlugMap_Lessons",
-            Get_SlugMap_Posts_By_SlugAndLang: "Get_SlugMap_Posts_By_SlugAndLang",
-            Get_SlugMap_CourseCategories_By_SlugAndLang: "Get_SlugMap_CourseCategories_By_SlugAndLang",
-            Get_SlugMap_Categories_By_SlugAndLang: "Get_SlugMap_Categories_By_SlugAndLang",
-            Get_SlugMap_Lessons_By_SlugAndLang: "Get_SlugMap_Lessons_By_SlugAndLang",
-            Get_SlugMap_Sections_By_SlugAndLang: "Get_SlugMap_Sections_By_SlugAndLang",
-            Get_SlugMap_Courses_By_SlugAndLang: "Get_SlugMap_Courses_By_SlugAndLang",
+            Get_SlugMap_Posts_By_Slug: "Get_SlugMap_Posts_By_Slug",
+            Get_SlugMap_CourseCategories_By_Slug: "Get_SlugMap_CourseCategories_By_Slug",
+            Get_SlugMap_Categories_By_Slug: "Get_SlugMap_Categories_By_Slug",
+            Get_SlugMap_Lessons_By_Slug: "Get_SlugMap_Lessons_By_Slug",
+            Get_SlugMap_Sections_By_Slug: "Get_SlugMap_Sections_By_Slug",
+            Get_SlugMap_Courses_By_Slug: "Get_SlugMap_Courses_By_Slug",
         }
     }
 };
@@ -178,12 +178,12 @@ export const CoursesController = {
     Get_All_SlugMap_Categories: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Categories),
     Get_All_SlugMap_CourseCategories: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_CourseCategories),
     Get_All_SlugMap_Posts: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_All_SlugMap_Posts),
-    Get_SlugMap_Posts_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Posts_By_SlugAndLang),
-    Get_SlugMap_CourseCategories_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_CourseCategories_By_SlugAndLang),
-    Get_SlugMap_Categories_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Categories_By_SlugAndLang),
-    Get_SlugMap_Sections_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Sections_By_SlugAndLang),
-    Get_SlugMap_Lessons_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Lessons_By_SlugAndLang),
-    Get_SlugMap_Courses_By_SlugAndLang: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Courses_By_SlugAndLang),
+    Get_SlugMap_Posts_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Posts_By_Slug),
+    Get_SlugMap_CourseCategories_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_CourseCategories_By_Slug),
+    Get_SlugMap_Categories_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Categories_By_Slug),
+    Get_SlugMap_Lessons_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Lessons_By_Slug),
+    Get_SlugMap_Sections_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Sections_By_Slug),
+    Get_SlugMap_Courses_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Courses_By_Slug),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

@@ -334,6 +334,39 @@
                     In Arabic
                 </label>
             </div>
+            <!-- --------------------------------------------------------------------------- 
+                                    Other slug
+            ------------------------------------------------------------------------------->
+            <div class="form-floating mb-3">
+                <select [class]="errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
+                    'form-select is-invalid':'form-select is-valid'"
+                        id="translation"
+                        [formControlName]="FormControlNames.LessonForm.otherSlug"
+                        aria-label="Select translated url">
+                    <option selected>Select translation</option>
+                    <option value="0">Not yet</option>
+                    <option *ngFor="let l of selectedTranslation"
+                            [value]="l.slug">
+                        {{l.name}}
+                    </option>
+                </select>
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.LessonForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="translation"
+                       class="form-label">
+                    <span *ngIf="inputForm.get(FormControlNames.LessonForm.isArabic)?.value===true">
+                        English Translation
+                    </span>
+                    <span *ngIf="inputForm.get(FormControlNames.LessonForm.isArabic)?.value===false">
+                        Arabic Translation
+                    </span>
+                </label>
+            </div>
             <div class="card">
                 <div class="card-header">
                     Publish

@@ -60,7 +60,7 @@ export class Category
     parent: any;
     postsCategories: PostsCategory[] = [];
     isArabic: boolean = false;
-    enCategoryId: number = 0;
+    otherSlug: string | null = null;
 }
 
 export class PostsCategory
@@ -95,7 +95,7 @@ export class Post
     postsCategories: PostsCategory[] = [];
     attachments: PostAttachments[] = [];
     isArabic: boolean = false;
-    enPostId: number = 0;
+    otherSlug: string | null = null;
 }
 
 export class Attachments
@@ -181,7 +181,7 @@ export class Course
     coursesPerCategories: CoursesPerCategory[] = [];
     students: StudentsPerCourse[] = [];
     isArabic: boolean = false;
-    enCourseId: number = 0;
+    otherSlug: string | null = null;
 }
 
 export class CourseCategory
@@ -197,7 +197,7 @@ export class CourseCategory
     parent: CourseCategory | null = null;
     coursesPerCategories: CoursesPerCategory[] = [];
     isArabic: boolean = false;
-    enCourseCategoryId: number = 0;
+    otherSlug: string | null = null;
 }
 export class CoursesPerCategory
 {
@@ -236,7 +236,7 @@ export class Lesson
     attachments: LessonAttachments[] = [];
     tempAttach: number[] = [];
     isArabic: boolean = false;
-    enLessonId: number = 0;
+    otherSlug: string | null = null;
 }
 export class Section
 {
@@ -257,7 +257,7 @@ export class Section
     parentKey: number | null = null;
     parent: Section | null = null;
     isArabic: boolean = false;
-    enSectionId: number = 0;
+    otherSlug: string | null = null;
 }
 export class LessonAttachments
 {

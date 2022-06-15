@@ -29,7 +29,9 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
   cats$ = this.store.select(selectAllCourseCategorys);
+  selectedTranslation: CourseCategory[] = [];
   category: CourseCategory = new CourseCategory();
+  AllCategories: CourseCategory[] = [];
   @Input() ActionType: string = "";
   @Input() UpdateObject: CourseCategory = new CourseCategory();
   Form: FormGroup = new FormGroup({});
@@ -66,12 +68,13 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
       [FormControlNames.courseCategoryForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       [FormControlNames.courseCategoryForm.parentKey]: [0, [validators.required]],
       [FormControlNames.courseCategoryForm.isArabic]: [false],
+      [FormControlNames.courseCategoryForm.otherSlug]: [null, [validators.required]],
     });
     this.cats$.subscribe(cats =>
     {
-      this.TreeDataStructure.setData(cats);
-      this.catsForSelectmenu = this.TreeDataStructure.finalFlatenArray();
+      this.AllCategories = cats;
     });
+    this.SelectTranslation();
   }
 
   Toggle()
@@ -126,5 +129,16 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
     }
     newCategory.slug = newCategory.title.split(" ").join("-");
     this.store.dispatch(UpdateCourseCategory(newCategory));
+  }
+  SelectTranslation()
+  {
+    this.TreeDataStructure.setData(this.AllCategories.filter(x => x.isArabic
+      === Boolean(this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.value)));
+    this.catsForSelectmenu = this.TreeDataStructure.finalFlatenArray();
+
+    let treeService = new TreeDataStructureService<CourseCategory>();
+    treeService.setData(this.AllCategories.filter(x => x.isArabic
+      !== Boolean(this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.value)));
+    this.selectedTranslation = treeService.finalFlatenArray();
   }
 }

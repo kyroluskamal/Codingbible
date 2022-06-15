@@ -128,6 +128,7 @@ export const FormControlNames = {
         categories: "categories",
         postAttachments: "postAttachments",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     AddEditCategoryForm: {
         name: "name",
@@ -135,6 +136,7 @@ export const FormControlNames = {
         slug: "slug",
         description: "description",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     categoryForm: {
         name: "name",
@@ -143,6 +145,7 @@ export const FormControlNames = {
         description: "description",
         parentKey: "parentKey",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     mediaForm: {
         title: "title",
@@ -164,6 +167,7 @@ export const FormControlNames = {
         introductoryVideoUrl: "introductoryVideoUrl",
         categories: "categories",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     courseCategoryForm: {
         name: "name",
@@ -172,6 +176,7 @@ export const FormControlNames = {
         description: "description",
         parentKey: "parentKey",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     SectionForm: {
         name: "name",
@@ -184,6 +189,7 @@ export const FormControlNames = {
         parentKey: "parentKey",
         whatWillYouLearn: "whatWillYouLearn",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     LessonForm: {
         name: "name",
@@ -197,10 +203,30 @@ export const FormControlNames = {
         featureImageUrl: "featureImageUrl",
         slug: "slug",
         isArabic: "isArabic",
+        otherSlug: "otherSlug",
     },
     MenuForm: {
         name: "name",
         menuLocationsId: "menuLocationsId",
+    },
+    MenuItemForm: {
+        enName: "enName",
+        enUrl: "enUrl",
+        arName: "arName",
+        arUrl: "arUrl",
+        level: "level",
+        orderWithinParent: "orderWithinParent",
+        parentKey: "parentKey",
+        menuId: "menuId",
+    },
+    DetectMenuItemForm: {
+        type: "type",
+        courseId: "courseId",
+        sectionId: "sectionId",
+        lessonId: "lessonId",
+        courseCategoryId: "courseCategoryId",
+        postId: "postId",
+        postCategoryId: "postCategoryId",
     }
 };
 
@@ -265,6 +291,15 @@ export const FormFieldsNames = {
     },
     MenuForm: {
         name: "Name",
+    },
+    MenuItemForm: {
+        enName: "English Title",
+        enUrl: "English Link",
+        arName: "Arabic Title",
+        arUrl: "Arabic Link",
+        level: "Level",
+        orderWithinParent: "Order Within Parent",
+        parentKey: "Parent",
     }
 };
 export const FormValidationErrors = {
@@ -342,7 +377,7 @@ export const ConstRegex =
     PhoneRegex: new RegExp(/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/),
     EmailRegex: new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
 };
-
+export const ArabicRegex = new RegExp(/[\u0621-\u064A]+/g);
 export const AuthConstants = {
     email: "email",
     token: "token"
@@ -587,6 +622,44 @@ export const actionNames = {
         RemoveMenuItem: '[RemoveMenuItem] request',
         RemoveMenuItem_Success: '[RemoveMenuItem] Sucess',
         RemoveMenuItem_Failed: '[RemoveMenuItem] Failed',
+    },
+    SlugMap: {
+        Get_SlugMap_Posts_By_Slug: '[Get_SlugMap_Posts_By_Slug] request',
+        Get_SlugMap_Posts_By_Slug_Success: '[Get_SlugMap_Posts_By_Slug] Sucess',
+        Get_SlugMap_Posts_By_Slug_Failed: '[Get_SlugMap_Posts_By_Slug] Failed',
+        Get_SlugMap_CourseCategories_By_Slug: '[Get_SlugMap_CourseCategories_By_Slug] request',
+        Get_SlugMap_CourseCategories_By_Slug_Success: '[Get_SlugMap_CourseCategories_By_Slug] Sucess',
+        Get_SlugMap_CourseCategories_By_Slug_Failed: '[Get_SlugMap_CourseCategories_By_Slug] Failed',
+        Get_SlugMap_Categories_By_Slug: '[Get_SlugMap_Categories_By_Slug] request',
+        Get_SlugMap_Categories_By_Slug_Success: '[Get_SlugMap_Categories_By_Slug] Sucess',
+        Get_SlugMap_Categories_By_Slug_Failed: '[Get_SlugMap_Categories_By_Slug] Failed',
+        Get_SlugMap_Lessons_By_Slug: '[Get_SlugMap_Lessons_By_Slug] request',
+        Get_SlugMap_Lessons_By_Slug_Success: '[Get_SlugMap_Lessons_By_Slug] Sucess',
+        Get_SlugMap_Lessons_By_Slug_Failed: '[Get_SlugMap_Lessons_By_Slug] Failed',
+        Get_SlugMap_Sections_By_Slug: '[Get_SlugMap_Sections_By_Slug] request',
+        Get_SlugMap_Sections_By_Slug_Success: '[Get_SlugMap_Sections_By_Slug] Sucess',
+        Get_SlugMap_Sections_By_Slug_Failed: '[Get_SlugMap_Sections_By_Slug] Failed',
+        Get_SlugMap_Courses_By_Slug: '[Get_SlugMap_Courses_By_Slug] request',
+        Get_SlugMap_Courses_By_Slug_Success: '[Get_SlugMap_Courses_By_Slug] Sucess',
+        Get_SlugMap_Courses_By_Slug_Failed: '[Get_SlugMap_Courses_By_Slug] Failed',
+        Get_All_SlugMap_Posts: '[Get_All_SlugMap_Posts] request',
+        Get_All_SlugMap_Posts_Success: '[Get_All_SlugMap_Posts] Sucess',
+        Get_All_SlugMap_Posts_Failed: '[Get_All_SlugMap_Posts] Failed',
+        Get_All_SlugMap_Courses: '[Get_All_SlugMap_Courses] request',
+        Get_All_SlugMap_Courses_Success: '[Get_All_SlugMap_Courses] Sucess',
+        Get_All_SlugMap_Courses_Failed: '[Get_All_SlugMap_Courses] Failed',
+        Get_All_SlugMap_Sections: '[Get_All_SlugMap_Sections] request',
+        Get_All_SlugMap_Sections_Success: '[Get_All_SlugMap_Sections] Sucess',
+        Get_All_SlugMap_Sections_Failed: '[Get_All_SlugMap_Sections] Failed',
+        Get_All_SlugMap_Lessons: '[Get_All_SlugMap_Lessons] request',
+        Get_All_SlugMap_Lessons_Success: '[Get_All_SlugMap_Lessons] Sucess',
+        Get_All_SlugMap_Lessons_Failed: '[Get_All_SlugMap_Lessons] Failed',
+        Get_All_SlugMap_Categories: '[Get_All_SlugMap_Categories] request',
+        Get_All_SlugMap_Categories_Success: '[Get_All_SlugMap_Categories] Sucess',
+        Get_All_SlugMap_Categories_Failed: '[Get_All_SlugMap_Categories] Failed',
+        Get_All_SlugMap_CourseCategories: '[Get_All_SlugMap_CourseCategories] request',
+        Get_All_SlugMap_CourseCategories_Success: '[Get_All_SlugMap_CourseCategories] Sucess',
+        Get_All_SlugMap_CourseCategories_Failed: '[Get_All_SlugMap_CourseCategories] Failed',
     }
 };
 
@@ -636,3 +709,12 @@ export const CourseDifficultyLevel = {
 };
 export const titleSeparatorCharacter = "»";
 export const BaseUrl = "https://localhost:5001";
+export const MenuItemType = {
+    Custom: 1,
+    Course: 2,
+    Course_Category: 3,
+    Course_section: 4,
+    Course_lesson: 5,
+    Post: 6,
+    Post_Category: 7
+};

@@ -3,85 +3,71 @@
     <div class="card-header">
         Menus
     </div>
-    <div class="card-body d-flex flex-row flex-wrap">
-        <div style="width:49%">
-            <h4 class="bg-dark text-white text-center">Locations</h4>
-            <select class="form-select"
-                    #LocationSelection
-                    (change)="ShowMenus(LocationSelection.value)">
-                <option disabled
-                        selected>Select Location</option>
-                <option *ngFor="let p of MenuLocations"
-                        [value]="p.id">{{p.name|titlecase}}</option>
-            </select>
-        </div>
-        <div style="width:49%;"
-             class="ms-2 border border-1">
-            <h4 class="bg-dark text-white text-center">Menus in : {{selectedLocation?.name|titlecase}}</h4>
-            <span *ngIf="selectedLocation && selectedMenus.length===0"
-                  class="px-2">
-                No menus found. <a class="cursor-pointer"
-                   (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Add;MenuModelHandler.Toggle()">Add new</a>.
-            </span>
-            <span *ngIf="!selectedLocation"
-                  class="px-2 text-danger">
-                Choose location.
-            </span>
-            <ul *ngIf="selectedLocation && selectedMenus.length>0"
-                class="list-unstyled styledMenus mb-0"
-                id="SelectedMenuList">
-                <li *ngFor="let m of selectedMenus"
-                    (click)="ShowItemMenus(m)"
-                    class="px-2 d-flex justify-content-between">
-                    <span>{{m.name}}</span>
-                    <div class="d-flex flex-row gap-2">
-                        <button class="btn p-0"
-                                (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Edit;MenuForm.patchValue(m);MenuModelHandler.Toggle()"><i
-                               class="bi bi-pen-fill text-primary"></i></button>
-                        <button class="btn py-0"
-                                (click)="DeleteMenu(m.id)"><i class="bi bi-trash2-fill text-danger"></i></button>
-                    </div>
-                </li>
-            </ul>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-12">
+                <h4 class="bg-dark text-white text-center">Locations</h4>
+                <select class="form-select"
+                        #LocationSelection
+                        (change)="ShowMenus(LocationSelection.value)">
+                    <option disabled
+                            selected>Select Location</option>
+                    <option *ngFor="let p of MenuLocations"
+                            [value]="p.id">{{p.name|titlecase}}</option>
+                </select>
+            </div>
+            <div class="col-sm-6 col-12">
+                <div class="border border-1">
+                    <h4 class="bg-dark text-white text-center">Menus in :
+                        <span *ngIf="!selectedLocation"
+                              class="text-warning">Choose location</span>
+                        <span *ngIf="selectedLocation"
+                              style="color:#6bff8b">{{selectedLocation?.name|titlecase}}</span>
+                    </h4>
+                    <span *ngIf="selectedLocation && selectedMenus.length===0"
+                          class="px-2">
+                        No menus found. <a class="cursor-pointer"
+                           (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Add;MenuModelHandler.Toggle()">Add
+                            new</a>.
+                    </span>
+                    <span *ngIf="!selectedLocation"
+                          class="px-2 text-danger">
+                        Choose location.
+                    </span>
+                    <ul *ngIf="selectedLocation && selectedMenus.length>0"
+                        class="list-unstyled styledMenus mb-0"
+                        id="SelectedMenuList">
+                        <li *ngFor="let m of selectedMenus"
+                            (click)="ShowItemMenus(m)"
+                            class="px-2 d-flex justify-content-between">
+                            <span>{{m.name}}</span>
+                            <div class="d-flex flex-row gap-2">
+                                <button class="btn p-0"
+                                        (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Edit;MenuForm.patchValue(m);MenuModelHandler.Toggle()"><i
+                                       class="bi bi-pen-fill text-primary"></i></button>
+                                <button class="btn py-0"
+                                        (click)="DeleteMenu(m.id)"><i
+                                       class="bi bi-trash2-fill text-danger"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div><!-- end card body -->
 </div><!-- end category card -->
 <div class="d-flex flex-row flex-wrap mt-3 justify-content-between">
-    <div style="width: 24%; ">
-        <h5 class="text-center">Add menu items</h5>
-        <div class="accordion rounded-2  border border-1 mat-elevation-z2"
-             id="PostsHandler">
-            <div class="accordion-item">
-                <h2 class="accordion-header"
-                    id="flush-headingOne">
-                    <button class="accordion-button bg-dark text-white fw-bold"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#Posts"
-                            aria-expanded="false"
-                            aria-controls="Posts">
-                        Posts
-                    </button>
-                </h2>
-                <div id="Posts"
-                     class="accordion-collapse"
-                     aria-labelledby="Posts"
-                     data-bs-parent="#PostsHandler">
-                    <ul class="list-unstyled p-1 m-0 styledMenus">
-                        <li class="dragablePost"
-                            (click)="AddToOpenedList(post)"
-                            *ngFor="let post of (Posts|async)">{{post.title}}</li>
-                    </ul>
-                </div>
-            </div>
-
+    <div style="width:100%">
+        <div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
+            <h5 class="text-center">Menu structure</h5>
+            <a class="text-primary cursor-pointer"
+               (click)="spinner.removeSpinner();ActionTypeMenuItem=PostType.Add;MenuItemModal.Toggle();MenuItemForm.disable();">
+                Add Menu item
+            </a>
         </div>
-    </div>
-
-    <div style="width:74%">
-        <h5 class="text-center">Menu structure</h5>
         <div class="bg-white border border-1 p-2">
             <ul class="list-unstyled m-0 menu-Structure-List "
+                *ngIf="currentMenu"
                 #menuStructureContainer>
                 <li class="rounded-2 bg-light border border-1 p-2 mb-2 dragable menu-item"
                     *ngFor="let item of currentMenu.menuItems;let i=index"
@@ -95,7 +81,7 @@
                         <div class="d-flex flex-row align-items-center">
 
                             <button class="btn rounded-circle me-1"
-                                    (click)="spinner.removeSpinner();modal.Toggle(); SetParent(item.id)">
+                                    (click)="spinner.removeSpinner();MenuItemModal.Toggle();">
                                 <i class="bi bi-pencil-fill text-primary"></i>
                             </button>
                             <button class="btn rounded-circle"
@@ -109,114 +95,339 @@
         </div>
     </div>
 </div>
-<bootstrap-modal #modal
+<bootstrap-modal #MenuItemModal
                  [VerticallyCentered]="true"
-                 [Modal_Body_template]="body"
+                 [Modal_Header_Template]="MenuItemModalHeader"
+                 [Modal_Body_template]="MenuItemModalbody"
                  Modal_Header_Text="Locate menu item"
-                 [Modal_Footer_template]="footer"></bootstrap-modal>
-
-<ng-template #body>
-    <form [formGroup]="Form"
-          #form>
-        <!-- *******************************************************************
-        *                           Parent
-        **********************************************************************-->
-        <div class="form-floating has-validation mb-3">
-            <select #parent
-                    required
-                    [class]="errorState.isErrorState('parent', Form, form)?
-                  'form-select is-invalid':'form-select is-valid'"
-                    id="parentkey"
-                    formControlName="parent"
-                    aria-label="Select parent category"
-                    (change)="ChangeParent()">
-                <option value="0">No parent</option>
-                <option *ngFor="let cat of currentMenu.menuItems"
-                        [value]="cat.id"
-                        [disabled]="cat.id === CurrentItem.id">
-                    <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.enName}}
-                </option>
+                 Modal_Header_AdditionalClasses="bg-dark"
+                 ModalId="MenuItemModal"
+                 [Modal_Footer_template]="MenuItemModalFooter"></bootstrap-modal>
+<ng-template #MenuItemModalHeader>
+    <h4 class="modal-title text-white-50">
+        <span class="text-warning"
+              *ngIf="ActionTypeMenuItem===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add
+            new</span>
+        <span class="text-warning"
+              *ngIf="ActionTypeMenuItem===PostType.Edit"><i class="bi bi-pencil-fill text-white small"></i> Edit </span>
+        Menu Item
+    </h4>
+</ng-template>
+<ng-template #MenuItemModalbody>
+    <form [formGroup]="DetectMenuItemForm"
+          #MenuItemType>
+        <div class="form-floating mb-3">
+            <select #menuItemType
+                    [class]="!errorState.isTouchedOrDirty(FormControlNames.DetectMenuItemForm.type, DetectMenuItemForm)?'form-select':
+                    errorState.isErrorState(FormControlNames.DetectMenuItemForm.type, DetectMenuItemForm, MenuItemType)?
+                    'form-select is-invalid':'form-select is-valid'"
+                    id="MenuItemType"
+                    [formControlName]="FormControlNames.DetectMenuItemForm.type"
+                    aria-label="select menu item type"
+                    (change)="ChangeMenuItemType()">
+                <option [value]="null"
+                        selected>Select menu item type</option>
+                <option [value]="1">Custom (e.g. external link)</option>
+                <option [value]="2">Course</option>
+                <option [value]="3">Course Category</option>
+                <option [value]="4">Course section</option>
+                <option [value]="5">Course lesson</option>
+                <option [value]="6">Post</option>
+                <option [value]="7">Post Category</option>
             </select>
 
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get('parent')?.hasError(FormValidationErrorsNames.required)
-             &&errorState.isErrorState('parent', Form, form)">
+                      *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.type)?.hasError(FormValidationErrorsNames.required)
+             &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.type, DetectMenuItemForm, MenuItemType)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
             </div>
-            <label for="parentkey"
-                   class="form-label">Parent</label>
+            <label for="MenuItemType"
+                   class="form-label">Select type</label>
         </div>
+        <!-- -------------------------------------------------------------------------------------
+                                    Ng switch
+        ------------------------------------------------------------------------------->
+        <div [ngSwitch]="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.type)?.value">
+            <div *ngSwitchCase="MenuItemTypeConst.Course">
+                <ng-container *ngTemplateOutlet="courseFormControl"></ng-container>
+            </div>
+            <div *ngSwitchCase="MenuItemTypeConst.Course_section">
+                <ng-container *ngTemplateOutlet="courseFormControl"></ng-container>
+                <ng-container *ngTemplateOutlet="sectionFormControl"></ng-container>
+            </div>
+            <div *ngSwitchCase="MenuItemTypeConst.Course_lesson">
+                <ng-container *ngTemplateOutlet="courseFormControl"></ng-container>
+                <ng-container *ngTemplateOutlet="sectionFormControl"></ng-container>
+                <ng-container *ngTemplateOutlet="LessonFormControl"></ng-container>
+            </div>
+            <div *ngSwitchCase="MenuItemTypeConst.Course_Category">
+                <ng-container *ngTemplateOutlet="course_categoryFormControl"></ng-container>
+            </div>
+            <div *ngSwitchCase="MenuItemTypeConst.Post">
+                <ng-container *ngTemplateOutlet="PostFormControl"></ng-container>
+            </div>
+            <div *ngSwitchCase="MenuItemTypeConst.Post_Category">
+                <ng-container *ngTemplateOutlet="PostCategoryFormControl"></ng-container>
+            </div>
+        </div>
+        <!-- ------------------------------------------------------------------------------------
+                                                Course Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #courseFormControl>
+            <div class="form-floating mb-3">
+                <select #CourseSelector
+                        [class]="!errorState.isTouchedOrDirty(FormControlNames.DetectMenuItemForm.courseId, DetectMenuItemForm)?'form-select':
+                errorState.isErrorState(FormControlNames.DetectMenuItemForm.courseId, DetectMenuItemForm, MenuItemType)?
+                'form-select is-invalid':'form-select is-valid'"
+                        id="CourseSelector"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.courseId"
+                        aria-label="select course"
+                        (change)="ChangeCourse(CourseSelector.value)">
+                    <option [value]="null"
+                            selected>Select course</option>
+                    <option [value]="c.id"
+                            *ngFor="let c of (Courses$|async)">
+                        {{c.name}}
+                    </option>
+                </select>
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.courseId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.courseId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="CourseSelector"
+                       class="form-label">Select Course</label>
+            </div>
+        </ng-template>
+        <!-- ------------------------------------------------------------------------------------
+                                                Section Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #sectionFormControl>
+            <div class="form-floating mb-3">
+                <select #SectionSelector
+                        [class]="!errorState.isTouchedOrDirty(FormControlNames.DetectMenuItemForm.sectionId, DetectMenuItemForm)?'form-select':
+                errorState.isErrorState(FormControlNames.DetectMenuItemForm.sectionId, DetectMenuItemForm, MenuItemType)?
+                      'form-select is-invalid':'form-select is-valid'"
+                        id="SectionSelector"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.sectionId"
+                        aria-label="select section"
+                        (change)="ChangeSection(SectionSelector.value)">
+                    <option [value]="null">Select section</option>
+                    <option [value]="s.id"
+                            [disabled]="selectedMenuItemType === MenuItemTypeConst.Course_lesson && s.isLeafSection"
+                            *ngFor="let s of selectedSectionsForCourse">
+                        <span *ngFor="let _ of [].constructor(s.level)">&nbsp;&nbsp;</span>{{s.name}}
+                    </option>
+                </select>
+
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.sectionId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.sectionId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="SectionSelector"
+                       class="form-label">Select Section</label>
+            </div>
+        </ng-template>
+        <!-- ------------------------------------------------------------------------------------
+                                                Lesson Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #LessonFormControl>
+            <div class="form-floating has-validation mb-3">
+                <select [class]="errorState.isErrorState(FormControlNames.DetectMenuItemForm.lessonId, DetectMenuItemForm, MenuItemType)?
+                      'form-select is-invalid':'form-select is-valid'"
+                        id="LessonSelector"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.lessonId"
+                        aria-label="select lesson">
+                    <option [value]="null">Select lesson</option>
+                    <option [value]="l.id"
+                            *ngFor="let l of (Lessons$|async)">
+                        {{l.name}}
+                    </option>
+                </select>
+
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.lessonId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.lessonId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="LessonSelector"
+                       class="form-label">Select Lesson</label>
+            </div>
+        </ng-template>
+        <!-- ------------------------------------------------------------------------------------
+                                                course_category Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #course_categoryFormControl>
+            <div class="form-floating mb-3">
+                <select [class]="!errorState.isTouchedOrDirty(FormControlNames.DetectMenuItemForm.courseCategoryId, DetectMenuItemForm)?'form-select':
+                errorState.isErrorState(FormControlNames.DetectMenuItemForm.courseCategoryId, DetectMenuItemForm, MenuItemType)?
+                      'form-select is-invalid':'form-select is-valid'"
+                        id="course_categoryFormControl"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.courseCategoryId"
+                        aria-label="select course category">
+                    <option [value]="null"
+                            selected>Select course category</option>
+                    <option [value]="c.id"
+                            *ngFor="let c of AllCourseCategory">
+                        <span *ngFor="let _ of [].constructor(c.level)">&nbsp;&nbsp;</span>{{c.name}}
+                    </option>
+                </select>
+
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.courseCategoryId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.courseCategoryId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="course_categoryFormControl"
+                       class="form-label">Select course category</label>
+            </div>
+        </ng-template>
+        <!-- ------------------------------------------------------------------------------------
+                                                Post Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #PostFormControl>
+            <div class="form-floating has-validation mb-3">
+                <select [class]="errorState.isErrorState(FormControlNames.DetectMenuItemForm.postId, DetectMenuItemForm, MenuItemType)?
+                      'form-select is-invalid':'form-select is-valid'"
+                        id="PostFormControl"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.postId"
+                        aria-label="select post">
+                    <option [value]="null">Select post</option>
+                    <option [value]="p.id"
+                            *ngFor="let p of (Posts$|async)">
+                        {{p.title}}
+                    </option>
+                </select>
+
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.postId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.postId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="PostFormControl"
+                       class="form-label">Select post</label>
+            </div>
+        </ng-template>
+        <!-- ------------------------------------------------------------------------------------
+                                                Post Category Selector
+        ---------------------------------------------------------------------------------------->
+        <ng-template #PostCategoryFormControl>
+            <div class="form-floating has-validation mb-3">
+                <select [class]="errorState.isErrorState(FormControlNames.DetectMenuItemForm.postCategoryId, DetectMenuItemForm, MenuItemType)?
+                      'form-select is-invalid':'form-select is-valid'"
+                        id="PostCategoryFormControl"
+                        [formControlName]="FormControlNames.DetectMenuItemForm.postCategoryId"
+                        aria-label="select post category">
+                    <option [value]="null">Select post category</option>
+                    <option [value]="pc.id"
+                            *ngFor="let pc of AllPostCategory">
+                        <span *ngFor="let _ of [].constructor(pc.level)">&nbsp;&nbsp;</span>{{pc.title}}
+                    </option>
+                </select>
+
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="DetectMenuItemForm.get(FormControlNames.DetectMenuItemForm.postCategoryId)?.hasError(FormValidationErrorsNames.required)
+                 &&errorState.isErrorState(FormControlNames.DetectMenuItemForm.postCategoryId, DetectMenuItemForm, MenuItemType)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="PostCategoryFormControl"
+                       class="form-label">Select post category</label>
+            </div>
+        </ng-template>
+    </form>
+    <form [formGroup]="MenuItemForm"
+          #menuItemform>
         <!-- *******************************************************************
-        *                           Order
+        *                          English title
         **********************************************************************-->
-        <div class="form-floating has-validation mb-3"
-             *ngIf="this.Form.get('parent')?.value!==0">
-            <select #order
-                    required
-                    [class]="errorState.isErrorState('order', Form, form)?
-                  'form-select is-invalid':'form-select is-valid'"
-                    id="order"
-                    formControlName="order">
-                <option *ngFor="let el of currentItemSblings; let i=index"
-                        [value]="el.orderWithinParent"
-                        [disabled]="el.id === CurrentItem.id || currentItemSblings.length>1">
-                    {{el.orderWithinParent}} <span *ngIf="i+1!==currentItemSblings.length">- Before
-                        {{currentItemSblings[i+1].enName}}</span>
-                    <span *ngIf="i+1===currentItemSblings.length">- At the end</span>
-                    <span *ngIf="currentItemSblings.indexOf(CurrentItem)===i"> (Current location)</span>
-                </option>
-                <option *ngIf="!currentItemSblings.includes(CurrentItem)"
-                        [value]="currentItemSblings.length">Add at the end</option>
-                <option *ngIf="currentItemSblings.length===0"
-                        [value]="currentItemSblings.length">0 - the only item in this parent</option>
-            </select>
-            <div class="validationDiv">
-                <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get('order')?.hasError(FormValidationErrorsNames.required)
-             &&errorState.isErrorState('order', Form, form)">
-                    {{FormValidationErrors.RequiredField}}
-                </span>
-            </div>
-            <label for="parentkey"
-                   class="form-label">Order within parent</label>
-        </div>
-        <div class="form-floating has-validation mb-3"
-             *ngIf="this.Form.get('parent')?.value===0">
-            <select #order
-                    required
-                    [class]="errorState.isErrorState('order', Form, form)?
-                  'form-select is-invalid':'form-select is-valid'"
-                    id="order"
-                    formControlName="order">
-                <option *ngFor="let el of roots;let i = index"
-                        [value]="i">
-                    {{i}}
-                </option>
-            </select>
-            <div class="validationDiv">
-                <span class="invalid-feedback d-block m-0"
-                      *ngIf="Form.get('order')?.hasError(FormValidationErrorsNames.required)
-             &&errorState.isErrorState('order', Form, form)">
-                    {{FormValidationErrors.RequiredField}}
-                </span>
-            </div>
-            <label for="parentkey"
-                   class="form-label">Order of roots</label>
-        </div>
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   [formControlName]="FormControlNames.MenuItemForm.enName"
+                   [placeholder]="FormFieldsNames.MenuItemForm.enName"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuItemForm.enName, MenuItemForm)?'form-control':
+                                   errorState.isErrorState(FormControlNames.MenuItemForm.enName, MenuItemForm, menuItemform)?
+                                   'form-control is-invalid':'form-control is-valid'"
+                   id="enName">
+            <label for="enName">{{FormFieldsNames.MenuItemForm.enName}}</label>
+        </div> <!-- end of English title tag -->
+        <!-- *******************************************************************
+        *                          English Link
+        **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   [formControlName]="FormControlNames.MenuItemForm.enUrl"
+                   [placeholder]="FormFieldsNames.MenuItemForm.enUrl"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuItemForm.enUrl, MenuItemForm)?'form-control':
+                            errorState.isErrorState(FormControlNames.MenuItemForm.enUrl, MenuItemForm, menuItemform)?
+                            'form-control is-invalid':'form-control is-valid'"
+                   id="enUrl">
+            <label for="enUrl">{{FormFieldsNames.MenuItemForm.enUrl}}</label>
+        </div> <!-- end of English Link tag -->
+        <!-- *******************************************************************
+        *                          Arabic Title
+        **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   [formControlName]="FormControlNames.MenuItemForm.arName"
+                   [placeholder]="FormFieldsNames.MenuItemForm.arName"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuItemForm.arName, MenuItemForm)?'form-control':
+                            errorState.isErrorState(FormControlNames.MenuItemForm.arName, MenuItemForm, menuItemform)?
+                            'form-control is-invalid':'form-control is-valid'"
+                   id="arName">
+            <label for="arName">{{FormFieldsNames.MenuItemForm.arName}}</label>
+        </div> <!-- end of Arabic Title tag -->
+        <!-- *******************************************************************
+        *                          Arabic Link
+        **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   [formControlName]="FormControlNames.MenuItemForm.arUrl"
+                   [placeholder]="FormFieldsNames.MenuItemForm.arUrl"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuItemForm.arUrl, MenuItemForm)?'form-control':
+                            errorState.isErrorState(FormControlNames.MenuItemForm.arUrl, MenuItemForm, menuItemform)?
+                            'form-control is-invalid':'form-control is-valid'"
+                   id="arUrl">
+            <label for="arUrl">{{FormFieldsNames.MenuItemForm.arUrl}}</label>
+        </div> <!-- end of Arabic Link tag -->
+        <!-- *******************************************************************
+        *                          Parent Key
+        **********************************************************************-->
+        <div class="form-floating mb-3">
+            <input [type]="InputFieldTypes.text"
+                   [formControlName]="FormControlNames.MenuItemForm.parentKey"
+                   [placeholder]="FormFieldsNames.MenuItemForm.parentKey"
+                   [class]="!errorState.isTouchedOrDirty(FormControlNames.MenuItemForm.parentKey, MenuItemForm)?'form-control':
+                            errorState.isErrorState(FormControlNames.MenuItemForm.parentKey, MenuItemForm, menuItemform)?
+                            'form-control is-invalid':'form-control is-valid'"
+                   id="parentKey">
+            <label for="parentKey">{{FormFieldsNames.MenuItemForm.parentKey}}</label>
+        </div> <!-- end of Parent Key tag -->
     </form>
 </ng-template>
-<ng-template #footer>
+<ng-template #MenuItemModalFooter>
     <button type="button"
             class="btn btn-primary"
-            (click)="UpdateMenu()"
             data-bs-dismiss="modal">
         Save
     </button>
     <button class="btn btn-secondary"
             type="button"
-            (click)="Form.reset()"
+            (click)="MenuItemForm.reset()"
             data-bs-dismiss="modal">Close</button>
 </ng-template>
 <!-- -------------------------------------------------------------------------------------
@@ -227,7 +438,7 @@
                  [Modal_Header_Template]="MenuModelHeader"
                  Modal_Header_AdditionalClasses="bg-dark"
                  [Modal_Body_template]="MenuModelBody"
-                 ModalId="CourseCategoryHandler"
+                 ModalId="MenuModelHandler"
                  [Modal_Footer_template]="MenuModelFooter"></bootstrap-modal>
 <ng-template #MenuModelHeader>
     <h4 class="modal-title text-white-50">

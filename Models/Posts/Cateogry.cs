@@ -28,6 +28,6 @@ namespace CodingBible.Models.Posts
         public SlugMap_Category SlugMap { get; set; }
         public bool IsArabic { get; set; }
         [NotMapped]
-        public int EnCategoryId { get; set; }
+        public string OtherSlug { get; set; }
     }
 }

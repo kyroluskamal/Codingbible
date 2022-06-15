@@ -37,10 +37,15 @@ export class CoursesEffects
                     return this.CourseService.GetAll(CoursesController.GetAllCourses).pipe(
                         map((r) =>
                         {
+                            console.log(r);
                             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                             return LoadCoursesSuccess({ payload: r });
                         }),
-                        catchError((e) => of(LoadCoursesFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                        catchError((e) =>
+                        {
+                            console.log(e);
+                            return of(LoadCoursesFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        })
                     );
                 return of(dummyAction());
             })
@@ -123,6 +128,7 @@ export class CoursesEffects
                     }),
                     catchError((e) =>
                     {
+
                         this.spinner.removeSpinner();
                         this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Course'));
                         return of(RemoveCourse_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
@@ -143,7 +149,7 @@ export class CoursesEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Course status'));
                         let x: Update<Course> = {
                             id: action.id,
-                            changes: action
+                            changes: r.data as Course
                         };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         return ChangeStatus_Success({ Course: x, currentCourseById: action });

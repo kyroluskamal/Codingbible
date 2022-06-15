@@ -8,16 +8,17 @@ import { ClientSideValidationService } from 'src/CommonServices/client-side-vali
 import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { ArabicRegex, BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Course, CourseCategory, Lesson, Section } from 'src/models.model';
+import { SlugMapService } from 'src/Services/slug-map.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/course.actions';
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
-import { LoadLessons, UpdateLesson_Order, UpdateLesson_Order_Success } from 'src/State/LessonsState/Lessons.actions';
+import { LoadLessons, UpdateLesson_Order } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
 import { LoadSections, UpdateSectionOrder } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
@@ -86,11 +87,12 @@ export class CourseWizardComponent implements OnInit
   NewPreviousSection: Section | null = null;
   NewNextSection: Section | null = null;
   SeclectedSectionForOrderChange: Section | null = null;
-
+  selectedTranslation: Course[] = [];
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
     private TreeForSection: TreeDataStructureService<Section>,
     private clientSideSevice: ClientSideValidationService,
+    private SlugMapService: SlugMapService,
     private spinner: SpinnerService, private Notifications: NotificationsService,
     private activatedRouter: ActivatedRoute, private router: Router,
     @Inject(DOCUMENT) private document: Document)
@@ -123,7 +125,8 @@ export class CourseWizardComponent implements OnInit
       [FormControlNames.courseForm.featureImageUrl]: ['', [validators.required]],
       [FormControlNames.courseForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.courseForm.categories]: ['', [validators.required]],
-      [FormControlNames.courseForm.isArabic]: [false],
+      [FormControlNames.courseForm.isArabic]: [{ value: false, disabled: true }],
+      [FormControlNames.courseForm.otherSlug]: [null, [validators.required]],
     });
     this.activatedRouter.queryParams.subscribe(params =>
     {
@@ -173,7 +176,8 @@ export class CourseWizardComponent implements OnInit
         }
       }
     });
-    this.allCourses$.subscribe(courses => this.allCourses = courses);
+    this.allCourses$.subscribe(courses => { this.allCourses = courses; this.SelectTranslation(); });
+
   }
   /****************************************************************
    *                    Step1:  Course Form handeling
@@ -214,12 +218,16 @@ export class CourseWizardComponent implements OnInit
   AddCourse()
   {
     this.clientSideSevice.FillObjectFromForm(this.CourseToAddOrUpdate, this.CourseForm);
-    this.CourseToAddOrUpdate.slug = this.CourseToAddOrUpdate.title.toLowerCase().replace(/ ||/g, '-');
+    this.CourseToAddOrUpdate.slug = this.clientSideSevice.GenerateSlug(this.CourseToAddOrUpdate.title);
     let isUnique = this.clientSideSevice.isNotUnique(this.allCourses, 'slug', this.CourseToAddOrUpdate.slug);
     if (isUnique)
     {
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "Title is not unique");
       return;
+    }
+    if (this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
+    {
+      this.CourseToAddOrUpdate.otherSlug = null;
     }
     this.store.dispatch(AddCourse(this.CourseToAddOrUpdate));
   }
@@ -275,6 +283,10 @@ export class CourseWizardComponent implements OnInit
       }
     }
     let updatedCourse = { ...this.CourseToAddOrUpdate };
+    if (this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
+    {
+      updatedCourse.otherSlug = null;
+    }
     this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
     updatedCourse.slug = updatedSlug;
     updatedCourse.categories = this.selectedCategories;
@@ -290,6 +302,8 @@ export class CourseWizardComponent implements OnInit
         {
           if (course)
           {
+            this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(course.isArabic);
+            this.SelectTranslation();
             this.selectedCategories = [];
             course?.coursesPerCategories?.forEach(cat => { this.selectCategory(cat.courseCategoryId); });
             if (course?.introductoryVideoUrl)
@@ -301,12 +315,16 @@ export class CourseWizardComponent implements OnInit
             }
             this.FeatureImageUrl = course?.featureImageUrl!;
             this.CourseForm.patchValue(course!);
+            if (course?.otherSlug == null)
+            {
+              this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.setValue("0");
+            }
             this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
-            this.CourseForm.markAllAsTouched();
+            this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.markAsTouched();
             this.spinner.removeSpinner();
             this.title.setTitle("Edit course : " + this.CourseToAddOrUpdate.name);
           }
-
+          this.CourseForm.markAllAsTouched();
         },
         error: err =>
         {
@@ -449,5 +467,21 @@ export class CourseWizardComponent implements OnInit
     }
     );
     this.store.dispatch(UpdateSectionOrder({ payload: cloneArray }));
+  }
+  SelectTranslation()
+  {
+    this.selectedTranslation = this.allCourses.filter(x => x.isArabic
+      !== Boolean(this.CourseForm.get(FormControlNames.courseForm.isArabic)?.value));
+  }
+  otherSlugChange(value: string)
+  {
+    console.log(value);
+  }
+  setIsArabic()
+  {
+    let isArabic = ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.title)?.value)
+      || ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.name)?.value);
+    this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(isArabic);
+    this.SelectTranslation();
   }
 }

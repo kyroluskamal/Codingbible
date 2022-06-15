@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
+import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -39,6 +39,8 @@ export class SectionModalComponent implements OnInit, OnChanges
   OldLevel: number = 0;
   VedioID = "";
   sectionsForSelectmenu: Section[] = [];
+  selectedTranslation: Section[] = [];
+  AllSections: Section[] = [];
   @Input() ActionType: string = "";
   @Input() UpdateObject: Section = new Section();
   @Input() ModalId: string = "SectionModal";
@@ -68,10 +70,6 @@ export class SectionModalComponent implements OnInit, OnChanges
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
       this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
       this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
-      if (this.UpdateObject.status === PostStatus.Published)
-      {
-        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.disable();
-      }
     }
     if ("ActionType" in changes)
     {
@@ -81,6 +79,7 @@ export class SectionModalComponent implements OnInit, OnChanges
         this.FeatureImageUrl = "";
         this.VedioID = "";
         this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(0);
+        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(false);
       }
     }
   }
@@ -97,11 +96,14 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.SectionForm.whatWillYouLearn]: [""],
       [FormControlNames.SectionForm.isLeafSection]: [false],
-      [FormControlNames.SectionForm.isArabic]: [false],
+      [FormControlNames.SectionForm.isArabic]: [{ value: false, disabled: true }],
+      [FormControlNames.SectionForm.otherSlug]: [null, [validators.required]],
     });
     this.AllSections$.subscribe(sections =>
     {
-      this.TreeStructure.setData(sections);
+      this.AllSections = sections;
+      this.TreeStructure.setData(sections.filter(x => x.isArabic
+        === Boolean(this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.value)));
       this.sectionsForSelectmenu = this.TreeStructure.finalFlatenArray();
       if (this.ActionType == PostType.Add)
       {
@@ -153,7 +155,7 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       section.level = parent?.level + 1;
     }
-    section.slug = section.title.split(" ").join("-");
+    section.slug = this.clientSideSevrice.GenerateSlug(section.title);
     let sbllings = this.sectionsForSelectmenu.filter(cat => cat.parentKey == section.parentKey);
     if (sbllings.length > 0)
     {
@@ -162,6 +164,10 @@ export class SectionModalComponent implements OnInit, OnChanges
     else
     {
       section.order = 1;
+    }
+    if (this.SectionForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
+    {
+      section.otherSlug = null;
     }
     this.store.dispatch(AddSection(section));
     this.SectionForm.reset();
@@ -185,7 +191,25 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       newSection.level = parent?.level! + 1;
     }
-    newSection.slug = newSection.title.replace("|", '-').split(" ").join("-");
+    newSection.slug = this.clientSideSevrice.GenerateSlug(newSection.title);
+    if (this.SectionForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
+    {
+      newSection.otherSlug = null;
+    }
     this.store.dispatch(UpdateSection(newSection));
+  }
+  SelectTranslation()
+  {
+    let treeService = new TreeDataStructureService<Section>();
+    treeService.setData(this.AllSections.filter(x => x.isArabic
+      !== Boolean(this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.value)));
+    this.selectedTranslation = treeService.finalFlatenArray();
+  }
+  setIsArabic()
+  {
+    let isArabic = ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.title)?.value)
+      || ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.name)?.value);
+    this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
+    this.SelectTranslation();
   }
 }

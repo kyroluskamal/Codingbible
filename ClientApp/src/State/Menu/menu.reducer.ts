@@ -26,7 +26,7 @@ export const MenuReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateMenu_Sucess, (state, res) => MenuAdapter.upsertOne(res.Menu, state)),
+    on(UpdateMenu_Sucess, (state, res) => MenuAdapter.updateOne(res.Menu, state)),
     on(RemoveMenu_Success, (state, { id }) => MenuAdapter.removeOne(id, state)),
     on(RemoveMenu_Failed, (state, res) =>
     {

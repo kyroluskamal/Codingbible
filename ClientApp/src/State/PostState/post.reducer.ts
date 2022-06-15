@@ -79,12 +79,6 @@ export const PostReducer = createReducer(
     }),
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return PostReducer(state, action);
-}
-
-
 export const selectPostState = createFeatureSelector<PostState>('post');
 
 export const selectPostByID = (id: number) => createSelector(

@@ -29,6 +29,8 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
+  selectedTranslation: Category[] = [];
+  AllCategories: Category[] = [];
   cats$ = this.store.select(selectAllCategorys);
   @Input() inputForm: FormGroup = new FormGroup({});
   category: Category = new Category();
@@ -58,8 +60,7 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     this.Form = this.inputForm;
     this.cats$.subscribe(cats =>
     {
-      this.TreeDataStructure.setData(cats);
-      this.catsForSelectmenu = this.TreeDataStructure.finalFlatenArray();
+      this.AllCategories = cats;
     });
   }
 
@@ -115,5 +116,16 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     }
     newCategory.slug = newCategory.title.split(" ").join("-");
     this.store.dispatch(UpdateCATEGORY(newCategory));
+  }
+  SelectTranslation()
+  {
+    this.TreeDataStructure.setData(this.AllCategories.filter(x => x.isArabic
+      === Boolean(this.Form.get(FormControlNames.categoryForm.isArabic)?.value)));
+    this.catsForSelectmenu = this.TreeDataStructure.finalFlatenArray();
+
+    let tree = new TreeDataStructureService<Category>();
+    tree.setData(this.AllCategories.filter(x => x.isArabic
+      !== Boolean(this.Form.get(FormControlNames.categoryForm.isArabic)?.value)));
+    this.selectedTranslation = tree.finalFlatenArray();
   }
 }

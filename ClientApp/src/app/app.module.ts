@@ -12,12 +12,10 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
 import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { NgrxUniversalRehydrateBrowserModule } from '@trellisorg/ngrx-universal-rehydrate';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { UrlSerializer } from '@angular/router';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { PostEffects } from 'src/State/PostState/post-effects';
-import { TranslateModule } from '@ngx-translate/core';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
@@ -71,7 +69,7 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
       CategoryEffects, AttachmentsEffects,
       CoursesEffects, CourseCategoryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
-    NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
+    // NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
       headerName: 'scfD1z5dp2',

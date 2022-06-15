@@ -42,6 +42,50 @@
             </div>
             <label for="CatName">{{FormFieldsNames.Category.name}}</label>
         </div>
+        <div class="form-check mb-2">
+            <input class="form-check-input"
+                   type="checkbox"
+                   [formControlName]="FormControlNames.categoryForm.isArabic"
+                   id="isArabic">
+            <label class="form-check-label fw-bold"
+                   for="isArabic"
+                   (click)="SelectTranslation()">
+                In Arabic
+            </label>
+        </div>
+        <!-- --------------------------------------------------------------------------- 
+                                Other slug
+        ------------------------------------------------------------------------------->
+        <div class="form-floating mb-3">
+            <select [class]="errorState.isErrorState(FormControlNames.categoryForm.otherSlug, Form, form)?
+                'form-select is-invalid':'form-select is-valid'"
+                    id="translation"
+                    [formControlName]="FormControlNames.categoryForm.otherSlug"
+                    aria-label="Select translated url">
+                <option selected>Select translation</option>
+                <option value="0">Not yet</option>
+                <option *ngFor="let l of selectedTranslation"
+                        [value]="l.slug">
+                    {{l.title}}
+                </option>
+            </select>
+            <div class="validationDiv">
+                <span class="invalid-feedback d-block m-0"
+                      *ngIf="inputForm.get(FormControlNames.categoryForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
+                          &&errorState.isErrorState(FormControlNames.categoryForm.otherSlug, Form, form)">
+                    {{FormValidationErrors.RequiredField}}
+                </span>
+            </div>
+            <label for="translation"
+                   class="form-label">
+                <span *ngIf="Form.get(FormControlNames.categoryForm.isArabic)?.value===true">
+                    English Translation
+                </span>
+                <span *ngIf="Form.get(FormControlNames.categoryForm.isArabic)?.value===false">
+                    Arabic Translation
+                </span>
+            </label>
+        </div>
         <!-- *******************************************************************
             *                           Parent Category
             **********************************************************************-->

@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
 import { SpinnerService } from "src/CommonServices/spinner.service";
 import { MenusController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
+import { Menu } from "src/models.model";
 import { MenuService } from "src/Services/menu.service";
 import { AddMenu, AddMenu_Failed, AddMenu_Success, GetMenuByLocationName, GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenus, LoadMenusFail, LoadMenusSuccess, RemoveMenu, RemoveMenuItem, RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success, SetMenuValidationErrors, UpdateMenu, UpdateMenu_Failed, UpdateMenu_Sucess } from "./menu.actions";
 import { selectAll_Menus } from "./menu.reducer";
@@ -54,7 +56,7 @@ export class MenuEffects
     UpdateMenu$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UpdateMenu),
-            switchMap((action) =>
+            exhaustMap((action) =>
             {
                 this.spinner.InsideContainerSpinner();
                 return this.MenuService.Update(MenusController.UpdateMenu, action).pipe(
@@ -63,7 +65,11 @@ export class MenuEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Menu'));
                         this.store.dispatch(SetMenuValidationErrors({ validationErrors: [] }));
-                        return UpdateMenu_Sucess(r.data);
+                        let x: Update<Menu> = {
+                            id: action.id,
+                            changes: r.data as Menu
+                        };
+                        return UpdateMenu_Sucess({ Menu: x });
                     }),
                     catchError((e) =>
                     {

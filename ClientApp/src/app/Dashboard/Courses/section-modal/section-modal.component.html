@@ -36,7 +36,8 @@
                                    errorState.isErrorState(FormControlNames.SectionForm.name, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                            id="CatName"
-                           [placeholder]="FormFieldsNames.Section.name">
+                           [placeholder]="FormFieldsNames.Section.name"
+                           (input)="setIsArabic()">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -62,7 +63,8 @@
                                        errorState.isErrorState(FormControlNames.SectionForm.title, SectionForm, form)?
                                        'form-control is-invalid':'form-control is-valid'"
                            id="title"
-                           [placeholder]="FormFieldsNames.Category.title">
+                           [placeholder]="FormFieldsNames.Category.title"
+                           (input)="setIsArabic()">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -121,8 +123,8 @@
                            class="form-label">{{FormFieldsNames.Category.parentKey}}</label>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="form-check ">
+            <div class="col-sm-6 d-flex flex-column justify-content-center">
+                <div class="form-check d-flex flex-row align-items-center gap-2 flex-grow-1 h-100 mb-3">
                     <input class="form-check-input"
                            type="checkbox"
                            value=""
@@ -133,16 +135,60 @@
                         Contains Lessons
                     </label>
                 </div>
-                <div class="form-check">
-                    <input class="form-check-input"
+                <div class="mb-3"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- --------------------------------------------------------------------------- 
+                                Other slug
+            ------------------------------------------------------------------------------->
+                <div class="form-floating mb-3">
+                    <select [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.otherSlug, SectionForm)?'form-select':
+                    errorState.isErrorState(FormControlNames.SectionForm.otherSlug, SectionForm, form)?
+            'form-select is-invalid':'form-select is-valid'"
+                            id="translationSection"
+                            [formControlName]="FormControlNames.SectionForm.otherSlug"
+                            aria-label="Select translated url">
+                        <option selected
+                                [value]="null">Select translation</option>
+                        <option value="0">Not yet</option>
+                        <option *ngFor="let s of selectedTranslation"
+                                [value]="s.slug">
+                            {{s.name}}
+                        </option>
+                    </select>
+                    <div class="validationDiv">
+                        <span class="invalid-feedback d-block m-0"
+                              *ngIf="SectionForm.get(FormControlNames.SectionForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
+                      &&errorState.isErrorState(FormControlNames.SectionForm.otherSlug, SectionForm, form)">
+                            {{FormValidationErrors.RequiredField}}
+                        </span>
+                    </div>
+                    <label for="translationSection"
+                           class="form-label">
+                        <span *ngIf="SectionForm.get(FormControlNames.SectionForm.isArabic)?.value===true">
+                            English Translation
+                        </span>
+                        <span *ngIf="SectionForm.get(FormControlNames.SectionForm.isArabic)?.value===false">
+                            Arabic Translation
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 d-flex flex-column justify-content-center">
+                <div class="form-check d-flex flex-row align-items-center gap-2 flex-grow-1 h-100 mb-3">
+                    <input class="form-check-input "
                            type="checkbox"
                            [formControlName]="FormControlNames.SectionForm.isArabic"
                            id="isArabic">
                     <label class="form-check-label fw-bold"
-                           for="isArabic">
+                           for="isArabic"
+                           (click)="SelectTranslation()">
                         In Arabic
                     </label>
                 </div>
+                <div class="mb-3"></div>
             </div>
         </div>
         <div class="row mb-3"

@@ -13,6 +13,7 @@ import { LessonsReducer } from "./LessonsState/Lessons.reducer";
 import { MenuReducer } from "./Menu/menu.reducer";
 import { PostReducer } from "./PostState/post.reducer";
 import { SectionsReducer } from "./SectionsState/sections.reducer";
+import { SlugMap_Category_reducer, SlugMap_CourseCategory_reducer, SlugMap_Courses_reducer, SlugMap_Lessons_reducer, SlugMap_Posts_reducer, SlugMap_Sections_reducer } from "./SlugMap/SlugMap.reducer";
 
 export interface AppState 
 {
@@ -27,6 +28,12 @@ export interface AppState
     sections: SectionsState;
     lang: LangState;
     menu: MenuState;
+    SlugMap_Categories: SlugMap_CategoriesState;
+    SlugMap_CourseCategories: SlugMap_CourseCategoriesState;
+    SlugMap_Courses: SlugMap_CourseState;
+    SlugMap_Lesson: SlugMap_LessonState;
+    SlugMap_Post: SlugMap_PostState;
+    SlugMap_Section: SlugMap_SectionState;
 }
 export interface DesignState
 {
@@ -87,12 +94,30 @@ export interface SectionsState extends EntityState<Section>
     AdditionState: boolean;
     UpdateState: boolean;
 }
-export interface SlugMap_Course extends EntityState<SlugMap_Courses> { }
-export interface SlugMap_Post extends EntityState<SlugMap_Posts> { }
-export interface SlugMap_Categories extends EntityState<SlugMap_Category> { }
-export interface SlugMap_CourseCategories extends EntityState<SlugMap_CourseCategory> { }
-export interface SlugMap_Section extends EntityState<SlugMap_Sections> { }
-export interface SlugMap_Lesson extends EntityState<SlugMap_Lessons> { }
+export interface SlugMap_CourseState extends EntityState<SlugMap_Courses>
+{
+    ValidationErrors: ModelStateErrors[];
+}
+export interface SlugMap_PostState extends EntityState<SlugMap_Posts>
+{
+    ValidationErrors: ModelStateErrors[];
+}
+export interface SlugMap_CategoriesState extends EntityState<SlugMap_Category>
+{
+    ValidationErrors: ModelStateErrors[];
+}
+export interface SlugMap_CourseCategoriesState extends EntityState<SlugMap_CourseCategory>
+{
+    ValidationErrors: ModelStateErrors[];
+}
+export interface SlugMap_SectionState extends EntityState<SlugMap_Sections>
+{
+    ValidationErrors: ModelStateErrors[];
+}
+export interface SlugMap_LessonState extends EntityState<SlugMap_Lessons>
+{
+    ValidationErrors: ModelStateErrors[];
+}
 export interface MenuState extends EntityState<Menu>
 {
     ValidationErrors: ModelStateErrors[];
@@ -112,5 +137,11 @@ export const AppReducers: ActionReducerMap<AppState> = {
     lessons: LessonsReducer,
     sections: SectionsReducer,
     lang: LangReducer,
-    menu: MenuReducer
+    menu: MenuReducer,
+    SlugMap_Categories: SlugMap_Category_reducer,
+    SlugMap_CourseCategories: SlugMap_CourseCategory_reducer,
+    SlugMap_Courses: SlugMap_Courses_reducer,
+    SlugMap_Lesson: SlugMap_Lessons_reducer,
+    SlugMap_Post: SlugMap_Posts_reducer,
+    SlugMap_Section: SlugMap_Sections_reducer,
 };

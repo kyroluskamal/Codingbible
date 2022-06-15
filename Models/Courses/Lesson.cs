@@ -34,5 +34,5 @@ public class Lesson
     public SlugMap_Lessons SlugMap { get; set; }
     public bool IsArabic { get; set; }
     [NotMapped]
-    public int EnLessonId { get; set; }
+    public string OtherSlug { get; set; }
 }

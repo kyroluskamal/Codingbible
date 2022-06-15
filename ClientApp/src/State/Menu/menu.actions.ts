@@ -25,7 +25,7 @@ export const GetMenuByLocationName_Failed = createAction(actionNames.MenuActions
 export const UpdateMenu = createAction(actionNames.MenuActions.UPDATE_Menu,
     props<Menu>());
 export const UpdateMenu_Sucess = createAction(actionNames.MenuActions.UPDATE_Menu_Success,
-    props<{ Menu: Menu; }>());
+    props<{ Menu: Update<Menu>; }>());
 export const UpdateMenu_Failed = createAction(actionNames.MenuActions.UPDATE_Menu_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveMenu = createAction(actionNames.MenuActions.REMOVE_Menu,

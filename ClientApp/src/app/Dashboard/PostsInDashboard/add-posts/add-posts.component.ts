@@ -31,6 +31,7 @@ export class AddPostsComponent implements OnInit
       [FormControlNames.postForm.featureImageUrl]: [null, [validators.required]],
       [FormControlNames.postForm.categories]: [[], [validators.required]],
       [FormControlNames.postForm.isArabic]: [false],
+      [FormControlNames.postForm.otherSlug]: [null, [validators.required]],
     });
 
   }

@@ -8,7 +8,8 @@ import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidation
 import { Lesson, Section } from 'src/models.model';
 import { LessonsService } from 'src/Services/lessons.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
-import { AddLesson, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
+import { AddLesson, LoadLessons, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
+import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
@@ -34,6 +35,9 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   errorState = new BootstrapErrorStateMatcher();
   selectedSections: Section[] = [];
   courseId: number = 0;
+  selectedTranslation: Lesson[] = [];
+  AllLessons$ = this.store.select(selectAllLessons);
+  AllLessons: Lesson[] = [];
   @Input() Action: string = "";
   @Input() UpdateObject: Lesson = new Lesson();
   @Input() ModalId: string = "LessonModal";
@@ -85,8 +89,8 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       [FormControlNames.LessonForm.name]: [null, [validators.required]],
       [FormControlNames.LessonForm.description]: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       [FormControlNames.LessonForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
-      [FormControlNames.LessonForm.isArabic]: [false]
-
+      [FormControlNames.LessonForm.isArabic]: [false],
+      [FormControlNames.LessonForm.otherSlug]: [null, [validators.required]]
     });
     if (this.SelectedSectionId === 0)
     {
@@ -98,6 +102,8 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       this.TreeDataStructure.setData(temp);
       this.selectedSections = this.TreeDataStructure.finalFlatenArray();
     });
+    this.store.dispatch(LoadLessons());
+    this.AllLessons$.subscribe(lessons => this.AllLessons = lessons);
   }
   Toggle()
   {
@@ -169,5 +175,10 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
         lesson.orderWithinSection = 1;
     }
     return lesson;
+  }
+  SelectTranslation()
+  {
+    this.selectedTranslation = this.AllLessons.filter(x => x.isArabic !==
+      Boolean(this.inputForm.get(FormControlNames.LessonForm.isArabic)?.value));
   }
 }

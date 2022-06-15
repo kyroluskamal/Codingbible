@@ -219,7 +219,7 @@
                     <div
                          [class]="form.get(FormControlNames.postForm.categories)?.valid?'w-100 border border-2 rounded-1 border-success h-100 overflow-auto p-2':'w-100 border border-2 border-danger rounded-1 h-100 overflow-auto p-2'">
                         <div class="form-check SelectCheckBoxes p-0 d-flex flex-row w-100 "
-                             *ngFor="let cat of (cats$|async)">
+                             *ngFor="let cat of CategoriesByLang">
                             <input type="checkbox"
                                    class="form-check-input"
                                    [ngStyle]="{'margin-left':cat.level*10+'px'}"
@@ -258,8 +258,42 @@
                        [formControlName]="FormControlNames.postForm.isArabic"
                        id="isArabic">
                 <label class="form-check-label fw-bold"
-                       for="isArabic">
+                       for="isArabic"
+                       (click)="SelectTranslation()">
                     In Arabic
+                </label>
+            </div>
+            <!-- --------------------------------------------------------------------------- 
+                                    Other slug
+            ------------------------------------------------------------------------------->
+            <div class="form-floating mb-3">
+                <select [class]="errorState.isErrorState(FormControlNames.postForm.otherSlug, form, Form)?
+                    'form-select is-invalid':'form-select is-valid'"
+                        id="translation"
+                        [formControlName]="FormControlNames.postForm.otherSlug"
+                        aria-label="Select translated url">
+                    <option selected>Select translation</option>
+                    <option value="0">Not yet</option>
+                    <option *ngFor="let l of selectedTranslation"
+                            [value]="l.slug">
+                        {{l.title}}
+                    </option>
+                </select>
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="inputForm.get(FormControlNames.postForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.postForm.otherSlug, form, Form)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                </div>
+                <label for="translation"
+                       class="form-label">
+                    <span *ngIf="form.get(FormControlNames.postForm.isArabic)?.value===true">
+                        English Translation
+                    </span>
+                    <span *ngIf="form.get(FormControlNames.postForm.isArabic)?.value===false">
+                        Arabic Translation
+                    </span>
                 </label>
             </div>
             <div class="card">

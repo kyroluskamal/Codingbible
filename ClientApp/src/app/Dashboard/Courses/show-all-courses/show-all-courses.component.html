@@ -13,11 +13,13 @@
               [resetSelectedRow]="resetSelectedRow">
     </cb-table>
     <ng-template #ChangeStatusMenu>
-        <a class="cursor-pointer"
-           (click)="ChangeStatus(1)"
-           *ngIf="SelectedCourse &&SelectedCourse.name!=='' &&SelectedCourse?.status===0">Set as published</a>
-        <a class="cursor-pointer"
-           (click)="ChangeStatus(0)"
-           *ngIf="SelectedCourse && SelectedCourse.name!=='' &&SelectedCourse?.status===1">Set as draft</a>
+        <span *ngIf="(Courses$|async) && (Courses$|async)?.length!==0">
+            <a class="cursor-pointer"
+               (click)="ChangeStatus(1)"
+               *ngIf="SelectedCourse &&SelectedCourse.name!=='' &&SelectedCourse?.status===0">Set as published</a>
+            <a class="cursor-pointer"
+               (click)="ChangeStatus(0)"
+               *ngIf="SelectedCourse && SelectedCourse.name!=='' &&SelectedCourse?.status===1">Set as draft</a>
+        </span>
     </ng-template>
 </main>
