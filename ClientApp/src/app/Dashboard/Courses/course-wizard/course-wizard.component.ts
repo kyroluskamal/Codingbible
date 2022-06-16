@@ -78,6 +78,7 @@ export class CourseWizardComponent implements OnInit
   SectionToEdit: Section = new Section();
   LessonToUpdate: Lesson = new Lesson();
   CourseCategorysArranged: CourseCategory[] = [];
+  AllCourseCategories: CourseCategory[] = [];
   SelectedSectionsId_For_SectionOrder: number = 0;
   selectedSectionOrder: FormControl = new FormControl(1);
   SectionSplings: Section[] = [];
@@ -92,7 +93,6 @@ export class CourseWizardComponent implements OnInit
     private TreeStructure: TreeDataStructureService<CourseCategory>,
     private TreeForSection: TreeDataStructureService<Section>,
     private clientSideSevice: ClientSideValidationService,
-    private SlugMapService: SlugMapService,
     private spinner: SpinnerService, private Notifications: NotificationsService,
     private activatedRouter: ActivatedRoute, private router: Router,
     @Inject(DOCUMENT) private document: Document)
@@ -106,12 +106,7 @@ export class CourseWizardComponent implements OnInit
     this.store.dispatch(LoadCourseCategorys());
     this.store.dispatch(LoadCourses());
     this.store.dispatch(LoadLessons());
-    this.CourseCats.subscribe(cats =>
-    {
-      this.isLoading = false;
-      this.TreeStructure.setData(cats);
-      this.CourseCategorysArranged = this.TreeStructure.finalFlatenArray();
-    });
+    this.CourseCats.subscribe(cats => this.AllCourseCategories = cats);
     this.CourseForm = this.fb.group({
       [FormControlNames.courseForm.name]: [null, [validators.required]],
       [FormControlNames.courseForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
@@ -304,6 +299,7 @@ export class CourseWizardComponent implements OnInit
           {
             this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(course.isArabic);
             this.SelectTranslation();
+            this.setCourseCategoriesByLang();
             this.selectedCategories = [];
             course?.coursesPerCategories?.forEach(cat => { this.selectCategory(cat.courseCategoryId); });
             if (course?.introductoryVideoUrl)
@@ -464,8 +460,7 @@ export class CourseWizardComponent implements OnInit
     cloneArray.forEach((sec, index) =>
     {
       sec.order = index + 1;
-    }
-    );
+    });
     this.store.dispatch(UpdateSectionOrder({ payload: cloneArray }));
   }
   SelectTranslation()
@@ -483,5 +478,19 @@ export class CourseWizardComponent implements OnInit
       || ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.name)?.value);
     this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(isArabic);
     this.SelectTranslation();
+    this.setCourseCategoriesByLang();
+  }
+  setCourseCategoriesByLang()
+  {
+
+    if (Boolean(this.CourseForm.get(FormControlNames.courseForm.isArabic)?.value))
+    {
+      this.TreeStructure.setData(this.AllCourseCategories.filter(x => x.isArabic));
+      this.CourseCategorysArranged = this.TreeStructure.finalFlatenArray();
+    } else
+    {
+      this.TreeStructure.setData(this.AllCourseCategories.filter(x => !x.isArabic));
+      this.CourseCategorysArranged = this.TreeStructure.finalFlatenArray();
+    }
   }
 }

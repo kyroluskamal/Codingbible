@@ -24,7 +24,6 @@ public class CourseCategory
     public int? ParentKey { get; set; }
     public virtual CourseCategory Parent { get; set; }
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
-    public SlugMap_CourseCategory SlugMap { get; set; }
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }

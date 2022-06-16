@@ -43,7 +43,6 @@ public class Course
     public virtual ApplicationUser Author { get; set; }
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
     public ICollection<StudentsPerCourse> Students { get; set; }
-    public SlugMap_Courses SlugMap { get; set; }
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }

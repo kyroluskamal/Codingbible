@@ -1,0 +1,1899 @@
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:04:50 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9972
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:05:04 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "56763b64-c1de-467e-9084-485327717ebe"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF3CCEDVC6:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF3CCEDVC6"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9972
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:05:04 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "560c0574-7cc8-43c3-9725-bf92e00d5353"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF3CCEDVC6:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF3CCEDVC6"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9972
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:05:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1853
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories() in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 463"
+InnerException : null
+Source : "CodingBible"
+ActionId : "433db4c0-5554-4074-8fe4-b91364e10044"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3CCEDVC6:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3CCEDVC6"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9972
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:05:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1853
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories() in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 463"
+InnerException : null
+Source : "CodingBible"
+ActionId : "433db4c0-5554-4074-8fe4-b91364e10044"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3CCEDVC6:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3CCEDVC6"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9972
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:24:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13132
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:24:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+elapsed : "222"
+parameters : "@p0='غير-مصنف' (Size = 4000), @p1='0', @p2='Uncategorized' (Size = 4000)"
+commandType : Text
+commandTimeout : 30
+newLine : "
+"
+commandText : "SET NOCOUNT ON;
+INSERT INTO [SlugMap_Categories] ([ArSlug], [CategoryId], [EnSlug])
+VALUES (@p0, @p1, @p2);
+SELECT [Id]
+FROM [SlugMap_Categories]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity();"
+EventId : { Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }
+SourceContext : "Microsoft.EntityFrameworkCore.Database.Command"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13132
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:24:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+contextType : "CodingBible.Data.ApplicationDbContext"
+newline : "
+"
+error : "Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint \"FK_SlugMap_Categories_Categories_CategoryId\". The conflict occurred in database \"CodingBible\", table \"dbo.Categories\", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:2cde2abd-1598-4c99-95da-d74ec169788a
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)"
+EventId : { Id: 10000, Name: "Microsoft.EntityFrameworkCore.Update.SaveChangesFailed" }
+SourceContext : "Microsoft.EntityFrameworkCore.Update"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13132
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SlugMap_Categories_Categories_CategoryId". The conflict occurred in database "CodingBible", table "dbo.Categories", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:2cde2abd-1598-4c99-95da-d74ec169788a
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)StackTrace -    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)Message - An error occurred while saving the entity changes. See the inner exception for details.Source - Microsoft.EntityFrameworkCore.RelationalInnerException - Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SlugMap_Categories_Categories_CategoryId". The conflict occurred in database "CodingBible", table "dbo.Categories", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:2cde2abd-1598-4c99-95da-d74ec169788a
+Error Number:547,State:0,Class:16---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:24:29 +02:00 | Level - Fatal |
+----------------------------------------------------------------------
+EventId : { Id: 6 }
+SourceContext : "Microsoft.AspNetCore.Hosting.Diagnostics"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13132
+ProcessName : "CodingBible"
+----------------------EXCEPTION DETAILS-------------------------------
+Exception - Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SlugMap_Categories_Categories_CategoryId". The conflict occurred in database "CodingBible", table "dbo.Categories", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:2cde2abd-1598-4c99-95da-d74ec169788a
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at CodingBible.Data.DbContextInitializer.Initialize() in E:\Bussiness\Project\CodingBible\Data\DbContextInitializer.cs:line 104
+   at CodingBible.Startup.Configure(IApplicationBuilder app, IDbContextInitializer dbContextInitializer, IHostEnvironment env, IAntiforgery antiForgery) in E:\Bussiness\Project\CodingBible\Startup.cs:line 244
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.Extensions.DependencyInjection.AutoRegisterMiddleware.<>c__DisplayClass4_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.HostingStartup.<>c__DisplayClass1_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)StackTrace -    at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at CodingBible.Data.DbContextInitializer.Initialize() in E:\Bussiness\Project\CodingBible\Data\DbContextInitializer.cs:line 104
+   at CodingBible.Startup.Configure(IApplicationBuilder app, IDbContextInitializer dbContextInitializer, IHostEnvironment env, IAntiforgery antiForgery) in E:\Bussiness\Project\CodingBible\Startup.cs:line 244
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Span`1& arguments, Signature sig, Boolean constructor, Boolean wrapExceptions)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass15_0.<UseStartup>b__1(IApplicationBuilder app)
+   at Microsoft.Extensions.DependencyInjection.AutoRegisterMiddleware.<>c__DisplayClass4_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Watch.BrowserRefresh.HostingStartup.<>c__DisplayClass1_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)Message - An error occurred while saving the entity changes. See the inner exception for details.Source - Microsoft.EntityFrameworkCore.RelationalInnerException - Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK_SlugMap_Categories_Categories_CategoryId". The conflict occurred in database "CodingBible", table "dbo.Categories", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__188_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:2cde2abd-1598-4c99-95da-d74ec169788a
+Error Number:547,State:0,Class:16---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:29:51 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9912
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:30:33 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 7900
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:31:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:31:21 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "5648120e-9e6d-4ee7-8312-80f02ae1a9a3"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF3R2HO6VF:00000005"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF3R2HO6VF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:31:21 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "fd4c28fb-5a25-4037-b675-48a7856a4a7f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF3R2HO6VF:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF3R2HO6VF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:31:22 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1853
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories() in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 463"
+InnerException : null
+Source : "CodingBible"
+ActionId : "9d306600-63cd-4a74-8126-860cf9ce8bff"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3R2HO6VF:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3R2HO6VF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:38:35 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "60196e38-e5ba-430c-9617-04e6c06b4b30"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3R2HO6VG:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3R2HO6VG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:38:35 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "60196e38-e5ba-430c-9617-04e6c06b4b30"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3R2HO6VG:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3R2HO6VG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:38:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj)
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories()"
+InnerException : null
+Source : "CodingBible"
+ActionId : "60196e38-e5ba-430c-9617-04e6c06b4b30"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3R2HO6VG:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3R2HO6VG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15996
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:38 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:48 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "a4c2e4b2-6087-40cf-be86-5f56d694401b"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF3VPLS3II:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF3VPLS3II"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:49 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "54a3e914-959b-49f2-a33b-9730efd3f440"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF3VPLS3II:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF3VPLS3II"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:49 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "b1b46f72-379d-434f-bc1e-f4734201ceb9"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3VPLS3II:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3VPLS3II"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:49 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "b1b46f72-379d-434f-bc1e-f4734201ceb9"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3VPLS3II:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3VPLS3II"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:39:49 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1854
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories() in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 464"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b1b46f72-379d-434f-bc1e-f4734201ceb9"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF3VPLS3II:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF3VPLS3II"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 4436
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:42:47 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:43:52 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "a5c746ef-be8e-4b00-aeb3-7a5a02b9b17d"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF4226AV0G:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF4226AV0G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:43:52 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "bbc4a560-b829-480d-b2a1-ddc19622a8f4"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF4226AV0G:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF4226AV0G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:43:52 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "bbc4a560-b829-480d-b2a1-ddc19622a8f4"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF4226AV0G:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF4226AV0G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:43:52 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1854
+   at CodingBible.Controllers.api.v1.CoursesController.GetAllCategories() in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 464"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bbc4a560-b829-480d-b2a1-ddc19622a8f4"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF4226AV0G:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF4226AV0G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:43:53 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "dc6fc8c2-6348-44a9-b365-9d2f10d403ea"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF4226AV0G:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF4226AV0G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 9564
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:47:03 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:47:38 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "f3ad20ca-7ee3-4b7b-8ead-25c455a8b262"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF444U88SA:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:47:38 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SA:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:47:38 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SA:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:47:38 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "65584012-3885-4315-9906-70c68bd9cd6d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF444U88SA:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:48:10 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SA:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 00:48:11 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SA:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:05:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SC:00000003"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:05:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SC:00000003"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:05:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '15/06/2022 22:56:32', Current time: '15/06/2022 23:05:09'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIF444U88SC:00000009"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:05:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '15/06/2022 22:56:32', Current time: '15/06/2022 23:05:09'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIF444U88SC:00000005"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "3080d8c2-a2b5-417e-b61e-61173e48092c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIF444U88SE:00000001"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "3080d8c2-a2b5-417e-b61e-61173e48092c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIF444U88SE:00000003"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIF444U88SE:0000000D"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIF444U88SE:0000000D"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIF444U88SE:00000011"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIF444U88SE:00000011"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:27 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "3080d8c2-a2b5-417e-b61e-61173e48092c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIF444U88SE:00000017"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:43 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000021"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:11:43 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000021"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:12:48 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000033"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:12:48 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "2a4e7abe-7c62-46f0-b79b-38c176e79109"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF444U88SE:00000033"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF444U88SE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13156
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:42:07 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:46:31 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "8e3f99d8-0fa3-4043-9e86-d6c243648385"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIF552QEPEF:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIF552QEPEF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:46:31 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "a46e9905-8f6c-4d4b-a637-b5cef4fd5076"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIF552QEPEF:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIF552QEPEF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:46:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEF:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:46:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEF:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:49:18 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEG:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:49:18 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEG:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:53:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEH:0000000D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:53:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEH:0000000D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:55:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEH:00000021"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:55:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEH:00000021"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:58:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEJ:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:58:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEJ:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:58:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEJ:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 01:58:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEJ:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:01:14 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:01:14 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:02:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:02:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:02:43 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:00000031"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:02:43 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEK:00000031"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEK"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEM:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEM:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '16/06/2022 00:11:37', Current time: '16/06/2022 00:28:06'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIF552QEPEM:0000000F"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '16/06/2022 00:11:37', Current time: '16/06/2022 00:28:06'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIF552QEPEM:0000000B"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:34 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEM:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:28:34 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEM:0000001D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:31:33 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:31:33 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000009"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:32:55 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000017"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:32:55 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000017"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:33:18 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "4d0353e8-edd5-45af-87d5-e64f96e9f21f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000023"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:33:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:0000002D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:33:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:0000002D"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000041"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000041"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:29 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:0000004F"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:29 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:0000004F"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:45 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000063"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:35:45 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEN:00000063"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEN"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:41:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEQ:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 16/06/2022 02:41:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "7559468c-ac66-47b6-8a47-3b83c1bf6fad"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCategories (CodingBible)"
+RequestId : "0HMIF552QEPEQ:00000007"
+RequestPath : "/api/v1/Courses/GetAllCategories"
+ConnectionId : "0HMIF552QEPEQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1312
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

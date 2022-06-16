@@ -30,7 +30,6 @@ public class Section
     [ForeignKey(nameof(ParentKey))]
     public int? ParentKey { get; set; }
     public Section Parent { get; set; }
-    public SlugMap_Sections SlugMap { get; set; }
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }

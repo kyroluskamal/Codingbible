@@ -31,7 +31,6 @@ public class Lesson
     public Section Section { get; set; }
     public int CourseId { get; set; }
     public ICollection<LessonAttachments> Attachments { get; set; }
-    public SlugMap_Lessons SlugMap { get; set; }
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }

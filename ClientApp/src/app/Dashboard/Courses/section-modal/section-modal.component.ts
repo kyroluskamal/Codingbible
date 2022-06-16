@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
+import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
+import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
-import { Attachments, Section } from 'src/models.model';
+import { Attachments, Course, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { AddSection, UpdateSection } from 'src/State/SectionsState/sections.actions';
@@ -45,11 +46,13 @@ export class SectionModalComponent implements OnInit, OnChanges
   @Input() UpdateObject: Section = new Section();
   @Input() ModalId: string = "SectionModal";
   @Input() CourseId: number = 0;
+  @Input() course: Course | null = null;
   @Input() AddionIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() UpdateIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild("SectionModal") modal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private store: Store,
     private TreeStructure: TreeDataStructureService<Section>,
+    private Notifications: NotificationsService,
     private clientSideSevrice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
@@ -209,7 +212,28 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     let isArabic = ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.title)?.value)
       || ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.name)?.value);
-    this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
+    if (!this.course)
+    {
+      this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
+    } else
+    {
+      this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.course.isArabic);
+      if (!isArabic && this.course.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>You are <span class='text-danger'>adding section in an English course</span> in an Arabic course. You have to add <span class="text-success">the section in English language</span></h4>`);
+        this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
+        this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
+        return;
+      } else if (isArabic && !this.course.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          "<h4>You are <span class='text-danger'>adding section in an English course</span>. You have to <span class='text-success'>add the section in Arabic language</span></h4>");
+        this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
+        this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
+        return;
+      }
+    }
     this.SelectTranslation();
   }
 }

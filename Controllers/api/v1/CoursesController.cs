@@ -460,6 +460,7 @@ public class CoursesController : ControllerBase
             var categories = await UnitOfWork.CourseCategories.GetAllAsync(includeProperties: "CoursesPerCategories");
             foreach (var c in categories)
             {
+                Log.Warning(c.Id + " / " + c.Slug);
                 await UpdateOtherSlug(c);
             }
             return Ok(categories);

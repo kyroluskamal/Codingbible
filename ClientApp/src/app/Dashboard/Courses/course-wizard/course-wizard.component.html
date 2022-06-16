@@ -324,19 +324,22 @@
                             <div class="card-body flex-grow-1">
                                 <div
                                      [class]="CourseForm.get(FormControlNames.courseForm.categories)?.valid?'w-100 border border-2 rounded-1 border-success h-100 overflow-auto p-2':'w-100 border border-2 border-danger rounded-1 h-100 overflow-auto p-2'">
-                                    <div class="form-check SelectCheckBoxes p-0"
+                                    <div class="form-check SelectCheckBoxes p-0 "
                                          *ngFor="let cat of CourseCategorysArranged">
-                                        <input type="checkbox"
-                                               class="form-check-input"
-                                               [ngStyle]="{'margin-left':cat.level*10+'px'}"
-                                               [id]="cat.id"
-                                               (click)="selectCategory(cat.id)"
-                                               [value]="cat.id"
-                                               [checked]="selectedCategories.includes(cat.id)" />
-                                        <label class="form-check-label ms-1"
-                                               [for]="cat.id">
-                                            {{cat.name}}
-                                        </label>
+                                        <div [class]="cat.isArabic?'d-flex flex-row-reverse': 'd-flex flex-row'">
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   [ngStyle]="{'margin-left':cat.level*10+'px'}"
+                                                   [id]="cat.id"
+                                                   (click)="selectCategory(cat.id)"
+                                                   [value]="cat.id"
+                                                   [checked]="selectedCategories.includes(cat.id)" />
+                                            <label class="form-check-label ms-1"
+                                                   [ngClass]="{'pe-1':cat.isArabic,'ps-1':!cat.isArabic}"
+                                                   [for]="cat.id">
+                                                {{cat.name}}
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="validationDiv">
@@ -590,10 +593,14 @@
            [ModalId]="'CourseFeatureImageModal'"
            [setFeatureImageButton]="true"
            (setFeatureImage)="SetFeatureImage($event)"></app-media>
+<!-- ---------------------------------------------------------------------------------------
+                                    Section modal
+------------------------------------------------------------------------------------------->
 <section-modal #SectionModal
                [ActionType]="SectionActionType"
                [CourseId]="CourseId"
                [UpdateObject]="SectionToEdit"
+               [course]="CourseToAddOrUpdate"
                [ModalId]="'SectionModalInWizard'"></section-modal>
 <course-category-handler #CourseCategoryHandler
                          [ActionType]="ActionType.Add"></course-category-handler>

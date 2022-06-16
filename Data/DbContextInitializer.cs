@@ -2,6 +2,7 @@
 using CodingBible.Models.Courses;
 using CodingBible.Models.Menus;
 using CodingBible.Models.Posts;
+using CodingBible.Models.SlugMap;
 using CodingBible.Services.FunctionalService;
 using Microsoft.EntityFrameworkCore;
 
@@ -70,9 +71,38 @@ namespace CodingBible.Data
                     Description = "Uncategorized",
                     Level = 0,
                     ParentKey = null,
+                    IsArabic = false,
                     Title = "Uncategorized",
                 };
                 await ApplicationDbContext.Categories.AddAsync(UncategorizedPostCategory);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+            var UncategorizedPostCategory_AR = await ApplicationDbContext.Categories.FirstOrDefaultAsync(x => x.Name == "غير مصنف");
+            if (UncategorizedPostCategory_AR == null)
+            {
+                UncategorizedPostCategory_AR = new Category()
+                {
+                    Name = "غير مصنف",
+                    Slug = "غير-مصنف",
+                    Description = "غير مصنف",
+                    Level = 0,
+                    ParentKey = null,
+                    IsArabic = true,
+                    Title = "غير مصنف",
+                };
+                await ApplicationDbContext.Categories.AddAsync(UncategorizedPostCategory_AR);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+
+            var SlugMap_Categories = await ApplicationDbContext.SlugMap_Categories.FirstOrDefaultAsync(x => x.EnSlug == "Uncategorized");
+            if (SlugMap_Categories == null)
+            {
+                SlugMap_Categories = new SlugMap_Category()
+                {
+                    EnSlug = "Uncategorized",
+                    ArSlug = "غير-مصنف",
+                };
+                await ApplicationDbContext.SlugMap_Categories.AddAsync(SlugMap_Categories);
                 await ApplicationDbContext.SaveChangesAsync();
             }
             var Uncategorized_Course_Category = await ApplicationDbContext.CourseCategories.FirstOrDefaultAsync(x => x.Name == "Uncategorized");
@@ -85,9 +115,38 @@ namespace CodingBible.Data
                     Description = "Uncategorized",
                     Level = 0,
                     ParentKey = null,
+                    IsArabic = false,
                     Title = "Uncategorized",
                 };
                 await ApplicationDbContext.CourseCategories.AddAsync(Uncategorized_Course_Category);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+
+            var Uncategorized_Course_Category_AR = await ApplicationDbContext.CourseCategories.FirstOrDefaultAsync(x => x.Name == "غير مصنف");
+            if (Uncategorized_Course_Category_AR == null)
+            {
+                Uncategorized_Course_Category_AR = new CourseCategory()
+                {
+                    Name = "غير مصنف",
+                    Slug = "غير-مصنف",
+                    Description = "غير مصنف",
+                    Level = 0,
+                    ParentKey = null,
+                    IsArabic = true,
+                    Title = "غير مصنف",
+                };
+                await ApplicationDbContext.CourseCategories.AddAsync(Uncategorized_Course_Category_AR);
+                await ApplicationDbContext.SaveChangesAsync();
+            }
+            var SlugMap_CourseCategories = await ApplicationDbContext.SlugMap_CourseCategories.FirstOrDefaultAsync(x => x.EnSlug == "Uncategorized");
+            if (SlugMap_CourseCategories == null)
+            {
+                SlugMap_CourseCategories = new SlugMap_CourseCategory()
+                {
+                    EnSlug = "Uncategorized",
+                    ArSlug = "غير-مصنف",
+                };
+                await ApplicationDbContext.SlugMap_CourseCategories.AddAsync(SlugMap_CourseCategories);
                 await ApplicationDbContext.SaveChangesAsync();
             }
             if (!ApplicationDbContext.MenuLocations.Any())
