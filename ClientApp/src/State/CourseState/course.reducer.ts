@@ -1,4 +1,5 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Course } from "src/models.model";
 import { CourseState } from "../app.state";
 import
 {
@@ -94,6 +95,20 @@ export const selectCourseState = createFeatureSelector<CourseState>('course');
 export const selectCourseByID = (id: number) => createSelector(
     selectCourseState,
     (state) => state.entities[id]
+);
+export const selectCourseBySlug = (Slug: string) => createSelector(
+    selectCourseState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.slug === Slug)
+            {
+                return state.entities[key];
+            }
+        }
+        return new Course();
+    }
 );
 export const selectCourseIds = createSelector(selectCourseState, adapter.selectCourseIds);
 export const selectCourseEntities = createSelector(selectCourseState, adapter.selectCourseEntities);

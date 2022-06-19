@@ -31,13 +31,14 @@
                 <div class="form-floating mb-3">
                     <input [type]="InputFieldTypes.text"
                            required
+                           [dir]="CurrentCourse.isArabic?'rtl':'ltr'"
                            [formControlName]="FormControlNames.SectionForm.name"
                            [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.name, SectionForm)?'form-control':
                                    errorState.isErrorState(FormControlNames.SectionForm.name, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                            id="CatName"
                            [placeholder]="FormFieldsNames.Section.name"
-                           (input)="setIsArabic()">
+                           (blur)="setIsArabic()">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -45,7 +46,7 @@
                             {{FormValidationErrors.RequiredField}}
                         </span>
                     </div>
-                    <label for="CatName">{{FormFieldsNames.Section.name}}</label>
+                    <label for="CatName">{{FormFieldsNames.Section.name}}<sup class="text-danger">*</sup></label>
                 </div>
             </div>
             <div class="col-sm-6 col-12 ">
@@ -57,6 +58,7 @@
                            required
                            #SectionTitle
                            minlength="60"
+                           [dir]="CurrentCourse.isArabic?'rtl':'ltr'"
                            maxlength="70"
                            [formControlName]="FormControlNames.SectionForm.title"
                            [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.title, SectionForm)?'form-control':
@@ -64,7 +66,7 @@
                                        'form-control is-invalid':'form-control is-valid'"
                            id="title"
                            [placeholder]="FormFieldsNames.Category.title"
-                           (input)="setIsArabic()">
+                           (blur)="setIsArabic()">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -98,15 +100,19 @@
                 <div class="form-floating has-validation mb-3">
                     <select #parent
                             required
-                            [class]="errorState.isErrorState(FormControlNames.SectionForm.parentKey, SectionForm, form)?
+                            [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.parentKey, SectionForm)?'form-select':
+                            errorState.isErrorState(FormControlNames.SectionForm.parentKey, SectionForm, form)?
                                        'form-select is-invalid':'form-select is-valid'"
                             id="parentkey"
                             [formControlName]="FormControlNames.SectionForm.parentKey"
-                            (change)="onChange(parent)"
+                            (change)="onParenKeyChange(parent)"
                             aria-label="Select parent section">
+                        <option selected
+                                [value]="null">Choose parent</option>
                         <option value="0">No parent</option>
                         <option *ngFor="let sec of sectionsForSelectmenu"
                                 [value]="sec.id"
+                                [dir]="sec.isArabic?'rtl':'ltr'"
                                 [disabled]="sec.id === SectionForm.get('id')?.value || sec.isLeafSection">
                             <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
                         </option>
@@ -144,18 +150,22 @@
                                 Other slug
             ------------------------------------------------------------------------------->
                 <div class="form-floating mb-3">
-                    <select [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.otherSlug, SectionForm)?'form-select':
+                    <select #translationSection
+                            [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.otherSlug, SectionForm)?'form-select':
                     errorState.isErrorState(FormControlNames.SectionForm.otherSlug, SectionForm, form)?
             'form-select is-invalid':'form-select is-valid'"
                             id="translationSection"
                             [formControlName]="FormControlNames.SectionForm.otherSlug"
-                            aria-label="Select translated url">
+                            aria-label="Select translated url"
+                            (change)="onOtherSlugChange(translationSection)">
                         <option selected
                                 [value]="null">Select translation</option>
                         <option value="0">Not yet</option>
                         <option *ngFor="let s of selectedTranslation"
+                                [ngStyle]="{'direction': s.isArabic?'rtl':'ltr'}"
+                                [disabled]="s.otherSlug!==null"
                                 [value]="s.slug">
-                            {{s.name}}
+                            <span *ngFor="let _ of [].constructor(s.level)">&nbsp;&nbsp;</span>{{s.name}}
                         </option>
                     </select>
                     <div class="validationDiv">
@@ -183,8 +193,7 @@
                            [formControlName]="FormControlNames.SectionForm.isArabic"
                            id="isArabic">
                     <label class="form-check-label fw-bold"
-                           for="isArabic"
-                           (click)="SelectTranslation()">
+                           for="isArabic">
                         In Arabic
                     </label>
                 </div>
@@ -280,8 +289,9 @@
                 <div class="form-floating mb-3">
                     <textarea #SectionDescribtion
                               required
-                              style="resize: none;height: 150px;"
+                              class="textArea-no-resize"
                               row="5"
+                              [dir]="CurrentCourse.isArabic?'rtl':'ltr'"
                               minlength="50"
                               maxlength="160"
                               [formControlName]="FormControlNames.SectionForm.description"
@@ -289,7 +299,8 @@
                                    errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                               id="description"
-                              placeholder="example"></textarea>
+                              (input)="setIsArabic()"
+                              [placeholder]="FormFieldsNames.Section.description"></textarea>
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.description)?.hasError(FormValidationErrorsNames.required)
@@ -320,15 +331,18 @@
                 **********************************************************************-->
                 <div class="form-floating mb-3">
                     <textarea required
-                              style="resize: none;height: 150px;"
                               row="5"
+                              class="textArea-no-resize"
+                              [dir]="CurrentCourse.isArabic?'rtl':'ltr'"
                               [formControlName]="FormControlNames.SectionForm.whatWillYouLearn"
                               [class]="!errorState.isTouchedOrDirty(FormControlNames.SectionForm.whatWillYouLearn, SectionForm)?'form-control':
                                    errorState.isErrorState(FormControlNames.SectionForm.whatWillYouLearn, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
-                              id="description"
-                              placeholder="example"></textarea>
-                    <label for="description">{{FormFieldsNames.Section.whatWillYouLearn}}</label>
+                              id="WhatWillYouLearn"
+                              (input)="setIsArabic()"
+                              [placeholder]="FormFieldsNames.Section.whatWillYouLearn"></textarea>
+                    <label for="WhatWillYouLearn">{{FormFieldsNames.Section.whatWillYouLearn}}<sup
+                             class="text-danger">*</sup></label>
                 </div>
             </div>
         </div>

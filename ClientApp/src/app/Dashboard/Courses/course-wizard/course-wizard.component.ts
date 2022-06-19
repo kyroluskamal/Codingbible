@@ -17,7 +17,7 @@ import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { AddCourse, LoadCourses, UpdateCourse } from 'src/State/CourseState/course.actions';
-import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
+import { selectAllCourses, selectCourseByID, selectCourseBySlug } from 'src/State/CourseState/course.reducer';
 import { LoadLessons, UpdateLesson_Order } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
 import { LoadSections, UpdateSectionOrder } from 'src/State/SectionsState/sections.actions';
@@ -106,7 +106,6 @@ export class CourseWizardComponent implements OnInit
     this.store.dispatch(LoadCourseCategorys());
     this.store.dispatch(LoadCourses());
     this.store.dispatch(LoadLessons());
-    this.CourseCats.subscribe(cats => this.AllCourseCategories = cats);
     this.CourseForm = this.fb.group({
       [FormControlNames.courseForm.name]: [null, [validators.required]],
       [FormControlNames.courseForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
@@ -123,6 +122,12 @@ export class CourseWizardComponent implements OnInit
       [FormControlNames.courseForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.courseForm.otherSlug]: [null, [validators.required]],
     });
+    this.CourseCats.subscribe(cats =>
+    {
+      this.AllCourseCategories = cats;
+      this.setCourseCategoriesByLang();
+    });
+
     this.activatedRouter.queryParams.subscribe(params =>
     {
       if (!params['action'])
@@ -171,8 +176,11 @@ export class CourseWizardComponent implements OnInit
         }
       }
     });
-    this.allCourses$.subscribe(courses => { this.allCourses = courses; this.SelectTranslation(); });
-
+    this.allCourses$.subscribe(courses =>
+    {
+      this.allCourses = courses; this.SelectTranslation();
+    });
+    this.setCourseCategoriesByLang();
   }
   /****************************************************************
    *                    Step1:  Course Form handeling
@@ -180,7 +188,6 @@ export class CourseWizardComponent implements OnInit
   //#region Step1: Course addition deletion functions
   SetFeatureImage(attachment: Attachments | null)
   {
-    console.log(attachment);
     this.FeatureImageUrl = attachment?.fileUrl!;
     this.CourseForm.get(FormControlNames.courseForm.featureImageUrl)?.setValue(attachment?.fileUrl);
   }
@@ -220,11 +227,12 @@ export class CourseWizardComponent implements OnInit
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "Title is not unique");
       return;
     }
+
     if (this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
     {
       this.CourseToAddOrUpdate.otherSlug = null;
     }
-    this.store.dispatch(AddCourse(this.CourseToAddOrUpdate));
+    // this.store.dispatch(AddCourse(this.CourseToAddOrUpdate));
   }
   ShowCurrentStep(step: string)
   {
@@ -305,10 +313,6 @@ export class CourseWizardComponent implements OnInit
             if (course?.introductoryVideoUrl)
               this.GetVideo(course?.introductoryVideoUrl!);
             this.CourseToAddOrUpdate = course!;
-            if (this.CourseToAddOrUpdate.status == PostStatus.Published)
-            {
-              this.CourseForm.get(FormControlNames.courseForm.isArabic)?.disable();
-            }
             this.FeatureImageUrl = course?.featureImageUrl!;
             this.CourseForm.patchValue(course!);
             if (course?.otherSlug == null)
@@ -317,9 +321,11 @@ export class CourseWizardComponent implements OnInit
             }
             this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
             this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.markAsTouched();
+            this.setCourseCategoriesByLang();
             this.spinner.removeSpinner();
             this.title.setTitle("Edit course : " + this.CourseToAddOrUpdate.name);
           }
+          this.clientSideSevice.inputRedirection(this.CourseToAddOrUpdate.isArabic);
           this.CourseForm.markAllAsTouched();
         },
         error: err =>
@@ -470,15 +476,33 @@ export class CourseWizardComponent implements OnInit
   }
   otherSlugChange(value: string)
   {
-    console.log(value);
+    if (value === "null")
+      this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.setValue(null);
   }
   setIsArabic()
   {
     let isArabic = ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.title)?.value)
       || ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.name)?.value);
-    this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(isArabic);
+    if (this.Action === this.ActionType.Add)
+    {
+      this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(isArabic);
+    } else
+    {
+      if (!isArabic && this.CourseToAddOrUpdate.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>The langauge of the course was set to Arabic, so, you can't change it to English</h4>`);
+        return;
+      } else if (isArabic && !this.CourseToAddOrUpdate.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          "<h4>The langauge of the course was set to English, so you can't change it to Arabic</h4>");
+        return;
+      }
+    }
     this.SelectTranslation();
     this.setCourseCategoriesByLang();
+    this.clientSideSevice.inputRedirection(this.CourseForm.get(FormControlNames.courseForm.isArabic)?.value);
   }
   setCourseCategoriesByLang()
   {
@@ -493,4 +517,30 @@ export class CourseWizardComponent implements OnInit
       this.CourseCategorysArranged = this.TreeStructure.finalFlatenArray();
     }
   }
+  FormReset()
+  {
+    this.CourseForm.reset();
+    this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(false);
+    this.CourseForm.get(FormControlNames.courseForm.status)?.setValue(0);
+    this.CourseForm.get(FormControlNames.courseForm.difficultyLevel)?.setValue(0);
+    this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue('');
+    this.selectedCategories = [];
+    this.SetFeatureImage(null);
+    this.FeatureImageUrl = "";
+    this.VedioID = "";
+    this.setCourseCategoriesByLang();
+  }
+  GoToTranslatedCourse()
+  {
+    this.store.select(selectCourseBySlug(this.CourseToAddOrUpdate.otherSlug!)).subscribe(course =>
+    {
+      if (course)
+      {
+        this.router.navigate([], { relativeTo: this.activatedRouter, queryParams: { action: this.Action, step: `step1`, courseId: course?.id } });
+        this.SelectCourseById(course?.id!);
+      }
+    });
+  }
+
 }
+

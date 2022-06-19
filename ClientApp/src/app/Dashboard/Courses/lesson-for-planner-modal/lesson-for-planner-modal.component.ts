@@ -1,16 +1,17 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControlName, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
+import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, validators } from 'src/Helpers/constants';
-import { Lesson, Section } from 'src/models.model';
+import { ArabicRegex, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { Course, Lesson, Section } from 'src/models.model';
 import { LessonsService } from 'src/Services/lessons.service';
-import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
+import { selectCourseByID } from 'src/State/CourseState/course.reducer';
 import { AddLesson, LoadLessons, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons } from 'src/State/LessonsState/Lessons.reducer';
-import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
+import { Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
   selector: 'lesson-for-planner-modal',
@@ -31,22 +32,21 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   lesson: Lesson = new Lesson();
   SelectedSectionId: number = 0;
   SelectedSection: Section = new Section();
-  Sections$ = this.store.select(selectAllSections);
   errorState = new BootstrapErrorStateMatcher();
   selectedSections: Section[] = [];
   courseId: number = 0;
   selectedTranslation: Lesson[] = [];
   AllLessons$ = this.store.select(selectAllLessons);
   AllLessons: Lesson[] = [];
+  currentCoruse: Course = new Course();
   @Input() Action: string = "";
   @Input() UpdateObject: Lesson = new Lesson();
   @Input() ModalId: string = "LessonModal";
   @Input() CourseId: number = 0;
   @ViewChild("LessonModal") LessonModal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private LessonService: LessonsService,
-    private TreeDataStructure: TreeDataStructureService<Section>,
     private ClientSideService: ClientSideValidationService,
-    private store: Store
+    private store: Store, private Notifications: NotificationsService
   ) { }
   ngOnChanges(changes: SimpleChanges): void
   {
@@ -69,16 +69,14 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
         this.inputForm.get(FormControlNames.LessonForm.name)?.setValue(this.UpdateObject.name);
         this.inputForm.get(FormControlNames.LessonForm.description)?.setValue(this.UpdateObject.description);
         this.inputForm.get(FormControlNames.LessonForm.title)?.setValue(this.UpdateObject.title);
-        if (this.UpdateObject.status === PostStatus.Published)
-        {
-          this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
-        }
       }
     }
     if ("CourseId" in changes)
     {
       this.courseId = this.CourseId;
     }
+    this.GetCourseById();
+    this.selectSectionsByCourseId();
   }
 
   ngOnInit(): void
@@ -89,25 +87,22 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       [FormControlNames.LessonForm.name]: [null, [validators.required]],
       [FormControlNames.LessonForm.description]: [null, [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
       [FormControlNames.LessonForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
-      [FormControlNames.LessonForm.isArabic]: [false],
+      [FormControlNames.LessonForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.LessonForm.otherSlug]: [null, [validators.required]]
     });
     if (this.SelectedSectionId === 0)
     {
       this.inputForm.disable();
     }
-    this.Sections$.subscribe(sections =>
-    {
-      let temp = sections.filter(section => section.courseId === Number(this.courseId));
-      this.TreeDataStructure.setData(temp);
-      this.selectedSections = this.TreeDataStructure.finalFlatenArray();
-    });
     this.store.dispatch(LoadLessons());
-    this.AllLessons$.subscribe(lessons => this.AllLessons = lessons);
+    this.AllLessons$.subscribe(lessons => { this.AllLessons = lessons; this.SelectTranslation(); });
   }
   Toggle()
   {
     this.LessonModal.Toggle();
+    this.inputForm.reset();
+    this.GetCourseById();
+    this.SelectTranslation();
   }
   CheckIfSulgNotUnique(title: string)
   {
@@ -123,18 +118,19 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   }
   isSlugUnique(slug: string)
   {
-    this.LessonService.IsLessonSlug_NOT_Unique(slug, this.SelectedSectionId, this.courseId).subscribe(
-      r =>
-      {
-        if (r)
-          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: r });
-        else
+    if (slug.length > 0)
+      this.LessonService.IsLessonSlug_NOT_Unique(slug, this.SelectedSectionId, this.courseId).subscribe(
+        r =>
         {
-          this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors(null);
+          if (r)
+            this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors({ notUnique: r });
+          else
+          {
+            this.inputForm.get(FormControlNames.LessonForm.title)?.setErrors(null);
 
+          }
         }
-      }
-    );
+      );
   }
   AddNewLesson()
   {
@@ -150,11 +146,13 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     {
       this.SelectedSection = this.selectedSections.filter(section => section.id === this.SelectedSectionId)[0];
       this.inputForm.enable();
+      this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
     }
     else
     {
       this.inputForm.disable();
     }
+    this.SelectTranslation();
   }
   getLesson(): Lesson
   {
@@ -165,6 +163,14 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     lesson.slug = this.ClientSideService.GenerateSlug(lesson.title);
     lesson.sectionId = this.SelectedSectionId;
     lesson.courseId = this.courseId;
+    lesson.isArabic = Boolean(this.inputForm.get(FormControlNames.LessonForm.isArabic)?.value);
+    if (this.inputForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
+    {
+      lesson.otherSlug = null;
+    } else
+    {
+      lesson.otherSlug = this.inputForm.get(FormControlNames.courseForm.otherSlug)?.value;
+    }
     if (this.LessonActionType === PostType.Add)
     {
       let selectedLessonsBySection = this.lessons.filter(x => x.sectionId === Number(this.SelectedSectionId)
@@ -180,5 +186,50 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   {
     this.selectedTranslation = this.AllLessons.filter(x => x.isArabic !==
       Boolean(this.inputForm.get(FormControlNames.LessonForm.isArabic)?.value));
+  }
+  GetCourseById()
+  {
+    this.store.select(selectCourseByID(this.CourseId)).subscribe(
+      r =>
+      {
+        if (r)
+        {
+          this.currentCoruse = r;
+          this.inputForm.get(FormControlNames.LessonForm.isArabic)?.setValue(r.isArabic);
+          this.SelectTranslation();
+        }
+      }
+    );
+  }
+  selectSectionsByCourseId()
+  {
+    this.store.select(Select_Sections_ByCourseId(Number(this.CourseId))).subscribe(
+      r =>
+      {
+        if (r)
+        {
+          let sections = r as Section[];
+          this.selectedSections = sections;
+        }
+      }
+    );
+  }
+  isTheSameCourseLang(formControlName: string)
+  {
+    let isArabic = ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.title)?.value)
+      || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.name)?.value)
+      || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
+    console.log(this.inputForm.get(formControlName)?.value);
+    if (!isArabic && this.currentCoruse.isArabic)
+    {
+      this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+        `<h4>You are adding lesson<span class='text-danger'> in an Arabic course</span>. You have to add it <span class="text-success"> in Arabic</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue(null);
+    } else if (isArabic && !this.currentCoruse.isArabic)
+    {
+      this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+        `<h4>You are adding lesson<span class='text-danger'> in an English course</span>. You have to add it <span class="text-success"> in English</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue(null);
+    }
   }
 }

@@ -41,7 +41,7 @@ export class ShowAllLessonsComponent implements OnInit
   SelectedCourseId: number = 0;
   selectedLessons: Lesson[] = [];
   LessonToAddOrUpdate: Lesson = new Lesson();
-  SelectedLesson: Lesson = new Lesson();
+  SelectedLesson: Lesson | null = null;
   SectionActionType: string = '';
   SectionToAddOrUpdate: Section = new Section();
   SectionsOfSelectedCourse: Section[] = [];
@@ -57,6 +57,7 @@ export class ShowAllLessonsComponent implements OnInit
   ngOnInit(): void
   {
     this.store.dispatch(LoadCourses());
+    this.store.dispatch(LoadLessons());
     this.Sections$.subscribe(Sections =>
     {
       this.isLoading = false;
@@ -92,14 +93,17 @@ export class ShowAllLessonsComponent implements OnInit
   }
   ChangeStatus(status: number)
   {
-    let LessonToUpdate = { ...this.SelectedLesson };
-    LessonToUpdate.status = status;
-    this.store.dispatch(ChangeStatus(LessonToUpdate));
-    this.store.select(selectLessonsByID(this.SelectedLesson.id)).subscribe(Section =>
+    if (this.selectedLessons)
     {
-      if (Section)
-        this.SelectLesson(Section);
-    });
+      let LessonToUpdate = { ...this.SelectedLesson };
+      LessonToUpdate.status = status;
+      this.store.dispatch(ChangeStatus(LessonToUpdate as Lesson));
+      this.store.select(selectLessonsByID(this.SelectedLesson?.id!)).subscribe(Section =>
+      {
+        if (Section)
+          this.SelectLesson(Section);
+      });
+    }
   }
 
   onCourseChange(CourseId: string)
@@ -139,8 +143,12 @@ export class ShowAllLessonsComponent implements OnInit
     if (lesson)
     {
       this.store.dispatch(RemoveLesson({ id: lesson.id, url: "" }));
-      this.selectedLessons = this.AllLessons.filter(Section => Section.courseId == this.SelectedCourseId &&
-        Section.sectionId == lesson.sectionId);
+      this.selectedLessons = [];
+      this.selectedLessons = this.AllLessons.filter(l => l.courseId == this.SelectedCourseId &&
+        l.sectionId == lesson.sectionId);
+      // let index = this.selectedLessons.findIndex(x => x.slug == lesson.slug);
+      // this.selectedLessons.splice(index, 1);
+      // this.SelectedLesson = null;
     }
   }
   onSectionChange(SectionId: string)

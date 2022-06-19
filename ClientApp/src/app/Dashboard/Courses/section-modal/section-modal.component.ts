@@ -10,6 +10,7 @@ import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Course, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
+import { selectCourseByID } from 'src/State/CourseState/course.reducer';
 import { AddSection, UpdateSection } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
@@ -42,11 +43,11 @@ export class SectionModalComponent implements OnInit, OnChanges
   sectionsForSelectmenu: Section[] = [];
   selectedTranslation: Section[] = [];
   AllSections: Section[] = [];
+  CurrentCourse: Course = new Course();
   @Input() ActionType: string = "";
   @Input() UpdateObject: Section = new Section();
   @Input() ModalId: string = "SectionModal";
   @Input() CourseId: number = 0;
-  @Input() course: Course | null = null;
   @Input() AddionIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Input() UpdateIsDone: EventEmitter<boolean> = new EventEmitter<boolean>();
   @ViewChild("SectionModal") modal!: BootstrapMoalComponent;
@@ -68,11 +69,15 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     if ("UpdateObject" in changes)
     {
-      this.SectionForm.patchValue(this.UpdateObject);
-      this.GetVideo(this.UpdateObject.introductoryVideoUrl);
-      this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
-      this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
-      this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
+      if (this.UpdateObject)
+      {
+        this.SectionForm.patchValue(this.UpdateObject);
+        this.GetVideo(this.UpdateObject.introductoryVideoUrl);
+        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
+        this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
+        this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
+      }
+      this.SelectTranslation();
     }
     if ("ActionType" in changes)
     {
@@ -81,9 +86,13 @@ export class SectionModalComponent implements OnInit, OnChanges
         this.SectionForm.reset();
         this.FeatureImageUrl = "";
         this.VedioID = "";
-        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(0);
-        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(false);
+        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(null);
+        this.GetSectionsByCourseId();
       }
+    }
+    if ("CourseId" in changes)
+    {
+      this.GetSectionsByCourseId();
     }
   }
 
@@ -94,7 +103,7 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.name]: [null, [validators.required]],
       [FormControlNames.SectionForm.title]: [null, [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
       [FormControlNames.SectionForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      [FormControlNames.SectionForm.parentKey]: [0, [validators.required]],
+      [FormControlNames.SectionForm.parentKey]: [null, [validators.required]],
       [FormControlNames.SectionForm.featureImageUrl]: ['', [validators.required]],
       [FormControlNames.SectionForm.introductoryVideoUrl]: ['', [validators.YoutubeVideo]],
       [FormControlNames.SectionForm.whatWillYouLearn]: [""],
@@ -102,30 +111,26 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.SectionForm.otherSlug]: [null, [validators.required]],
     });
-    this.AllSections$.subscribe(sections =>
-    {
-      this.AllSections = sections;
-      this.TreeStructure.setData(sections.filter(x => x.isArabic
-        === Boolean(this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.value)));
-      this.sectionsForSelectmenu = this.TreeStructure.finalFlatenArray();
-      if (this.ActionType == PostType.Add)
-      {
-        this.SectionForm.reset();
-        this.FeatureImageUrl = "";
-        this.VedioID = "";
-        this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(0);
-      }
-    });
+    this.AllSections$.subscribe(sections => this.AllSections = sections);
   }
   Toggle()
   {
     this.modal.Toggle();
   }
-  onChange(event: HTMLSelectElement)
+  onParenKeyChange(event: HTMLSelectElement)
   {
-    this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(event.value));
+    if (event.value !== "null")
+      this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(event.value));
+    else
+      this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(null);
   }
-
+  onOtherSlugChange(event: HTMLSelectElement)
+  {
+    if (event.value !== "null")
+      this.SectionForm.get(FormControlNames.SectionForm.otherSlug)?.setValue(event.value);
+    else
+      this.SectionForm.get(FormControlNames.SectionForm.otherSlug)?.setValue(null);
+  }
   SetFeatureImage(attachment: Attachments | null)
   {
     this.FeatureImageUrl = attachment?.fileUrl!;
@@ -212,28 +217,51 @@ export class SectionModalComponent implements OnInit, OnChanges
   {
     let isArabic = ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.title)?.value)
       || ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.name)?.value);
-    if (!this.course)
+    if (!this.CurrentCourse)
     {
-      this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
+      if (this.ActionType === PostType.Add)
+        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
     } else
     {
-      this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.course.isArabic);
-      if (!isArabic && this.course.isArabic)
+      if (this.ActionType === PostType.Add)
+        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.CurrentCourse.isArabic);
+      if (!isArabic && this.CurrentCourse.isArabic)
       {
         this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          `<h4>You are <span class='text-danger'>adding section in an English course</span> in an Arabic course. You have to add <span class="text-success">the section in English language</span></h4>`);
+          `<h4>You are <span class='text-danger'>adding section in an Arabic course</span> in an Arabic course. You have to add <span class="text-success">the section in Arabic</span></h4>`);
         this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
         this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
         return;
-      } else if (isArabic && !this.course.isArabic)
+      } else if (isArabic && !this.CurrentCourse.isArabic)
       {
         this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          "<h4>You are <span class='text-danger'>adding section in an English course</span>. You have to <span class='text-success'>add the section in Arabic language</span></h4>");
+          "<h4>You are <span class='text-danger'>adding section in an English course</span>. You have to <span class='text-success'>add the section in English</span></h4>");
         this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
         this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
         return;
       }
     }
     this.SelectTranslation();
+  }
+  GetSectionsByCourseId()
+  {
+    this.store.select(selectCourseByID(this.CourseId)).subscribe(
+      (course) =>
+      {
+        if (course)
+        {
+          this.CurrentCourse = course;
+          this.TreeStructure.setData(this.AllSections.filter(x =>
+            x.courseId === Number(course?.id)));
+          this.sectionsForSelectmenu = this.TreeStructure.finalFlatenArray();
+          if (this.ActionType == PostType.Add)
+          {
+            this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.CurrentCourse.isArabic);
+          }
+        }
+        this.SelectTranslation();
+      }
+    );
+
   }
 }

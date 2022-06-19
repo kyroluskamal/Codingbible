@@ -168,7 +168,7 @@
                     <div class="form-floating mb-3">
                         <textarea required
                                   [id]="FormControlNames.mediaForm.description"
-                                  style="resize: none; height: 120px;"
+                                  class="textArea-no-resize"
                                   rows="5"
                                   minlength="50"
                                   maxlength="160"
@@ -200,7 +200,7 @@
                     </div><!-- end description -->
                     <!-- Caption -->
                     <div class="form-floating mb-3">
-                        <textarea style="resize: none; height: 120px;"
+                        <textarea class="textArea-no-resize"
                                   rows="5"
                                   [id]="FormControlNames.mediaForm.caption"
                                   [formControlName]="FormControlNames.mediaForm.caption"

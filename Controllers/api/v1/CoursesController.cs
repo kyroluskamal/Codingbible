@@ -448,7 +448,7 @@ public class CoursesController : ControllerBase
     }
     #endregion
     /******************************************************************************
-    *                                   Courses CRUD
+    *                                   Categories CRUD
     *******************************************************************************/
     #region Categories CRUD
     [HttpGet]
@@ -460,7 +460,6 @@ public class CoursesController : ControllerBase
             var categories = await UnitOfWork.CourseCategories.GetAllAsync(includeProperties: "CoursesPerCategories");
             foreach (var c in categories)
             {
-                Log.Warning(c.Id + " / " + c.Slug);
                 await UpdateOtherSlug(c);
             }
             return Ok(categories);
@@ -468,7 +467,7 @@ public class CoursesController : ControllerBase
         catch (Exception e)
         {
             Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            e.Message, e.StackTrace, e.InnerException, e.Source);
             return BadRequest(e.Message);
         }
     }
@@ -1123,7 +1122,9 @@ public class CoursesController : ControllerBase
                     DateCreated = DateTime.Now,
                     LasModified = DateTime.Now,
                     Attachments = lesson.Attachments,
-                    CourseId = lesson.CourseId
+                    IsArabic = lesson.IsArabic,
+                    CourseId = lesson.CourseId,
+                    OtherSlug = lesson.OtherSlug
                 };
                 if (lesson.Status == (int)Constants.PostStatus.Published)
                 {
@@ -1149,7 +1150,7 @@ public class CoursesController : ControllerBase
                     }
                     await AddUpdate_SlugMap_Lessons(newLesson);
                     await UpdateOtherSlug(newLesson);
-                    return Ok(await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == newLesson.Id, includeProperties: "Section,Attachments"));
+                    return Ok(newLesson);
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Lesson"));
             }
@@ -1201,6 +1202,8 @@ public class CoursesController : ControllerBase
                 getLesson.LasModified = DateTime.Now;
                 getLesson.Attachments = lesson.Attachments;
                 getLesson.CourseId = lesson.CourseId;
+                getLesson.IsArabic = lesson.IsArabic;
+                getLesson.OtherSlug = lesson.OtherSlug;
                 if (getLesson.Status == (int)Constants.PostStatus.Draft && lesson.Status == (int)Constants.PostStatus.Published)
                 {
                     getLesson.PublishedDate = DateTime.Now;
@@ -1231,7 +1234,7 @@ public class CoursesController : ControllerBase
                     await AddUpdate_SlugMap_Lessons(getLesson);
                     await UnitOfWork.SaveAsync();
                     await UpdateOtherSlug(getLesson);
-                    return Ok(Constants.HttpResponses.Update_Sucess("Lesson"));
+                    return Ok(Constants.HttpResponses.Update_Sucess("Lesson", getLesson));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Lesson"));
             }

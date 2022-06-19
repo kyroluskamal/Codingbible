@@ -65,6 +65,7 @@
                 <option selected>Select translation</option>
                 <option value="0">Not yet</option>
                 <option *ngFor="let l of selectedTranslation"
+                        [hidden]="l.otherSlug!==null"
                         [value]="l.slug">
                     {{l.title}}
                 </option>
@@ -155,7 +156,7 @@
          **********************************************************************-->
         <div class="form-floating mb-3">
             <textarea required
-                      style="resize: none; height: 120px;"
+                      class="textArea-no-resize"
                       rows="5"
                       minlength="50"
                       maxlength="160"

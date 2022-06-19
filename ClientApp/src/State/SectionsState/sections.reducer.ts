@@ -1,4 +1,5 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Section } from "src/models.model";
 import { SectionsState } from "../app.state";
 import { AdditionIsComplete, AddSection_Failed, AddSection_Success, ChangeStatus_Failed, ChangeStatus_Success, GetSectionById_Failed, GetSectionById_Success, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSectionsSuccess, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSectionOrder_Failed, UpdateSectionOrder_Sucess, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
 
@@ -127,4 +128,18 @@ export const select_Sections_ValidationErrors = createSelector(
 );
 export const Select_AdditionState = createSelector(selectSectionsState, (state) => state.AdditionState);
 export const Select_UpdateState = createSelector(selectSectionsState, (state) => state.UpdateState);
-
+export const Select_Sections_ByCourseId = (courseId: number) =>
+    createSelector(selectSectionsState,
+        (state) =>
+        {
+            let sections: Section[] = [];
+            for (let key in state.entities)
+            {
+                if (state.entities[key])
+                    if (state.entities[key]?.courseId === courseId)
+                    {
+                        sections.push(state.entities[key]!);
+                    }
+            }
+            return sections;
+        });

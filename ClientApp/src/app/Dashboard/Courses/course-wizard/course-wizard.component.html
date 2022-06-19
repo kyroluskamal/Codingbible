@@ -1,11 +1,32 @@
 <div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
     <h1 class="my-3"
-        *ngIf="Action === ActionType.Add">Add new course</h1>
+        *ngIf="Action === ActionType.Add">Add new course (
+        <span *ngIf="CourseForm.get(FormControlNames.courseForm.isArabic)?.value">Ar</span>
+        <span *ngIf="!CourseForm.get(FormControlNames.courseForm.isArabic)?.value">En</span>
+        )
+    </h1>
     <h1 class="my-3"
-        *ngIf="Action === ActionType.Edit">Edit course</h1>
-    <a class="cursor-pointer"
-       [routerLink]="['',DashboardRoutes.Home,
-    DashboardRoutes.Courses.Home]">View all</a>
+        *ngIf="Action === ActionType.Edit">Edit course (
+        <span *ngIf="CourseToAddOrUpdate.isArabic">Ar</span>
+        <span *ngIf="!CourseToAddOrUpdate.isArabic">En</span>
+        )
+    </h1>
+    <div class="d-flex flex-row gap-3">
+        <a class="cursor-pointer"
+           *ngIf="Action === ActionType.Edit"
+           [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home,
+           DashboardRoutes.Courses.Wizard]"
+           [queryParams]="{action:'Add'}"
+           (click)="FormReset()">Add new</a>
+        <a [class]="CourseToAddOrUpdate.otherSlug?'cursor-pointer text-primary':'cursor-pointer text-primary disabledAnchor'"
+           (click)="GoToTranslatedCourse()"
+           *ngIf="Action===ActionType.Edit">
+            <span *ngIf="CourseToAddOrUpdate.isArabic">English Course</span>
+            <span *ngIf="!CourseToAddOrUpdate.isArabic">Arabic Course</span>
+        </a>
+        <a class="cursor-pointer"
+           [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Courses.Home]">View all</a>
+    </div>
 </div>
 <div class="d-block w-100"
      style="position:relative">
@@ -92,7 +113,7 @@
                                    errorState.isErrorState(FormControlNames.courseForm.title, CourseForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                                    id="CourseTitle"
-                                   (click)="setIsArabic()">
+                                   (input)="setIsArabic()">
                             <div class="validationDiv">
                                 <span class="invalid-feedback d-block m-0"
                                       *ngIf="CourseForm.get(FormControlNames.courseForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -111,86 +132,89 @@
                                 </span>
                             </div>
                             <label for="CourseTitle">{{FormFieldsNames.Course.title}}<sup class="text-danger">*</sup>
-                                <sup class="text-primary"> (you
+                                <sup class="text-primary">(you
                                     entered: {{courseTitle.value.length}})</sup></label>
                         </div> <!-- end of title tag -->
                         <div class="row">
                             <!-- *******************************************************************
                             *                          Difficulty level
                             **********************************************************************-->
-                            <div class="form-floating has-validation mb-3 col-sm-6 col-12">
-                                <select required
-                                        [id]="FormControlNames.courseForm.difficultyLevel"
-                                        [class]="errorState.isErrorState(FormControlNames.courseForm.difficultyLevel, CourseForm, form)?
-                               'form-select is-invalid':'form-select is-valid'"
-                                        [formControlName]="FormControlNames.courseForm.difficultyLevel"
-                                        aria-label="Select parent category">
-                                    <option disabled>Select difficuly level</option>
-                                    <option value="0">Beginner</option>
-                                    <option value="1">Intermediate</option>
-                                    <option value="2">Advanced</option>
-                                    <option value="3">Expert</option>
-                                    <option value="4">All Levels</option>
-                                </select>
-                                <div class="validationDiv">
-                                    <span class="invalid-feedback d-block m-0"
-                                          *ngIf="CourseForm.get(FormControlNames.courseForm.difficultyLevel)?.hasError(FormValidationErrorsNames.required)
-                          &&errorState.isErrorState(FormControlNames.courseForm.difficultyLevel, CourseForm, form)">
-                                        {{FormValidationErrors.RequiredField}}
-                                    </span>
+                            <div class="col-sm-6 col-12">
+                                <div class="form-floating mb-3 ">
+                                    <select required
+                                            [id]="FormControlNames.courseForm.difficultyLevel"
+                                            [class]="errorState.isErrorState(FormControlNames.courseForm.difficultyLevel, CourseForm, form)?
+                                   'form-select is-invalid':'form-select is-valid'"
+                                            [formControlName]="FormControlNames.courseForm.difficultyLevel"
+                                            aria-label="Select  Difficulty level">
+                                        <option disabled>Select difficuly level</option>
+                                        <option value="0">Beginner</option>
+                                        <option value="1">Intermediate</option>
+                                        <option value="2">Advanced</option>
+                                        <option value="3">Expert</option>
+                                        <option value="4">All Levels</option>
+                                    </select>
+                                    <div class="validationDiv">
+                                        <span class="invalid-feedback d-block m-0"
+                                              *ngIf="CourseForm.get(FormControlNames.courseForm.difficultyLevel)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.courseForm.difficultyLevel, CourseForm, form)">
+                                            {{FormValidationErrors.RequiredField}}
+                                        </span>
+                                    </div>
+                                    <label [for]="FormControlNames.courseForm.difficultyLevel"
+                                           class="form-label">{{FormFieldsNames.Course.difficultyLevel}}
+                                        <sup class="text-danger">*</sup>
+                                    </label>
                                 </div>
-                                <label style="left:12px !important;"
-                                       [for]="FormControlNames.courseForm.difficultyLevel"
-                                       class="form-label">{{FormFieldsNames.Course.difficultyLevel}}
-                                    <sup class="text-danger">*</sup>
-                                </label>
                             </div>
                             <!-- *******************************************************************
                             *                          Status
                             **********************************************************************-->
-                            <div class="form-floating has-validation mb-3 col-sm-6 col-12">
-                                <select required
-                                        [id]="FormControlNames.courseForm.status"
-                                        [class]="errorState.isErrorState(FormControlNames.courseForm.status, CourseForm, form)?
-                               'form-select is-invalid':'form-select is-valid'"
-                                        [formControlName]="FormControlNames.courseForm.status">
-                                    <option disabled>Select status</option>
-                                    <option value="0">Draft</option>
-                                    <option value="1">Published</option>
-                                </select>
-                                <div class="validationDiv">
-                                    <span class="invalid-feedback d-block m-0"
-                                          *ngIf="CourseForm.get(FormControlNames.courseForm.status)?.hasError(FormValidationErrorsNames.required)
-                          &&errorState.isErrorState(FormControlNames.courseForm.status, CourseForm, form)">
-                                        {{FormValidationErrors.RequiredField}}
-                                    </span>
+                            <div class="col-sm-6 col-12">
+                                <div class="form-floating mb-3">
+                                    <select required
+                                            [id]="FormControlNames.courseForm.status"
+                                            [class]="errorState.isErrorState(FormControlNames.courseForm.status, CourseForm, form)?
+                                   'form-select is-invalid':'form-select is-valid'"
+                                            [formControlName]="FormControlNames.courseForm.status">
+                                        <option disabled>Select status</option>
+                                        <option value="0">Draft</option>
+                                        <option value="1">Published</option>
+                                    </select>
+                                    <div class="validationDiv">
+                                        <span class="invalid-feedback d-block m-0"
+                                              *ngIf="CourseForm.get(FormControlNames.courseForm.status)?.hasError(FormValidationErrorsNames.required)
+                              &&errorState.isErrorState(FormControlNames.courseForm.status, CourseForm, form)">
+                                            {{FormValidationErrors.RequiredField}}
+                                        </span>
+                                    </div>
+                                    <label [for]="FormControlNames.courseForm.status"
+                                           class="form-label">{{FormFieldsNames.Course.status}}
+                                        <sup class="text-danger">*</sup>
+                                    </label>
                                 </div>
-                                <label [for]="FormControlNames.courseForm.status"
-                                       style="left:12px !important;"
-                                       class="form-label">{{FormFieldsNames.Course.status}}
-                                    <sup class="text-danger">*</sup>
-                                </label>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6 col-12">
-                                <div class="form-check mb-2">
-                                    <input class="form-check-input"
+                            <div class="col-sm-6 d-flex flex-column justify-content-center">
+                                <div class="form-check d-flex flex-row align-items-center gap-2 flex-grow-1 h-100 mb-3">
+                                    <input class="form-check-input "
                                            type="checkbox"
                                            [formControlName]="FormControlNames.courseForm.isArabic"
-                                           id="isArabic"
-                                           (change)="SelectTranslation()">
+                                           id="isArabic">
                                     <label class="form-check-label fw-bold"
-                                           for="isArabic">
+                                           for="isArabic"
+                                           (click)="SelectTranslation()">
                                         In Arabic
                                     </label>
                                 </div>
+                                <div class="mb-3"></div>
                             </div>
                             <!-- --------------------------------------------------------------------------- 
                                         Other slug
                             ------------------------------------------------------------------------------->
                             <div class="col-sm-6 col-12">
-                                <div class="form-floating has-validation mb-3 ">
+                                <div class="form-floating mb-3">
                                     <select #OtherSlugSelect
                                             [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.otherSlug, CourseForm)?'form-select':
                                     errorState.isErrorState(FormControlNames.courseForm.otherSlug, CourseForm, form)?
@@ -203,6 +227,7 @@
                                                 [value]="null">Select translation</option>
                                         <option value="0">Not yet</option>
                                         <option *ngFor="let c of selectedTranslation"
+                                                [hidden]="c.otherSlug!==null"
                                                 [value]="c.slug">
                                             {{c.name}}
                                         </option>
@@ -360,149 +385,163 @@
                     <!-- *******************************************************************
                     *                           Description
                     **********************************************************************-->
-                    <div class="form-floating mb-3 col-sm-6 col-12">
-                        <textarea required
-                                  #courseDescription
-                                  style="resize: none; height: 120px;"
-                                  rows="5"
-                                  minlength="50"
-                                  maxlength="160"
-                                  [formControlName]="FormControlNames.courseForm.description"
-                                  [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.description, CourseForm)?'form-control':
-                                       errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)?
-                                       'form-control is-invalid':'form-control is-valid'"
-                                  [id]="FormControlNames.courseForm.description"
-                                  [placeholder]="FormFieldsNames.Course.description">
-                          </textarea>
-                        <div class="validationDiv">
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.required)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
-                                {{FormValidationErrors.RequiredField}}
-                            </span>
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.minlength)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
-                                {{FormValidationErrors.SEO_Description_Length}}
-                            </span>
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.maxlength)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
-                                {{FormValidationErrors.SEO_Description_Length}}
-                            </span>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-floating mb-3">
+                            <textarea required
+                                      #courseDescription
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      minlength="50"
+                                      maxlength="160"
+                                      [formControlName]="FormControlNames.courseForm.description"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.description, CourseForm)?'form-control':
+                                           errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)?
+                                           'form-control is-invalid':'form-control is-valid'"
+                                      [id]="FormControlNames.courseForm.description"
+                                      [placeholder]="FormFieldsNames.Course.description">
+                              </textarea>
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.required)
+                                      &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.minlength)
+                                      &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
+                                    {{FormValidationErrors.SEO_Description_Length}}
+                                </span>
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.description)?.hasError(FormValidationErrorsNames.maxlength)
+                                      &&errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)">
+                                    {{FormValidationErrors.SEO_Description_Length}}
+                                </span>
+                            </div>
+                            <label
+                                   [for]="FormControlNames.courseForm.description">{{FormFieldsNames.Course.description}}
+                                <sup class="text-danger">*</sup>
+                                <sup class="text-primary counter">(you
+                                    entered: {{courseDescription.value.length}})</sup></label>
                         </div>
-                        <label [for]="FormControlNames.courseForm.description"
-                               style="left:12px !important;">{{FormFieldsNames.Course.description}} <sup
-                                 class="text-danger">*</sup>
-                            <sup class="text-primary"> (you
-                                entered: {{courseDescription.value.length}})</sup></label>
                     </div>
                     <!-- *******************************************************************
-            *                           What will you learn
-            **********************************************************************-->
-                    <div class="form-floating mb-3 col-sm-6 col-12">
-                        <textarea required
-                                  style="resize: none; height: 120px;"
-                                  rows="5"
-                                  [formControlName]="FormControlNames.courseForm.whatWillYouLearn"
-                                  [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.whatWillYouLearn, CourseForm)?'form-control':
-                                       errorState.isErrorState(FormControlNames.courseForm.whatWillYouLearn, CourseForm, form)?
-                                       'form-control is-invalid':'form-control is-valid'"
-                                  [id]="FormControlNames.courseForm.whatWillYouLearn"
-                                  [placeholder]="FormFieldsNames.Course.whatWillYouLearn">
-                          </textarea>
-                        <div class="validationDiv">
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.whatWillYouLearn)?.hasError(FormValidationErrorsNames.required)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.whatWillYouLearn, CourseForm, form)">
-                                {{FormValidationErrors.RequiredField}}
-                            </span>
+                    *                           What will you learn
+                    **********************************************************************-->
+                    <div class="col-sm-6 col-12">
+                        <div class="form-floating mb-3 ">
+                            <textarea required
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      [formControlName]="FormControlNames.courseForm.whatWillYouLearn"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.whatWillYouLearn, CourseForm)?'form-control':
+                              errorState.isErrorState(FormControlNames.courseForm.whatWillYouLearn, CourseForm, form)?
+                              'form-control is-invalid':'form-control is-valid'"
+                                      [id]="FormControlNames.courseForm.whatWillYouLearn"
+                                      [placeholder]="FormFieldsNames.Course.whatWillYouLearn">
+                 </textarea>
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.whatWillYouLearn)?.hasError(FormValidationErrorsNames.required)
+                         &&errorState.isErrorState(FormControlNames.courseForm.whatWillYouLearn, CourseForm, form)">
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                            </div>
+                            <label
+                                   [for]="FormControlNames.courseForm.whatWillYouLearn">{{FormFieldsNames.Course.whatWillYouLearn}}<sup
+                                     class="text-danger">*</sup>
+                            </label>
                         </div>
-                        <label [for]="FormControlNames.courseForm.whatWillYouLearn"
-                               style="left:12px !important;">{{FormFieldsNames.Course.whatWillYouLearn}} <sup
-                                 class="text-danger">*</sup>
-                        </label>
                     </div>
+
                 </div>
                 <div class="row">
                     <!-- *******************************************************************
-            *                           Target audience
-            **********************************************************************-->
-                    <div class="form-floating mb-3 col-sm-6 col-12">
-                        <textarea required
-                                  style="resize: none; height: 120px;"
-                                  rows="5"
-                                  [formControlName]="FormControlNames.courseForm.targetAudience"
-                                  [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.targetAudience, CourseForm)?'form-control':
-                                       errorState.isErrorState(FormControlNames.courseForm.targetAudience, CourseForm, form)?
-                                       'form-control is-invalid':'form-control is-valid'"
-                                  [id]="FormControlNames.courseForm.targetAudience"
-                                  [placeholder]="FormFieldsNames.Course.targetAudience">
-                          </textarea>
-                        <div class="validationDiv">
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.targetAudience)?.hasError(FormValidationErrorsNames.required)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.targetAudience, CourseForm, form)">
-                                {{FormValidationErrors.RequiredField}}
-                            </span>
+                     *                           Target audience
+                     **********************************************************************-->
+                    <div class="col-sm-6 col-12">
+                        <div class="form-floating mb-3">
+                            <textarea required
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      [formControlName]="FormControlNames.courseForm.targetAudience"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.targetAudience, CourseForm)?'form-control':
+                              errorState.isErrorState(FormControlNames.courseForm.targetAudience, CourseForm, form)?
+                              'form-control is-invalid':'form-control is-valid'"
+                                      [id]="FormControlNames.courseForm.targetAudience"
+                                      [placeholder]="FormFieldsNames.Course.targetAudience">
+                 </textarea>
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.targetAudience)?.hasError(FormValidationErrorsNames.required)
+                         &&errorState.isErrorState(FormControlNames.courseForm.targetAudience, CourseForm, form)">
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                            </div>
+                            <label
+                                   [for]="FormControlNames.courseForm.targetAudience">{{FormFieldsNames.Course.targetAudience}}<sup
+                                     class="text-danger">*</sup>
+                            </label>
                         </div>
-                        <label [for]="FormControlNames.courseForm.targetAudience"
-                               style="left:12px !important;">{{FormFieldsNames.Course.targetAudience}} <sup
-                                 class="text-danger">*</sup>
-                        </label>
                     </div>
+
                     <!-- *******************************************************************
             *                          Course Features
             **********************************************************************-->
-                    <div class="form-floating mb-3 col-sm-6 col-12">
-                        <textarea required
-                                  style="resize: none; height: 120px;"
-                                  rows="5"
-                                  [formControlName]="FormControlNames.courseForm.courseFeatures"
-                                  [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.courseFeatures, CourseForm)?'form-control':
+                    <div class="col-sm-6 col-12">
+                        <div class="form-floating mb-3 ">
+                            <textarea required
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      [formControlName]="FormControlNames.courseForm.courseFeatures"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.courseFeatures, CourseForm)?'form-control':
                                        errorState.isErrorState(FormControlNames.courseForm.courseFeatures, CourseForm, form)?
                                        'form-control is-invalid':'form-control is-valid'"
-                                  [id]="FormControlNames.courseForm.courseFeatures"
-                                  [placeholder]="FormFieldsNames.Course.courseFeatures">
+                                      [id]="FormControlNames.courseForm.courseFeatures"
+                                      [placeholder]="FormFieldsNames.Course.courseFeatures">
                           </textarea>
-                        <div class="validationDiv">
-                            <span class="invalid-feedback d-block m-0"
-                                  *ngIf="CourseForm.get(FormControlNames.courseForm.courseFeatures)?.hasError(FormValidationErrorsNames.required)
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.courseFeatures)?.hasError(FormValidationErrorsNames.required)
                                   &&errorState.isErrorState(FormControlNames.courseForm.courseFeatures, CourseForm, form)">
-                                {{FormValidationErrors.RequiredField}}
-                            </span>
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                            </div>
+                            <label
+                                   [for]="FormControlNames.courseForm.courseFeatures">{{FormFieldsNames.Course.courseFeatures}}<sup
+                                     class="text-danger">*</sup>
+                            </label>
                         </div>
-                        <label [for]="FormControlNames.courseForm.courseFeatures"
-                               style="left:12px !important;">{{FormFieldsNames.Course.courseFeatures}} <sup
-                                 class="text-danger">*</sup>
-                        </label>
                     </div>
                 </div>
                 <!-- *******************************************************************
                 *                          requirementsOrInstructions
                  **********************************************************************-->
-                <div class="form-floating">
-                    <textarea required
-                              style="resize: none; height: 120px;"
-                              rows="5"
-                              [formControlName]="FormControlNames.courseForm.requirementsOrInstructions"
-                              [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.requirementsOrInstructions, CourseForm)?'form-control':
-                                       errorState.isErrorState(FormControlNames.courseForm.requirementsOrInstructions, CourseForm, form)?
-                                       'form-control is-invalid':'form-control is-valid'"
-                              [id]="FormControlNames.courseForm.requirementsOrInstructions"
-                              [placeholder]="FormFieldsNames.Course.requirementsOrInstructions">
-                          </textarea>
-                    <div class="validationDiv">
-                        <span class="invalid-feedback d-block m-0"
-                              *ngIf="CourseForm.get(FormControlNames.courseForm.requirementsOrInstructions)?.hasError(FormValidationErrorsNames.required)
-                                  &&errorState.isErrorState(FormControlNames.courseForm.requirementsOrInstructions, CourseForm, form)">
-                            {{FormValidationErrors.RequiredField}}
-                        </span>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea required
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      [formControlName]="FormControlNames.courseForm.requirementsOrInstructions"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.requirementsOrInstructions, CourseForm)?'form-control':
+                                           errorState.isErrorState(FormControlNames.courseForm.requirementsOrInstructions, CourseForm, form)?
+                                           'form-control is-invalid':'form-control is-valid'"
+                                      [id]="FormControlNames.courseForm.requirementsOrInstructions"
+                                      [placeholder]="FormFieldsNames.Course.requirementsOrInstructions">
+                              </textarea>
+                            <div class="validationDiv">
+                                <span class="invalid-feedback d-block m-0"
+                                      *ngIf="CourseForm.get(FormControlNames.courseForm.requirementsOrInstructions)?.hasError(FormValidationErrorsNames.required)
+                                      &&errorState.isErrorState(FormControlNames.courseForm.requirementsOrInstructions, CourseForm, form)">
+                                    {{FormValidationErrors.RequiredField}}
+                                </span>
+                            </div>
+                            <label
+                                   [for]="FormControlNames.courseForm.requirementsOrInstructions">{{FormFieldsNames.Course.requirementsOrInstructions}}<sup
+                                     class="text-danger">*</sup>
+                            </label>
+                        </div>
                     </div>
-                    <label [for]="FormControlNames.courseForm.requirementsOrInstructions"
-                           style="left:12px !important;">{{FormFieldsNames.Course.requirementsOrInstructions}} <sup
-                             class="text-danger">*</sup>
-                    </label>
                 </div>
             </form>
             <div class="row">
@@ -558,6 +597,7 @@
             <div class="accordion mb-2"
                  id="sectionAccordion">
                 <div class="accordion-item"
+                     [dir]="s.isArabic?'rtl':'ltr'"
                      *ngFor="let s of RootSections">
                     <h2 class="accordion-header"
                         [id]="'heading'+s.id">
@@ -600,7 +640,6 @@
                [ActionType]="SectionActionType"
                [CourseId]="CourseId"
                [UpdateObject]="SectionToEdit"
-               [course]="CourseToAddOrUpdate"
                [ModalId]="'SectionModalInWizard'"></section-modal>
 <course-category-handler #CourseCategoryHandler
                          [ActionType]="ActionType.Add"></course-category-handler>
@@ -629,6 +668,7 @@
             <option value="0">No section</option>
             <option *ngFor="let sec of AllCourseSections"
                     [value]="sec.id"
+                    [dir]="sec.isArabic?'rtl':'ltr'"
                     [disabled]="sec.id === SectionForm.get('id')?.value">
                 <span *ngFor="let _ of [].constructor(sec.level)">&nbsp;&nbsp;</span>{{sec.name}}
             </option>

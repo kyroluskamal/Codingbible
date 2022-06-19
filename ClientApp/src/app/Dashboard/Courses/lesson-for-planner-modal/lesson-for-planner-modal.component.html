@@ -28,6 +28,7 @@
                 [disabled]="true"
                 value="0">Choose section</option>
         <option [value]="c.id"
+                [dir]="c.isArabic?'rtl':'ltr'"
                 [disabled]="!c.isLeafSection"
                 *ngFor="let c of selectedSections">
             <span *ngFor="let _ of [].constructor(c.level)">&nbsp;&nbsp;</span>{{c.name}}
@@ -38,7 +39,6 @@
         <div class="form-check mb-3">
             <input class="form-check-input"
                    type="checkbox"
-                   [disabled]="Action === ActionType.Edit"
                    [formControlName]="FormControlNames.LessonForm.isArabic"
                    id="isArabic">
             <label class="form-check-label fw-bold"
@@ -51,14 +51,17 @@
                                     Other slug
         ------------------------------------------------------------------------------->
         <div class="form-floating mb-3">
-            <select [class]="errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
+            <select [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.otherSlug, inputForm)?'form-select':
+            errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
                     'form-select is-invalid':'form-select is-valid'"
                     id="translation"
                     [formControlName]="FormControlNames.LessonForm.otherSlug"
                     aria-label="Select translated url">
-                <option selected>Select translation</option>
+                <option selected
+                        [value]="null">Select translation</option>
                 <option value="0">Not yet</option>
                 <option *ngFor="let l of selectedTranslation"
+                        [hidden]="l.otherSlug!==null"
                         [value]="l.slug">
                     {{l.name}}
                 </option>
@@ -87,13 +90,15 @@
         <div class="form-floating mb-3">
             <input [type]="InputFieldTypes.text"
                    required
+                   #courseNameValue
                    value=""
                    [formControlName]="FormControlNames.LessonForm.name"
                    [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.name, inputForm)?'form-control':
                        errorState.isErrorState(FormControlNames.LessonForm.name, inputForm, Form)?
                        'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Lesson.name"
-                   id="CourseName">
+                   id="CourseName"
+                   (input)="isTheSameCourseLang(FormControlNames.LessonForm.name)">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="inputForm.get(FormControlNames.LessonForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -118,6 +123,7 @@
                        errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
                        'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Lesson.title"
+                   (input)="isTheSameCourseLang(FormControlNames.LessonForm.title)"
                    (blur)="CheckIfSulgNotUnique(title.value)"
                    id="CourseName">
             <div class="validationDiv">
@@ -149,9 +155,9 @@
                 *                           Description
                 **********************************************************************-->
         <div class="form-floating">
-            <textarea #SectionDescribtion
+            <textarea #LessonDescribtion
                       required
-                      style="resize: none;height: 150px;"
+                      class="textArea-no-resize"
                       row="5"
                       minlength="50"
                       maxlength="160"
@@ -159,8 +165,10 @@
                       [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'form-control':
                                    errorState.isErrorState(FormControlNames.LessonForm.description, inputForm, Form)?
                                    'form-control is-invalid':'form-control is-valid'"
-                      id="description"
-                      placeholder="example"></textarea>
+                      [id]="FormControlNames.LessonForm.description"
+                      [placeholder]="FormFieldsNames.Section.description"
+                      (input)="isTheSameCourseLang(FormControlNames.LessonForm.description)">
+                      ></textarea>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="inputForm.get(FormControlNames.LessonForm.description)?.hasError(FormValidationErrorsNames.required)
@@ -178,10 +186,10 @@
                     {{FormValidationErrors.SEO_Description_Length}}
                 </span>
             </div>
-            <label for="description">{{FormFieldsNames.Section.description}}
+            <label [for]="FormControlNames.LessonForm.description">{{FormFieldsNames.Lesson.description}}
                 <sup class="text-danger">*</sup>
                 <sup class="text-primary"> (you
-                    entered: {{SectionDescribtion.value.length}})</sup>
+                    entered: {{LessonDescribtion.value.length}})</sup>
             </label>
         </div>
     </form>

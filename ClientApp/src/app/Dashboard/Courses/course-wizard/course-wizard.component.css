@@ -30,3 +30,7 @@
 ::ng-deep .accordion-body app-section-child:last-child div:last-child{
     margin-bottom: 0 !important;
 }
+[dir='rtl'] .accordion-button::after{
+    margin-right: auto;
+    margin-left: 0;
+}

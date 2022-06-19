@@ -275,6 +275,7 @@
                     <option selected>Select translation</option>
                     <option value="0">Not yet</option>
                     <option *ngFor="let l of selectedTranslation"
+                            [hidden]="l.otherSlug!==null"
                             [value]="l.slug">
                         {{l.title}}
                     </option>

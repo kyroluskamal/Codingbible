@@ -270,3 +270,44 @@ figure.figure img{
 .myShadow{
   box-shadow: var(--my-shadow);
 }
+/* [dir='rtl'] .form-control.is-valid, .was-validated .form-control:valid{
+  padding-left: calc(1.5em + .75rem);
+  padding-right: 0;
+  background-position: left calc(0.375em + 0.1875rem) center;
+}
+[dir='rtl'] .form-control.is-invalid, .was-validated .form-control:invalid{
+  padding-left: calc(1.5em + .75rem);
+  padding-right: 0;
+  background-position: left calc(.375em + .1875rem) center;
+}
+[dir="rtl"] .was-validated textarea.form-control:invalid, textarea.form-control.is-invalid{
+  padding-left: calc(1.5em + .75rem);
+  padding-right: 0;
+  background-position: top calc(.375em + .1875rem) left calc(.375em + .1875rem) !important;
+}
+[dir="rtl"] .was-validated textarea.form-control:valid, textarea.form-control.is-valid{
+  padding-left: calc(1.5em + .75rem);
+  padding-right: 0;
+  background-position: top calc(.375em + .1875rem) left calc(.375em + .1875rem) !important;
+}
+[dir='rtl'].form-floating label{
+  left:unset;
+}
+
+[dir='rtl'].form-floating .form-control{
+  padding-right: 1.0rem;
+}
+[dir='rtl'].form-floating label {
+  display: flex;
+  flex-direction: row;
+}
+[dir='rtl'].form-floating  label sup {
+  line-height: 2;
+} */
+
+/* .form-floating>textarea:focus~label, .form-floating>textarea:not(:placeholder-shown)~label, .form-floating>textarea~label{
+  right: -21px;
+} */
+.textArea-no-resize{
+  resize: none; height: 120px !important;
+}

@@ -25,6 +25,7 @@ export class LessonsService extends ApiCallService<Lesson>
   }
   IsLessonSlug_NOT_Unique(slug: string, sectionId: number, courseId: number)
   {
+    console.log(slug);
     return this.HttpClient.get<boolean>(`${CoursesController.IsLessonSlug_NOT_Unique}/${slug}/${sectionId}/${courseId}`);
   }
   GetLessonByCourseId(courseId: number): Observable<Lesson[]>

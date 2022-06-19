@@ -101,10 +101,11 @@ export class LessonsEffects
                 return this.LessonService.Add(CoursesController.AddLesson, action).pipe(
                     map((r) =>
                     {
+                        console.log(r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Lesson'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        if (this.router.url.includes(DashboardRoutes.Courses.Lessons.EditLesson))
+                        if (this.router.url.includes(DashboardRoutes.Courses.Lessons.AddLesson))
                             this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home,
                                 DashboardRoutes.Courses.Lessons.Home, DashboardRoutes.Courses.Lessons.EditLesson],
                                 { queryParams: { id: r.id } });

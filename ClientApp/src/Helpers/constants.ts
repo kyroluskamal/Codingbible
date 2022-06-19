@@ -288,6 +288,7 @@ export const FormFieldsNames = {
         name: "Name",
         title: "Title",
         vedioUrl: "Lesson video Url",
+        description: "Description",
     },
     MenuForm: {
         name: "Name",
@@ -306,6 +307,7 @@ export const FormValidationErrors = {
     PleaseCorrectErrors: "Please, correct the following errors.",
     EnterValidEmail: "Please, enter a valid email.",
     RequiredField: "This field is required.",
+
     Password: {
         minLength: "At least 8 characters.",
         hasSpecialCharacters: "At least one special character.",
@@ -328,6 +330,7 @@ export const FormValidationErrorsNames = {
     maxlength: "maxlength",
     min: "min",
     max: "max",
+    hasTheSameLang: "hasTheSameLang",
     password: {
         hasSmallCase: "hasSmallCase",
         minLength: "minlength",

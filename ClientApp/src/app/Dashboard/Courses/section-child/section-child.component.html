@@ -1,5 +1,6 @@
 <div class="mb-2">
     <div *ngIf="Section && Section.isLeafSection"
+         [dir]="Section.isArabic?'rtl':'ltr'"
          class="section border border-1 p-1">
         <h5 *ngIf="showSectionName"
             class="bg-light p-1 border-bottom border-1 border-dark">
@@ -23,26 +24,17 @@
                     </div>
                 </div>
                 <div class="col-sm-5 col-12 small ps-1 ">
-                    <div class="h-100 d-flex flex-row flex-wrap align-items-center gap-2 justify-content-between">
-                        <span *ngIf="s.vedioUrl&&s.htmlContent"
-                              class="d-flex gap-1">
-                            <span class="badge bg-success">Video</span>
-                            <span class="badge bg-success">Content</span>
-                        </span>
-                        <span *ngIf="s.vedioUrl&&!s.htmlContent"
-                              class="d-flex gap-1">
-                            <span class="badge bg-success">Video</span>
-                            <span class="badge bg-danger">Content</span>
-                        </span>
-                        <span *ngIf="!s.vedioUrl&&s.htmlContent"
-                              class="d-flex gap-1">
-                            <span class="badge bg-danger">Video</span>
-                            <span class="badge bg-success">Content</span>
-                        </span>
-                        <span *ngIf="!s.vedioUrl&&!s.htmlContent"
-                              class="d-flex gap-1">
-                            <span class="badge bg-danger">Video</span>
-                            <span class="badge bg-danger">Content</span>
+                    <div class="h-100 d-flex flex-row flex-wrap align-items-center
+                    gap-2 justify-content-between">
+                        <span class="d-flex gap-1">
+                            <span [class]="s.vedioUrl?'badge bg-success':'badge bg-danger'">
+                                <i [class]="!s.vedioUrl?'bi bi-x':'bi bi-check'"></i>
+                                Video
+                            </span>
+                            <span [class]="s.htmlContent?'badge bg-success':'badge bg-danger'">
+                                <i [class]="!s.htmlContent?'bi bi-x':'bi bi-check'"></i>
+                                Content
+                            </span>
                         </span>
                         <span class="badge bg-info text-dark"
                               *ngIf="s.status===PostStatus.Published">

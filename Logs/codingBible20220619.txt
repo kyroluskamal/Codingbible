@@ -1,0 +1,1242 @@
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 00:49:56 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 12188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 00:50:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "28592e78-c812-4d36-8029-3b5799e9335e"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIHFJH8QCOR:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIHFJH8QCOR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 12188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 00:52:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "9302f14e-0871-4f50-a022-fdbf4e64c8a5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIHFJH8QCOR:0000004F"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIHFJH8QCOR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 12188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:03:12 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:04:43 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "5eff0f06-72f7-4c24-91e9-2c7bd62c46c4"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIHFR1F8GUE:0000010F"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIHFR1F8GUE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:05:03 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "2e498267-15e7-4557-baa8-1cb28bc7a890"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIHFR1F8GUE:00000125"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIHFR1F8GUE"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '18/06/2022 23:22:59', Current time: '18/06/2022 23:22:59'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIHFR1F8GUI:00000165"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '18/06/2022 23:22:59', Current time: '18/06/2022 23:22:59'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIHFR1F8GUI:00000167"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '18/06/2022 23:22:59', Current time: '18/06/2022 23:22:59'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIHFR1F8GUI:00000169"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '18/06/2022 23:22:59', Current time: '18/06/2022 23:22:59'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIHFR1F8GUI:0000016B"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000016D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000016D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000016F"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000016F"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000175"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000175"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000179"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000179"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000017B"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000017B"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000181"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000181"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000185"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000185"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000187"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000187"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000018D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000018D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:22:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000191"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000191"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019F"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001A1"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019F"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000195"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000199"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001A1"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019D"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000195"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdf/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000199"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsd/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000193"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:00000193"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019B"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:0000019B"
+RequestPath : "/api/v1/Courses/IsLessonSlug_NOT_Unique/fsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfsdfs/15/23"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001B1"
+RequestPath : "/api/v1/Courses/AddLesson"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001B1"
+RequestPath : "/api/v1/Courses/AddLesson"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "d8993d76-62bb-41a5-990f-319b43c5975c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIHFR1F8GUI:000001B5"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "d8993d76-62bb-41a5-990f-319b43c5975c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIHFR1F8GUI:000001B7"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001C1"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001C1"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001C5"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:16 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMIHFR1F8GUI:000001C5"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 19/06/2022 01:23:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "d8993d76-62bb-41a5-990f-319b43c5975c"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMIHFR1F8GUI:000001CB"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMIHFR1F8GUI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2084
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

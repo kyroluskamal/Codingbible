@@ -175,6 +175,34 @@ export class ClientSideValidationService
   }
   GenerateSlug(title: string)
   {
-    return title.toLowerCase().replace(/\|/g, ' ').replace(/\s/g, '-');
+    return title.toLowerCase().replace(/\||:|-/g, ' ').replace(/\s/g, '-');
+  }
+  inputRedirection(isArabic: boolean)
+  {
+    let allInputs = this.document.querySelectorAll('input');
+    let allTextAreas = this.document.querySelectorAll('textarea');
+
+    for (let i = 0; i < allInputs.length; i++)
+    {
+      if (isArabic)
+      {
+        allInputs[i].setAttribute('dir', 'rtl');
+      }
+      else
+      {
+        allInputs[i].removeAttribute('dir');
+      }
+    }
+    for (let i = 0; i < allTextAreas.length; i++)
+    {
+      if (isArabic)
+      {
+        allTextAreas[i].setAttribute('dir', 'rtl');
+      }
+      else
+      {
+        allTextAreas[i].removeAttribute('dir');
+      }
+    }
   }
 }

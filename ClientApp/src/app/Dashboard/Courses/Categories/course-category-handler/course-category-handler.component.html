@@ -61,11 +61,11 @@
                     'form-select is-invalid':'form-select is-valid'"
                     id="translation"
                     [formControlName]="FormControlNames.courseCategoryForm.otherSlug"
-                    (change)="onChange(parent)"
                     aria-label="Select translated url">
                 <option selected>Select translation</option>
                 <option value="0">Not yet</option>
                 <option *ngFor="let cat of selectedTranslation"
+                        [hidden]="cat.otherSlug!==null"
                         [value]="cat.slug">
                     <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
                 </option>
@@ -156,7 +156,7 @@
          **********************************************************************-->
         <div class="form-floating mb-3">
             <textarea required
-                      style="resize: none; height: 120px;"
+                      class="textArea-no-resize"
                       rows="5"
                       minlength="50"
                       maxlength="160"

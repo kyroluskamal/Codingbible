@@ -7,17 +7,18 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { NotificationsService } from 'src/CommonServices/notifications.service';
+import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Attachments, Lesson, LessonAttachments, Section } from 'src/models.model';
+import { Attachments, Course, Lesson, LessonAttachments, Section } from 'src/models.model';
 import { LessonsService } from 'src/Services/lessons.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourses } from 'src/State/CourseState/course.actions';
-import { selectAllCourses } from 'src/State/CourseState/course.reducer';
+import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { AddLesson, ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
@@ -88,6 +89,7 @@ export class LessonHandlerComponent implements OnInit
   IsUpdated: boolean = false;
   modal_fullscreen = "modal-fullscreen";
   VedioID: string = "";
+  currentCourse: Course = new Course();
 
   /**********************************************************************************************************
    *                                                Constructor
@@ -95,6 +97,7 @@ export class LessonHandlerComponent implements OnInit
   constructor(public store: Store, private LessonService: LessonsService,
     @Inject(DOCUMENT) private document: Document, private title: Title,
     private fb: FormBuilder, private RouterOutlet: Router,
+    private spinner: SpinnerService,
     private Notifications: NotificationsService,
     private ChangeDetection: ChangeDetectorRef,
     private treeDataStructure: TreeDataStructureService<Section>,
@@ -169,7 +172,8 @@ export class LessonHandlerComponent implements OnInit
       [FormControlNames.LessonForm.vedioUrl]: [null, [validators.YoutubeVideo]],
       [FormControlNames.LessonForm.htmlContent]: [null],
       [FormControlNames.LessonForm.featureImageUrl]: [null, [validators.required]],
-      [FormControlNames.LessonForm.isArabic]: [false],
+      [FormControlNames.LessonForm.isArabic]: [{ value: false, disabled: true }],
+      [FormControlNames.LessonForm.otherSlug]: [null, [validators.required]],
     });
     window.addEventListener('resize', () =>
     {
@@ -214,14 +218,13 @@ export class LessonHandlerComponent implements OnInit
           this.lesson = Object.assign({}, r);
           this.inputForm.patchValue(this.lesson);
           this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
-          console.log("html", !this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.value);
-          console.log("VedioUrl", !this.inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value);
           this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
           this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
-          if (this.lesson.status === PostStatus.Published)
-          {
-            this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
-          }
+
+          this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
+
+          this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
+          this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
           for (let i = 0; i < lesson?.attachments.length!; i++)
           {
             this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
@@ -230,10 +233,11 @@ export class LessonHandlerComponent implements OnInit
         }
         this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
         this.inputForm.markAllAsTouched();
+
       });
     }
     if (this.ActionType === PostType.Add)
-      this.title.setTitle("Add new lesson");
+    { this.title.setTitle("Add new lesson"); }
     if (this.SelectedCourseId === 0 || this.SelectedSectionId === 0)
     {
       this.inputForm.disable();
@@ -312,6 +316,10 @@ export class LessonHandlerComponent implements OnInit
     this.lesson.courseId = Number(this.SelectedCourseId);
     this.lesson.sectionId = Number(this.SelectedSectionId);
     this.lesson.tempAttach = this.lessonsAttachments;
+    if (this.lesson.otherSlug == "0")
+    {
+      this.lesson.otherSlug = null;
+    }
     if (draftOrPublish === "Draft")
     {
       this.lesson.status = PostStatus.Draft;
@@ -392,7 +400,9 @@ export class LessonHandlerComponent implements OnInit
       this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
       this.SelectedSectionId = 0;
       this.inputForm.disable();
+      this.SelectCourseById(courseId);
     }
+
   }
   onSectionChange(SectionId: string)
   {
@@ -409,10 +419,55 @@ export class LessonHandlerComponent implements OnInit
     {
       this.inputForm.disable();
     }
+    this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
+    this.SelectTranslation();
   }
   SelectTranslation()
   {
     this.selectedTranslation = this.lessons.filter(x => x.isArabic !==
       Boolean(this.inputForm.get(FormControlNames.LessonForm.isArabic)?.value));
+  }
+  SelectCourseById(Id: number)
+  {
+    this.store.select(selectCourseByID(Id)).subscribe(
+      {
+        next: course =>
+        {
+          if (course)
+          {
+            this.currentCourse = course;
+            this.inputForm.get(FormControlNames.LessonForm.isArabic)?.setValue(course.isArabic);
+            this.SelectTranslation();
+            this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.markAsTouched();
+            this.spinner.removeSpinner();
+          }
+          this.ClientSideService.inputRedirection(<boolean>course?.isArabic);
+          this.inputForm.markAllAsTouched();
+        },
+        error: err =>
+        {
+          this.spinner.removeSpinner();
+          this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "Error");
+        }
+      }
+    );
+  }
+  isTheSameCourseLang(formControlName: string)
+  {
+    let isArabic = ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.title)?.value)
+      || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.name)?.value)
+      || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
+    console.log(this.inputForm.get(formControlName)?.value);
+    if (!isArabic && this.currentCourse.isArabic)
+    {
+      this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+        `<h4>You are adding lesson<span class='text-danger'> in an Arabic course</span>. You have to add it <span class="text-success"> in Arabic</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue(null);
+    } else if (isArabic && !this.currentCourse.isArabic)
+    {
+      this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+        `<h4>You are adding lesson<span class='text-danger'> in an English course</span>. You have to add it <span class="text-success"> in English</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue(null);
+    }
   }
 }
