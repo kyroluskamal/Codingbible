@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
@@ -9,12 +9,12 @@ import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-ma
 import
 {
   FormControlNames, LocalStorageKeys, PostType, FormFieldsNames,
-  FormValidationErrors, FormValidationErrorsNames, BaseUrl, PostStatus
+  FormValidationErrors, FormValidationErrorsNames, BaseUrl, PostStatus, ArabicRegex
 } from 'src/Helpers/constants';
 import { CustomErrorStateMatcher } from 'src/Helpers/custom-error-state-matcher';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { SelectedTextData } from 'src/Interfaces/interfaces';
-import { Attachments, Category, Post, PostAttachments } from 'src/models.model';
+import { Attachments, Category, Post } from 'src/models.model';
 import { PostService } from 'src/Services/post.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { selectUser } from 'src/State/AuthState/auth.reducer';
@@ -22,8 +22,8 @@ import { LoadCATEGORYs } from 'src/State/CategoriesState/Category.actions';
 import { selectAllCategorys, selectCategoryIds } from 'src/State/CategoriesState/Category.reducer';
 import { SetValidationErrors } from 'src/State/PostState/post.actions';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
-import { ChangeStatus, GetPostById, GetPostById_Success, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
-import { selectAllposts, selectPostByID, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
+import { ChangeStatus, GetPostById, RemovePOST, UpdatePOST } from 'src/State/PostState/post.actions';
+import { selectAllposts, selectPostByID, selectPostBySlug, select_Post_ValidationErrors } from 'src/State/PostState/post.reducer';
 import { Title } from '@angular/platform-browser';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 
@@ -43,6 +43,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   FormValidationErrorsNames = FormValidationErrorsNames;
   FormValidationErrors = FormValidationErrors;
   FormFieldsNames = FormFieldsNames;
+  DashboardRoutes = DashboardRoutes;
   errorState = new BootstrapErrorStateMatcher();
   cats$ = this.store.select(selectAllCategorys);
   AllCategories: Category[] = [];
@@ -100,7 +101,8 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
    ************************************************************************************/
   constructor(public store: Store, private postService: PostService,
     @Inject(DOCUMENT) private document: Document, private title: Title,
-    public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
+    private router: Router,
+    public ClientSideService: ClientSideValidationService, public ActivatedRoute: ActivatedRoute)
   {
     this.form = this.inputForm;
     this.Type = this.postType;
@@ -159,11 +161,14 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     if ('postType' in changes)
     {
       this.Type = this.postType;
+      this.SelectTranslation();
     }
   }
 
   ngOnInit(): void
   {
+    this.posts$.subscribe(x => { this.posts = x; this.SelectTranslation(); });
+
     window.addEventListener('resize', () =>
     {
       this.viewWidth = window.innerWidth;
@@ -180,7 +185,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     });
     this.store.dispatch(LoadCATEGORYs());
 
-    this.router.queryParams.subscribe(x =>
+    this.ActivatedRoute.queryParams.subscribe(x =>
     {
       if (x['id'])
       {
@@ -194,6 +199,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
       {
         if (r)
         {
+          this.SelectTranslation();
           let post = r as Post;
           this.selectedCategories = [];
           post.postsCategories.forEach(x => this.selectedCategories.push(x.categoryId));
@@ -211,16 +217,22 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
           {
             tempAttachments.push(post.attachments[i].attachmentId);
           }
+          if (this.post.otherSlug === null)
+          {
+            this.form.get(FormControlNames.postForm.otherSlug)?.setValue("0");
+          }
           this.postsAttachments = tempAttachments;
+          this.setIsArabic(FormControlNames.postForm.title);
         }
         this.form.markAllAsTouched();
       });
     }
+    this.cats$.subscribe(x => { this.AllCategories = x; this.SelectTranslation(); });
+    this.posts$.subscribe(x => { this.posts = x; this.SelectTranslation(); });
     if (this.postType === PostType.Add)
+    {
       this.title.setTitle("Add new post");
-    this.cats$.subscribe(x => this.AllCategories = x);
-    this.posts$.subscribe(x => this.posts = x);
-    this.SelectTranslation();
+    }
   }
   UpdateView(html: HTMLTextAreaElement, view: HTMLDivElement)
   {
@@ -285,7 +297,11 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.post.author = null;
     this.post.categories = this.selectedCategories;
     this.post.tempAttach = this.postsAttachments;
-
+    this.post.otherSlug = this.form.get(FormControlNames.postForm.otherSlug)?.value;
+    if (this.post.otherSlug === "0")
+    {
+      this.post.otherSlug = null;
+    }
     this.store.dispatch(UpdatePOST(this.post));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)
@@ -323,7 +339,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   DeleteClicked()
   {
-    this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.EditPost }));
+    this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.Home }));
   }
   BindAttachmentsToPost(Attachments: number[])
   {
@@ -331,8 +347,6 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   isSlugUnique(slug: HTMLInputElement)
   {
-
-
     if (this.posts.length > 0)
     {
       if (this.ClientSideService.isNotUnique(this.posts, 'slug', slug.value))
@@ -388,5 +402,34 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
     this.CategoriesByLang = tree.finalFlatenArray();
     this.selectedTranslation = this.posts.filter(x => x.isArabic
       !== Boolean(this.form.get(FormControlNames.postForm.isArabic)?.value));
+    if (this.post.otherSlug === null)
+      this.form.get(FormControlNames.postForm.otherSlug)?.setValue("0");
+    else
+      this.form.get(FormControlNames.postForm.otherSlug)?.setValue(this.post.otherSlug);
+  }
+  setIsArabic(formControlName: string)
+  {
+    let isArabic = ArabicRegex.test(this.form.get(formControlName)?.value);
+    this.ClientSideService.setIsArabic(isArabic, this.post.isArabic,
+      this.post, this.form, this.postType, "post");
+    this.SelectTranslation();
+    if (this.Type === PostType.Add)
+      this.ClientSideService.inputRedirection(isArabic);
+    else
+    {
+      this.ClientSideService.inputRedirection(this.post.isArabic);
+    }
+  }
+  GoToTranslatedPost()
+  {
+    this.store.select(selectPostBySlug(this.post.otherSlug!)).subscribe(p =>
+    {
+      if (p)
+      {
+        this.router.navigate(['', DashboardRoutes.Home,
+          DashboardRoutes.Posts.Home, DashboardRoutes.Posts.EditPost],
+          { queryParams: { id: p.id } });
+      }
+    });
   }
 }

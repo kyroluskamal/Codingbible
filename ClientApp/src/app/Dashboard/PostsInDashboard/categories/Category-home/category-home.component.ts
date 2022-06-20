@@ -29,6 +29,7 @@ export class CategoryHomeComponent implements OnInit
   Categories: Category[] = [];
   Cats$ = this.store.select(selectAllCategorys);
   Form: FormGroup = new FormGroup({});
+  CatToAddOrUpdate: Category | null = null;
   @ViewChild("Modal") Modal!: CategoryHandlerComponent;
 
   constructor(private store: Store, private fb: FormBuilder, private title: Title,
@@ -52,7 +53,9 @@ export class CategoryHomeComponent implements OnInit
       [FormControlNames.categoryForm.name]: ['', [validators.required]],
       [FormControlNames.categoryForm.title]: ['', [validators.required, validators.SEO_TITLE_MIN_LENGTH, validators.SEO_TITLE_MAX_LENGTH]],
       [FormControlNames.categoryForm.description]: ['', [validators.required, validators.SEO_DESCRIPTION_MIN_LENGTH, validators.SEO_DESCRIPTION_MAX_LENGTH]],
-      [FormControlNames.categoryForm.parentKey]: [0, [validators.required]]
+      [FormControlNames.categoryForm.parentKey]: [null, [validators.required]],
+      [FormControlNames.categoryForm.isArabic]: [{ value: false, disabled: true }],
+      [FormControlNames.categoryForm.otherSlug]: [null, [validators.required]],
     });
   }
 
@@ -61,17 +64,32 @@ export class CategoryHomeComponent implements OnInit
     this.Type = PostType.Add;
     if (event)
     {
+      this.CatToAddOrUpdate = null;
+      this.Form.reset();
+      this.Form.get(FormControlNames.categoryForm.isArabic)?.setValue(false);
       this.Modal.Toggle();
     }
   }
   EditCategory(event: Category)
   {
     this.Type = PostType.Edit;
+    this.CatToAddOrUpdate = event;
     this.Form.patchValue(event);
     if (event.parentKey !== null)
       this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(event.parentKey);
     else
       this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(0);
+    if (event.otherSlug === null)
+    {
+      this.Form.get(FormControlNames.categoryForm.otherSlug)?.setValue('0');
+    }
+    if (event.slug.toLowerCase() === "uncategorized" || event.slug === "غير-مصنف")
+    {
+      this.Form.get(FormControlNames.categoryForm.title)?.clearValidators();
+      this.Form.get(FormControlNames.categoryForm.description)?.clearValidators();
+    }
+    this.Form.get(FormControlNames.categoryForm.isArabic)?.setValue(event.isArabic);
+    this.Form.markAllAsTouched();
     this.Modal.Toggle();
   }
   DeleteCategory(event: Category)
@@ -85,4 +103,5 @@ export class CategoryHomeComponent implements OnInit
       }
     });
   }
+
 }

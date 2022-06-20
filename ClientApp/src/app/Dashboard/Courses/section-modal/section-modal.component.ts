@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
-import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
@@ -11,7 +10,7 @@ import { Attachments, Course, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { selectCourseByID } from 'src/State/CourseState/course.reducer';
-import { AddSection, UpdateSection } from 'src/State/SectionsState/sections.actions';
+import { AddSection, LoadSections, UpdateSection } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
@@ -53,8 +52,7 @@ export class SectionModalComponent implements OnInit, OnChanges
   @ViewChild("SectionModal") modal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private store: Store,
     private TreeStructure: TreeDataStructureService<Section>,
-    private Notifications: NotificationsService,
-    private clientSideSevrice: ClientSideValidationService,)
+    public clientSideSevrice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
     {
@@ -98,6 +96,7 @@ export class SectionModalComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    this.store.dispatch(LoadSections());
     this.SectionForm = this.fb.group({
       id: [0],
       [FormControlNames.SectionForm.name]: [null, [validators.required]],
@@ -111,11 +110,12 @@ export class SectionModalComponent implements OnInit, OnChanges
       [FormControlNames.SectionForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.SectionForm.otherSlug]: [null, [validators.required]],
     });
-    this.AllSections$.subscribe(sections => this.AllSections = sections);
+    this.AllSections$.subscribe(sections => { this.AllSections = sections; this.SelectTranslation(); });
   }
   Toggle()
   {
     this.modal.Toggle();
+    this.SelectTranslation();
   }
   onParenKeyChange(event: HTMLSelectElement)
   {
@@ -123,13 +123,6 @@ export class SectionModalComponent implements OnInit, OnChanges
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(event.value));
     else
       this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(null);
-  }
-  onOtherSlugChange(event: HTMLSelectElement)
-  {
-    if (event.value !== "null")
-      this.SectionForm.get(FormControlNames.SectionForm.otherSlug)?.setValue(event.value);
-    else
-      this.SectionForm.get(FormControlNames.SectionForm.otherSlug)?.setValue(null);
   }
   SetFeatureImage(attachment: Attachments | null)
   {
@@ -213,35 +206,15 @@ export class SectionModalComponent implements OnInit, OnChanges
       !== Boolean(this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.value)));
     this.selectedTranslation = treeService.finalFlatenArray();
   }
-  setIsArabic()
+  setIsArabic(formControlName: string = "")
   {
-    let isArabic = ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.title)?.value)
-      || ArabicRegex.test(this.SectionForm.get(FormControlNames.SectionForm.name)?.value);
-    if (!this.CurrentCourse)
+    if (formControlName !== '')
     {
-      if (this.ActionType === PostType.Add)
-        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(isArabic);
-    } else
-    {
-      if (this.ActionType === PostType.Add)
-        this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.CurrentCourse.isArabic);
-      if (!isArabic && this.CurrentCourse.isArabic)
-      {
-        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          `<h4>You are <span class='text-danger'>adding section in an Arabic course</span> in an Arabic course. You have to add <span class="text-success">the section in Arabic</span></h4>`);
-        this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
-        this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
-        return;
-      } else if (isArabic && !this.CurrentCourse.isArabic)
-      {
-        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          "<h4>You are <span class='text-danger'>adding section in an English course</span>. You have to <span class='text-success'>add the section in English</span></h4>");
-        this.SectionForm.get(FormControlNames.SectionForm.name)?.setValue(null);
-        this.SectionForm.get(FormControlNames.SectionForm.title)?.setValue(null);
-        return;
-      }
+      let isArabic = ArabicRegex.test(this.SectionForm.get(formControlName)?.value);
+      this.clientSideSevrice.setIsArabic(isArabic, this.CurrentCourse.isArabic, this.UpdateObject,
+        this.SectionForm, this.ActionType, "Section");
+      this.SelectTranslation();
     }
-    this.SelectTranslation();
   }
   GetSectionsByCourseId()
   {
@@ -254,10 +227,8 @@ export class SectionModalComponent implements OnInit, OnChanges
           this.TreeStructure.setData(this.AllSections.filter(x =>
             x.courseId === Number(course?.id)));
           this.sectionsForSelectmenu = this.TreeStructure.finalFlatenArray();
-          if (this.ActionType == PostType.Add)
-          {
-            this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.CurrentCourse.isArabic);
-          }
+          this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.setValue(this.CurrentCourse.isArabic);
+
         }
         this.SelectTranslation();
       }

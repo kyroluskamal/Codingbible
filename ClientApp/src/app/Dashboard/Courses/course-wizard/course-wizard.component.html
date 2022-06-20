@@ -1,14 +1,9 @@
-<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
-    <h1 class="my-3"
-        *ngIf="Action === ActionType.Add">Add new course (
+<div class="d-flex flex-md-row flex-column justify-content-between align-items-center">
+    <h1 class="my-3">
+        <span *ngIf="Action === ActionType.Add">Add new course</span>
+        <span *ngIf="Action === ActionType.Edit">Edit course</span> (
         <span *ngIf="CourseForm.get(FormControlNames.courseForm.isArabic)?.value">Ar</span>
         <span *ngIf="!CourseForm.get(FormControlNames.courseForm.isArabic)?.value">En</span>
-        )
-    </h1>
-    <h1 class="my-3"
-        *ngIf="Action === ActionType.Edit">Edit course (
-        <span *ngIf="CourseToAddOrUpdate.isArabic">Ar</span>
-        <span *ngIf="!CourseToAddOrUpdate.isArabic">En</span>
         )
     </h1>
     <div class="d-flex flex-row gap-3">
@@ -87,7 +82,7 @@
                                    'form-control is-invalid':'form-control is-valid'"
                                    [placeholder]="FormFieldsNames.Course.name"
                                    id="CourseName"
-                                   (input)="setIsArabic()">
+                                   (blur)="setIsArabic(FormControlNames.courseForm.name)">
                             <div class="validationDiv">
                                 <span class="invalid-feedback d-block m-0"
                                       *ngIf="CourseForm.get(FormControlNames.courseForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -113,7 +108,7 @@
                                    errorState.isErrorState(FormControlNames.courseForm.title, CourseForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                                    id="CourseTitle"
-                                   (input)="setIsArabic()">
+                                   (blur)="setIsArabic(FormControlNames.courseForm.title)">
                             <div class="validationDiv">
                                 <span class="invalid-feedback d-block m-0"
                                       *ngIf="CourseForm.get(FormControlNames.courseForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -220,14 +215,15 @@
                                     errorState.isErrorState(FormControlNames.courseForm.otherSlug, CourseForm, form)?
                                     'form-select is-invalid':'form-select is-valid'"
                                             id="translation"
-                                            (change)="otherSlugChange(OtherSlugSelect.value)"
+                                            (change)="clientSideSevice.setOtherSLug(OtherSlugSelect.value, CourseForm)"
                                             [formControlName]="FormControlNames.courseForm.otherSlug"
                                             aria-label="Select translated url">
                                         <option selected
                                                 [value]="null">Select translation</option>
                                         <option value="0">Not yet</option>
                                         <option *ngFor="let c of selectedTranslation"
-                                                [hidden]="c.otherSlug!==null"
+                                                [hidden]="c.otherSlug!==null && Action===ActionType.Add"
+                                                [disabled]="c.otherSlug!==null"
                                                 [value]="c.slug">
                                             {{c.name}}
                                         </option>
@@ -398,6 +394,7 @@
                                            errorState.isErrorState(FormControlNames.courseForm.description, CourseForm, form)?
                                            'form-control is-invalid':'form-control is-valid'"
                                       [id]="FormControlNames.courseForm.description"
+                                      (blur)="setIsArabic(FormControlNames.courseForm.description)"
                                       [placeholder]="FormFieldsNames.Course.description">
                               </textarea>
                             <div class="validationDiv">
@@ -437,6 +434,7 @@
                               errorState.isErrorState(FormControlNames.courseForm.whatWillYouLearn, CourseForm, form)?
                               'form-control is-invalid':'form-control is-valid'"
                                       [id]="FormControlNames.courseForm.whatWillYouLearn"
+                                      (blur)="setIsArabic(FormControlNames.courseForm.whatWillYouLearn)"
                                       [placeholder]="FormFieldsNames.Course.whatWillYouLearn">
                  </textarea>
                             <div class="validationDiv">
@@ -467,6 +465,7 @@
                                       [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.targetAudience, CourseForm)?'form-control':
                               errorState.isErrorState(FormControlNames.courseForm.targetAudience, CourseForm, form)?
                               'form-control is-invalid':'form-control is-valid'"
+                                      (blur)="setIsArabic(FormControlNames.courseForm.targetAudience)"
                                       [id]="FormControlNames.courseForm.targetAudience"
                                       [placeholder]="FormFieldsNames.Course.targetAudience">
                  </textarea>
@@ -497,6 +496,7 @@
                                        errorState.isErrorState(FormControlNames.courseForm.courseFeatures, CourseForm, form)?
                                        'form-control is-invalid':'form-control is-valid'"
                                       [id]="FormControlNames.courseForm.courseFeatures"
+                                      (blur)="setIsArabic(FormControlNames.courseForm.courseFeatures)"
                                       [placeholder]="FormFieldsNames.Course.courseFeatures">
                           </textarea>
                             <div class="validationDiv">
@@ -527,6 +527,7 @@
                                            errorState.isErrorState(FormControlNames.courseForm.requirementsOrInstructions, CourseForm, form)?
                                            'form-control is-invalid':'form-control is-valid'"
                                       [id]="FormControlNames.courseForm.requirementsOrInstructions"
+                                      (blur)="setIsArabic(FormControlNames.courseForm.requirementsOrInstructions)"
                                       [placeholder]="FormFieldsNames.Course.requirementsOrInstructions">
                               </textarea>
                             <div class="validationDiv">

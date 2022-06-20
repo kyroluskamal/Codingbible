@@ -30,7 +30,7 @@ export class AddPostsComponent implements OnInit
       [FormControlNames.postForm.htmlContent]: [null, [validators.required]],
       [FormControlNames.postForm.featureImageUrl]: [null, [validators.required]],
       [FormControlNames.postForm.categories]: [[], [validators.required]],
-      [FormControlNames.postForm.isArabic]: [false],
+      [FormControlNames.postForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.postForm.otherSlug]: [null, [validators.required]],
     });
 
@@ -38,11 +38,15 @@ export class AddPostsComponent implements OnInit
   SaveOrPublish(event: FormGroup, type: string)
   {
     this.cliendSideService.FillObjectFromForm(this.newPost, event);
-    this.newPost.slug = String(event.get(FormControlNames.postForm.slug)?.value).split(' ').join('-');
+    this.newPost.slug = this.cliendSideService.GenerateSlug(event.get(FormControlNames.postForm.slug)?.value);
     if (type == "publish")
       this.newPost.status = 1;
     else if (type == "draft")
       this.newPost.status = 0;
+    if (this.newPost.otherSlug == "0")
+    {
+      this.newPost.otherSlug = null;
+    }
     this.store.dispatch(AddPOST(this.newPost));
   }
   GetPostAttachments(PostAttachments: number[])

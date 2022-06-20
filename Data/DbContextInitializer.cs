@@ -99,7 +99,7 @@ namespace CodingBible.Data
             {
                 SlugMap_Categories = new SlugMap_Category()
                 {
-                    EnSlug = "Uncategorized",
+                    EnSlug = "uncategorized",
                     ArSlug = "غير-مصنف",
                 };
                 await ApplicationDbContext.SlugMap_Categories.AddAsync(SlugMap_Categories);
@@ -138,12 +138,12 @@ namespace CodingBible.Data
                 await ApplicationDbContext.CourseCategories.AddAsync(Uncategorized_Course_Category_AR);
                 await ApplicationDbContext.SaveChangesAsync();
             }
-            var SlugMap_CourseCategories = await ApplicationDbContext.SlugMap_CourseCategories.FirstOrDefaultAsync(x => x.EnSlug == "Uncategorized");
+            var SlugMap_CourseCategories = await ApplicationDbContext.SlugMap_CourseCategories.FirstOrDefaultAsync(x => x.EnSlug == "uncategorized");
             if (SlugMap_CourseCategories == null)
             {
                 SlugMap_CourseCategories = new SlugMap_CourseCategory()
                 {
-                    EnSlug = "Uncategorized",
+                    EnSlug = "uncategorized",
                     ArSlug = "غير-مصنف",
                 };
                 await ApplicationDbContext.SlugMap_CourseCategories.AddAsync(SlugMap_CourseCategories);

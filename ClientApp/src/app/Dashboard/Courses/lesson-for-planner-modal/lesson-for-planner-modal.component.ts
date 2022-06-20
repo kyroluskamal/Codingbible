@@ -45,7 +45,7 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   @Input() CourseId: number = 0;
   @ViewChild("LessonModal") LessonModal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private LessonService: LessonsService,
-    private ClientSideService: ClientSideValidationService,
+    public ClientSideService: ClientSideValidationService,
     private store: Store, private Notifications: NotificationsService
   ) { }
   ngOnChanges(changes: SimpleChanges): void
@@ -219,17 +219,16 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     let isArabic = ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.title)?.value)
       || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.name)?.value)
       || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
-    console.log(this.inputForm.get(formControlName)?.value);
     if (!isArabic && this.currentCoruse.isArabic)
     {
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-        `<h4>You are adding lesson<span class='text-danger'> in an Arabic course</span>. You have to add it <span class="text-success"> in Arabic</span></h4>`);
-      this.inputForm.get(formControlName)?.setValue(null);
+        `<h4>You are adding lesson in an <span class='text-danger'>Arabic </span>course. You have to add it in<span class="text-success"> Arabic</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue((<any>this.lesson)[formControlName]);
     } else if (isArabic && !this.currentCoruse.isArabic)
     {
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-        `<h4>You are adding lesson<span class='text-danger'> in an English course</span>. You have to add it <span class="text-success"> in English</span></h4>`);
-      this.inputForm.get(formControlName)?.setValue(null);
+        `<h4>You are adding lesson in an <span class='text-danger'>English </span>course. You have to add it in<span class="text-success"> English</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue((<any>this.lesson)[formControlName]);
     }
   }
 }

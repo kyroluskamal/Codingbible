@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using CodingBible.Models.SlugMap;
+using System.Diagnostics;
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -197,6 +198,7 @@ namespace CodingBible.Controllers.api.v1
                 getPost.FeatureImageUrl = Post.FeatureImageUrl;
                 getPost.Title = Post.Title;
                 getPost.Slug = Post.Slug;
+                getPost.OtherSlug = Post.OtherSlug;
                 if (getPost.Status == (int)Constants.PostStatus.Draft && Post.Status == (int)Constants.PostStatus.Published)
                 {
                     getPost.PublishedDate = DateTime.Now;

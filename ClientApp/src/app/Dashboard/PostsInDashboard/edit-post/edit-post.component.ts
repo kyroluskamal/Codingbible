@@ -23,7 +23,7 @@ export class EditPostComponent implements OnInit
       [FormControlNames.postForm.htmlContent]: [null, [validators.required]],
       [FormControlNames.postForm.featureImageUrl]: [null, [validators.required]],
       [FormControlNames.postForm.categories]: [[], [validators.required]],
-      [FormControlNames.postForm.isArabic]: [false],
+      [FormControlNames.postForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.postForm.otherSlug]: [null, [validators.required]],
     });
   }

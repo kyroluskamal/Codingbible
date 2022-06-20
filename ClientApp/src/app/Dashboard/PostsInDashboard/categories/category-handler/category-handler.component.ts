@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType } from 'src/Helpers/constants';
+import { ArabicRegex, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType } from 'src/Helpers/constants';
 import { Category } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { AddCATEGORY, UpdateCATEGORY } from 'src/State/CategoriesState/Category.actions';
@@ -37,9 +37,9 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   @Input() ActionType: string = "";
   Form: FormGroup = new FormGroup({});
   OldLevel: number = 0;
-  newCategory: Category = new Category();
+  @Input() newCategory: Category | null = null;
   constructor(private store: Store, private TreeDataStructure: TreeDataStructureService<Category>,
-    private clientSideSevice: ClientSideValidationService,)
+    public clientSideSevice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
     {
@@ -53,6 +53,19 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     {
       this.Form = this.inputForm;
     }
+    if ("ActionType" in changes)
+    {
+      if (this.ActionType == PostType.Edit)
+      {
+        this.setIsArabic("name");
+      }
+    }
+    if ('newCategory' in changes)
+    {
+      this.newCategory = changes["newCategory"].currentValue;
+    }
+    this.SelectTranslation();
+    this.clientSideSevice.inputRedirection(this.Form.get(FormControlNames.courseForm.isArabic)?.value);
   }
 
   ngOnInit(): void
@@ -61,27 +74,28 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     this.cats$.subscribe(cats =>
     {
       this.AllCategories = cats;
+      this.SelectTranslation();
     });
   }
 
   Toggle()
   {
     this.modal.Toggle();
+    this.SelectTranslation();
+
   }
-  onChange(event: HTMLSelectElement)
-  {
-    this.Form.get(FormControlNames.categoryForm.parentKey)?.setValue(Number(event.value));
-  }
+
   Submit()
   {
     this.Form.markAllAsTouched();
     this.newCategory = new Category();
+    this.newCategory.parentKey = Number(this.Form.get(FormControlNames.categoryForm.parentKey)?.value);
     this.clientSideSevice.FillObjectFromForm(this.newCategory, this.Form);
     if (this.newCategory.parentKey === 0)
     {
       this.newCategory.parentKey = null;
     }
-    let parent = this.catsForSelectmenu.filter(cat => cat.id == this.newCategory.parentKey)[0];
+    let parent = this.catsForSelectmenu.filter(cat => cat.id == this.newCategory?.parentKey)[0];
     if (this.newCategory.parentKey === 0 || this.newCategory.parentKey === null || parent == null)
     {
       this.newCategory.level = 0;
@@ -89,7 +103,11 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     {
       this.newCategory.level = parent?.level! + 1;
     }
-    this.newCategory.slug = this.newCategory.title.split(" ").join("-");
+    this.newCategory.slug = this.clientSideSevice.GenerateSlug(this.newCategory.title);
+    if (this.newCategory.otherSlug === "0")
+    {
+      this.newCategory.otherSlug = null;
+    }
     this.store.dispatch(AddCATEGORY(this.newCategory));
   }
   ModelIsClosed()
@@ -99,23 +117,28 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
   Update()
   {
     this.Form.markAllAsTouched();
-    let newCategory = new Category();
-    this.clientSideSevice.FillObjectFromForm(newCategory, this.Form);
-    if (newCategory.parentKey === 0)
+    this.newCategory = new Category();
+    this.clientSideSevice.FillObjectFromForm(this.newCategory, this.Form);
+    this.newCategory.parentKey = Number(this.Form.get(FormControlNames.categoryForm.parentKey)?.value);
+    if (this.newCategory.parentKey === 0)
     {
-      newCategory.parentKey = null;
+      this.newCategory.parentKey = null;
     }
-    let parent = this.catsForSelectmenu.filter(cat => cat.id == newCategory.parentKey)[0];
+    let parent = this.catsForSelectmenu.filter(cat => cat.id == this.newCategory?.parentKey)[0];
 
-    if (newCategory.parentKey === 0 || parent == null)
+    if (this.newCategory.parentKey === 0 || parent == null)
     {
-      newCategory.level = 0;
+      this.newCategory.level = 0;
     } else
     {
-      newCategory.level = parent?.level! + 1;
+      this.newCategory.level = parent?.level! + 1;
     }
-    newCategory.slug = newCategory.title.split(" ").join("-");
-    this.store.dispatch(UpdateCATEGORY(newCategory));
+    this.newCategory.slug = this.clientSideSevice.GenerateSlug(this.newCategory.title);
+    if (this.newCategory.otherSlug === "0")
+    {
+      this.newCategory.otherSlug = null;
+    }
+    this.store.dispatch(UpdateCATEGORY(this.newCategory));
   }
   SelectTranslation()
   {
@@ -127,5 +150,17 @@ export class CategoryHandlerComponent implements OnInit, OnChanges
     tree.setData(this.AllCategories.filter(x => x.isArabic
       !== Boolean(this.Form.get(FormControlNames.categoryForm.isArabic)?.value)));
     this.selectedTranslation = tree.finalFlatenArray();
+  }
+
+  setIsArabic(formControlName: string = "")
+  {
+    if (formControlName !== "" && this.Form.get(formControlName)?.value !== '')
+    {
+      let isArabic = ArabicRegex.test(this.Form.get(formControlName)?.value);
+      this.clientSideSevice.setIsArabic(isArabic, this.newCategory?.isArabic!,
+        this.newCategory, this.Form, this.ActionType, "Category");
+      this.SelectTranslation();
+      this.clientSideSevice.inputRedirection(this.Form.get(FormControlNames.courseForm.isArabic)?.value);
+    }
   }
 }

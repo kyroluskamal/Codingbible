@@ -32,6 +32,7 @@
                                errorState.isErrorState(FormControlNames.categoryForm.name, Form, form)?
                                'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Category.name"
+                   (blur)="setIsArabic(FormControlNames.categoryForm.name)"
                    id="CatName">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
@@ -48,8 +49,7 @@
                    [formControlName]="FormControlNames.categoryForm.isArabic"
                    id="isArabic">
             <label class="form-check-label fw-bold"
-                   for="isArabic"
-                   (click)="SelectTranslation()">
+                   for="isArabic">
                 In Arabic
             </label>
         </div>
@@ -57,22 +57,27 @@
                                 Other slug
         ------------------------------------------------------------------------------->
         <div class="form-floating mb-3">
-            <select [class]="errorState.isErrorState(FormControlNames.categoryForm.otherSlug, Form, form)?
+            <select #OtherSlugSelect
+                    [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.otherSlug, Form)?'form-select':
+                    errorState.isErrorState(FormControlNames.categoryForm.otherSlug, Form, form)?
                 'form-select is-invalid':'form-select is-valid'"
                     id="translation"
                     [formControlName]="FormControlNames.categoryForm.otherSlug"
+                    (change)="clientSideSevice.setOtherSLug(OtherSlugSelect.value, Form)"
                     aria-label="Select translated url">
-                <option selected>Select translation</option>
+                <option selected
+                        [value]="null">Select translation</option>
                 <option value="0">Not yet</option>
                 <option *ngFor="let l of selectedTranslation"
-                        [hidden]="l.otherSlug!==null"
+                        [hidden]="l.otherSlug!==null && ActionType===PostType.Add"
+                        [disabled]="l.otherSlug!==null "
                         [value]="l.slug">
                     {{l.title}}
                 </option>
             </select>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
-                      *ngIf="inputForm.get(FormControlNames.categoryForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
+                      *ngIf="Form.get(FormControlNames.categoryForm.otherSlug)?.hasError(FormValidationErrorsNames.required)
                           &&errorState.isErrorState(FormControlNames.categoryForm.otherSlug, Form, form)">
                     {{FormValidationErrors.RequiredField}}
                 </span>
@@ -93,14 +98,16 @@
         <div class="form-floating has-validation mb-3">
             <select #parent
                     required
-                    [class]="errorState.isErrorState(FormControlNames.categoryForm.parentKey, Form, form)?
-                                   'form-select is-invalid':'form-select is-valid'"
+                    [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.parentKey, Form)?'form-select':
+                            errorState.isErrorState(FormControlNames.categoryForm.parentKey, Form, form)?
+                            'form-select is-invalid':'form-select is-valid'"
                     id="parentKey"
                     [formControlName]="FormControlNames.categoryForm.parentKey"
-                    (change)="onChange(parent)"
+                    (change)="clientSideSevice.setParentKey(parent.value, Form);"
                     aria-label="Select parent category">
+                <option [value]="null">Select parent</option>
                 <option value="0">No parent</option>
-                <option *ngFor="let cat of (cats$|async)"
+                <option *ngFor="let cat of catsForSelectmenu"
                         [value]="cat.id"
                         [disabled]="cat.id === Form.get('id')?.value">
                     <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.name}}
@@ -126,6 +133,7 @@
                    minlength="60"
                    maxlength="70"
                    [formControlName]="FormControlNames.categoryForm.title"
+                   (blur)="setIsArabic(FormControlNames.categoryForm.title)"
                    [class]="!errorState.isTouchedOrDirty(FormControlNames.categoryForm.title, Form)?'form-control':
                                    errorState.isErrorState(FormControlNames.categoryForm.title, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
@@ -165,6 +173,7 @@
                                    errorState.isErrorState(FormControlNames.categoryForm.description, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                       id="description"
+                      (blur)="setIsArabic(FormControlNames.categoryForm.description)"
                       [placeholder]="FormFieldsNames.Category.description">
                     </textarea>
             <div class="validationDiv">

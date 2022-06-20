@@ -67,6 +67,9 @@ mat-sidenav{
     .sideNavContent {
       margin: 0 !important;
     }
+    .mat-sidenav-content-pin-LTR{
+      margin-left: 0px !important;
+    }
     .FullscreenButton {
       display: none !important;
     }
@@ -163,4 +166,7 @@ div.dropdown>.dropdown-menu {
 }
 .BusinessName{
   font-size: 1.5rem;
+}
+.mat-sidenav-content-pin-LTR{
+  margin-left: 229px !important;
 }

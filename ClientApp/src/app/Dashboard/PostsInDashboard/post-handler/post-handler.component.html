@@ -1,15 +1,32 @@
-<form fxLayout="column"
+<form class="d-flex flex-column"
       [formGroup]="form"
       #Form
-      class="mt-2 mx-2 needs-validation"
+      class="my-4 needs-validation"
       novalidate>
     <!-- ------------------------------------------------------------------------------- 
         |                               Title Add ot Edit
        ------------------------------------------------------------------------------------>
-    <h1>
-        <span *ngIf="Type===PostType.Add">Add new Post</span>
-        <span *ngIf="Type===PostType.Edit">Edit Post : #{{(postById|async)?.id}}</span>
-    </h1>
+    <div class="d-flex flex-md-row flex-column align-items-center justify-content-between">
+        <h1 class="my-4">
+            <span *ngIf="Type===PostType.Add">Add new Post</span>
+            <span *ngIf="Type===PostType.Edit">Edit Post </span>
+            ( {{form.get(FormControlNames.postForm.isArabic)?.value?'Ar':'En'}} )
+        </h1>
+        <div class="d-flex flex-row gap-3">
+            <a class="cursor-pointer"
+               *ngIf="Type === PostType.Edit"
+               [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Posts.Home,
+               DashboardRoutes.Posts.AddPost]">Add new</a>
+            <a [class]="(postById|async)?.otherSlug?'cursor-pointer text-primary':'cursor-pointer text-primary disabledAnchor'"
+               (click)="GoToTranslatedPost()"
+               *ngIf="Type===PostType.Edit">
+                <span *ngIf="post.isArabic">English Post</span>
+                <span *ngIf="!post.isArabic">Arabic Post</span>
+            </a>
+            <a class="cursor-pointer"
+               [routerLink]="['',DashboardRoutes.Home,DashboardRoutes.Posts.Home]">View all</a>
+        </div>
+    </div>
     <!-- ------------------------------------------------------------------------------- 
      |                               Validation Errors
     ------------------------------------------------------------------------------------>
@@ -92,55 +109,59 @@
         </div>
         <div *ngIf="form.valid"
              class="alert alert-success">
-            <span>You are ready to add the post</span>
+            <span>You are ready to {{postType === PostType.Add?'add':'update'}} the
+                post</span>
         </div>
     </div>
 
-    <div fxLayout="row"
-         fxLayout.lt-md="column"
-         fxLayoutGap="5px"
-         fxLayoutAlign="space-between">
-        <div fxFlex="77%"
-             fxLayout="column">
+    <div class="row">
+        <div class="col-md-8 d-flex flex-column">
             <!-- ------------------------------------------------------------------------------- 
             |                               Title Input 
             ------------------------------------------------------------------------------------>
-            <mat-form-field appearance="legacy"
-                            class="customMatFormField">
-                <div class="input-group">
-                    <span class="input-group-text">{{FormFieldsNames.Post.title}}
+            <div class="mb-3">
+                <div class="input-group w-100">
+                    <span class="input-group-text"
+                          style="min-width: 70px;">{{FormFieldsNames.Post.title}}
                         <span class="ps-1 text-danger"
                               *ngIf="form.get(FormControlNames.postForm.title)?.hasValidator(validators.required)">*</span>
                     </span>
                     <input type="text"
-                           matNativeControl
-                           [errorStateMatcher]="CustoErrorStateMatcher"
                            [formControlName]="FormControlNames.postForm.title"
                            #title
-                           class="form-control"
+                           [class]="!errorState.isTouchedOrDirty(FormControlNames.postForm.title, form)?'form-control':
+                           errorState.isErrorState(FormControlNames.postForm.title, form, Form)?
+                           'form-control is-invalid':'form-control is-valid'"
                            minlength="60"
                            maxlength="70"
                            [value]="Type===PostType.Edit?(postById|async)?.title:''"
                            (input)="CreateSlug(title, slug)"
-                           (blur)="CheckIfSulgNotUnique(slug)" />
+                           (blur)="CheckIfSulgNotUnique(slug);setIsArabic(FormControlNames.postForm.title)" />
                 </div>
-                <mat-error
-                           *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.required)">
-                    {{FormValidationErrors.RequiredField}}
-                </mat-error>
-                <mat-error
-                           *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.maxlength)
-                           ||form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.minlength)||title.value.length<=70">
-                    {{FormValidationErrors.SEO_Title_Length}}
-                </mat-error>
-                <span matSuffix
-                      class="ps-1">{{title.value.length}} characters</span>
-            </mat-form-field>
+                <div class="validationDiv">
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.required)
+                          &&errorState.isErrorState(FormControlNames.postForm.title, form, Form)">
+                        {{FormValidationErrors.RequiredField}}
+                    </span>
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.minlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.title, form, Form)">
+                        {{FormValidationErrors.SEO_Title_Length}}
+                    </span>
+                    <span class="invalid-feedback d-block m-0"
+                          *ngIf="form.get(FormControlNames.postForm.title)?.hasError(FormValidationErrorsNames.maxlength)
+                              &&errorState.isErrorState(FormControlNames.categoryForm.title, form, Form)">
+                        {{FormValidationErrors.SEO_Title_Length}}
+                    </span>
+                </div>
+            </div>
             <!-- ------------------------------------------------------------------------------- 
             |                               Slug Input 
             ------------------------------------------------------------------------------------>
             <div class="input-group mb-3">
-                <span class="input-group-text">{{FormFieldsNames.Post.slug}}</span>
+                <span class="input-group-text"
+                      style="min-width: 70px;">{{FormFieldsNames.Post.slug}}</span>
                 <input type="text"
                        disabled
                        [value]="Type===PostType.Edit?(postById|async)?.slug:''"
@@ -246,9 +267,7 @@
         <!-- -------------------------------------------------------------------------- 
         |                                  Side Bar
         ------------------------------------------------------------------------------->
-        <div fxFlex="22%"
-             fxLayout="column"
-             fxLayoutGap="3px">
+        <div class="col-md-4 d-flex flex-column gap-3">
             <!-- -------------------------------------------------------------------------- 
              |                                  Publish Card
              ------------------------------------------------------------------------------->
@@ -267,17 +286,22 @@
                                     Other slug
             ------------------------------------------------------------------------------->
             <div class="form-floating mb-3">
-                <select [class]="errorState.isErrorState(FormControlNames.postForm.otherSlug, form, Form)?
+                <select #OtherSlugSelect
+                        [class]="!errorState.isTouchedOrDirty(FormControlNames.postForm.otherSlug, form)?'form-select':
+                errorState.isErrorState(FormControlNames.postForm.otherSlug, form, Form)?
                     'form-select is-invalid':'form-select is-valid'"
                         id="translation"
                         [formControlName]="FormControlNames.postForm.otherSlug"
+                        (change)="ClientSideService.setOtherSLug(OtherSlugSelect.value, form)"
                         aria-label="Select translated url">
-                    <option selected>Select translation</option>
+                    <option selected
+                            [value]="null">Select translation</option>
                     <option value="0">Not yet</option>
                     <option *ngFor="let l of selectedTranslation"
-                            [hidden]="l.otherSlug!==null"
+                            [hidden]="l.otherSlug!==null && postType===PostType.Add"
+                            [disabled]="l.otherSlug!==null"
                             [value]="l.slug">
-                        {{l.title}}
+                        {{l.title.substring(0,50)}}...
                     </option>
                 </select>
                 <div class="validationDiv">
@@ -371,7 +395,8 @@
                 <div class="card-body"
                      style="height: 135px;">
                     <textarea style="resize: none;"
-                              [class]="!errorState.isTouchedOrDirty(FormControlNames.postForm.excerpt, form)?'h-100 form-control w-100 h-100': errorState.isErrorState(FormControlNames.postForm.excerpt, form, Form)?
+                              [class]="!errorState.isTouchedOrDirty(FormControlNames.postForm.excerpt, form)?'h-100 form-control w-100 h-100': 
+                              errorState.isErrorState(FormControlNames.postForm.excerpt, form, Form)?
                     'form-control h-100 is-invalid w-100 h-100':'h-100 form-control is-valid w-100 h-100'"
                               [value]="Type===PostType.Edit?(postById|async)?.excerpt:''"
                               [formControlName]="FormControlNames.postForm.excerpt"

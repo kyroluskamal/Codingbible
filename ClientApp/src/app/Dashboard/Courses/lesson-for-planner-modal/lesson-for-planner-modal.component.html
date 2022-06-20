@@ -51,17 +51,20 @@
                                     Other slug
         ------------------------------------------------------------------------------->
         <div class="form-floating mb-3">
-            <select [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.otherSlug, inputForm)?'form-select':
+            <select #OtherSlugSelect
+                    [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.otherSlug, inputForm)?'form-select':
             errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
                     'form-select is-invalid':'form-select is-valid'"
                     id="translation"
                     [formControlName]="FormControlNames.LessonForm.otherSlug"
+                    (change)="ClientSideService.setOtherSLug(OtherSlugSelect.value, inputForm)"
                     aria-label="Select translated url">
                 <option selected
                         [value]="null">Select translation</option>
                 <option value="0">Not yet</option>
                 <option *ngFor="let l of selectedTranslation"
-                        [hidden]="l.otherSlug!==null"
+                        [hidden]="l.otherSlug!==null && Action===ActionType.Add"
+                        [disabled]="l.otherSlug!==null"
                         [value]="l.slug">
                     {{l.name}}
                 </option>
@@ -98,7 +101,7 @@
                        'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Lesson.name"
                    id="CourseName"
-                   (input)="isTheSameCourseLang(FormControlNames.LessonForm.name)">
+                   (blur)="isTheSameCourseLang(FormControlNames.LessonForm.name)">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
                       *ngIf="inputForm.get(FormControlNames.LessonForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -123,8 +126,7 @@
                        errorState.isErrorState(FormControlNames.LessonForm.title, inputForm, Form)?
                        'form-control is-invalid':'form-control is-valid'"
                    [placeholder]="FormFieldsNames.Lesson.title"
-                   (input)="isTheSameCourseLang(FormControlNames.LessonForm.title)"
-                   (blur)="CheckIfSulgNotUnique(title.value)"
+                   (blur)="CheckIfSulgNotUnique(title.value);isTheSameCourseLang(FormControlNames.LessonForm.title)"
                    id="CourseName">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
@@ -167,7 +169,7 @@
                                    'form-control is-invalid':'form-control is-valid'"
                       [id]="FormControlNames.LessonForm.description"
                       [placeholder]="FormFieldsNames.Section.description"
-                      (input)="isTheSameCourseLang(FormControlNames.LessonForm.description)">
+                      (blur)="isTheSameCourseLang(FormControlNames.LessonForm.description)">
                       ></textarea>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"

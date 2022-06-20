@@ -1,14 +1,32 @@
 <form [formGroup]="inputForm"
       #Form
-      class="mt-2 mx-2 needs-validation pb-5"
+      class="my-4 needs-validation pb-5"
       novalidate>
     <!-- ------------------------------------------------------------------------------- 
         |                               Title Add ot Edit
        ------------------------------------------------------------------------------------>
-    <h1 class="my-4">
-        <span *ngIf="ActionType===PostType.Add">Add new lesson</span>
-        <span *ngIf="ActionType===PostType.Edit">Edit Lesson : #{{(LessonById|async)?.id}}</span>
-    </h1>
+    <div class="d-flex flex-md-row flex-column align-items-center justify-content-between">
+        <h1 class="my-4">
+            <span *ngIf="ActionType===PostType.Add">Add new lesson</span>
+            <span *ngIf="ActionType===PostType.Edit">Edit Lesson</span>
+            ( {{inputForm.get(FormControlNames.LessonForm.isArabic)?.value?'Ar':'En'}} )
+        </h1>
+        <div class="d-flex flex-row gap-3">
+            <a class="cursor-pointer"
+               *ngIf="ActionType === PostType.Edit"
+               [routerLink]="['',DashboardRoutes.Home, DashboardRoutes.Courses.Home,
+               DashboardRoutes.Courses.Lessons.Home, DashboardRoutes.Courses.Lessons.AddLesson]">Add new</a>
+            <a [class]="lesson.otherSlug?'cursor-pointer text-primary':'cursor-pointer text-primary disabledAnchor'"
+               (click)="GoToTranslatedLesson()"
+               *ngIf="ActionType===PostType.Edit">
+                <span *ngIf="lesson.isArabic">English lesson</span>
+                <span *ngIf="!lesson.isArabic">Arabic lesson</span>
+            </a>
+            <a class="cursor-pointer"
+               [routerLink]="['',DashboardRoutes.Home, DashboardRoutes.Courses.Home,
+               DashboardRoutes.Courses.Lessons.Home]">View all</a>
+        </div>
+    </div>
     <!-- ------------------------------------------------------------------------------- 
     |                               Course and Section selectors
     ------------------------------------------------------------------------------------>
@@ -160,7 +178,7 @@
         </div>
         <div *ngIf="inputForm.valid && (inputForm.get(FormControlNames.LessonForm.htmlContent)?.value||inputForm.get(FormControlNames.LessonForm.vedioUrl)?.value)"
              class="alert alert-success">
-            <span>You are ready to add the post</span>
+            <span>You are ready to {{ActionType===PostType.Add?'add':'update'}} the post</span>
         </div>
     </div>
 
@@ -341,17 +359,20 @@
                                     Other slug
             ------------------------------------------------------------------------------->
             <div class="form-floating mb-3">
-                <select [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'form-select':
+                <select #OtherSlugSelect
+                        [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'form-select':
                 errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
                     'form-select is-invalid':'form-select is-valid'"
                         id="translation"
                         [formControlName]="FormControlNames.LessonForm.otherSlug"
+                        (change)="ClientSideService.setOtherSLug(OtherSlugSelect.value, inputForm)"
                         aria-label="Select translated url">
                     <option selected
                             [value]="null">Select translation</option>
                     <option value="0">Not yet</option>
                     <option *ngFor="let l of selectedTranslation"
-                            [hidden]="l.otherSlug!==null"
+                            [hidden]="l.otherSlug!==null && ActionType===PostType.Add"
+                            [disabled]="l.otherSlug!==null"
                             [value]="l.slug">
                         {{l.name}}
                     </option>
@@ -449,7 +470,7 @@
                               minlength="50"
                               maxlength="160"
                               [value]="ActionType===PostType.Edit?(LessonById|async)?.description:''"
-                              (input)="isTheSameCourseLang(FormControlNames.LessonForm.description)"
+                              (blur)="isTheSameCourseLang(FormControlNames.LessonForm.description)"
                               style="resize: none;"></textarea>
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"

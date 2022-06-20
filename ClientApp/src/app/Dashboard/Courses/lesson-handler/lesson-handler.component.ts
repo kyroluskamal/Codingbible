@@ -21,7 +21,7 @@ import { LoadCourses } from 'src/State/CourseState/course.actions';
 import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course.reducer';
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { AddLesson, ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
-import { selectAllLessons, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
+import { selectAllLessons, selectLessonBySlug, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
 import { GetSectionsByCourseId, LoadSections } from 'src/State/SectionsState/sections.actions';
 import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
@@ -96,12 +96,12 @@ export class LessonHandlerComponent implements OnInit
    ************************************************************************************/
   constructor(public store: Store, private LessonService: LessonsService,
     @Inject(DOCUMENT) private document: Document, private title: Title,
-    private fb: FormBuilder, private RouterOutlet: Router,
+    private fb: FormBuilder, private router: Router,
     private spinner: SpinnerService,
     private Notifications: NotificationsService,
     private ChangeDetection: ChangeDetectorRef,
     private treeDataStructure: TreeDataStructureService<Section>,
-    public ClientSideService: ClientSideValidationService, public router: ActivatedRoute)
+    public ClientSideService: ClientSideValidationService, public ActivatedRouter: ActivatedRoute)
   {
   }
   ngAfterViewInit(): void
@@ -156,11 +156,11 @@ export class LessonHandlerComponent implements OnInit
   ngOnInit(): void
   {
     this.lessons$.subscribe(x => this.lessons = x);
-    if (this.RouterOutlet.url.includes(DashboardRoutes.Courses.Lessons.AddLesson))
+    if (this.router.url.includes(DashboardRoutes.Courses.Lessons.AddLesson))
     {
       this.ActionType = PostType.Add;
     }
-    if (this.RouterOutlet.url.includes(DashboardRoutes.Courses.Lessons.EditLesson))
+    if (this.router.url.includes(DashboardRoutes.Courses.Lessons.EditLesson))
     {
       this.ActionType = PostType.Edit;
     }
@@ -190,52 +190,50 @@ export class LessonHandlerComponent implements OnInit
       this.mousey = e.pageY;
     });
 
-    this.router.queryParams.subscribe(x =>
+    this.ActivatedRouter.queryParams.subscribe(x =>
     {
-      if (this.RouterOutlet.url.includes(DashboardRoutes.Courses.Lessons.EditLesson) && !x['id'])
+      if (this.router.url.includes(DashboardRoutes.Courses.Lessons.EditLesson) && !x['id'])
       {
         this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, "<h4>Invalid url parameters</h4>");
-        this.RouterOutlet.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Lessons.Home]);
+        this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Lessons.Home]);
         return;
       }
       if (x['id'])
       {
         this.store.dispatch(GetLessonById({ id: Number(x['id']) }));
-        this.LessonById = this.store.select(selectLessonsByID(Number(x['id'])));
+        this.store.select(selectLessonsByID(Number(x['id']))).subscribe(r =>
+        {
+          if (r)
+          {
+            let lesson = r as Lesson;
+            this.onCourseChange(lesson.courseId.toString());
+            this.onSectionChange(lesson.sectionId.toString());
+            this.SelectedCourseId = lesson.courseId;
+            this.SelectedSectionId = lesson.sectionId;
+            this.lesson = Object.assign({}, r);
+            this.inputForm.patchValue(this.lesson);
+            this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
+            this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
+            this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
+
+            this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
+
+            this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
+            this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
+            for (let i = 0; i < lesson?.attachments.length!; i++)
+            {
+              this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
+            }
+            this.VedioID = this.ClientSideService.GetVideo(this.lesson.vedioUrl);
+          }
+          this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
+          this.inputForm.markAllAsTouched();
+
+        });
+
+
       }
     });
-    if (this.ActionType === this.PostType.Edit)
-    {
-      this.LessonById.subscribe(r =>
-      {
-        if (r)
-        {
-          let lesson = r as Lesson;
-          this.onCourseChange(lesson.courseId.toString());
-          this.onSectionChange(lesson.sectionId.toString());
-          this.SelectedCourseId = lesson.courseId;
-          this.SelectedSectionId = lesson.sectionId;
-          this.lesson = Object.assign({}, r);
-          this.inputForm.patchValue(this.lesson);
-          this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
-          this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
-          this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
-
-          this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
-
-          this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
-          this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
-          for (let i = 0; i < lesson?.attachments.length!; i++)
-          {
-            this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
-          }
-          this.VedioID = this.ClientSideService.GetVideo(this.lesson.vedioUrl);
-        }
-        this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
-        this.inputForm.markAllAsTouched();
-
-      });
-    }
     if (this.ActionType === PostType.Add)
     { this.title.setTitle("Add new lesson"); }
     if (this.SelectedCourseId === 0 || this.SelectedSectionId === 0)
@@ -457,17 +455,28 @@ export class LessonHandlerComponent implements OnInit
     let isArabic = ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.title)?.value)
       || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.name)?.value)
       || ArabicRegex.test(this.inputForm.get(FormControlNames.LessonForm.description)?.value);
-    console.log(this.inputForm.get(formControlName)?.value);
     if (!isArabic && this.currentCourse.isArabic)
     {
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-        `<h4>You are adding lesson<span class='text-danger'> in an Arabic course</span>. You have to add it <span class="text-success"> in Arabic</span></h4>`);
-      this.inputForm.get(formControlName)?.setValue(null);
+        `<h4>You are adding lesson in an <span class='text-danger'>Arabic </span>course. You have to add it  in<span class="text-success"> Arabic</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue((<any>this.lesson)[formControlName]);
     } else if (isArabic && !this.currentCourse.isArabic)
     {
       this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-        `<h4>You are adding lesson<span class='text-danger'> in an English course</span>. You have to add it <span class="text-success"> in English</span></h4>`);
-      this.inputForm.get(formControlName)?.setValue(null);
+        `<h4>You are adding lesson in an <span class='text-danger'>English </span>course. You have to add it in<span class="text-success"> English</span></h4>`);
+      this.inputForm.get(formControlName)?.setValue((<any>this.lesson)[formControlName]);
     }
+  }
+  GoToTranslatedLesson()
+  {
+    this.store.select(selectLessonBySlug(this.lesson.otherSlug!)).subscribe(lesson =>
+    {
+      if (lesson)
+      {
+        this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home,
+          DashboardRoutes.Courses.Lessons.Home, DashboardRoutes.Courses.Lessons.EditLesson],
+          { queryParams: { id: lesson.id } });
+      }
+    });
   }
 }

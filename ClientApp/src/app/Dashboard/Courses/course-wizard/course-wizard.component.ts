@@ -92,7 +92,7 @@ export class CourseWizardComponent implements OnInit
   constructor(private fb: FormBuilder, private store: Store, private title: Title,
     private TreeStructure: TreeDataStructureService<CourseCategory>,
     private TreeForSection: TreeDataStructureService<Section>,
-    private clientSideSevice: ClientSideValidationService,
+    public clientSideSevice: ClientSideValidationService,
     private spinner: SpinnerService, private Notifications: NotificationsService,
     private activatedRouter: ActivatedRoute, private router: Router,
     @Inject(DOCUMENT) private document: Document)
@@ -474,32 +474,13 @@ export class CourseWizardComponent implements OnInit
     this.selectedTranslation = this.allCourses.filter(x => x.isArabic
       !== Boolean(this.CourseForm.get(FormControlNames.courseForm.isArabic)?.value));
   }
-  otherSlugChange(value: string)
+
+  setIsArabic(formControlName: string)
   {
-    if (value === "null")
-      this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.setValue(null);
-  }
-  setIsArabic()
-  {
-    let isArabic = ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.title)?.value)
-      || ArabicRegex.test(this.CourseForm.get(FormControlNames.courseForm.name)?.value);
-    if (this.Action === this.ActionType.Add)
-    {
-      this.CourseForm.get(FormControlNames.courseForm.isArabic)?.setValue(isArabic);
-    } else
-    {
-      if (!isArabic && this.CourseToAddOrUpdate.isArabic)
-      {
-        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          `<h4>The langauge of the course was set to Arabic, so, you can't change it to English</h4>`);
-        return;
-      } else if (isArabic && !this.CourseToAddOrUpdate.isArabic)
-      {
-        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
-          "<h4>The langauge of the course was set to English, so you can't change it to Arabic</h4>");
-        return;
-      }
-    }
+    let isArabic = ArabicRegex.test(this.CourseForm.get(formControlName)?.value);
+    this.clientSideSevice.setIsArabic(isArabic, this.CourseToAddOrUpdate.isArabic,
+      this.CourseToAddOrUpdate,
+      this.CourseForm, this.Action, "course");
     this.SelectTranslation();
     this.setCourseCategoriesByLang();
     this.clientSideSevice.inputRedirection(this.CourseForm.get(FormControlNames.courseForm.isArabic)?.value);

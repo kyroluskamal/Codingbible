@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { css, NotificationMessage, sweetAlert } from 'src/Helpers/constants';
+import { css, FormControlNames, NotificationMessage, PostType, sweetAlert } from 'src/Helpers/constants';
 import { CardTitle, KeyValueForUniqueCheck, SelectedTextData, SweetAlertData } from '../Interfaces/interfaces';
 import { NotificationsService } from './notifications.service';
 @Injectable({
@@ -26,9 +26,8 @@ export class ClientSideValidationService
     let keys = Object.keys(object);
     for (let k of keys)
     {
-      let key = k.toLowerCase();
-      if (formGroup.get(key))
-        formGroup.get(key)?.setValue(object[k]);
+      if (formGroup.get(k))
+        formGroup.get(k)?.setValue(object[k]);
     }
   }
   isNotUnique(array: any[], keyToCheck: string, value: string, id?: number)
@@ -204,5 +203,40 @@ export class ClientSideValidationService
         allTextAreas[i].removeAttribute('dir');
       }
     }
+  }
+  setIsArabic(isArabicFromRegex: boolean, isArabicFromObject: boolean,
+    obj: any, formGroup: FormGroup, Action: string, moduleType: string)
+  {
+    if (Action === PostType.Add)
+    {
+      formGroup.get("isArabic")?.setValue(isArabicFromRegex);
+    } else
+    {
+      if (!isArabicFromRegex && isArabicFromObject)
+      {
+        this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>The langauge of the ${moduleType} was set to Arabic</h4>`);
+        this.refillForm(obj, formGroup);
+        return;
+      } else if (isArabicFromRegex && !isArabicFromObject)
+      {
+        this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>The langauge of the ${moduleType} was set to English</h4>`);
+        this.refillForm(obj, formGroup);
+        return;
+      }
+    }
+  }
+  setOtherSLug(value: string, formGroup: FormGroup)
+  {
+    if (value === "null")
+      formGroup.get(FormControlNames.postForm.otherSlug)?.setValue(null);
+  }
+  setParentKey(value: string, formGroup: FormGroup)
+  {
+    if (value === "null")
+      formGroup.get(FormControlNames.categoryForm.parentKey)?.setValue(null);
+    else
+      formGroup.get(FormControlNames.categoryForm.parentKey)?.setValue(Number(value));
   }
 }

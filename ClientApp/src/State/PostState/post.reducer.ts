@@ -93,4 +93,18 @@ export const select_Post_ValidationErrors = createSelector(
     selectPostState,
     (state) => state.ValidationErrors!
 );
+export const selectPostBySlug = (Slug: string) => createSelector(
+    selectPostState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.slug === Slug)
+            {
+                return state.entities[key];
+            }
+        }
+        return new Post();
+    }
+);
 

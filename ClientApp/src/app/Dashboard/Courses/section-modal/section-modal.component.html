@@ -38,7 +38,7 @@
                                    'form-control is-invalid':'form-control is-valid'"
                            id="CatName"
                            [placeholder]="FormFieldsNames.Section.name"
-                           (blur)="setIsArabic()">
+                           (blur)="setIsArabic(FormControlNames.SectionForm.name)">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.name)?.hasError(FormValidationErrorsNames.required)
@@ -66,7 +66,7 @@
                                        'form-control is-invalid':'form-control is-valid'"
                            id="title"
                            [placeholder]="FormFieldsNames.Category.title"
-                           (blur)="setIsArabic()">
+                           (blur)="setIsArabic(FormControlNames.SectionForm.title)">
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
                               *ngIf="SectionForm.get(FormControlNames.SectionForm.title)?.hasError(FormValidationErrorsNames.required)
@@ -157,12 +157,13 @@
                             id="translationSection"
                             [formControlName]="FormControlNames.SectionForm.otherSlug"
                             aria-label="Select translated url"
-                            (change)="onOtherSlugChange(translationSection)">
+                            (change)="clientSideSevrice.setOtherSLug(translationSection.value,SectionForm)">
                         <option selected
                                 [value]="null">Select translation</option>
                         <option value="0">Not yet</option>
                         <option *ngFor="let s of selectedTranslation"
                                 [ngStyle]="{'direction': s.isArabic?'rtl':'ltr'}"
+                                [hidden]="s.otherSlug!==null&&ActionType===PostType.Add"
                                 [disabled]="s.otherSlug!==null"
                                 [value]="s.slug">
                             <span *ngFor="let _ of [].constructor(s.level)">&nbsp;&nbsp;</span>{{s.name}}
@@ -299,7 +300,7 @@
                                    errorState.isErrorState(FormControlNames.SectionForm.description, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                               id="description"
-                              (input)="setIsArabic()"
+                              (blur)="setIsArabic(FormControlNames.SectionForm.description)"
                               [placeholder]="FormFieldsNames.Section.description"></textarea>
                     <div class="validationDiv">
                         <span class="invalid-feedback d-block m-0"
@@ -339,7 +340,7 @@
                                    errorState.isErrorState(FormControlNames.SectionForm.whatWillYouLearn, SectionForm, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                               id="WhatWillYouLearn"
-                              (input)="setIsArabic()"
+                              (blur)="setIsArabic(FormControlNames.SectionForm.whatWillYouLearn)"
                               [placeholder]="FormFieldsNames.Section.whatWillYouLearn"></textarea>
                     <label for="WhatWillYouLearn">{{FormFieldsNames.Section.whatWillYouLearn}}<sup
                              class="text-danger">*</sup></label>

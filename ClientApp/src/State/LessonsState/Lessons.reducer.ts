@@ -1,4 +1,5 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { Lesson } from "src/models.model";
 import { LessonsState } from "../app.state";
 import
 {
@@ -164,3 +165,17 @@ export const select_Lessons_ValidationErrors = createSelector(
 );
 export const Select_Lesson_AdditionState = createSelector(selectLessonsState, (state) => state.AdditionState);
 export const Select_Lesson_UpdateState = createSelector(selectLessonsState, (state) => state.UpdateState);
+export const selectLessonBySlug = (Slug: string) => createSelector(
+    selectLessonsState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.slug === Slug)
+            {
+                return state.entities[key];
+            }
+        }
+        return new Lesson();
+    }
+);
