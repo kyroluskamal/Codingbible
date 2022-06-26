@@ -47,3 +47,7 @@ export const LoadMenusFail = createAction(actionNames.MenuActions.LOAD_ALL_Menus
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const SetMenuValidationErrors = createAction(actionNames.MenuActions.Set_ValidationErrors,
     props<{ validationErrors: ModelStateErrors[]; }>());
+export const AdditionIsComplete = createAction(actionNames.MenuActions.AdditionIsCompleted,
+    props<{ status: boolean; }>());
+export const UpdateIsCompleted = createAction(actionNames.MenuActions.UpdateIsCompleted,
+    props<{ status: boolean; }>());

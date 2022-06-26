@@ -10,7 +10,7 @@ import { MenusController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Menu } from "src/models.model";
 import { MenuService } from "src/Services/menu.service";
-import { AddMenu, AddMenu_Failed, AddMenu_Success, GetMenuByLocationName, GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenus, LoadMenusFail, LoadMenusSuccess, RemoveMenu, RemoveMenuItem, RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success, SetMenuValidationErrors, UpdateMenu, UpdateMenu_Failed, UpdateMenu_Sucess } from "./menu.actions";
+import { AdditionIsComplete, AddMenu, AddMenu_Failed, AddMenu_Success, GetMenuByLocationName, GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenus, LoadMenusFail, LoadMenusSuccess, RemoveMenu, RemoveMenuItem, RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success, SetMenuValidationErrors, UpdateIsCompleted, UpdateMenu, UpdateMenu_Failed, UpdateMenu_Sucess } from "./menu.actions";
 import { selectAll_Menus } from "./menu.reducer";
 
 @Injectable({
@@ -38,7 +38,8 @@ export class MenuEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Menu'));
                         this.store.dispatch(SetMenuValidationErrors({ validationErrors: [] }));
-                        return AddMenu_Success(r);
+                        this.store.dispatch(AddMenu_Success(r));
+                        return AdditionIsComplete({ status: true });
                     }),
                     catchError((e) =>
                     {
@@ -47,7 +48,8 @@ export class MenuEffects
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
                         else
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Menu'));
-                        return of(AddMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.store.dispatch(AddMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(AdditionIsComplete({ status: false }));
                     })
                 );
             })
@@ -69,7 +71,8 @@ export class MenuEffects
                             id: action.id,
                             changes: r.data as Menu
                         };
-                        return UpdateMenu_Sucess({ Menu: x });
+                        this.store.dispatch(UpdateMenu_Sucess({ Menu: x }));
+                        return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
                     {
@@ -78,7 +81,8 @@ export class MenuEffects
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
                         else
                             this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Menu'));
-                        return of(UpdateMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.store.dispatch(UpdateMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateIsCompleted({ status: false }));
                     })
                 );
             })
@@ -114,13 +118,15 @@ export class MenuEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         this.store.dispatch(SetMenuValidationErrors({ validationErrors: [] }));
-                        return RemoveMenu_Success({ id: action.id });
+                        this.store.dispatch(RemoveMenu_Success({ id: action.id }));
+                        return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Menu'));
-                        return of(RemoveMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.store.dispatch(RemoveMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateIsCompleted({ status: false }));
                     })
                 );
             })
@@ -152,13 +158,15 @@ export class MenuEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
-                        return RemoveMenuItem_Success(r.data);
+                        this.store.dispatch(RemoveMenuItem_Success(r.data));
+                        return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Menu Item'));
-                        return of(RemoveMenuItem_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        this.store.dispatch(RemoveMenuItem_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                        return of(UpdateIsCompleted({ status: false }));
                     })
                 );
             })

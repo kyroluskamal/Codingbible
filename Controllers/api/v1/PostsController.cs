@@ -534,8 +534,8 @@ namespace CodingBible.Controllers.api.v1
                             await UpdateCategoryLevel(child);
                         }
                     }
-                    var slugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x => (string.Equals(x.EnSlug, slug))
-                || (string.Equals(x.ArSlug, slug)));
+                    var slugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x =>
+                    (Equals(x.EnSlug, slug)) || (Equals(x.ArSlug, slug)));
                     if (slugMap != null)
                     {
                         if (isArabic)

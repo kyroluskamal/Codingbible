@@ -121,6 +121,8 @@ export interface SlugMap_LessonState extends EntityState<SlugMap_Lessons>
 export interface MenuState extends EntityState<Menu>
 {
     ValidationErrors: ModelStateErrors[];
+    AdditionState: boolean;
+    UpdateState: boolean;
 }
 export interface LangState
 {

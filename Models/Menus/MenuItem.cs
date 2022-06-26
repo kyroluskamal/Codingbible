@@ -12,6 +12,7 @@ public class MenuItem
     [Column(TypeName = "tinyint")]
     public int Level { get; set; }
     public int OrderWithinParent { get; set; }
+    public int OrderWithMenu { get; set; }
     [ForeignKey(nameof(ParentKey))]
     public int? ParentKey { get; set; }
     public virtual MenuItem Parent { get; set; }

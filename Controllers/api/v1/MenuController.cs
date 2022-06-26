@@ -172,29 +172,58 @@ public class MenuController : ControllerBase
                 }
                 menu.Name = model.Name;
                 UnitOfWork.Menus.Update(menu);
-                foreach (var m in menu.MenuItems)
+                if (model.MenuItemToAdd != null)
                 {
-                    MenuItem menuItem = await UnitOfWork.MenuItems.GetFirstOrDefaultAsync(x => x.Id == m.Id);
-                    if (menuItem == null)
+                    List<MenuItem> sblings = (List<MenuItem>)await UnitOfWork.MenuItems.GetAllAsync(x => x.MenuId == menu.Id && x.ParentKey == model.MenuItemToAdd.ParentKey, orderBy: c => c.OrderBy(x => x.OrderWithinParent));
+                    sblings.Insert(model.MenuItemToAdd.OrderWithinParent - 1, model.MenuItemToAdd);
+                    for (var i = 0; i < sblings.Count; i++)
                     {
-                        await UnitOfWork.MenuItems.AddAsync(m);
+                        sblings[i].OrderWithinParent = i + 1;
+                        if (sblings[i].Id != model.MenuItemToAdd.Id)
+                        {
+                            UnitOfWork.MenuItems.Update(sblings[i]);
+                        }
+                    }
+                    await UnitOfWork.MenuItems.AddAsync(model.MenuItemToAdd);
+                }
+                if (model.MenuItemToEdit != null)
+                {
+                    var OldMenuItem = await UnitOfWork.MenuItems.GetFirstOrDefaultAsync(x => x.Id == model.MenuItemToEdit.Id);
+                    var oldLevel = OldMenuItem.Level;
+                    var oldOrderWithinParent = OldMenuItem.OrderWithinParent;
+                    OldMenuItem.EnName = model.MenuItemToEdit.EnName;
+                    OldMenuItem.ArName = model.MenuItemToEdit.ArName;
+                    OldMenuItem.ParentKey = model.MenuItemToEdit.ParentKey;
+                    OldMenuItem.EnUrl = model.MenuItemToEdit.EnUrl;
+                    OldMenuItem.ArUrl = model.MenuItemToEdit.ArUrl;
+                    OldMenuItem.Level = model.MenuItemToEdit.Level;
+                    OldMenuItem.OrderWithinParent = model.MenuItemToEdit.OrderWithinParent;
+                    OldMenuItem.MenuId = model.MenuItemToEdit.MenuId;
+                    List<MenuItem> sblings = (List<MenuItem>)await UnitOfWork.MenuItems.GetAllAsync(x => x.MenuId == menu.Id && x.ParentKey == model.MenuItemToEdit.ParentKey, orderBy: c => c.OrderBy(x => x.OrderWithinParent));
+                    if (sblings.Count > 0)
+                    {
+                        sblings.RemoveAt(oldOrderWithinParent - 1);
+                        sblings.Insert(OldMenuItem.OrderWithinParent - 1, OldMenuItem);
+                        for (var i = 0; i < sblings.Count; i++)
+                        {
+                            sblings[i].OrderWithinParent = i + 1;
+                            UnitOfWork.MenuItems.Update(sblings[i]);
+                        }
                     }
                     else
                     {
-                        menuItem.EnName = m.EnName;
-                        menuItem.ArName = m.ArName;
-                        menuItem.ParentKey = m.ParentKey;
-                        menuItem.EnUrl = m.EnUrl;
-                        menuItem.ArUrl = m.ArUrl;
-                        menuItem.Level = m.Level;
-                        menuItem.OrderWithinParent = m.OrderWithinParent;
-                        UnitOfWork.MenuItems.Update(menuItem);
+                        OldMenuItem.OrderWithinParent = 1;
+                        UnitOfWork.MenuItems.Update(OldMenuItem);
+                    }
+                    if (OldMenuItem.Level != oldLevel)
+                    {
+                        await this.UpdateMenuItemLevel(OldMenuItem);
                     }
                 }
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    return Ok(Constants.HttpResponses.Update_Sucess("Menu", menu));
+                    return Ok(Constants.HttpResponses.Update_Sucess("Menu", await UnitOfWork.Menus.GetFirstOrDefaultAsync(x => x.Id == model.Id, includeProperties: "MenuItems,MenuLocations")));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Menu"));
             }
@@ -242,7 +271,7 @@ public class MenuController : ControllerBase
     [HttpDelete]
     [Authorize(AuthenticationSchemes = "Custom")]
     [ValidateAntiForgeryTokenCustom]
-    [Route(nameof(DeleteMenuItem) + "/{Id}")]
+    [Route(nameof(DeleteMenuItem) + "/{MenuItemId}")]
     public async Task<IActionResult> DeleteMenuItem([FromRoute] int MenuItemId)
     {
         try
@@ -254,12 +283,36 @@ public class MenuController : ControllerBase
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response(menuItem.EnName));
                 }
-                UnitOfWork.MenuItems.Remove(menuItem);
+                List<MenuItem> sblings = (List<MenuItem>)await UnitOfWork.MenuItems.GetAllAsync(x => x.MenuId == menuItem.MenuId && x.ParentKey == menuItem.ParentKey, orderBy: c => c.OrderBy(x => x.OrderWithinParent));
+                sblings.RemoveAt(menuItem.OrderWithinParent - 1);
+                List<MenuItem> children = (List<MenuItem>)await UnitOfWork.MenuItems.GetAllAsync(x => x.ParentKey == menuItem.Id, orderBy: c => c.OrderBy(x => x.OrderWithinParent));
+                if (children.Count > 0)
+                {
+                    foreach (var child in children)
+                    {
+                        child.Level = menuItem.Level;
+                        child.ParentKey = menuItem.ParentKey;
+                    }
+                }
+                var MenuId = menuItem.MenuId;
+                await UnitOfWork.MenuItems.RemoveAsync(menuItem.Id);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    Menu Menu = await UnitOfWork.Menus.GetFirstOrDefaultAsync(x => x.Id == MenuItemId);
-                    return Ok(Constants.HttpResponses.Delete_Sucess("MenuItem", Menu));
+                    for (var i = 0; i < sblings.Count; i++)
+                    {
+                        sblings[i].OrderWithinParent = i + 1;
+                        UnitOfWork.MenuItems.Update(sblings[i]);
+                    }
+                    if (children.Count > 0)
+                    {
+                        foreach (var child in children)
+                        {
+                            await UpdateMenuItemLevel(child);
+                        }
+                    }
+                    await UnitOfWork.SaveAsync();
+                    return Ok(Constants.HttpResponses.Delete_Sucess("MenuItem", await UnitOfWork.Menus.GetFirstOrDefaultAsync(x => x.Id == MenuId, includeProperties: "MenuItems,MenuLocations")));
                 }
                 return BadRequest(Constants.HttpResponses.Delete_Failed("MenuItem"));
             }
@@ -270,6 +323,17 @@ public class MenuController : ControllerBase
             Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
                               e.Message, e.StackTrace, e.InnerException, e.Source);
             return BadRequest(e.Message);
+        }
+    }
+
+    private async Task UpdateMenuItemLevel(MenuItem menuItem)
+    {
+        var children = await UnitOfWork.MenuItems.GetAllAsync(x => x.ParentKey == menuItem.Id);
+        foreach (var child in children)
+        {
+            child.Level = menuItem.Level + 1;
+            UnitOfWork.MenuItems.Update(child);
+            await UpdateMenuItemLevel(child);
         }
     }
 }

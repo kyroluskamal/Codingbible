@@ -132,16 +132,19 @@ export class Menu
     menuLocationsId: number = 0;
     menuLocations: MenuLocations | null = null;
     menuItems: MenuItem[] = [];
+    menuItemToEdit: MenuItem | null = null;
+    menuItemToAdd: MenuItem | null = null;
 }
 export class MenuItem
 {
-    id: number = 0;
+    id?: number = 0;
     enName: string = "";
     enUrl: string = "";
     arName: string = "";
     arUrl: string = "";
     level: number = 0;
     orderWithinParent: number = 0;
+    orderWithMenu: number = 0;
     parentKey: number | null = null;
     parent: MenuItem | null = null;
     menuId: number = 0;

@@ -8,6 +8,7 @@ using CodingBible.Models;
 using Microsoft.AspNetCore.Authorization;
 using CodingBible.Models.Posts;
 using Microsoft.AspNetCore.Cors;
+using CodingBible.Models.Menus;
 
 namespace CodingBible.Controllers.api.v1;
 [ApiVersion("1.0")]

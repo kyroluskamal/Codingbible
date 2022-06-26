@@ -8,6 +8,10 @@ public class Menu
     public string Name { get; set; }
     [ForeignKey(nameof(MenuLocationsId))]
     public int MenuLocationsId { get; set; }
+    [NotMapped]
+    public MenuItem MenuItemToAdd { get; set; }
+    [NotMapped]
+    public MenuItem MenuItemToEdit { get; set; }
     public MenuLocations MenuLocations { get; set; }
     public ICollection<MenuItem> MenuItems { get; set; }
 }

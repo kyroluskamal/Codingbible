@@ -36,13 +36,13 @@
     color: white;
     border: none;
 }
-.menu-item :hover button i{
+.menu-item:hover div div button i{
     color: white !important;
 }
-.menu-item :hover button:hover{
+.menu-item:hover button:hover{
     background-color: white !important;
 }
-.menu-item :hover button:hover i{
+.menu-item:hover div div button:hover i{
     color:#0d6efd !important;
 }
 .menu-item :hover button:hover i.text-danger{

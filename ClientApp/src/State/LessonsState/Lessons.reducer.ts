@@ -179,3 +179,18 @@ export const selectLessonBySlug = (Slug: string) => createSelector(
         return new Lesson();
     }
 );
+export const selectLessonByCourseId = (courseId: number) => createSelector(
+    selectLessonsState,
+    (state) =>
+    {
+        let lessons: Lesson[] = [];
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.courseId === courseId)
+            {
+                lessons.push(state.entities[key]!);
+            }
+        }
+        return lessons;
+    }
+);

@@ -201,7 +201,8 @@ export class LessonHandlerComponent implements OnInit
       if (x['id'])
       {
         this.store.dispatch(GetLessonById({ id: Number(x['id']) }));
-        this.store.select(selectLessonsByID(Number(x['id']))).subscribe(r =>
+        this.LessonById = this.store.select(selectLessonsByID(Number(x['id'])));
+        this.LessonById.subscribe(r =>
         {
           if (r)
           {
@@ -228,10 +229,7 @@ export class LessonHandlerComponent implements OnInit
           }
           this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
           this.inputForm.markAllAsTouched();
-
         });
-
-
       }
     });
     if (this.ActionType === PostType.Add)

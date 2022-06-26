@@ -625,6 +625,8 @@ export const actionNames = {
         RemoveMenuItem: '[RemoveMenuItem] request',
         RemoveMenuItem_Success: '[RemoveMenuItem] Sucess',
         RemoveMenuItem_Failed: '[RemoveMenuItem] Failed',
+        UpdateIsCompleted: '[Menu UpdateIsCompleted] request',
+        AdditionIsCompleted: '[Menu AdditionIsCompleted] Sucess',
     },
     SlugMap: {
         Get_SlugMap_Posts_By_Slug: '[Get_SlugMap_Posts_By_Slug] request',

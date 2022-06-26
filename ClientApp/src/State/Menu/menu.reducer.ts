@@ -1,11 +1,21 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { MenuState } from "../app.state";
 import { dummyAction } from "../PostState/post.actions";
-import { AddMenu_Failed, AddMenu_Success, GetMenuById_Failed, GetMenuById_Success, GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenusSuccess, RemoveMenuItem, RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success, SetMenuValidationErrors, UpdateMenu_Failed, UpdateMenu_Sucess } from "./menu.actions";
+import
+{
+    AddMenu_Failed, AddMenu_Success, GetMenuById_Failed,
+    GetMenuById_Success,
+    GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenusSuccess,
+    RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success,
+    SetMenuValidationErrors, UpdateMenu_Failed, UpdateMenu_Sucess,
+    AdditionIsComplete, UpdateIsCompleted
+} from "./menu.actions";
 import { MenuAdapter, MenusCount, selectAllMenus, selectMenu_Entities, selectMenu_Ids } from "./menu.adapter";
 
 export const initialState: MenuState = MenuAdapter.getInitialState({
-    ValidationErrors: []
+    ValidationErrors: [],
+    AdditionState: false,
+    UpdateState: false,
 });
 // Creating reducer                        
 export const MenuReducer = createReducer(
@@ -73,6 +83,20 @@ export const MenuReducer = createReducer(
             initialState
         };
     }),
+    on(AdditionIsComplete, (state, res) =>
+    {
+        return {
+            ...state,
+            AdditionState: res.status
+        };
+    }),
+    on(UpdateIsCompleted, (state, res) =>
+    {
+        return {
+            ...state,
+            UpdateState: res.status
+        };
+    }),
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -95,3 +119,5 @@ export const select_Menu_ValidationErrors = createSelector(
     selectMenuState,
     (state) => state.ValidationErrors!
 );
+export const Select_Menu_AdditionState = createSelector(selectMenuState, (state) => state.AdditionState);
+export const Select_Menu_UpdateState = createSelector(selectMenuState, (state) => state.UpdateState);

@@ -1,6 +1,7 @@
 export const HomeRoutes = {
     Home: "home",
     NotFound: "not-found",
+    Courses: "courses",
 };
 
 export const AuthRoutes = {

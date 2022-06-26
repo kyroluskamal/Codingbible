@@ -1,0 +1,336 @@
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 00:32:15 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 00:36:20 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "4cafed0e-9ae3-4b0a-8c3a-2fc74873859d"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIMVCFMU0NG:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIMVCFMU0NG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:00:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '25/06/2022 22:09:52', Current time: '25/06/2022 23:00:59'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIMVCFMU0NR:00000001"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0NR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:00:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The instance of entity type 'MenuItem' cannot be tracked because another instance with the key value '{Id: 34}' is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached."
+StackTrace : "   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintAction(EntityEntryGraphNode`1 node)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraph[TState](EntityEntryGraphNode`1 node, Func`2 handleNode)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraph(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.SetEntityState(InternalEntityEntry entry, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Update(TEntity entity)
+   at CodingBible.UnitOfWork.Repository.MenuItems.MenuItemRepositoryAsync.Update(MenuItem menuItem) in E:\Bussiness\Project\CodingBible\UnitOfWork\Repository\Menus\MenuItemRepositoryAsync.cs:line 16
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\MenuController.cs:line 214"
+InnerException : null
+Source : "Microsoft.EntityFrameworkCore"
+ActionId : "7cf6ca8f-494a-43fa-8e0a-70baef6ca7b9"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0NR:00000001"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0NR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:01:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The instance of entity type 'MenuItem' cannot be tracked because another instance with the key value '{Id: 34}' is already being tracked. When attaching existing entities, ensure that only one entity instance with a given key value is attached."
+StackTrace : "   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.ThrowIdentityConflict(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry, Boolean updateDuplicate)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(TKey key, InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.IdentityMap`1.Add(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.StartTracking(InternalEntityEntry entry)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState oldState, EntityState newState, Boolean acceptChanges, Boolean modifyProperties)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.InternalEntityEntry.SetEntityState(EntityState entityState, Boolean acceptChanges, Boolean modifyProperties, Nullable`1 forceStateWhenUnknownKey)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.PaintAction(EntityEntryGraphNode`1 node)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityEntryGraphIterator.TraverseGraph[TState](EntityEntryGraphNode`1 node, Func`2 handleNode)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher.AttachGraph(InternalEntityEntry rootEntry, EntityState targetState, EntityState storeGeneratedWithKeySetTargetState, Boolean forceStateWhenUnknownKey)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.SetEntityState(InternalEntityEntry entry, EntityState entityState)
+   at Microsoft.EntityFrameworkCore.Internal.InternalDbSet`1.Update(TEntity entity)
+   at CodingBible.UnitOfWork.Repository.MenuItems.MenuItemRepositoryAsync.Update(MenuItem menuItem) in E:\Bussiness\Project\CodingBible\UnitOfWork\Repository\Menus\MenuItemRepositoryAsync.cs:line 16
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\MenuController.cs:line 214"
+InnerException : null
+Source : "Microsoft.EntityFrameworkCore"
+ActionId : "7cf6ca8f-494a-43fa-8e0a-70baef6ca7b9"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0NR:00000003"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0NR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:17:10 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "5402bbb1-d489-4831-b7c6-2e731f6c81a4"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIMVCFMU0NV:0000000D"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIMVCFMU0NV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:22:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+StackTrace : "   at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model)"
+InnerException : null
+Source : "System.Private.CoreLib"
+ActionId : "22d04564-5017-4904-8062-636e7720fd2e"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0O2:00000019"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0O2"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:22:48 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+StackTrace : "   at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model)"
+InnerException : null
+Source : "System.Private.CoreLib"
+ActionId : "22d04564-5017-4904-8062-636e7720fd2e"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0O2:0000001B"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0O2"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:23:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+StackTrace : "   at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model)"
+InnerException : null
+Source : "System.Private.CoreLib"
+ActionId : "22d04564-5017-4904-8062-636e7720fd2e"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0O2:0000001D"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0O2"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:27:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+StackTrace : "   at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model)"
+InnerException : null
+Source : "System.Private.CoreLib"
+ActionId : "71d88896-e86d-4020-9db8-1c8319685b39"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0O2:00000043"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0O2"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 01:28:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')"
+StackTrace : "   at System.Collections.Generic.List`1.RemoveAt(Int32 index)
+   at CodingBible.Controllers.api.v1.MenuController.UpdateMenu(Menu model)"
+InnerException : null
+Source : "System.Private.CoreLib"
+ActionId : "71d88896-e86d-4020-9db8-1c8319685b39"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.UpdateMenu (CodingBible)"
+RequestId : "0HMIMVCFMU0O2:00000051"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0O2"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 02:02:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '26/06/2022 00:00:59', Current time: '26/06/2022 00:02:44'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync()"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMIMVCFMU0OF:00000001"
+RequestPath : "/api/v1/Menu/UpdateMenu"
+ConnectionId : "0HMIMVCFMU0OF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 02:16:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The database operation was expected to affect 1 row(s), but actually affected 0 row(s); data may have been modified or deleted since entities were loaded. See http://go.microsoft.com/fwlink/?LinkId=527962 for information on understanding and handling optimistic concurrency exceptions."
+StackTrace : "   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ThrowAggregateUpdateConcurrencyException(Int32 commandIndex, Int32 expectedRowsAffected, Int32 rowsAffected)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeResultSetWithoutPropagationAsync(Int32 commandIndex, RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.AffectedCountModificationCommandBatch.ConsumeAsync(RelationalDataReader reader, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at CodingBible.UnitOfWork.ApplicationUserUnitOfWork.SaveAsync()
+   at CodingBible.Controllers.api.v1.MenuController.DeleteMenuItem(Int32 MenuItemId)"
+InnerException : null
+Source : "Microsoft.EntityFrameworkCore.Relational"
+ActionId : "5467e951-c62c-468c-8854-8e61f8b361ef"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.DeleteMenuItem (CodingBible)"
+RequestId : "0HMIMVCFMU0OH:00000009"
+RequestPath : "/api/v1/Menu/DeleteMenuItem/42"
+ConnectionId : "0HMIMVCFMU0OH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 26/06/2022 02:16:30 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.MenuController.DeleteMenuItem(Int32 MenuItemId)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "5467e951-c62c-468c-8854-8e61f8b361ef"
+ActionName : "CodingBible.Controllers.api.v1.MenuController.DeleteMenuItem (CodingBible)"
+RequestId : "0HMIMVCFMU0OH:0000000B"
+RequestPath : "/api/v1/Menu/DeleteMenuItem/42"
+ConnectionId : "0HMIMVCFMU0OH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 6400
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
