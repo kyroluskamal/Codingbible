@@ -34,41 +34,49 @@
                  id="navbarNavDropdown">
                 <div class="w-100 d-flex justify-content-center">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
+                        <li class="nav-item nav-item-roots cursor-pointer"
+                            [routerLink]="(isArabic|async)?['','ar']:['']">
                             <a class="nav-link active"
                                aria-current="page"
                                [routerLink]="(isArabic|async)?['','ar']:['']">{{'Home'| translate}}</a>
                         </li>
-                        <li *ngFor="let m of selectedMenu?.menuItems">
-                            <a class="nav-link"
-                               [routerLink]="(isArabic|async)?['','ar',m.arUrl]:[m.enUrl]">
-                                <span *ngIf="(isArabic|async)">
-                                    {{m.arName}}
-                                </span>
-                                <span *ngIf="!(isArabic|async)">
-                                    {{m.enName}}
-                                </span>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"
-                               href="#"
-                               id="navbarDropdownMenuLink"
-                               role="button"
-                               data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                Courses
-                            </a>
-                            <ul class="dropdown-menu"
-                                aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item"
-                                       href="#">Action</a></li>
-                                <li><a class="dropdown-item"
-                                       href="#">Another action </a></li>
-                                <li><a class="dropdown-item"
-                                       href="#">Something else here</a></li>
-                            </ul>
-                        </li> -->
+                        <span *ngFor="let m of menuItemsRoots">
+                            <li class="nav-item nav-item-roots cursor-pointer"
+                                [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                                *ngIf="RootChildren(m).length === 0 else dorpdown">
+                                <a class="nav-link d-flex">
+                                    <span *ngIf="(isArabic|async)">{{m.arName}}</span>
+                                    <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
+                                </a>
+                            </li>
+                            <ng-template #dorpdown>
+                                <li class="nav-item nav-item-roots dropdown cursor-pointer"
+                                    [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                                    (mouseover)="dorpDownOpen(menu, parent)"
+                                    (mouseleave)="dropDownCLose(menu,parent)">
+                                    <a #parent
+                                       class="nav-link dropdown-toggle d-flex flex-row align-items-center"
+                                       role="button"
+                                       [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                                       data-bs-toggle="dropdown"
+                                       aria-expanded="false">
+
+                                        <span style="white-space: break-spaces;"
+                                              *ngIf="(isArabic|async)">{{m.arName}}</span>
+                                        <span style="white-space: break-spaces;"
+                                              *ngIf="!(isArabic|async)">{{m.enName}}</span>
+                                    </a>
+                                    <ul #menu
+                                        class="dropdown-menu"
+                                        aria-labelledby="navbarDropdownMenuLink">
+                                        <nav-childs *ngFor="let ch of RootChildren(m)"
+                                                    [MenuItems]="this.selectedMenu?.menuItems!"
+                                                    [MenuItemChild]="ch"></nav-childs>
+                                    </ul>
+                                </li>
+                            </ng-template>
+                        </span>
+
                     </ul>
                 </div>
                 <div class="d-flex flex-row gap-1">

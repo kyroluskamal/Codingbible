@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CoursesHomeRoutingModule } from './courses-home-routing.module';
 import { CoursesHomeComponent } from './courses-home/courses-home.component';
+import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 
 
 @NgModule({
@@ -10,7 +11,7 @@ import { CoursesHomeComponent } from './courses-home/courses-home.component';
     CoursesHomeComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule, SharedModuleForHomeModule,
     CoursesHomeRoutingModule
   ]
 })

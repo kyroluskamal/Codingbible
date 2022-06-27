@@ -10,7 +10,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 
 export const RoutesForHomeModule: Routes = [
   { path: "", component: HomeComponent },
-  { path: HomeRoutes.Courses, loadChildren: () => import('./Courses/courses-home.module').then(m => m.CoursesHomeModule) },
+  { path: HomeRoutes.Courses.Home, loadChildren: () => import('./Courses/courses-home.module').then(m => m.CoursesHomeModule) },
 ];
 
 @NgModule({

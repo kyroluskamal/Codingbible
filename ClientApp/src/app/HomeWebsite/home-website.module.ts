@@ -42,7 +42,9 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 // export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSyncReducer];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+
+  ],
   imports: [SharedModuleForHomeModule,
     // StoreModule.forFeature("HomeWebsiteModule", AppReducers, { metaReducers }),
 

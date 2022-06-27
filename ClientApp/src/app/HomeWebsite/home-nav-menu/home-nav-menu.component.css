@@ -47,12 +47,17 @@ div.dropdown>.dropdown-menu.show {
 .dropdown-item:hover,.dropdown-item:focus{
     background: none;
     color: var(--main-color);
-    font-weight: 500;
+    font-weight: 700;
+}
+[dir='rtl'] .dropdown-toggle::after{
+    margin-right: .255em;
 }
 .nav-item{
-    padding: 1rem !important;
     font-family: var(--Nuito-font);
     font-weight: 700;
+}
+.nav-item-roots{
+    padding: 1rem !important;
 }
 header{
     position: fixed;
@@ -72,4 +77,20 @@ header{
     background: var(--dark-color);
     color: white !important;
     transition: all 0.3s ease-in-out;
+}
+[dir='rtl'] .nav-link{
+    font-family: 'Cairo', sans-serif;
+}
+.dropdown-item{
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+.dropdown-menu{
+    width: 250px;
+}
+.dropdown a span {
+    white-space: break-spaces;
+}
+[dir='rtl'] .dropdown-item span{
+    direction: rtl !important;
 }

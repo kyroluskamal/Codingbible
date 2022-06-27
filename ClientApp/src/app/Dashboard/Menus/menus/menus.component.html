@@ -440,7 +440,7 @@
             <label for="arUrl">{{FormFieldsNames.MenuItemForm.arUrl}}</label>
         </div> <!-- end of Arabic Link tag -->
         <!-- *******************************************************************
-        *                           Parent Category
+        *                           Parent 
         **********************************************************************-->
         <div class="form-floating has-validation mb-3">
             <select #parent
@@ -456,7 +456,7 @@
                 <option value="0">No parent</option>
                 <option *ngFor="let cat of currentMenuItems"
                         [value]="cat.id"
-                        [disabled]="(cat.id === MenuItemForm.get('id')?.value||MenuItemForm.get('id')?.value==cat.parentKey)&&ActionTypeMenuItem!==PostType.Add">
+                        [hidden]="ActionTypeMenuItem!==PostType.Add&&(cat.id === MenuItemForm.get('id')?.value||isDescendant(cat))">
                     <span *ngFor="let _ of [].constructor(cat.level)">&nbsp;&nbsp;</span>{{cat.enName}}
                 </option>
             </select>

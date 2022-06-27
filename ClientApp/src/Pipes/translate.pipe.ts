@@ -50,7 +50,7 @@ export class TranslatePipe implements PipeTransform
       case 'Content': return 'المحتوى'; break;
       case 'Learn Computer Science and progrmming': return 'تعلم علوم الحاسب والبرمجة'; break;
       case 'firstSectionText': return `ليس هدف علوم الحاسب هو تعلم لغات البرمجة فقط ولكن هدفها هو تعلم كيفية حل المشكلات عن طريق
-       ايجاد افضل خوارزمية وتطبيق الحل باستخدام الغات البرمجة`; break;
+       ايجاد افضل خوارزمية وتطبيق الحل باستخدام لغات البرمجة`; break;
       case 'View all courses': return 'عرض جميع الدورات'; break;
       case "Our Goal": return "هدفنا"; break;
       case 'Learn basics': return 'تعلم الأساسيات'; break;

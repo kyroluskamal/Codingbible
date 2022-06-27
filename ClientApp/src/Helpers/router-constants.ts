@@ -1,7 +1,14 @@
 export const HomeRoutes = {
     Home: "home",
     NotFound: "not-found",
-    Courses: "courses",
+    Courses: {
+        Home: "courses",
+        Categories: "categories",
+    },
+    Blog: {
+        Home: "blog",
+        Categories: "categories",
+    }
 };
 
 export const AuthRoutes = {

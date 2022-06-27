@@ -1,6 +1,4 @@
-#HomeBody,main{
-    background-color:var(--bg-main-color);
-}
+
 h1+div, h1,h2{
     font-family: var(--Nuito-font);
 }

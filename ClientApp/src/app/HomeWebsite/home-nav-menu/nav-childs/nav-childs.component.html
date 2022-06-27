@@ -1,0 +1,39 @@
+<span *ngIf="MenuItemChild">
+    <li *ngIf="Children(MenuItemChild).length===0 else dorpdown"
+        class="cursor-pointer nav-item"
+        [dir]="(isArabic$|async)?'rtl':'ltr'"
+        [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
+        <a [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]"
+           class="dropdown-item d-flex">
+            <span *ngIf="(isArabic$|async)">{{MenuItemChild.arName}}</span>
+            <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span></a>
+    </li>
+    <ng-template #dorpdown>
+        <li class="nav-item dropdown cursor-pointer"
+            [dir]="(isArabic$|async)?'rtl':'ltr'"
+            [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
+            <a #parent
+               class="w-100 nav-link dropdown-toggle d-flex flex-row align-items-center justify-content-between"
+               role="button"
+               [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]"
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <span *ngIf="(isArabic$|async)"
+                      (mouseover)="dorpDownOpen(menu, parent)"
+                      (mouseleave)="dropDownCLose(menu,parent)"
+                      class="flex-grow-1">{{MenuItemChild.arName}}</span>
+                <span *ngIf="!(isArabic$|async)"
+                      (mouseover)="dorpDownOpen(menu, parent)"
+                      (mouseleave)="dropDownCLose(menu,parent)"
+                      class="flex-grow-1">{{MenuItemChild.enName}}</span>
+            </a>
+            <ul #menu
+                class="dropdown-menu"
+                aria-labelledby="navbarDropdownMenuLink">
+                <nav-childs *ngFor="let ch of Children(MenuItemChild)"
+                            [MenuItems]="MenuItems"
+                            [MenuItemChild]="ch"></nav-childs>
+            </ul>
+        </li>
+    </ng-template>
+</span>

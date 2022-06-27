@@ -7,6 +7,7 @@ import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, MenuItemType, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { HomeRoutes } from 'src/Helpers/router-constants';
 import { Category, Course, CourseCategory, Lesson, Menu, MenuItem, MenuLocations, Post, Section } from 'src/models.model';
 import { MenuService } from 'src/Services/menu.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -472,7 +473,8 @@ export class MenusComponent implements OnInit
     else if (this.selectedMenuItemType === MenuItemType.Course)
     {
       this.selectedCourseId = Number(courseValue);
-      this.updateMenuItemBasedOnObject(this.AllCourses, Number(courseValue));
+      this.updateMenuItemBasedOnObject(this.AllCourses, Number(courseValue),
+        `${HomeRoutes.Courses.Home}/`);
 
     } else if (this.selectedMenuItemType === MenuItemType.Course_section || this.selectedMenuItemType === MenuItemType.Course_lesson)
     {
@@ -498,7 +500,9 @@ export class MenusComponent implements OnInit
     }
     else if (this.selectedMenuItemType === MenuItemType.Course_section)
     {
-      this.updateMenuItemBasedOnObject(this.AllSections, Number(sectionValue));
+      this.updateMenuItemBasedOnObject(this.AllSections, Number(sectionValue),
+        `${HomeRoutes.Courses}/
+        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}&section=`);
     } else if (this.selectedMenuItemType === MenuItemType.Course_lesson)
     {
       this.selectedSectionId = Number(sectionValue);
@@ -516,7 +520,9 @@ export class MenusComponent implements OnInit
       this.MenuItemForm.get(FormControlNames.MenuItemForm.orderWithinParent)?.setValue(1);
     } else
     {
-      this.updateMenuItemBasedOnObject(this.AllLessons, Number(lessonId));
+      this.updateMenuItemBasedOnObject(this.AllLessons, Number(lessonId),
+        `${HomeRoutes.Courses}/
+        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}&lesson=`);
     }
   }
   ChangeCourseCategory(CourseCategoryId: string)
@@ -529,7 +535,8 @@ export class MenusComponent implements OnInit
       this.MenuItemForm.get(FormControlNames.MenuItemForm.orderWithinParent)?.setValue(1);
     } else
     {
-      this.updateMenuItemBasedOnObject(this.AllCourseCategory, Number(CourseCategoryId));
+      this.updateMenuItemBasedOnObject(this.AllCourseCategory, Number(CourseCategoryId),
+        `${HomeRoutes.Courses.Home}/${HomeRoutes.Courses.Categories}/`);
     }
   }
   ChangePost(PostId: string)
@@ -542,7 +549,8 @@ export class MenusComponent implements OnInit
       this.MenuItemForm.get(FormControlNames.MenuItemForm.orderWithinParent)?.setValue(1);
     } else
     {
-      this.updateMenuItemBasedOnObject(this.AllPosts, Number(PostId));
+      this.updateMenuItemBasedOnObject(this.AllPosts, Number(PostId),
+        `${HomeRoutes.Blog.Home}/`);
     }
   }
   ChangePostCategory(postCategoryId: string)
@@ -555,7 +563,8 @@ export class MenusComponent implements OnInit
       this.MenuItemForm.get(FormControlNames.MenuItemForm.orderWithinParent)?.setValue(1);
     } else
     {
-      this.updateMenuItemBasedOnObject(this.AllPostCategory, Number(postCategoryId));
+      this.updateMenuItemBasedOnObject(this.AllPostCategory, Number(postCategoryId),
+        `${HomeRoutes.Blog.Home}/${HomeRoutes.Blog.Categories}/`);
     }
   }
 
@@ -606,34 +615,34 @@ export class MenusComponent implements OnInit
   /** ******************************************************************************************
    *                                  Helper functions
    *********************************************************************************************/
-  updateMenuItemBasedOnObject<T>(AllArray: T[], id: number)
+  updateMenuItemBasedOnObject<T>(AllArray: T[], id: number, Type: string)
   {
     let selectedOb: any = AllArray.filter((x: any) => x['id'] === id)[0];
     if (Boolean(selectedOb[FormControlNames.courseForm.isArabic]))
     {
       let EnglishObj: any = AllArray.filter((x: any) => x.slug === selectedOb.otherSlug)[0];
       if (this.selectedMenuItemType === MenuItemType.Post || this.selectedMenuItemType === MenuItemType.Post_Category)
-        this.updateMenuItemForm(EnglishObj.title, selectedOb.title, EnglishObj.slug, selectedOb.slug);
+        this.updateMenuItemForm(EnglishObj.title, selectedOb.title, EnglishObj.slug, selectedOb.slug, Type);
       else
-        this.updateMenuItemForm(EnglishObj.name, selectedOb.name, EnglishObj.slug, selectedOb.slug);
+        this.updateMenuItemForm(EnglishObj.name, selectedOb.name, EnglishObj.slug, selectedOb.slug, Type);
     } else
     {
       let ArabicObj: any = AllArray.filter((x: any) => x.slug === selectedOb.otherSlug)[0];
       if (this.selectedMenuItemType === MenuItemType.Post || this.selectedMenuItemType === MenuItemType.Post_Category)
-        this.updateMenuItemForm(selectedOb.title, ArabicObj.title, selectedOb.slug, ArabicObj.slug);
+        this.updateMenuItemForm(selectedOb.title, ArabicObj.title, selectedOb.slug, ArabicObj.slug, Type);
       else
-        this.updateMenuItemForm(selectedOb.name, ArabicObj.name, selectedOb.slug, ArabicObj.slug);
+        this.updateMenuItemForm(selectedOb.name, ArabicObj.name, selectedOb.slug, ArabicObj.slug, Type);
     }
     this.MenuItemForm.get(FormControlNames.MenuItemForm.arUrl)?.disable();
     this.MenuItemForm.get(FormControlNames.MenuItemForm.enUrl)?.disable();
     this.MenuItemForm.markAllAsTouched();
   }
-  updateMenuItemForm(enName: string, arName: string, enUrl: string, arUrl: string)
+  updateMenuItemForm(enName: string, arName: string, enUrl: string, arUrl: string, homeRoute: string)
   {
     this.MenuItemForm.get(FormControlNames.MenuItemForm.enName)?.setValue(enName);
     this.MenuItemForm.get(FormControlNames.MenuItemForm.arName)?.setValue(arName);
-    this.MenuItemForm.get(FormControlNames.MenuItemForm.arUrl)?.setValue(arUrl);
-    this.MenuItemForm.get(FormControlNames.MenuItemForm.enUrl)?.setValue(enUrl);
+    this.MenuItemForm.get(FormControlNames.MenuItemForm.arUrl)?.setValue(homeRoute + arUrl);
+    this.MenuItemForm.get(FormControlNames.MenuItemForm.enUrl)?.setValue(homeRoute + enUrl);
     this.paritalDisableMenuItemForm();
   }
   getChildren(MenuItem: MenuItem)
@@ -653,5 +662,18 @@ export class MenusComponent implements OnInit
     this.MenuItemForm.enable();
     this.MenuItemForm.get(FormControlNames.MenuItemForm.arUrl)?.disable();
     this.MenuItemForm.get(FormControlNames.MenuItemForm.enUrl)?.disable();
+  }
+  isDescendant(menuItem: MenuItem): boolean
+  {
+    // let elementToCheckIfItIsParent = this.currentMenuItems.filter(x => x.id === Number(this.MenuItemForm.get('id')?.value))[0];
+    let parent = this.currentMenuItems.filter(x => x.id === menuItem.parentKey)[0];
+    if (parent)
+    {
+      if (parent.id === Number(this.MenuItemForm.get('id')?.value))
+        return true;
+      else
+        return this.isDescendant(parent);
+    }
+    return false;
   }
 }

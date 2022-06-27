@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;600;700&family=Nunito:wght@500;600;700;900&display=swap');@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,300&family=Pacifico&display=swap');/*'Chewy'*/
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600&family=Fira+Code:wght@300;600;700&family=Nunito:wght@500;600;700;900&display=swap');
 @import url("./assets/Fonts/Chewy/stylesheet.css");
 /*'Fredoka One'*/
 @import url("./assets/Fonts/Fredoka_One/stylesheet.css");
@@ -310,4 +310,8 @@ figure.figure img{
 } */
 .textArea-no-resize{
   resize: none; height: 120px !important;
+}
+#HomeBody,main{
+  background-color:var(--bg-main-color);
+  
 }
