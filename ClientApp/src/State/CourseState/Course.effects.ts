@@ -12,7 +12,7 @@ import { NotificationMessage, PostType, sweetAlert } from "src/Helpers/constants
 import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Course } from "src/models.model";
 import { CourseService } from "src/Services/course.service";
-import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
+import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetCourseBy_Slug, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
 import { selectAllCourses } from "./course.reducer";
 
 @Injectable({
@@ -48,6 +48,26 @@ export class CoursesEffects
                         })
                     );
                 return of(dummyAction());
+            })
+        )
+    );
+    GetCourseBySlug$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetCourseBy_Slug),
+            switchMap((action) =>
+            {
+                return this.CourseService.GetBySlug(CoursesController.GetCourseBySlug, action.slug).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetCourseBy_Slug_Success({ Course: r });
+                    }),
+                    catchError((e) =>
+                    {
+                        console.log(e);
+                        return of(GetCourseBy_Slug_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
             })
         )
     );

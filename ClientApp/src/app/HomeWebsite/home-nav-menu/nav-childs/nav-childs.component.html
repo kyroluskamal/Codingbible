@@ -4,6 +4,8 @@
         [dir]="(isArabic$|async)?'rtl':'ltr'"
         [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
         <a [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]"
+           routerLinkActive="active"
+           [routerLinkActiveOptions]="{exact: true}"
            class="dropdown-item d-flex">
             <span *ngIf="(isArabic$|async)">{{MenuItemChild.arName}}</span>
             <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span></a>
@@ -16,6 +18,8 @@
                class="w-100 nav-link dropdown-toggle d-flex flex-row align-items-center justify-content-between"
                role="button"
                [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]"
+               routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: true}"
                data-bs-toggle="dropdown"
                aria-expanded="false">
                 <span *ngIf="(isArabic$|async)"

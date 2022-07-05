@@ -1,0 +1,30 @@
+<div class="container-fluid body">
+    <div class="row py-3 px-md-5">
+        <main [dir]="(isArabic|async)? 'rtl':'ltr'"
+              class="col-md-9 col-12 d-flex flex-column gap-4">
+            <div>
+                <xng-breadcrumb></xng-breadcrumb>
+            </div>
+            <ng-template *ngTemplateOutlet="Body"></ng-template>
+        </main>
+        <aside class="col-md-3 col-12 d-flex flex-column gap-4">
+            <div>
+                <div class="input-group">
+                    <input type="text"
+                           class="form-control bg-light"
+                           aria-label="Search"
+                           placeholder="Search"
+                           aria-describedby="searchbox">
+                    <span class="input-group-text"
+                          id="searchbox"><i class="bi bi-search"></i></span>
+                </div>
+            </div>
+            <div class="sticky-top">
+                <img src="../../../assets/img/300x600.png"
+                     alt="">
+            </div>
+
+        </aside>
+    </div>
+</div>
+<app-footer></app-footer>

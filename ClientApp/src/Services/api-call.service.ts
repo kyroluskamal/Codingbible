@@ -18,6 +18,10 @@ export class ApiCallService<T> {
   {
     return this.httpClient.get<T>(`${apiUrl}/${id}`);
   }
+  GetBySlug(apiUrl: string, slug: string): Observable<T>
+  {
+    return this.httpClient.get<T>(`${apiUrl}/${slug}`);
+  }
   Add(apiUrl: string, model: T): Observable<T>
   {
     return this.httpClient.post<T>(apiUrl, model);

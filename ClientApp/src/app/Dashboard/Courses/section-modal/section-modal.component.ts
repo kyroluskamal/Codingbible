@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
+import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { ArabicRegex, BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
@@ -52,6 +53,7 @@ export class SectionModalComponent implements OnInit, OnChanges
   @ViewChild("SectionModal") modal!: BootstrapMoalComponent;
   constructor(private fb: FormBuilder, private store: Store,
     private TreeStructure: TreeDataStructureService<Section>,
+    private Notifications: NotificationsService,
     public clientSideSevrice: ClientSideValidationService,)
   {
     if (this.ActionType == PostType.Edit)
@@ -208,14 +210,24 @@ export class SectionModalComponent implements OnInit, OnChanges
       !== Boolean(this.SectionForm.get(FormControlNames.SectionForm.isArabic)?.value)));
     this.selectedTranslation = treeService.finalFlatenArray();
   }
-  setIsArabic(formControlName: string = "")
+  isTheSameCourseLang(formControlName: string)
   {
-    if (formControlName !== '')
+    let oldValue = this.SectionForm.get(formControlName)?.value;
+    if (this.SectionForm.get(formControlName)?.value !== '')
     {
       let isArabic = ArabicRegex.test(this.SectionForm.get(formControlName)?.value);
-      this.clientSideSevrice.setIsArabic(isArabic, this.CurrentCourse.isArabic, this.UpdateObject,
-        this.SectionForm, this.ActionType, "Section");
-      this.SelectTranslation();
+
+      if (!isArabic && this.CurrentCourse.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>You are adding section in an <span class='text-danger'>Arabic </span>course. You have to add it  in<span class="text-success"> Arabic</span></h4>`);
+        this.SectionForm.get(formControlName)?.setValue(oldValue);
+      } else if (isArabic && !this.CurrentCourse.isArabic)
+      {
+        this.Notifications.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
+          `<h4>You are adding section in an <span class='text-danger'>English </span>course. You have to add it in<span class="text-success"> English</span></h4>`);
+        this.SectionForm.get(formControlName)?.setValue(oldValue);
+      }
     }
   }
   GetSectionsByCourseId()

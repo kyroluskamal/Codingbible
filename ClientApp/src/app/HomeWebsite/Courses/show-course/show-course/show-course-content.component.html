@@ -1,0 +1,22 @@
+<app-home-nav-menu [LocationName]="'courses'"
+                   style="z-index: 1;"></app-home-nav-menu>
+<basic-skeleton [Body]="CourseContent"></basic-skeleton>
+<ng-template #CourseContent>
+    <ng-container *ngIf="(courseBySlug$|async)">
+        <div>
+            <div class="d-flex flex-row flex-wrap gap-1 mb-2">
+                <span class="badge bg-primary rounded-0 catBage"
+                      *ngFor="let cat of (courseBySlug$|async)![0]?.categoriesObject">
+                    <a [routerLink]="(isArabic$|async)?['','ar',HomeRoutes.Courses.Home, 
+                    HomeRoutes.Courses.Categories, cat.slug]:['',HomeRoutes.Courses.Home, 
+                    HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
+                </span>
+            </div>
+            <h1 class="page-h1">{{(courseBySlug$|async)![0]?.name}}</h1>
+            <p>{{(courseBySlug$|async)![0]?.description}}</p>
+        </div>
+        <img src="../../../../assets/img/horizontal.png"
+             class="noShadow"
+             alt="">
+    </ng-container>
+</ng-template>

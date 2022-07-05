@@ -2,7 +2,7 @@
 <main id="HomeBody"
       [dir]="(isArabic|async)? 'rtl':'ltr'"
       class="container-fluid flex-grow-1 p-0 ">
-    <section class="row vh-100 px-5 m-0 p-0 pt-5">
+    <section class="row m-0 px-md-5">
         <div class="col-md-6 col-12">
             <div class="px-3 d-flex flex-column align-items-center justify-content-center h-100">
                 <h1>{{'Learn Computer Science and progrmming'| translate}}</h1>
@@ -10,18 +10,20 @@
                     {{'firstSectionText'| translate}}
                 </div>
                 <div class="w-100 d-flex justify-content-start mt-5">
-                    <button class="btn HomePageButton">{{'View all courses'| translate}}</button>
+                    <button class="btn HomePageButton"
+                            [routerLink]="(isArabic|async)?['','ar',HomeRoutes.Courses.Home]:['',HomeRoutes.Courses.Home]">
+                        {{'View all courses'| translate}}</button>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-12 h-100">
+        <div class="col-md-6 col-12">
             <div class="d-flex flex-column justify-content-md-center justify-content-start h-100">
                 <img src="../../../assets/img/learn comuter science and programming 2.svg"
                      class="noShadow img-fluid">
             </div>
         </div>
     </section>
-    <section class="vh-100 d-flex align-items-center">
+    <section class="row d-flex align-items-center pb-2 m-0">
         <div class="secondSection"
              style="margin: auto;">
             <h2 class="text-center p-3">{{'Our Goal'| translate}}</h2>

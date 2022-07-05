@@ -23,6 +23,12 @@ export const GetCourseById_Success = createAction(actionNames.CourseActions.GetC
     props<Course>());
 export const GetCourseById_Failed = createAction(actionNames.CourseActions.GetCourseById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const GetCourseBy_Slug = createAction(actionNames.CourseActions.GetCourseBy_Slug,
+    props<{ slug: string; }>());
+export const GetCourseBy_Slug_Success = createAction(actionNames.CourseActions.GetCourseBy_Slug_Success,
+    props<{ Course: Course; }>());
+export const GetCourseBy_Slug_Failed = createAction(actionNames.CourseActions.GetCourseBy_Slug_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateCourse = createAction(actionNames.CourseActions.UPDATE_COURSE,
     props<Course>());
 export const UpdateCourse_Sucess = createAction(actionNames.CourseActions.UPDATE_COURSE_Success,

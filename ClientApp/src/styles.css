@@ -50,8 +50,9 @@
   --my-shadow: 2px 2px 11px -3px #cfcfcf;
   --homepage-titles-color:#0b0161;
   --FiraCode-font:'Fira Code', monospace;
-  --dark-color: rgba(33,37,41)
+  --dark-color: rgba(33,37,41);
 }
+
 .calibri-font{
   font-family: var(--Calibri) !important;
 }
@@ -314,4 +315,67 @@ figure.figure img{
 #HomeBody,main{
   background-color:var(--bg-main-color);
   
+}
+.body{
+  height: 100%;
+  background-color: var(--bg-main-color);
+}
+/* .body .row{
+  padding: 2.0rem 3.5rem;
+} */
+.body .row main >*:not(img), aside >*{
+  background-color: white;
+  box-shadow: 0px 2px 6px -3px rgba(5, 5, 5, 0.7);
+  border-radius: 4px;
+  padding: 1.0rem;
+}
+aside >*{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.page-h1{
+  font-family: var(--Nuito-font);
+  font-weight: bold;
+}
+* p:last-child{
+  margin-bottom: 0;
+}
+[dir="rtl"] .page-h1{
+  font-family: var(--NotoSansArabic);
+}
+p{
+  text-align: justify;
+  text-justify: inter-word;
+}
+.small-info{
+  color: gray;
+}
+.btn-orange{
+  background-color: var(--ButtonColor-orange)!important;
+  color: white !important;
+}
+[dir="rtl"] .nav-link{
+  font-weight: bold;
+}
+a:hover{
+  color: var(--main-color)!important;
+}
+h2.h5:hover{
+  text-decoration: underline;
+  color:var(--main-color);
+  cursor: pointer;
+}
+.btn-orange:hover{
+  background-color: var(--main-color)!important;
+}
+.xng-breadcrumb-item{
+  word-break: break-word;
+}
+.catBage a {
+  color:white !important;
+}
+.catBage:hover{
+  background-color:var(--ButtonColor-orange) !important;
 }

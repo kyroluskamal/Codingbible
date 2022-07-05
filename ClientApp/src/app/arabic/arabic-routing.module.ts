@@ -5,7 +5,10 @@ import { ArabicHomeComponent } from './arabic-home/arabic-home.component';
 
 const routes: Routes = [
   { path: '', component: ArabicHomeComponent },
-  { path: HomeRoutes.Courses.Home, loadChildren: () => import('../HomeWebsite/Courses/courses-home.module').then(m => m.CoursesHomeModule) },
+  {
+    path: HomeRoutes.Courses.Home, loadChildren: () => import('../HomeWebsite/Courses/courses-home.module').then(m => m.CoursesHomeModule),
+    data: { breadcrumb: 'الدورات' }
+  },
 ];
 
 @NgModule({

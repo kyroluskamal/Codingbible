@@ -38,6 +38,8 @@ public class Course
     public string IntroductoryVideoUrl { get; set; }
     [NotMapped]
     public int[] Categories { get; set; }
+    [NotMapped]
+    public List<CourseCategory> CategoriesObject { get; set; }
     [ForeignKey(nameof(AuthorId))]
     public int? AuthorId { get; set; }
     public virtual ApplicationUser Author { get; set; }

@@ -1,0 +1,976 @@
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 16:34:28 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 16:34:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "3e317226-2f1b-4be1-8fae-e7d7abd2116d"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIS6VSVE28G:00000001"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIS6VSVE28G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 16:34:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "20bbe36a-9c95-4162-9bea-e5ed08967879"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMIS6VSVE28G:00000007"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMIS6VSVE28G"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:10:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "b4417daa-8a84-475c-9fe3-8633246db73a"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMIS6VSVE28P:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/undefined"
+ConnectionId : "0HMIS6VSVE28P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:10:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj)
+   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b4417daa-8a84-475c-9fe3-8633246db73a"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMIS6VSVE28P:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/undefined"
+ConnectionId : "0HMIS6VSVE28P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:11:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj)
+   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b4417daa-8a84-475c-9fe3-8633246db73a"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMIS6VSVE28P:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/undefined"
+ConnectionId : "0HMIS6VSVE28P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 8124
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:43:20 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:43:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "6aaa3406-2e72-430e-aa4c-15edfbb8b320"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5D:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:43:27 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 113"
+InnerException : null
+Source : "CodingBible"
+ActionId : "6aaa3406-2e72-430e-aa4c-15edfbb8b320"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5D:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 19:43:36 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 113"
+InnerException : null
+Source : "CodingBible"
+ActionId : "6aaa3406-2e72-430e-aa4c-15edfbb8b320"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5D:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:20:22 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "86baf371-2f7e-49d5-937f-ca05646a7b9c"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5F:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5F"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:20:23 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 7
+ActionId : "86baf371-2f7e-49d5-937f-ca05646a7b9c"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5F:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5F"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:20:23 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "86baf371-2f7e-49d5-937f-ca05646a7b9c"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISA9ETOV5F:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISA9ETOV5F"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 13480
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:24:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 3588
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:30:00 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "61261952-4c15-4bc7-af0b-c92cc22940ab"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB3FFNAOH:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB3FFNAOH"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 3588
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:33:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:34:01 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "d19fae76-1240-4db4-bdcc-1f617003be2d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:34:01 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 7
+ActionId : "d19fae76-1240-4db4-bdcc-1f617003be2d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:34:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 114"
+InnerException : null
+Source : "CodingBible"
+ActionId : "d19fae76-1240-4db4-bdcc-1f617003be2d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:35:19 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "39098665-c25a-430b-a5a2-d4fd0423355f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:35:19 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 2
+ActionId : "39098665-c25a-430b-a5a2-d4fd0423355f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:35:19 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 7
+ActionId : "39098665-c25a-430b-a5a2-d4fd0423355f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:35:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "39098665-c25a-430b-a5a2-d4fd0423355f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB5N78JSC:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB5N78JSC"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 15160
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:35:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2420
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:36:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "d2835f79-b967-4584-903b-f464183df9da"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB6T9N76M:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB6T9N76M"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2420
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:36:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 2
+ActionId : "d2835f79-b967-4584-903b-f464183df9da"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB6T9N76M:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB6T9N76M"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2420
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:36:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 7
+ActionId : "d2835f79-b967-4584-903b-f464183df9da"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB6T9N76M:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB6T9N76M"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2420
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:36:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : 10
+ActionId : "d2835f79-b967-4584-903b-f464183df9da"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB6T9N76M:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB6T9N76M"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 2420
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "56f6f11b-e6a1-4dcc-b1eb-a5655d18bd82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Uncategorized"
+ActionId : "56f6f11b-e6a1-4dcc-b1eb-a5655d18bd82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:33 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 115"
+InnerException : null
+Source : "CodingBible"
+ActionId : "56f6f11b-e6a1-4dcc-b1eb-a5655d18bd82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:56 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Uncategorized"
+ActionId : "56f6f11b-e6a1-4dcc-b1eb-a5655d18bd82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:38:56 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 115"
+InnerException : null
+Source : "CodingBible"
+ActionId : "56f6f11b-e6a1-4dcc-b1eb-a5655d18bd82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:40:30 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "77a3bee7-0730-4808-bb7c-94895a665bfd"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:40:30 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Uncategorized"
+ActionId : "77a3bee7-0730-4808-bb7c-94895a665bfd"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:40:30 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Academic Courses"
+ActionId : "77a3bee7-0730-4808-bb7c-94895a665bfd"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:41:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "656bfe55-f253-4faf-ab3f-4e7db42b6286"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:0000000D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:42:00 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Uncategorized"
+ActionId : "656bfe55-f253-4faf-ab3f-4e7db42b6286"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:0000000D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:42:00 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Category : "Academic Courses"
+ActionId : "656bfe55-f253-4faf-ab3f-4e7db42b6286"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISB87VDQ4T:0000000D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISB87VDQ4T"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1188
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:43:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:43:33 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD92:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMISBB1UHD92"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:53:09 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD94:00000035"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:53:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD94:00000037"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:53:18 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD94:0000003D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525B4%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525B4%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525B4%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD%2525D8%2525AE%2525D8%2525B4%2525D9%252587%2525D9%25258A%2525D8%2525AD"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:53:21 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD94:00000041"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525B4%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525B4%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525B4%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD%252525D8%252525AE%252525D8%252525B4%252525D9%25252587%252525D9%2525258A%252525D8%252525AD"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:53:24 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "d1d4f9f3-783c-4aca-8ea3-f63d56a8d02f"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMISBB1UHD94:00000043"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 20:58:10 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "b2ad77cf-70ed-4b04-9161-d62f20f9dc41"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMISBB1UHD94:00000091"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMISBB1UHD94"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 21:06:41 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD98:00000011"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD"
+ConnectionId : "0HMISBB1UHD98"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 21:06:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD98:00000015"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25B4%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD%25D8%25AE%25D8%25B4%25D9%2587%25D9%258A%25D8%25AD"
+ConnectionId : "0HMISBB1UHD98"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 21:10:35 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD98:0000002B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad"
+ConnectionId : "0HMISBB1UHD98"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/07/2022 22:14:30 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 111"
+InnerException : null
+Source : "CodingBible"
+ActionId : "0c55e998-4435-420c-ae6d-34d628f62ac5"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMISBB1UHD9I:0000004D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%b4%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad%d8%ae%d8%b4%d9%87%d9%8a%d8%ad"
+ConnectionId : "0HMISBB1UHD9I"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 16020
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

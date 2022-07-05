@@ -5,7 +5,7 @@ import { CoursesHomeComponent } from './courses-home/courses-home.component';
 
 const routes: Routes = [
   { path: '', component: CoursesHomeComponent },
-  { path: HomeRoutes.Courses.Categories, loadChildren: () => import('../Courses/show-course/course-categories/course-categories.module').then(m => m.CourseCategoriesModule) },
+  { path: HomeRoutes.Courses.Categories, loadChildren: () => import('../Courses/course-categories/course-categories.module').then(m => m.CourseCategoriesModule) },
   { path: ':slug', loadChildren: () => import('./show-course/show-course.module').then(m => m.ShowCourseModule) },
 ];
 

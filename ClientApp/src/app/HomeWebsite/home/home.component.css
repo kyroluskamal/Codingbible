@@ -25,7 +25,7 @@ main section:first-child{
     margin: auto;
     box-shadow: var(--my-shadow);
     border-radius: 4px;
-    height: 90vh;
+    min-height: 90vh;
 }
 h2{
     color: var(--homepage-titles-color);
@@ -69,5 +69,9 @@ ul li:not(:last-child){
     background-color: var(--ButtonColor-orange);
     color: white;
     font-family: var(--Nuito-font);
-    min-width: 220px;
+    min-width: 2vmax;
+    font-size: 1.5vmax;
+}
+#HomeBody section{
+    min-height: 100vh;
 }

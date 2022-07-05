@@ -5,7 +5,7 @@ import
 {
     AddCourse_Failed, AddCourse_Success,
     ChangeStatus_Failed, ChangeStatus_Success, dummyAction,
-    GetCourseById_Failed, GetCourseById_Success, LoadCoursesSuccess,
+    GetCourseById_Failed, GetCourseById_Success, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCoursesSuccess,
     RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors,
     UpdateCourse_Failed, UpdateCourse_Sucess
 } from "./course.actions";
@@ -75,6 +75,14 @@ export const CourseReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
+    on(GetCourseBy_Slug_Success, (state, res) => adapter.CourseAdapter.upsertOne(res.Course, state)),
+    on(GetCourseBy_Slug_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
     on(dummyAction, (state) =>
     {
         return {
@@ -102,12 +110,20 @@ export const selectCourseBySlug = (Slug: string) => createSelector(
     {
         for (let key in state.entities)
         {
-            if (state.entities[key]?.slug === Slug)
+            if (!state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === Slug)
+                {
+                    return state.entities[key];
+                }
+            if (state.entities[key]?.isArabic)
             {
-                return state.entities[key];
+                if (state.entities[key]?.slug.localeCompare(Slug, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    return state.entities[key];
+                }
             }
         }
-        return new Course();
+        return undefined;
     }
 );
 export const selectCourseIds = createSelector(selectCourseState, adapter.selectCourseIds);

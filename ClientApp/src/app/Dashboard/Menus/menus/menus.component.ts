@@ -502,7 +502,7 @@ export class MenusComponent implements OnInit
     {
       this.updateMenuItemBasedOnObject(this.AllSections, Number(sectionValue),
         `${HomeRoutes.Courses}/
-        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}&section=`);
+        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}/section/`);
     } else if (this.selectedMenuItemType === MenuItemType.Course_lesson)
     {
       this.selectedSectionId = Number(sectionValue);
@@ -522,7 +522,7 @@ export class MenusComponent implements OnInit
     {
       this.updateMenuItemBasedOnObject(this.AllLessons, Number(lessonId),
         `${HomeRoutes.Courses}/
-        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}&lesson=`);
+        ${this.AllCourses.filter(x => x.id === this.selectedCourseId)[0].slug}/lesson/`);
     }
   }
   ChangeCourseCategory(CourseCategoryId: string)

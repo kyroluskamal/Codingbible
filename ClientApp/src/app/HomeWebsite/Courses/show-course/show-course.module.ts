@@ -2,16 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ShowCourseRoutingModule } from './show-course-routing.module';
-import { ShowCourseComponent } from './show-course/show-course.component';
+import { ShowCourseContentComponent } from './show-course/show-course-content.component';
+import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 
 
 @NgModule({
   declarations: [
-    ShowCourseComponent
+    ShowCourseContentComponent
   ],
   imports: [
     CommonModule,
-    ShowCourseRoutingModule
+    ShowCourseRoutingModule, SharedModuleForHomeModule
   ]
 })
 export class ShowCourseModule { }

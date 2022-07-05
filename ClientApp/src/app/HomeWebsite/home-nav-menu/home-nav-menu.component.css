@@ -60,8 +60,6 @@ div.dropdown>.dropdown-menu.show {
     padding: 1rem !important;
 }
 header{
-    position: fixed;
-    width: 100vw;
     z-index: 1;
 }
 .navbar-brand{

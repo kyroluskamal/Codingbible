@@ -185,6 +185,7 @@ export class Course
     students: StudentsPerCourse[] = [];
     isArabic: boolean = false;
     otherSlug: string | null = null;
+    categoriesObject: CourseCategory[] = [];
 }
 
 export class CourseCategory

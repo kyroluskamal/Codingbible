@@ -5,7 +5,10 @@ import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { AuthGuard } from 'src/guards/auth.guard';
 import { HomeComponent } from './HomeWebsite/home/home.component';
 export const routes: Routes = [
-  { path: "", loadChildren: () => import('./HomeWebsite/home-website.module').then(m => m.HomeWebsiteModule) },
+  {
+    path: "", loadChildren: () => import('./HomeWebsite/home-website.module').then(m => m.HomeWebsiteModule),
+    data: { breadcrumb: 'Home' }
+  },
   { path: DashboardRoutes.Home, loadChildren: () => import('./Dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
   { path: "account", loadChildren: () => import('./HomeWebsite/auth-module/auth-module.module').then(m => m.AuthModuleModule) },
   { path: 'ar', loadChildren: () => import('./arabic/arabic.module').then(m => m.ArabicModule) },

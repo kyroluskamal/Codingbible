@@ -6,14 +6,15 @@ import { HomeComponent } from 'src/app/HomeWebsite/home/home.component';
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { NavChildsComponent } from 'src/app/HomeWebsite/home-nav-menu/nav-childs/nav-childs.component';
-
-const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent,
+import { BasicSkeletonComponent } from 'src/app/HomeWebsite/basic-skeleton/basic-skeleton.component';
+import { BreadcrumbModule } from 'xng-breadcrumb';
+const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkeletonComponent,
   NavChildsComponent, TranslatePipe];
 
 @NgModule({
   declarations: [Modules],
   imports: [
-    CommonModule, RouterModule
+    CommonModule, RouterModule, BreadcrumbModule
   ],
   exports: [Modules, CommonModule]
 })

@@ -1,9 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShowCourseComponent } from './show-course/show-course.component';
+import { ShowCourseContentComponent } from './show-course/show-course-content.component';
 
 const routes: Routes = [
-  { path: '', component: ShowCourseComponent },
+  {
+    path: '', component: ShowCourseContentComponent, data: {
+      breadcrumb: {
+        alias: 'courseSlug'
+      }
+    }
+  },
+  { path: 'section', loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule) },
+  { path: 'lesson', loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule) }
 ];
 
 @NgModule({

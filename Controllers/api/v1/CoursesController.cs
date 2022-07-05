@@ -51,6 +51,16 @@ public class CoursesController : ControllerBase
             var courses = await UnitOfWork.Courses.GetAllAsync(includeProperties: "Author,CoursesPerCategories,Students");
             foreach (var c in courses)
             {
+                c.CategoriesObject = new();
+                foreach (var cat in c.CoursesPerCategories)
+                {
+                    var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
+                    c.CategoriesObject.Add(category);
+                }
+                foreach (var cat in c.CategoriesObject)
+                {
+                    await UpdateOtherSlug(cat);
+                }
                 await UpdateOtherSlug(c);
             }
             return Ok(courses.ToList());
@@ -63,13 +73,23 @@ public class CoursesController : ControllerBase
         }
     }
     [HttpGet]
-    [Route(nameof(GetCourseById))]
+    [Route(nameof(GetCourseById) + "/{id}")]
     [AllowAnonymous]
     public async Task<IActionResult> GetCourseById(int id)
     {
         try
         {
             var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Author,CoursesPerCategories,Students");
+            course.CategoriesObject = new();
+            foreach (var cat in course.CoursesPerCategories)
+            {
+                var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
+                course.CategoriesObject.Add(category);
+            }
+            foreach (var cat in course.CategoriesObject)
+            {
+                await UpdateOtherSlug(cat);
+            }
             await UpdateOtherSlug(course);
             return Ok(course);
         }
@@ -82,13 +102,23 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    [Route(nameof(GetCourseByName))]
+    [Route(nameof(GetCourseByName) + "/{name}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCourseByName(string name)
+    public async Task<IActionResult> GetCourseByName([FromRoute] string name)
     {
         try
         {
             var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name, includeProperties: "Author,CoursesPerCategories,Students");
+            course.CategoriesObject = new();
+            foreach (var cat in course.CoursesPerCategories)
+            {
+                var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
+                course.CategoriesObject.Add(category);
+            }
+            foreach (var cat in course.CategoriesObject)
+            {
+                await UpdateOtherSlug(cat);
+            }
             await UpdateOtherSlug(course);
             return Ok(course);
         }
@@ -101,13 +131,23 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    [Route(nameof(GetCourseBySlug))]
+    [Route(nameof(GetCourseBySlug) + "/{slug}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCourseBySlug(string slug)
+    public async Task<IActionResult> GetCourseBySlug([FromRoute] string slug)
     {
         try
         {
             var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Author,CoursesPerCategories,Students");
+            course.CategoriesObject = new();
+            foreach (var cat in course.CoursesPerCategories)
+            {
+                var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
+                course.CategoriesObject.Add(category);
+            }
+            foreach (var cat in course.CategoriesObject)
+            {
+                await UpdateOtherSlug(cat);
+            }
             await UpdateOtherSlug(course);
             return Ok(course);
         }
@@ -208,7 +248,6 @@ public class CoursesController : ControllerBase
                  * pass the authorize attribute. So, THIS CONDITION CAN BE TESTED only
                  * through checking if the HTTPSTATUS code is Unauthorized or redirect or not.
                  */
-                Log.Information("The user {UserName} is trying to add a course", user.UserName);
                 if (user == null)
                 {
                     await FunctionalService.Logout();
@@ -311,8 +350,8 @@ public class CoursesController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    courseToUpdate = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == course.Id, includeProperties: "CoursesPerCategories,Students");
-                    foreach (var cat in courseToUpdate.CoursesPerCategories)
+                    var UpdatedCourse = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Id == course.Id, includeProperties: "Author,CoursesPerCategories,Students");
+                    foreach (var cat in UpdatedCourse.CoursesPerCategories)
                     {
                         UnitOfWork.CoursesPerCategories.Remove(cat);
                     }
@@ -329,13 +368,23 @@ public class CoursesController : ControllerBase
                         }
                         await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
                     }
-                    if (courseToUpdate.IsArabic != course.IsArabic)
-                        await AddUpdate_SlugMapCourses(courseToUpdate);
+                    if (UpdatedCourse.IsArabic != course.IsArabic)
+                        await AddUpdate_SlugMapCourses(UpdatedCourse);
+                    await UpdateOtherSlug(UpdatedCourse);
                     await UnitOfWork.SaveAsync();
-                    await UpdateOtherSlug(courseToUpdate);
-                    return Ok(Constants.HttpResponses.Update_Sucess(courseToUpdate.Title, courseToUpdate));
+                    UpdatedCourse.CategoriesObject = new();
+                    foreach (var cat in UpdatedCourse.CoursesPerCategories)
+                    {
+                        var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
+                        UpdatedCourse.CategoriesObject.Add(category);
+                    }
+                    foreach (var cat in UpdatedCourse.CategoriesObject)
+                    {
+                        await UpdateOtherSlug(cat);
+                    }
+                    return Ok(Constants.HttpResponses.Update_Sucess(UpdatedCourse.Title, UpdatedCourse));
                 }
-                return BadRequest(Constants.HttpResponses.Update_Failed(courseToUpdate.Title));
+                return BadRequest(Constants.HttpResponses.Update_Failed(course.Title));
             }
             return BadRequest(Constants.HttpResponses.ModelState_Errors(ModelState));
         }
@@ -1825,11 +1874,13 @@ public class CoursesController : ControllerBase
     }
     private async Task UpdateOtherSlug<T>(T obj)
     {
+
         var type = obj.GetType();
 
         var IsArabic = type.GetProperty("IsArabic");
         var OtherSlug = type.GetProperty("OtherSlug");
         var Slug = type.GetProperty("Slug");
+        Log.Warning("Course {CourseName} 1883", Slug.GetValue(obj));
 
         if ((bool)IsArabic.GetValue(obj))
         {

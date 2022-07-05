@@ -3,7 +3,7 @@
         <div class="container-fluid px-5">
             <div class=" d-md-block d-none">
                 <div class="d-flex flex-row h-100 align-content-center gap-2">
-                    <div style="width: 50px;"
+                    <div style="width: 40px;"
                          class="d-flex align-items-lg-center">
                         <img src="../../../assets/img/logo.svg"
                              class="img-fluid noShadow"
@@ -16,7 +16,7 @@
             </div>
             <div class="d-md-none d-block">
                 <div class="d-flex flex-row h-100 align-content-center gap-2 ">
-                    <a class="navbar-brand fs-4"
+                    <a class="navbar-brand fs-4 m-0"
                        [routerLink]="(isArabic|async)?['','ar']:['']">
                         <span class="fw-bold">C</span>oding <span class="fw-bold">B</span>ible</a>
                 </div>
@@ -35,16 +35,21 @@
                 <div class="w-100 d-flex justify-content-center">
                     <ul class="navbar-nav">
                         <li class="nav-item nav-item-roots cursor-pointer"
-                            [routerLink]="(isArabic|async)?['','ar']:['']">
-                            <a class="nav-link active"
+                            [routerLink]="(isArabic|async)?['/ar']:['/']">
+                            <a class="nav-link "
                                aria-current="page"
-                               [routerLink]="(isArabic|async)?['','ar']:['']">{{'Home'| translate}}</a>
+                               [routerLink]="(isArabic|async)?['/ar']:['/']"
+                               [routerLinkActiveOptions]="{exact: true}"
+                               routerLinkActive="active">{{'Home'| translate}}</a>
                         </li>
                         <span *ngFor="let m of menuItemsRoots">
                             <li class="nav-item nav-item-roots cursor-pointer"
                                 [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
                                 *ngIf="RootChildren(m).length === 0 else dorpdown">
-                                <a class="nav-link d-flex">
+                                <a class="nav-link d-flex"
+                                   [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                                   routerLinkActive="active"
+                                   [routerLinkActiveOptions]="{exact: true}">
                                     <span *ngIf="(isArabic|async)">{{m.arName}}</span>
                                     <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
                                 </a>
@@ -59,6 +64,8 @@
                                        role="button"
                                        [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
                                        data-bs-toggle="dropdown"
+                                       routerLinkActive="active"
+                                       [routerLinkActiveOptions]="{exact: true}"
                                        aria-expanded="false">
 
                                         <span style="white-space: break-spaces;"
@@ -79,7 +86,7 @@
 
                     </ul>
                 </div>
-                <div class="d-flex flex-row gap-1">
+                <div class="w-25 d-flex flex-row gap-1 justify-content-center">
                     <button #en
                             [class]="!(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
                             (click)="gotToEnglish()">En</button>
@@ -87,61 +94,7 @@
                             [class]="(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
                             (click)=" gotToArabic()">Ar</button>
                 </div>
-                <!-- <div class="btn-group w-25"
-                     role="group"
-                     aria-label="First group"> -->
-                <!-- <a class="btn btn-outline-primary"
-                       [routerLink]="['', AuthRoutes.account, AuthRoutes.Register]">Register</a>
-                    <a class="btn btn-outline-primary"
-                       [routerLink]="['', AuthRoutes.account, AuthRoutes.Login]">Login</a> -->
-                <!-- </div> -->
-                <!-- <div class="dropdown h-100 border-end border-start"
-                     *ngIf="(IsLoggedIn|async)?.isLoggedIn">
-                    <div class="dropdown-toggle p-2 d-flex flex-row gap-2 cursor-pointer align-items-center"
-                         data-bs-toggle="dropdown"
-                         matRipple
-                         aria-expanded="false">
-                        <span class="rounded-circle p-2 d-flex justify-content-center align-items-center img-thumbnail mat-elevation-z2"
-                              style="width: 40px; height: 40px;">
-                            <span class="fs-6 fw-bold">
-                                KK
-                            </span>
-                        </span>
-                        <span class="d-flex flex-column">
-                            <span class="text-nowrap">{{(User|async)?.firstname}} {{(User|async)?.lastname}}</span>
-                            <span class="text-muted small">
-                                <ng-container *ngFor="let role of (UserRoles|async); let i =index">
-                                    {{i===(UserRoles|async)?.length!-1?role:role+','}}
-                                </ng-container>
-                            </span>
-                        </span>
-    
-                    </div>
-                    <ul class="dropdown-menu w-100"
-                        aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item cursor-pointer"
-                               [routerLink]="['', DashboardHome]">
-                                <i class="bi bi-speedometer2"></i><span class="ms-3">Dashboard</span>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item cursor-pointer">
-                                <i class="bi bi-person-fill"></i>
-                                <span class="ms-3">Profile</span>
-                            </a>
-                        </li>
-                        <li><a class="dropdown-item cursor-pointer">
-                                <i class="bi bi-gear-fill"></i><span class="ms-3">Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item cursor-pointer"
-                               (click)="logout()">
-                                <i class="bi bi-arrow-right-square-fill"></i><span class="ms-3">Logout</span>
-                            </a></li>
-                    </ul>
-                </div> -->
+
             </div>
         </div>
     </nav>

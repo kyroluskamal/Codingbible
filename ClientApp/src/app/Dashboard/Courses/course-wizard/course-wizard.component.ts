@@ -232,7 +232,7 @@ export class CourseWizardComponent implements OnInit
     {
       this.CourseToAddOrUpdate.otherSlug = null;
     }
-    // this.store.dispatch(AddCourse(this.CourseToAddOrUpdate));
+    this.store.dispatch(AddCourse(this.CourseToAddOrUpdate));
   }
   ShowCurrentStep(step: string)
   {
@@ -275,7 +275,7 @@ export class CourseWizardComponent implements OnInit
   }
   UpdateCourseInfo()
   {
-    let updatedSlug = this.CourseForm.get(FormControlNames.courseForm.title)?.value.replace(" ", '-').replace("|-", "");
+    let updatedSlug = this.clientSideSevice.GenerateSlug(this.CourseForm.get(FormControlNames.courseForm.title)?.value);
     if (this.CourseToAddOrUpdate.slug !== updatedSlug)
     {
       let isNotUnique = this.clientSideSevice.isNotUnique(this.allCourses, 'slug', updatedSlug, this.CourseToAddOrUpdate.id);

@@ -1,0 +1,2473 @@
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 01:09:05 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1000
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 01:10:02 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "24950137-65ac-4286-bdf2-66e16b885c2f"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMIT94K8QT8K:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMIT94K8QT8K"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1000
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 01:11:12 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "c2d06a69-3388-40fd-81f7-6c8dc25aedb7"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMIT94K8QT8L:0000000B"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMIT94K8QT8L"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 1000
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:22:13 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11840
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:25:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "eebcd37b-0f6b-49e0-9d1e-e787f1334f85"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMITS8GR8S9H:00000001"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMITS8GR8S9H"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11840
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:26:06 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "512e2238-ae01-4440-8769-f5bb28a5bcfa"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMITS8GR8S9H:00000005"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMITS8GR8S9H"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11840
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:26:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "68fd8937-1561-44ff-9ec6-cdd601617636"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITS8GR8S9H:0000000F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%B4%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD%D8%AE%D8%B4%D9%87%D9%8A%D8%AD"
+ConnectionId : "0HMITS8GR8S9H"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11840
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:31:11 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:31:23 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "5bdeab2b-4104-4cad-b146-2f98f8c5c395"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMITSC1SCSAI:00000001"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMITSC1SCSAI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:32:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "cb1a2409-bc6e-45d5-901a-21aeca0a9451"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMITSC1SCSAI:00000009"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMITSC1SCSAI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:33:15 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "c1a6de08-5b86-4fe9-9619-1a231a953b47"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.DeleteCourse (CodingBible)"
+RequestId : "0HMITSC1SCSAI:0000002B"
+RequestPath : "/api/v1/Courses/DeleteCourse/23"
+ConnectionId : "0HMITSC1SCSAI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 19:33:20 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+ActionId : "c1a6de08-5b86-4fe9-9619-1a231a953b47"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.DeleteCourse (CodingBible)"
+RequestId : "0HMITSC1SCSAI:0000002D"
+RequestPath : "/api/v1/Courses/DeleteCourse/24"
+ConnectionId : "0HMITSC1SCSAI"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:00:08 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAQ:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:00:08 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAQ:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:06:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAR:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:06:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAR:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:06:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAR:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:06:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAR:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:06:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSAR:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:08:07 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "cf391efd-b088-430b-afed-8ca52abf0021"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCourse (CodingBible)"
+RequestId : "0HMITSC1SCSAR:00000025"
+RequestPath : "/api/v1/Courses/AddCourse"
+ConnectionId : "0HMITSC1SCSAR"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:30:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB5:00000015"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB5"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:30:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB5:0000001B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB5"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:30:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB5:0000001D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB5"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:30:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB5:0000001F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB5"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:30:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB5:00000019"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB5"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:49 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:50 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:34:52 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '04/07/2022 18:32:51', Current time: '04/07/2022 18:34:52'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMITSC1SCSB7:00000019"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:36:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000025"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:36:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:00000029"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:36:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:0000002B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:36:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:0000002D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:36:55 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB7:0000002F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB8:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB8"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB8:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB8"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB8:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB8"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB8:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB8"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:01 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB8:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB8"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB9:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB9"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB9:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB9"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB9:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB9"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB9:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB9"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:38:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSB9:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSB9"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:43:04 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBB:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:43:04 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBB:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:43:04 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBB:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:43:04 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBB:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:43:04 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBB:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:46:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:46:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000001B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:46:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000001D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:46:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000001F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:46:15 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000021"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:50:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000029"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:50:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000002D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:50:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000002F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:50:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000031"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:50:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000033"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:51:23 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:0000004F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:51:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000053"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:51:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000055"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:51:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000057"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:51:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBD:00000059"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBD"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:54:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBG:00000001"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:54:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBG:00000005"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:54:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBG:00000007"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:54:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBG:00000009"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 20:54:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSBG:0000000B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/dasdddddddddhfhfhfghhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddddddddddd"
+ConnectionId : "0HMITSC1SCSBG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:42 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '04/07/2022 19:34:52', Current time: '04/07/2022 20:33:42'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMITSC1SCSBP:00000011"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:42 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '04/07/2022 19:34:52', Current time: '04/07/2022 20:33:42'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMITSC1SCSBP:0000000B"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "43891133-dfce-44ee-af75-455a632a86fc"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMITSC1SCSBP:0000001D"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "43891133-dfce-44ee-af75-455a632a86fc"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMITSC1SCSBP:00000025"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBP:00000027"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:33:43 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBP:00000027"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBP"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "43891133-dfce-44ee-af75-455a632a86fc"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMITSC1SCSBQ:00000001"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "43891133-dfce-44ee-af75-455a632a86fc"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMITSC1SCSBQ:00000003"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBQ:0000000D"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBQ:0000000D"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBQ:00000013"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 115"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+RequestId : "0HMITSC1SCSBQ:00000013"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:37:58 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "The payload was invalid. For more information go to http://aka.ms/dataprotectionwarning"
+StackTrace : "   at Microsoft.AspNetCore.DataProtection.Cng.CbcAuthenticatedEncryptor.DecryptImpl(Byte* pbCiphertext, UInt32 cbCiphertext, Byte* pbAdditionalAuthenticatedData, UInt32 cbAdditionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.Cng.Internal.CngAuthenticatedEncryptorBase.Decrypt(ArraySegment`1 ciphertext, ArraySegment`1 additionalAuthenticatedData)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.UnprotectCore(Byte[] protectedData, Boolean allowOperationsOnRevokedKeys, UnprotectStatus& status)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingBasedDataProtector.Unprotect(Byte[] protectedData)
+   at Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Unprotect(IDataProtector protector, String protectedData)
+   at CodingBible.Services.TokenService.TokenServ.ValidateAuthTokenAsync(ApplicationUser user, ApplicationUserTokens userOldToken, String UsernameFromCookie) in E:\Bussiness\Project\CodingBible\Services\TokenService\TokenServ.cs:line 195"
+InnerException : null
+Source : "Microsoft.AspNetCore.DataProtection"
+ActionId : "43891133-dfce-44ee-af75-455a632a86fc"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMITSC1SCSBQ:00000019"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMITSC1SCSBQ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 22:58:48 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "18da292b-aa71-4335-8d8c-cf5ecbd4621e"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.ChangStatus (CodingBible)"
+RequestId : "0HMITSC1SCSC0:0000004B"
+RequestPath : "/api/v1/Courses/ChangStatus"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000E1"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000E5"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000E7"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000E9"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:10 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000EB"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000ED"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000EF"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000F3"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:12 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000F5"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:13 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000F7"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:13 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000F9"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000FB"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%25D9%2585%25D9%2582%25D8%25AF%25D9%2585%25D8%25A9-%25D9%2581%25D9%258A-%25D8%25B9%25D9%2584%25D9%2588%25D9%2585-%25D8%25A7%25D9%2584%25D8%25AD%25D8%25A7%25D8%25B3%25D8%25A8---%25D8%25A7%25D9%2584%25D9%2586%25D8%25B3%25D8%25AE%25D8%25A9-%25D8%25A7%25D9%2584%25D9%2583%25D8%25A7%25D9%2585%25D9%2584-%25D9%2583%25D9%2585%25D8%25A7-%25D8%25AA%25D9%2588%25D8%25AC%25D8%25AF-%25D9%2581%25D9%258A-%25D9%2587%25D8%25A7%25D8%25B1%25D9%2581%25D8%25A7%25D8%25B1%25D8%25AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:000000FD"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%2525D9%252585%2525D9%252582%2525D8%2525AF%2525D9%252585%2525D8%2525A9-%2525D9%252581%2525D9%25258A-%2525D8%2525B9%2525D9%252584%2525D9%252588%2525D9%252585-%2525D8%2525A7%2525D9%252584%2525D8%2525AD%2525D8%2525A7%2525D8%2525B3%2525D8%2525A8---%2525D8%2525A7%2525D9%252584%2525D9%252586%2525D8%2525B3%2525D8%2525AE%2525D8%2525A9-%2525D8%2525A7%2525D9%252584%2525D9%252583%2525D8%2525A7%2525D9%252585%2525D9%252584-%2525D9%252583%2525D9%252585%2525D8%2525A7-%2525D8%2525AA%2525D9%252588%2525D8%2525AC%2525D8%2525AF-%2525D9%252581%2525D9%25258A-%2525D9%252587%2525D8%2525A7%2525D8%2525B1%2525D9%252581%2525D8%2525A7%2525D8%2525B1%2525D8%2525AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:00000101"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%2525D9%252585%2525D9%252582%2525D8%2525AF%2525D9%252585%2525D8%2525A9-%2525D9%252581%2525D9%25258A-%2525D8%2525B9%2525D9%252584%2525D9%252588%2525D9%252585-%2525D8%2525A7%2525D9%252584%2525D8%2525AD%2525D8%2525A7%2525D8%2525B3%2525D8%2525A8---%2525D8%2525A7%2525D9%252584%2525D9%252586%2525D8%2525B3%2525D8%2525AE%2525D8%2525A9-%2525D8%2525A7%2525D9%252584%2525D9%252583%2525D8%2525A7%2525D9%252585%2525D9%252584-%2525D9%252583%2525D9%252585%2525D8%2525A7-%2525D8%2525AA%2525D9%252588%2525D8%2525AC%2525D8%2525AF-%2525D9%252581%2525D9%25258A-%2525D9%252587%2525D8%2525A7%2525D8%2525B1%2525D9%252581%2525D8%2525A7%2525D8%2525B1%2525D8%2525AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:00000103"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%2525D9%252585%2525D9%252582%2525D8%2525AF%2525D9%252585%2525D8%2525A9-%2525D9%252581%2525D9%25258A-%2525D8%2525B9%2525D9%252584%2525D9%252588%2525D9%252585-%2525D8%2525A7%2525D9%252584%2525D8%2525AD%2525D8%2525A7%2525D8%2525B3%2525D8%2525A8---%2525D8%2525A7%2525D9%252584%2525D9%252586%2525D8%2525B3%2525D8%2525AE%2525D8%2525A9-%2525D8%2525A7%2525D9%252584%2525D9%252583%2525D8%2525A7%2525D9%252585%2525D9%252584-%2525D9%252583%2525D9%252585%2525D8%2525A7-%2525D8%2525AA%2525D9%252588%2525D8%2525AC%2525D8%2525AF-%2525D9%252581%2525D9%25258A-%2525D9%252587%2525D8%2525A7%2525D8%2525B1%2525D9%252581%2525D8%2525A7%2525D8%2525B1%2525D8%2525AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:00000105"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%2525D9%252585%2525D9%252582%2525D8%2525AF%2525D9%252585%2525D8%2525A9-%2525D9%252581%2525D9%25258A-%2525D8%2525B9%2525D9%252584%2525D9%252588%2525D9%252585-%2525D8%2525A7%2525D9%252584%2525D8%2525AD%2525D8%2525A7%2525D8%2525B3%2525D8%2525A8---%2525D8%2525A7%2525D9%252584%2525D9%252586%2525D8%2525B3%2525D8%2525AE%2525D8%2525A9-%2525D8%2525A7%2525D9%252584%2525D9%252583%2525D8%2525A7%2525D9%252585%2525D9%252584-%2525D9%252583%2525D9%252585%2525D8%2525A7-%2525D8%2525AA%2525D9%252588%2525D8%2525AC%2525D8%2525AF-%2525D9%252581%2525D9%25258A-%2525D9%252587%2525D8%2525A7%2525D8%2525B1%2525D9%252581%2525D8%2525A7%2525D8%2525B1%2525D8%2525AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:04:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSC0:00000107"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%2525D9%252585%2525D9%252582%2525D8%2525AF%2525D9%252585%2525D8%2525A9-%2525D9%252581%2525D9%25258A-%2525D8%2525B9%2525D9%252584%2525D9%252588%2525D9%252585-%2525D8%2525A7%2525D9%252584%2525D8%2525AD%2525D8%2525A7%2525D8%2525B3%2525D8%2525A8---%2525D8%2525A7%2525D9%252584%2525D9%252586%2525D8%2525B3%2525D8%2525AE%2525D8%2525A9-%2525D8%2525A7%2525D9%252584%2525D9%252583%2525D8%2525A7%2525D9%252585%2525D9%252584-%2525D9%252583%2525D9%252585%2525D8%2525A7-%2525D8%2525AA%2525D9%252588%2525D8%2525AC%2525D8%2525AF-%2525D9%252581%2525D9%25258A-%2525D9%252587%2525D8%2525A7%2525D8%2525B1%2525D9%252581%2525D8%2525A7%2525D8%2525B1%2525D8%2525AF"
+ConnectionId : "0HMITSC1SCSC0"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:39:57 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '04/07/2022 21:38:00', Current time: '04/07/2022 21:39:57'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMITSC1SCSCA:00000025"
+RequestPath : "/api/v1/Courses/GetLessons"
+ConnectionId : "0HMITSC1SCSCA"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:46:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:0000007D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:46:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:00000081"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:46:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:00000083"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:46:29 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:00000085"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%D9%85%D9%82%D8%AF%D9%85%D8%A9-%D9%81%D9%8A-%D8%B9%D9%84%D9%88%D9%85-%D8%A7%D9%84%D8%AD%D8%A7%D8%B3%D8%A8---%D8%A7%D9%84%D9%86%D8%B3%D8%AE%D8%A9-%D8%A7%D9%84%D9%83%D8%A7%D9%85%D9%84-%D9%83%D9%85%D8%A7-%D8%AA%D9%88%D8%AC%D8%AF-%D9%81%D9%8A-%D9%87%D8%A7%D8%B1%D9%81%D8%A7%D8%B1%D8%AF"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:47:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:00000087"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%d9%85%d9%82%d8%af%d9%85%d8%a9-%d9%81%d9%8a-%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%ad%d8%a7%d8%b3%d8%a8---%d8%a7%d9%84%d9%86%d8%b3%d8%ae%d8%a9-%d8%a7%d9%84%d9%83%d8%a7%d9%85%d9%84-%d9%83%d9%85%d8%a7-%d8%aa%d9%88%d8%ac%d8%af-%d9%81%d9%8a-%d9%87%d8%a7%d8%b1%d9%81%d8%a7%d8%b1%d8%af"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:47:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:0000008B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%d9%85%d9%82%d8%af%d9%85%d8%a9-%d9%81%d9%8a-%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%ad%d8%a7%d8%b3%d8%a8---%d8%a7%d9%84%d9%86%d8%b3%d8%ae%d8%a9-%d8%a7%d9%84%d9%83%d8%a7%d9%85%d9%84-%d9%83%d9%85%d8%a7-%d8%aa%d9%88%d8%ac%d8%af-%d9%81%d9%8a-%d9%87%d8%a7%d8%b1%d9%81%d8%a7%d8%b1%d8%af"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:47:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:0000008D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%d9%85%d9%82%d8%af%d9%85%d8%a9-%d9%81%d9%8a-%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%ad%d8%a7%d8%b3%d8%a8---%d8%a7%d9%84%d9%86%d8%b3%d8%ae%d8%a9-%d8%a7%d9%84%d9%83%d8%a7%d9%85%d9%84-%d9%83%d9%85%d8%a7-%d8%aa%d9%88%d8%ac%d8%af-%d9%81%d9%8a-%d9%87%d8%a7%d8%b1%d9%81%d8%a7%d8%b1%d8%af"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:47:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:0000008F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%d9%85%d9%82%d8%af%d9%85%d8%a9-%d9%81%d9%8a-%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%ad%d8%a7%d8%b3%d8%a8---%d8%a7%d9%84%d9%86%d8%b3%d8%ae%d8%a9-%d8%a7%d9%84%d9%83%d8%a7%d9%85%d9%84-%d9%83%d9%85%d8%a7-%d8%aa%d9%88%d8%ac%d8%af-%d9%81%d9%8a-%d9%87%d8%a7%d8%b1%d9%81%d8%a7%d8%b1%d8%af"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 04/07/2022 23:47:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 141"
+InnerException : null
+Source : "CodingBible"
+ActionId : "59adbcb1-6b3d-4a08-94e6-218ae932fc82"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMITSC1SCSCB:00000091"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/-cs50ap----%d9%85%d9%82%d8%af%d9%85%d8%a9-%d9%81%d9%8a-%d8%b9%d9%84%d9%88%d9%85-%d8%a7%d9%84%d8%ad%d8%a7%d8%b3%d8%a8---%d8%a7%d9%84%d9%86%d8%b3%d8%ae%d8%a9-%d8%a7%d9%84%d9%83%d8%a7%d9%85%d9%84-%d9%83%d9%85%d8%a7-%d8%aa%d9%88%d8%ac%d8%af-%d9%81%d9%8a-%d9%87%d8%a7%d8%b1%d9%81%d8%a7%d8%b1%d8%af"
+ConnectionId : "0HMITSC1SCSCB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/07/2022 01:33:20 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '04/07/2022 22:39:57', Current time: '04/07/2022 23:33:20'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMITSC1SCSCM:00000001"
+RequestPath : "/api/v1/Media/Upload"
+ConnectionId : "0HMITSC1SCSCM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/07/2022 01:35:00 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "b0625cbb-604b-49a2-b11f-78af35534910"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMITSC1SCSCM:0000000B"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMITSC1SCSCM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/07/2022 01:35:00 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1891
+   at CodingBible.Controllers.api.v1.CoursesController.UpdateCourse(Course course) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 375"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b0625cbb-604b-49a2-b11f-78af35534910"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMITSC1SCSCM:0000000B"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMITSC1SCSCM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/07/2022 01:35:06 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1891
+   at CodingBible.Controllers.api.v1.CoursesController.UpdateCourse(Course course) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 375"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b0625cbb-604b-49a2-b11f-78af35534910"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMITSC1SCSCM:0000000D"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMITSC1SCSCM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/07/2022 01:35:18 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.UpdateOtherSlug[T](T obj) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 1891
+   at CodingBible.Controllers.api.v1.CoursesController.UpdateCourse(Course course) in E:\Bussiness\Project\CodingBible\Controllers\api\v1\CoursesController.cs:line 375"
+InnerException : null
+Source : "CodingBible"
+ActionId : "b0625cbb-604b-49a2-b11f-78af35534910"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMITSC1SCSCM:0000000F"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMITSC1SCSCM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 5884
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
