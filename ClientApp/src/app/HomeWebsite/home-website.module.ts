@@ -27,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LowerCaseUrlSerializer } from 'src/CommonServices/LowerCaseUrlSerializer';
 import { UrlSerializer } from '@angular/router';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
+import { SectionChildHomeComponent } from '../../SharedModules/play-list/section-child-home/section-child-home.component';
 // export function localStorageSyncReducer(reducer: ActionReducer<AppState>): ActionReducer<any>
 // {
 //   return localStorageSync({
@@ -43,7 +44,6 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 
 @NgModule({
   declarations: [
-
 
   ],
   imports: [SharedModuleForHomeModule,

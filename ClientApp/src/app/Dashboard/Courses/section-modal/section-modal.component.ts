@@ -161,6 +161,7 @@ export class SectionModalComponent implements OnInit, OnChanges
       section.level = parent?.level + 1;
     }
     section.slug = this.clientSideSevrice.GenerateSlug(section.title);
+    section.nameSlugFragment = this.clientSideSevrice.GenerateSlug(section.name);
     let sbllings = this.sectionsForSelectmenu.filter(cat => cat.parentKey == section.parentKey);
     if (sbllings.length > 0)
     {
@@ -196,7 +197,17 @@ export class SectionModalComponent implements OnInit, OnChanges
     {
       newSection.level = parent?.level! + 1;
     }
+    let sbllings = this.sectionsForSelectmenu.filter(cat => cat.parentKey == newSection.parentKey);
+    if (sbllings.length > 0)
+    {
+      newSection.order = sbllings[sbllings.length - 1].order + 1;
+    }
+    else
+    {
+      newSection.order = 1;
+    }
     newSection.slug = this.clientSideSevrice.GenerateSlug(newSection.title);
+    newSection.nameSlugFragment = this.clientSideSevrice.GenerateSlug(newSection.name);
     if (this.SectionForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
     {
       newSection.otherSlug = null;

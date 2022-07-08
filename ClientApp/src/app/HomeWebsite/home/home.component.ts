@@ -20,8 +20,6 @@ export class HomeComponent implements OnInit
   ngOnInit(): void
   {
     this.meta.addTag({ property: 'og:title', content: 'Angular Universal Demo' });
-
-    this.store.dispatch(LoadPOSTs());
   }
 
 }

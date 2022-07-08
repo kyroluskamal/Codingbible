@@ -12,15 +12,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
 import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
 import { CodingBibleEditorComponent } from 'src/app/Dashboard/PostsInDashboard/editor/editor.component';
+import { SharedPipesModule } from './shared-pipes.module';
 const components = [MediaComponent, BootstrapMoalComponent,
-  PostStatusPipe, FileSizePipe, BypassStylePipe, SafeUrlPipe,
+  PostStatusPipe, FileSizePipe, BypassStylePipe,
   CodingBibleEditorComponent,
   CodingBiblePaginatorComponent, CodingBibleTableComponent];
 
 @NgModule({
   declarations: [components],
   imports: [
-    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule,
+    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule, SharedPipesModule
   ],
   exports: [components]
 })

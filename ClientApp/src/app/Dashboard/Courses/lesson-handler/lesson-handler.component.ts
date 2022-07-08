@@ -220,7 +220,7 @@ export class LessonHandlerComponent implements OnInit
             this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
 
             this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
-            this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
+            this.view.nativeElement.innerHTML = this.lesson.htmlContent === "" ? '' : this.lesson.htmlContent;
             for (let i = 0; i < lesson?.attachments.length!; i++)
             {
               this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
@@ -292,6 +292,7 @@ export class LessonHandlerComponent implements OnInit
     this.ClientSideService.FillObjectFromForm(this.lesson, this.inputForm);
     this.lesson.htmlContent = this.view.nativeElement.innerHTML;
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
+    this.lesson.nameSlugFragment = this.ClientSideService.GenerateSlug(this.lesson.name);
     this.lesson.tempAttach = this.lessonsAttachments;
     console.log(this.lesson);
     this.store.dispatch(UpdateLesson(this.lesson));
@@ -309,6 +310,7 @@ export class LessonHandlerComponent implements OnInit
     this.ClientSideService.FillObjectFromForm(this.lesson, this.inputForm);
     this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(view.innerHTML);
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
+    this.lesson.nameSlugFragment = this.ClientSideService.GenerateSlug(this.lesson.name);
     this.lesson.courseId = Number(this.SelectedCourseId);
     this.lesson.sectionId = Number(this.SelectedSectionId);
     this.lesson.tempAttach = this.lessonsAttachments;

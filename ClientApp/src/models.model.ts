@@ -229,6 +229,7 @@ export class Lesson
     vedioUrl: string = "";
     status: number = 0;
     orderWithinSection: number = 0;
+    nameSlugFragment: string = "";
     featureImageUrl: string = "";
     htmlContent: string = "";
     sectionId: number = 0;
@@ -246,6 +247,7 @@ export class Section
 {
     id: number = 0;
     name: string = "";
+    nameSlugFragment: string = "";
     title: string = "";
     description: string = "";
     slug: string = "";

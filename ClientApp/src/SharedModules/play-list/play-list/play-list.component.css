@@ -1,0 +1,180 @@
+.playlist {
+    background-color: var(--PlayList-color);
+}
+
+.playlist .accordion-button,
+.playlist .accordion-item {
+    background-color: inherit;
+}
+
+.playlist .accordion-button:focus {
+    box-shadow: none;
+}
+
+.playlist .accordion-button {
+    color: white;
+}
+
+.playlist .accordion-button::after {
+    background-image: none;
+    display: inline-block;
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    content: "";
+    border-top: 0;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0.3em solid;
+    border-left: 0.3em solid transparent;
+    width: unset;
+    height: unset;
+    z-index: 5;
+}
+
+.playlist .accordion-button {
+    display: flex;
+    justify-content: space-between;
+}
+
+.playlist .accordion-button:not(.collapsed)::after {
+    border-top: 0.3em solid;
+    border-bottom: 0;
+    border-right: 0.3em solid transparent;
+    border-left: 0.3em solid transparent;
+    width: unset;
+    height: unset;
+    background-image: none;
+    transform: none;
+    z-index: 5;
+}
+
+.playlist .accordion-collapse.collapse.show,
+.playlist .accordion-collapse.collapse.show .accordion-body {
+    background-color: #0b0161;
+}
+
+.playlist .accordion-button:not(.collapsed) {
+    background-color: unset;
+    color: #eeff65
+}
+
+.playlist .accordion-button:hover {
+    background-color: var(--ButtonColor-orange);
+    z-index: 5;
+}
+
+.playlist li a {
+    color: white;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone
+}
+
+.playlist li:not(li.active) a:hover {
+    color: var(--PlayList-color) !important;
+}
+
+.playlist li.active {
+    background-color: #ffffff;
+    position: relative;
+}
+
+.playlist li.active a {
+    font-weight: 600;
+    color: var(--ButtonColor-orange);
+}
+
+[dir="ltr"] .playlist li.active {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+}
+
+[dir="rtl"] .playlist li.active {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.playlist li.active::before,
+.playlist li.active a::before,
+.playlist li.active::after,
+.playlist li.active a::after {
+    content: "";
+    position: absolute;
+}
+
+.playlist li.active::before,
+.playlist li.active::after {
+    width: 10px;
+    height: 10px;
+    background-color: inherit;
+}
+
+[dir="ltr"] .playlist li.active::before,
+[dir="ltr"] .playlist li.active::after {
+    left: calc(100% - 10px);
+}
+
+[dir="rtl"] .playlist li.active::before,
+[dir="rtl"] .playlist li.active::after {
+    right: calc(100% - 10px);
+}
+
+.playlist li.active::before {
+    top: -10px;
+}
+
+.playlist li.active::after {
+    bottom: -10px;
+}
+
+.playlist li.active a::before,
+.playlist li.active a::after {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #0b0161;
+    z-index: 1;
+}
+
+[dir="rtl"] .playlist li.active a::before,
+[dir="rtl"] .playlist li.active a::after {
+    right: calc(100% - 20px);
+}
+
+[dir="ltr"] .playlist li.active a::before,
+[dir="ltr"] .playlist li.active a::after {
+    left: calc(100% - 20px);
+}
+
+.playlist li.active a::before {
+    top: -20px;
+}
+
+.playlist li.active a::after {
+    bottom: -20px;
+}
+
+.mh-30rem {
+    min-height: 30rem;
+}
+
+.playlist ul {
+    list-style: none;
+}
+
+[dir="rtl"] .playlist ul {
+    padding-right: 1rem;
+    padding: 0;
+}
+
+[dir="ltr"] .playlist ul {
+    padding-left: 1rem;
+}
+
+.playlistContainer {
+    border: 2px solid var(--PlayList-color);
+    --bs-gutter-x: 0rem !important;
+
+}
+
+.playlist .accordion-button {
+    transition: none !important;
+}

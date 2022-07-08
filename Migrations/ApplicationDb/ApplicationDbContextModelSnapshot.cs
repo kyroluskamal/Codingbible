@@ -171,7 +171,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 25, 16, 40, 24, 819, DateTimeKind.Local).AddTicks(6601));
+                        .HasDefaultValue(new DateTime(2022, 7, 7, 21, 55, 54, 564, DateTimeKind.Local).AddTicks(5247));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -197,7 +197,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 25, 16, 40, 24, 819, DateTimeKind.Local).AddTicks(7579));
+                        .HasDefaultValue(new DateTime(2022, 7, 7, 21, 55, 54, 564, DateTimeKind.Local).AddTicks(5938));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -354,6 +354,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NameSlugFragment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("OrderWithinSection")
                         .HasColumnType("int");
 
@@ -435,6 +438,9 @@ namespace CodingBible.Migrations.ApplicationDb
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NameSlugFragment")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
@@ -803,7 +809,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 25, 16, 40, 24, 819, DateTimeKind.Local).AddTicks(4311));
+                        .HasDefaultValue(new DateTime(2022, 7, 7, 21, 55, 54, 564, DateTimeKind.Local).AddTicks(3601));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -832,7 +838,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LasModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 6, 25, 16, 40, 24, 819, DateTimeKind.Local).AddTicks(5038));
+                        .HasDefaultValue(new DateTime(2022, 7, 7, 21, 55, 54, 564, DateTimeKind.Local).AddTicks(4226));
 
                     b.Property<float>("Priority")
                         .ValueGeneratedOnAdd()

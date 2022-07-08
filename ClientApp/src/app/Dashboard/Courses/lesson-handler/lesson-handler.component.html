@@ -406,7 +406,7 @@
                                class="cursor-pointer"
                                (click)="changeStatus(0)">Set as draft</a>)</span>
                         <span *ngIf="(LessonById|async)?.status===0 && ActionType!=PostType.Add">
-                            (<a [class]="inputForm.valid||(LessonById|async)?.htmlContent ||(LessonById|async)?.vedioUrl"
+                            (<a [class]="inputForm.valid||(LessonById|async)?.htmlContent ||(LessonById|async)?.vedioUrl?'text-primary':'disabledAnchor'"
                                (click)="changeStatus(1)">Publish</a>)</span>
                     </span>
                     <span *ngIf="(LessonById|async)"><strong>Created At: </strong>

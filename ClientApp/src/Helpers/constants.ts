@@ -572,6 +572,9 @@ export const actionNames = {
         UpdateLesson_Order: '[Lesson UpdateLesson_Order] request',
         UpdateLesson_Order_Success: '[Lesson UpdateLesson_Order] Sucess',
         UpdateLesson_Order_Failed: '[Lesson UpdateLesson_Order] Failed',
+        GetLessonBySlug: '[Lesson GetLessonBySlug] request',
+        GetLessonBySlug_Success: '[Lesson GetLessonBySlug] Sucess',
+        GetLessonBySlug_Failed: '[Lesson GetLessonBySlug] Failed',
     },
     SectionActions: {
         ADD_Section: '[Add Section] Request',

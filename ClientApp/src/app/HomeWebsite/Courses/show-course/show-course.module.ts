@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ShowCourseRoutingModule } from './show-course-routing.module';
 import { ShowCourseContentComponent } from './show-course/show-course-content.component';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
+import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
+import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
 
 
 @NgModule({
@@ -11,8 +13,8 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
     ShowCourseContentComponent
   ],
   imports: [
-    CommonModule,
-    ShowCourseRoutingModule, SharedModuleForHomeModule
+    CommonModule, PlayListModule,
+    ShowCourseRoutingModule, SharedModuleForHomeModule, SharedPipesModule,
   ]
 })
 export class ShowCourseModule { }

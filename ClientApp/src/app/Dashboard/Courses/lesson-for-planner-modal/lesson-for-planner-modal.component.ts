@@ -158,6 +158,7 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   {
     let lesson = new Lesson();
     lesson.name = this.inputForm.get(FormControlNames.LessonForm.name)?.value;
+    lesson.nameSlugFragment = this.ClientSideService.GenerateSlug(lesson.name);
     lesson.description = this.inputForm.get(FormControlNames.LessonForm.description)?.value;
     lesson.title = this.inputForm.get(FormControlNames.LessonForm.title)?.value;
     lesson.slug = this.ClientSideService.GenerateSlug(lesson.title);

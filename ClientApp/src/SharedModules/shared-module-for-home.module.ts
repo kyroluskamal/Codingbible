@@ -4,17 +4,18 @@ import { FooterComponent } from 'src/app/CommonComponents/footer/footer.componen
 import { HomeNavMenuComponent } from 'src/app/HomeWebsite/home-nav-menu/home-nav-menu.component';
 import { HomeComponent } from 'src/app/HomeWebsite/home/home.component';
 import { RouterModule } from '@angular/router';
-import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { NavChildsComponent } from 'src/app/HomeWebsite/home-nav-menu/nav-childs/nav-childs.component';
 import { BasicSkeletonComponent } from 'src/app/HomeWebsite/basic-skeleton/basic-skeleton.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
+import { SharedPipesModule } from './shared-pipes.module';
 const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkeletonComponent,
-  NavChildsComponent, TranslatePipe];
+
+  NavChildsComponent];
 
 @NgModule({
   declarations: [Modules],
   imports: [
-    CommonModule, RouterModule, BreadcrumbModule
+    CommonModule, RouterModule, BreadcrumbModule, SharedPipesModule
   ],
   exports: [Modules, CommonModule]
 })

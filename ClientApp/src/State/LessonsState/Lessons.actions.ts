@@ -23,6 +23,12 @@ export const GetLessonById_Success = createAction(actionNames.LessonActions.GetL
     props<Lesson>());
 export const GetLessonById_Failed = createAction(actionNames.LessonActions.GetLessonById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const GetLessonBySlug = createAction(actionNames.LessonActions.GetLessonBySlug,
+    props<{ slug: string; }>());
+export const GetLessonBySlug_Success = createAction(actionNames.LessonActions.GetLessonBySlug_Success,
+    props<Lesson>());
+export const GetLessonBySlug_Failed = createAction(actionNames.LessonActions.GetLessonBySlug_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const GetLessonByCourseId = createAction(actionNames.LessonActions.GetLessonByCourseId,
     props<{ courseId: number; }>());
 export const GetLessonByCourseId_Success = createAction(actionNames.LessonActions.GetLessonByCourseId_Success,

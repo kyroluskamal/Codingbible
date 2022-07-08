@@ -12,6 +12,7 @@ public class Section
     [Required]
     [StringLength(70, MinimumLength = 60, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Title_length)]
     public string Title { get; set; }
+    public string NameSlugFragment { get; set; }
     [Required]
     [StringLength(160, MinimumLength = 50, ErrorMessage = Constants.DataAnotationErrorMessages.SEO_Description_length)]
     public string Description { get; set; }

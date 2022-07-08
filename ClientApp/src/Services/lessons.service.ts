@@ -32,6 +32,10 @@ export class LessonsService extends ApiCallService<Lesson>
   {
     return this.HttpClient.get<Lesson[]>(`${CoursesController.GetLessonsByCourseId}/${courseId}`);
   }
+  GetLessonBySlug(slug: string): Observable<Lesson>
+  {
+    return this.HttpClient.get<Lesson>(`${CoursesController.GetLessonBySlug}/${slug}`);
+  }
   ChangeLessonOrder(lesson: Lesson[]): Observable<HttpResponsesObject>
   {
     return this.HttpClient.put<HttpResponsesObject>(CoursesController.ChangeLessonOrder, lesson);

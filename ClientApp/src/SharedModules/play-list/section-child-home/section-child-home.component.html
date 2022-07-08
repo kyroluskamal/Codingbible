@@ -1,0 +1,68 @@
+<div *ngIf="Section && Section.isLeafSection"
+     class="accordion accordion-flush"
+     [ngStyle]="Section.isArabic?{'margin-right.px': 10*Section.level}:{'margin-left.px': 10*Section.level}"
+     [id]="Section?.slug">
+    <div class="accordion-item">
+        <h2 class="accordion-header noBefore"
+            [id]="'heading'+Section?.slug">
+            <button class="accordion-button collapsed p-2"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-section-active]="Section.nameSlugFragment"
+                    [attr.data-bs-target]="'#'+Section.nameSlugFragment"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseOne">
+                {{Section.name}}
+            </button>
+        </h2>
+        <div [id]="Section.nameSlugFragment"
+             class="accordion-collapse collapse"
+             aria-labelledby="panelsStayOpen-headingOne"
+             [attr.data-bs-parent]="'#'+Section?.slug">
+            <div class="accordion-body p-0 d-flex flex-column"
+                 [ngClass]="Section.isArabic?'me-1':'ms-1'">
+                <ul class="small mb-4">
+                    <li class="p-2"
+                        [attr.data-lesson-active]="l.nameSlugFragment"
+                        *ngFor="let l of (AllLessons$|async)"
+                        (click)="SetLessonFragment(l)">
+                        <h3 class="h6 m-0">
+                            <a [class]="l.isArabic?'pe-3':'ps-3'"
+                               (click)="SetLessonFragment(l)">
+                                {{l.name}}
+                            </a>
+                        </h3>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="Section && !Section.isLeafSection"
+     class="accordion accordion-flush"
+     [id]="Section?.slug">
+    <div class="accordion-item">
+        <h4 class="accordion-header"
+            [id]="'heading'+Section?.slug">
+            <button class="accordion-button collapsed p-2"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    [attr.data-section-active]="Section.nameSlugFragment"
+                    [attr.data-bs-target]="'#'+Section.nameSlugFragment"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseOne">
+                {{Section.name}}
+            </button>
+        </h4>
+        <div [id]="Section.nameSlugFragment"
+             class="accordion-collapse collapse"
+             aria-labelledby="panelsStayOpen-headingOne"
+             [attr.data-bs-parent]="'#'+Section?.slug">
+            <div class="accordion-body p-0 d-flex flex-column gap-2">
+                <div *ngFor="let ch of children">
+                    <section-child-home [Section]="ch"></section-child-home>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

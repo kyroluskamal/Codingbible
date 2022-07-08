@@ -861,6 +861,7 @@ public class CoursesController : ControllerBase
                 getSection.WhatWillYouLearn = section.WhatWillYouLearn;
                 getSection.IntroductoryVideoUrl = section.IntroductoryVideoUrl;
                 getSection.Status = 0;
+                getSection.NameSlugFragment = section.NameSlugFragment;
                 UnitOfWork.Sections.Update(getSection);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
@@ -1045,7 +1046,6 @@ public class CoursesController : ControllerBase
     *******************************************************************************/
     #region Lessons CRUD
     [HttpGet]
-    [Authorize(AuthenticationSchemes = "Custom")]
     [Route(nameof(GetLessons))]
     public async Task<IActionResult> GetLessons()
     {
@@ -1066,7 +1066,6 @@ public class CoursesController : ControllerBase
         }
     }
     [HttpGet]
-    [Authorize(AuthenticationSchemes = "Custom")]
     [Route(nameof(GetLessonsByCourseId) + "/{courseId}")]
     public async Task<IActionResult> GetLessonsByCourseId([FromRoute] int courseId)
     {
@@ -1131,6 +1130,29 @@ public class CoursesController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [HttpGet]
+    [Route(nameof(GetLessonBySlug) + "/{slug}")]
+    public async Task<IActionResult> GetLessonBySlug([FromRoute] string slug)
+    {
+        try
+        {
+            var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Slug == slug, includeProperties: "Section,Attachments");
+            if (lesson == null)
+            {
+                return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
+            }
+            await UpdateOtherSlug(lesson);
+            return Ok(lesson);
+        }
+        catch (Exception e)
+        {
+            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
+                              e.Message, e.StackTrace, e.InnerException, e.Source);
+            return BadRequest(e.Message);
+        }
+    }
+
     [HttpPost]
     [Authorize(AuthenticationSchemes = "Custom")]
     [ValidateAntiForgeryTokenCustom]
@@ -1173,7 +1195,8 @@ public class CoursesController : ControllerBase
                     Attachments = lesson.Attachments,
                     IsArabic = lesson.IsArabic,
                     CourseId = lesson.CourseId,
-                    OtherSlug = lesson.OtherSlug
+                    OtherSlug = lesson.OtherSlug,
+                    NameSlugFragment = lesson.NameSlugFragment
                 };
                 if (lesson.Status == (int)Constants.PostStatus.Published)
                 {
@@ -1253,6 +1276,7 @@ public class CoursesController : ControllerBase
                 getLesson.CourseId = lesson.CourseId;
                 getLesson.IsArabic = lesson.IsArabic;
                 getLesson.OtherSlug = lesson.OtherSlug;
+                getLesson.NameSlugFragment = lesson.NameSlugFragment;
                 if (getLesson.Status == (int)Constants.PostStatus.Draft && lesson.Status == (int)Constants.PostStatus.Published)
                 {
                     getLesson.PublishedDate = DateTime.Now;
@@ -1874,13 +1898,11 @@ public class CoursesController : ControllerBase
     }
     private async Task UpdateOtherSlug<T>(T obj)
     {
-
         var type = obj.GetType();
 
         var IsArabic = type.GetProperty("IsArabic");
         var OtherSlug = type.GetProperty("OtherSlug");
         var Slug = type.GetProperty("Slug");
-        Log.Warning("Course {CourseName} 1883", Slug.GetValue(obj));
 
         if ((bool)IsArabic.GetValue(obj))
         {

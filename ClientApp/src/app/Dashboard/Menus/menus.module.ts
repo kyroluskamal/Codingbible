@@ -4,6 +4,7 @@ import { MenusComponent } from './menus/menus.component';
 import { MenusRoutingModule } from './menus-routing.module';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
 
 
 
@@ -13,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule, MenusRoutingModule, ShareComponentsforDashboardModule, ReactiveFormsModule,
-    FormsModule,
+    FormsModule, SharedPipesModule
   ]
 })
 export class MenusModule { }

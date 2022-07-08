@@ -10,6 +10,7 @@ import { LessonHandlerComponent } from '../lesson-handler/lesson-handler.compone
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { RouterModule } from '@angular/router';
 import { LessonForPlannerModalComponent } from '../lesson-for-planner-modal/lesson-for-planner-modal.component';
+import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
 
 
 
@@ -18,7 +19,7 @@ import { LessonForPlannerModalComponent } from '../lesson-for-planner-modal/less
     LessonHandlerComponent, SectionChildComponent, LessonForPlannerModalComponent,
     ShowAllLessonsComponent],
   imports: [RouterModule,
-    SharedModule, TooltipModule, ShareComponentsforDashboardModule, TabsModule,
+    SharedModule, TooltipModule, ShareComponentsforDashboardModule, TabsModule, SharedPipesModule,
   ], exports: [SectionModalComponent, CourseCategoryHandlerComponent, LessonHandlerComponent, ShowAllLessonsComponent,
     SharedModule, ShareComponentsforDashboardModule, TooltipModule, LessonForPlannerModalComponent,
     SectionChildComponent]

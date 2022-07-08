@@ -1,0 +1,76 @@
+<div class=" mh-30rem h-100"
+     #playlistContainer>
+    <div class="row playlistContainer h-100">
+        <div class="col-md-4 playlist p-0">
+            <div class="accordion accordion-flush"
+                 id="sectionAccordion">
+                <div class="accordion-item"
+                     [dir]="s.isArabic?'rtl':'ltr'"
+                     *ngFor="let s of RootSections">
+                    <h2 class="accordion-header noBefore"
+                        [id]="'heading'+s.id">
+                        <button class="accordion-button collapsed p-2"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                [attr.data-section-active]="s.nameSlugFragment"
+                                [attr.data-bs-target]="'#'+s.nameSlugFragment"
+                                aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                            {{s.name}}
+                        </button>
+                    </h2>
+                    <div [id]="s.nameSlugFragment"
+                         class="accordion-collapse collapse"
+                         aria-labelledby="panelsStayOpen-headingOne"
+                         data-bs-parent="#sectionAccordion">
+                        <div class="accordion-body p-0 d-flex flex-column gap-2">
+                            <section-child-home *ngFor="let ch of getChildren(s)"
+                                                [Section]="ch"
+                                                [courseId]="ch.courseId">
+                            </section-child-home>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 p-3">
+            <div *ngIf="(currentLessonFromFragment$|async)?.lesson else noCurrentLesson">
+                <h2 class="d-flex h4">
+                    <span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                        {{(currentLessonFromFragment$|async)?.lesson?.name}}
+                    </span>
+                </h2>
+                <div class="youtube-container align-center d-flex align-items-center justify-content-center">
+                    <iframe *ngIf="(currentLessonFromFragment$|async)?.lesson?.vedioUrl && (currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]"
+                            [src]="'https://www.youtube.com/embed/'+(currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]|safeUrl"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+                <img src="../../../../assets/img/horizontal.png"
+                     class="noShadow"
+                     alt="">
+                <div class="d-flex flex-row justify-content-center py-3 gap-5">
+                    <button class="btn"
+                            [disabled]="currentLessonIndex<=0"
+                            (click)="NextOrPrevious(-1)">
+                        <i
+                           [class]="(isArabic$|async)?'bi bi-arrow-right-circle-fill fs-4':'bi bi-arrow-left-circle-fill fs-4'"></i>
+                    </button>
+                    <button class="btn"
+                            [disabled]="currentLessonIndex>=AllLessons.length-1"
+                            (click)="NextOrPrevious(1)">
+                        <i
+                           [class]="(isArabic$|async)?'bi bi-arrow-left-circle-fill fs-4':'bi bi-arrow-right-circle-fill fs-4'"></i>
+                    </button>
+                </div>
+            </div>
+            <ng-template #noCurrentLesson>
+                <div class="d-flex flex-row justify-content-center align-items-center h-100">
+                    <span class="text-organge fs-4 fw-bold">{{'selectLesson'|translate}}</span>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

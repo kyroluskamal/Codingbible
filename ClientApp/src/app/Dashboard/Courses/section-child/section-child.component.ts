@@ -19,7 +19,6 @@ export class SectionChildComponent implements OnInit
   @Input() Section: Section | null = null;
   @Input() showSectionName: boolean = true;
   AllSections$ = this.store.select(selectAllSections);
-  AllLessions$ = this.store.select(selectAllLessons);
   AllLessons$ = this.store.select(selectAllLessons);
   AllSections: Section[] = [];
   selectedLessons: Lesson[] = [];

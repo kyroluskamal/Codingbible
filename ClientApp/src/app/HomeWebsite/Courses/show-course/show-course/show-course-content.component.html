@@ -1,6 +1,7 @@
 <app-home-nav-menu [LocationName]="'courses'"
                    style="z-index: 1;"></app-home-nav-menu>
-<basic-skeleton [Body]="CourseContent"></basic-skeleton>
+<basic-skeleton [Body]="CourseContent"
+                [ShowSidebar]="false"></basic-skeleton>
 <ng-template #CourseContent>
     <ng-container *ngIf="(courseBySlug$|async)">
         <div>
@@ -18,5 +19,19 @@
         <img src="../../../../assets/img/horizontal.png"
              class="noShadow"
              alt="">
+        <div>
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'Introduction to the course'|translate}}</span></h2>
+            <div class="youtube-container align-center d-flex align-items-center justify-content-center">
+                <iframe *ngIf="(courseBySlug$|async)![0]?.introductoryVideoUrl && (courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]"
+                        [src]="'https://www.youtube.com/embed/'+(courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]|safeUrl"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+            </div>
+        </div>
+        <playlist [AllSections]="AllSections"
+                  [RootSections]="RootSections"></playlist>
     </ng-container>
 </ng-template>

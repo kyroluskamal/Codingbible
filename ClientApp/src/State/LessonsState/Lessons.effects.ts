@@ -13,7 +13,7 @@ import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Lesson } from "src/models.model";
 import { LessonsService } from "src/Services/lessons.service";
-import { AddLesson, AddLesson_Failed, AddLesson_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetLessonByCourseId, GetLessonByCourseId_Failed, GetLessonByCourseId_Success, GetLessonById, GetLessonById_Failed, GetLessonById_Success, GetLessonsByCourseId, GetLessonsByCourseId_Failed, GetLessonsByCourseId_Success, LoadLessons, LoadLessonsFail, LoadLessonsSuccess, RemoveLesson, RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors, UpdateLesson, UpdateLesson_Failed, UpdateLesson_Order, UpdateLesson_Order_Failed, UpdateLesson_Order_Success, UpdateLesson_Sucess } from "./Lessons.actions";
+import { AddLesson, AddLesson_Failed, AddLesson_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetLessonByCourseId, GetLessonByCourseId_Failed, GetLessonByCourseId_Success, GetLessonById, GetLessonById_Failed, GetLessonById_Success, GetLessonBySlug, GetLessonBySlug_Failed, GetLessonBySlug_Success, GetLessonsByCourseId, GetLessonsByCourseId_Failed, GetLessonsByCourseId_Success, LoadLessons, LoadLessonsFail, LoadLessonsSuccess, RemoveLesson, RemoveLesson_Failed, RemoveLesson_Success, SetValidationErrors, UpdateLesson, UpdateLesson_Failed, UpdateLesson_Order, UpdateLesson_Order_Failed, UpdateLesson_Order_Success, UpdateLesson_Sucess } from "./Lessons.actions";
 import { selectAllLessons } from "./Lessons.reducer";
 
 
@@ -211,7 +211,6 @@ export class LessonsEffects
     );
     GetLessonByCourseId$ = createEffect(() =>
         this.actions$.pipe(
-            take(1),
             ofType(GetLessonByCourseId),
             exhaustMap((action) =>
             {
@@ -222,6 +221,22 @@ export class LessonsEffects
                         return GetLessonByCourseId_Success({ payload: r });
                     }),
                     catchError((e) => of(GetLessonByCourseId_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
+                );
+            })
+        )
+    );
+    GetLessonBySlug$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetLessonBySlug),
+            exhaustMap((action) =>
+            {
+                return this.LessonService.GetLessonBySlug(action.slug).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetLessonBySlug_Success(r);
+                    }),
+                    catchError((e) => of(GetLessonBySlug_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
                 );
             })
         )

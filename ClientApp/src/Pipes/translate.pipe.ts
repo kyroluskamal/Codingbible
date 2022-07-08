@@ -40,6 +40,7 @@ export class TranslatePipe implements PipeTransform
       best algorithms.`;
       case 'HowToWriteCodeText': return `Teaching you how to use programming languages to solve problems.`;
       case 'AllCoursesPageDescription': return `In this page you can find all courses. You can also use the search box in the sidebar.`;
+      case 'selectLesson': return `Select a lesson from the side menu`;
       default: return value;
     }
   }
@@ -68,6 +69,11 @@ export class TranslatePipe implements PipeTransform
       case "Follow us": return "تابعنا";
       case "Courses": return "الدورات";
       case 'AllCoursesPageDescription': return `هذه الصفحة تحتوي على جميع الدورات. يمكنك استخدام مربع البحث للتصفح بسرعة.`;
+      case 'Introduction to the course': return 'مقدمة عن الدورة';
+      case 'View': return 'عرض';
+      case 'Previous': return 'السابق';
+      case 'Next': return 'التالي';
+      case 'selectLesson': return 'اختر درس من القائمة الجانبية';
       default: return value;
     }
   }

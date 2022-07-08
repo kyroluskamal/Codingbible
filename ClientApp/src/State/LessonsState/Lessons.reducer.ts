@@ -1,10 +1,12 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { Lesson } from "src/models.model";
+import { Lesson, Section } from "src/models.model";
 import { LessonsState } from "../app.state";
 import
 {
     AddLesson_Failed, AddLesson_Success, ChangeStatus_Failed,
     ChangeStatus_Success, dummyAction, GetLessonById_Failed, GetLessonById_Success,
+    GetLessonBySlug_Failed,
+    GetLessonBySlug_Success,
     GetLessonsByCourseId_Failed,
     GetLessonsByCourseId_Success,
     LessonAdditionIsComplete,
@@ -141,6 +143,14 @@ export const LessonsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
+    on(GetLessonBySlug_Success, (state, res) => adapter.LessonsAdapter.upsertOne(res, state)),
+    on(GetLessonBySlug_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    }),
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -179,6 +189,35 @@ export const selectLessonBySlug = (Slug: string) => createSelector(
         return new Lesson();
     }
 );
+export const selectLessonByFragmentName = (fragment: string) => createSelector(
+    selectLessonsState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.nameSlugFragment === fragment)
+            {
+                return state.entities[key];
+            }
+        }
+        return undefined;
+    }
+);
+export const selectLessonBy_SectionId = (sectionId: number) => createSelector(
+    selectLessonsState,
+    (state) =>
+    {
+        let lessons: Lesson[] = [];
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.sectionId === sectionId)
+            {
+                lessons.push(state.entities[key]!);
+            }
+        }
+        return lessons.sort((a, b) => a.orderWithinSection - b.orderWithinSection);
+    }
+);
 export const selectLessonByCourseId = (courseId: number) => createSelector(
     selectLessonsState,
     (state) =>
@@ -194,3 +233,4 @@ export const selectLessonByCourseId = (courseId: number) => createSelector(
         return lessons;
     }
 );
+export const selectCurrentSelectedLesson = createSelector(selectLessonsState, (state) => state.CurrentSelectedLesson);

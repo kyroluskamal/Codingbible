@@ -257,10 +257,10 @@
                         <div [class]="FeatureImageUrl===''?
                      'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center border border-danger'
                      :'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center'">
-                            <div *ngIf="FeatureImageUrl===''">
+                            <div *ngIf="FeatureImageUrl==='' || ActionType===PostType.Add">
                                 <i class="bi bi-image"></i>
                             </div>
-                            <img *ngIf="FeatureImageUrl!==''"
+                            <img *ngIf="FeatureImageUrl!=='' && ActionType===PostType.Edit"
                                  [src]="BaseUrl+FeatureImageUrl"
                                  class="img-thumbnail border border-success"
                                  alt="feature image">
