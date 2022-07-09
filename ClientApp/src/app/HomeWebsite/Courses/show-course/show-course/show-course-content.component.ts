@@ -59,6 +59,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         if (courseBySlug[0])
         {
           this.CurrentCourse = courseBySlug[0];
+          console.log(this.CurrentCourse.whatWillYouLearn.split('\n'));
         }
         if (courseBySlug[0] == undefined)
         {
@@ -73,7 +74,6 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         if (course[0])
         {
           this.CurrentCourse = course[0];
-
         }
         this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         return course[0] ? course[0] : null;

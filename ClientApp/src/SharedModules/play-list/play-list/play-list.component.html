@@ -7,16 +7,21 @@
                 <div class="accordion-item"
                      [dir]="s.isArabic?'rtl':'ltr'"
                      *ngFor="let s of RootSections">
-                    <h2 class="accordion-header noBefore"
-                        [id]="'heading'+s.id">
-                        <button class="accordion-button collapsed p-2"
+                    <h2 class="accordion-header noBefore">
+                        <button class="accordion-button collapsed p-2 d-flex gap-3"
                                 type="button"
                                 data-bs-toggle="collapse"
                                 [attr.data-section-active]="s.nameSlugFragment"
                                 [attr.data-bs-target]="'#'+s.nameSlugFragment"
                                 aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseOne">
-                            {{s.name}}
+                            <span class="flex-grow-1 d-flex flex-row justify-content-between align-items-center">
+                                <span>{{s.name}}</span>
+                                <a [routerLink]="(isArabic$|async)?
+                                ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]:
+                                ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]"
+                                   class="badge btn-orange moreTag">More</a>
+                            </span>
                         </button>
                     </h2>
                     <div [id]="s.nameSlugFragment"
@@ -49,21 +54,31 @@
                             allowfullscreen></iframe>
                 </div>
                 <img src="../../../../assets/img/horizontal.png"
-                     class="noShadow"
+                     class="noShadow img-fluid"
                      alt="">
                 <div class="d-flex flex-row justify-content-center py-3 gap-5">
-                    <button class="btn"
+                    <button class="btn noShadow"
                             [disabled]="currentLessonIndex<=0"
                             (click)="NextOrPrevious(-1)">
                         <i
                            [class]="(isArabic$|async)?'bi bi-arrow-right-circle-fill fs-4':'bi bi-arrow-left-circle-fill fs-4'"></i>
                     </button>
-                    <button class="btn"
+                    <button class="btn noShadow"
                             [disabled]="currentLessonIndex>=AllLessons.length-1"
                             (click)="NextOrPrevious(1)">
                         <i
                            [class]="(isArabic$|async)?'bi bi-arrow-left-circle-fill fs-4':'bi bi-arrow-right-circle-fill fs-4'"></i>
                     </button>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <span class="small-info small"><i class="bi bi-calendar"></i>
+                        {{'Last modifed'| translate}} : {{(currentLessonFromFragment$|async)?.lesson?.lasModified
+                        |date}}</span>
+                    <button class="btn btn-orange"
+                            [routerLink]="(isArabic$|async)?
+                    ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]:
+                    ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]">Read
+                        More</button>
                 </div>
             </div>
             <ng-template #noCurrentLesson>

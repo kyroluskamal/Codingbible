@@ -3,8 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, tap } from 'rxjs';
 import { PostStatus } from 'src/Helpers/constants';
-import { Lesson, Section } from 'src/models.model';
+import { HomeRoutes } from 'src/Helpers/router-constants';
+import { Course, Lesson, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
+import { selectLang } from 'src/State/LangState/lang.reducer';
 import { LoadLessons } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons, selectLessonBy_SectionId } from 'src/State/LessonsState/Lessons.reducer';
 import { selectAllSections, Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
@@ -18,6 +20,9 @@ export class SectionChildHomeComponent implements OnInit, OnChanges
 {
   @Input() Section: Section | null = null;
   @Input() courseId: number = 0;
+  @Input() CurrentCourse: Course | undefined = undefined;
+  isArabic$ = this.store.select(selectLang);
+  HomeRoutes = HomeRoutes;
   AllSections$ = this.store.select(Select_Sections_ByCourseId(this.courseId)).pipe(
     tap(r =>
     {
@@ -43,8 +48,7 @@ export class SectionChildHomeComponent implements OnInit, OnChanges
     private activateRoute: ActivatedRoute) { }
   ngOnChanges(changes: SimpleChanges): void
   {
-    console.log(this.courseId);
-    console.log(this.Section);
+
   }
 
   ngOnInit(): void

@@ -4,6 +4,8 @@ export const HomeRoutes = {
     Courses: {
         Home: "courses",
         Categories: "categories",
+        Section: 'section',
+        Lesson: 'lesson',
     },
     Blog: {
         Home: "blog",

@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Observable, Subscription, switchMap } from 'rxjs';
 import { PostStatus, PostType } from 'src/Helpers/constants';
-import { Lesson, Section } from 'src/models.model';
+import { HomeRoutes } from 'src/Helpers/router-constants';
+import { Course, Lesson, Section } from 'src/models.model';
 import { selectLang } from 'src/State/LangState/lang.reducer';
 import { selectLessonByCourseId, selectLessonByFragmentName } from 'src/State/LessonsState/Lessons.reducer';
 
@@ -18,12 +19,14 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
 {
   @Input() RootSections: Section[] = [];
   @Input() AllSections: Section[] = [];
+  @Input() CurrentCourse: Course | undefined = undefined;
   isArabic$ = this.store.select(selectLang);
   currentLesson: Lesson | null = null;
   currentLessonFromFragment: Subscription = new Subscription();
   AllLessons: Lesson[] = [];
   AllLessonsInDom: any;
   currentLessonIndex = 0;
+  HomeRoutes = HomeRoutes;
   NextPreviousSubscription: Subscription = new Subscription();
   currentLessonFromFragment$: Observable<{ lesson: Lesson | undefined, fragment: string | null; }>
     = new Observable<{ lesson: Lesson | undefined, fragment: string | null; }>();
@@ -154,5 +157,9 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
         this.currentLessonIndex = nextIndex;
       }
     }
+  }
+  GotoSection(section: Section)
+  {
+    console.log(this.CurrentCourse);
   }
 }

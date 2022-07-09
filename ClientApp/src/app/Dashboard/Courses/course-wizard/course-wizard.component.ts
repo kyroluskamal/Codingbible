@@ -127,7 +127,6 @@ export class CourseWizardComponent implements OnInit
       this.AllCourseCategories = cats;
       this.setCourseCategoriesByLang();
     });
-
     this.activatedRouter.queryParams.subscribe(params =>
     {
       if (!params['action'])

@@ -136,3 +136,41 @@ UserName : "kyrol"
 ProcessId : 11976
 ProcessName : "CodingBible"
 ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 00:53:56 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "dd7111c0-8983-4743-b2bc-3fccf0d62b20"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJ0TN99QP81:00000037"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJ0TN99QP81"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 00:54:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "ac606b9e-3ccd-4230-8848-9d3efbb2c659"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.UpdateCourse (CodingBible)"
+RequestId : "0HMJ0TN99QP81:00000065"
+RequestPath : "/api/v1/Courses/UpdateCourse"
+ConnectionId : "0HMJ0TN99QP81"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

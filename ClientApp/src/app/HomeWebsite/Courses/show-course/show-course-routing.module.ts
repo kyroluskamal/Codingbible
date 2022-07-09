@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeRoutes } from 'src/Helpers/router-constants';
 import { ShowCourseContentComponent } from './show-course/show-course-content.component';
 
 const routes: Routes = [
@@ -10,8 +11,8 @@ const routes: Routes = [
       }
     }
   },
-  { path: 'section', loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule) },
-  { path: 'lesson', loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule) }
+  { path: HomeRoutes.Courses.Section, loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule) },
+  { path: HomeRoutes.Courses.Lesson, loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule) }
 ];
 
 @NgModule({

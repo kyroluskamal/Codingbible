@@ -2,17 +2,24 @@
      class="accordion accordion-flush"
      [ngStyle]="Section.isArabic?{'margin-right.px': 10*Section.level}:{'margin-left.px': 10*Section.level}"
      [id]="Section?.slug">
-    <div class="accordion-item">
+    <div class="accordion-item"
+         [dir]="Section?.isArabic?'rtl':'ltr'">
         <h2 class="accordion-header noBefore"
-            [id]="'heading'+Section?.slug">
-            <button class="accordion-button collapsed p-2"
+            [dir]="Section?.isArabic?'rtl':'ltr'">
+            <button class="accordion-button collapsed p-2 d-flex gap-3"
                     type="button"
                     data-bs-toggle="collapse"
                     [attr.data-section-active]="Section.nameSlugFragment"
                     [attr.data-bs-target]="'#'+Section.nameSlugFragment"
-                    aria-expanded="false"
+                    aria-expanded="true"
                     aria-controls="panelsStayOpen-collapseOne">
-                {{Section.name}}
+                <span class="flex-grow-1 d-flex flex-row justify-content-between align-items-center">
+                    <span>{{Section.name}}</span>
+                    <a [routerLink]="(isArabic$|async)?
+                                ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]:
+                                ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]"
+                       class="badge btn-orange moreTag">More</a>
+                </span>
             </button>
         </h2>
         <div [id]="Section.nameSlugFragment"
@@ -41,18 +48,26 @@
 <div *ngIf="Section && !Section.isLeafSection"
      class="accordion accordion-flush"
      [id]="Section?.slug">
-    <div class="accordion-item">
+    <div class="accordion-item"
+         [dir]="Section?.isArabic?'rtl':'ltr'">
         <h4 class="accordion-header"
             [id]="'heading'+Section?.slug">
-            <button class="accordion-button collapsed p-2"
+            <button class="accordion-button collapsed p-2  d-flex gap-3"
                     type="button"
                     data-bs-toggle="collapse"
                     [attr.data-section-active]="Section.nameSlugFragment"
                     [attr.data-bs-target]="'#'+Section.nameSlugFragment"
                     aria-expanded="false"
                     aria-controls="panelsStayOpen-collapseOne">
-                {{Section.name}}
+                <span class="flex-grow-1 d-flex flex-row justify-content-between align-items-center">
+                    <span> {{Section.name}}</span>
+                    <a [routerLink]="(isArabic$|async)?
+                        ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]:
+                        ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]"
+                       class="badge btn-orange moreTag">More</a>
+                </span>
             </button>
+
         </h4>
         <div [id]="Section.nameSlugFragment"
              class="accordion-collapse collapse"

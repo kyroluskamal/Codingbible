@@ -4,6 +4,9 @@
                 [ShowSidebar]="false"></basic-skeleton>
 <ng-template #CourseContent>
     <ng-container *ngIf="(courseBySlug$|async)">
+        <!-- -------------------------------------------------------------------------------
+        |                             Introduction to the course                           |
+        ------------------------------------------------------------------------------------>
         <div>
             <div class="d-flex flex-row flex-wrap gap-1 mb-2">
                 <span class="badge bg-primary rounded-0 catBage"
@@ -31,7 +34,42 @@
                         allowfullscreen></iframe>
             </div>
         </div>
+        <div *ngIf="(courseBySlug$|async)![0]?.description">
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'Course description'|translate}}</span></h2>
+            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.description}}</p>
+        </div>
+        <div *ngIf="(courseBySlug$|async)![0]?.whatWillYouLearn">
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'What will you learn in this course?'|translate}}</span></h2>
+            <ul class="fs-5 text-justify">
+                <li *ngFor="let i of (courseBySlug$|async)![0]?.whatWillYouLearn?.split('\n')">
+                    <span *ngIf="i!=''">{{i}}</span>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'Target Audience'|translate}}</span></h2>
+            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.targetAudience}}</p>
+        </div>
+        <div *ngIf="(courseBySlug$|async)![0]?.requirementsOrInstructions">
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'Course Requirements'|translate}}</span></h2>
+            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.requirementsOrInstructions}}</p>
+        </div>
+        <div *ngIf="(courseBySlug$|async)![0]?.courseFeatures">
+            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
+                    {{'Course Requirements'|translate}}</span></h2>
+            <ul class="fs-5 text-justify">
+                <li *ngFor="let i of (courseBySlug$|async)![0]?.courseFeatures?.split('\n')">
+                    <span *ngIf="i!=''">{{i}}</span>
+                </li>
+            </ul>
+        </div>
+
         <playlist [AllSections]="AllSections"
-                  [RootSections]="RootSections"></playlist>
+                  [RootSections]="RootSections"
+                  [CurrentCourse]="CurrentCourse"></playlist>
     </ng-container>
 </ng-template>

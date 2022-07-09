@@ -64,8 +64,16 @@
 
 .playlist li a {
     color: white;
+}
+
+.playlist li a,
+.accordion-button span span {
     -webkit-box-decoration-break: clone;
     box-decoration-break: clone
+}
+
+[dir="rtl"] .accordion-button span span {
+    text-align: right;
 }
 
 .playlist li:not(li.active) a:hover {
@@ -177,4 +185,8 @@
 
 .playlist .accordion-button {
     transition: none !important;
+}
+
+.playlist .badge.btn-orange.moreTag:hover {
+    color: white !important;
 }

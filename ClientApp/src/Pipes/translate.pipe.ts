@@ -74,6 +74,11 @@ export class TranslatePipe implements PipeTransform
       case 'Previous': return 'السابق';
       case 'Next': return 'التالي';
       case 'selectLesson': return 'اختر درس من القائمة الجانبية';
+      case 'Last modifed': return 'آخر تعديل';
+      case 'What will you learn in this course?': return 'ما الذي ستتعلمه في هذه الدورة؟';
+      case 'Course description': return 'وصف الدورة';
+      case 'Target Audience': return 'هذه الدورة مخصصة لـ';
+      case 'Course Requirements': return 'متطلبات الدورة';
       default: return value;
     }
   }
