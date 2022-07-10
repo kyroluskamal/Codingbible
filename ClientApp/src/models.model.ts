@@ -134,6 +134,7 @@ export class Menu
     menuItems: MenuItem[] = [];
     menuItemToEdit: MenuItem | null = null;
     menuItemToAdd: MenuItem | null = null;
+    menuLocationsName: string = "";
 }
 export class MenuItem
 {

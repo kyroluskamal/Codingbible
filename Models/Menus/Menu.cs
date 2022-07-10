@@ -6,6 +6,8 @@ public class Menu
 {
     public int Id { get; set; }
     public string Name { get; set; }
+    [NotMapped]
+    public string MenuLocationsName { get; set; }
     [ForeignKey(nameof(MenuLocationsId))]
     public int MenuLocationsId { get; set; }
     [NotMapped]

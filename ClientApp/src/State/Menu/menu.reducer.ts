@@ -121,3 +121,18 @@ export const select_Menu_ValidationErrors = createSelector(
 );
 export const Select_Menu_AdditionState = createSelector(selectMenuState, (state) => state.AdditionState);
 export const Select_Menu_UpdateState = createSelector(selectMenuState, (state) => state.UpdateState);
+export const selectMenuByLocationName = (locName: string) => createSelector(
+    selectMenuState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.menuLocationsName)
+                if (state.entities[key]?.menuLocationsName === locName)
+                {
+                    return state.entities[key];
+                }
+        }
+        return undefined;
+    }
+);

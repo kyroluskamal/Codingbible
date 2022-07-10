@@ -101,6 +101,7 @@ public class MenuController : ControllerBase
         {
             MenuLocations menuLocation = await UnitOfWork.MenuLocations.GetFirstOrDefaultAsync(x => x.Name == LocationName);
             Menu menu = await UnitOfWork.Menus.GetFirstOrDefaultAsync(x => x.MenuLocationsId == menuLocation.Id, includeProperties: "MenuItems,MenuLocations");
+            menu.MenuLocationsName = menuLocation.Name;
             return Ok(menu);
         }
         catch (Exception ex)

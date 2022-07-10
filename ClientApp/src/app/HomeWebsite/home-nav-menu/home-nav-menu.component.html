@@ -42,7 +42,7 @@
                                [routerLinkActiveOptions]="{exact: true}"
                                routerLinkActive="active">{{'Home'| translate}}</a>
                         </li>
-                        <span *ngFor="let m of menuItemsRoots">
+                        <span *ngFor="let m of (MenusItems|async)">
                             <li class="nav-item nav-item-roots cursor-pointer"
                                 [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
                                 *ngIf="RootChildren(m).length === 0 else dorpdown">

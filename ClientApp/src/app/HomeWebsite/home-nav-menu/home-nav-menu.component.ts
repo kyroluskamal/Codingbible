@@ -3,7 +3,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs';
+import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Menu, MenuItem } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { Logout } from 'src/State/AuthState/auth.actions';
@@ -11,7 +11,7 @@ import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthSta
 import { SET_LANGUAGE } from 'src/State/LangState/lang.acitons';
 import { selectLang } from 'src/State/LangState/lang.reducer';
 import { GetMenuByLocationName } from 'src/State/Menu/menu.actions';
-import { selectAll_Menus } from 'src/State/Menu/menu.reducer';
+import { selectAll_Menus, selectMenuByLocationName } from 'src/State/Menu/menu.reducer';
 import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
 @Component({
   selector: 'app-home-nav-menu',
@@ -19,7 +19,7 @@ import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
   styleUrls: ['./home-nav-menu.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class HomeNavMenuComponent implements OnInit
+export class HomeNavMenuComponent implements OnInit, OnChanges
 {
   MenuOpen: boolean = false;
   IsLoggedIn = this.store.select(selectIsLoggedIn);
@@ -28,11 +28,12 @@ export class HomeNavMenuComponent implements OnInit
   AuthRoutes = AuthRoutes;
   isArabic = this.store.select(selectLang);
   User = this.store.select(selectUser);
-  Menus = this.store.select(selectAll_Menus);
   selectedMenu: Menu | null = null;
   menuItemsRoots: MenuItem[] = [];
   @Input() LocationName: string = 'home';
+  locName = this.LocationName;
 
+  MenusItems: Observable<MenuItem[]> = new Observable<MenuItem[]>();
   @ViewChild("en", { static: true }) en: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
   @ViewChild("ar", { static: true }) ar: ElementRef<HTMLButtonElement> = {} as ElementRef<HTMLButtonElement>;
   constructor(
@@ -58,22 +59,18 @@ export class HomeNavMenuComponent implements OnInit
       }
     });
   }
+  ngOnChanges(changes: SimpleChanges): void
+  {
+    if ('LocationName' in changes)
+    {
+      this.locName = changes['LocationName'].currentValue;
+      this.changeMenu();
+    }
+  }
 
   ngOnInit(): void
   {
-    this.store.dispatch(GetMenuByLocationName({ LocationName: this.LocationName }));
-    this.Menus.subscribe((Menus) =>
-    {
-      if (Menus)
-      {
-        this.selectedMenu = Menus.filter((Menu) => Menu.menuLocations?.name === this.LocationName)[0];
-        if (this.selectedMenu)
-        {
-          this.tree.setData(this.selectedMenu?.menuItems);
-          this.menuItemsRoots = this.tree.getRawRoots().sort((a, b) => a.orderWithinParent - b.orderWithinParent);
-        }
-      }
-    });
+    this.changeMenu();
     this.document.addEventListener("click", (e) =>
     {
       let allMenus = this.document.querySelectorAll(".dropdown-menu");
@@ -144,5 +141,31 @@ export class HomeNavMenuComponent implements OnInit
     // if (!isChildIsOpen)
     //   menu.classList.remove("show");
     parent.classList.remove("active");
+  }
+  changeMenu()
+  {
+    this.MenusItems = this.store.select(selectMenuByLocationName(this.locName)).pipe(
+      tap(Menus =>
+      {
+        console.log(Menus);
+        if (Menus)
+        {
+          this.selectedMenu = Menus;
+        } else
+        {
+          console.log('dispatch');
+          this.store.dispatch(GetMenuByLocationName({ LocationName: this.LocationName }));
+        }
+      }),
+      map(r =>
+      {
+        if (r)
+        {
+          this.tree.setData(this.selectedMenu?.menuItems!);
+          return this.tree.getRawRoots().sort((a, b) => a.orderWithinParent - b.orderWithinParent);
+        }
+        return [];
+      })
+    );
   }
 }
