@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NavChildsComponent } from 'src/app/HomeWebsite/home-nav-menu/nav-childs/nav-childs.component';
 import { BasicSkeletonComponent } from 'src/app/HomeWebsite/basic-skeleton/basic-skeleton.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
-import { SharedPipesModule } from './shared-pipes.module';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
 const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkeletonComponent,
 
   NavChildsComponent];
@@ -15,7 +15,7 @@ const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkel
 @NgModule({
   declarations: [Modules],
   imports: [
-    CommonModule, RouterModule, BreadcrumbModule, SharedPipesModule
+    CommonModule, RouterModule, BreadcrumbModule, TranslatePipe
   ],
   exports: [Modules, CommonModule]
 })

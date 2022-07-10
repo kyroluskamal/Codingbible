@@ -45,14 +45,16 @@
   --PrimaryColor_Active: #324cdd;
   --PrimaryColor: #5e72e4;
   --main-color: #1a0f91;
-  --ButtonColor-orange: #c9493d;
+  --ButtonColor: #C9493D;
   --Nuito-font: 'Nunito', sans-serif;
   --bg-main-color: #f0f2f5;
   --my-shadow: 2px 2px 11px -3px #cfcfcf;
   --homepage-titles-color: #0b0161;
   --FiraCode-font: 'Fira Code', monospace;
-  --PlayList-color: #4F52FF;
+  --PlayList-color: rgba(33, 37, 41, 1) !important;
   --dark-color: rgba(33, 37, 41);
+  --Violet-color: #4F52FF;
+  --light-gray: rgb(211, 211, 211)
 }
 
 .calibri-font {
@@ -376,8 +378,7 @@ main {
 /* .body .row{
   padding: 2.0rem 3.5rem;
 } */
-.body .row main>*:not(img),
-aside>* {
+.coding-bible-card {
   background-color: white;
   box-shadow: 0px 2px 6px -3px rgba(5, 5, 5, 0.7);
   border-radius: 4px;
@@ -414,7 +415,15 @@ p {
 }
 
 .btn-orange {
-  background-color: var(--ButtonColor-orange) !important;
+  background-color: var(--ButtonColor) !important;
+}
+
+.btn-violet {
+  background-color: var(--Violet-color) !important;
+}
+
+.btn-orange,
+.btn-violet {
   color: white !important;
 }
 
@@ -426,12 +435,13 @@ a:hover {
   color: var(--main-color) !important;
 }
 
-h2.h5:hover {
+h2.h4:hover {
   text-decoration: underline;
   color: var(--main-color);
   cursor: pointer;
 }
 
+.btn-violet:hover,
 .btn-orange:hover {
   background-color: var(--main-color) !important;
 }
@@ -445,12 +455,12 @@ h2.h5:hover {
 }
 
 .catBage:hover {
-  background-color: var(--ButtonColor-orange) !important;
+  background-color: var(--ButtonColor) !important;
 }
 
 h2::before {
   content: "";
-  border-left: 7px solid var(--ButtonColor-orange);
+  border-left: 7px solid var(--ButtonColor);
 }
 
 .noBefore::before {
@@ -463,5 +473,5 @@ h2::before {
 }
 
 .text-organge {
-  color: var(--ButtonColor-orange);
+  color: var(--ButtonColor);
 }

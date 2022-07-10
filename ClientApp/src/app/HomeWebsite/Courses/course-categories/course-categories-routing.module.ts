@@ -4,8 +4,21 @@ import { CourseCategoriesHomeComponent } from './course-categories-home/course-c
 import { CourseCategoryContentComponent } from './course-category-content/course-category-content.component';
 
 const routes: Routes = [
-  { path: '', component: CourseCategoriesHomeComponent },
-  { path: ':slug', component: CourseCategoryContentComponent },
+  {
+    path: '', component: CourseCategoriesHomeComponent, data: {
+      breadcrumb: {
+        label: 'Categories',
+        alias: 'courseCategories'
+      }
+    }
+  },
+  {
+    path: ':slug', component: CourseCategoryContentComponent, data: {
+      breadcrumb: {
+        alias: 'CourseCatContent'
+      }
+    }
+  },
 ];
 
 @NgModule({

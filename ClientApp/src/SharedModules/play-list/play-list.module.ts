@@ -2,8 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayListComponent } from './play-list/play-list.component';
 import { SectionChildHomeComponent } from './section-child-home/section-child-home.component';
-import { SharedPipesModule } from '../shared-pipes.module';
 import { RouterModule } from '@angular/router';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
 
 
 @NgModule({
@@ -11,7 +12,7 @@ import { RouterModule } from '@angular/router';
     PlayListComponent, SectionChildHomeComponent
   ],
   imports: [
-    CommonModule, SharedPipesModule, RouterModule
+    CommonModule, RouterModule, TranslatePipe, SafeUrlPipe
   ],
   exports: [PlayListComponent]
 })

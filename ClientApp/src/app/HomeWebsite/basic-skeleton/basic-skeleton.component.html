@@ -1,15 +1,17 @@
-<div class="container-fluid body">
+<main [dir]="(isArabic|async)? 'rtl':'ltr'"
+      class="container-fluid body">
     <div class="row py-3 px-md-5">
-        <main [dir]="(isArabic|async)? 'rtl':'ltr'"
-              [class]="ShowSidebar?'col-md-9 col-12 d-flex flex-column gap-4':'col-12 d-flex flex-column gap-4'">
-            <div>
+        <div [class]="ShowSidebar?'col-md-9 col-12 d-flex flex-column gap-4':'col-12 d-flex flex-column gap-4'">
+            <div class="coding-bible-card">
                 <xng-breadcrumb></xng-breadcrumb>
             </div>
-            <ng-template *ngTemplateOutlet="Body"></ng-template>
-        </main>
+            <article class="d-flex flex-column gap-4">
+                <ng-template *ngTemplateOutlet="Body"></ng-template>
+            </article>
+        </div>
         <aside *ngIf="ShowSidebar"
                class="col-md-3 col-12 d-flex flex-column gap-4">
-            <div>
+            <div class="coding-bible-card">
                 <div class="input-group">
                     <input type="text"
                            class="form-control bg-light"
@@ -20,12 +22,12 @@
                           id="searchbox"><i class="bi bi-search"></i></span>
                 </div>
             </div>
-            <div class="sticky-top">
+            <div class="sticky-top coding-bible-card">
                 <img src="../../../assets/img/300x600.png"
                      alt="">
             </div>
 
         </aside>
     </div>
-</div>
+</main>
 <app-footer></app-footer>

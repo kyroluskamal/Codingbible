@@ -7,7 +7,7 @@
         <!-- -------------------------------------------------------------------------------
         |                             Introduction to the course                           |
         ------------------------------------------------------------------------------------>
-        <div>
+        <header class="coding-bible-card">
             <div class="d-flex flex-row flex-wrap gap-1 mb-2">
                 <span class="badge bg-primary rounded-0 catBage"
                       *ngFor="let cat of (courseBySlug$|async)![0]?.categoriesObject">
@@ -16,58 +16,45 @@
                     HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
                 </span>
             </div>
-            <h1 class="page-h1">{{(courseBySlug$|async)![0]?.name}}</h1>
-            <p>{{(courseBySlug$|async)![0]?.description}}</p>
-        </div>
+            <page-title [title]="(courseBySlug$|async)![0]?.name!"
+                        [description]="(courseBySlug$|async)![0]?.description!"></page-title>
+        </header>
         <img src="../../../../assets/img/horizontal.png"
              class="noShadow"
              alt="">
-        <div>
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'Introduction to the course'|translate}}</span></h2>
-            <div class="youtube-container align-center d-flex align-items-center justify-content-center">
-                <iframe *ngIf="(courseBySlug$|async)![0]?.introductoryVideoUrl && (courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]"
-                        [src]="'https://www.youtube.com/embed/'+(courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]|safeUrl"
-                        title="YouTube video player"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen></iframe>
-            </div>
-        </div>
-        <div *ngIf="(courseBySlug$|async)![0]?.description">
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'Course description'|translate}}</span></h2>
-            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.description}}</p>
-        </div>
-        <div *ngIf="(courseBySlug$|async)![0]?.whatWillYouLearn">
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'What will you learn in this course?'|translate}}</span></h2>
-            <ul class="fs-5 text-justify">
-                <li *ngFor="let i of (courseBySlug$|async)![0]?.whatWillYouLearn?.split('\n')">
-                    <span *ngIf="i!=''">{{i}}</span>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'Target Audience'|translate}}</span></h2>
-            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.targetAudience}}</p>
-        </div>
-        <div *ngIf="(courseBySlug$|async)![0]?.requirementsOrInstructions">
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'Course Requirements'|translate}}</span></h2>
-            <p class="fs-5 text-justify">{{(courseBySlug$|async)![0]?.requirementsOrInstructions}}</p>
-        </div>
-        <div *ngIf="(courseBySlug$|async)![0]?.courseFeatures">
-            <h2 class="d-flex"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                    {{'Course Requirements'|translate}}</span></h2>
-            <ul class="fs-5 text-justify">
-                <li *ngFor="let i of (courseBySlug$|async)![0]?.courseFeatures?.split('\n')">
-                    <span *ngIf="i!=''">{{i}}</span>
-                </li>
-            </ul>
-        </div>
+        <introductoy-video *ngIf="(courseBySlug$|async)![0]?.introductoryVideoUrl && (courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]"
+                           title="{{'Introduction to the course'| translate}}"
+                           [isArabic]="(isArabic$|async)!"
+                           [videoId]="(courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]">
+        </introductoy-video>
+        <description *ngIf="(courseBySlug$|async)![0]?.description"
+                     [isArabic]="(isArabic$|async)!"
+                     title="{{'Course description'| translate}}"
+                     [description]="(courseBySlug$|async)![0]?.description">
+        </description>
 
+        <what-will-you-learn *ngIf="(courseBySlug$|async)![0]?.whatWillYouLearn"
+                             [isArabic]="(isArabic$|async)!"
+                             [whatWillYouLearn]="(courseBySlug$|async)![0]?.whatWillYouLearn!"
+                             title="{{'What will you learn in this course?'|translate}}">
+        </what-will-you-learn>
+
+        <target-audience *ngIf="(courseBySlug$|async)![0]?.targetAudience"
+                         title="{{'Target Audience'| translate}}"
+                         [targetAudience]="(courseBySlug$|async)![0]?.targetAudience!"
+                         [isArabic]="(isArabic$|async)!">
+        </target-audience>
+
+        <requirements *ngIf="(courseBySlug$|async)![0]?.requirementsOrInstructions"
+                      [isArabic]="(isArabic$|async)!"
+                      title="{{'Course Requirements'|translate}}"
+                      [requirementsOrInstructions]="(courseBySlug$|async)![0]?.requirementsOrInstructions!">
+        </requirements>
+        <course-features *ngIf="(courseBySlug$|async)![0]?.courseFeatures"
+                         [isArabic]="(isArabic$|async)!"
+                         title="{{'Course Features'|translate}}"
+                         [courseFeatures]="(courseBySlug$|async)![0]?.courseFeatures!">
+        </course-features>
         <playlist [AllSections]="AllSections"
                   [RootSections]="RootSections"
                   [CurrentCourse]="CurrentCourse"></playlist>

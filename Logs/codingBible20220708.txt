@@ -174,3 +174,234 @@ UserName : "kyrol"
 ProcessId : 11976
 ProcessName : "CodingBible"
 ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000035"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:0000003B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:0000003D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:0000003F"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000041"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000045"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000043"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000049"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:0000004D"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:0000004B"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 09/07/2022 02:22:05 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug(String slug)"
+InnerException : null
+Source : "CodingBible"
+ActionId : "bed25427-1f7b-4641-9429-d9d2fa33663d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ0TN99QP8D:00000047"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/coursecategorys"
+ConnectionId : "0HMJ0TN99QP8D"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11976
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

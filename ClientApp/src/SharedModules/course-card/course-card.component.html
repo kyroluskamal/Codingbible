@@ -1,0 +1,39 @@
+<section *ngIf="Course"
+         class="coding-bible-card">
+    <div class="row p-0">
+        <div class="col-md-5 col-12 d-flex align-items-center justify-content-center">
+            <img [src]="BaseUrl+Course?.featureImageUrl"
+                 class="noShadow img-fluid"
+                 alt="">
+        </div>
+        <div class="col-md-7 col-12 d-flex flex-column justify-content-between mt-2">
+            <div>
+                <h2 class="h4 d-flex"
+                    [routerLink]="Course?.isArabic?
+                    ['','ar',CourseRoutes.Home, Course?.slug]:
+                    ['',CourseRoutes.Home, Course?.slug]"><span
+                          [class]="Course?.isArabic?'pe-2':'ps-2'">{{Course?.name}}</span>
+                </h2>
+                <p class="fs-5 line-count">{{Course?.description}}</p>
+            </div>
+            <div class="small small-info d-flex flex-wrap flex-row justify-content-between mt-2">
+                <div class="d-flex flex-row gap-2 align-items-end">
+                    <span><i class="bi bi-person"></i> {{Course?.author?.firstname}} {{Course?.author?.lastname}}</span>
+                    <span><i class="bi bi-calendar"></i> {{Course?.dateCreated | date}}</span>
+                </div>
+                <button class="btn btn-orange d-none d-md-block"
+                        [routerLink]="Course?.isArabic?
+                                    ['','ar',CourseRoutes.Home, Course?.slug]:
+                                    ['',CourseRoutes.Home, Course?.slug]">
+                    {{'View'| translate}}
+                </button>
+                <button class="btn btn-orange d-block d-md-none w-100 mt-2"
+                        [routerLink]="Course?.isArabic?
+                                        ['','ar',CourseRoutes.Home, Course?.slug]:
+                                            ['',CourseRoutes.Home, Course?.slug]">
+                    {{'View'| translate}}
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

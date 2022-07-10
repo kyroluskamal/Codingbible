@@ -49,16 +49,16 @@
 
 .playlist .accordion-collapse.collapse.show,
 .playlist .accordion-collapse.collapse.show .accordion-body {
-    background-color: #0b0161;
+    background-color: black;
 }
 
 .playlist .accordion-button:not(.collapsed) {
     background-color: unset;
-    color: #eeff65
+    color: var(--light-gray)
 }
 
 .playlist .accordion-button:hover {
-    background-color: var(--ButtonColor-orange);
+    background-color: var(--Violet-color);
     z-index: 5;
 }
 
@@ -77,7 +77,7 @@
 }
 
 .playlist li:not(li.active) a:hover {
-    color: var(--PlayList-color) !important;
+    color: var(--light-gray) !important;
 }
 
 .playlist li.active {
@@ -87,7 +87,7 @@
 
 .playlist li.active a {
     font-weight: 600;
-    color: var(--ButtonColor-orange);
+    color: var(--Violet-color);
 }
 
 [dir="ltr"] .playlist li.active {
@@ -138,7 +138,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #0b0161;
+    background-color: black;
     z-index: 1;
 }
 
@@ -187,6 +187,11 @@
     transition: none !important;
 }
 
-.playlist .badge.btn-orange.moreTag:hover {
+.playlist .badge.btn-orange.moreTag:hover,
+.playlist .badge.btn-violet.moreTag:hover {
     color: white !important;
+}
+
+.playlist .accordion-item {
+    border-bottom: 1px solid var(--light-gray) !important;
 }

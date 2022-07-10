@@ -10,9 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FileSizePipe } from 'src/Pipes/file-size.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
-import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
 import { CodingBibleEditorComponent } from 'src/app/Dashboard/PostsInDashboard/editor/editor.component';
-import { SharedPipesModule } from './shared-pipes.module';
 const components = [MediaComponent, BootstrapMoalComponent,
   PostStatusPipe, FileSizePipe, BypassStylePipe,
   CodingBibleEditorComponent,
@@ -21,7 +19,7 @@ const components = [MediaComponent, BootstrapMoalComponent,
 @NgModule({
   declarations: [components],
   imports: [
-    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule, SharedPipesModule
+    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule
   ],
   exports: [components]
 })

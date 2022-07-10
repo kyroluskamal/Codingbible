@@ -1,0 +1,20 @@
+<div *ngIf="Category"
+     class="coding-bible-card">
+    <div class="row p-0">
+        <div class="col-12 d-flex flex-column justify-content-between mt-2">
+            <div>
+                <h2 class="h4 d-flex"
+                    [routerLink]="[Category?.slug]"><span
+                          [class]="Category?.isArabic?'pe-2':'ps-2'">{{Category?.name}}</span>
+                </h2>
+                <p class="fs-5">{{Category?.description}}</p>
+            </div>
+            <div class="small small-info d-flex flex-wrap flex-row justify-content-between mt-2">
+                <button class="btn btn-orange d-none d-md-block"
+                        [routerLink]="[Category?.slug]">{{'View Courses'| translate}}</button>
+                <button class="btn btn-orange d-block d-md-none w-100 mt-2"
+                        [routerLink]="[Category?.slug]">{{'View Courses'| translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

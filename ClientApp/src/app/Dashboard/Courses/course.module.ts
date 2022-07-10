@@ -4,7 +4,7 @@ import { ShowAllCoursesComponent } from './show-all-courses/show-all-courses.com
 import { CourseWizardComponent } from './course-wizard/course-wizard.component';
 import { SharedModuleForCoursesModule } from './shared-module-for-courses/shared-module-for-courses.module';
 import { ShowAllSectionsComponent } from './show-all-sections/show-all-sections.component';
-import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
+import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
@@ -13,7 +13,7 @@ import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
     ShowAllSectionsComponent,
   ],
   imports: [
-    CourseRoutingModule, SharedModuleForCoursesModule, SharedPipesModule
+    CourseRoutingModule, SharedModuleForCoursesModule, SafeUrlPipe
   ]
 })
 export class CourseModule { }

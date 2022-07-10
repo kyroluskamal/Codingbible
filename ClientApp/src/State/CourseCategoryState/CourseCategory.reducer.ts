@@ -2,8 +2,9 @@ import { Action, createFeatureSelector, createReducer, createSelector, on } from
 import { CourseCategory } from "src/models.model";
 import { TreeDataStructureService } from "src/Services/tree-data-structure.service";
 import { CourseCategoryState } from "../app.state";
-import { AddCourseCategory_Failed, AddCourseCategory_Success, dummyAction, GetCourseCategoryById_Failed, GetCourseCategoryById_Success, LoadCourseCategorysSuccess, RemoveCourseCategory_Failed, RemoveCourseCategory_Success, SetValidationErrors, UpdateCourseCategory_Failed, UpdateCourseCategory_Sucess } from "./CourseCategory.actions";
+import { AddCourseCategory_Failed, AddCourseCategory_Success, dummyAction, GetCourseCategoryById_Failed, GetCourseCategoryById_Success, GetCourseCategoryBy_Slug_Failed, LoadCourseCategorysSuccess, RemoveCourseCategory_Failed, RemoveCourseCategory_Success, SetValidationErrors, UpdateCourseCategory_Failed, UpdateCourseCategory_Sucess } from "./CourseCategory.actions";
 import * as adapter from "./CourseCategory.adapter";
+import { GetCourseCategoryBy_Slug_Success } from "./CourseCategory.actions";
 
 export const initialState: CourseCategoryState = adapter.CourseCategoryAdapter.getInitialState({
     ValidationErrors: [],
@@ -71,6 +72,14 @@ export const CourseCategoryReducer = createReducer(
             initialState
         };
     }),
+    on(GetCourseCategoryBy_Slug_Success, (state, res) => adapter.CourseCategoryAdapter.upsertOne(res, state)),
+    on(GetCourseCategoryBy_Slug_Failed, (state, res) =>
+    {
+        return {
+            ...state,
+            ValidationErrors: res.validationErrors
+        };
+    })
 );
 
 export function prticleReducer(state: any, action: Action)
@@ -84,6 +93,28 @@ export const selectCourseCategoryState = createFeatureSelector<CourseCategorySta
 export const selectCourseCategoryByID = (id: number) => createSelector(
     selectCourseCategoryState,
     (state) => state.entities[id]
+);
+export const selectCourseCategoryBySlug = (Slug: string) => createSelector(
+    selectCourseCategoryState,
+    (state) =>
+    {
+        for (let key in state.entities)
+        {
+            if (!state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === Slug)
+                {
+                    return state.entities[key];
+                }
+            if (state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(Slug, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    return state.entities[key];
+                }
+            }
+        }
+        return undefined;
+    }
 );
 export const selectCourseCategoryIds = createSelector(selectCourseCategoryState, adapter.selectCourseCategoryIds);
 export const selectCourseCategoryEntities = createSelector(selectCourseCategoryState, adapter.selectCourseCategoryEntities);

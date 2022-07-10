@@ -1,1 +1,12 @@
-<p>course-categories-home works!</p>
+<app-home-nav-menu [LocationName]="'courses'"
+                   style="z-index: 1;"></app-home-nav-menu>
+<basic-skeleton [Body]="AllCategories"></basic-skeleton>
+<ng-template #AllCategories>
+    <header class="coding-bible-card">
+        <page-title title="{{'Courses Categories'| translate}}"
+                    description="{{'AllCategoriesDesc'| translate}}"></page-title>
+    </header>
+    <course-categories-card *ngFor="let cat of (AllCategories$|async)?.cats"
+                            [Category]="cat"></course-categories-card>
+
+</ng-template>

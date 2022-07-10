@@ -17,6 +17,12 @@ export const GetCourseCategoryById_Success = createAction(actionNames.CourseCate
     props<CourseCategory>());
 export const GetCourseCategoryById_Failed = createAction(actionNames.CourseCategoryActions.GetCourseCategoryById_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+export const GetCourseCategoryBy_Slug = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug,
+    props<{ slug: string; }>());
+export const GetCourseCategoryBy_Slug_Success = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug_Success,
+    props<CourseCategory>());
+export const GetCourseCategoryBy_Slug_Failed = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug_Failed,
+    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateCourseCategory = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY,
     props<CourseCategory>());
 export const UpdateCourseCategory_Sucess = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY_Success,

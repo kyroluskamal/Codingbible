@@ -668,6 +668,21 @@ export const actionNames = {
         Get_All_SlugMap_CourseCategories: '[Get_All_SlugMap_CourseCategories] request',
         Get_All_SlugMap_CourseCategories_Success: '[Get_All_SlugMap_CourseCategories] Sucess',
         Get_All_SlugMap_CourseCategories_Failed: '[Get_All_SlugMap_CourseCategories] Failed',
+    },
+    CoursesPerCategoryActions: {
+        Get_CoursesPerCategory_By_Slug: '[Get_CoursesPerCategory_By_Slug] request',
+        Get_CoursesPerCategory_By_Slug_Success: '[Get_CoursesPerCategory_By_Slug] Sucess',
+        Get_CoursesPerCategory_By_Slug_Failed: '[Get_CoursesPerCategory_By_Slug] Failed',
+        Load_All_CoursesPerCategory: '[CoursesPerCategory] Load All CoursesPerCategory',
+        Load_All_CoursesPerCategory_SUCCESS: '[CoursesPerCategory] Load All CoursesPerCategory Success',
+        Load_All_CoursesPerCategory_FAILED: '[CoursesPerCategory] Load All CoursesPerCategory Failed',
+        Get_CoursesInCategory_By_Id: '[Get_CoursesInCategory_By_Id] request',
+        Get_CoursesInCategory_By_Id_Success: '[Get_CoursesInCategory_By_Id] Sucess',
+        Get_CoursesInCategory_By_Id_Failed: '[Get_CoursesInCategory_By_Id] Failed',
+        Set_ValidationErrors: '[CoursesPerCategory] Set ValidationErrors',
+        Get_CoursesInCategory_By_Slug: '[Get_CoursesInCategory_By_Slug] request',
+        Get_CoursesInCategory_By_Slug_Success: '[Get_CoursesInCategory_By_Slug] Sucess',
+        Get_CoursesInCategory_By_Slug_Failed: '[Get_CoursesInCategory_By_Slug] Failed',
     }
 };
 

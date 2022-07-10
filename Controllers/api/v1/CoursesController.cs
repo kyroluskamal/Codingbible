@@ -160,14 +160,15 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    [Route(nameof(GetCoursesInCategory))]
+    [Route(nameof(GetCoursesInCategoryById) + "/{CategoryId}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCoursesInCategory(int CategoryId)
+    public async Task<IActionResult> GetCoursesInCategoryById([FromRoute] int CategoryId)
     {
         try
         {
             var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
                          x.CourseCategoryId == CategoryId, includeProperties: "Course");
+
             foreach (var c in courses)
             {
                 await UpdateOtherSlug(c.Course);
@@ -207,9 +208,9 @@ public class CoursesController : ControllerBase
     }
 
     [HttpGet]
-    [Route(nameof(GetCoursesInCategoryBySlug))]
+    [Route(nameof(GetCoursesInCategoryBySlug) + "/{CategorySlug}")]
     [AllowAnonymous]
-    public async Task<IActionResult> GetCoursesInCategoryBySlug(string CategorySlug)
+    public async Task<IActionResult> GetCoursesInCategoryBySlug([FromRoute] string CategorySlug)
     {
         try
         {

@@ -9,7 +9,7 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { CourseCategory } from "src/models.model";
 import { CourseCategoryService } from "src/Services/course-category.service";
-import { AddCourseCategory, AddCourseCategory_Failed, AddCourseCategory_Success, dummyAction, LoadCourseCategorys, LoadCourseCategorysFail, LoadCourseCategorysSuccess, RemoveCourseCategory, RemoveCourseCategory_Failed, RemoveCourseCategory_Success, SetValidationErrors, UpdateCourseCategory, UpdateCourseCategory_Failed, UpdateCourseCategory_Sucess } from "./CourseCategory.actions";
+import { AddCourseCategory, AddCourseCategory_Failed, AddCourseCategory_Success, dummyAction, GetCourseCategoryBy_Slug, GetCourseCategoryBy_Slug_Failed, GetCourseCategoryBy_Slug_Success, LoadCourseCategorys, LoadCourseCategorysFail, LoadCourseCategorysSuccess, RemoveCourseCategory, RemoveCourseCategory_Failed, RemoveCourseCategory_Success, SetValidationErrors, UpdateCourseCategory, UpdateCourseCategory_Failed, UpdateCourseCategory_Sucess } from "./CourseCategory.actions";
 import { selectAllCourseCategorys } from "./CourseCategory.reducer";
 
 @Injectable({
@@ -125,5 +125,24 @@ export class CourseCategoryEffects
             })
         )
     );
-
+    GetCourseBySlug$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetCourseCategoryBy_Slug),
+            switchMap((action) =>
+            {
+                return this.CourseCategoryService.GetBySlug(CoursesController.GetCategoryBySlug, action.slug).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetCourseCategoryBy_Slug_Success(r);
+                    }),
+                    catchError((e) =>
+                    {
+                        console.log(e);
+                        return of(GetCourseCategoryBy_Slug_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
+            })
+        )
+    );
 }

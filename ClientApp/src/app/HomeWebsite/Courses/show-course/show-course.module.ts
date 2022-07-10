@@ -4,8 +4,15 @@ import { CommonModule } from '@angular/common';
 import { ShowCourseRoutingModule } from './show-course-routing.module';
 import { ShowCourseContentComponent } from './show-course/show-course-content.component';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
-import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
 import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { PageTitleComponent } from 'src/SharedModules/page-title/page-title.component';
+import { IntroductoyVideoComponent } from 'src/SharedModules/introductoy-video/introductoy-video.component';
+import { DescriptionComponent } from 'src/SharedModules/description/description.component';
+import { WhatWillYouLearnComponent } from 'src/SharedModules/what-will-you-learn/what-will-you-learn.component';
+import { TargetAudienceComponent } from 'src/SharedModules/target-audience/target-audience.component';
+import { RequirementsOrInstructionsComponent } from 'src/SharedModules/requirements-or-instructions/requirements-or-instructions.component';
+import { CourseFeaturesComponent } from 'src/SharedModules/course-features/course-features.component';
 
 
 @NgModule({
@@ -13,8 +20,10 @@ import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
     ShowCourseContentComponent
   ],
   imports: [
-    CommonModule, PlayListModule,
-    ShowCourseRoutingModule, SharedModuleForHomeModule, SharedPipesModule,
+    CommonModule, PlayListModule, IntroductoyVideoComponent, DescriptionComponent,
+    CourseFeaturesComponent,
+    WhatWillYouLearnComponent, TargetAudienceComponent, RequirementsOrInstructionsComponent,
+    ShowCourseRoutingModule, SharedModuleForHomeModule, TranslatePipe, PageTitleComponent
   ]
 })
 export class ShowCourseModule { }

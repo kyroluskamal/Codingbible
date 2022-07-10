@@ -59,7 +59,6 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         if (courseBySlug[0])
         {
           this.CurrentCourse = courseBySlug[0];
-          console.log(this.CurrentCourse.whatWillYouLearn.split('\n'));
         }
         if (courseBySlug[0] == undefined)
         {

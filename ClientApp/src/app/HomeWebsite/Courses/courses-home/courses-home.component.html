@@ -2,37 +2,13 @@
                    style="z-index: 1;"></app-home-nav-menu>
 <basic-skeleton [Body]="ALlCourses"></basic-skeleton>
 <ng-template #ALlCourses>
-    <div>
-        <h1 class="page-h1">{{'Courses'| translate}}</h1>
-        <p>{{'AllCoursesPageDescription'| translate}}</p>
-    </div>
+    <header class="coding-bible-card">
+        <page-title title="{{'Courses'| translate}}"
+                    description="{{'AllCoursesPageDescription'| translate}}"></page-title>
+    </header>
     <img src="../../../../assets/img/horizontal.png"
          class="noShadow"
          alt="">
-    <div *ngFor="let c of (AllCourses$|async)">
-        <div class="row p-0">
-            <div class="col-md-5 col-12 d-flex align-items-center justify-content-center">
-                <img [src]="BaseUrl+c.featureImageUrl"
-                     class="noShadow img-fluid"
-                     alt="">
-            </div>
-            <div class="col-md-7 col-12 d-flex flex-column justify-content-between mt-2">
-                <div>
-                    <h2 class="h5"
-                        [routerLink]="[c.slug]"><span [class]="(isArabic$|async)?'pe-2':'ps-2'">{{c.name}}</span></h2>
-                    <p>{{c.description}}</p>
-                </div>
-                <div class="small small-info d-flex flex-wrap flex-row justify-content-between">
-                    <div class="d-flex flex-row gap-2 align-items-end">
-                        <span><i class="bi bi-person"></i> {{c.author?.firstname}} {{c.author?.lastname}}</span>
-                        <span><i class="bi bi-calendar"></i> {{c.dateCreated | date}}</span>
-                    </div>
-                    <button class="btn btn-orange d-none d-md-block"
-                            [routerLink]="[c.slug]">{{'View'| translate}}</button>
-                    <button class="btn btn-orange d-block d-md-none w-100 mt-2"
-                            [routerLink]="[c.slug]">{{'View'| translate}}</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <course-card *ngFor="let c of (AllCourses$|async)"
+                 [Course]="c"></course-card>
 </ng-template>

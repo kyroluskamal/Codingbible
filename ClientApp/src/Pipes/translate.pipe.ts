@@ -3,7 +3,8 @@ import { Store } from '@ngrx/store';
 import { selectLang } from 'src/State/LangState/lang.reducer';
 
 @Pipe({
-  name: 'translate'
+  name: 'translate',
+  standalone: true
 })
 export class TranslatePipe implements PipeTransform
 {
@@ -41,6 +42,7 @@ export class TranslatePipe implements PipeTransform
       case 'HowToWriteCodeText': return `Teaching you how to use programming languages to solve problems.`;
       case 'AllCoursesPageDescription': return `In this page you can find all courses. You can also use the search box in the sidebar.`;
       case 'selectLesson': return `Select a lesson from the side menu`;
+      case 'AllCategoriesDesc': return `In this page you can find all categories. You can also use the search box in the sidebar.`;
       default: return value;
     }
   }
@@ -79,6 +81,10 @@ export class TranslatePipe implements PipeTransform
       case 'Course description': return 'وصف الدورة';
       case 'Target Audience': return 'هذه الدورة مخصصة لـ';
       case 'Course Requirements': return 'متطلبات الدورة';
+      case 'Course Features': return 'مميزات الدورة';
+      case 'Courses Categories': return 'أقسام الدورات';
+      case 'AllCategoriesDesc': return `هذه الصفحة تحتوي على جميع الأقسام. يمكنك استخدام مربع البحث للتصفح بسرعة.`;
+      case 'View Courses': return 'عرض الدورات';
       default: return value;
     }
   }

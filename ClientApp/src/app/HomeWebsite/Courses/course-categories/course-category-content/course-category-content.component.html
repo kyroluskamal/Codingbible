@@ -1,1 +1,11 @@
-<p>course-category-content works!</p>
+<app-home-nav-menu [LocationName]="'courses'"
+                   style="z-index: 1;"></app-home-nav-menu>
+<basic-skeleton [Body]="Category"></basic-skeleton>
+<ng-template #Category>
+    <header class="coding-bible-card">
+        <page-title [title]="(CourseCategoryBySlug|async)?.category?.name!"
+                    [description]="(CourseCategoryBySlug|async)?.category?.description!"></page-title>
+    </header>
+    <course-card *ngFor="let c of (CourseCategoryBySlug|async)?.courses"
+                 [Course]="c"></course-card>
+</ng-template>

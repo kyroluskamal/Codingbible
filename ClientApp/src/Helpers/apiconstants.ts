@@ -99,6 +99,9 @@ const controllers = {
             Get_SlugMap_Courses_By_Slug: "Get_SlugMap_Courses_By_Slug",
             GetCourseBySlug: "GetCourseBySlug",
             GetLessonBySlug: "GetLessonBySlug",
+            GetCoursesInCategoryById: "GetCoursesInCategoryById",
+            GetCoursesInCategoryBySlug: "GetCoursesInCategoryBySlug",
+
         }
     }
 };
@@ -188,6 +191,8 @@ export const CoursesController = {
     Get_SlugMap_Courses_By_Slug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.Get_SlugMap_Courses_By_Slug),
     GetCourseBySlug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCourseBySlug),
     GetLessonBySlug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetLessonBySlug),
+    GetCoursesInCategoryById: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCoursesInCategoryById),
+    GetCoursesInCategoryBySlug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCoursesInCategoryBySlug),
 };
 
 function getApiUrl(version: string, controller: string, action: string): string

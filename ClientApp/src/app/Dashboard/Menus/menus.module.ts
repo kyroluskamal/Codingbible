@@ -4,8 +4,6 @@ import { MenusComponent } from './menus/menus.component';
 import { MenusRoutingModule } from './menus-routing.module';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
-
 
 
 @NgModule({
@@ -14,7 +12,7 @@ import { SharedPipesModule } from 'src/SharedModules/shared-pipes.module';
   ],
   imports: [
     CommonModule, MenusRoutingModule, ShareComponentsforDashboardModule, ReactiveFormsModule,
-    FormsModule, SharedPipesModule
+    FormsModule
   ]
 })
 export class MenusModule { }
