@@ -190,6 +190,7 @@ namespace CodingBible.Controllers.api.v1
                     return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(Post.Slug)));
                 }
                 var oldFeatureImageUrl = getPost.FeatureImageUrl;
+                var oldSlug = getPost.Slug;
                 getPost.CommentStatus = Post.CommentStatus;
                 getPost.HtmlContent = Post.HtmlContent;
                 getPost.LasModified = DateTime.Now;
@@ -204,6 +205,8 @@ namespace CodingBible.Controllers.api.v1
                     getPost.PublishedDate = DateTime.Now;
                 }
                 UnitOfWork.Posts.Update(getPost);
+                if (!Equals(Post.Slug, oldSlug))
+                    await AddUpdate_SlugMap_Posts(getPost, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -244,7 +247,6 @@ namespace CodingBible.Controllers.api.v1
                         }
                         await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
                     }
-                    await AddUpdate_SlugMap_Posts(getPost);
                     await UpdateOtherSlug(getPost);
                     await SitemapService.CreatePostSiteMap($"{Request.Scheme}://{Request.Host}");
                     return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title, getPost));
@@ -315,41 +317,40 @@ namespace CodingBible.Controllers.api.v1
             var slug = getPost.Slug;
             var isArabic = getPost.IsArabic;
             await UnitOfWork.Posts.RemoveAsync(id);
+            var slugMap = await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, slug)
+                || Equals(x.ArSlug, slug));
+            if (slugMap != null)
+            {
+                if (isArabic)
+                {
+                    if (slugMap.EnSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_Posts.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.ArSlug = null;
+                        UnitOfWork.SlugMap_Posts.Update(slugMap);
+                    }
+                }
+                else
+                {
+                    if (slugMap.ArSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_Posts.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.EnSlug = null;
+                        UnitOfWork.SlugMap_Posts.Update(slugMap);
+                    }
+                }
+            }
             var result = await UnitOfWork.SaveAsync();
             if (SitemapService.IsPostFoundInSitemap(getPost.Slug))
                 await SitemapService.DeletePostFromSitemap(getPost, $"{Request.Scheme}://{Request.Host}");
             if (result > 0)
             {
-                var slugMap = await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x => (string.Equals(x.EnSlug, slug))
-                || (string.Equals(x.ArSlug, slug)));
-                if (slugMap != null)
-                {
-                    if (isArabic)
-                    {
-                        if (slugMap.EnSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_Posts.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.ArSlug = null;
-                            UnitOfWork.SlugMap_Posts.Update(slugMap);
-                        }
-                    }
-                    else
-                    {
-                        if (slugMap.ArSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_Posts.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.EnSlug = null;
-                            UnitOfWork.SlugMap_Posts.Update(slugMap);
-                        }
-                    }
-                    await UnitOfWork.SaveAsync();
-                }
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Post({getPost.Title})"));
             }
             return BadRequest(Constants.HttpResponses.Delete_Failed($"Post ({getPost.Title})"));
@@ -459,9 +460,12 @@ namespace CodingBible.Controllers.api.v1
                     }
                     var catToDeleteId = getCategory.Id;
                     var oldLevel = getCategory.Level;
+                    var oldSlug = getCategory.Slug;
                     getCategory = Mapper.Map(category, getCategory);
 
                     UnitOfWork.Categories.Update(getCategory);
+                    if (Equals(category.Slug, oldSlug))
+                        await AddUpdate_SlugMap_PostCategory(getCategory, oldSlug);
                     var result = await UnitOfWork.SaveAsync();
                     if (result > 0)
                     {
@@ -480,7 +484,6 @@ namespace CodingBible.Controllers.api.v1
                                 UnitOfWork.PostsCategories.Update(post);
                             }
                         }
-                        await AddUpdate_SlugMap_PostCategory(getCategory);
                         await UpdateOtherSlug(getCategory);
                         return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name, getCategory));
                     }
@@ -535,7 +538,7 @@ namespace CodingBible.Controllers.api.v1
                         }
                     }
                     var slugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x =>
-                    (Equals(x.EnSlug, slug)) || (Equals(x.ArSlug, slug)));
+                    Equals(x.EnSlug, slug) || Equals(x.ArSlug, slug));
                     if (slugMap != null)
                     {
                         if (isArabic)
@@ -594,7 +597,7 @@ namespace CodingBible.Controllers.api.v1
         }
         #endregion
 
-        private async Task AddUpdate_SlugMap_Posts(Post post)
+        private async Task AddUpdate_SlugMap_Posts(Post post, string oldSlug = "")
         {
             if (post.OtherSlug == null)
             {
@@ -613,43 +616,34 @@ namespace CodingBible.Controllers.api.v1
             }
             else
             {
-                var SlugMap = await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x =>
-                       (x.EnSlug == null && x.ArSlug == post.OtherSlug)
-                    || (x.EnSlug == post.OtherSlug && x.ArSlug == null));
-                if (SlugMap != null)
+                if (post.IsArabic)
                 {
-                    if (post.IsArabic)
+                    var SlugMap = await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x =>
+                                    (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                        || (Equals(x.EnSlug, post.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                    if (SlugMap != null)
                     {
                         SlugMap.ArSlug = post.Slug;
                         SlugMap.EnSlug = post.OtherSlug;
+                        UnitOfWork.SlugMap_Posts.Update(SlugMap);
                     }
-                    else
-                    {
-                        SlugMap.EnSlug = post.Slug;
-                        SlugMap.ArSlug = post.OtherSlug;
-                    }
-                    UnitOfWork.SlugMap_Posts.Update(SlugMap);
                 }
                 else
                 {
-                    var newSlugMap = new SlugMap_Posts();
-                    if (post.IsArabic)
+                    var SlugMap = await UnitOfWork.SlugMap_Posts.GetFirstOrDefaultAsync(x =>
+                                    (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                        || (Equals(x.ArSlug, post.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                    if (SlugMap != null)
                     {
-                        newSlugMap.ArSlug = post.Slug;
-                        newSlugMap.EnSlug = post.OtherSlug;
+                        SlugMap.EnSlug = post.Slug;
+                        SlugMap.ArSlug = post.OtherSlug;
+                        UnitOfWork.SlugMap_Posts.Update(SlugMap);
                     }
-                    else
-                    {
-                        newSlugMap.EnSlug = post.Slug;
-                        newSlugMap.ArSlug = post.OtherSlug;
-                    }
-                    await UnitOfWork.SlugMap_Posts.AddAsync(newSlugMap);
                 }
             }
-            await UnitOfWork.SaveAsync();
         }
 
-        private async Task AddUpdate_SlugMap_PostCategory(Category category)
+        private async Task AddUpdate_SlugMap_PostCategory(Category category, string oldSlug = "")
         {
             if (category.OtherSlug == null)
             {
@@ -668,40 +662,31 @@ namespace CodingBible.Controllers.api.v1
             }
             else
             {
-                var SlugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x =>
-                        (x.EnSlug == null && x.ArSlug == category.OtherSlug)
-                    || (x.EnSlug == category.OtherSlug && x.ArSlug == null));
-                if (SlugMap != null)
+                if (category.IsArabic)
                 {
-                    if (category.IsArabic)
+                    var SlugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x =>
+                                    (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                        || (Equals(x.EnSlug, category.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                    if (SlugMap != null)
                     {
                         SlugMap.ArSlug = category.Slug;
                         SlugMap.EnSlug = category.OtherSlug;
+                        UnitOfWork.SlugMap_Categories.Update(SlugMap);
                     }
-                    else
-                    {
-                        SlugMap.EnSlug = category.Slug;
-                        SlugMap.ArSlug = category.OtherSlug;
-                    }
-                    UnitOfWork.SlugMap_Categories.Update(SlugMap);
                 }
                 else
                 {
-                    var newSlugMap = new SlugMap_Category();
-                    if (category.IsArabic)
+                    var SlugMap = await UnitOfWork.SlugMap_Categories.GetFirstOrDefaultAsync(x =>
+                                    (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                        || (Equals(x.ArSlug, category.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                    if (SlugMap != null)
                     {
-                        newSlugMap.ArSlug = category.Slug;
-                        newSlugMap.EnSlug = category.OtherSlug;
+                        SlugMap.EnSlug = category.Slug;
+                        SlugMap.ArSlug = category.OtherSlug;
+                        UnitOfWork.SlugMap_Categories.Update(SlugMap);
                     }
-                    else
-                    {
-                        newSlugMap.EnSlug = category.Slug;
-                        newSlugMap.ArSlug = category.OtherSlug;
-                    }
-                    await UnitOfWork.SlugMap_Categories.AddAsync(newSlugMap);
                 }
             }
-            await UnitOfWork.SaveAsync();
         }
         private async Task UpdateOtherSlug<T>(T obj)
         {

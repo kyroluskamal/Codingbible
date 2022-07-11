@@ -174,7 +174,7 @@ export class ClientSideValidationService
   }
   GenerateSlug(title: string)
   {
-    return title.toLowerCase().replace(/\||:|-|\[|\]/g, ' ').replace(/\s/g, '-');
+    return title.toLowerCase().replace(/[\|:\[\]\?]/g, '').replace(/\-/g, ' ').replace(/\s+/g, ' ').trim().replace(/\s/g, '-');
   }
   inputRedirection(isArabic: boolean)
   {

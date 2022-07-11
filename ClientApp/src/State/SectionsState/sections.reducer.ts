@@ -35,8 +35,61 @@ export const SectionsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateSection_Sucess, (state, res) => adapter.SectionsAdapter.updateOne(res.Section, state)),
-    on(RemoveSection_Success, (state, { id }) => adapter.SectionsAdapter.removeOne(id, state)),
+    on(UpdateSection_Sucess, (state, res) =>
+    {
+        let otherSection: Section = new Section();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.Section.otherSlug)
+                {
+                    otherSection = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.Section.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherSection = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherSection: Section = { ...otherSection };
+        console.log(copyOfOtherSection);
+        copyOfOtherSection.otherSlug = res.Section.slug;
+        if (otherSection)
+        {
+            return adapter.SectionsAdapter.upsertMany([copyOfOtherSection, res.Section], state);
+        } else
+        {
+            return adapter.SectionsAdapter.upsertOne(res.Section, state);
+        }
+    }),
+    on(RemoveSection_Success, (state, { id, otherSlug }) =>
+    {
+        let otherSection: Section = new Section();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherSection = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherSection = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherSection: Section = { ...otherSection };
+        copyOfOtherSection.otherSlug = null;
+        if (otherSection)
+        {
+            return adapter.SectionsAdapter.removeOne(id, state) && adapter.SectionsAdapter.upsertOne(copyOfOtherSection, state);
+        } else
+            return adapter.SectionsAdapter.removeOne(id, state);
+    }),
     on(RemoveSection_Failed, (state, res) =>
     {
         return {

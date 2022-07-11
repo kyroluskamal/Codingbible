@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
-import { catchError, map, of, switchMap, withLatestFrom } from "rxjs";
+import { catchError, map, of, switchMap, withLatestFrom, tap, combineLatest } from "rxjs";
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
 import { SpinnerService } from "src/CommonServices/spinner.service";
@@ -13,7 +13,7 @@ import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Course } from "src/models.model";
 import { CourseService } from "src/Services/course.service";
 import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetCourseBy_Slug, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
-import { selectAllCourses } from "./course.reducer";
+import { selectAllCourses, selectCourseByID, selectCourseBySlug } from "./course.reducer";
 
 @Injectable({
     providedIn: 'root'
@@ -101,6 +101,7 @@ export class CoursesEffects
     );
     UpdateCourse$ = createEffect(() =>
         this.actions$.pipe(
+
             ofType(UpdateCourse),
             switchMap((action) =>
             {
@@ -108,7 +109,6 @@ export class CoursesEffects
                 return this.CourseService.Update(CoursesController.UpdateCourse, action).pipe(
                     map((r) =>
                     {
-                        console.log(r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Course'));
                         let x: Update<Course> = {
@@ -116,19 +116,17 @@ export class CoursesEffects
                             changes: r.data as Course
                         };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateCourse_Sucess({ Course: x });
+
+                        return UpdateCourse_Sucess({ Course: r.data as Course });
                     }),
                     catchError((e) =>
                     {
                         this.spinner.removeSpinner();
-                        if (e.error.message && e.error.message.toLowerCase().includes('unique'))
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, e.error.message);
-                        else
-                            this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Addition('Category'));
+                        this.ServerResponse.GetGeneralError_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK, NotificationMessage.Error.Delete('Course'));
                         return of(UpdateCourse_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
-            })
+            }),
         )
     );
     RemovePost$ = createEffect(() =>
@@ -144,7 +142,7 @@ export class CoursesEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Course'));
                         this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home]);
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return RemoveCourse_Success({ id: action.id });
+                        return RemoveCourse_Success({ id: action.id, otherSlug: action.otherSlug });
                     }),
                     catchError((e) =>
                     {

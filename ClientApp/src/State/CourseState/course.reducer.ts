@@ -39,8 +39,60 @@ export const CourseReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateCourse_Sucess, (state, res) => adapter.CourseAdapter.updateOne(res.Course, state)),
-    on(RemoveCourse_Success, (state, { id }) => adapter.CourseAdapter.removeOne(id, state)),
+    on(UpdateCourse_Sucess, (state, res) => 
+    {
+        let otherCourse: Course = new Course();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.Course.otherSlug)
+                {
+                    otherCourse = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.Course.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCourse = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCourse: Course = { ...otherCourse };
+        copyOfOtherCourse.otherSlug = res.Course.slug;
+        if (otherCourse)
+        {
+            return adapter.CourseAdapter.upsertMany([copyOfOtherCourse, res.Course], state);
+        } else
+        {
+            return adapter.CourseAdapter.upsertOne(res.Course, state);
+        }
+    }),
+    on(RemoveCourse_Success, (state, { id, otherSlug }) =>
+    {
+        let otherCourse: Course = new Course();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherCourse = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCourse = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCourse: Course = { ...otherCourse };
+        copyOfOtherCourse.otherSlug = null;
+        if (otherCourse)
+        {
+            return adapter.CourseAdapter.removeOne(id, state) && adapter.CourseAdapter.upsertOne(copyOfOtherCourse, state);
+        } else
+            return adapter.CourseAdapter.removeOne(id, state);
+    }),
     on(RemoveCourse_Failed, (state, res) =>
     {
         return {
@@ -66,7 +118,7 @@ export const CourseReducer = createReducer(
     on(LoadCoursesSuccess, (state, { payload }) =>
     {
         state = adapter.CourseAdapter.removeAll({ ...state });
-        return adapter.CourseAdapter.addMany(payload, state);
+        return adapter.CourseAdapter.upsertMany(payload, state);
     }),
     on(SetValidationErrors, (state, res) =>
     {

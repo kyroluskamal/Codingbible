@@ -36,8 +36,58 @@ export const CategoryReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateCATEGORY_Sucess, (state, res) => CategoryAdapter.updateOne(res.CATEGORY, state)),
-    on(RemoveCATEGORY_Success, (state, { id }) => CategoryAdapter.removeOne(id, state)),
+    on(UpdateCATEGORY_Sucess, (state, res) =>
+    {
+        let otherCategory: Category = new Category();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.CATEGORY.otherSlug)
+                {
+                    otherCategory = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.CATEGORY.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCategory = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCategory: Category = { ...otherCategory };
+        copyOfOtherCategory.otherSlug = res.CATEGORY.slug;
+        if (otherCategory)
+        {
+            return CategoryAdapter.upsertMany([copyOfOtherCategory, otherCategory], state);
+        }
+        return CategoryAdapter.upsertOne(res.CATEGORY, state);
+    }),
+    on(RemoveCATEGORY_Success, (state, { id, otherSlug }) =>
+    {
+        let otherCategory: Category = new Category();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherCategory = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCategory = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCategory: Category = { ...otherCategory };
+        copyOfOtherCategory.otherSlug = null;
+        if (otherCategory)
+        {
+            return CategoryAdapter.removeOne(id, state) && CategoryAdapter.upsertOne(copyOfOtherCategory, state);
+        } else
+            return CategoryAdapter.removeOne(id, state);
+    }),
     on(RemoveCATEGORY_Failed, (state, res) =>
     {
         return {

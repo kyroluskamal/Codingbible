@@ -61,7 +61,7 @@ export class LessonsEffects
                     }),
                     catchError((e) =>
                     {
-                        if (e.error)
+                        if (e.error && e.error.status)
                             if (e.error.status.toLowerCase() == "notfound")
                             {
                                 this.notifications.Error_Swal(sweetAlert.Title.Error,
@@ -133,15 +133,10 @@ export class LessonsEffects
                 return this.LessonService.Update(CoursesController.UpdateLesson, action).pipe(
                     map((r) =>
                     {
-                        console.log(r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Lesson'));
-                        let x: Update<Lesson> = {
-                            id: action.id,
-                            changes: r.data as Lesson
-                        };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return UpdateLesson_Sucess({ Lesson: x });
+                        return UpdateLesson_Sucess({ Lesson: r.data as Lesson });
                     }),
                     catchError((e) =>
                     {
@@ -170,7 +165,7 @@ export class LessonsEffects
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         if (action.url === DashboardRoutes.Courses.Lessons.EditLesson)
                             this.router.navigate(['', DashboardRoutes.Home]);
-                        return RemoveLesson_Success({ id: action.id });
+                        return RemoveLesson_Success({ id: action.id, otherSlug: action.otherSlug });
                     }),
                     catchError((e) =>
                     {

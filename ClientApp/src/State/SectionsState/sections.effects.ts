@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
-import { props, Store } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { catchError, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
 import { GetServerErrorResponseService } from "src/CommonServices/getServerErrorResponse.service";
 import { ServerResponseHandelerService } from "src/CommonServices/server-response-handeler.service";
@@ -11,7 +11,17 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Section } from "src/models.model";
 import { SectionsService } from "src/Services/sections.service";
-import { AdditionIsComplete, AddSection, AddSection_Failed, AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetSectionsByCourseId, GetSectionsByCourseId_Failed, GetSectionsByCourseId_Success, LoadSections, LoadSectionsFail, LoadSectionsSuccess, RemoveSection, RemoveSection_Failed, RemoveSection_Success, SetValidationErrors, UpdateIsCompleted, UpdateSection, UpdateSectionOrder, UpdateSectionOrder_Sucess, UpdateSection_Failed, UpdateSection_Sucess } from "./sections.actions";
+import
+{
+    AdditionIsComplete, AddSection, AddSection_Failed,
+    AddSection_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success,
+    dummyAction, GetSectionsByCourseId, GetSectionsByCourseId_Failed,
+    GetSectionsByCourseId_Success, LoadSections, LoadSectionsFail,
+    LoadSectionsSuccess, RemoveSection, RemoveSection_Failed,
+    RemoveSection_Success, SetValidationErrors, UpdateIsCompleted,
+    UpdateSection, UpdateSectionOrder, UpdateSectionOrder_Sucess,
+    UpdateSection_Failed, UpdateSection_Sucess
+} from "./sections.actions";
 import { selectAllSections } from "./sections.reducer";
 
 
@@ -102,15 +112,10 @@ export class SectionsEffects
                 return this.SectionService.Update(CoursesController.UpdateSection, action).pipe(
                     map((r) =>
                     {
-                        console.log(r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section'));
-                        let x: Update<Section> = {
-                            id: action.id,
-                            changes: r.data as Section
-                        };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        this.store.dispatch(UpdateSection_Sucess({ Section: x }));
+                        this.store.dispatch(UpdateSection_Sucess({ Section: r.data as Section }));
                         return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
@@ -136,7 +141,7 @@ export class SectionsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        this.store.dispatch(RemoveSection_Success({ id: action.id }));
+                        this.store.dispatch(RemoveSection_Success({ id: action.id, otherSlug: action.otherSlug }));
                         return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>

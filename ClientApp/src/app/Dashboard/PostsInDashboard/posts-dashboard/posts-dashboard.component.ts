@@ -61,7 +61,7 @@ export class PostsDashboardComponent implements OnInit
     {
       if (result.value)
       {
-        this.store.dispatch(RemovePOST({ id: event.id, url: "" }));
+        this.store.dispatch(RemovePOST({ id: event.id, url: "", otherSlug: event.otherSlug! }));
         this.resetSelectedRow = true;
       }
     });

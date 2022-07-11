@@ -85,6 +85,7 @@ export class TranslatePipe implements PipeTransform
       case 'Courses Categories': return 'أقسام الدورات';
       case 'AllCategoriesDesc': return `هذه الصفحة تحتوي على جميع الأقسام. يمكنك استخدام مربع البحث للتصفح بسرعة.`;
       case 'View Courses': return 'عرض الدورات';
+      case 'Read More': return 'اقراء المزيد';
       default: return value;
     }
   }

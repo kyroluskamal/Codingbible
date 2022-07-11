@@ -34,8 +34,60 @@ export const PostReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdatePOST_Sucess, (state, res) => adapter.PostAdapter.updateOne(res.POST, state)),
-    on(RemovePOST_Success, (state, { id }) => adapter.PostAdapter.removeOne(id, state)),
+    on(UpdatePOST_Sucess, (state, res) =>
+    {
+        let otherPost: Post = new Post();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.POST.otherSlug)
+                {
+                    otherPost = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.POST.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherPost = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherPost: Post = { ...otherPost };
+        copyOfOtherPost.otherSlug = res.POST.slug;
+        if (otherPost)
+        {
+            return adapter.PostAdapter.upsertMany([copyOfOtherPost, res.POST], state);
+        } else
+        {
+            return adapter.PostAdapter.upsertOne(res.POST, state);
+        }
+    }),
+    on(RemovePOST_Success, (state, { id, otherSlug }) =>
+    {
+        let otherPost: Post = new Post();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherPost = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherPost = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherPost: Post = { ...otherPost };
+        copyOfOtherPost.otherSlug = null;
+        if (otherPost)
+        {
+            return adapter.PostAdapter.removeOne(id, state) && adapter.PostAdapter.upsertOne(copyOfOtherPost, state);
+        } else
+            return adapter.PostAdapter.removeOne(id, state);
+    }),
     on(RemovePOST_Failed, (state, res) =>
     {
         return {

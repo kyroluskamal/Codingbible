@@ -333,6 +333,7 @@ public class CoursesController : ControllerBase
                     return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(course.Slug)));
                 }
                 // courseToUpdate = Mapper.Map(course, courseToUpdate);
+                var oldSlug = courseToUpdate.Slug;
                 courseToUpdate.Name = course.Name;
                 courseToUpdate.Title = course.Title;
                 courseToUpdate.Description = course.Description;
@@ -347,7 +348,14 @@ public class CoursesController : ControllerBase
                 courseToUpdate.DifficultyLevel = course.DifficultyLevel;
                 courseToUpdate.FeatureImageUrl = course.FeatureImageUrl;
                 courseToUpdate.IntroductoryVideoUrl = course.IntroductoryVideoUrl;
+                courseToUpdate.OtherSlug = course.OtherSlug;
                 UnitOfWork.Courses.Update(courseToUpdate);
+                Log.Warning("new Slug vs Old slug {bool}", !Equals(course.Slug, oldSlug));
+                Log.Warning("courseToUpdate.OtherSlug {Id} updated", courseToUpdate.OtherSlug);
+                Log.Warning("course.OtherSlug {Id} updated", course.OtherSlug);
+
+                if (!Equals(course.Slug, oldSlug))
+                    await AddUpdate_SlugMapCourses(courseToUpdate, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -369,8 +377,7 @@ public class CoursesController : ControllerBase
                         }
                         await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
                     }
-                    if (UpdatedCourse.IsArabic != course.IsArabic)
-                        await AddUpdate_SlugMapCourses(UpdatedCourse);
+
                     await UpdateOtherSlug(UpdatedCourse);
                     await UnitOfWork.SaveAsync();
                     UpdatedCourse.CategoriesObject = new();
@@ -612,16 +619,19 @@ public class CoursesController : ControllerBase
                     return BadRequest(Constants.HttpResponses.NotUnique_ERROR_Response(nameof(category.Slug)));
                 }
                 var oldLevel = getCategory.Level;
+                var oldSlug = getCategory.Slug;
                 getCategory = Mapper.Map(category, getCategory);
                 if (category.Level != oldLevel)
                 {
                     await UpdateCategoryLevel(getCategory);
                 }
                 UnitOfWork.CourseCategories.Update(getCategory);
+                if (!Equals(category.Slug, oldSlug))
+                    await AddUpdate_SlugMap_CourseCategory(getCategory, oldSlug);
+
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    await AddUpdate_SlugMap_CourseCategory(getCategory);
                     await UpdateOtherSlug(getCategory);
                     return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name, getCategory));
                 }
@@ -665,6 +675,35 @@ public class CoursesController : ControllerBase
                 }
             }
             await UnitOfWork.CourseCategories.RemoveAsync(id);
+            var slugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
+                            Equals(x.EnSlug, slug) || Equals(x.ArSlug, slug));
+            if (slugMap != null)
+            {
+                if (isArabic)
+                {
+                    if (slugMap.EnSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_CourseCategories.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.ArSlug = null;
+                        UnitOfWork.SlugMap_CourseCategories.Update(slugMap);
+                    }
+                }
+                else
+                {
+                    if (slugMap.ArSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_CourseCategories.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.EnSlug = null;
+                        UnitOfWork.SlugMap_CourseCategories.Update(slugMap);
+                    }
+                }
+            }
             var result = await UnitOfWork.SaveAsync();
             if (result > 0)
             {
@@ -686,35 +725,7 @@ public class CoursesController : ControllerBase
                         UnitOfWork.CoursesPerCategories.Update(course);
                     }
                 }
-                var slugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
-                            Equals(x.EnSlug, slug) || Equals(x.ArSlug, slug));
-                if (slugMap != null)
-                {
-                    if (isArabic)
-                    {
-                        if (slugMap.EnSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_CourseCategories.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.ArSlug = null;
-                            UnitOfWork.SlugMap_CourseCategories.Update(slugMap);
-                        }
-                    }
-                    else
-                    {
-                        if (slugMap.ArSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_CourseCategories.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.EnSlug = null;
-                            UnitOfWork.SlugMap_CourseCategories.Update(slugMap);
-                        }
-                    }
-                }
+
                 await UnitOfWork.SaveAsync();
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Category ({getCategory.Name})"));
             }
@@ -850,6 +861,7 @@ public class CoursesController : ControllerBase
                     }
                 }
                 var oldLevel = getSection.Level;
+                var oldSlug = getSection.Slug;
                 getSection.Name = section.Name;
                 getSection.Title = section.Title;
                 getSection.Description = section.Description;
@@ -863,7 +875,10 @@ public class CoursesController : ControllerBase
                 getSection.IntroductoryVideoUrl = section.IntroductoryVideoUrl;
                 getSection.Status = 0;
                 getSection.NameSlugFragment = section.NameSlugFragment;
+                getSection.OtherSlug = section.OtherSlug;
                 UnitOfWork.Sections.Update(getSection);
+                if (!Equals(section.Slug, oldSlug))
+                    await AddUpdate_SlugMap_Sections(getSection, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -871,7 +886,6 @@ public class CoursesController : ControllerBase
                     {
                         await UpdateSectionLevel(getSection);
                     }
-                    await AddUpdate_SlugMap_Sections(getSection);
                     await UpdateOtherSlug(getSection);
                     return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name, getSection));
                 }
@@ -915,6 +929,35 @@ public class CoursesController : ControllerBase
                 }
             }
             await UnitOfWork.Sections.RemoveAsync(id);
+            var slugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(
+                    x => Equals(x.EnSlug, slug) || Equals(x.ArSlug, slug));
+            if (slugMap != null)
+            {
+                if (isArabic)
+                {
+                    if (slugMap.EnSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_Sections.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.ArSlug = null;
+                        UnitOfWork.SlugMap_Sections.Update(slugMap);
+                    }
+                }
+                else
+                {
+                    if (slugMap.ArSlug == null)
+                    {
+                        await UnitOfWork.SlugMap_Sections.RemoveAsync(slugMap.Id);
+                    }
+                    else
+                    {
+                        slugMap.EnSlug = null;
+                        UnitOfWork.SlugMap_Sections.Update(slugMap);
+                    }
+                }
+            }
             var result = await UnitOfWork.SaveAsync();
             if (result > 0)
             {
@@ -925,35 +968,7 @@ public class CoursesController : ControllerBase
                         await UpdateSectionLevel(child);
                     }
                 }
-                var slugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(
-                    x => Equals(x.EnSlug, slug) || Equals(x.ArSlug, slug));
-                if (slugMap != null)
-                {
-                    if (isArabic)
-                    {
-                        if (slugMap.EnSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_Sections.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.ArSlug = null;
-                            UnitOfWork.SlugMap_Sections.Update(slugMap);
-                        }
-                    }
-                    else
-                    {
-                        if (slugMap.ArSlug == null)
-                        {
-                            await UnitOfWork.SlugMap_Sections.RemoveAsync(slugMap.Id);
-                        }
-                        else
-                        {
-                            slugMap.EnSlug = null;
-                            UnitOfWork.SlugMap_Sections.Update(slugMap);
-                        }
-                    }
-                }
+
                 await UnitOfWork.SaveAsync();
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Section ({getSection.Name})"));
             }
@@ -1261,7 +1276,7 @@ public class CoursesController : ControllerBase
                 {
                     return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Course"));
                 }
-
+                var oldSlug = getLesson.Slug;
                 getLesson.Name = lesson.Name;
                 getLesson.Title = lesson.Title;
                 getLesson.Slug = lesson.Slug;
@@ -1289,6 +1304,8 @@ public class CoursesController : ControllerBase
                 {
                     UnitOfWork.LessonAttachments.Remove(att);
                 }
+                if (!Equals(lesson.Slug, oldSlug))
+                    await AddUpdate_SlugMap_Lessons(getLesson, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -1305,7 +1322,6 @@ public class CoursesController : ControllerBase
                         }
                         await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
                     }
-                    await AddUpdate_SlugMap_Lessons(getLesson);
                     await UnitOfWork.SaveAsync();
                     await UpdateOtherSlug(getLesson);
                     return Ok(Constants.HttpResponses.Update_Sucess("Lesson", getLesson));
@@ -1682,8 +1698,11 @@ public class CoursesController : ControllerBase
             return BadRequest(e.Message);
         }
     }
-    private async Task AddUpdate_SlugMapCourses(Course course)
+    private async Task AddUpdate_SlugMapCourses(Course course, string oldSlug = "")
     {
+        Log.Warning("OtherSlug {OtherLsug}", course.OtherSlug);
+        Log.Warning("Slug {OtherLsug}", course.Slug);
+        Log.Warning("OldSlug {OtherLsug}", oldSlug);
         if (course.OtherSlug == null)
         {
             var newSlugMap = new SlugMap_Courses();
@@ -1701,41 +1720,33 @@ public class CoursesController : ControllerBase
         }
         else
         {
-            var SlugMap = await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x =>
-                    (x.EnSlug == null && x.ArSlug == course.OtherSlug)
-                    || (x.EnSlug == course.OtherSlug && x.ArSlug == null));
-            if (SlugMap != null)
+            if (course.IsArabic)
             {
-                if (course.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x =>
+                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                    || (Equals(x.EnSlug, course.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                if (SlugMap != null)
                 {
                     SlugMap.ArSlug = course.Slug;
                     SlugMap.EnSlug = course.OtherSlug;
+                    UnitOfWork.SlugMap_Courses.Update(SlugMap);
                 }
-                else
-                {
-                    SlugMap.EnSlug = course.Slug;
-                    SlugMap.ArSlug = course.OtherSlug;
-                }
-                UnitOfWork.SlugMap_Courses.Update(SlugMap);
             }
             else
             {
-                var newSlugMap = new SlugMap_Courses();
-                if (course.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x =>
+                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                    || (Equals(x.ArSlug, course.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                if (SlugMap != null)
                 {
-                    newSlugMap.ArSlug = course.Slug;
-                    newSlugMap.EnSlug = course.OtherSlug;
+                    SlugMap.EnSlug = course.Slug;
+                    SlugMap.ArSlug = course.OtherSlug;
+                    UnitOfWork.SlugMap_Courses.Update(SlugMap);
                 }
-                else
-                {
-                    newSlugMap.EnSlug = course.Slug;
-                    newSlugMap.ArSlug = course.OtherSlug;
-                }
-                await UnitOfWork.SlugMap_Courses.AddAsync(newSlugMap);
             }
         }
     }
-    private async Task AddUpdate_SlugMap_Sections(Section section)
+    private async Task AddUpdate_SlugMap_Sections(Section section, string oldSlug = "")
     {
         if (section.OtherSlug == null)
         {
@@ -1754,42 +1765,34 @@ public class CoursesController : ControllerBase
         }
         else
         {
-            var SlugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x =>
-            (x.EnSlug == null && x.ArSlug == section.OtherSlug)
-                    || (x.EnSlug == section.OtherSlug && x.ArSlug == null));
-            if (SlugMap != null)
+            if (section.IsArabic)
             {
-                if (section.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x =>
+                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                    || (Equals(x.EnSlug, section.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                if (SlugMap != null)
                 {
                     SlugMap.ArSlug = section.Slug;
                     SlugMap.EnSlug = section.OtherSlug;
+                    UnitOfWork.SlugMap_Sections.Update(SlugMap);
                 }
-                else
-                {
-                    SlugMap.EnSlug = section.Slug;
-                    SlugMap.ArSlug = section.OtherSlug;
-                }
-                UnitOfWork.SlugMap_Sections.Update(SlugMap);
             }
             else
             {
-                var newSlugMap = new SlugMap_Sections();
-                if (section.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x =>
+                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                    || (Equals(x.ArSlug, section.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                if (SlugMap != null)
                 {
-                    newSlugMap.ArSlug = section.Slug;
-                    newSlugMap.EnSlug = section.OtherSlug;
+                    SlugMap.EnSlug = section.Slug;
+                    SlugMap.ArSlug = section.OtherSlug;
+                    UnitOfWork.SlugMap_Sections.Update(SlugMap);
                 }
-                else
-                {
-                    newSlugMap.EnSlug = section.Slug;
-                    newSlugMap.ArSlug = section.OtherSlug;
-                }
-                await UnitOfWork.SlugMap_Sections.AddAsync(newSlugMap);
             }
         }
         await UnitOfWork.SaveAsync();
     }
-    private async Task AddUpdate_SlugMap_Lessons(Lesson lesson)
+    private async Task AddUpdate_SlugMap_Lessons(Lesson lesson, string oldSlug = "")
     {
         if (lesson.OtherSlug == null)
         {
@@ -1808,42 +1811,33 @@ public class CoursesController : ControllerBase
         }
         else
         {
-            var SlugMap = await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x =>
-            (x.EnSlug == null && x.ArSlug == lesson.OtherSlug)
-                    || (x.EnSlug == lesson.OtherSlug && x.ArSlug == null));
-            if (SlugMap != null)
+            if (lesson.IsArabic)
             {
-                if (lesson.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x =>
+                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                    || (Equals(x.EnSlug, lesson.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                if (SlugMap != null)
                 {
                     SlugMap.ArSlug = lesson.Slug;
                     SlugMap.EnSlug = lesson.OtherSlug;
+                    UnitOfWork.SlugMap_Lessons.Update(SlugMap);
                 }
-                else
-                {
-                    SlugMap.EnSlug = lesson.Slug;
-                    SlugMap.ArSlug = lesson.OtherSlug;
-                }
-                UnitOfWork.SlugMap_Lessons.Update(SlugMap);
             }
             else
             {
-                var newSlugMap = new SlugMap_Lessons();
-                if (lesson.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x =>
+                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                    || (Equals(x.ArSlug, lesson.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                if (SlugMap != null)
                 {
-                    newSlugMap.ArSlug = lesson.Slug;
-                    newSlugMap.EnSlug = lesson.OtherSlug;
+                    SlugMap.EnSlug = lesson.Slug;
+                    SlugMap.ArSlug = lesson.OtherSlug;
+                    UnitOfWork.SlugMap_Lessons.Update(SlugMap);
                 }
-                else
-                {
-                    newSlugMap.EnSlug = lesson.Slug;
-                    newSlugMap.ArSlug = lesson.OtherSlug;
-                }
-                await UnitOfWork.SlugMap_Lessons.AddAsync(newSlugMap);
             }
         }
-        await UnitOfWork.SaveAsync();
     }
-    private async Task AddUpdate_SlugMap_CourseCategory(CourseCategory courseCategory)
+    private async Task AddUpdate_SlugMap_CourseCategory(CourseCategory courseCategory, string oldSlug = "")
     {
         if (courseCategory.OtherSlug == null)
         {
@@ -1862,40 +1856,31 @@ public class CoursesController : ControllerBase
         }
         else
         {
-            var SlugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
-                       (x.EnSlug == null && x.ArSlug == courseCategory.OtherSlug)
-                    || (x.EnSlug == courseCategory.OtherSlug && x.ArSlug == null));
-            if (SlugMap != null)
+            if (courseCategory.IsArabic)
             {
-                if (courseCategory.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
+                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
+                    || (Equals(x.EnSlug, courseCategory.OtherSlug) && Equals(x.ArSlug, oldSlug)));
+                if (SlugMap != null)
                 {
                     SlugMap.ArSlug = courseCategory.Slug;
                     SlugMap.EnSlug = courseCategory.OtherSlug;
+                    UnitOfWork.SlugMap_CourseCategories.Update(SlugMap);
                 }
-                else
-                {
-                    SlugMap.EnSlug = courseCategory.Slug;
-                    SlugMap.ArSlug = courseCategory.OtherSlug;
-                }
-                UnitOfWork.SlugMap_CourseCategories.Update(SlugMap);
             }
             else
             {
-                var newSlugMap = new SlugMap_CourseCategory();
-                if (courseCategory.IsArabic)
+                var SlugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
+                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
+                    || (Equals(x.ArSlug, courseCategory.OtherSlug) && Equals(x.EnSlug, oldSlug)));
+                if (SlugMap != null)
                 {
-                    newSlugMap.ArSlug = courseCategory.Slug;
-                    newSlugMap.EnSlug = courseCategory.OtherSlug;
+                    SlugMap.EnSlug = courseCategory.Slug;
+                    SlugMap.ArSlug = courseCategory.OtherSlug;
+                    UnitOfWork.SlugMap_CourseCategories.Update(SlugMap);
                 }
-                else
-                {
-                    newSlugMap.EnSlug = courseCategory.Slug;
-                    newSlugMap.ArSlug = courseCategory.OtherSlug;
-                }
-                await UnitOfWork.SlugMap_CourseCategories.AddAsync(newSlugMap);
             }
         }
-        await UnitOfWork.SaveAsync();
     }
     private async Task UpdateOtherSlug<T>(T obj)
     {

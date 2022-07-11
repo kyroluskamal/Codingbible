@@ -63,15 +63,10 @@ export class PostEffects
         return this.postService.Update(PostsController.UpdatePost, action).pipe(
           map((r) =>
           {
-            console.log(r);
             this.spinner.removeSpinner();
             this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Post'));
-            let x: Update<Post> = {
-              id: action.id,
-              changes: r.data as Post
-            };
             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-            return UpdatePOST_Sucess({ POST: x });
+            return UpdatePOST_Sucess({ POST: r.data as Post });
           }),
           catchError((e) =>
           {
@@ -145,7 +140,7 @@ export class PostEffects
               this.router.navigate(['', DashboardRoutes.Home]);
             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
 
-            return RemovePOST_Success({ id: action.id });
+            return RemovePOST_Success({ id: action.id, otherSlug: action.otherSlug });
           }),
           catchError((e) =>
           {

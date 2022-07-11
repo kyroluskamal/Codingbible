@@ -1,11 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
-import { NotificationsService } from 'src/CommonServices/notifications.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
-import { ArabicRegex, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, sweetAlert, validators } from 'src/Helpers/constants';
+import { ArabicRegex, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostType, validators } from 'src/Helpers/constants';
 import { CourseCategory } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { AddCourseCategory, UpdateCourseCategory } from 'src/State/CourseCategoryState/CourseCategory.actions';

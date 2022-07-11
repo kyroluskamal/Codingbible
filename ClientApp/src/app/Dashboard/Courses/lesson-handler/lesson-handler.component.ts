@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,7 +30,7 @@ import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
   templateUrl: './lesson-handler.component.html',
   styleUrls: ['./lesson-handler.component.css']
 })
-export class LessonHandlerComponent implements OnInit
+export class LessonHandlerComponent implements OnInit, AfterViewInit
 {
   ValidationErrors$ = this.store.select(select_Lessons_ValidationErrors);
   PostType = PostType;
@@ -132,6 +132,7 @@ export class LessonHandlerComponent implements OnInit
       this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
     });
     this.ChangeDetection.detectChanges();
+    this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
   }
   ToggleStickyNotes()
   {
@@ -198,7 +199,7 @@ export class LessonHandlerComponent implements OnInit
         this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home, DashboardRoutes.Courses.Lessons.Home]);
         return;
       }
-      if (x['id'])
+      if (this.router.url.includes(DashboardRoutes.Courses.Lessons.EditLesson) && x['id'])
       {
         this.store.dispatch(GetLessonById({ id: Number(x['id']) }));
         this.LessonById = this.store.select(selectLessonsByID(Number(x['id'])));
@@ -220,7 +221,6 @@ export class LessonHandlerComponent implements OnInit
             this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
 
             this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
-            this.view.nativeElement.innerHTML = this.lesson.htmlContent === "" ? '' : this.lesson.htmlContent;
             for (let i = 0; i < lesson?.attachments.length!; i++)
             {
               this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
@@ -348,7 +348,7 @@ export class LessonHandlerComponent implements OnInit
   }
   DeleteClicked()
   {
-    this.store.dispatch(RemoveLesson({ id: this.lesson?.id!, url: DashboardRoutes.Courses.Lessons.EditLesson }));
+    this.store.dispatch(RemoveLesson({ id: this.lesson?.id!, url: DashboardRoutes.Courses.Lessons.EditLesson, otherSlug: this.lesson?.otherSlug! }));
   }
   isSlugUnique(slug: string)
   {

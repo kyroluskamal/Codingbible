@@ -109,7 +109,7 @@ export class ShowAllSectionsComponent implements OnInit
     {
       if (result.value)
       {
-        this.store.dispatch(RemoveSection({ id: event.id, url: "" }));
+        this.store.dispatch(RemoveSection({ id: event.id, url: "", otherSlug: event.otherSlug! }));
         this.resetSelectedRow = true;
         this.selectedSections.splice(this.selectedSections.indexOf(event), 1);
       }

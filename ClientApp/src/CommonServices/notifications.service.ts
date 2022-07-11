@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { SweetAlertData } from '../Interfaces/interfaces';
 import Swal from 'sweetalert2';
-import { css } from 'src/Helpers/constants';
+import { css, sweetAlert } from 'src/Helpers/constants';
 import { DOCUMENT } from '@angular/common';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationsService
 {
-
+  swet = sweetAlert;
   constructor(@Inject(DOCUMENT) private document: Document)
   {
 

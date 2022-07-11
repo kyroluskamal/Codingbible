@@ -46,8 +46,61 @@ export const LessonsReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateLesson_Sucess, (state, res) => adapter.LessonsAdapter.updateOne(res.Lesson, state)),
-    on(RemoveLesson_Success, (state, { id }) => adapter.LessonsAdapter.removeOne(id, state)),
+    on(UpdateLesson_Sucess, (state, res) =>
+    {
+        let otherLesson: Lesson = new Lesson();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.Lesson.otherSlug)
+                {
+                    otherLesson = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.Lesson.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherLesson = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherLesson: Lesson = { ...otherLesson };
+        console.log(copyOfOtherLesson);
+        copyOfOtherLesson.otherSlug = res.Lesson.slug;
+        if (otherLesson)
+        {
+            return adapter.LessonsAdapter.upsertMany([copyOfOtherLesson, res.Lesson], state);
+        } else
+        {
+            return adapter.LessonsAdapter.upsertOne(res.Lesson, state);
+        }
+    }),
+    on(RemoveLesson_Success, (state, { id, otherSlug }) =>
+    {
+        let otherLesson: Lesson = new Lesson();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherLesson = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherLesson = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherLesson: Lesson = { ...otherLesson };
+        copyOfOtherLesson.otherSlug = null;
+        if (otherLesson)
+        {
+            return adapter.LessonsAdapter.removeOne(id, state) && adapter.LessonsAdapter.upsertOne(copyOfOtherLesson, state);
+        } else
+            return adapter.LessonsAdapter.removeOne(id, state);
+    }),
     on(RemoveLesson_Failed, (state, res) =>
     {
         return {

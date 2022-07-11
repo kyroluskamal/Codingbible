@@ -20,7 +20,7 @@
                                 <a [routerLink]="(isArabic$|async)?
                                 ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]:
                                 ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]"
-                                   class="badge btn-violet moreTag">More</a>
+                                   class="badge btn-orange moreTag">More</a>
                             </span>
                         </button>
                     </h2>
@@ -77,8 +77,9 @@
                     <button class="btn btn-orange"
                             [routerLink]="(isArabic$|async)?
                     ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]:
-                    ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]">Read
-                        More</button>
+                    ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]">
+                        {{'Read More'| translate}}
+                    </button>
                 </div>
             </div>
             <ng-template #noCurrentLesson>

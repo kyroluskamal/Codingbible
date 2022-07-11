@@ -71,7 +71,7 @@ export class CourseCategoryComponent implements OnInit
     {
       if (result.value)
       {
-        this.store.dispatch(RemoveCourseCategory({ id: event.id, url: "" }));
+        this.store.dispatch(RemoveCourseCategory({ id: event.id, url: "", otherSlug: event.otherSlug! }));
         this.resetSelectedRow = true;
       }
     });

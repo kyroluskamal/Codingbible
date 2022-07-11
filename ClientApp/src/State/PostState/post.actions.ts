@@ -26,13 +26,13 @@ export const GetPostById_Failed = createAction(actionNames.PostActions.GetPostBy
 export const UpdatePOST = createAction(actionNames.PostActions.UPDATE_POST,
     props<Post>());
 export const UpdatePOST_Sucess = createAction(actionNames.PostActions.UPDATE_POST_Sucess,
-    props<{ POST: Update<Post>; }>());
+    props<{ POST: Post; }>());
 export const UpdatePOST_Failed = createAction(actionNames.PostActions.UPDATE_POST_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemovePOST = createAction(actionNames.PostActions.REMOVE_POST,
-    props<{ id: number; url: string; }>());
+    props<{ id: number; url: string; otherSlug: string; }>());
 export const RemovePOST_Success = createAction(actionNames.PostActions.REMOVE_POST_Success,
-    props<{ id: number; }>());
+    props<{ id: number; otherSlug: string; }>());
 export const RemovePOST_Failed = createAction(actionNames.PostActions.REMOVE_POST_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const LoadPOSTs = createAction(actionNames.PostActions.LOAD_ALL_POSTS);

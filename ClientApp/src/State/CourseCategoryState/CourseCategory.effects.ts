@@ -67,7 +67,7 @@ export class CourseCategoryEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Category'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return LoadCourseCategorys();
+                        return UpdateCourseCategory_Sucess({ CourseCategory: r.data as CourseCategory });
                     }),
                     catchError((e) =>
                     {
@@ -112,8 +112,7 @@ export class CourseCategoryEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-
-                        return LoadCourseCategorys();
+                        return RemoveCourseCategory_Success({ id: action.id, otherSlug: action.otherSlug });
                     }),
                     catchError((e) =>
                     {

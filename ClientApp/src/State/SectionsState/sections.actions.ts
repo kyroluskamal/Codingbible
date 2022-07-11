@@ -36,7 +36,7 @@ export const ChangeStatus_Failed = createAction(actionNames.SectionActions.Chang
 export const UpdateSection = createAction(actionNames.SectionActions.UPDATE_Section,
     props<Section>());
 export const UpdateSection_Sucess = createAction(actionNames.SectionActions.UPDATE_Section_Success,
-    props<{ Section: Update<Section>; }>());
+    props<{ Section: Section; }>());
 export const UpdateSection_Failed = createAction(actionNames.SectionActions.UPDATE_Section_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const UpdateSectionOrder = createAction(actionNames.SectionActions.UpdateSectionOrder,
@@ -46,9 +46,9 @@ export const UpdateSectionOrder_Sucess = createAction(actionNames.SectionActions
 export const UpdateSectionOrder_Failed = createAction(actionNames.SectionActions.UpdateSectionOrder_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveSection = createAction(actionNames.SectionActions.REMOVE_Section,
-    props<{ id: number; url: string; }>());
+    props<{ id: number; url: string; otherSlug: string; }>());
 export const RemoveSection_Success = createAction(actionNames.SectionActions.REMOVE_Section_Success,
-    props<{ id: number; }>());
+    props<{ id: number; otherSlug: string; }>());
 export const RemoveSection_Failed = createAction(actionNames.SectionActions.REMOVE_Section_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const LoadSections = createAction(actionNames.SectionActions.LOAD_ALL_Sections);

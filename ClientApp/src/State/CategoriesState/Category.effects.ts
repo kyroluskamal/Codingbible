@@ -67,7 +67,7 @@ export class CategoryEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Category'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return LoadCATEGORYs();
+                        return UpdateCATEGORY_Sucess({ CATEGORY: r.data as Category });
                     }),
                     catchError((e) =>
                     {
@@ -112,7 +112,7 @@ export class CategoryEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(r.message);
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                        return LoadCATEGORYs();
+                        return RemoveCATEGORY_Success({ id: action.id, otherSlug: action.otherSlug });
                     }),
                     catchError((e) =>
                     {

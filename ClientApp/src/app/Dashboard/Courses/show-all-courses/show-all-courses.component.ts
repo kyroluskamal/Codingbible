@@ -74,7 +74,7 @@ export class ShowAllCoursesComponent implements OnInit
     {
       if (result.value)
       {
-        this.store.dispatch(RemoveCourse({ id: event.id, url: "" }));
+        this.store.dispatch(RemoveCourse({ id: event.id, url: "", otherSlug: event.otherSlug! }));
         this.resetSelectedRow = true;
       }
     });

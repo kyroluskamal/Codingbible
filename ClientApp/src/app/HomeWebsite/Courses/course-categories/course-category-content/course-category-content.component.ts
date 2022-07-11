@@ -120,5 +120,4 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
       }
     );
   }
-
 }

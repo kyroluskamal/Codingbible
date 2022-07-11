@@ -34,8 +34,60 @@ export const CourseCategoryReducer = createReducer(
             ValidationErrors: res.validationErrors
         };
     }),
-    on(UpdateCourseCategory_Sucess, (state, res) => adapter.CourseCategoryAdapter.updateOne(res.CourseCategory, state)),
-    on(RemoveCourseCategory_Success, (state, { id }) => adapter.CourseCategoryAdapter.removeOne(id, state)),
+    on(UpdateCourseCategory_Sucess, (state, res) =>
+    {
+        let otherCourseCategory: CourseCategory = new CourseCategory();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === res.CourseCategory.otherSlug)
+                {
+                    otherCourseCategory = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(res.CourseCategory.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCourseCategory = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCourseCategory: CourseCategory = { ...otherCourseCategory };
+        copyOfOtherCourseCategory.otherSlug = res.CourseCategory.slug;
+        if (otherCourseCategory)
+        {
+            return adapter.CourseCategoryAdapter.upsertMany([copyOfOtherCourseCategory, res.CourseCategory], state);
+        } else
+        {
+            return adapter.CourseCategoryAdapter.upsertOne(res.CourseCategory, state);
+        }
+    }),
+    on(RemoveCourseCategory_Success, (state, { id, otherSlug }) => 
+    {
+        let otherCourseCategory: CourseCategory = new CourseCategory();
+        for (let key in state.entities)
+        {
+            if (state.entities[key]?.isArabic)
+                if (state.entities[key]?.slug === otherSlug)
+                {
+                    otherCourseCategory = state.entities[key]!;
+                }
+            if (!state.entities[key]?.isArabic)
+            {
+                if (state.entities[key]?.slug.localeCompare(otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                {
+                    otherCourseCategory = state.entities[key]!;
+                }
+            }
+        }
+        let copyOfOtherCourseCategory: CourseCategory = { ...otherCourseCategory };
+        copyOfOtherCourseCategory.otherSlug = null;
+        if (otherCourseCategory)
+        {
+            return adapter.CourseCategoryAdapter.removeOne(id, state) && adapter.CourseCategoryAdapter.upsertOne(copyOfOtherCourseCategory, state);
+        } else
+            return adapter.CourseCategoryAdapter.removeOne(id, state);
+    }),
     on(RemoveCourseCategory_Failed, (state, res) =>
     {
         return {

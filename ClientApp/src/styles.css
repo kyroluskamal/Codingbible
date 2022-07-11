@@ -81,7 +81,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
 }
 
 .SwalWarningTitle {
-  color: #ffc107 !important;
+  color: #c19100 !important;
 }
 
 .mat-dialog-container {
@@ -474,4 +474,8 @@ h2::before {
 
 .text-organge {
   color: var(--ButtonColor);
+}
+
+app-home-nav-menu {
+  z-index: 2;
 }

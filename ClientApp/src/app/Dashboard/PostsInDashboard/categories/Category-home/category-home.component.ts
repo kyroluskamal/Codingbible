@@ -98,7 +98,7 @@ export class CategoryHomeComponent implements OnInit
     {
       if (result.value)
       {
-        this.store.dispatch(RemoveCATEGORY({ id: event.id, url: "" }));
+        this.store.dispatch(RemoveCATEGORY({ id: event.id, url: "", otherSlug: event.otherSlug! }));
         this.resetSelectedRow = true;
       }
     });

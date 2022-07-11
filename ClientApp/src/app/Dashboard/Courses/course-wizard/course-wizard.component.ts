@@ -285,11 +285,16 @@ export class CourseWizardComponent implements OnInit
       }
     }
     let updatedCourse = { ...this.CourseToAddOrUpdate };
+    this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
+    console.log(this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value);
     if (this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
     {
       updatedCourse.otherSlug = null;
     }
-    this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
+    else
+    {
+      updatedCourse.otherSlug = this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value;
+    }
     updatedCourse.slug = updatedSlug;
     updatedCourse.categories = this.selectedCategories;
     this.store.dispatch(UpdateCourse(updatedCourse));
@@ -317,6 +322,9 @@ export class CourseWizardComponent implements OnInit
             if (course?.otherSlug == null)
             {
               this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.setValue("0");
+            } else
+            {
+              this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.setValue(course.otherSlug);
             }
             this.CourseForm.get(FormControlNames.courseForm.categories)?.setValue(this.selectedCategories);
             this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.markAsTouched();

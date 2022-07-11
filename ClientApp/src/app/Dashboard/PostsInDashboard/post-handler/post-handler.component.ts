@@ -339,7 +339,7 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   }
   DeleteClicked()
   {
-    this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.Home }));
+    this.store.dispatch(RemovePOST({ id: this.post?.id!, url: DashboardRoutes.Posts.Home, otherSlug: this.post?.otherSlug! }));
   }
   BindAttachmentsToPost(Attachments: number[])
   {

@@ -26,13 +26,13 @@ export const GetCourseCategoryBy_Slug_Failed = createAction(actionNames.CourseCa
 export const UpdateCourseCategory = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY,
     props<CourseCategory>());
 export const UpdateCourseCategory_Sucess = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY_Success,
-    props<{ CourseCategory: Update<CourseCategory>; }>());
+    props<{ CourseCategory: CourseCategory; }>());
 export const UpdateCourseCategory_Failed = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveCourseCategory = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY,
-    props<{ id: number; url: string; }>());
+    props<{ id: number; url: string; otherSlug: string; }>());
 export const RemoveCourseCategory_Success = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY_Success,
-    props<{ id: number; }>());
+    props<{ id: number; otherSlug: string; }>());
 export const RemoveCourseCategory_Failed = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const LoadCourseCategorys = createAction(actionNames.CourseCategoryActions.LOAD_ALL_COURSECATEGORIES);

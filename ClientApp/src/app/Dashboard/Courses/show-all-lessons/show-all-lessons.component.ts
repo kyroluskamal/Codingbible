@@ -142,7 +142,7 @@ export class ShowAllLessonsComponent implements OnInit
   {
     if (lesson)
     {
-      this.store.dispatch(RemoveLesson({ id: lesson.id, url: "" }));
+      this.store.dispatch(RemoveLesson({ id: lesson.id, url: "", otherSlug: lesson.otherSlug! }));
       this.selectedLessons = [];
       this.selectedLessons = this.AllLessons.filter(l => l.courseId == this.SelectedCourseId &&
         l.sectionId == lesson.sectionId);

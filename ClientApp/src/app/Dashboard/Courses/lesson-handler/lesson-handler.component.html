@@ -360,7 +360,7 @@
             ------------------------------------------------------------------------------->
             <div class="form-floating mb-3">
                 <select #OtherSlugSelect
-                        [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.description, inputForm)?'form-select':
+                        [class]="!errorState.isTouchedOrDirty(FormControlNames.LessonForm.otherSlug, inputForm)?'form-select':
                 errorState.isErrorState(FormControlNames.LessonForm.otherSlug, inputForm, Form)?
                     'form-select is-invalid':'form-select is-valid'"
                         id="translation"

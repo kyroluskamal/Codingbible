@@ -20,13 +20,13 @@ export const GetCategoryById_Failed = createAction(actionNames.categoryActions.G
 export const UpdateCATEGORY = createAction(actionNames.categoryActions.UPDATE_CATEGORY,
     props<Category>());
 export const UpdateCATEGORY_Sucess = createAction(actionNames.categoryActions.UPDATE_CATEGORY_Success,
-    props<{ CATEGORY: Update<Category>; }>());
+    props<{ CATEGORY: Category; }>());
 export const UpdateCATEGORY_Failed = createAction(actionNames.categoryActions.UPDATE_CATEGORY_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const RemoveCATEGORY = createAction(actionNames.categoryActions.REMOVE_CATEGORY,
-    props<{ id: number; url: string; }>());
+    props<{ id: number; url: string; otherSlug: string; }>());
 export const RemoveCATEGORY_Success = createAction(actionNames.categoryActions.REMOVE_CATEGORY_Success,
-    props<{ id: number; }>());
+    props<{ id: number; otherSlug: string; }>());
 export const RemoveCATEGORY_Failed = createAction(actionNames.categoryActions.REMOVE_CATEGORY_Failed,
     props<{ error: any; validationErrors: ModelStateErrors[]; }>());
 export const LoadCATEGORYs = createAction(actionNames.categoryActions.LOAD_ALL_CATEGORIES);
