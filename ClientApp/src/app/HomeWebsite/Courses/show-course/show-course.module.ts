@@ -13,6 +13,7 @@ import { WhatWillYouLearnComponent } from 'src/SharedModules/what-will-you-learn
 import { TargetAudienceComponent } from 'src/SharedModules/target-audience/target-audience.component';
 import { RequirementsOrInstructionsComponent } from 'src/SharedModules/requirements-or-instructions/requirements-or-instructions.component';
 import { CourseFeaturesComponent } from 'src/SharedModules/course-features/course-features.component';
+import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-place-holder/page-title-place-holder.component';
 
 
 @NgModule({
@@ -21,8 +22,7 @@ import { CourseFeaturesComponent } from 'src/SharedModules/course-features/cours
   ],
   imports: [
     CommonModule, PlayListModule, IntroductoyVideoComponent, DescriptionComponent,
-    CourseFeaturesComponent,
-    WhatWillYouLearnComponent, TargetAudienceComponent, RequirementsOrInstructionsComponent,
+    CourseFeaturesComponent, PageTitlePlaceHolderComponent, WhatWillYouLearnComponent, TargetAudienceComponent, RequirementsOrInstructionsComponent,
     ShowCourseRoutingModule, SharedModuleForHomeModule, TranslatePipe, PageTitleComponent
   ]
 })

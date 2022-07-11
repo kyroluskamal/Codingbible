@@ -65,7 +65,6 @@ export const LessonsReducer = createReducer(
             }
         }
         let copyOfOtherLesson: Lesson = { ...otherLesson };
-        console.log(copyOfOtherLesson);
         copyOfOtherLesson.otherSlug = res.Lesson.slug;
         if (otherLesson)
         {
@@ -239,7 +238,7 @@ export const selectLessonBySlug = (Slug: string) => createSelector(
                 return state.entities[key];
             }
         }
-        return new Lesson();
+        return undefined;
     }
 );
 export const selectLessonByFragmentName = (fragment: string) => createSelector(

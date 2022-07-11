@@ -14,6 +14,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
 {
   AllCategoriesSubscription: Subscription = new Subscription();
+  Loading: boolean = true;
   AllCategories$ = this.store.select(selectLang).pipe(
     map(isArabic => isArabic),
     switchMap(r => combineLatest([this.store.select(selectAllCourseCategorys)]).pipe(
@@ -47,6 +48,7 @@ export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
   {
     this.AllCategoriesSubscription = this.AllCategories$.subscribe(res =>
     {
+      this.Loading = false;
       if (res.isArabic)
       {
         this.BreadCrumb.set('@courseCategories', 'الاقسام');

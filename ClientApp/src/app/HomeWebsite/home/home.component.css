@@ -5,7 +5,7 @@ h2 {
 }
 
 h1+div {
-    font-size: 1.6vmax;
+    font-size: 3.0vmin;
     color: var(--homepage-titles-color);
     opacity: 0.9;
 }

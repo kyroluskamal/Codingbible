@@ -282,7 +282,6 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   {
     this.postsAttachments = [];
     let allImages = this.view.nativeElement.querySelectorAll("img[data-atachId]");
-    console.log(allImages);
     for (let i = 0; i < allImages.length; i++)
     {
       let img = <HTMLImageElement>allImages[i];
@@ -308,7 +307,6 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   {
     this.postsAttachments = [];
     let allImages = this.view.nativeElement.querySelectorAll("img[data-atachId]");
-    console.log(allImages);
     for (let i = 0; i < allImages.length; i++)
     {
       let img = <HTMLImageElement>allImages[i];

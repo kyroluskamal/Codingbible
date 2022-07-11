@@ -76,7 +76,6 @@ export class SectionModalComponent implements OnInit, OnChanges
         this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
         this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
         this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
-        console.log(this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.value);
       }
       this.SelectTranslation();
     }

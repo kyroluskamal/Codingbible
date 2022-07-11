@@ -60,7 +60,6 @@ export class ImageDragableService
 
   draw(withAnchors: boolean, withBorders: boolean)
   {
-    console.log("draw");
     // clear the canvas
     this.ctx?.clearRect(0, 0, this.canvas.width, this.canvas.height);
 

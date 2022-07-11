@@ -146,7 +146,6 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
 
   NextOrPrevious(status: number)
   {
-    console.log(this.AllLessons);
     if (this.currentLesson)
     {
       let nextIndex = this.currentLessonIndex + status;
@@ -160,6 +159,5 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
   }
   GotoSection(section: Section)
   {
-    console.log(this.CurrentCourse);
   }
 }

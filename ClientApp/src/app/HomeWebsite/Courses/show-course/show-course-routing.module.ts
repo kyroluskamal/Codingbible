@@ -12,7 +12,14 @@ const routes: Routes = [
     }
   },
   { path: HomeRoutes.Courses.Section, loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule) },
-  { path: HomeRoutes.Courses.Lesson, loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule) }
+  {
+    path: HomeRoutes.Courses.Lesson, loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule),
+    data: {
+      breadcrumb: {
+        alias: 'lessonHome',
+      }
+    }
+  }
 ];
 
 @NgModule({

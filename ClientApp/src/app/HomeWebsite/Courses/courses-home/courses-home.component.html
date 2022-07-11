@@ -8,6 +8,12 @@
     <img src="../../../../assets/img/horizontal.png"
          class="noShadow"
          alt="">
-    <course-card *ngFor="let c of (AllCourses$|async)"
-                 [Course]="c"></course-card>
+    <ng-container *ngIf="!loading else placeholder">
+        <course-card *ngFor="let c of (AllCourses$|async)"
+                     [Course]="c"></course-card>
+    </ng-container>
+    <ng-template #placeholder>
+        <course-card-palceholder></course-card-palceholder>
+        <course-card-palceholder></course-card-palceholder>
+    </ng-template>
 </ng-template>

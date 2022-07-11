@@ -103,13 +103,11 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
     if (isPlatformBrowser(this.platformId))
     {
       let allDropDowns = this.document.querySelectorAll(".nav-item.dropdown");
-      console.log(allDropDowns);
       for (let i = 0; i < allDropDowns.length; i++)
       {
         let menu = <HTMLElement>allDropDowns[i].getElementsByTagName("ul")[0];
         allDropDowns[i].addEventListener("mouseover", () =>
         {
-          console.log("mouseover");
           menu.classList.add("show");
         });
         allDropDowns[i].addEventListener("mouseleave", () =>
@@ -147,13 +145,11 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
     this.MenusItems = this.store.select(selectMenuByLocationName(this.locName)).pipe(
       tap(Menus =>
       {
-        console.log(Menus);
         if (Menus)
         {
           this.selectedMenu = Menus;
         } else
         {
-          console.log('dispatch');
           this.store.dispatch(GetMenuByLocationName({ LocationName: this.LocationName }));
         }
       }),

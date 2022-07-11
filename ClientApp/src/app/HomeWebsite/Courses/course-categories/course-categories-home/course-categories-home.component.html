@@ -5,7 +5,13 @@
         <page-title title="{{'Courses Categories'| translate}}"
                     description="{{'AllCategoriesDesc'| translate}}"></page-title>
     </header>
-    <course-categories-card *ngFor="let cat of (AllCategories$|async)?.cats"
-                            [Category]="cat"></course-categories-card>
+    <ng-template #placeholder>
+        <category-card-palceholder></category-card-palceholder>
+        <category-card-palceholder></category-card-palceholder>
+    </ng-template>
+    <ng-container *ngIf="!Loading else placeholder">
+        <course-categories-card *ngFor="let cat of (AllCategories$|async)?.cats"
+                                [Category]="cat"></course-categories-card>
+    </ng-container>
 
 </ng-template>

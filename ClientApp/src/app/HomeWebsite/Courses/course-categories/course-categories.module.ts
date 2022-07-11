@@ -9,6 +9,8 @@ import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { PageTitleComponent } from 'src/SharedModules/page-title/page-title.component';
 import { CourseCategoriesCardComponent } from 'src/SharedModules/course-categories-card/course-categories-card.component';
 import { CourseCardComponent } from 'src/SharedModules/course-card/course-card.component';
+import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-place-holder/page-title-place-holder.component';
+import { CategoryCardPalceholderComponent } from 'src/SharedModules/category-card-palceholder/category-card-palceholder.component';
 
 
 @NgModule({
@@ -17,8 +19,9 @@ import { CourseCardComponent } from 'src/SharedModules/course-card/course-card.c
     CourseCategoryContentComponent
   ],
   imports: [
-    CommonModule, SharedModuleForHomeModule, TranslatePipe, PageTitleComponent,
-    CourseCategoriesRoutingModule, CourseCategoriesCardComponent, CourseCardComponent
+    CommonModule, SharedModuleForHomeModule, TranslatePipe, PageTitleComponent, PageTitlePlaceHolderComponent,
+    CourseCategoriesRoutingModule, CourseCategoriesCardComponent, CourseCardComponent,
+    CategoryCardPalceholderComponent
   ]
 })
 export class CourseCategoriesModule { }

@@ -7,16 +7,21 @@
         |                             Introduction to the course                           |
         ------------------------------------------------------------------------------------>
         <header class="coding-bible-card">
-            <div class="d-flex flex-row flex-wrap gap-1 mb-2">
-                <span class="badge bg-primary rounded-0 catBage"
-                      *ngFor="let cat of (courseBySlug$|async)![0]?.categoriesObject">
-                    <a [routerLink]="(isArabic$|async)?['','ar',HomeRoutes.Courses.Home, 
-                    HomeRoutes.Courses.Categories, cat.slug]:['',HomeRoutes.Courses.Home, 
-                    HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
-                </span>
-            </div>
-            <page-title [title]="(courseBySlug$|async)![0]?.name!"
-                        [description]="(courseBySlug$|async)![0]?.description!"></page-title>
+            <ng-container *ngIf="(courseBySlug$|async)![0] else placeHolder">
+                <div class="d-flex flex-row flex-wrap gap-1 mb-2">
+                    <span class="badge bg-primary rounded-0 catBage"
+                          *ngFor="let cat of (courseBySlug$|async)![0]?.categoriesObject">
+                        <a [routerLink]="(isArabic$|async)?['','ar',HomeRoutes.Courses.Home, 
+                        HomeRoutes.Courses.Categories, cat.slug]:['',HomeRoutes.Courses.Home, 
+                        HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
+                    </span>
+                </div>
+                <page-title [title]="(courseBySlug$|async)![0]?.name!"
+                            [description]="(courseBySlug$|async)![0]?.description!"></page-title>
+            </ng-container>
+            <ng-template #placeHolder>
+                <page-title-placeholder></page-title-placeholder>
+            </ng-template>
         </header>
         <img src="../../../../assets/img/horizontal.png"
              class="noShadow"

@@ -59,11 +59,13 @@
                 <div class="d-flex flex-row justify-content-center py-3 gap-5">
                     <button class="btn noShadow"
                             [disabled]="currentLessonIndex<=0"
+                            name="previous"
                             (click)="NextOrPrevious(-1)">
                         <i
                            [class]="(isArabic$|async)?'bi bi-arrow-right-circle-fill fs-4':'bi bi-arrow-left-circle-fill fs-4'"></i>
                     </button>
                     <button class="btn noShadow"
+                            name="next"
                             [disabled]="currentLessonIndex>=AllLessons.length-1"
                             (click)="NextOrPrevious(1)">
                         <i

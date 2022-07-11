@@ -83,7 +83,7 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
         return { courses: courses, category: x.category };
       }),
     );
-    this.CourseCategoryBySlugSubscription = this.CourseCategoryBySlug.subscribe();
+    // this.CourseCategoryBySlugSubscription = this.CourseCategoryBySlug.subscribe();
     this.isArabic$.pipe(
       map(isArabic => isArabic),
       switchMap(res => combineLatest([this.CourseCategoryBySlug]).pipe(

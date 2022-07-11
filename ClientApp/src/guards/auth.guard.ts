@@ -34,7 +34,6 @@ export class AuthGuard implements CanActivate
       this.accountService.IsLoggedIn().subscribe(
         r =>
         {
-          console.log(r);
           loggedIn = r;
           this.store.dispatch(IsLoggedIn({ isLoggedIn: Boolean(r), checked: true }));
         }

@@ -32,10 +32,6 @@ export class SectionChildHomeComponent implements OnInit, OnChanges
     })
   );
   AllLessons$ = this.store.select(selectAllLessons).pipe(
-    tap(r =>
-    {
-      if (r.length === 0) this.store.dispatch(LoadLessons());
-    }),
     map(r => r.filter(x => x.status == PostStatus.Published && x.sectionId == this.Section?.id)
       .sort((a, b) => a.orderWithinSection - b.orderWithinSection))
   );

@@ -54,7 +54,6 @@ export const SectionsReducer = createReducer(
             }
         }
         let copyOfOtherSection: Section = { ...otherSection };
-        console.log(copyOfOtherSection);
         copyOfOtherSection.otherSlug = res.Section.slug;
         if (otherSection)
         {

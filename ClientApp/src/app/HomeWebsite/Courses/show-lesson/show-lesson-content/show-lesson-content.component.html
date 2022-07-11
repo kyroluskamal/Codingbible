@@ -1,1 +1,13 @@
-<p>show-lesson-content works!</p>
+<app-home-nav-menu [LocationName]="'courses'"></app-home-nav-menu>
+<basic-skeleton [Body]="AllCategories"></basic-skeleton>
+<ng-template #AllCategories>
+    <header class="coding-bible-card">
+        <page-title *ngIf="(this.LessonBySlug$|async)?.lesson else placeHolder"
+                    [title]="(this.LessonBySlug$|async)?.lesson?.name!"
+                    [description]="(this.LessonBySlug$|async)?.lesson?.description!"></page-title>
+        <ng-template #placeHolder>
+            <page-title-placeholder></page-title-placeholder>
+        </ng-template>
+    </header>
+
+</ng-template>

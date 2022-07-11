@@ -2,8 +2,12 @@
 <basic-skeleton [Body]="Category"></basic-skeleton>
 <ng-template #Category>
     <header class="coding-bible-card">
-        <page-title [title]="(CourseCategoryBySlug|async)?.category?.name!"
+        <page-title *ngIf="(CourseCategoryBySlug|async) else placeHolder"
+                    [title]="(CourseCategoryBySlug|async)?.category?.name!"
                     [description]="(CourseCategoryBySlug|async)?.category?.description!"></page-title>
+        <ng-template #placeHolder>
+            <page-title-placeholder></page-title-placeholder>
+        </ng-template>
     </header>
     <course-card *ngFor="let c of (CourseCategoryBySlug|async)?.courses"
                  [Course]="c"></course-card>

@@ -7,6 +7,7 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { PageTitleComponent } from 'src/SharedModules/page-title/page-title.component';
 import { CourseCardComponent } from 'src/SharedModules/course-card/course-card.component';
+import { CourseCardPalceholderComponent } from 'src/SharedModules/course-card-palceholder/course-card-palceholder.component';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { CourseCardComponent } from 'src/SharedModules/course-card/course-card.c
     CoursesHomeComponent
   ],
   imports: [
-    CommonModule, SharedModuleForHomeModule,
+    CommonModule, SharedModuleForHomeModule, CourseCardPalceholderComponent,
     CoursesHomeRoutingModule, TranslatePipe, PageTitleComponent, CourseCardComponent
   ]
 })

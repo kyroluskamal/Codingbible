@@ -371,7 +371,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
   }
   changeVedioSize(width: string)
   {
-    console.log(width);
     this.VedioForm.get('width')?.setValue(Number(width));
     if (this.selected_Vedio)
       (<HTMLDivElement>this.selected_Vedio.parentElement).style.width = `${width}%`;
@@ -1189,7 +1188,6 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     this.textToReplaceWith = "";
     this.NodesBetween_AnchorNode_and_FocusNode = "";
     this.anchorNode = this.extractAnchorNode(this.view.childNodes);
-    console.log(this.anchorNode);
     this.focusNode = this.extractFocusNode(this.view.childNodes);
     this.anchorNodeText = this.anchorNode?.textContent!;
     this.focusNodeText = this.focusNode?.textContent!;

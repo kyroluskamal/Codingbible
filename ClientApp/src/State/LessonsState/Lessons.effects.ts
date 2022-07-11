@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
@@ -35,7 +35,7 @@ export class LessonsEffects
             withLatestFrom(this.store.select(selectAllLessons)),
             switchMap(([action, Lessons]) =>
             {
-                if (Lessons.length == 0)
+                if (Lessons.length < 2)
                     return this.LessonService.GetAll(CoursesController.GetLessons).pipe(
                         map((r) =>
                         {
@@ -78,7 +78,7 @@ export class LessonsEffects
     );
     GetLessonsByCourseId$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(GetLessonsByCourseId),
+            ofType(GetLessonsByCourseId, GetLessonByCourseId),
             switchMap((action) =>
             {
                 return this.LessonService.GetLessonsByCourseId(action.courseId).pipe(
@@ -101,7 +101,6 @@ export class LessonsEffects
                 return this.LessonService.Add(CoursesController.AddLesson, action).pipe(
                     map((r) =>
                     {
-                        console.log(r);
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Lesson'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));

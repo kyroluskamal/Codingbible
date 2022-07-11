@@ -173,7 +173,6 @@ export class MenusComponent implements OnInit
   {
     this.currentMenu = menu;
     this.TreeDataStructure.setData(this.currentMenu.menuItems);
-    console.log(this.currentMenu.menuItems);
     let roots = this.TreeDataStructure.getRawRoots().sort((a, b) => a.orderWithinParent - b.orderWithinParent);
     this.currentMenuItems = this.TreeDataStructure.finalFlatenArray();
     let tempArray: MenuItem[] = [];
@@ -326,14 +325,12 @@ export class MenusComponent implements OnInit
     let parenKey = Number(parent.value) == 0 ? null : Number(parent.value);
     this.MenuItemForm.get(FormControlNames.MenuItemForm.parentKey)?.setValue(Number(parent.value));
     this.SblingsOfCurrenMenuItem = this.currentMenuItems.filter(x => x.parentKey === parenKey).sort((a, b) => a.orderWithinParent - b.orderWithinParent);
-    console.log(this.SblingsOfCurrenMenuItem);
     let currentIndex = this.SblingsOfCurrenMenuItem.findIndex(x => x.id === Number(parent.value));
     this.PreviousMenuItem = currentIndex > 0 ? this.SblingsOfCurrenMenuItem[currentIndex - 1] : null;
     this.NextMenuItem = currentIndex < this.SblingsOfCurrenMenuItem.length - 1 ? this.SblingsOfCurrenMenuItem[currentIndex + 1] : null;
   }
   GetNewSectionPostion()
   {
-    console.log('acac');
     if (this.ActionTypeMenuItem === PostType.Add)
     {
       if (Number(this.MenuItemForm.get(FormControlNames.MenuItemForm.orderWithinParent)?.value) > this.SblingsOfCurrenMenuItem.length + 1)

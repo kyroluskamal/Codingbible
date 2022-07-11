@@ -4,8 +4,18 @@ import { AllLessonsHomeComponent } from './all-lessons-home/all-lessons-home.com
 import { ShowLessonContentComponent } from './show-lesson-content/show-lesson-content.component';
 
 const routes: Routes = [
-  { path: '', component: AllLessonsHomeComponent },
-  { path: ':slug', component: ShowLessonContentComponent },
+  {
+    path: '', component: AllLessonsHomeComponent
+
+  },
+  {
+    path: ':slug', component: ShowLessonContentComponent,
+    data: {
+      breadcrumb: {
+        alias: 'lessonSlug',
+      }
+    }
+  },
 ];
 
 @NgModule({

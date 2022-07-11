@@ -286,7 +286,6 @@ export class CourseWizardComponent implements OnInit
     }
     let updatedCourse = { ...this.CourseToAddOrUpdate };
     this.clientSideSevice.FillObjectFromForm(updatedCourse, this.CourseForm);
-    console.log(this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value);
     if (this.CourseForm.get(FormControlNames.courseForm.otherSlug)?.value == "0")
     {
       updatedCourse.otherSlug = null;
@@ -461,7 +460,6 @@ export class CourseWizardComponent implements OnInit
     let newIndex = this.SectionSplings.findIndex(x => x.order === Number(this.selectedSectionOrder.value));
     this.NewPreviousSection = newIndex > 0 ? this.SectionSplings[newIndex - 1] : null;
     this.NewNextSection = newIndex < this.SectionSplings.length - 1 ? this.SectionSplings[newIndex + 1] : null;
-    console.log(this.NewPreviousSection, this.NewNextSection);
   }
   UpdateSectionOrder()
   {

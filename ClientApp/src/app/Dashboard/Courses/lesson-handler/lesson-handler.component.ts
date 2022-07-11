@@ -294,7 +294,6 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
     this.lesson.slug = this.ClientSideService.GenerateSlug(this.lesson.title);
     this.lesson.nameSlugFragment = this.ClientSideService.GenerateSlug(this.lesson.name);
     this.lesson.tempAttach = this.lessonsAttachments;
-    console.log(this.lesson);
     this.store.dispatch(UpdateLesson(this.lesson));
   }
   DraftOrPublish(view: HTMLDivElement, draftOrPublish: string)

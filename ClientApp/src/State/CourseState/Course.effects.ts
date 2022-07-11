@@ -12,7 +12,7 @@ import { NotificationMessage, PostType, sweetAlert } from "src/Helpers/constants
 import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Course } from "src/models.model";
 import { CourseService } from "src/Services/course.service";
-import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetCourseBy_Slug, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
+import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetCourseById, GetCourseById_Failed, GetCourseById_Success, GetCourseBy_Slug, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
 import { selectAllCourses, selectCourseByID, selectCourseBySlug } from "./course.reducer";
 
 @Injectable({
@@ -37,13 +37,11 @@ export class CoursesEffects
                     return this.CourseService.GetAll(CoursesController.GetAllCourses).pipe(
                         map((r) =>
                         {
-                            console.log(r);
                             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                             return LoadCoursesSuccess({ payload: r });
                         }),
                         catchError((e) =>
                         {
-                            console.log(e);
                             return of(LoadCoursesFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                         })
                     );
@@ -64,8 +62,26 @@ export class CoursesEffects
                     }),
                     catchError((e) =>
                     {
-                        console.log(e);
                         return of(GetCourseBy_Slug_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
+                    })
+                );
+            })
+        )
+    );
+    GetCourseById$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(GetCourseById),
+            switchMap((action) =>
+            {
+                return this.CourseService.GetById(CoursesController.GetCourseById, action.id).pipe(
+                    map((r) =>
+                    {
+                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        return GetCourseById_Success(r);
+                    }),
+                    catchError((e) =>
+                    {
+                        return of(GetCourseById_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );
             })

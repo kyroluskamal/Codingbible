@@ -176,7 +176,6 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     {
       let selectedLessonsBySection = this.AllLessons.filter(x => x.sectionId === Number(this.SelectedSectionId)
         && x.courseId === Number(this.SelectedSection.courseId)).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
-      console.log(selectedLessonsBySection);
       if (selectedLessonsBySection.length > 0)
         lesson.orderWithinSection = selectedLessonsBySection[selectedLessonsBySection.length - 1].orderWithinSection + 1;
       else

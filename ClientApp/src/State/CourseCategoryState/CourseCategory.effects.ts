@@ -137,7 +137,6 @@ export class CourseCategoryEffects
                     }),
                     catchError((e) =>
                     {
-                        console.log(e);
                         return of(GetCourseCategoryBy_Slug_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                     })
                 );

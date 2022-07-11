@@ -91,7 +91,6 @@ export class ShowAllCoursesComponent implements OnInit
   }
   SelectCourse(event: Course)
   {
-    console.log(event);
     this.SelectedCourse = event;
     this.CourseToAddOrUpdate = event;
   }

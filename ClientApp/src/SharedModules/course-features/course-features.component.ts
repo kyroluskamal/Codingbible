@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'course-features',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './course-features.component.html',
   styleUrls: ['./course-features.component.css']
 })

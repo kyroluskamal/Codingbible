@@ -27,10 +27,7 @@ export const CourseReducer = createReducer(
     }),
     on(GetCourseById_Success, (state, Course) => 
     {
-        return {
-            ...state,
-            CurrentCourseById: Course
-        };
+        return adapter.CourseAdapter.upsertOne(Course, state);
     }),
     on(GetCourseById_Failed, (state, res) =>
     {
