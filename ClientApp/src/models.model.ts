@@ -267,6 +267,7 @@ export class Section
     parent: Section | null = null;
     isArabic: boolean = false;
     otherSlug: string | null = null;
+    lessons: Lesson[] = [];
 }
 export class LessonAttachments
 {

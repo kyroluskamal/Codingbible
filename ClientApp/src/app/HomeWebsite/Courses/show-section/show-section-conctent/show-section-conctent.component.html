@@ -16,7 +16,7 @@
         </section>
     </ng-container>
     <ng-template #notLoading>
-        <ng-container *ngIf="currentCourse && currentSection">
+        <ng-container *ngIf="currentCourse && currentSection else NotFound">
             <header class="coding-bible-card">
                 <page-title [title]="currentSection?.name!"
                             [description]="currentSection?.description!"></page-title>
@@ -36,5 +36,20 @@
                       [CurrentCourse]="currentCourse"
                       [RootSections]="[currentSection]"></playlist>
         </ng-container>
+        <ng-template #NotFound>
+            <ng-container *ngIf="!currentCourse else CourseButSection">
+                <not-found [title]="'Course not found'| translate"
+                           [body]="'We can\'t find the course you are looking for'|translate"
+                           [routerlink]="isArabic?['','ar',HomeRoutes.Courses.Home]:['',HomeRoutes.Courses.Home]"
+                           [buttonText]="'Back to courses'| translate"></not-found>
+            </ng-container>
+            <ng-template #CourseButSection>
+                <not-found [title]="'Section not found'| translate"
+                           [body]="'The section you are looking for does not exist in this course'|translate"
+                           [routerlink]="isArabic?['','ar',HomeRoutes.Courses.Home,currentCourse?.slug!]:
+                                ['',HomeRoutes.Courses.Home,currentCourse?.slug!]"
+                           [buttonText]="'Back to course'| translate"></not-found>
+            </ng-template>
+        </ng-template>
     </ng-template>
 </ng-template>

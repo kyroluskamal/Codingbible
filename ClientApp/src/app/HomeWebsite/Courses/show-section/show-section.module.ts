@@ -11,6 +11,8 @@ import { IntroductoyVideoComponent } from 'src/SharedModules/introductoy-video/i
 import { WhatWillYouLearnComponent } from 'src/SharedModules/what-will-you-learn/what-will-you-learn.component';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
+import { NotFoundBoxComponent } from 'src/SharedModules/not-found-box/not-found-box.component';
+import { ShowAllLessonsOrSectionsComponent } from 'src/SharedModules/show-all-lessons-or-sections/show-all-lessons-or-sections.component';
 
 
 @NgModule({
@@ -21,7 +23,7 @@ import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
   imports: [
     CommonModule, SharedModuleForHomeModule, PageTitleComponent, PageTitlePlaceHolderComponent,
     ShowSectionRoutingModule, IntroductoyVideoComponent, WhatWillYouLearnComponent,
-    TranslatePipe, PlayListModule
+    TranslatePipe, PlayListModule, NotFoundBoxComponent, ShowAllLessonsOrSectionsComponent
   ]
 })
 export class ShowSectionModule { }

@@ -25,6 +25,7 @@ export class ShowSectionConctentComponent implements OnInit
   currentCourse: Course | undefined = undefined;
   currentSection: Section | undefined = undefined;
   AllSections: Section[] = [];
+  HomeRoutes = HomeRoutes;
   constructor(private store: Store,
     private breadcrumb: BreadcrumbService,
     private activatedRoute: ActivatedRoute,
@@ -50,7 +51,7 @@ export class ShowSectionConctentComponent implements OnInit
     ).pipe(
       switchMap(course =>
         this.activatedRoute.params.pipe(
-          tap(params => this.sectionSlug = decodeURIComponent(params['slug'])),
+          tap(params => this.sectionSlug = decodeURIComponent(params['slug'].split('#')[0])),
           switchMap(_ => combineLatest([this.store.select(selectSectionBySlug(this.sectionSlug, true)),
           this.store.select(select_Course_HttpResponseError), this.store.select(Select_Sections_ByCourseId(course?.id!)).pipe(
             tap(x =>

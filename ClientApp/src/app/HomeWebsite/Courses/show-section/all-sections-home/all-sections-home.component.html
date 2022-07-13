@@ -1,1 +1,25 @@
-<p>all-sections-home works!</p>
+<app-home-nav-menu [LocationName]="'courses'"></app-home-nav-menu>
+<basic-skeleton [Body]="SectionHome"
+                [ShowSidebar]="false"></basic-skeleton>
+<ng-template #SectionHome>
+    <section *ngIf="loading else notLoading"
+             class="coding-bible-card mh-50vh fs-1 d-flex align-items-center justify-content-center">
+        {{'Searcing for course' | translate}}...
+    </section>
+    <ng-template #notLoading>
+        <show-all *ngIf="currentCourse else NotFound"
+                  [title]="'Course is found'| translate"
+                  [body]="('You can watch all sections of the course'| translate)+ ' <span class='+ '\'fw-bold' +'\'>'+currentCourse.name+'</span>' +' '
+                   + ('in the main page of the course'|translate)"
+                  [buttonText]="'Go to course page'| translate"
+                  [routerlink]="currentCourse.isArabic?['','ar', HomeRoutes.Courses.Home, currentCourse.slug]:
+                                                        ['', HomeRoutes.Courses.Home, currentCourse.slug]">
+        </show-all>
+        <ng-template #NotFound>
+            <not-found [title]="'Course not found'| translate"
+                       [body]="'We can\'t find the course you are looking for'|translate"
+                       [routerlink]="isArabic?['','ar',HomeRoutes.Courses.Home]:['',HomeRoutes.Courses.Home]"
+                       [buttonText]="'Back to courses'| translate"></not-found>
+        </ng-template>
+    </ng-template>
+</ng-template>

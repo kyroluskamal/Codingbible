@@ -84,6 +84,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
       this.CurrentCourse = r.course;
       if (r.course)
       {
+        this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         if (this.isArabic !== r.course?.isArabic)
         {
           if (this.isArabic)
@@ -94,7 +95,6 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
           {
             this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
           }
-          this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         }
         this.tree.setData(r.sections);
         this.AllSections = this.tree.finalFlatenArray();

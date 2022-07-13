@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Update } from "@ngrx/entity";
 import { Store } from "@ngrx/store";
@@ -11,6 +10,7 @@ import { CoursesController } from "src/Helpers/apiconstants";
 import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Section } from "src/models.model";
 import { SectionsService } from "src/Services/sections.service";
+import { LoadLessonsSuccess } from "../LessonsState/Lessons.actions";
 import
 {
     AdditionIsComplete, AddSection, AddSection_Failed,
@@ -33,9 +33,8 @@ export class SectionsEffects
 
     constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
         private ServerErrorResponse: GetServerErrorResponseService,
-        private activatedRoute: ActivatedRoute,
         private SectionService: SectionsService, private store: Store,
-        private router: Router, private spinner: SpinnerService) { }
+        private spinner: SpinnerService) { }
 
     GetAllSections$ = createEffect(() =>
         this.actions$.pipe(
@@ -45,10 +44,14 @@ export class SectionsEffects
             {
                 if (Sections.length == 0)
                     return this.SectionService.GetAll(CoursesController.GetSections).pipe(
-                        map((r) =>
+                        map((sections) =>
                         {
                             this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                            return LoadSectionsSuccess({ payload: r });
+                            for (let s of sections)
+                            {
+                                this.store.dispatch(LoadLessonsSuccess({ payload: s.lessons }));
+                            }
+                            return LoadSectionsSuccess({ payload: sections });
                         }),
                         catchError((e) => of(LoadSectionsFail({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
                     );
@@ -62,11 +65,15 @@ export class SectionsEffects
             switchMap((action) =>
             {
                 return this.SectionService.GetSectionsByCourseId(action.courseId).pipe(
-                    map((r) =>
+                    map((sections) =>
                     {
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         this.spinner.removeSpinner();
-                        return GetSectionsByCourseId_Success({ payload: r });
+                        for (let s of sections)
+                        {
+                            this.store.dispatch(LoadLessonsSuccess({ payload: s.lessons }));
+                        }
+                        return GetSectionsByCourseId_Success({ payload: sections });
                     }),
                     catchError((e) =>
                     {
@@ -90,6 +97,7 @@ export class SectionsEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         this.store.dispatch(AddSection_Success(r));
+                        this.store.dispatch(LoadLessonsSuccess({ payload: r.lessons }));
                         return AdditionIsComplete({ status: true });
                     }),
                     catchError((e) =>
@@ -116,6 +124,9 @@ export class SectionsEffects
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section'));
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
                         this.store.dispatch(UpdateSection_Sucess({ Section: r.data as Section }));
+
+                        this.store.dispatch(LoadLessonsSuccess({ payload: (<Section>r.data).lessons }));
+
                         return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>
@@ -129,7 +140,7 @@ export class SectionsEffects
             })
         )
     );
-    RemovePost$ = createEffect(() =>
+    RemoveSection$ = createEffect(() =>
         this.actions$.pipe(
             ofType(RemoveSection),
             switchMap((action) =>
@@ -170,6 +181,8 @@ export class SectionsEffects
                             changes: r.data as Section
                         };
                         this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(LoadLessonsSuccess({ payload: (<Section>r.data).lessons }));
+
                         return ChangeStatus_Success({ Section: x });
                     }),
                     catchError((e) =>
@@ -193,6 +206,8 @@ export class SectionsEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Update('Section order'));
                         this.store.dispatch(UpdateSectionOrder_Sucess({ payload: r.data as Section[] }));
+                        this.store.dispatch(LoadLessonsSuccess({ payload: (<Section>r.data).lessons }));
+
                         return UpdateIsCompleted({ status: true });
                     }),
                     catchError((e) =>

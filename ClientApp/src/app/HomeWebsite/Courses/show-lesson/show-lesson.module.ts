@@ -10,6 +10,8 @@ import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-plac
 import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
 import { VideoContainerComponent } from 'src/SharedModules/video-container/video-container.component';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { NotFoundBoxComponent } from 'src/SharedModules/not-found-box/not-found-box.component';
+import { ShowAllLessonsOrSectionsComponent } from 'src/SharedModules/show-all-lessons-or-sections/show-all-lessons-or-sections.component';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { TranslatePipe } from 'src/Pipes/translate.pipe';
   ],
   imports: [
     CommonModule, SharedModuleForHomeModule, PageTitleComponent, PageTitlePlaceHolderComponent,
-    ShowLessonRoutingModule, BypassStylePipe, VideoContainerComponent, TranslatePipe
+    ShowLessonRoutingModule, BypassStylePipe, VideoContainerComponent, TranslatePipe,
+    NotFoundBoxComponent, ShowAllLessonsOrSectionsComponent
   ]
 })
 export class ShowLessonModule { }

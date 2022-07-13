@@ -83,7 +83,6 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
 
   ngOnInit(): void
   {
-    console.log(this.CurrentCourse);
   }
 
   handleLessonChoose(lesson: Lesson)
@@ -115,12 +114,16 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
     for (let s of sectionTree)
     {
       let sectionInDom = <HTMLButtonElement>this.document.querySelector(`[data-section-active="${s.nameSlugFragment}"]`);
-      let parent = sectionInDom?.parentElement;
-      let sbling = parent?.nextElementSibling;
-      if (sbling)
+      if (sectionInDom)
       {
-        sectionInDom.classList.remove('collapsed');
-        sbling.classList.add("show");
+        console.log(sectionInDom);
+        let parent = sectionInDom?.parentElement;
+        let sbling = parent?.nextElementSibling;
+        if (sbling)
+        {
+          sectionInDom.classList.remove('collapsed');
+          sbling.classList.add("show");
+        }
       }
     }
   }

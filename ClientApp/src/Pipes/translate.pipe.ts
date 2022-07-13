@@ -64,10 +64,10 @@ export class TranslatePipe implements PipeTransform
       case 'How to write code?': return 'تعلم كتابة الكود';
       case 'HowToWriteCodeText': return `هدفنا هو تدريسك لكيفية استخدام لغات البرمجة لحل المشكلات`;
       case 'Start learning coding today!': return 'ابدأ تعلم البرمجة اليوم!';
-      case 'If you have any question, please contact us.': return 'اذا كان لديك أي أسئلة، يرجى الاتصال بنا.';
+      case 'If you have any question, please contact us.': return 'اذا كان لديك أي أسئلة، يرجى التواصل معنا.';
       case "Pages": return "أقراء";
       case "Privacy policy": return "سياسة الخصوصية";
-      case "Contact us": return "اتصل بنا";
+      case "Contact us": return "تواصل معنا";
       case "Follow us": return "تابعنا";
       case "Courses": return "الدورات";
       case 'AllCoursesPageDescription': return `هذه الصفحة تحتوي على جميع الدورات. يمكنك استخدام مربع البحث للتصفح بسرعة.`;
@@ -98,6 +98,16 @@ export class TranslatePipe implements PipeTransform
       case "We can't find the course you are looking for": return 'لا يمكننا إيجاد الدورة التي تبحث عنها';
       case "What will you learn in this section?": return 'ما الذي ستتعلمه في هذه الفصل؟';
       case 'Introductory vedio': return 'فيديو تمهيدي';
+      case 'Next lesson': return 'الدرس التالي';
+      case 'Previous lesson': return 'الدرس السابق';
+      case 'Section not found': return 'الفصل غير موجود';
+      case 'The section you are looking for does not exist in this course': return 'الفصل الذي تبحث عنه غير موجود في هذه الدورة';
+      case 'Go to course page': return 'الذهاب إلى صفحة الدورة';
+      case 'in the main page of the course': return 'في صفحة الدورة الرئيسية';
+      case 'You can watch all lessons of the course': return 'يمكنك مشاهدة كل دروس الدورة';
+      case 'You can watch all section of the course': return 'يمكنك مشاهدة كل فصول الدورة';
+      case 'Course is found': return 'تم العثور على الدورة';
+      case 'Searcing for course': return 'بحث عن الدورة';
       default: return value;
     }
   }

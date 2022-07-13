@@ -61,16 +61,7 @@ public class CoursesController : ControllerBase
                 {
                     await UpdateOtherSlug(cat);
                 }
-                c.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == c.Id)).ToList();
-                foreach (var lesson in c.Lessons)
-                {
-                    await UpdateOtherSlug(lesson);
-                }
-                c.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == c.Id)).ToList();
-                foreach (var section in c.Sections)
-                {
-                    await UpdateOtherSlug(section);
-                }
+                await LoadSectionsAndLesons(c);
                 await UpdateOtherSlug(c);
             }
             return Ok(courses.ToList());
@@ -101,6 +92,7 @@ public class CoursesController : ControllerBase
                 await UpdateOtherSlug(cat);
             }
             await UpdateOtherSlug(course);
+            await LoadSectionsAndLesons(course);
             return Ok(course);
         }
         catch (Exception e)
@@ -130,6 +122,8 @@ public class CoursesController : ControllerBase
                 await UpdateOtherSlug(cat);
             }
             await UpdateOtherSlug(course);
+            await LoadSectionsAndLesons(course);
+
             return Ok(course);
         }
         catch (Exception e)
@@ -159,16 +153,8 @@ public class CoursesController : ControllerBase
                 await UpdateOtherSlug(cat);
             }
             await UpdateOtherSlug(course);
-            course.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == course.Id)).ToList();
-            foreach (var lesson in course.Lessons)
-            {
-                await UpdateOtherSlug(lesson);
-            }
-            course.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == course.Id)).ToList();
-            foreach (var section in course.Sections)
-            {
-                await UpdateOtherSlug(section);
-            }
+            await LoadSectionsAndLesons(course);
+
             return Ok(course);
         }
         catch (Exception e)
@@ -192,6 +178,7 @@ public class CoursesController : ControllerBase
             foreach (var c in courses)
             {
                 await UpdateOtherSlug(c.Course);
+                await LoadSectionsAndLesons(c.Course);
             }
             return Ok(courses);
         }
@@ -216,6 +203,7 @@ public class CoursesController : ControllerBase
             foreach (var c in courses)
             {
                 await UpdateOtherSlug(c.Course);
+                await LoadSectionsAndLesons(c.Course);
             }
             return Ok(courses);
         }
@@ -240,6 +228,7 @@ public class CoursesController : ControllerBase
             foreach (var c in courses)
             {
                 await UpdateOtherSlug(c.Course);
+                await LoadSectionsAndLesons(c.Course);
             }
             return Ok(courses);
         }
@@ -306,6 +295,7 @@ public class CoursesController : ControllerBase
                     includeProperties: "Author,CoursesPerCategories,Students");
                     courseToResturn.Categories = course.Categories;
                     await UpdateOtherSlug(courseToResturn);
+                    await LoadSectionsAndLesons(courseToResturn);
                     return Ok(courseToResturn);
                 }
                 return BadRequest("Failed to add course");
@@ -410,6 +400,7 @@ public class CoursesController : ControllerBase
                     {
                         await UpdateOtherSlug(cat);
                     }
+                    await LoadSectionsAndLesons(UpdatedCourse);
                     return Ok(Constants.HttpResponses.Update_Sucess(UpdatedCourse.Title, UpdatedCourse));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(course.Title));
@@ -448,6 +439,7 @@ public class CoursesController : ControllerBase
                 if (result > 0)
                 {
                     await UpdateOtherSlug(getCourse);
+                    await LoadSectionsAndLesons(getCourse);
                     return Ok(Constants.HttpResponses.Update_Sucess($"{getCourse.Title}", getCourse));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed($"{getCourse.Title}"));
@@ -781,6 +773,7 @@ public class CoursesController : ControllerBase
             foreach (var s in sections)
             {
                 await UpdateOtherSlug(s);
+                await LoadLessonsIntoSection(s);
             }
             return Ok(sections);
         }
@@ -801,6 +794,7 @@ public class CoursesController : ControllerBase
             foreach (var s in section)
             {
                 await UpdateOtherSlug(s);
+                await LoadLessonsIntoSection(s);
             }
             return Ok(section);
         }
@@ -839,6 +833,8 @@ public class CoursesController : ControllerBase
                 {
                     await AddUpdate_SlugMap_Sections(newSection);
                     await UpdateOtherSlug(newSection);
+                    await LoadLessonsIntoSection(newSection);
+
                     return Ok(await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == newSection.Id, includeProperties: "Course,Parent"));
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Section"));
@@ -907,6 +903,8 @@ public class CoursesController : ControllerBase
                         await UpdateSectionLevel(getSection);
                     }
                     await UpdateOtherSlug(getSection);
+                    await LoadLessonsIntoSection(getSection);
+
                     return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name, getSection));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Section"));
@@ -1025,6 +1023,8 @@ public class CoursesController : ControllerBase
                 if (result > 0)
                 {
                     await UpdateOtherSlug(getSection);
+                    await LoadLessonsIntoSection(getSection);
+
                     return Ok(Constants.HttpResponses.Update_Sucess($"{getSection.Title}", getSection));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed($"{getSection.Title}"));
@@ -1063,6 +1063,7 @@ public class CoursesController : ControllerBase
                 foreach (var s in getSections)
                 {
                     await UpdateSectionLevel(s);
+                    await LoadLessonsIntoSection(s);
                 }
                 return Ok(Constants.HttpResponses.Update_Sucess("Section Order", getSections));
             }
@@ -1935,6 +1936,28 @@ public class CoursesController : ControllerBase
             else if (obj is CourseCategory)
                 ArSlug = (await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, Slug.GetValue(obj)))).ArSlug;
             OtherSlug.SetValue(obj, ArSlug);
+        }
+    }
+
+    private async Task LoadSectionsAndLesons(Course course)
+    {
+        course.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == course.Id)).ToList();
+        foreach (var lesson in course.Lessons)
+        {
+            await UpdateOtherSlug(lesson);
+        }
+        course.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == course.Id)).ToList();
+        foreach (var section in course.Sections)
+        {
+            await UpdateOtherSlug(section);
+        }
+    }
+    private async Task LoadLessonsIntoSection(Section section)
+    {
+        section.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == section.Id)).ToList();
+        foreach (var lesson in section.Lessons)
+        {
+            await UpdateOtherSlug(lesson);
         }
     }
     #endregion
