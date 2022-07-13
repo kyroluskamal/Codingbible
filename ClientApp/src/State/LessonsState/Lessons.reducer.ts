@@ -1,4 +1,5 @@
 import { Action, createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
+import { PostStatus } from "src/Helpers/constants";
 import { Lesson, Section } from "src/models.model";
 import { LessonsState } from "../app.state";
 import
@@ -227,15 +228,25 @@ export const select_Lessons_ValidationErrors = createSelector(
 );
 export const Select_Lesson_AdditionState = createSelector(selectLessonsState, (state) => state.AdditionState);
 export const Select_Lesson_UpdateState = createSelector(selectLessonsState, (state) => state.UpdateState);
-export const selectLessonBySlug = (Slug: string) => createSelector(
+export const selectLessonBySlug = (Slug: string, checkForStatus: boolean = false) => createSelector(
     selectLessonsState,
     (state) =>
     {
         for (let key in state.entities)
         {
-            if (state.entities[key]?.slug === Slug)
+            if (checkForStatus)
             {
-                return state.entities[key];
+                if (state.entities[key]?.slug === Slug && state.entities[key]?.status === PostStatus.Published)
+                {
+                    return state.entities[key];
+                }
+            }
+            else
+            {
+                if (state.entities[key]?.slug === Slug)
+                {
+                    return state.entities[key];
+                }
             }
         }
         return undefined;

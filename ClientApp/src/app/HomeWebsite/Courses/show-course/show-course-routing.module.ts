@@ -11,7 +11,14 @@ const routes: Routes = [
       }
     }
   },
-  { path: HomeRoutes.Courses.Section, loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule) },
+  {
+    path: HomeRoutes.Courses.Section, loadChildren: () => import('../show-section/show-section.module').then(m => m.ShowSectionModule),
+    data: {
+      breadcrumb: {
+        alias: 'sectionHome',
+      }
+    }
+  },
   {
     path: HomeRoutes.Courses.Lesson, loadChildren: () => import('../show-lesson/show-lesson.module').then(m => m.ShowLessonModule),
     data: {

@@ -4,8 +4,17 @@ import { AllSectionsHomeComponent } from './all-sections-home/all-sections-home.
 import { ShowSectionConctentComponent } from './show-section-conctent/show-section-conctent.component';
 
 const routes: Routes = [
-  { path: '', component: AllSectionsHomeComponent },
-  { path: ':slug', component: ShowSectionConctentComponent },
+  {
+    path: '', component: AllSectionsHomeComponent
+  },
+  {
+    path: ':slug', component: ShowSectionConctentComponent,
+    data: {
+      breadcrumb: {
+        alias: 'sectionSlug',
+      }
+    }
+  },
 ];
 
 @NgModule({

@@ -2,6 +2,9 @@
 <basic-skeleton [Body]="AllCategories"></basic-skeleton>
 <ng-template #AllCategories>
     <ng-container *ngIf="loading else notLoading">
+        <header class="coding-bible-card">
+            <page-title-placeholder></page-title-placeholder>
+        </header>
         <section class="coding-bible-card">
             <page-title-placeholder></page-title-placeholder>
             <br>
@@ -21,11 +24,9 @@
             <img src="../../../../assets/img/horizontal.png"
                  class="noShadow"
                  alt="">
-
             <section class="coding-bible-card htmlConent"
                      *ngIf="currentLesson?.htmlContent"
                      [innerHtml]="currentLesson?.htmlContent! |bypassStyle">
-
             </section>
             <section class="coding-bible-card d-flex flex-row flex-wrap justify-content-between">
                 <button class="btn btn-orange"

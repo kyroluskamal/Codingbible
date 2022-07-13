@@ -71,7 +71,7 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy
             {
               this.slug = decodeURIComponent(params['slug']);
             }),
-            switchMap(params => combineLatest([this.store.select(selectLessonBySlug(this.slug))])),
+            switchMap(params => combineLatest([this.store.select(selectLessonBySlug(this.slug, true))])),
           ),
           this.store.select(select_Course_HttpResponseError)
         ]).pipe(
@@ -131,8 +131,6 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy
   }
   NextOrPrevious(status: number): void
   {
-    console.log(this.currentLessonIndex);
-    console.log(this.ArrangedLessons);
     if (this.currentLesson)
     {
       let nextIndex = this.currentLessonIndex + status;
@@ -152,6 +150,5 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy
         this.currentLessonIndex = nextIndex;
       }
     }
-    console.log(this.currentLessonIndex);
   }
 }

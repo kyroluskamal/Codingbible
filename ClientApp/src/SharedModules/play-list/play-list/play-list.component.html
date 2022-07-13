@@ -24,27 +24,35 @@
                             </span>
                         </button>
                     </h2>
-                    <div [id]="s.nameSlugFragment"
-                         class="accordion-collapse collapse"
-                         aria-labelledby="panelsStayOpen-headingOne"
-                         data-bs-parent="#sectionAccordion">
-                        <div class="accordion-body p-0 d-flex flex-column gap-2">
-                            <section-child-home *ngFor="let ch of getChildren(s)"
-                                                [Section]="ch"
-                                                [courseId]="ch.courseId">
-                            </section-child-home>
+                    <ng-container *ngIf="s.isLeafSection else notLeafSection">
+                        <section-child-home [Section]="s"
+                                            [removeSectionHeader]="true"
+                                            [CurrentCourse]="CurrentCourse">
+                        </section-child-home>
+                    </ng-container>
+                    <ng-template #notLeafSection>
+                        <div [id]="s.nameSlugFragment"
+                             class="accordion-collapse collapse"
+                             aria-labelledby="panelsStayOpen-headingOne"
+                             data-bs-parent="#sectionAccordion">
+                            <div class="accordion-body p-0 d-flex flex-column gap-2">
+                                <section-child-home *ngFor="let ch of getChildren(s)"
+                                                    [Section]="ch"
+                                                    [CurrentCourse]="CurrentCourse">
+                                </section-child-home>
+                            </div>
                         </div>
-                    </div>
+                    </ng-template>
                 </div>
             </div>
         </div>
         <div class="col-md-8 p-3">
-            <div *ngIf="(currentLessonFromFragment$|async)?.lesson else noCurrentLesson">
+            <div *ngIf="currentLesson else noCurrentLesson">
                 <h2 class="d-flex h4">
-                    {{(currentLessonFromFragment$|async)?.lesson?.name}}
+                    {{currentLesson.name}}
                 </h2>
-                <youtube-container *ngIf="(currentLessonFromFragment$|async)?.lesson?.vedioUrl && (currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]"
-                                   [videoId]="(currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]">
+                <youtube-container *ngIf="currentLesson?.vedioUrl && currentLesson?.vedioUrl?.split('watch?v=')![1]"
+                                   [videoId]="currentLesson?.vedioUrl?.split('watch?v=')![1]">
                 </youtube-container>
 
                 <img src="../../../../assets/img/horizontal.png"
@@ -68,12 +76,12 @@
                 </div>
                 <div class="d-flex flex-row justify-content-between align-items-center">
                     <span class="small-info small"><i class="bi bi-calendar"></i>
-                        {{'Last modifed'| translate}} : {{(currentLessonFromFragment$|async)?.lesson?.lasModified
+                        {{'Last modifed'| translate}} : {{currentLesson?.lasModified
                         |date}}</span>
                     <button class="btn btn-orange"
                             [routerLink]="(isArabic$|async)?
-                    ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]:
-                    ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, (currentLessonFromFragment$|async)?.lesson?.slug]">
+                    ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, currentLesson?.slug]:
+                    ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Lesson, currentLesson?.slug]">
                         {{'Read More'| translate}}
                     </button>
                 </div>

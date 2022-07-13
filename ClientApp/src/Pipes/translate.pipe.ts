@@ -10,7 +10,7 @@ export class TranslatePipe implements PipeTransform
 {
   isArabic: boolean = false;
   constructor(private store: Store) { }
-  transform(value: string): unknown
+  transform(value: string)
   {
     this.store.select(selectLang).subscribe(isArabic =>
     {
@@ -96,6 +96,8 @@ export class TranslatePipe implements PipeTransform
       case 'Lesson not found': return 'الدرس غير موجود';
       case 'Course and lesson are not found': return 'الدورة والدرس غير موجودين';
       case "We can't find the course you are looking for": return 'لا يمكننا إيجاد الدورة التي تبحث عنها';
+      case "What will you learn in this section?": return 'ما الذي ستتعلمه في هذه الفصل؟';
+      case 'Introductory vedio': return 'فيديو تمهيدي';
       default: return value;
     }
   }

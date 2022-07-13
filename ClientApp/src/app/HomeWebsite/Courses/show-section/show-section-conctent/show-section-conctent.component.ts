@@ -1,15 +1,107 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { combineLatest, map, switchMap, tap } from 'rxjs';
+import { HomeRoutes } from 'src/Helpers/router-constants';
+import { Course, Section } from 'src/models.model';
+import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
+import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
+import { selectLang } from 'src/State/LangState/lang.reducer';
+import { selectSectionBySlug, Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
+import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
   selector: 'app-show-section-conctent',
   templateUrl: './show-section-conctent.component.html',
   styleUrls: ['./show-section-conctent.component.css']
 })
-export class ShowSectionConctentComponent implements OnInit {
+export class ShowSectionConctentComponent implements OnInit
+{
 
-  constructor() { }
+  loading: boolean = true;
+  isArabic = false;
+  courseSlug: string = '';
+  sectionSlug: string = '';
+  currentCourse: Course | undefined = undefined;
+  currentSection: Section | undefined = undefined;
+  AllSections: Section[] = [];
+  constructor(private store: Store,
+    private breadcrumb: BreadcrumbService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+    this.store.select(selectLang).pipe(
+      tap(isArabic => this.isArabic = isArabic),
+      //get course by slug
+      switchMap(_ => this.activatedRoute.pathFromRoot[3].params.pipe(
+        tap(x => this.courseSlug = decodeURIComponent(x['slug'])),
+        switchMap(_ => this.store.select(selectCourseBySlug(this.courseSlug)).pipe(
+          tap(x =>
+          {
+            if (!x)
+            {
+              this.store.dispatch(GetCourseBy_Slug({ slug: this.courseSlug }));
+            }
+          }),
+        )),
+      ))
+    ).pipe(
+      switchMap(course =>
+        this.activatedRoute.params.pipe(
+          tap(params => this.sectionSlug = decodeURIComponent(params['slug'])),
+          switchMap(_ => combineLatest([this.store.select(selectSectionBySlug(this.sectionSlug, true)),
+          this.store.select(select_Course_HttpResponseError), this.store.select(Select_Sections_ByCourseId(course?.id!)).pipe(
+            tap(x =>
+            {
+              if (x)
+              {
+                this.AllSections = x;
+              }
+            })
+          )])),
+        ).pipe(
+          map(x => { return { course: course, section: x[0], error: x[1] }; }),
+        )
+      )
+    ).subscribe(
+      r =>
+      {
+        this.currentCourse = r.course;
+        this.currentSection = r.section;
+        if (this.isArabic)
+          this.breadcrumb.set('@sectionHome', "الفصول");
+        else
+          this.breadcrumb.set('@sectionHome', "Sections");
+        if (r.course && r.section)
+        {
+          this.breadcrumb.set("@courseSlug", r.course?.name!);
+          this.breadcrumb.set("@sectionSlug", r.section?.name!);
+          if (this.isArabic !== r.section?.isArabic && this.isArabic !== r.course?.isArabic)
+          {
+            if (this.isArabic)
+            {
+              this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
+                HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+            }
+            else
+            {
+              this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
+                HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+            }
+          }
+          this.loading = false;
+        } else if (r.course && !r.section)
+        {
+          this.breadcrumb.set("@courseSlug", r.course?.name!);
+          this.loading = false;
+        }
+        if (r.error) { this.loading = false; }
+      }
+    );
+
+
   }
 
 }

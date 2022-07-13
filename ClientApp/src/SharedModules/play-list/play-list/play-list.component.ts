@@ -27,6 +27,7 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
   AllLessonsInDom: any;
   currentLessonIndex = 0;
   HomeRoutes = HomeRoutes;
+  currenFragment: string | null = null;
   NextPreviousSubscription: Subscription = new Subscription();
   currentLessonFromFragment$: Observable<{ lesson: Lesson | undefined, fragment: string | null; }>
     = new Observable<{ lesson: Lesson | undefined, fragment: string | null; }>();
@@ -56,6 +57,7 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
     {
       if (r.fragment && r.lesson)
       {
+        this.currenFragment = r.fragment;
         this.currentLesson = r.lesson!;
         this.playlistContainer.nativeElement.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
         this.handleLessonChoose(r.lesson!);
@@ -81,7 +83,7 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
 
   ngOnInit(): void
   {
-
+    console.log(this.CurrentCourse);
   }
 
   handleLessonChoose(lesson: Lesson)
@@ -156,8 +158,5 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
         this.currentLessonIndex = nextIndex;
       }
     }
-  }
-  GotoSection(section: Section)
-  {
   }
 }

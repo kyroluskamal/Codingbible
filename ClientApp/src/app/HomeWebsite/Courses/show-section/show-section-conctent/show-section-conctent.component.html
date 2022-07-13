@@ -1,1 +1,40 @@
-<p>show-section-conctent works!</p>
+<app-home-nav-menu [LocationName]="'courses'"></app-home-nav-menu>
+<basic-skeleton [Body]="ShowSectiondetails"></basic-skeleton>
+<ng-template #ShowSectiondetails>
+    <ng-container *ngIf="loading else notLoading">
+        <header class="coding-bible-card">
+            <page-title-placeholder></page-title-placeholder>
+        </header>
+        <section class="coding-bible-card">
+            <page-title-placeholder></page-title-placeholder>
+            <br>
+            <page-title-placeholder></page-title-placeholder>
+            <br>
+            <page-title-placeholder></page-title-placeholder>
+            <br>
+            <page-title-placeholder></page-title-placeholder>
+        </section>
+    </ng-container>
+    <ng-template #notLoading>
+        <ng-container *ngIf="currentCourse && currentSection">
+            <header class="coding-bible-card">
+                <page-title [title]="currentSection?.name!"
+                            [description]="currentSection?.description!"></page-title>
+            </header>
+            <img src="../../../../assets/img/horizontal.png"
+                 class="noShadow"
+                 alt="">
+            <introductoy-video *ngIf="currentSection.introductoryVideoUrl"
+                               [videoId]="currentSection.introductoryVideoUrl.split('watch?v=')[1]"
+                               [title]="'Introductory vedio'| translate">
+            </introductoy-video>
+            <what-will-you-learn *ngIf="currentSection.whatWillYouLearn"
+                                 [title]="'What will you learn in this section?'| translate"
+                                 [whatWillYouLearn]="currentSection.whatWillYouLearn">
+            </what-will-you-learn>
+            <playlist [AllSections]="AllSections"
+                      [CurrentCourse]="currentCourse"
+                      [RootSections]="[currentSection]"></playlist>
+        </ng-container>
+    </ng-template>
+</ng-template>

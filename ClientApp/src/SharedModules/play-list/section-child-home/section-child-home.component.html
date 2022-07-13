@@ -5,6 +5,7 @@
     <div class="accordion-item"
          [dir]="Section?.isArabic?'rtl':'ltr'">
         <h2 class="accordion-header noBefore"
+            *ngIf="!removeSectionHeader"
             [dir]="Section?.isArabic?'rtl':'ltr'">
             <button class="accordion-button collapsed p-2 d-flex gap-3"
                     type="button"
@@ -13,12 +14,12 @@
                     [attr.data-bs-target]="'#'+Section.nameSlugFragment"
                     aria-expanded="true"
                     aria-controls="panelsStayOpen-collapseOne">
-                <span class="flex-grow-1 d-flex flex-row justify-content-between align-items-center">
+                <span class="flex-grow-1 d-flex flex-row gap-2 justify-content-between align-items-center">
                     <span>{{Section.name}}</span>
                     <a [routerLink]="(isArabic$|async)?
                                 ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]:
                                 ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]"
-                       class="badge btn-orange moreTag">More</a>
+                       class="badge btn-orange moreTag">{{'More'| translate}}</a>
                 </span>
             </button>
         </h2>
@@ -28,7 +29,7 @@
              [attr.data-bs-parent]="'#'+Section?.slug">
             <div class="accordion-body p-0 d-flex flex-column"
                  [ngClass]="Section.isArabic?'me-1':'ms-1'">
-                <ul class="small mb-4">
+                <ul class="small my-4">
                     <li class="p-2"
                         [attr.data-lesson-active]="l.nameSlugFragment"
                         *ngFor="let l of (AllLessons$|async)"
@@ -59,7 +60,7 @@
                     [attr.data-bs-target]="'#'+Section.nameSlugFragment"
                     aria-expanded="false"
                     aria-controls="panelsStayOpen-collapseOne">
-                <span class="flex-grow-1 d-flex flex-row justify-content-between align-items-center">
+                <span class="flex-grow-1 d-flex flex-row gap-2 justify-content-between align-items-center">
                     <span> {{Section.name}}</span>
                     <a [routerLink]="(isArabic$|async)?
                         ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]:

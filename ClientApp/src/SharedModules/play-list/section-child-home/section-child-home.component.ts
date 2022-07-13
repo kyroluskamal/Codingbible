@@ -19,11 +19,11 @@ import { selectAllSections, Select_Sections_ByCourseId } from 'src/State/Section
 export class SectionChildHomeComponent implements OnInit, OnChanges
 {
   @Input() Section: Section | null = null;
-  @Input() courseId: number = 0;
   @Input() CurrentCourse: Course | undefined = undefined;
+  @Input() removeSectionHeader: boolean = false;
   isArabic$ = this.store.select(selectLang);
   HomeRoutes = HomeRoutes;
-  AllSections$ = this.store.select(Select_Sections_ByCourseId(this.courseId)).pipe(
+  AllSections$ = this.store.select(Select_Sections_ByCourseId(this.CurrentCourse?.id!, true)).pipe(
     tap(r =>
     {
       this.tree.setData(r);
@@ -49,6 +49,7 @@ export class SectionChildHomeComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
+    console.log(this.CurrentCourse);
   }
   getChildren()
   {
