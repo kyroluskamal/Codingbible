@@ -20,7 +20,7 @@
                                 <a [routerLink]="(isArabic$|async)?
                                 ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]:
                                 ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, s.slug]"
-                                   class="badge btn-orange moreTag">More</a>
+                                   class="badge btn-orange moreTag">{{'More'| translate}}</a>
                             </span>
                         </button>
                     </h2>
@@ -41,18 +41,12 @@
         <div class="col-md-8 p-3">
             <div *ngIf="(currentLessonFromFragment$|async)?.lesson else noCurrentLesson">
                 <h2 class="d-flex h4">
-                    <span [class]="(isArabic$|async)?'pe-2':'ps-2'">
-                        {{(currentLessonFromFragment$|async)?.lesson?.name}}
-                    </span>
+                    {{(currentLessonFromFragment$|async)?.lesson?.name}}
                 </h2>
-                <div class="youtube-container align-center d-flex align-items-center justify-content-center">
-                    <iframe *ngIf="(currentLessonFromFragment$|async)?.lesson?.vedioUrl && (currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]"
-                            [src]="'https://www.youtube.com/embed/'+(currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]|safeUrl"
-                            title="YouTube video player"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
+                <youtube-container *ngIf="(currentLessonFromFragment$|async)?.lesson?.vedioUrl && (currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]"
+                                   [videoId]="(currentLessonFromFragment$|async)?.lesson?.vedioUrl?.split('watch?v=')![1]">
+                </youtube-container>
+
                 <img src="../../../../assets/img/horizontal.png"
                      class="noShadow img-fluid"
                      alt="">

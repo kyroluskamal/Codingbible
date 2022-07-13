@@ -13,6 +13,7 @@ import * as adapter from "./course.adapter";
 
 export const initialState: CourseState = adapter.CourseAdapter.getInitialState({
     ValidationErrors: [],
+    error: null,
 });
 // Creating reducer                        
 export const CourseReducer = createReducer(
@@ -22,7 +23,8 @@ export const CourseReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(GetCourseById_Success, (state, Course) => 
@@ -33,7 +35,8 @@ export const CourseReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(UpdateCourse_Sucess, (state, res) => 
@@ -94,7 +97,8 @@ export const CourseReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(ChangeStatus_Success, (state, res) => adapter.CourseAdapter.updateOne(res.Course, { ...state, CurrentCourseById: res.currentCourseById })),
@@ -102,26 +106,28 @@ export const CourseReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(UpdateCourse_Failed, (state, res) =>
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(LoadCoursesSuccess, (state, { payload }) =>
     {
-        state = adapter.CourseAdapter.removeAll({ ...state });
         return adapter.CourseAdapter.upsertMany(payload, state);
     }),
     on(SetValidationErrors, (state, res) =>
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(GetCourseBy_Slug_Success, (state, res) => adapter.CourseAdapter.upsertOne(res.Course, state)),
@@ -129,7 +135,8 @@ export const CourseReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(dummyAction, (state) =>
@@ -182,6 +189,10 @@ export const selectCoursesCount = createSelector(selectCourseState, adapter.Cour
 export const selec_Course_ValidationErrors = createSelector(
     selectCourseState,
     (state) => state.ValidationErrors!
+);
+export const select_Course_HttpResponseError = createSelector(
+    selectCourseState,
+    (state) => state.error
 );
 
 

@@ -11,7 +11,6 @@ import { TranslatePipe } from 'src/Pipes/translate.pipe';
 export class DescriptionComponent implements OnInit
 {
   @Input() description: string | undefined = '';
-  @Input() isArabic: boolean = false;
   @Input() title: string = '';
   constructor() { }
 

@@ -5,6 +5,7 @@ import { SectionChildHomeComponent } from './section-child-home/section-child-ho
 import { RouterModule } from '@angular/router';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
+import { VideoContainerComponent } from '../video-container/video-container.component';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
     PlayListComponent, SectionChildHomeComponent
   ],
   imports: [
-    CommonModule, RouterModule, TranslatePipe, SafeUrlPipe
+    CommonModule, RouterModule, TranslatePipe, VideoContainerComponent
   ],
   exports: [PlayListComponent]
 })

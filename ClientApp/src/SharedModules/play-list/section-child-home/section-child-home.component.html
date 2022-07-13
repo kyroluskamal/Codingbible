@@ -64,10 +64,9 @@
                     <a [routerLink]="(isArabic$|async)?
                         ['','ar',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]:
                         ['',HomeRoutes.Courses.Home, CurrentCourse?.slug, HomeRoutes.Courses.Section, Section.slug]"
-                       class="badge btn-orange moreTag">More</a>
+                       class="badge btn-orange moreTag">{{'More'| translate}}</a>
                 </span>
             </button>
-
         </h4>
         <div [id]="Section.nameSlugFragment"
              class="accordion-collapse collapse"

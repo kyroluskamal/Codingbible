@@ -187,6 +187,8 @@ export class Course
     isArabic: boolean = false;
     otherSlug: string | null = null;
     categoriesObject: CourseCategory[] = [];
+    lessons: Lesson[] = [];
+    sections: Section[] = [];
 }
 
 export class CourseCategory

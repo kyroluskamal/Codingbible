@@ -12,6 +12,8 @@ import { NotificationMessage, PostType, sweetAlert } from "src/Helpers/constants
 import { DashboardRoutes } from "src/Helpers/router-constants";
 import { Course } from "src/models.model";
 import { CourseService } from "src/Services/course.service";
+import { LoadLessonsSuccess } from "../LessonsState/Lessons.actions";
+import { LoadSections, LoadSectionsSuccess } from "../SectionsState/sections.actions";
 import { AddCourse, AddCourse_Failed, AddCourse_Success, ChangeStatus, ChangeStatus_Failed, ChangeStatus_Success, dummyAction, GetCourseById, GetCourseById_Failed, GetCourseById_Success, GetCourseBy_Slug, GetCourseBy_Slug_Failed, GetCourseBy_Slug_Success, LoadCourses, LoadCoursesFail, LoadCoursesSuccess, RemoveCourse, RemoveCourse_Failed, RemoveCourse_Success, SetValidationErrors, UpdateCourse, UpdateCourse_Failed, UpdateCourse_Sucess } from "./course.actions";
 import { selectAllCourses, selectCourseByID, selectCourseBySlug } from "./course.reducer";
 
@@ -35,10 +37,17 @@ export class CoursesEffects
             {
                 if (Courses.length == 0)
                     return this.CourseService.GetAll(CoursesController.GetAllCourses).pipe(
-                        map((r) =>
+                        map((courses) =>
                         {
-                            this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
-                            return LoadCoursesSuccess({ payload: r });
+                            this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+                            for (let course of courses)
+                            {
+                                if (course.sections)
+                                    this.store.dispatch(LoadSectionsSuccess({ payload: course.sections }));
+                                if (course.lessons)
+                                    this.store.dispatch(LoadLessonsSuccess({ payload: course.lessons }));
+                            }
+                            return LoadCoursesSuccess({ payload: courses });
                         }),
                         catchError((e) =>
                         {
@@ -57,7 +66,9 @@ export class CoursesEffects
                 return this.CourseService.GetBySlug(CoursesController.GetCourseBySlug, action.slug).pipe(
                     map((r) =>
                     {
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+                        this.store.dispatch(LoadSectionsSuccess({ payload: r.sections }));
+                        this.store.dispatch(LoadLessonsSuccess({ payload: r.lessons }));
                         return GetCourseBy_Slug_Success({ Course: r });
                     }),
                     catchError((e) =>
@@ -76,7 +87,8 @@ export class CoursesEffects
                 return this.CourseService.GetById(CoursesController.GetCourseById, action.id).pipe(
                     map((r) =>
                     {
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+
                         return GetCourseById_Success(r);
                     }),
                     catchError((e) =>
@@ -98,7 +110,8 @@ export class CoursesEffects
                     {
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Addition('Course'));
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+
                         this.router.navigate([], { relativeTo: this.activatedRoute, queryParams: { action: PostType.Edit, step: `step${1}`, courseId: r.id } });
                         return AddCourse_Success(r);
                     }),
@@ -131,7 +144,8 @@ export class CoursesEffects
                             id: action.id,
                             changes: r.data as Course
                         };
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+
 
                         return UpdateCourse_Sucess({ Course: r.data as Course });
                     }),
@@ -157,7 +171,8 @@ export class CoursesEffects
                         this.spinner.removeSpinner();
                         this.ServerResponse.GeneralSuccessResponse_Swal(NotificationMessage.Success.Delete('Course'));
                         this.router.navigate(['', DashboardRoutes.Home, DashboardRoutes.Courses.Home]);
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+
                         return RemoveCourse_Success({ id: action.id, otherSlug: action.otherSlug });
                     }),
                     catchError((e) =>
@@ -185,7 +200,8 @@ export class CoursesEffects
                             id: action.id,
                             changes: r.data as Course
                         };
-                        this.store.dispatch(SetValidationErrors({ validationErrors: [] }));
+                        this.store.dispatch(SetValidationErrors({ error: null, validationErrors: [] }));
+
                         return ChangeStatus_Success({ Course: x, currentCourseById: action });
                     }),
                     catchError((e) =>

@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { EntityState } from "@ngrx/entity";
 import { ActionReducerMap } from "@ngrx/store";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
@@ -13,7 +14,6 @@ import { LessonsReducer } from "./LessonsState/Lessons.reducer";
 import { MenuReducer } from "./Menu/menu.reducer";
 import { PostReducer } from "./PostState/post.reducer";
 import { SectionsReducer } from "./SectionsState/sections.reducer";
-import { SlugMap_Category_reducer, SlugMap_CourseCategory_reducer, SlugMap_Courses_reducer, SlugMap_Lessons_reducer, SlugMap_Posts_reducer, SlugMap_Sections_reducer } from "./SlugMap/SlugMap.reducer";
 
 export interface AppState 
 {
@@ -28,106 +28,63 @@ export interface AppState
     sections: SectionsState;
     lang: LangState;
     menu: MenuState;
-    SlugMap_Categories: SlugMap_CategoriesState;
-    SlugMap_CourseCategories: SlugMap_CourseCategoriesState;
-    SlugMap_Courses: SlugMap_CourseState;
-    SlugMap_Lesson: SlugMap_LessonState;
-    SlugMap_Post: SlugMap_PostState;
-    SlugMap_Section: SlugMap_SectionState;
 }
 export interface DesignState
 {
     pinned: boolean;
 }
-export interface AuthState
+export interface AuthState extends ValidationErrors
 {
     user: ApplicationUser | null;
     loginError: string | null;
     roles: string[];
     InProgress: boolean;
-    ValidationErrors: ModelStateErrors[];
     isLoggedIn: boolean;
     refershTokenExpire: string;
     isLoggedInChecked: boolean;
 }
 
-export interface PostState extends EntityState<Post>
+export interface PostState extends EntityState<Post>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
     CurrentPostById: Post;
     CurrentPostBySlug: Post;
 }
-export interface CategoryState extends EntityState<Category>
+export interface CategoryState extends EntityState<Category>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
     CurrentCategoryById: Category;
     CurrentCategoryBySlug: Category;
 }
-export interface AttachmentsState extends EntityState<Attachments>
+export interface AttachmentsState extends EntityState<Attachments>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
     SelectedFile: Attachments | null;
     tempAttachments: Attachments[];
 }
-export interface CourseState extends EntityState<Course>
+export interface CourseState extends EntityState<Course>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
+    error: HttpErrorResponse | null;
 }
-export interface CourseCategoryState extends EntityState<CourseCategory>
+export interface CourseCategoryState extends EntityState<CourseCategory>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
 }
-export interface CourseSectionsState extends EntityState<Section>
+export interface CourseSectionsState extends EntityState<Section>, ValidationErrors
 {
-    ValidationErrors: ModelStateErrors[];
 }
-export interface LessonsState extends EntityState<Lesson>
+export interface LessonsState extends EntityState<Lesson>, ValidationErrors, AdditionUpdate
 {
-    ValidationErrors: ModelStateErrors[];
-    AdditionState: boolean;
-    UpdateState: boolean;
     CurrentSelectedLesson: Lesson | null;
 }
-export interface SectionsState extends EntityState<Section>
+export interface SectionsState extends EntityState<Section>, ValidationErrors, AdditionUpdate
 {
-    ValidationErrors: ModelStateErrors[];
-    AdditionState: boolean;
-    UpdateState: boolean;
 }
-export interface SlugMap_CourseState extends EntityState<SlugMap_Courses>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface SlugMap_PostState extends EntityState<SlugMap_Posts>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface SlugMap_CategoriesState extends EntityState<SlugMap_Category>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface SlugMap_CourseCategoriesState extends EntityState<SlugMap_CourseCategory>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface SlugMap_SectionState extends EntityState<SlugMap_Sections>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface SlugMap_LessonState extends EntityState<SlugMap_Lessons>
-{
-    ValidationErrors: ModelStateErrors[];
-}
-export interface MenuState extends EntityState<Menu>
-{
-    ValidationErrors: ModelStateErrors[];
-    AdditionState: boolean;
-    UpdateState: boolean;
-}
+export interface MenuState extends EntityState<Menu>, ValidationErrors, AdditionUpdate { }
+
 export interface LangState
 {
     isArabic: boolean;
 }
+interface ValidationErrors { ValidationErrors: ModelStateErrors[]; }
+interface AdditionUpdate { AdditionState: boolean; UpdateState: boolean; }
+
 export const AppReducers: ActionReducerMap<AppState> = {
     auth: AuthReducer,
     post: PostReducer,
@@ -140,10 +97,4 @@ export const AppReducers: ActionReducerMap<AppState> = {
     sections: SectionsReducer,
     lang: LangReducer,
     menu: MenuReducer,
-    SlugMap_Categories: SlugMap_Category_reducer,
-    SlugMap_CourseCategories: SlugMap_CourseCategory_reducer,
-    SlugMap_Courses: SlugMap_Courses_reducer,
-    SlugMap_Lesson: SlugMap_Lessons_reducer,
-    SlugMap_Post: SlugMap_Posts_reducer,
-    SlugMap_Section: SlugMap_Sections_reducer,
 };

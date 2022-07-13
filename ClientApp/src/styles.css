@@ -1,19 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600&family=Fira+Code:wght@300;600;700&family=Nunito:wght@500;600;700;900&display=swap');
-@import url("./assets/Fonts/Chewy/stylesheet.css");
-/*'Fredoka One'*/
-@import url("./assets/Fonts/Fredoka_One/stylesheet.css");
-/*'Jomhuria'*/
-@import url("./assets/Fonts/Jomhuria/stylesheet.css");
-/*'Patrick Hand'*/
-@import url("./assets/Fonts/Patrick_Hand/stylesheet.css");
-/*'Scheherazade New'*/
-@import url("./assets/Fonts/Scheherazade_New/stylesheet.css");
-/*'Paytone One'*/
-@import url("./assets/Fonts/Paytone_One/stylesheet.css");
-/*'Titan One'*/
-@import url("./assets/Fonts/Titan_One/stylesheet.css");
-/*Lalezar*/
-@import url("./assets/Fonts/Lalezar/stylesheet.css");
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600&family=Fira+Code:wght@300;600;700&family=Noto+Naskh+Arabic&family=Nunito:wght@500;600;700;900&display=swap');
 /*'Almarai'*/
 @import url("./assets/Fonts/Almarai/stylesheet.css");
 /*'Noto Sans Arabic'*/
@@ -54,7 +39,9 @@
   --PlayList-color: rgba(33, 37, 41, 1) !important;
   --dark-color: rgba(33, 37, 41);
   --Violet-color: #4F52FF;
-  --light-gray: rgb(211, 211, 211)
+  --light-gray: rgb(211, 211, 211);
+  --body-text-font-size: 1.5rem;
+  --body-text-font-family: 'Noto Naskh Arabic', serif;
 }
 
 .calibri-font {
@@ -66,6 +53,28 @@ a {
   color: #0366d6;
 }
 
+.body-text,
+.htmlConent p {
+  font-size: var(--body-text-font-size) !important;
+  color: black !important;
+  font-family: var(--Calibri) !important;
+}
+
+/* [dir='rtl'] .body-text,
+[dir='rtl'] .htmlConent p {
+} */
+
+.htmlConent h3 {
+  color: var(--homepage-titles-color);
+}
+
+.htmlConent h3::after {
+  content: "";
+  width: 100%;
+  display: block;
+  background-color: var(--dark-color);
+  border-bottom: 1px solid var(--ButtonColor);
+}
 
 /* html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
@@ -133,6 +142,10 @@ body {
 
 .mh-50 {
   min-height: 50px;
+}
+
+.mh-50vh {
+  min-height: 50vh;
 }
 
 .mat-menu-item {
@@ -392,17 +405,27 @@ aside>* {
   align-content: center;
 }
 
-.page-h1 {
-  font-family: var(--Nuito-font);
-  font-weight: bold;
+.page-h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--Nuito-font) !important;
+  font-weight: bold !important;
 }
 
 * p:last-child {
   margin-bottom: 0;
 }
 
-[dir="rtl"] .page-h1 {
-  font-family: var(--NotoSansArabic);
+[dir="rtl"] .page-h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  font-family: var(--NotoSansArabic) !important;
 }
 
 p {
@@ -460,7 +483,35 @@ h2.h4:hover {
 
 h2::before {
   content: "";
+}
+
+[dir="ltr"] h2::before {
+  padding-right: 0.5rem !important;
   border-left: 7px solid var(--ButtonColor);
+}
+
+[dir="rtl"] h2::before {
+  padding-left: 0.5rem !important;
+  border-right: 7px solid var(--ButtonColor);
+}
+
+.htmlConent h2 {
+  background-color: lavender;
+  display: flex;
+}
+
+h2:not(.playlistContainer h2, .lessonVideo h2, *>h2:first-child),
+h3:not(.playlistContainer h3),
+h4:not(.playlistContainer h4),
+h5:not(.playlistContainer h5),
+h6:not(.playlistContainer h6) {
+  margin-bottom: 1.0rem !important;
+  margin-top: 1.0rem !important;
+}
+
+.htmlConent h2:first-child,
+h2:first-child {
+  margin-top: 0rem !important;
 }
 
 .noBefore::before {
@@ -478,4 +529,39 @@ h2::before {
 
 app-home-nav-menu {
   z-index: 2;
+}
+
+.htmlConent {
+  padding: 1.5rem;
+}
+
+.htmlConent a {
+  font-weight: 600;
+}
+
+
+[dir='ltr'] .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback),
+[dir='rtl'] .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+[dir='rtl'] .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+  margin-left: -1px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+[dir='rtl'] .input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback),
+[dir="ltr"] .input-group:not(.has-validation)>.dropdown-toggle:nth-last-child(n+3),
+[dir='ltr'] .input-group:not(.has-validation)>:not(:last-child):not(.dropdown-toggle):not(.dropdown-menu) {
+  margin-right: -1px;
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.xng-breadcrumb-link {
+  word-wrap: break-word;
+  word-spacing: normal;
+  white-space: normal !important;
 }

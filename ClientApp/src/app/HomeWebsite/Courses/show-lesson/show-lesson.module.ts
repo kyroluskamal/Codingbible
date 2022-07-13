@@ -7,16 +7,19 @@ import { ShowLessonContentComponent } from './show-lesson-content/show-lesson-co
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 import { PageTitleComponent } from 'src/SharedModules/page-title/page-title.component';
 import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-place-holder/page-title-place-holder.component';
+import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
+import { VideoContainerComponent } from 'src/SharedModules/video-container/video-container.component';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
 
 
 @NgModule({
   declarations: [
     AllLessonsHomeComponent,
-    ShowLessonContentComponent
+    ShowLessonContentComponent,
   ],
   imports: [
     CommonModule, SharedModuleForHomeModule, PageTitleComponent, PageTitlePlaceHolderComponent,
-    ShowLessonRoutingModule
+    ShowLessonRoutingModule, BypassStylePipe, VideoContainerComponent, TranslatePipe
   ]
 })
 export class ShowLessonModule { }

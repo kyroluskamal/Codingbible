@@ -9,10 +9,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FileSizePipe } from 'src/Pipes/file-size.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
 import { CodingBibleEditorComponent } from 'src/app/Dashboard/PostsInDashboard/editor/editor.component';
 const components = [MediaComponent, BootstrapMoalComponent,
-  PostStatusPipe, FileSizePipe, BypassStylePipe,
+  PostStatusPipe, FileSizePipe,
   CodingBibleEditorComponent,
   CodingBiblePaginatorComponent, CodingBibleTableComponent];
 

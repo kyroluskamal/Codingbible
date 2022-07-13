@@ -1,11 +1,10 @@
 <div *ngIf="Category"
      class="coding-bible-card">
     <div class="row p-0">
-        <div class="col-12 d-flex flex-column justify-content-between mt-2">
+        <div class="col-12 d-flex flex-column justify-content-between">
             <div>
                 <h2 class="h4 d-flex"
-                    [routerLink]="[Category?.slug]"><span
-                          [class]="Category?.isArabic?'pe-2':'ps-2'">{{Category?.name}}</span>
+                    [routerLink]="[Category?.slug]">{{Category?.name}}
                 </h2>
                 <p class="fs-5">{{Category?.description}}</p>
             </div>

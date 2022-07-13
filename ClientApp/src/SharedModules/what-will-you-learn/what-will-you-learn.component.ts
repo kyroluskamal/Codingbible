@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 export class WhatWillYouLearnComponent implements OnInit
 {
   @Input() whatWillYouLearn: string = '';
-  @Input() isArabic: boolean = false;
   @Input() title: string = '';
   constructor() { }
 

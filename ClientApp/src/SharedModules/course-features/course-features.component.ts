@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
 export class CourseFeaturesComponent implements OnInit
 {
   @Input() courseFeatures: string = '';
-  @Input() isArabic: boolean = false;
   @Input() title: string = '';
   constructor() { }
 

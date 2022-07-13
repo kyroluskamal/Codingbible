@@ -2,65 +2,70 @@
 <basic-skeleton [Body]="CourseContent"
                 [ShowSidebar]="false"></basic-skeleton>
 <ng-template #CourseContent>
-    <ng-container *ngIf="(courseBySlug$|async)">
-        <!-- -------------------------------------------------------------------------------
-        |                             Introduction to the course                           |
-        ------------------------------------------------------------------------------------>
+    <ng-container *ngIf="loading else notLoading">
         <header class="coding-bible-card">
-            <ng-container *ngIf="(courseBySlug$|async)![0] else placeHolder">
+            <page-title-placeholder></page-title-placeholder>
+        </header>
+    </ng-container>
+    <ng-template #notLoading>
+        <ng-container *ngIf="CurrentCourse else NotFound">
+            <!-- -------------------------------------------------------------------------------
+            |                             Introduction to the course                           |
+            ------------------------------------------------------------------------------------>
+            <header class="coding-bible-card">
                 <div class="d-flex flex-row flex-wrap gap-1 mb-2">
                     <span class="badge bg-primary rounded-0 catBage"
-                          *ngFor="let cat of (courseBySlug$|async)![0]?.categoriesObject">
+                          *ngFor="let cat of CurrentCourse.categoriesObject">
                         <a [routerLink]="(isArabic$|async)?['','ar',HomeRoutes.Courses.Home, 
-                        HomeRoutes.Courses.Categories, cat.slug]:['',HomeRoutes.Courses.Home, 
-                        HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
+                            HomeRoutes.Courses.Categories, cat.slug]:['',HomeRoutes.Courses.Home, 
+                            HomeRoutes.Courses.Categories, cat.slug]">{{cat.name}}</a>
                     </span>
                 </div>
-                <page-title [title]="(courseBySlug$|async)![0]?.name!"
-                            [description]="(courseBySlug$|async)![0]?.description!"></page-title>
-            </ng-container>
-            <ng-template #placeHolder>
-                <page-title-placeholder></page-title-placeholder>
-            </ng-template>
-        </header>
-        <img src="../../../../assets/img/horizontal.png"
-             class="noShadow"
-             alt="">
-        <introductoy-video *ngIf="(courseBySlug$|async)![0]?.introductoryVideoUrl && (courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]"
-                           title="{{'Introduction to the course'| translate}}"
-                           [isArabic]="(isArabic$|async)!"
-                           [videoId]="(courseBySlug$|async)![0]?.introductoryVideoUrl?.split('watch?v=')![1]">
-        </introductoy-video>
-        <description *ngIf="(courseBySlug$|async)![0]?.description"
-                     [isArabic]="(isArabic$|async)!"
-                     title="{{'Course description'| translate}}"
-                     [description]="(courseBySlug$|async)![0]?.description">
-        </description>
+                <page-title [title]="CurrentCourse.name!"
+                            [description]="CurrentCourse.description!"></page-title>
+            </header>
+            <img src="../../../../assets/img/horizontal.png"
+                 class="noShadow"
+                 alt="">
+            <introductoy-video *ngIf="CurrentCourse.introductoryVideoUrl && CurrentCourse.introductoryVideoUrl?.split('watch?v=')![1]"
+                               title="{{'Introduction to the course'| translate}}"
+                               [videoId]="CurrentCourse.introductoryVideoUrl?.split('watch?v=')![1]">
+            </introductoy-video>
+            <description *ngIf="CurrentCourse.description"
+                         title="{{'Course description'| translate}}"
+                         [description]="CurrentCourse.description">
+            </description>
 
-        <what-will-you-learn *ngIf="(courseBySlug$|async)![0]?.whatWillYouLearn"
-                             [isArabic]="(isArabic$|async)!"
-                             [whatWillYouLearn]="(courseBySlug$|async)![0]?.whatWillYouLearn!"
-                             title="{{'What will you learn in this course?'|translate}}">
-        </what-will-you-learn>
+            <what-will-you-learn *ngIf="CurrentCourse.whatWillYouLearn"
+                                 [whatWillYouLearn]="CurrentCourse.whatWillYouLearn!"
+                                 title="{{'What will you learn in this course?'|translate}}">
+            </what-will-you-learn>
 
-        <target-audience *ngIf="(courseBySlug$|async)![0]?.targetAudience"
-                         title="{{'Target Audience'| translate}}"
-                         [targetAudience]="(courseBySlug$|async)![0]?.targetAudience!"
-                         [isArabic]="(isArabic$|async)!">
-        </target-audience>
+            <target-audience *ngIf="CurrentCourse.targetAudience"
+                             title="{{'Target Audience'| translate}}"
+                             [targetAudience]="CurrentCourse.targetAudience!"
+                             [isArabic]="(isArabic$|async)!">
+            </target-audience>
 
-        <requirements *ngIf="(courseBySlug$|async)![0]?.requirementsOrInstructions"
-                      [isArabic]="(isArabic$|async)!"
-                      title="{{'Course Requirements'|translate}}"
-                      [requirementsOrInstructions]="(courseBySlug$|async)![0]?.requirementsOrInstructions!">
-        </requirements>
-        <course-features *ngIf="(courseBySlug$|async)![0]?.courseFeatures"
-                         [isArabic]="(isArabic$|async)!"
-                         title="{{'Course Features'|translate}}"
-                         [courseFeatures]="(courseBySlug$|async)![0]?.courseFeatures!">
-        </course-features>
-        <playlist [AllSections]="AllSections"
-                  [RootSections]="RootSections"
-                  [CurrentCourse]="CurrentCourse"></playlist>
-    </ng-container>
+            <requirements *ngIf="CurrentCourse.requirementsOrInstructions"
+                          title="{{'Course Requirements'|translate}}"
+                          [requirementsOrInstructions]="CurrentCourse.requirementsOrInstructions!">
+            </requirements>
+            <course-features *ngIf="CurrentCourse.courseFeatures"
+                             title="{{'Course Features'|translate}}"
+                             [courseFeatures]="CurrentCourse.courseFeatures!">
+            </course-features>
+            <playlist [AllSections]="AllSections"
+                      [RootSections]="RootSections"
+                      [CurrentCourse]="CurrentCourse"></playlist>
+        </ng-container>
+        <ng-template #NotFound>
+            <div class="coding-bible-card mh-50vh d-flex flex-column gap-5 align-items-center justify-content-center">
+                <h1 class="page-h1">{{'Course not found'| translate}}</h1>
+                <p class="body-text">{{'The course you are looking for does not exist'| translate}}</p>
+                <button [routerLink]="(isArabic$|async)?['','ar',HomeRoutes.Courses.Home]:['',HomeRoutes.Courses.Home]"
+                        class="btn btn-orange">{{'Back to courses'| translate}}</button>
+            </div>
+        </ng-template>
+    </ng-template>
 </ng-template>

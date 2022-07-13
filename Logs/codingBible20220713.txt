@@ -1,0 +1,52 @@
+----------------------------------------------------------------------
+Timestamp - 13/07/2022 00:59:42 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11288
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 13/07/2022 01:00:29 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "80557cc2-9224-4d17-aa5d-241c02913a25"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJ4B988ECOF:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/cs50-ap-introduction-to-computer-science-the-complete-version"
+ConnectionId : "0HMJ4B988ECOF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11288
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 13/07/2022 01:00:39 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "3ca9d16d-08b4-4d67-9040-87ffa6361817"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJ4B988ECOF:00000005"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJ4B988ECOF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-OFTP1FS"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.4"
+UserName : "kyrol"
+ProcessId : 11288
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

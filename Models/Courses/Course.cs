@@ -48,4 +48,9 @@ public class Course
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }
+    [NotMapped]
+    public List<Section> Sections { get; set; }
+    [NotMapped]
+    public List<Lesson> Lessons { get; set; }
+
 }

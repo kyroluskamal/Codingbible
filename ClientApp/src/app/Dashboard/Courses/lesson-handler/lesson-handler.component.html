@@ -314,6 +314,7 @@
                              class="Editor bg-white p-2 overflow-auto"
                              data-testid="view"
                              id="EditorView"
+                             [dir]="(LessonById|async)?.isArabic?'rtl':'ltr'"
                              (mouseup)="GetSelectedText()"
                              (keyup)="GetSelectedText()"
                              contenteditable="true">

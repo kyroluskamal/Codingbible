@@ -113,7 +113,6 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
                 this.router.navigate(['', HomeRoutes.Courses.Home, HomeRoutes.Courses.Categories, response.cat?.otherSlug]);
                 this.breadcrumb.set('@courseCategories', 'Categories');
               }
-
           }
           this.breadcrumb.set('@CourseCatContent', response.cat?.name!);
         }

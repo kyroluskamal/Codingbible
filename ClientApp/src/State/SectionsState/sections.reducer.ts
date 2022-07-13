@@ -113,8 +113,7 @@ export const SectionsReducer = createReducer(
     }),
     on(LoadSectionsSuccess, (state, { payload }) =>
     {
-        state = adapter.SectionsAdapter.removeAll({ ...state });
-        return adapter.SectionsAdapter.addMany(payload, state);
+        return adapter.SectionsAdapter.upsertMany(payload, state);
     }),
     on(SetValidationErrors, (state, res) =>
     {

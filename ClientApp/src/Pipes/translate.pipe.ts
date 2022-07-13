@@ -86,6 +86,16 @@ export class TranslatePipe implements PipeTransform
       case 'AllCategoriesDesc': return `هذه الصفحة تحتوي على جميع الأقسام. يمكنك استخدام مربع البحث للتصفح بسرعة.`;
       case 'View Courses': return 'عرض الدورات';
       case 'Read More': return 'اقراء المزيد';
+      case 'More': return 'المزيد';
+      case 'Watch the video': return 'شاهد الفيديو';
+      case 'The course you are looking for does not exist': return 'الدورة التي تبحث عنها غير موجودة';
+      case 'Course not found': return 'الدورة غير موجودة';
+      case 'Back to courses': return 'العودة للدورات';
+      case 'Back to course': return 'العودة للدورة';
+      case 'The lesson you are looking for does not exist in this course': return 'الدرس الذي تبحث عنه غير موجود في هذه الدورة';
+      case 'Lesson not found': return 'الدرس غير موجود';
+      case 'Course and lesson are not found': return 'الدورة والدرس غير موجودين';
+      case "We can't find the course you are looking for": return 'لا يمكننا إيجاد الدورة التي تبحث عنها';
       default: return value;
     }
   }

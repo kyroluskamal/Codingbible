@@ -1,16 +1,17 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { map, Observable, Subscription, switchMap, tap, combineLatest, catchError, withLatestFrom } from 'rxjs';
+import { PostStatus } from 'src/Helpers/constants';
 import { HomeRoutes } from 'src/Helpers/router-constants';
 import { Course, Section } from 'src/models.model';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
-import { selectCourseBySlug } from 'src/State/CourseState/course.reducer';
+import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
 import { selectLang } from 'src/State/LangState/lang.reducer';
-import { GetLessonByCourseId, GetLessonsByCourseId } from 'src/State/LessonsState/Lessons.actions';
+import { GetLessonByCourseId } from 'src/State/LessonsState/Lessons.actions';
 import { LoadSections } from 'src/State/SectionsState/sections.actions';
-import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
+import { selectAllSections, Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
 @Component({
@@ -24,13 +25,16 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
   isArabic$ = this.store.select(selectLang);
   isArabicSubscription: Subscription = new Subscription();
   params$ = this.activatedRoute.params;
-  courseBySlug$: Observable<[Course | undefined]> = new Observable<[Course | undefined]>();
+  courseBySlug$: Observable<{ course: Course | undefined; }> = new Observable<{ course: Course | undefined; }>();
   CourseSections$: Observable<Section[]> = new Observable<Section[]>();
   slug: string = "";
   HomeRoutes = HomeRoutes;
   isArabic: boolean = false;
   AllSections: Section[] = [];
   RootSections: Section[] = [];
+  loading: boolean = true;
+  countNotFound = 0;
+  CountFound = 0;
   @ViewChild("playlistContainer") playlistContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   constructor(private store: Store,
     private router: Router,
@@ -45,71 +49,62 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
-    this.courseBySlug$ = this.params$.pipe(
-      tap(params =>
-      {
-        this.slug = decodeURIComponent(params['slug'].split('#')[0]);
-      }),
-      switchMap(_ => combineLatest([this.store.select(selectCourseBySlug(this.slug))])),
-      tap(courseBySlug =>
-      {
-        if (courseBySlug[0])
-        {
-          this.CurrentCourse = courseBySlug[0];
-          this.store.dispatch(GetLessonByCourseId({ courseId: this.CurrentCourse.id! }));
-        }
-        if (courseBySlug[0] == undefined)
-        {
-          this.store.dispatch(GetCourseBy_Slug({ slug: this.slug }));
-        }
-      })
-    );
     this.isArabicSubscription = this.isArabic$.pipe(
       tap(isArabic => this.isArabic = isArabic),
-      switchMap(_ => combineLatest([this.courseBySlug$.pipe(map(course =>
-      {
-        if (course[0])
-        {
-          this.CurrentCourse = course[0];
-        }
-        this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
-        return course[0] ? course[0] : null;
-      }))])),
-      switchMap(r => combineLatest([this.store.select(selectAllSections).pipe(map(
-        sections =>
-        {
-          this.AllSections = sections.filter(section => section.courseId == r[0]?.id);
-          return { course: r[0], sections: this.AllSections };
-        }
-      ),
-        tap(sections =>
-        {
-          if (sections.sections.length < 2)
-            this.store.dispatch(LoadSections());
-        }),
-      )]))
+      switchMap(_ => combineLatest([
+        this.activatedRoute.params.pipe(
+          tap(params =>
+          {
+            this.slug = decodeURIComponent(params['slug'].split('#')[0]);
+          }),
+          switchMap(_ => combineLatest([this.store.select(selectCourseBySlug(this.slug))])),
+          tap(courseBySlug =>
+          {
+            if (courseBySlug[0] == undefined)
+            {
+              this.store.dispatch(GetCourseBy_Slug({ slug: this.slug }));
+            }
+          }),
+          map(res => res[0]),
+        )
+      ])),
+      switchMap(r => combineLatest([this.store.select(Select_Sections_ByCourseId(r[0]?.id!)).pipe(
+        tap(
+          sections =>
+          {
+            this.AllSections = sections.filter(section => section.status == PostStatus.Published);
+          }
+        )),
+      this.store.select(select_Course_HttpResponseError)
+      ]).pipe(
+        map(res => ({ course: r[0], sections: res[0], error: res[1] }))
+      )),
     ).subscribe(r =>
     {
-      if (r[0].course)
+      this.CurrentCourse = r.course;
+      if (r.course)
       {
-        if (this.isArabic !== r[0]?.course?.isArabic)
+        if (this.isArabic !== r.course?.isArabic)
         {
           if (this.isArabic)
           {
-            this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r[0]?.course?.otherSlug!]);
+            this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
           }
           else
           {
-            this.router.navigate(['', HomeRoutes.Courses.Home, r[0]?.course?.otherSlug!]);
+            this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
           }
           this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         }
-        this.tree.setData(r[0].sections);
+        this.tree.setData(r.sections);
         this.AllSections = this.tree.finalFlatenArray();
         this.RootSections = this.tree.getRawRoots();
+        this.loading = false;
+      } else if (r.error)
+      {
+        this.loading = false;
       }
     });
-
   }
 
 

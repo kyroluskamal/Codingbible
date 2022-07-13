@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 export class RequirementsOrInstructionsComponent implements OnInit
 {
   @Input() requirementsOrInstructions: string = '';
-  @Input() isArabic: boolean = false;
   @Input() title: string = '';
   constructor() { }
 

@@ -1,6 +1,6 @@
 <section class="coding-bible-card">
-    <h2 class="d-flex"><span [class]="isArabic?'pe-2':'ps-2'">
-            {{title}}</span></h2>
+    <h2 class="d-flex">
+        {{title}}</h2>
     <ul class="fs-5 text-justify">
         <li *ngFor="let i of whatWillYouLearn.split('\n')">
             <span *ngIf="i!=''">{{i}}</span>

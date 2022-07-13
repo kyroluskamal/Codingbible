@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Subscription, switchMap, tap } from 'rxjs';
+import { PostStatus } from 'src/Helpers/constants';
 import { HomeRoutes } from 'src/Helpers/router-constants';
-import { Course, Lesson } from 'src/models.model';
-import { GetCourseById } from 'src/State/CourseState/course.actions';
-import { selectCourseByID } from 'src/State/CourseState/course.reducer';
+import { Course, Lesson, Section } from 'src/models.model';
+import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
+import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
+import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
 import { selectLang } from 'src/State/LangState/lang.reducer';
-import { GetLessonBySlug } from 'src/State/LessonsState/Lessons.actions';
 import { selectLessonBySlug } from 'src/State/LessonsState/Lessons.reducer';
 import { BreadcrumbService } from 'xng-breadcrumb';
 
@@ -16,96 +17,141 @@ import { BreadcrumbService } from 'xng-breadcrumb';
   templateUrl: './show-lesson-content.component.html',
   styleUrls: ['./show-lesson-content.component.css']
 })
-export class ShowLessonContentComponent implements OnInit
+export class ShowLessonContentComponent implements OnInit, OnDestroy
 {
 
-  params$ = this.activatedRoute.params;
-  LessonBySlug$: Observable<{ course: Course | undefined, lesson: Lesson | undefined; }> = new Observable<{ course: Course | undefined, lesson: Lesson | undefined; }>();
   slug: string = '';
-  isArabic$ = this.store.select(selectLang);
+  HomeRoutes = HomeRoutes;
   isArabicSubscription: Subscription = new Subscription();
-  currentLesson: Lesson = new Lesson();
+  currentLesson: Lesson | null = null;
   isArabic: boolean = false;
-  currentCourse: Course = new Course();
+  currentCourse: Course | undefined = undefined;
+  loading: boolean = true;
+  courseSlug: string = '';
+  SectionTree: Section[] = [];
+  ArrangedLessons: Lesson[] = [];
+  currentLessonIndex = 0;
+
   constructor(private store: Store,
     private breadcrumb: BreadcrumbService,
     private router: Router,
+    private tree: TreeDataStructureService<Section>,
     private activatedRoute: ActivatedRoute) { }
+  ngOnDestroy(): void
+  {
+    this.isArabicSubscription.unsubscribe();
+  }
 
   ngOnInit(): void
   {
-    this.LessonBySlug$ = this.params$.pipe(
-      tap(params =>
-      {
-        this.slug = decodeURIComponent(params['slug']);
-      }),
-      switchMap(params => combineLatest([this.store.select(selectLessonBySlug(this.slug))])),
-      tap(res =>
-      {
-        if (res[0])
-        {
-          this.currentLesson = res[0];
-        }
-        if (res[0] == undefined)
-        {
-          this.store.dispatch(GetLessonBySlug({ slug: this.slug }));
-        }
-      }),
-      switchMap(lesson => combineLatest([this.store.select(selectCourseByID(lesson[0]?.courseId!))]).pipe(
-        tap(x =>
-        {
-          if (x[0])
-          {
-            this.currentCourse = x[0];
-          } else if (this.currentLesson)
-          {
-            this.store.dispatch(GetCourseById({ id: lesson[0]?.courseId! }));
-          }
-        }),
-        map(x =>
-        {
-          return { course: x[0], lesson: lesson[0] };
-        }),
-      )),
-      map(x => x)
-    );
-    this.isArabicSubscription = this.isArabic$.pipe(
+    this.isArabicSubscription = this.store.select(selectLang).pipe(
       tap(isArabic => this.isArabic = isArabic),
-      switchMap(_ => combineLatest([this.LessonBySlug$.pipe(map(res =>
+      switchMap(_ => combineLatest([
+        //get course by slug
+        this.activatedRoute.pathFromRoot[3].params.pipe(
+          tap(x => this.courseSlug = decodeURIComponent(x['slug'])),
+          switchMap(_ => combineLatest([this.store.select(selectCourseBySlug(this.courseSlug))]).pipe(
+            tap(x =>
+            {
+              if (!x[0])
+              {
+                this.store.dispatch(GetCourseBy_Slug({ slug: this.courseSlug }));
+              }
+            }),
+            map(x => x[0]),
+          ))
+        )])),
+      map(x => x[0]),
+    ).pipe(
+      switchMap(course =>
+        combineLatest([
+          //get lesson by slug if coourse is found
+          this.activatedRoute.params.pipe(
+            tap(params =>
+            {
+              this.slug = decodeURIComponent(params['slug']);
+            }),
+            switchMap(params => combineLatest([this.store.select(selectLessonBySlug(this.slug))])),
+          ),
+          this.store.select(select_Course_HttpResponseError)
+        ]).pipe(
+          map(x => { return { course: course, lesson: x[0][0], error: x[1] }; }),
+        )
+      ),
+    ).subscribe(
+      r =>
       {
-        if (res.lesson)
-        {
-          this.currentLesson = res.lesson;
-        } else
-        {
-
-        }
-        this.breadcrumb.set("@courseSlug", res.course?.name!);
-        this.breadcrumb.set("@lessonSlug", this.currentLesson?.name!);
-        if (this.currentLesson.isArabic)
+        this.ArrangedLessons = [];
+        this.currentLesson = r.lesson!;
+        this.currentCourse = r.course;
+        if (this.isArabic)
           this.breadcrumb.set("@lessonHome", 'الدروس');
         else
           this.breadcrumb.set("@lessonHome", 'Lessons');
-        return res.lesson ? res : null;
-      }))])),
-    ).subscribe(r =>
-    {
-      if (r[0]?.lesson)
-      {
-        if (this.isArabic !== r[0]?.lesson?.isArabic)
+        if (r.lesson && r.course)
         {
-          if (this.isArabic)
+          this.tree.setData(r.course.sections);
+
+          this.breadcrumb.set("@courseSlug", r.course?.name!);
+          this.breadcrumb.set("@lessonSlug", r.lesson?.name!);
+
+          if (this.isArabic !== r.lesson?.isArabic && this.isArabic !== r.course?.isArabic)
           {
-            this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r[0]?.course?.otherSlug!,
-              HomeRoutes.Courses.Lesson, r[0]?.lesson?.otherSlug!]);
+            if (this.isArabic)
+            {
+              this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
+                HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
+            }
+            else
+            {
+              this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
+                HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
+            }
           }
-          else
+          this.loading = false;
+          this.SectionTree = this.tree.finalFlatenArray().sort((a, b) => a.order - b.order);
+          let sectionsThatHasLessons = this.SectionTree.filter(x => x.isLeafSection === true);
+          for (let s of sectionsThatHasLessons)
           {
-            this.router.navigate(['', HomeRoutes.Courses.Home, r[0]?.course?.otherSlug!,
-              HomeRoutes.Courses.Lesson, r[0]?.lesson?.otherSlug!]);
+
+            this.ArrangedLessons.push(...r.course.lessons.filter(x => x.sectionId === s.id
+              && x.status === PostStatus.Published && x.isArabic === this.isArabic)
+              .sort((a, b) => a.orderWithinSection - b.orderWithinSection));
+            this.ArrangedLessons.reduce;
           }
+          this.currentLessonIndex = this.ArrangedLessons.findIndex(x => x.id === r.lesson?.id);
         }
+        else if (r.course && !r.lesson)
+        {
+          this.breadcrumb.set("@courseSlug", r.course?.name!);
+          this.loading = false;
+        }
+        if (r.error) { this.loading = false; }
+      });
+  }
+  NextOrPrevious(status: number): void
+  {
+    console.log(this.currentLessonIndex);
+    console.log(this.ArrangedLessons);
+    if (this.currentLesson)
+    {
+      let nextIndex = this.currentLessonIndex + status;
+      if (nextIndex >= 0 && nextIndex < this.ArrangedLessons.length)
+      {
+        let nextLesson = this.ArrangedLessons[nextIndex];
+        if (this.isArabic)
+        {
+          this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, this.currentCourse?.otherSlug!,
+            HomeRoutes.Courses.Lesson, nextLesson?.otherSlug!]);
+        }
+        else
+        {
+          this.router.navigate(['', HomeRoutes.Courses.Home, this.currentCourse?.otherSlug!,
+            HomeRoutes.Courses.Lesson, nextLesson?.otherSlug!]);
+        }
+        this.currentLessonIndex = nextIndex;
       }
-    });
+    }
+    console.log(this.currentLessonIndex);
   }
 }

@@ -6,13 +6,12 @@
                  class="noShadow img-fluid"
                  alt="">
         </div>
-        <div class="col-md-7 col-12 d-flex flex-column justify-content-between mt-2">
+        <div class="col-md-7 col-12 d-flex flex-column justify-content-between">
             <div>
                 <h2 class="h4 d-flex"
                     [routerLink]="Course?.isArabic?
                     ['','ar',CourseRoutes.Home, Course?.slug]:
-                    ['',CourseRoutes.Home, Course?.slug]"><span
-                          [class]="Course?.isArabic?'pe-2':'ps-2'">{{Course?.name}}</span>
+                    ['',CourseRoutes.Home, Course?.slug]">{{Course?.name}}
                 </h2>
                 <p class="fs-5 line-count">{{Course?.description}}</p>
             </div>

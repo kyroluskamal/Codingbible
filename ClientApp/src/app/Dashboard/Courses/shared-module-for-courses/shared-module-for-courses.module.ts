@@ -11,6 +11,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { RouterModule } from '@angular/router';
 import { LessonForPlannerModalComponent } from '../lesson-for-planner-modal/lesson-for-planner-modal.component';
 import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
+import { BypassStylePipe } from 'src/Pipes/bypass-style.pipe';
 
 
 
@@ -19,7 +20,7 @@ import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
     LessonHandlerComponent, SectionChildComponent, LessonForPlannerModalComponent,
     ShowAllLessonsComponent],
   imports: [RouterModule, SafeUrlPipe,
-    SharedModule, TooltipModule, ShareComponentsforDashboardModule, TabsModule,
+    SharedModule, TooltipModule, ShareComponentsforDashboardModule, TabsModule, BypassStylePipe,
   ], exports: [SectionModalComponent, CourseCategoryHandlerComponent, LessonHandlerComponent, ShowAllLessonsComponent,
     SharedModule, ShareComponentsforDashboardModule, TooltipModule, LessonForPlannerModalComponent,
     SectionChildComponent]

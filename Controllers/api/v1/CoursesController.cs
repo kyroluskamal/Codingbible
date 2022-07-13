@@ -61,6 +61,16 @@ public class CoursesController : ControllerBase
                 {
                     await UpdateOtherSlug(cat);
                 }
+                c.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == c.Id)).ToList();
+                foreach (var lesson in c.Lessons)
+                {
+                    await UpdateOtherSlug(lesson);
+                }
+                c.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == c.Id)).ToList();
+                foreach (var section in c.Sections)
+                {
+                    await UpdateOtherSlug(section);
+                }
                 await UpdateOtherSlug(c);
             }
             return Ok(courses.ToList());
@@ -149,6 +159,16 @@ public class CoursesController : ControllerBase
                 await UpdateOtherSlug(cat);
             }
             await UpdateOtherSlug(course);
+            course.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == course.Id)).ToList();
+            foreach (var lesson in course.Lessons)
+            {
+                await UpdateOtherSlug(lesson);
+            }
+            course.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == course.Id)).ToList();
+            foreach (var section in course.Sections)
+            {
+                await UpdateOtherSlug(section);
+            }
             return Ok(course);
         }
         catch (Exception e)
