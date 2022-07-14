@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap, tap, combineLatest, catchError, withLatestFrom } from 'rxjs';
@@ -33,11 +34,11 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
   AllSections: Section[] = [];
   RootSections: Section[] = [];
   loading: boolean = true;
-  countNotFound = 0;
-  CountFound = 0;
+
   @ViewChild("playlistContainer") playlistContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   constructor(private store: Store,
     private router: Router,
+    private title: Title,
     private breadcrumb: BreadcrumbService,
     private tree: TreeDataStructureService<Section>,
     private activatedRoute: ActivatedRoute) { }
@@ -84,6 +85,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
       this.CurrentCourse = r.course;
       if (r.course)
       {
+        this.title.setTitle(r.course.title);
         this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         if (this.isArabic !== r.course?.isArabic)
         {
@@ -102,6 +104,8 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         this.loading = false;
       } else if (r.error)
       {
+        this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+
         this.loading = false;
       }
     });

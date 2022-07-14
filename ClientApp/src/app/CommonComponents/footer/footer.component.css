@@ -1,29 +1,42 @@
-h4{
+h4 {
     font-family: var(--FiraCode-font) !important;
     font-weight: 600;
 }
-h4, .h6{
-    color:lightgray;
+
+.h4,
+.h6 {
+    color: lightgray !important;
 }
-.h6, ul{
+
+.h6,
+ul {
     font-family: var(--Nuito-font) !important;
 }
-[dir='rtl'] ul, [dir='rtl'] .h6{
+
+[dir='rtl'] ul,
+[dir='rtl'] .h6 {
     font-family: var(--NotoSansArabic) !important;
 }
-ul, ul a, footer div p{
+
+ul,
+ul a,
+footer div p {
     color: #999999;
 }
-ul a:hover{
+
+ul a:hover {
     color: white;
 }
-ul{
+
+ul {
     list-style: none;
     padding: 0%;
 }
-footer{
+
+footer {
     min-height: 250px;
 }
-[dir='rtl'] .h6{
+
+[dir='rtl'] .h6 {
     font-family: var(--NotoSansArabic);
 }

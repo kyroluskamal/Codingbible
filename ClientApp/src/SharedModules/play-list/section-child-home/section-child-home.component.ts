@@ -49,7 +49,6 @@ export class SectionChildHomeComponent implements OnInit, OnChanges
 
   ngOnInit(): void
   {
-    console.log(this.CurrentCourse);
   }
   getChildren()
   {

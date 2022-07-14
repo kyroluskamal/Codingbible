@@ -24,7 +24,13 @@
             <img src="../../../../assets/img/horizontal.png"
                  class="noShadow"
                  alt="">
+            <a [routerLink]=""
+               [fragment]="'fsdfsdf'">sfdfsdfsd</a>
+            <section class="coding-bible-card border border-2"
+                     id="toc">
+            </section>
             <section class="coding-bible-card htmlConent"
+                     id="content"
                      *ngIf="currentLesson?.htmlContent"
                      [innerHtml]="currentLesson?.htmlContent! |bypassStyle">
             </section>

@@ -108,6 +108,7 @@ export class TranslatePipe implements PipeTransform
       case 'You can watch all section of the course': return 'يمكنك مشاهدة كل فصول الدورة';
       case 'Course is found': return 'تم العثور على الدورة';
       case 'Searcing for course': return 'بحث عن الدورة';
+      case "Table of Contents": return "المحتوى";
       default: return value;
     }
   }

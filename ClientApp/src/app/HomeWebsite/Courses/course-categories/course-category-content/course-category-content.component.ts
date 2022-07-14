@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Observable, Subscription, switchMap, take, tap } from 'rxjs';
@@ -27,6 +28,7 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
   constructor(private store: Store,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private title: Title,
     private breadcrumb: BreadcrumbService,
     private coursePerCategoryService: CoursesPerCategoryService) { }
 
@@ -100,6 +102,7 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
       {
         if (response.cat)
         {
+          this.title.setTitle(response.cat.name + ' - ' + "Coding Bible");
           if (response.isArabic !== response.cat?.isArabic)
           {
             if (this.router.url.includes(HomeRoutes.Courses.Home + '/' + HomeRoutes.Courses.Categories))

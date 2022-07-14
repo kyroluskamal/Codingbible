@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Subscription, switchMap, tap } from 'rxjs';
@@ -25,6 +26,7 @@ export class AllSectionsHomeComponent implements OnInit, OnDestroy
   constructor(private store: Store,
     private breadCrumb: BreadcrumbService,
     private router: Router,
+    private title: Title,
     private activatedRoute: ActivatedRoute) { }
   ngOnDestroy(): void
   {
@@ -63,6 +65,7 @@ export class AllSectionsHomeComponent implements OnInit, OnDestroy
         this.breadCrumb.set('@sectionHome', "Sections");
       if (x.course)
       {
+        this.title.setTitle(`${this.currentCourse?.name}`);
         this.breadCrumb.set("@courseSlug", this.currentCourse?.name!);
         if (this.isArabic !== x.course.isArabic)
         {
@@ -79,7 +82,11 @@ export class AllSectionsHomeComponent implements OnInit, OnDestroy
         }
         this.loading = false;
       } else if (x.error)
+      {
+        this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+
         this.loading = false;
+      }
     });
   }
 

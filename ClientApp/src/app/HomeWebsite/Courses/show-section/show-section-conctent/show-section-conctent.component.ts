@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, switchMap, tap } from 'rxjs';
@@ -29,6 +30,7 @@ export class ShowSectionConctentComponent implements OnInit
   constructor(private store: Store,
     private breadcrumb: BreadcrumbService,
     private activatedRoute: ActivatedRoute,
+    private title: Title,
     private router: Router) { }
 
   ngOnInit(): void
@@ -77,6 +79,7 @@ export class ShowSectionConctentComponent implements OnInit
           this.breadcrumb.set('@sectionHome', "Sections");
         if (r.course && r.section)
         {
+          this.title.setTitle(r.section.title + ' | ' + r.course.title);
           this.breadcrumb.set("@courseSlug", r.course?.name!);
           this.breadcrumb.set("@sectionSlug", r.section?.name!);
           if (this.isArabic !== r.section?.isArabic && this.isArabic !== r.course?.isArabic)
@@ -95,10 +98,15 @@ export class ShowSectionConctentComponent implements OnInit
           this.loading = false;
         } else if (r.course && !r.section)
         {
+          this.title.setTitle(r.course.title);
           this.breadcrumb.set("@courseSlug", r.course?.name!);
           this.loading = false;
         }
-        if (r.error) { this.loading = false; }
+        if (r.error)
+        {
+          this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+          this.loading = false;
+        }
       }
     );
 

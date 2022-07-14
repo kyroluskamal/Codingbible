@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Subscription, switchMap, take, tap } from 'rxjs';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
@@ -38,7 +39,7 @@ export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
       take(2)
     )),
   );
-  constructor(private store: Store, private BreadCrumb: BreadcrumbService) { }
+  constructor(private store: Store, private title: Title, private BreadCrumb: BreadcrumbService) { }
   ngOnDestroy(): void
   {
     this.AllCategoriesSubscription.unsubscribe();
@@ -48,6 +49,13 @@ export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
   {
     this.AllCategoriesSubscription = this.AllCategories$.subscribe(res =>
     {
+      if (res.isArabic)
+      {
+        this.title.setTitle('الاقسام');
+      } else
+      {
+        this.title.setTitle('Categories');
+      }
       this.Loading = false;
       if (res.isArabic)
       {

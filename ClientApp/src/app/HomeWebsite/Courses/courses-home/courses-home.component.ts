@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Observable, Subscription, switchMap, tap } from 'rxjs';
@@ -21,7 +22,9 @@ export class CoursesHomeComponent implements OnInit, OnDestroy
   AllCoursesSubscription: Subscription = new Subscription();
   BaseUrl = BaseUrl;
   loading = true;
-  constructor(private store: Store, private router: Router) { }
+  constructor(private store: Store,
+    private title: Title,
+    private router: Router) { }
   ngOnDestroy(): void
   {
     this.AllCoursesSubscription.unsubscribe();
@@ -34,7 +37,11 @@ export class CoursesHomeComponent implements OnInit, OnDestroy
       switchMap(r => combineLatest([this.store.select(selectAllCourses).pipe(map(r => r.filter(c => c.status == PostStatus.Published && c.isArabic == this.isArabic)))])),
       map(r => { if (r[0].length == 0) { this.store.dispatch(LoadCourses()); } return r[0]; })
     );
-    this.AllCoursesSubscription = this.AllCourses$.subscribe(r => { this.loading = false; });
+    this.AllCoursesSubscription = this.AllCourses$.subscribe(r =>
+    {
+      this.title.setTitle(this.isArabic ? 'الدورات' : 'Courses');
+      this.loading = false;
+    });
   }
 
 }

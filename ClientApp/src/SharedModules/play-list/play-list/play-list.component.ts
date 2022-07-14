@@ -116,7 +116,6 @@ export class PlayListComponent implements OnInit, AfterViewChecked, OnDestroy
       let sectionInDom = <HTMLButtonElement>this.document.querySelector(`[data-section-active="${s.nameSlugFragment}"]`);
       if (sectionInDom)
       {
-        console.log(sectionInDom);
         let parent = sectionInDom?.parentElement;
         let sbling = parent?.nextElementSibling;
         if (sbling)

@@ -4,10 +4,10 @@ import { HomeRoutes } from 'src/Helpers/router-constants';
 import { ArabicHomeComponent } from './arabic-home/arabic-home.component';
 
 const routes: Routes = [
-  { path: '', component: ArabicHomeComponent },
+  { path: '', component: ArabicHomeComponent, title: 'الرئيسية' },
   {
     path: HomeRoutes.Courses.Home, loadChildren: () => import('../HomeWebsite/Courses/courses-home.module').then(m => m.CoursesHomeModule),
-    data: { breadcrumb: 'الدورات' }
+    data: { breadcrumb: 'الدورات' },
   }
 ];
 
