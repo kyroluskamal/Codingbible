@@ -11,7 +11,7 @@ import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthSta
 import { SET_LANGUAGE } from 'src/State/LangState/lang.acitons';
 import { selectLang } from 'src/State/LangState/lang.reducer';
 import { GetMenuByLocationName } from 'src/State/Menu/menu.actions';
-import { selectAll_Menus, selectMenuByLocationName } from 'src/State/Menu/menu.reducer';
+import { selectMenuByLocationName } from 'src/State/Menu/menu.reducer';
 import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
 @Component({
   selector: 'app-home-nav-menu',
@@ -59,6 +59,12 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
       }
     });
   }
+
+  ngAfterViewInit(): void
+  {
+    this.handleDropDowns();
+
+  }
   ngOnChanges(changes: SimpleChanges): void
   {
     if ('LocationName' in changes)
@@ -100,21 +106,28 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
   }
   handleDropDowns()
   {
-    if (isPlatformBrowser(this.platformId))
+
+    let allDropDowns = this.document.querySelectorAll(".nav-item.dropdown");
+    console.log(allDropDowns);
+    for (let i = 0; i < allDropDowns.length; i++)
     {
-      let allDropDowns = this.document.querySelectorAll(".nav-item.dropdown");
-      for (let i = 0; i < allDropDowns.length; i++)
+
+      let dropdown = <HTMLElement>allDropDowns[i];
+      let menu = dropdown.getElementsByTagName("ul")[0];
+      menu.addEventListener("mouseleave", (e) =>
       {
-        let menu = <HTMLElement>allDropDowns[i].getElementsByTagName("ul")[0];
-        allDropDowns[i].addEventListener("mouseover", () =>
-        {
-          menu.classList.add("show");
-        });
-        allDropDowns[i].addEventListener("mouseleave", () =>
-        {
-          menu.classList.remove("show");
-        });
-      }
+        menu.classList.remove("show");
+      });
+      dropdown.addEventListener("mouseover", () =>
+      {
+        menu.classList.add("show");
+      });
+      allDropDowns[i].addEventListener("mouseleave", () =>
+      {
+        console.log("mouseleave");
+        menu.classList.remove("show");
+      });
+
 
     }
   }

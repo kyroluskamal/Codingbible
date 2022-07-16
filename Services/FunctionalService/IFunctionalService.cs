@@ -11,5 +11,7 @@ namespace CodingBible.Services.FunctionalService
         //Task<string> CreatePostSitemap(string HostNme);
         Task ResizeImage_SCALE(string FilPath_Origina, string FilePath_optimised, int width, string scaleMethod = "scale");
         Task ResizeImage_OtherMedthods(string FilPath_Original, string FilePath_optimised, int Width, int Height, string scaleMethod = "fit");
+        Task UpdateOtherSlug<T>(T obj);
+        Task AddUpdate_SlugMap<T>(T Obj, string oldSlug = "");
     }
 }

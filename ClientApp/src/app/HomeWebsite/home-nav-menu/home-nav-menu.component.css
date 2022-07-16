@@ -17,19 +17,21 @@ div.dropdown>.dropdown-menu.show {
     transform: translateY(0);
     visibility: visible;
 } */
-.navBarSahdow{  
+.navBarSahdow {
     box-shadow: var(--my-shadow)
-
 }
-.navbar-nav .nav-item .nav-link{
+
+.navbar-nav .nav-item .nav-link {
     font-size: 16.5px;
 }
+
 .navbar-nav .nav-item .nav-link:hover,
 .navbar-nav .nav-item .nav-link.active,
-.navbar-nav .nav-item .nav-link:focus{
+.navbar-nav .nav-item .nav-link:focus {
     color: var(--main-color);
 }
-.dropdown-menu{
+
+.dropdown-menu {
     display: block;
     min-width: 200px;
     visibility: hidden;
@@ -37,58 +39,75 @@ div.dropdown>.dropdown-menu.show {
     border: none;
     border-top: 3px solid var(--main-color);
     transform: translateY(40px);
-    transition: visibility transform  200ms cubic-bezier(.52,.5,.7,.71);
+    transition: visibility transform 200ms cubic-bezier(.52, .5, .7, .71);
 }
-.dropdown-menu.show{
+
+.dropdown-menu.show {
     visibility: visible;
     transform: translateY(15px);
-    transition: all 200ms cubic-bezier(.52,.5,.7,.71);
+    transition: all 200ms cubic-bezier(.52, .5, .7, .71);
 }
-.dropdown-item:hover,.dropdown-item:focus{
+
+.dropdown-item:hover,
+.dropdown-item:focus {
     background: none;
     color: var(--main-color);
     font-weight: 700;
 }
-[dir='rtl'] .dropdown-toggle::after{
+
+[dir='rtl'] .dropdown-toggle::after {
     margin-right: .255em;
 }
-.nav-item{
+
+.nav-item {
     font-family: var(--Nuito-font);
     font-weight: 700;
 }
-.nav-item-roots{
+
+.nav-item-roots {
     padding: 1rem !important;
 }
-header{
+
+header {
     z-index: 1;
 }
-.navbar-brand{
+
+.navbar-brand {
     font-family: var(--FiraCode-font) !important;
 }
-.langBtn{
+
+.langBtn {
     padding: 0;
     width: 32px;
     height: 32px;
     border-radius: 50%;
 }
-.langBtn:hover, .buttonAction{
+
+.langBtn:hover,
+.buttonAction {
     background: var(--dark-color);
     color: white !important;
     transition: all 0.3s ease-in-out;
 }
-[dir='rtl'] .nav-link{
+
+[dir='rtl'] .nav-link {
     font-family: 'Cairo', sans-serif;
 }
-.dropdown-item{
+
+.dropdown-item {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
 }
-.dropdown-menu{
+
+.dropdown-menu {
     width: 250px;
 }
-.dropdown a span {
+
+.dropdown a span,
+.nav-item-roots span {
     white-space: break-spaces;
 }
-[dir='rtl'] .dropdown-item span{
+
+[dir='rtl'] .dropdown-item span {
     direction: rtl !important;
 }

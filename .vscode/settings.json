@@ -1,2 +1,20 @@
 {
+    "sqltools.connections": [
+        {
+            "mssqlOptions": {
+                "appName": "SQLTools",
+                "useUTC": true,
+                "encrypt": true,
+                "instanceName": "mssqlserver"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 1434,
+            "askForPassword": true,
+            "driver": "MSSQL",
+            "name": "Codinbible",
+            "database": "CodingBible",
+            "username": "sa"
+        }
+    ]
 }

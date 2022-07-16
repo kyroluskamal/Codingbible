@@ -55,7 +55,6 @@
                                    errorState.isErrorState(FormControlNames.courseCategoryForm.title, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                    id="title"
-                   (blur)="setIsArabic(FormControlNames.courseCategoryForm.title)"
                    [placeholder]="FormFieldsNames.Category.title">
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"
@@ -175,7 +174,6 @@
                                    errorState.isErrorState(FormControlNames.courseCategoryForm.description, Form, form)?
                                    'form-control is-invalid':'form-control is-valid'"
                       id="description"
-                      (blur)="setIsArabic(FormControlNames.courseCategoryForm.description)"
                       placeholder="example"></textarea>
             <div class="validationDiv">
                 <span class="invalid-feedback d-block m-0"

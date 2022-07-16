@@ -59,10 +59,11 @@
             <mat-form-field [appearance]="defaultFormAppearance"
                             class="w-100"
                             [tooltip]="PasswordValidations"
-                            boundariesElement="window"
-                            [adaptivePosition]="true"
                             container="body"
-                            [isOpen]="loginForm.get(FormControlNames.authForm.password)?.errors&&password.value?true:false"
+                            [adaptivePosition]="false"
+                            placement="right"
+                            [isOpen]="loginForm.get(FormControlNames.authForm.password)?.errors&&password.value?true:
+                            !loginForm.get(FormControlNames.authForm.password)?.errors&&password.value?false:false"
                             triggers="focus">
                 <mat-label><span>{{FormFieldsNames.authForm.Passowrd}}</span></mat-label>
                 <input matInput

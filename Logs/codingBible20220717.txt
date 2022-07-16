@@ -1,0 +1,186 @@
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:05:52 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:13:01 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "423a22d4-101a-4fba-90c8-39ff157db3df"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:00000005"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:13:16 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "b38dcf35-52da-4495-8ac7-c19efa30f4ba"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000000D"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:13:31 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "IDX10223: Lifetime validation failed. The token is expired. ValidTo: '16/07/2022 22:33:16', Current time: '16/07/2022 23:13:29'."
+StackTrace : "   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, JwtSecurityToken jwtToken, TokenValidationParameters validationParameters)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateTokenPayload(JwtSecurityToken jwtToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateJWS(String token, TokenValidationParameters validationParameters, BaseConfiguration currentConfiguration, SecurityToken& signatureValidatedToken, ExceptionDispatchInfo& exceptionThrown)
+--- End of stack trace from previous location ---
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, JwtSecurityToken outerToken, TokenValidationParameters validationParameters, SecurityToken& signatureValidatedToken)
+   at System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.ValidateToken(String token, TokenValidationParameters validationParameters, SecurityToken& validatedToken)
+   at CodingBible.Services.AuthenticationService.CustomAuthenticationHandler.HandleAuthenticateAsync() in E:\Bussiness\Project\CodingBible\Services\AuthenticationService\CustomAuthenticationHandler.cs:line 118"
+InnerException : null
+Source : "Microsoft.IdentityModel.Tokens"
+RequestId : "0HMJ7G2O6LIAV:00000011"
+RequestPath : "/api/v1/Courses/DeleteCategory/1014"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:14:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+IsArabic : True
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000001B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:14:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+OtherSlug : "part-1-hardware-worldpart-1-hardware-worldpart-1-hardware-worldpart"
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000001B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:14:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+oldSlug : ""
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000001B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:16:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+IsArabic : False
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000002B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:16:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+OtherSlug : "بنسكمبنكسمنبمسكنبمكسينبمكسينبمكسينبكمسينبكمسينبمكسنبمكسنيكبنمسكنبسكمن"
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000002B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 17/07/2022 01:16:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+oldSlug : ""
+ActionId : "94633c9a-d7f7-47c1-b25f-61ee2b2a7828"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCategory (CodingBible)"
+RequestId : "0HMJ7G2O6LIAV:0000002B"
+RequestPath : "/api/v1/Courses/AddCategory"
+ConnectionId : "0HMJ7G2O6LIAV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-P27MDK9"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12088
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

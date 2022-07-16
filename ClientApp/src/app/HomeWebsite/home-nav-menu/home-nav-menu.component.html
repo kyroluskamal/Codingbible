@@ -42,7 +42,7 @@
                                [routerLinkActiveOptions]="{exact: true}"
                                routerLinkActive="active">{{'Home'| translate}}</a>
                         </li>
-                        <span *ngFor="let m of (MenusItems|async)">
+                        <ng-container *ngFor="let m of (MenusItems|async)">
                             <li class="nav-item nav-item-roots cursor-pointer"
                                 [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
                                 *ngIf="RootChildren(m).length === 0 else dorpdown">
@@ -68,10 +68,8 @@
                                        [routerLinkActiveOptions]="{exact: true}"
                                        aria-expanded="false">
 
-                                        <span style="white-space: break-spaces;"
-                                              *ngIf="(isArabic|async)">{{m.arName}}</span>
-                                        <span style="white-space: break-spaces;"
-                                              *ngIf="!(isArabic|async)">{{m.enName}}</span>
+                                        <span *ngIf="(isArabic|async)">{{m.arName}}</span>
+                                        <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
                                     </a>
                                     <ul #menu
                                         class="dropdown-menu"
@@ -82,7 +80,7 @@
                                     </ul>
                                 </li>
                             </ng-template>
-                        </span>
+                        </ng-container>
 
                     </ul>
                 </div>

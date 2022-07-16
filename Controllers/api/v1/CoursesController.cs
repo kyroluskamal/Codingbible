@@ -59,10 +59,10 @@ public class CoursesController : ControllerBase
                 }
                 foreach (var cat in c.CategoriesObject)
                 {
-                    await UpdateOtherSlug(cat);
+                    await FunctionalService.UpdateOtherSlug(cat);
                 }
                 await LoadSectionsAndLesons(c);
-                await UpdateOtherSlug(c);
+                await FunctionalService.UpdateOtherSlug(c);
             }
             return Ok(courses.ToList());
         }
@@ -89,41 +89,10 @@ public class CoursesController : ControllerBase
             }
             foreach (var cat in course.CategoriesObject)
             {
-                await UpdateOtherSlug(cat);
+                await FunctionalService.UpdateOtherSlug(cat);
             }
-            await UpdateOtherSlug(course);
+            await FunctionalService.UpdateOtherSlug(course);
             await LoadSectionsAndLesons(course);
-            return Ok(course);
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
-                  e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-
-    [HttpGet]
-    [Route(nameof(GetCourseByName) + "/{name}")]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetCourseByName([FromRoute] string name)
-    {
-        try
-        {
-            var course = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Name == name, includeProperties: "Author,CoursesPerCategories,Students");
-            course.CategoriesObject = new();
-            foreach (var cat in course.CoursesPerCategories)
-            {
-                var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Id == cat.CourseCategoryId);
-                course.CategoriesObject.Add(category);
-            }
-            foreach (var cat in course.CategoriesObject)
-            {
-                await UpdateOtherSlug(cat);
-            }
-            await UpdateOtherSlug(course);
-            await LoadSectionsAndLesons(course);
-
             return Ok(course);
         }
         catch (Exception e)
@@ -150,9 +119,9 @@ public class CoursesController : ControllerBase
             }
             foreach (var cat in course.CategoriesObject)
             {
-                await UpdateOtherSlug(cat);
+                await FunctionalService.UpdateOtherSlug(cat);
             }
-            await UpdateOtherSlug(course);
+            await FunctionalService.UpdateOtherSlug(course);
             await LoadSectionsAndLesons(course);
 
             return Ok(course);
@@ -177,7 +146,7 @@ public class CoursesController : ControllerBase
 
             foreach (var c in courses)
             {
-                await UpdateOtherSlug(c.Course);
+                await FunctionalService.UpdateOtherSlug(c.Course);
                 await LoadSectionsAndLesons(c.Course);
             }
             return Ok(courses);
@@ -185,31 +154,6 @@ public class CoursesController : ControllerBase
         catch (Exception e)
         {
             Log.Error("An error occurred while getting data from the database  {Error} {StackTrace} {InnerException} {Source}",
-                  e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-
-    [HttpGet]
-    [Route(nameof(GetCoursesInCategoryByName))]
-    [AllowAnonymous]
-    public async Task<IActionResult> GetCoursesInCategoryByName(string CategoryName)
-    {
-        try
-        {
-            var category = await UnitOfWork.CourseCategories.GetFirstOrDefaultAsync(x => x.Name == CategoryName);
-            var courses = await UnitOfWork.CoursesPerCategories.GetAllAsync(x =>
-            x.CourseCategoryId == category.Id, includeProperties: "Course");
-            foreach (var c in courses)
-            {
-                await UpdateOtherSlug(c.Course);
-                await LoadSectionsAndLesons(c.Course);
-            }
-            return Ok(courses);
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while getting the data from the database  {Error} {StackTrace} {InnerException} {Source}",
                   e.Message, e.StackTrace, e.InnerException, e.Source);
             return BadRequest(e.Message);
         }
@@ -227,7 +171,7 @@ public class CoursesController : ControllerBase
             x.CourseCategoryId == category.Id, includeProperties: "Course");
             foreach (var c in courses)
             {
-                await UpdateOtherSlug(c.Course);
+                await FunctionalService.UpdateOtherSlug(c.Course);
                 await LoadSectionsAndLesons(c.Course);
             }
             return Ok(courses);
@@ -289,12 +233,12 @@ public class CoursesController : ControllerBase
                         }
                         await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
                     }
-                    await AddUpdate_SlugMapCourses(newCourse);
+                    await FunctionalService.AddUpdate_SlugMap(newCourse);
                     await UnitOfWork.SaveAsync();
                     var courseToResturn = await UnitOfWork.Courses.GetFirstOrDefaultAsync(x => x.Slug == course.Slug,
                     includeProperties: "Author,CoursesPerCategories,Students");
                     courseToResturn.Categories = course.Categories;
-                    await UpdateOtherSlug(courseToResturn);
+                    await FunctionalService.UpdateOtherSlug(courseToResturn);
                     await LoadSectionsAndLesons(courseToResturn);
                     return Ok(courseToResturn);
                 }
@@ -365,7 +309,7 @@ public class CoursesController : ControllerBase
                 Log.Warning("course.OtherSlug {Id} updated", course.OtherSlug);
 
                 if (!Equals(course.Slug, oldSlug))
-                    await AddUpdate_SlugMapCourses(courseToUpdate, oldSlug);
+                    await FunctionalService.AddUpdate_SlugMap(courseToUpdate, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -388,7 +332,7 @@ public class CoursesController : ControllerBase
                         await UnitOfWork.CoursesPerCategories.AddRangeAsync(coursesPerCategories.ToArray());
                     }
 
-                    await UpdateOtherSlug(UpdatedCourse);
+                    await FunctionalService.UpdateOtherSlug(UpdatedCourse);
                     await UnitOfWork.SaveAsync();
                     UpdatedCourse.CategoriesObject = new();
                     foreach (var cat in UpdatedCourse.CoursesPerCategories)
@@ -398,7 +342,7 @@ public class CoursesController : ControllerBase
                     }
                     foreach (var cat in UpdatedCourse.CategoriesObject)
                     {
-                        await UpdateOtherSlug(cat);
+                        await FunctionalService.UpdateOtherSlug(cat);
                     }
                     await LoadSectionsAndLesons(UpdatedCourse);
                     return Ok(Constants.HttpResponses.Update_Sucess(UpdatedCourse.Title, UpdatedCourse));
@@ -438,7 +382,7 @@ public class CoursesController : ControllerBase
                 */
                 if (result > 0)
                 {
-                    await UpdateOtherSlug(getCourse);
+                    await FunctionalService.UpdateOtherSlug(getCourse);
                     await LoadSectionsAndLesons(getCourse);
                     return Ok(Constants.HttpResponses.Update_Sucess($"{getCourse.Title}", getCourse));
                 }
@@ -529,7 +473,7 @@ public class CoursesController : ControllerBase
             var categories = await UnitOfWork.CourseCategories.GetAllAsync(includeProperties: "CoursesPerCategories");
             foreach (var c in categories)
             {
-                await UpdateOtherSlug(c);
+                await FunctionalService.UpdateOtherSlug(c);
             }
             return Ok(categories);
         }
@@ -551,7 +495,7 @@ public class CoursesController : ControllerBase
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Category"));
             }
-            await UpdateOtherSlug(category);
+            await FunctionalService.UpdateOtherSlug(category);
             return Ok(category);
         }
         catch (Exception e)
@@ -595,8 +539,9 @@ public class CoursesController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    await AddUpdate_SlugMap_CourseCategory(newCategory);
-                    await UpdateOtherSlug(newCategory);
+                    await FunctionalService.AddUpdate_SlugMap(newCategory);
+                    await UnitOfWork.SaveAsync();
+                    await FunctionalService.UpdateOtherSlug(newCategory);
                     return Ok(newCategory);
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed($"The {category.Name} category"));
@@ -639,12 +584,12 @@ public class CoursesController : ControllerBase
                 }
                 UnitOfWork.CourseCategories.Update(getCategory);
                 if (!Equals(category.Slug, oldSlug))
-                    await AddUpdate_SlugMap_CourseCategory(getCategory, oldSlug);
+                    await FunctionalService.AddUpdate_SlugMap(getCategory, oldSlug);
 
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    await UpdateOtherSlug(getCategory);
+                    await FunctionalService.UpdateOtherSlug(getCategory);
                     return Ok(Constants.HttpResponses.Update_Sucess(getCategory.Name, getCategory));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(getCategory.Name));
@@ -772,7 +717,7 @@ public class CoursesController : ControllerBase
             var sections = await UnitOfWork.Sections.GetAllAsync(includeProperties: "Course,Parent");
             foreach (var s in sections)
             {
-                await UpdateOtherSlug(s);
+                await FunctionalService.UpdateOtherSlug(s);
                 await LoadLessonsIntoSection(s);
             }
             return Ok(sections);
@@ -793,7 +738,7 @@ public class CoursesController : ControllerBase
             var section = await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Course,Parent");
             foreach (var s in section)
             {
-                await UpdateOtherSlug(s);
+                await FunctionalService.UpdateOtherSlug(s);
                 await LoadLessonsIntoSection(s);
             }
             return Ok(section);
@@ -831,8 +776,9 @@ public class CoursesController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    await AddUpdate_SlugMap_Sections(newSection);
-                    await UpdateOtherSlug(newSection);
+                    await FunctionalService.AddUpdate_SlugMap(newSection);
+                    await UnitOfWork.SaveAsync();
+                    await FunctionalService.UpdateOtherSlug(newSection);
                     await LoadLessonsIntoSection(newSection);
 
                     return Ok(await UnitOfWork.Sections.GetFirstOrDefaultAsync(x => x.Id == newSection.Id, includeProperties: "Course,Parent"));
@@ -894,7 +840,7 @@ public class CoursesController : ControllerBase
                 getSection.OtherSlug = section.OtherSlug;
                 UnitOfWork.Sections.Update(getSection);
                 if (!Equals(section.Slug, oldSlug))
-                    await AddUpdate_SlugMap_Sections(getSection, oldSlug);
+                    await FunctionalService.AddUpdate_SlugMap(getSection, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -902,7 +848,7 @@ public class CoursesController : ControllerBase
                     {
                         await UpdateSectionLevel(getSection);
                     }
-                    await UpdateOtherSlug(getSection);
+                    await FunctionalService.UpdateOtherSlug(getSection);
                     await LoadLessonsIntoSection(getSection);
 
                     return Ok(Constants.HttpResponses.Update_Sucess(getSection.Name, getSection));
@@ -1022,7 +968,7 @@ public class CoursesController : ControllerBase
                 */
                 if (result > 0)
                 {
-                    await UpdateOtherSlug(getSection);
+                    await FunctionalService.UpdateOtherSlug(getSection);
                     await LoadLessonsIntoSection(getSection);
 
                     return Ok(Constants.HttpResponses.Update_Sucess($"{getSection.Title}", getSection));
@@ -1091,7 +1037,7 @@ public class CoursesController : ControllerBase
             var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Section,Attachments");
             foreach (var l in lessons)
             {
-                await UpdateOtherSlug(l);
+                await FunctionalService.UpdateOtherSlug(l);
             }
             return Ok(lessons);
         }
@@ -1111,7 +1057,7 @@ public class CoursesController : ControllerBase
             var lessons = await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == courseId, includeProperties: "Section,Attachments");
             foreach (var l in lessons)
             {
-                await UpdateOtherSlug(l);
+                await FunctionalService.UpdateOtherSlug(l);
             }
             return Ok(lessons);
         }
@@ -1129,7 +1075,7 @@ public class CoursesController : ControllerBase
         try
         {
             var lesson = await UnitOfWork.Lessons.GetFirstOrDefaultAsync(x => x.Id == id, includeProperties: "Section,Attachments");
-            await UpdateOtherSlug(lesson);
+            await FunctionalService.UpdateOtherSlug(lesson);
             if (lesson == null)
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
@@ -1156,7 +1102,7 @@ public class CoursesController : ControllerBase
             }
             foreach (var l in lesson)
             {
-                await UpdateOtherSlug(l);
+                await FunctionalService.UpdateOtherSlug(l);
             }
             return Ok(lesson);
         }
@@ -1179,7 +1125,7 @@ public class CoursesController : ControllerBase
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("Lesson"));
             }
-            await UpdateOtherSlug(lesson);
+            await FunctionalService.UpdateOtherSlug(lesson);
             return Ok(lesson);
         }
         catch (Exception e)
@@ -1257,8 +1203,9 @@ public class CoursesController : ControllerBase
                         }
                         await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
                     }
-                    await AddUpdate_SlugMap_Lessons(newLesson);
-                    await UpdateOtherSlug(newLesson);
+                    await FunctionalService.AddUpdate_SlugMap(newLesson);
+                    await UnitOfWork.SaveAsync();
+                    await FunctionalService.UpdateOtherSlug(newLesson);
                     return Ok(newLesson);
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Lesson"));
@@ -1326,7 +1273,7 @@ public class CoursesController : ControllerBase
                     UnitOfWork.LessonAttachments.Remove(att);
                 }
                 if (!Equals(lesson.Slug, oldSlug))
-                    await AddUpdate_SlugMap_Lessons(getLesson, oldSlug);
+                    await FunctionalService.AddUpdate_SlugMap(getLesson, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
@@ -1344,7 +1291,7 @@ public class CoursesController : ControllerBase
                         await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
                     }
                     await UnitOfWork.SaveAsync();
-                    await UpdateOtherSlug(getLesson);
+                    await FunctionalService.UpdateOtherSlug(getLesson);
                     return Ok(Constants.HttpResponses.Update_Sucess("Lesson", getLesson));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed("Lesson"));
@@ -1441,7 +1388,7 @@ public class CoursesController : ControllerBase
                 */
                 if (result > 0)
                 {
-                    await UpdateOtherSlug(getLesson);
+                    await FunctionalService.UpdateOtherSlug(getLesson);
                     return Ok(Constants.HttpResponses.Update_Sucess($"{getLesson.Title}", getLesson));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed($"{getLesson.Title}"));
@@ -1474,7 +1421,7 @@ public class CoursesController : ControllerBase
             {
                 foreach (var l in getLessons)
                 {
-                    await UpdateOtherSlug(l);
+                    await FunctionalService.UpdateOtherSlug(l);
                 }
                 return Ok(Constants.HttpResponses.Update_Sucess("Lesson", getLessons));
             }
@@ -1516,440 +1463,18 @@ public class CoursesController : ControllerBase
             await UpdateSectionLevel(child);
         }
     }
-    /******************************************************************************
-    *                                  SlugMap
-    *******************************************************************************/
-    #region SlugMap
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_Courses))]
-    public async Task<IActionResult> Get_All_SlugMap_Courses()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_Courses.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_Sections))]
-    public async Task<IActionResult> Get_All_SlugMap_Sections()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_Sections.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_Lessons))]
-    public async Task<IActionResult> Get_All_SlugMap_Lessons()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_Lessons.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_Categories))]
-    public async Task<IActionResult> Get_All_SlugMap_Categories()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_Categories.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_CourseCategories))]
-    public async Task<IActionResult> Get_All_SlugMap_CourseCategories()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_CourseCategories.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_All_SlugMap_Posts))]
-    public async Task<IActionResult> Get_All_SlugMap_Posts()
-    {
-        try
-        {
-            return Ok(await UnitOfWork.SlugMap_Posts.GetAllAsync());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_Courses_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_Courses_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_Courses.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_Sections_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_Sections_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_Sections.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_Lessons_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_Lessons_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_Lessons.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_Categories_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_Categories_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_Categories.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_CourseCategories_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_CourseCategories_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_CourseCategories.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    [HttpGet]
-    [Route(nameof(Get_SlugMap_Posts_By_Slug))]
-    public async Task<IActionResult> Get_SlugMap_Posts_By_Slug([FromQuery] string slug)
-    {
-        try
-        {
-            var slugMap = await UnitOfWork.SlugMap_Posts.GetAllAsync(x => x.ArSlug == slug || x.EnSlug == slug);
-            if (!slugMap.Any())
-                return NotFound();
-            return Ok(slugMap.First());
-        }
-        catch (Exception e)
-        {
-            Log.Error("An error occurred while seeding the database  {Error} {StackTrace} {InnerException} {Source}",
-                              e.Message, e.StackTrace, e.InnerException, e.Source);
-            return BadRequest(e.Message);
-        }
-    }
-    private async Task AddUpdate_SlugMapCourses(Course course, string oldSlug = "")
-    {
-        Log.Warning("OtherSlug {OtherLsug}", course.OtherSlug);
-        Log.Warning("Slug {OtherLsug}", course.Slug);
-        Log.Warning("OldSlug {OtherLsug}", oldSlug);
-        if (course.OtherSlug == null)
-        {
-            var newSlugMap = new SlugMap_Courses();
-            if (course.IsArabic)
-            {
-                newSlugMap.ArSlug = course.Slug;
-                newSlugMap.EnSlug = course.OtherSlug;
-            }
-            else
-            {
-                newSlugMap.EnSlug = course.Slug;
-                newSlugMap.ArSlug = course.OtherSlug;
-            }
-            await UnitOfWork.SlugMap_Courses.AddAsync(newSlugMap);
-        }
-        else
-        {
-            if (course.IsArabic)
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x =>
-                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
-                    || (Equals(x.EnSlug, course.OtherSlug) && Equals(x.ArSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.ArSlug = course.Slug;
-                    SlugMap.EnSlug = course.OtherSlug;
-                    UnitOfWork.SlugMap_Courses.Update(SlugMap);
-                }
-            }
-            else
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x =>
-                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
-                    || (Equals(x.ArSlug, course.OtherSlug) && Equals(x.EnSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.EnSlug = course.Slug;
-                    SlugMap.ArSlug = course.OtherSlug;
-                    UnitOfWork.SlugMap_Courses.Update(SlugMap);
-                }
-            }
-        }
-    }
-    private async Task AddUpdate_SlugMap_Sections(Section section, string oldSlug = "")
-    {
-        if (section.OtherSlug == null)
-        {
-            var newSlugMap = new SlugMap_Sections();
-            if (section.IsArabic)
-            {
-                newSlugMap.ArSlug = section.Slug;
-                newSlugMap.EnSlug = section.OtherSlug;
-            }
-            else
-            {
-                newSlugMap.EnSlug = section.Slug;
-                newSlugMap.ArSlug = section.OtherSlug;
-            }
-            await UnitOfWork.SlugMap_Sections.AddAsync(newSlugMap);
-        }
-        else
-        {
-            if (section.IsArabic)
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x =>
-                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
-                    || (Equals(x.EnSlug, section.OtherSlug) && Equals(x.ArSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.ArSlug = section.Slug;
-                    SlugMap.EnSlug = section.OtherSlug;
-                    UnitOfWork.SlugMap_Sections.Update(SlugMap);
-                }
-            }
-            else
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x =>
-                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
-                    || (Equals(x.ArSlug, section.OtherSlug) && Equals(x.EnSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.EnSlug = section.Slug;
-                    SlugMap.ArSlug = section.OtherSlug;
-                    UnitOfWork.SlugMap_Sections.Update(SlugMap);
-                }
-            }
-        }
-        await UnitOfWork.SaveAsync();
-    }
-    private async Task AddUpdate_SlugMap_Lessons(Lesson lesson, string oldSlug = "")
-    {
-        if (lesson.OtherSlug == null)
-        {
-            var newSlugMap = new SlugMap_Lessons();
-            if (lesson.IsArabic)
-            {
-                newSlugMap.ArSlug = lesson.Slug;
-                newSlugMap.EnSlug = lesson.OtherSlug;
-            }
-            else
-            {
-                newSlugMap.EnSlug = lesson.Slug;
-                newSlugMap.ArSlug = lesson.OtherSlug;
-            }
-            await UnitOfWork.SlugMap_Lessons.AddAsync(newSlugMap);
-        }
-        else
-        {
-            if (lesson.IsArabic)
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x =>
-                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
-                    || (Equals(x.EnSlug, lesson.OtherSlug) && Equals(x.ArSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.ArSlug = lesson.Slug;
-                    SlugMap.EnSlug = lesson.OtherSlug;
-                    UnitOfWork.SlugMap_Lessons.Update(SlugMap);
-                }
-            }
-            else
-            {
-                var SlugMap = await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x =>
-                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
-                    || (Equals(x.ArSlug, lesson.OtherSlug) && Equals(x.EnSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.EnSlug = lesson.Slug;
-                    SlugMap.ArSlug = lesson.OtherSlug;
-                    UnitOfWork.SlugMap_Lessons.Update(SlugMap);
-                }
-            }
-        }
-    }
-    private async Task AddUpdate_SlugMap_CourseCategory(CourseCategory courseCategory, string oldSlug = "")
-    {
-        if (courseCategory.OtherSlug == null)
-        {
-            var newSlugMap = new SlugMap_CourseCategory();
-            if (courseCategory.IsArabic)
-            {
-                newSlugMap.ArSlug = courseCategory.Slug;
-                newSlugMap.EnSlug = courseCategory.OtherSlug;
-            }
-            else
-            {
-                newSlugMap.EnSlug = courseCategory.Slug;
-                newSlugMap.ArSlug = courseCategory.OtherSlug;
-            }
-            await UnitOfWork.SlugMap_CourseCategories.AddAsync(newSlugMap);
-        }
-        else
-        {
-            if (courseCategory.IsArabic)
-            {
-                var SlugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
-                                (x.EnSlug == null && Equals(x.ArSlug, oldSlug))
-                    || (Equals(x.EnSlug, courseCategory.OtherSlug) && Equals(x.ArSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.ArSlug = courseCategory.Slug;
-                    SlugMap.EnSlug = courseCategory.OtherSlug;
-                    UnitOfWork.SlugMap_CourseCategories.Update(SlugMap);
-                }
-            }
-            else
-            {
-                var SlugMap = await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x =>
-                                (x.ArSlug == null && Equals(x.EnSlug, oldSlug))
-                    || (Equals(x.ArSlug, courseCategory.OtherSlug) && Equals(x.EnSlug, oldSlug)));
-                if (SlugMap != null)
-                {
-                    SlugMap.EnSlug = courseCategory.Slug;
-                    SlugMap.ArSlug = courseCategory.OtherSlug;
-                    UnitOfWork.SlugMap_CourseCategories.Update(SlugMap);
-                }
-            }
-        }
-    }
-    private async Task UpdateOtherSlug<T>(T obj)
-    {
-        var type = obj.GetType();
-
-        var IsArabic = type.GetProperty("IsArabic");
-        var OtherSlug = type.GetProperty("OtherSlug");
-        var Slug = type.GetProperty("Slug");
-
-        if ((bool)IsArabic.GetValue(obj))
-        {
-            string EnSlug = null;
-            if (obj is Course)
-                EnSlug = (await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x => Equals(x.ArSlug, Slug.GetValue(obj)))).EnSlug;
-            else if (obj is Section)
-                EnSlug = (await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x => Equals(x.ArSlug, Slug.GetValue(obj)))).EnSlug;
-            else if (obj is Lesson)
-                EnSlug = (await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x => Equals(x.ArSlug, Slug.GetValue(obj)))).EnSlug;
-            else if (obj is CourseCategory)
-                EnSlug = (await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x => Equals(x.ArSlug, Slug.GetValue(obj)))).EnSlug;
-            OtherSlug.SetValue(obj, EnSlug);
-        }
-        else
-        {
-            string ArSlug = null;
-            if (obj is Course)
-                ArSlug = (await UnitOfWork.SlugMap_Courses.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, Slug.GetValue(obj)))).ArSlug;
-            else if (obj is Section)
-                ArSlug = (await UnitOfWork.SlugMap_Sections.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, Slug.GetValue(obj)))).ArSlug;
-            else if (obj is Lesson)
-                ArSlug = (await UnitOfWork.SlugMap_Lessons.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, Slug.GetValue(obj)))).ArSlug;
-            else if (obj is CourseCategory)
-                ArSlug = (await UnitOfWork.SlugMap_CourseCategories.GetFirstOrDefaultAsync(x => Equals(x.EnSlug, Slug.GetValue(obj)))).ArSlug;
-            OtherSlug.SetValue(obj, ArSlug);
-        }
-    }
 
     private async Task LoadSectionsAndLesons(Course course)
     {
         course.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.CourseId == course.Id)).ToList();
         foreach (var lesson in course.Lessons)
         {
-            await UpdateOtherSlug(lesson);
+            await FunctionalService.UpdateOtherSlug(lesson);
         }
         course.Sections = (await UnitOfWork.Sections.GetAllAsync(x => x.CourseId == course.Id)).ToList();
         foreach (var section in course.Sections)
         {
-            await UpdateOtherSlug(section);
+            await FunctionalService.UpdateOtherSlug(section);
         }
     }
     private async Task LoadLessonsIntoSection(Section section)
@@ -1957,8 +1482,7 @@ public class CoursesController : ControllerBase
         section.Lessons = (await UnitOfWork.Lessons.GetAllAsync(x => x.SectionId == section.Id)).ToList();
         foreach (var lesson in section.Lessons)
         {
-            await UpdateOtherSlug(lesson);
+            await FunctionalService.UpdateOtherSlug(lesson);
         }
     }
-    #endregion
 }
