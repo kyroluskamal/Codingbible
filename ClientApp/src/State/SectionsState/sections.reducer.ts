@@ -14,7 +14,22 @@ export const initialState: SectionsState = adapter.SectionsAdapter.getInitialSta
 // Creating reducer                        
 export const SectionsReducer = createReducer(
     initialState,
-    on(AddSection_Success, (state, Sections) => adapter.SectionsAdapter.addOne(Sections, state)),
+    on(AddSection_Success, (state, Sections) =>
+    {
+        if (Sections.otherSlug)
+        {
+            state = adapter.SectionsAdapter.map(x =>
+            {
+                let newSections = { ...x };
+                if (x.slug === Sections.otherSlug)
+                {
+                    newSections.otherSlug = Sections.slug;
+                }
+                return newSections;
+            }, state);
+        }
+        return adapter.SectionsAdapter.addOne(Sections, state);
+    }),
     on(AddSection_Failed, (state, res) =>
     {
         return {
@@ -38,31 +53,26 @@ export const SectionsReducer = createReducer(
     }),
     on(UpdateSection_Sucess, (state, res) =>
     {
-        let otherSection: Section = new Section();
-        for (let key in state.entities)
+        state = adapter.SectionsAdapter.map((x) =>
         {
-            if (state.entities[key]?.isArabic)
-                if (state.entities[key]?.slug === res.Section.otherSlug)
-                {
-                    otherSection = state.entities[key]!;
-                }
-            if (!state.entities[key]?.isArabic)
+            let newSections = { ...x };
+            if (res.Section.isArabic)
             {
-                if (state.entities[key]?.slug.localeCompare(res.Section.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                if (x.slug.localeCompare(res.Section.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
                 {
-                    otherSection = state.entities[key]!;
+                    newSections.otherSlug = res.Section.slug;
+                }
+            } else
+            {
+                if (x.slug === res.Section.otherSlug)
+                {
+                    newSections.otherSlug = res.Section.slug;
                 }
             }
-        }
-        let copyOfOtherSection: Section = { ...otherSection };
-        copyOfOtherSection.otherSlug = res.Section.slug;
-        if (otherSection)
-        {
-            return adapter.SectionsAdapter.upsertMany([copyOfOtherSection, res.Section], state);
-        } else
-        {
-            return adapter.SectionsAdapter.upsertOne(res.Section, state);
-        }
+            return newSections;
+        }, state);
+
+        return adapter.SectionsAdapter.upsertOne(res.Section, state);
     }),
     on(RemoveSection_Success, (state, { id, otherSlug }) =>
     {
@@ -84,9 +94,10 @@ export const SectionsReducer = createReducer(
         }
         let copyOfOtherSection: Section = { ...otherSection };
         copyOfOtherSection.otherSlug = null;
-        if (otherSection)
+        if (otherSection.id != 0)
         {
-            return adapter.SectionsAdapter.removeOne(id, state) && adapter.SectionsAdapter.upsertOne(copyOfOtherSection, state);
+            state = adapter.SectionsAdapter.upsertOne(copyOfOtherSection, state);
+            return adapter.SectionsAdapter.removeOne(id, state);
         } else
             return adapter.SectionsAdapter.removeOne(id, state);
     }),

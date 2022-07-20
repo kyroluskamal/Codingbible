@@ -12,7 +12,22 @@ export const initialState: PostState = adapter.PostAdapter.getInitialState({
 // Creating reducer                        
 export const PostReducer = createReducer(
     initialState,
-    on(AddPOST_Success, (state, post) => adapter.PostAdapter.addOne(post, state)),
+    on(AddPOST_Success, (state, post) =>
+    {
+        if (post.otherSlug)
+        {
+            state = adapter.PostAdapter.map(x =>
+            {
+                let newPost = { ...x };
+                if (x.slug === post.otherSlug)
+                {
+                    newPost.otherSlug = post.slug;
+                }
+                return newPost;
+            }, state);
+        }
+        return adapter.PostAdapter.addOne(post, state);
+    }),
     on(AddPOST_Failed, (state, res) =>
     {
         return {
@@ -36,31 +51,26 @@ export const PostReducer = createReducer(
     }),
     on(UpdatePOST_Sucess, (state, res) =>
     {
-        let otherPost: Post = new Post();
-        for (let key in state.entities)
+        state = adapter.PostAdapter.map((x) =>
         {
-            if (state.entities[key]?.isArabic)
-                if (state.entities[key]?.slug === res.POST.otherSlug)
-                {
-                    otherPost = state.entities[key]!;
-                }
-            if (!state.entities[key]?.isArabic)
+            let newPost = { ...x };
+            if (res.POST.isArabic)
             {
-                if (state.entities[key]?.slug.localeCompare(res.POST.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                if (x.slug.localeCompare(res.POST.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
                 {
-                    otherPost = state.entities[key]!;
+                    newPost.otherSlug = res.POST.slug;
+                }
+            } else
+            {
+                if (x.slug === res.POST.otherSlug)
+                {
+                    newPost.otherSlug = res.POST.slug;
                 }
             }
-        }
-        let copyOfOtherPost: Post = { ...otherPost };
-        copyOfOtherPost.otherSlug = res.POST.slug;
-        if (otherPost)
-        {
-            return adapter.PostAdapter.upsertMany([copyOfOtherPost, res.POST], state);
-        } else
-        {
-            return adapter.PostAdapter.upsertOne(res.POST, state);
-        }
+            return newPost;
+        }, state);
+
+        return adapter.PostAdapter.upsertOne(res.POST, state);
     }),
     on(RemovePOST_Success, (state, { id, otherSlug }) =>
     {
@@ -82,9 +92,10 @@ export const PostReducer = createReducer(
         }
         let copyOfOtherPost: Post = { ...otherPost };
         copyOfOtherPost.otherSlug = null;
-        if (otherPost)
+        if (otherPost.id != 0)
         {
-            return adapter.PostAdapter.removeOne(id, state) && adapter.PostAdapter.upsertOne(copyOfOtherPost, state);
+            state = adapter.PostAdapter.upsertOne(copyOfOtherPost, state);
+            return adapter.PostAdapter.removeOne(id, state);
         } else
             return adapter.PostAdapter.removeOne(id, state);
     }),

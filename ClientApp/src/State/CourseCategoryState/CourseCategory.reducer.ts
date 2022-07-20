@@ -12,7 +12,22 @@ export const initialState: CourseCategoryState = adapter.CourseCategoryAdapter.g
 // Creating reducer                        
 export const CourseCategoryReducer = createReducer(
     initialState,
-    on(AddCourseCategory_Success, (state, CourseCategory) => adapter.CourseCategoryAdapter.addOne(CourseCategory, state)),
+    on(AddCourseCategory_Success, (state, CourseCategory) =>
+    {
+        if (CourseCategory.otherSlug)
+        {
+            state = adapter.CourseCategoryAdapter.map(x =>
+            {
+                let newCourseCategory = { ...x };
+                if (x.slug === CourseCategory.otherSlug)
+                {
+                    newCourseCategory.otherSlug = CourseCategory.slug;
+                }
+                return newCourseCategory;
+            }, state);
+        }
+        return adapter.CourseCategoryAdapter.addOne(CourseCategory, state);
+    }),
     on(AddCourseCategory_Failed, (state, res) =>
     {
         return {
@@ -36,31 +51,26 @@ export const CourseCategoryReducer = createReducer(
     }),
     on(UpdateCourseCategory_Sucess, (state, res) =>
     {
-        let otherCourseCategory: CourseCategory = new CourseCategory();
-        for (let key in state.entities)
+        state = adapter.CourseCategoryAdapter.map((x) =>
         {
-            if (state.entities[key]?.isArabic)
-                if (state.entities[key]?.slug === res.CourseCategory.otherSlug)
-                {
-                    otherCourseCategory = state.entities[key]!;
-                }
-            if (!state.entities[key]?.isArabic)
+            let newCourseCategory = { ...x };
+            if (res.CourseCategory.isArabic)
             {
-                if (state.entities[key]?.slug.localeCompare(res.CourseCategory.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                if (x.slug.localeCompare(res.CourseCategory.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
                 {
-                    otherCourseCategory = state.entities[key]!;
+                    newCourseCategory.otherSlug = res.CourseCategory.slug;
+                }
+            } else
+            {
+                if (x.slug === res.CourseCategory.otherSlug)
+                {
+                    newCourseCategory.otherSlug = res.CourseCategory.slug;
                 }
             }
-        }
-        let copyOfOtherCourseCategory: CourseCategory = { ...otherCourseCategory };
-        copyOfOtherCourseCategory.otherSlug = res.CourseCategory.slug;
-        if (otherCourseCategory)
-        {
-            return adapter.CourseCategoryAdapter.upsertMany([copyOfOtherCourseCategory, res.CourseCategory], state);
-        } else
-        {
-            return adapter.CourseCategoryAdapter.upsertOne(res.CourseCategory, state);
-        }
+            return newCourseCategory;
+        }, state);
+
+        return adapter.CourseCategoryAdapter.upsertOne(res.CourseCategory, state);
     }),
     on(RemoveCourseCategory_Success, (state, { id, otherSlug }) => 
     {
@@ -82,9 +92,10 @@ export const CourseCategoryReducer = createReducer(
         }
         let copyOfOtherCourseCategory: CourseCategory = { ...otherCourseCategory };
         copyOfOtherCourseCategory.otherSlug = null;
-        if (otherCourseCategory)
+        if (otherCourseCategory.id != 0)
         {
-            return adapter.CourseCategoryAdapter.removeOne(id, state) && adapter.CourseCategoryAdapter.upsertOne(copyOfOtherCourseCategory, state);
+            state = adapter.CourseCategoryAdapter.upsertOne(copyOfOtherCourseCategory, state);
+            return adapter.CourseCategoryAdapter.removeOne(id, state);
         } else
             return adapter.CourseCategoryAdapter.removeOne(id, state);
     }),

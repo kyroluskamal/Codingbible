@@ -52,9 +52,9 @@ export const DashboardRoutes = {
 export const DashboardRoutesText = {
     DashBoard: "Dashboard",
     Home: "Dashboard",
-    Posts: {
-        Main: "Posts",
-        All: "All posts",
+    Blog: {
+        Main: "Blog",
+        All: "Posts",
         AddPost: "Add New",
         Categories: "Categories",
     },

@@ -28,7 +28,22 @@ export const initialState: LessonsState = adapter.LessonsAdapter.getInitialState
 // Creating reducer                        
 export const LessonsReducer = createReducer(
     initialState,
-    on(AddLesson_Success, (state, Lessons) => adapter.LessonsAdapter.addOne(Lessons, state)),
+    on(AddLesson_Success, (state, Lessons) =>
+    {
+        if (Lessons.otherSlug)
+        {
+            state = adapter.LessonsAdapter.map(x =>
+            {
+                let newLessons = { ...x };
+                if (x.slug === Lessons.otherSlug)
+                {
+                    newLessons.otherSlug = Lessons.slug;
+                }
+                return newLessons;
+            }, state);
+        }
+        return adapter.LessonsAdapter.addOne(Lessons, state);
+    }),
     on(AddLesson_Failed, (state, res) =>
     {
         return {
@@ -49,31 +64,25 @@ export const LessonsReducer = createReducer(
     }),
     on(UpdateLesson_Sucess, (state, res) =>
     {
-        let otherLesson: Lesson = new Lesson();
-        for (let key in state.entities)
+        state = adapter.LessonsAdapter.map((x) =>
         {
-            if (state.entities[key]?.isArabic)
-                if (state.entities[key]?.slug === res.Lesson.otherSlug)
-                {
-                    otherLesson = state.entities[key]!;
-                }
-            if (!state.entities[key]?.isArabic)
+            let newLessons = { ...x };
+            if (res.Lesson.isArabic)
             {
-                if (state.entities[key]?.slug.localeCompare(res.Lesson.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                if (x.slug.localeCompare(res.Lesson.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
                 {
-                    otherLesson = state.entities[key]!;
+                    newLessons.otherSlug = res.Lesson.slug;
+                }
+            } else
+            {
+                if (x.slug === res.Lesson.otherSlug)
+                {
+                    newLessons.otherSlug = res.Lesson.slug;
                 }
             }
-        }
-        let copyOfOtherLesson: Lesson = { ...otherLesson };
-        copyOfOtherLesson.otherSlug = res.Lesson.slug;
-        if (otherLesson)
-        {
-            return adapter.LessonsAdapter.upsertMany([copyOfOtherLesson, res.Lesson], state);
-        } else
-        {
-            return adapter.LessonsAdapter.upsertOne(res.Lesson, state);
-        }
+            return newLessons;
+        }, state);
+        return adapter.LessonsAdapter.upsertOne(res.Lesson, state);
     }),
     on(RemoveLesson_Success, (state, { id, otherSlug }) =>
     {
@@ -95,9 +104,10 @@ export const LessonsReducer = createReducer(
         }
         let copyOfOtherLesson: Lesson = { ...otherLesson };
         copyOfOtherLesson.otherSlug = null;
-        if (otherLesson)
+        if (otherLesson.id != 0)
         {
-            return adapter.LessonsAdapter.removeOne(id, state) && adapter.LessonsAdapter.upsertOne(copyOfOtherLesson, state);
+            state = adapter.LessonsAdapter.upsertOne(copyOfOtherLesson, state);
+            return adapter.LessonsAdapter.removeOne(id, state);
         } else
             return adapter.LessonsAdapter.removeOne(id, state);
     }),

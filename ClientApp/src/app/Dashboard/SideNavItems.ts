@@ -13,12 +13,12 @@ export let SideNav_items: ExpansionPanel[] = [
     bootstrapIcon: "bi bi-speedometer2"
   },
   {
-    title: DashboardRoutesText.Posts.Main,
+    title: DashboardRoutesText.Blog.Main,
     expanded: false,
     links: [
-      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home], LinkText: DashboardRoutesText.Posts.All, state: false },
-      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.AddPost], LinkText: DashboardRoutesText.Posts.AddPost, state: false },
-      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.Categoris], LinkText: DashboardRoutesText.Posts.Categories, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home], LinkText: DashboardRoutesText.Blog.All, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.AddPost], LinkText: DashboardRoutesText.Blog.AddPost, state: false },
+      { link: ['', DashboardRoutes.Home, DashboardRoutes.Posts.Home, DashboardRoutes.Posts.Categoris], LinkText: DashboardRoutesText.Blog.Categories, state: false },
     ],
     itemLevel: 1,
     bootstrapIcon: "bi bi-pin-angle-fill"

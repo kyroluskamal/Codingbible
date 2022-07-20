@@ -14,7 +14,22 @@ export const initialState: CategoryState = CategoryAdapter.getInitialState({
 // Creating reducer                        
 export const CategoryReducer = createReducer(
     initialState,
-    on(AddCATEGORY_Success, (state, category) => CategoryAdapter.addOne(category, state)),
+    on(AddCATEGORY_Success, (state, category) =>
+    {
+        if (category.otherSlug)
+        {
+            state = CategoryAdapter.map(x =>
+            {
+                let newCategory = { ...x };
+                if (x.slug === category.otherSlug)
+                {
+                    newCategory.otherSlug = category.slug;
+                }
+                return newCategory;
+            }, state);
+        }
+        return CategoryAdapter.addOne(category, state);
+    }),
     on(AddCATEGORY_Failed, (state, res) =>
     {
         return {
@@ -38,28 +53,25 @@ export const CategoryReducer = createReducer(
     }),
     on(UpdateCATEGORY_Sucess, (state, res) =>
     {
-        let otherCategory: Category = new Category();
-        for (let key in state.entities)
+        state = CategoryAdapter.map((x) =>
         {
-            if (state.entities[key]?.isArabic)
-                if (state.entities[key]?.slug === res.CATEGORY.otherSlug)
-                {
-                    otherCategory = state.entities[key]!;
-                }
-            if (!state.entities[key]?.isArabic)
+            let newCategory = { ...x };
+            if (res.CATEGORY.isArabic)
             {
-                if (state.entities[key]?.slug.localeCompare(res.CATEGORY.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
+                if (x.slug.localeCompare(res.CATEGORY.otherSlug!, "ar", { ignorePunctuation: true, sensitivity: 'base' }) === 0)
                 {
-                    otherCategory = state.entities[key]!;
+                    newCategory.otherSlug = res.CATEGORY.slug;
+                }
+            } else
+            {
+                if (x.slug === res.CATEGORY.otherSlug)
+                {
+                    newCategory.otherSlug = res.CATEGORY.slug;
                 }
             }
-        }
-        let copyOfOtherCategory: Category = { ...otherCategory };
-        copyOfOtherCategory.otherSlug = res.CATEGORY.slug;
-        if (otherCategory)
-        {
-            return CategoryAdapter.upsertMany([copyOfOtherCategory, otherCategory], state);
-        }
+            return newCategory;
+        }, state);
+
         return CategoryAdapter.upsertOne(res.CATEGORY, state);
     }),
     on(RemoveCATEGORY_Success, (state, { id, otherSlug }) =>
@@ -82,9 +94,10 @@ export const CategoryReducer = createReducer(
         }
         let copyOfOtherCategory: Category = { ...otherCategory };
         copyOfOtherCategory.otherSlug = null;
-        if (otherCategory)
+        if (otherCategory.id = 0)
         {
-            return CategoryAdapter.removeOne(id, state) && CategoryAdapter.upsertOne(copyOfOtherCategory, state);
+            state = CategoryAdapter.upsertOne(copyOfOtherCategory, state);
+            return CategoryAdapter.removeOne(id, state);
         } else
             return CategoryAdapter.removeOne(id, state);
     }),
