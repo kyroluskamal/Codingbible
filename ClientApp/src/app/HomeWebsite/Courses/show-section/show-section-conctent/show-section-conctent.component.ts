@@ -19,6 +19,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 export class ShowSectionConctentComponent implements OnInit
 {
 
+
   loading: boolean = true;
   isArabic = false;
   courseSlug: string = '';

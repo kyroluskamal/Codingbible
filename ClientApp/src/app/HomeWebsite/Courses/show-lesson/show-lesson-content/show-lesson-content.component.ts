@@ -30,6 +30,7 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
   isArabic: boolean = false;
   currentCourse: Course | undefined = undefined;
   loading: boolean = true;
+
   courseSlug: string = '';
   SectionTree: Section[] = [];
   ArrangedLessons: Lesson[] = [];

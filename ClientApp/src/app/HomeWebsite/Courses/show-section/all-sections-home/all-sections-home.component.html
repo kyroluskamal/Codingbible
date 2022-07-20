@@ -7,6 +7,7 @@
         {{'Searcing for course' | translate}}...
     </section>
     <ng-template #notLoading>
+
         <show-all *ngIf="currentCourse else NotFound"
                   [title]="'Course is found'| translate"
                   [body]="('You can watch all sections of the course'| translate)+ ' <span class='+ '\'fw-bold' +'\'>'+currentCourse.name+'</span>' +' '

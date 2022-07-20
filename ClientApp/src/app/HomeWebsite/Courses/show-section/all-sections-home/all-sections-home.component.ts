@@ -23,6 +23,7 @@ export class AllSectionsHomeComponent implements OnInit, OnDestroy
   loading: boolean = true;
   HomeRoutes = HomeRoutes;
   isArabicSubscription: Subscription = new Subscription();
+
   constructor(private store: Store,
     private breadCrumb: BreadcrumbService,
     private router: Router,
