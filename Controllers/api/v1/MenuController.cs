@@ -143,7 +143,7 @@ public class MenuController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    return Ok(menu);
+                    return Ok(await UnitOfWork.Menus.GetFirstOrDefaultAsync(x => x.Name == model.Name));
                 }
                 return BadRequest(Constants.HttpResponses.Addition_Failed("Menu"));
             }

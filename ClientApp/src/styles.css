@@ -500,11 +500,11 @@ h2::before {
   display: flex;
 }
 
-h2:not(.playlistContainer h2, .lessonVideo h2, *>h2:first-child),
-h3:not(.playlistContainer h3),
-h4:not(.playlistContainer h4),
-h5:not(.playlistContainer h5),
-h6:not(.playlistContainer h6) {
+h2:not(.playlistContainer h2, .lessonVideo h2, *>h2:first-child, .modalHeader),
+h3:not(.playlistContainer h3, .modalHeader),
+h4:not(.playlistContainer h4, .modalHeader),
+h5:not(.playlistContainer h5, .modalHeader),
+h6:not(.playlistContainer h6, .modalHeader) {
   margin-bottom: 1.0rem !important;
   margin-top: 1.0rem !important;
 }

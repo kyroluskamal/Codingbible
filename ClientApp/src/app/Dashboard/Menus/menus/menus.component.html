@@ -22,12 +22,13 @@
                         <span *ngIf="!selectedLocation"
                               class="text-warning">Choose location</span>
                         <span *ngIf="selectedLocation"
-                              style="color:#6bff8b">{{selectedLocation?.name|titlecase}}</span>
+                              style="color:#6bff8b">{{selectedLocation.name|titlecase}}</span>
                     </h4>
                     <span *ngIf="selectedLocation && selectedMenus.length===0"
-                          class="px-2">
+                          class="d-flex px-2">
                         No menus found. <a class="cursor-pointer"
-                           (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Add;MenuModelHandler.Toggle()">Add
+                           (click)="spinner.removeSpinner();ActionTypeMenu=PostType.Add;MenuModelHandler.Toggle();">
+                            Add
                             new</a>.
                     </span>
                     <span *ngIf="!selectedLocation"
@@ -78,7 +79,7 @@
                 <h5 class="text-primary">No menu items are found in this menu.</h5>
             </div>
             <ul class="h-100 list-unstyled m-0 menu-Structure-List "
-                *ngIf="currentMenu &&currentMenu.menuItems.length>0"
+                *ngIf="currentMenu &&currentMenuItems.length>0"
                 #menuStructureContainer>
                 <li class="rounded-2 bg-light border border-1 p-2 mb-2 dragable menu-item"
                     *ngFor="let item of currentMenuItems;let i=index"
@@ -114,7 +115,7 @@
                  ModalId="MenuItemModal"
                  [Modal_Footer_template]="MenuItemModalFooter"></bootstrap-modal>
 <ng-template #MenuItemModalHeader>
-    <h4 class="modal-title text-white-50">
+    <h4 class="modal-title text-white-50 modalHeader">
         <span class="text-warning"
               *ngIf="ActionTypeMenuItem===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add
             new</span>
@@ -520,11 +521,11 @@
             <div *ngIf="NewPreviousMenuItem && NewNextMenuItem">
                 <div>
                     <span>After:</span>
-                    <span>{{NewNextMenuItem?.enName}}</span>
+                    <span>{{NewNextMenuItem.enName}}</span>
                 </div>
                 <div>
                     <span>Before:</span>
-                    <span>{{NewNextMenuItem?.enName}}</span>
+                    <span>{{NewNextMenuItem.enName}}</span>
                 </div>
             </div>
         </div>
@@ -558,9 +559,10 @@
                  Modal_Header_AdditionalClasses="bg-dark"
                  [Modal_Body_template]="MenuModelBody"
                  ModalId="MenuModelHandler"
+                 (CloseIsClicked)="MenuFormReset()"
                  [Modal_Footer_template]="MenuModelFooter"></bootstrap-modal>
 <ng-template #MenuModelHeader>
-    <h4 class="modal-title text-white-50">
+    <h4 class="modal-title text-white-50 modalHeader">
         <span class="text-warning"
               *ngIf="ActionTypeMenu===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add
             new</span>
@@ -587,7 +589,7 @@
     <button type="button"
             *ngIf="ActionTypeMenu===PostType.Add"
             class="btn btn-primary"
-            (click)="AddMenu()"
+            (click)="AddMenu();"
             data-bs-dismiss="modal">
         Add
     </button>
@@ -600,6 +602,6 @@
     </button>
     <button class="btn btn-secondary"
             type="button"
-            (click)="MenuForm.reset()"
+            (click)="MenuFormReset()"
             data-bs-dismiss="modal">Close</button>
 </ng-template>

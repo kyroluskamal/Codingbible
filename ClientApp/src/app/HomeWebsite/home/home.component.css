@@ -96,3 +96,7 @@ ul li:not(:last-child) {
 #HomeBody section {
     min-height: 100vh;
 }
+
+h3.ourGoal {
+    margin: 0 !important;
+}

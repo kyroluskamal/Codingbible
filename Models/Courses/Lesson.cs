@@ -35,4 +35,6 @@ public class Lesson
     public bool IsArabic { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }
+    [NotMapped]
+    public int[] TempAttach { get; set; }
 }

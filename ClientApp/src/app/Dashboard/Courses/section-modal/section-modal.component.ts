@@ -76,6 +76,8 @@ export class SectionModalComponent implements OnInit, OnChanges
         this.SectionForm.get(FormControlNames.SectionForm.parentKey)?.setValue(Number(this.UpdateObject.parentKey));
         this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(Number(this.UpdateObject.featureImageUrl));
         this.FeatureImageUrl = this.UpdateObject.featureImageUrl;
+        if (this.UpdateObject.otherSlug == null) this.SectionForm.get(FormControlNames.SectionForm.otherSlug)?.setValue("0");
+        this.SectionForm.markAllAsTouched();
       }
       this.SelectTranslation();
     }
@@ -130,7 +132,9 @@ export class SectionModalComponent implements OnInit, OnChanges
   SetFeatureImage(attachment: Attachments | null)
   {
     this.FeatureImageUrl = attachment?.fileUrl!;
+    console.log(this.FeatureImageUrl);
     this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(attachment?.fileUrl);
+    console.log(this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.value);
   }
 
   removeFeatureImage()
@@ -258,5 +262,11 @@ export class SectionModalComponent implements OnInit, OnChanges
       }
     );
 
+  }
+  ResetSectionForm(SectionModal: BootstrapMoalComponent)
+  {
+    SectionModal.Toggle();
+    this.SectionForm.reset();
+    this.FeatureImageUrl = "";
   }
 }

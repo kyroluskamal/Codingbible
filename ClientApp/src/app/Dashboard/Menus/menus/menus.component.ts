@@ -298,8 +298,9 @@ export class MenusComponent implements OnInit
   {
     let menu = new Menu();
     menu.name = this.MenuForm.get(FormControlNames.MenuForm.name)?.value;
-    menu.menuLocationsId = this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.value;
+    menu.menuLocationsId = Number(this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.value);
     this.store.dispatch(AddMenu(menu));
+    this.MenuFormReset();
   }
   DeleteMenu(id: number)
   {
@@ -316,8 +317,9 @@ export class MenusComponent implements OnInit
   ShowMenus(value: any)
   {
     this.selectedMenus = [];
+    this.currentMenu = null;
     this.selectedLocation = this.MenuLocations.filter(x => x.id === Number(value))[0];
-    this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.setValue(Number(value));
+    this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.setValue(this.selectedLocation?.id);
     this.selectedMenus.push(...this.Menus.filter(x => x.menuLocationsId === Number(value)));
   }
   onMenuParentChange(parent: HTMLSelectElement)
@@ -672,5 +674,11 @@ export class MenusComponent implements OnInit
         return this.isDescendant(parent);
     }
     return false;
+  }
+  MenuFormReset()
+  {
+    this.MenuForm.reset();
+    this.MenuForm.clearValidators();
+    this.MenuForm.get(FormControlNames.MenuForm.menuLocationsId)?.setValue(this.selectedLocation?.id);
   }
 }

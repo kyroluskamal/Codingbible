@@ -149,8 +149,6 @@ namespace CodingBible.Data
             /*************************************************************************
             *                            Set defalut values
             **************************************************************************/
-            builder.Entity<Post>().Property(x => x.EditFrequency).HasDefaultValue("monthly");
-            builder.Entity<Post>().Property(x => x.Priority).HasDefaultValue(0.5f);
             builder.Entity<Post>().Property(x => x.DateCreated).HasDefaultValue(DateTime.Now);
             builder.Entity<Post>().Property(x => x.LasModified).HasDefaultValue(DateTime.Now);
             builder.Entity<Course>().Property(x => x.NeedsEnrollment).HasDefaultValue(false);

@@ -636,7 +636,8 @@
                [UpdateObject]="SectionToEdit"
                [ModalId]="'SectionModalInWizard'"></section-modal>
 <course-category-handler #CourseCategoryHandler
-                         [ActionType]="ActionType.Add"></course-category-handler>
+                         [ActionType]="ActionType.Add"
+                         [UpdateObject]="null"></course-category-handler>
 <bootstrap-modal #sectionSelector
                  [VerticallyCentered]="true"
                  [Modal_Header_Template]="sectionSelectorHeader"
@@ -647,11 +648,11 @@
                  FullScreenClass="modal-lg"
                  [Modal_Footer_template]="sectionSelectorFooter"></bootstrap-modal>
 <ng-template #sectionSelectorHeader>
-    <h4 class="Modal-title text-white-50">
+    <h4 class="Modal-title text-white-50 modalHeader mb-0">
         Choose Section to Edit</h4>
 </ng-template>
 <ng-template #sectionSelectorBody>
-    <div class="form-floating has-validation mb-3">
+    <div class="form-floating has-validation">
         <select #selectorForSection
                 required
                 class="form-select"
@@ -696,7 +697,7 @@
                  [ModalId]="'LessonrOrder'"
                  [Modal_Footer_template]="LessonrOrderFooter"></bootstrap-modal>
 <ng-template #LessonrOrderHeader>
-    <h4 class="Modal-title text-white-50">
+    <h4 class="Modal-title text-white-50 modalHeader mb-0">
         Update Lesson Order</h4>
 </ng-template>
 <ng-template #LessonrOrderBody>
@@ -800,7 +801,7 @@
                  [ModalId]="'SectionOrder'"
                  [Modal_Footer_template]="SectionOrderFooter"></bootstrap-modal>
 <ng-template #SectionOrderHeader>
-    <h4 class="Modal-title text-white-50">
+    <h4 class="Modal-title text-white-50 modalHeader mb-0">
         Update Section Order</h4>
 </ng-template>
 <ng-template #SectionOrderBody>

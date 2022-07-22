@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ViewChild, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormControlName, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
@@ -49,20 +49,24 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   }
   ngOnChanges(changes: SimpleChanges): void
   {
+    console.log(changes);
     if ("UpdateObject" in changes)
     {
+      this.UpdateObject = changes["UpdateObject"].currentValue;
       this.SetIsArabicAndTranslation();
     }
     if ("ActionType" in changes)
     {
+      this.ActionType = changes["ActionType"].currentValue == "" ? PostType.Add : changes["ActionType"].currentValue;
       if (this.ActionType == PostType.Edit)
         this.SetIsArabicAndTranslation();
       else
       {
-        this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.setValue(false);
         this.Form.reset();
+        this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.setValue(false);
       }
     }
+    this.SetIsArabicAndTranslation();
   }
 
   ngOnInit(): void
@@ -86,9 +90,9 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   Toggle()
   {
     this.modal.Toggle();
-    this.ModelIsClosed();
-    if (this.ActionType === PostType.Edit)
-    { this.SetIsArabicAndTranslation(); this.setIsArabic(); }
+    // this.ModelIsClosed();
+    // if (this.ActionType === PostType.Edit)
+    // { this.SetIsArabicAndTranslation(); this.setIsArabic(); }
   }
   onChange(event: HTMLSelectElement)
   {
@@ -121,6 +125,7 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   ModelIsClosed()
   {
     this.Form.reset();
+    this.Form.get(FormControlNames.courseCategoryForm.isArabic)?.setValue(false);
   }
   Update()
   {

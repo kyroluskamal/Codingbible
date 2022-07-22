@@ -69,10 +69,11 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
           map(res => res[0]),
         )
       ])),
-      switchMap(r => combineLatest([this.store.select(Select_Sections_ByCourseId(r[0]?.id!)).pipe(
+      switchMap(r => combineLatest([this.store.select(Select_Sections_ByCourseId(r[0]?.id!, true)).pipe(
         tap(
           sections =>
           {
+            console.log(sections);
             this.AllSections = sections.filter(section => section.status == PostStatus.Published);
           }
         )),

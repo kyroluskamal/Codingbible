@@ -7,7 +7,7 @@
                  (CloseIsClicked)="ModelIsClosed()"
                  [Modal_Footer_template]="CourseCategoryHandler_footer"></bootstrap-modal>
 <ng-template #CourseCategoryHandler_header>
-    <h4 class="modal-title text-white-50">
+    <h4 class="modal-title text-white-50 modalHeader">
         <span class="text-warning"
               *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add new</span>
         <span class="text-warning"
@@ -213,6 +213,6 @@
     </button>
     <button class="btn btn-secondary"
             type="button"
-            (click)="Form.reset()"
+            (click)="ModelIsClosed()"
             data-bs-dismiss="modal">Close</button>
 </ng-template>

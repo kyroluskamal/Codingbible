@@ -6,10 +6,11 @@
                  [ModalId]="ModalId"
                  [FullScreeen]="true"
                  FullScreenClass="modal-lg"
+                 (CloseIsClicked)="ResetSectionForm(SectionModal)"
                  [Modal_Footer_template]="SectionFooter"></bootstrap-modal>
 
 <ng-template #SectionHeader>
-    <h4 class="modal-title text-white-50">
+    <h4 class="modal-title text-white-50 modalHeader">
         <span class="text-warning"
               *ngIf="ActionType===PostType.Add"><i class="bi bi-plus-circle-dotted text-white small"></i> Add new
         </span>
@@ -257,10 +258,10 @@
                         <div [class]="FeatureImageUrl===''?
                      'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center border border-danger'
                      :'w-100 h-100 bg-light d-flex flex-row align-items-center justify-content-center'">
-                            <div *ngIf="FeatureImageUrl==='' || ActionType===PostType.Add">
+                            <div *ngIf="FeatureImageUrl===''">
                                 <i class="bi bi-image"></i>
                             </div>
-                            <img *ngIf="FeatureImageUrl!=='' && ActionType===PostType.Edit"
+                            <img *ngIf="FeatureImageUrl!==''"
                                  [src]="BaseUrl+FeatureImageUrl"
                                  class="img-thumbnail border border-success"
                                  alt="feature image">
@@ -359,7 +360,7 @@
             *ngIf="ActionType===PostType.Edit"
             (click)="Update();SectionModal.Toggle();">Save</button>
     <button class="btn btn-secondary"
-            (click)="SectionModal.Toggle()">Close</button>
+            (click)="ResetSectionForm(SectionModal)">Close</button>
 </ng-template>
 
 <app-media #SectionFeatureImageModal

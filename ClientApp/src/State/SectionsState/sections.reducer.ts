@@ -191,20 +191,20 @@ export const select_Sections_ValidationErrors = createSelector(
 );
 export const Select_AdditionState = createSelector(selectSectionsState, (state) => state.AdditionState);
 export const Select_UpdateState = createSelector(selectSectionsState, (state) => state.UpdateState);
-export const selectSectionBySlug = (Slug: string, checkForStatus: boolean = false) => createSelector(
+export const selectSectionBySlug = (Slug: string, checkForPublishStatus: boolean = false) => createSelector(
     selectSectionsState,
     (state) =>
     {
         for (let key in state.entities)
         {
-            if (checkForStatus)
+            if (checkForPublishStatus)
             {
                 if (state.entities[key]?.slug === Slug && state.entities[key]?.status === PostStatus.Published)
                 {
                     return state.entities[key];
                 }
             }
-            else if (!checkForStatus)
+            else if (!checkForPublishStatus)
             {
                 if (state.entities[key]?.slug === Slug)
                 {

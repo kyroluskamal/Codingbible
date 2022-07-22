@@ -142,9 +142,10 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   }
   onSectionChange()
   {
+    console.log(this.SelectedSectionId);
     if (this.SelectedSectionId > 0)
     {
-      this.SelectedSection = this.selectedSections.filter(section => section.id === this.SelectedSectionId)[0];
+      this.SelectedSection = this.selectedSections.filter(section => section.id === Number(this.SelectedSectionId))[0];
       this.inputForm.enable();
       this.inputForm.get(FormControlNames.LessonForm.isArabic)?.disable();
     }
@@ -174,11 +175,15 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
     }
     if (this.LessonActionType === PostType.Add)
     {
-      let selectedLessonsBySection = this.AllLessons.filter(x => x.sectionId === Number(this.SelectedSectionId)
-        && x.courseId === Number(this.SelectedSection.courseId)).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
+      let selectedLessonsBySection = this.AllLessons.filter(x =>
+        x.sectionId === Number(this.SelectedSectionId)
+        && x?.courseId === Number(this.SelectedSection?.courseId)
+      ).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
       if (selectedLessonsBySection.length > 0)
+      {
+        console.log(selectedLessonsBySection[selectedLessonsBySection.length - 1]);
         lesson.orderWithinSection = selectedLessonsBySection[selectedLessonsBySection.length - 1].orderWithinSection + 1;
-      else
+      } else
         lesson.orderWithinSection = 1;
     }
     return lesson;

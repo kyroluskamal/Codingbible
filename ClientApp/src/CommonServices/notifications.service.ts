@@ -45,7 +45,7 @@ export class NotificationsService
       allowOutsideClick: true,
       backdrop: true,
       scrollbarPadding: false,
-      timer: 3500,
+      timer: 2000,
       keydownListenerCapture: true,
       customClass: { htmlContainer: css.SwalHtmlContent },
     });

@@ -56,7 +56,7 @@ export class ShowSectionConctentComponent implements OnInit
         this.activatedRoute.params.pipe(
           tap(params => this.sectionSlug = decodeURIComponent(params['slug'].split('#')[0])),
           switchMap(_ => combineLatest([this.store.select(selectSectionBySlug(this.sectionSlug, true)),
-          this.store.select(select_Course_HttpResponseError), this.store.select(Select_Sections_ByCourseId(course?.id!)).pipe(
+          this.store.select(select_Course_HttpResponseError), this.store.select(Select_Sections_ByCourseId(course?.id!, true)).pipe(
             tap(x =>
             {
               if (x)
@@ -72,6 +72,7 @@ export class ShowSectionConctentComponent implements OnInit
     ).subscribe(
       r =>
       {
+        console.log(r);
         this.currentCourse = r.course;
         this.currentSection = r.section;
         if (this.isArabic)

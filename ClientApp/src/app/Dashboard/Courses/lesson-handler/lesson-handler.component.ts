@@ -23,7 +23,7 @@ import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { AddLesson, ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons, selectLessonBySlug, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
 import { GetSectionsByCourseId, LoadSections } from 'src/State/SectionsState/sections.actions';
-import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
+import { selectAllSections, Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
   selector: 'app-lesson-handler',
@@ -124,13 +124,7 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
     });
     this.StickyNotesContainer.nativeElement.style.transform = `translate(${this.viewWidth -
       this.StickyNotesHandler.nativeElement.offsetWidth}px,${this.viewHeight * -1 + this.viewHeight * 0.13}px)`;
-    this.Sections$.subscribe((x) =>
-    {
-      this.AllSections = x;
-      let tmep = this.AllSections.filter((y) => y.courseId == this.SelectedCourseId);
-      this.treeDataStructure.setData(tmep);
-      this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
-    });
+
     this.ChangeDetection.detectChanges();
     this.view.nativeElement.innerHTML = this.lesson.htmlContent ? '' : this.lesson.htmlContent;
   }
@@ -157,6 +151,13 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
   ngOnInit(): void
   {
     this.lessons$.subscribe(x => this.lessons = x);
+    this.Sections$.subscribe((x) =>
+    {
+      this.AllSections = x;
+      let tmep = this.AllSections.filter((y) => y.courseId == this.SelectedCourseId);
+      this.treeDataStructure.setData(tmep);
+      this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();
+    });
     if (this.router.url.includes(DashboardRoutes.Courses.Lessons.AddLesson))
     {
       this.ActionType = PostType.Add;
@@ -215,16 +216,17 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
             this.lesson = Object.assign({}, r);
             this.inputForm.patchValue(this.lesson);
             this.title.setTitle(`Edit lesson - ${this.lesson.title}`);
-            this.lesson.featureImageUrl = this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}`;
+            this.lesson.featureImageUrl = this.lesson.featureImageUrl ? this.lesson.featureImageUrl.includes("http") ? this.lesson.featureImageUrl : `${this.BaseUrl}${this.lesson.featureImageUrl}` : '';
             this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(this.lesson.featureImageUrl);
 
             this.inputForm.get(FormControlNames.LessonForm.otherSlug)?.setValue(this.lesson.otherSlug === null ? 0 : this.lesson.otherSlug);
 
             this.inputForm.get(FormControlNames.LessonForm.htmlContent)?.setValue(this.lesson.htmlContent === null ? '' : this.lesson.htmlContent);
-            for (let i = 0; i < lesson?.attachments.length!; i++)
-            {
-              this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
-            }
+            if (lesson?.attachments)
+              for (let i = 0; i < lesson?.attachments.length!; i++)
+              {
+                this.lessonsAttachments.push(lesson?.attachments[i]?.attachmentId!);
+              }
             this.VedioID = this.ClientSideService.GetVideo(this.lesson.vedioUrl);
           }
           this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.clearValidators();
@@ -390,8 +392,6 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
     let courseId = Number(CourseId);
     if (courseId > 0)
     {
-      this.lesson.courseId = courseId;
-      this.store.dispatch(GetSectionsByCourseId({ courseId: courseId }));
       let temp = this.AllSections.filter(Section => Section.courseId == this.SelectedCourseId);
       this.treeDataStructure.setData(temp);
       this.SectionsOfSelectedCourse = this.treeDataStructure.finalFlatenArray();

@@ -212,13 +212,13 @@ export class ClientSideValidationService
       formGroup.get("isArabic")?.setValue(isArabicFromRegex);
     } else
     {
-      if (!isArabicFromRegex && isArabicFromObject)
+      if (!isArabicFromRegex && isArabicFromObject && formGroup.dirty)
       {
         this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
           `<h4>The langauge of the ${moduleType} was set to Arabic</h4>`);
         this.refillForm(obj, formGroup);
         return;
-      } else if (isArabicFromRegex && !isArabicFromObject)
+      } else if (isArabicFromRegex && !isArabicFromObject && formGroup.dirty)
       {
         this.NotificationService.Error_Swal(sweetAlert.Title.Error, sweetAlert.ButtonText.OK,
           `<h4>The langauge of the ${moduleType} was set to English</h4>`);

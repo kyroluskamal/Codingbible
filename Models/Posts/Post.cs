@@ -32,8 +32,6 @@ namespace CodingBible.Models.Posts
         public int CommentCount { get; set; }
         // [Required]
         public string FeatureImageUrl { get; set; }
-        public string EditFrequency { get; set; }
-        public float Priority { get; set; }
         [NotMapped]
         public int[] Categories { get; set; }
         [NotMapped]

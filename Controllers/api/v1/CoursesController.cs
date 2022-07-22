@@ -1175,7 +1175,6 @@ public class CoursesController : ControllerBase
                     SectionId = lesson.SectionId,
                     DateCreated = DateTime.Now,
                     LasModified = DateTime.Now,
-                    Attachments = lesson.Attachments,
                     IsArabic = lesson.IsArabic,
                     CourseId = lesson.CourseId,
                     OtherSlug = lesson.OtherSlug,
@@ -1190,15 +1189,15 @@ public class CoursesController : ControllerBase
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    if (lesson.Attachments.ToArray().Length > 0)
+                    if (lesson.TempAttach.Length > 0)
                     {
                         List<LessonAttachments> lessonAttachments = new();
-                        foreach (var l in lesson.Attachments)
+                        foreach (var l in lesson.TempAttach)
                         {
                             lessonAttachments.Add(new LessonAttachments()
                             {
                                 LessonId = newLesson.Id,
-                                AttachmentId = l.AttachmentId
+                                AttachmentId = l
                             });
                         }
                         await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());
@@ -1256,7 +1255,7 @@ public class CoursesController : ControllerBase
                 getLesson.FeatureImageUrl = lesson.FeatureImageUrl;
                 getLesson.SectionId = lesson.SectionId;
                 getLesson.LasModified = DateTime.Now;
-                getLesson.Attachments = lesson.Attachments;
+                getLesson.TempAttach = lesson.TempAttach;
                 getLesson.CourseId = lesson.CourseId;
                 getLesson.IsArabic = lesson.IsArabic;
                 getLesson.OtherSlug = lesson.OtherSlug;
@@ -1268,24 +1267,28 @@ public class CoursesController : ControllerBase
                 getLesson.LasModified = DateTime.Now;
                 getLesson.Attachments = lesson.Attachments;
                 UnitOfWork.Lessons.Update(getLesson);
-                foreach (var att in getLesson.Attachments)
+                if (getLesson.Attachments != null)
                 {
-                    UnitOfWork.LessonAttachments.Remove(att);
+                    foreach (var att in getLesson.Attachments.ToList())
+                    {
+                        if (lesson.TempAttach.Contains(att.AttachmentId))
+                            UnitOfWork.LessonAttachments.Remove(att);
+                    }
                 }
                 if (!Equals(lesson.Slug, oldSlug))
                     await FunctionalService.AddUpdate_SlugMap(getLesson, oldSlug);
                 var result = await UnitOfWork.SaveAsync();
                 if (result > 0)
                 {
-                    if (lesson.Attachments.ToArray().Length > 0)
+                    if (lesson.TempAttach.Length > 0)
                     {
                         List<LessonAttachments> lessonAttachments = new();
-                        foreach (var l in lesson.Attachments)
+                        foreach (var l in lesson.TempAttach)
                         {
                             lessonAttachments.Add(new LessonAttachments()
                             {
                                 LessonId = getLesson.Id,
-                                AttachmentId = l.AttachmentId
+                                AttachmentId = l
                             });
                         }
                         await UnitOfWork.LessonAttachments.AddRangeAsync(lessonAttachments.ToArray());

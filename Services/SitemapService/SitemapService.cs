@@ -15,12 +15,16 @@ public class SitemapService : ISitemapService
         UnitOfWork = unitOfWork;
     }
 
+    public class SitemapModel
+    {
+        public string Url { get; set; }
+        public DateTime? LastModified { get; set; }
+        public double? Priority { get; set; }
+    }
     public class SitemapNode
     {
-        public string Frequency { get; set; }
         public DateTime LastModified { get; set; }
         public string Loc { get; set; }
-        public float Priority { get; set; }
         public List<ImageSitemapNode> Images { get; set; }
     }
     public class ImageSitemapNode
@@ -154,8 +158,6 @@ public class SitemapService : ISitemapService
             <url>
                 <loc>{node.Loc}</loc>
                 <lastmod>{node.LastModified}</lastmod>
-                <changefreq>{node.Frequency}</changefreq>
-                <priority>{node.Priority}</priority>
         ";
         foreach (ImageSitemapNode imageNode in node.Images)
         {
@@ -171,10 +173,8 @@ public class SitemapService : ISitemapService
     {
         SitemapNode node = new()
         {
-            Frequency = post.EditFrequency.Length == 0 ? "weekly" : post.EditFrequency,
             LastModified = post.LasModified,
             Loc = $"{baseUrl}/{post.Slug}",
-            Priority = post.Priority,
             Images = new()
         };
         foreach (var attachment in post.Attachments)

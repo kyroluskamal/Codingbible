@@ -28,7 +28,7 @@ export class CourseCategoryComponent implements OnInit
   dataSource: CbTableDataSource<CourseCategory> = new CbTableDataSource<CourseCategory>();
   isLoading: boolean = true;
   Categories: CourseCategory[] = [];
-  CourseCategoryToUpdate: CourseCategory = new CourseCategory();
+  CourseCategoryToUpdate: CourseCategory | null = null;
   CourseCats$ = this.store.select(selectAllCourseCategorys);
   @ViewChild("CourseCategoryHandler") Modal!: CourseCategoryHandlerComponent;
 
@@ -54,6 +54,7 @@ export class CourseCategoryComponent implements OnInit
   AddNewCategory(event: Boolean)
   {
     this.ActionType = PostType.Add;
+    this.CourseCategoryToUpdate = null;
     if (event)
     {
       this.Modal.Toggle();
@@ -61,6 +62,7 @@ export class CourseCategoryComponent implements OnInit
   }
   EditCategory(event: CourseCategory)
   {
+    console.log(event);
     this.CourseCategoryToUpdate = event;
     this.ActionType = PostType.Edit;
     this.Modal.Toggle();
