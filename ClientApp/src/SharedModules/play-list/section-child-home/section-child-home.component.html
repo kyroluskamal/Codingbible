@@ -1,12 +1,12 @@
 <div *ngIf="Section && Section.isLeafSection"
      class="accordion accordion-flush"
      [ngStyle]="Section.isArabic?{'margin-right.px': 10*Section.level}:{'margin-left.px': 10*Section.level}"
-     [id]="Section?.slug">
+     [id]="Section.slug">
     <div class="accordion-item"
-         [dir]="Section?.isArabic?'rtl':'ltr'">
+         [dir]="Section.isArabic?'rtl':'ltr'">
         <h2 class="accordion-header noBefore"
             *ngIf="!removeSectionHeader"
-            [dir]="Section?.isArabic?'rtl':'ltr'">
+            [dir]="Section.isArabic?'rtl':'ltr'">
             <button class="accordion-button collapsed p-2 d-flex gap-3"
                     type="button"
                     data-bs-toggle="collapse"
@@ -26,7 +26,7 @@
         <div [id]="Section.nameSlugFragment"
              class="accordion-collapse collapse"
              aria-labelledby="panelsStayOpen-headingOne"
-             [attr.data-bs-parent]="'#'+Section?.slug">
+             [attr.data-bs-parent]="'#'+Section.slug">
             <div class="accordion-body p-0 d-flex flex-column"
                  [ngClass]="Section.isArabic?'me-1':'ms-1'">
                 <ul class="small my-4">
@@ -48,11 +48,11 @@
 </div>
 <div *ngIf="Section && !Section.isLeafSection"
      class="accordion accordion-flush"
-     [id]="Section?.slug">
+     [id]="Section.slug">
     <div class="accordion-item"
-         [dir]="Section?.isArabic?'rtl':'ltr'">
+         [dir]="Section.isArabic?'rtl':'ltr'">
         <h4 class="accordion-header"
-            [id]="'heading'+Section?.slug">
+            [id]="'heading'+Section.slug">
             <button class="accordion-button collapsed p-2  d-flex gap-3"
                     type="button"
                     data-bs-toggle="collapse"
@@ -72,7 +72,7 @@
         <div [id]="Section.nameSlugFragment"
              class="accordion-collapse collapse"
              aria-labelledby="panelsStayOpen-headingOne"
-             [attr.data-bs-parent]="'#'+Section?.slug">
+             [attr.data-bs-parent]="'#'+Section.slug">
             <div class="accordion-body p-0 d-flex flex-column gap-2">
                 <div *ngFor="let ch of children">
                     <section-child-home [Section]="ch"></section-child-home>
