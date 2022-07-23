@@ -80,7 +80,7 @@ export class Post
     authorId: number | null = 0;
     author: any;
     dateCreated: Date = new Date();
-    lasModified: Date = new Date();
+    lastModified: Date = new Date();
     publishedDate: Date = new Date();
     status: number = 0;
     excerpt: string = "";
@@ -239,7 +239,7 @@ export class Lesson
     section: Section | null = null;
     courseId: number = 0;
     dateCreated: Date = new Date();
-    lasModified: Date = new Date();
+    lastModified: Date = new Date();
     publishedDate: Date = new Date();
     attachments: LessonAttachments[] = [];
     tempAttach: number[] = [];

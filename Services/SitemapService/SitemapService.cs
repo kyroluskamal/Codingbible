@@ -1,6 +1,9 @@
+using CodingBible.Models.Courses;
 using CodingBible.Models.Posts;
 using CodingBible.Services.ConstantsService;
 using CodingBible.UnitOfWork;
+using Microsoft.AspNetCore.Mvc;
+using SendGrid.Helpers.Mail;
 using Serilog;
 
 namespace CodingBible.Services.SitemapService;
@@ -9,6 +12,17 @@ public class SitemapService : ISitemapService
 {
     public IUnitOfWork_ApplicationUser UnitOfWork { get; set; }
     private readonly IWebHostEnvironment Env;
+    private const string Sitemap = @"<?xml version='1.0' encoding='UTF-8'?>
+                <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
+                xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>";
+    private const string POST_SITEMAP_FILE_NAME = "sitemap_blog_posts.xml";
+    private const string CAT_SITEMAP_FILE_NAME = "sitemap_blog_categories.xml";
+    private const string COURSES_SITEMAP_FILE_NAME = "sitemap_courses.xml";
+    private const string LESSON_SITEMAP_FILE_NAME = "sitemap_lessons.xml";
+    private const string SECTIONS_SITEMAP_FILE_NAME = "sitemap_sections.xml";
+    private const string COURSES_CATS_SITEMAP_FILE_NAME = "sitemap_course_categories.xml";
+    private const string SITEMAP_FOOTER = "</urlset>";
+    private const string COURSES_LINK = "courses";
     public SitemapService(IWebHostEnvironment env, IUnitOfWork_ApplicationUser unitOfWork)
     {
         Env = env;
@@ -34,14 +48,66 @@ public class SitemapService : ISitemapService
         public string Title { get; set; }
     }
 
-    public async Task<string> CreatePostSiteMap(string baseUrl)
+    public async Task<bool> CreateGeneralSitemap(string baseUrl)
+    {
+        try
+        {
+            var sitMapOfSiteMAps = @"<?xml version='1.0' encoding='UTF-8'?>
+                    <sitemapindex xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>";
+            var postSiteMapResult = await CreatePostSiteMap(baseUrl);
+            var catSiteMapResult = await Create_Blog_Category_SiteMap(baseUrl);
+            var coursesSiteMapResult = await Create_Courses_SiteMap(baseUrl);
+            var courseCatsSiteMap = await Create_Courses_Category_SiteMap(baseUrl);
+            if (postSiteMapResult)
+            {
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{POST_SITEMAP_FILE_NAME}</loc>
+             </sitemap>";
+            }
+            if (catSiteMapResult)
+            {
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{CAT_SITEMAP_FILE_NAME}</loc>
+             </sitemap>";
+            }
+            if (coursesSiteMapResult)
+            {
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{COURSES_SITEMAP_FILE_NAME}</loc>
+                </sitemap>";
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{LESSON_SITEMAP_FILE_NAME}</loc>
+                </sitemap>";
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{SECTIONS_SITEMAP_FILE_NAME}</loc>
+                </sitemap>";
+            }
+            if (courseCatsSiteMap)
+            {
+                sitMapOfSiteMAps += @$"<sitemap>
+                <loc>{baseUrl}/{COURSES_CATS_SITEMAP_FILE_NAME}</loc>
+                </sitemap>";
+            }
+            sitMapOfSiteMAps += "</sitemapindex>";
+            using (var writer = new StreamWriter(Env.WebRootPath + "/sitemap.xml"))
+            {
+                await writer.WriteAsync(sitMapOfSiteMAps);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while creating sitemap {Error} {StackTrace} {InnerException} {Source}",
+                ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return false;
+        }
+    }
+    public async Task<bool> CreatePostSiteMap(string baseUrl)
     {
         try
         {
             //Step 1 = Set the header of the sitemap.xml file
-            string Sitemap = @"<?xml version='1.0' encoding='UTF-8'?>
-                <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
-                xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>";
+            var Post_sitemap = Sitemap;
             //Step 2 = Get all the posts from the database
             var Posts = await UnitOfWork.Posts.GetAllAsync(includeProperties: "Attachments");
             //Step 3 = Loop through all the posts and create a sitemap node for each one
@@ -49,105 +115,175 @@ public class SitemapService : ISitemapService
             foreach (Post post in Posts)
             {
                 if (post.Status == (int)Constants.PostStatus.Published)
-                    Nodes.Add(await CreateSitemapNode(post, baseUrl));
+                    Nodes.Add(await CreateSitemapNode<Post, PostAttachments>(post, true, true, baseUrl, "blog/"));
             }
             //Step 4 = Add the sitemap nodes to the sitemap
             foreach (SitemapNode node in Nodes)
             {
-                Sitemap += GenerateSitemapUrl(node);
+                Post_sitemap += GenerateSitemapUrl(node);
             }
             //Step 5 = Add the end tag of the sitemap
-            Sitemap += "</urlset>";
+            Post_sitemap += SITEMAP_FOOTER;
             //Step 6 = Save the sitemap to the file system
-            using (var writer = new StreamWriter(Env.WebRootPath + "/sitemap.xml"))
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{POST_SITEMAP_FILE_NAME}"))
             {
-                await writer.WriteAsync(Sitemap);
+                await writer.WriteAsync(Post_sitemap);
             }
-            return "Sitemp Created Successfully";
+            return true;
         }
         catch (Exception ex)
         {
             Log.Error("An error occurred while creating sitemap {Error} {StackTrace} {InnerException} {Source}",
                 ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-            return ex.Message + " " + ex.StackTrace + " " + ex.InnerException + " " + ex.Source;
-        }
-    }
-    public async Task<string> AddPostToSitemap(Post post, string baseUrl)
-    {
-        try
-        {
-            string SitemapPath = Path.Combine(Env.WebRootPath, "sitemap.xml");
-            if (!Directory.Exists(SitemapPath))
-            {
-                return await CreatePostSiteMap(baseUrl);
-            }
-            else
-            {
-                string[] Sitemap = File.ReadAllLines(SitemapPath);
-                const string urlSet_endTag = "</urlset>";
-                SitemapNode node = await CreateSitemapNode(post, baseUrl);
-                Sitemap.SetValue(GenerateSitemapUrl(node), Sitemap.Length - 1);
-                using (var writer = new StreamWriter(SitemapPath))
-                {
-                    await writer.WriteAsync(Constants.Join("", Sitemap.Append(urlSet_endTag).ToArray()));
-                }
-            }
-            return "Sitemap Updated Successfully";
-        }
-        catch (Exception ex)
-        {
-            Log.Error("An error occurred while editing sitemap {Error} {StackTrace} {InnerException} {Source}",
-                ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-            return ex.Message + " " + ex.Source;
-        }
-    }
-    public async Task<string> DeletePostFromSitemap(Post post, string baseUrl)
-    {
-        try
-        {
-            string SitemapPath = Path.Combine(Env.WebRootPath, "sitemap.xml");
-            if (!Directory.Exists(SitemapPath))
-            {
-                return await CreatePostSiteMap(baseUrl);
-            }
-            else
-            {
-                string Sitemap = Constants.Join("", File.ReadAllLines(SitemapPath));
-                SitemapNode node = await CreateSitemapNode(post, baseUrl);
-                string Sitemap_Url = GenerateSitemapUrl(node);
-                Sitemap = Sitemap.Replace(Sitemap_Url, "");
-                using (var writer = new StreamWriter(SitemapPath))
-                {
-                    await writer.WriteAsync(Sitemap);
-                }
-            }
-            return "Sitemap Deleted Successfully";
-        }
-        catch (Exception ex)
-        {
-            Log.Error("An error occurred while editing sitemap {Error} {StackTrace} {InnerException} {Source}",
-                ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
-            return ex.Message + " " + ex.Source;
-        }
-    }
-    public bool IsPostFoundInSitemap(string postSlug)
-    {
-        try
-        {
-            string SitemapPath = Path.Combine(Env.WebRootPath, "sitemap.xml");
-
-            foreach (var line in File.ReadAllLines(SitemapPath))
-            {
-                if (line.Contains(postSlug))
-                {
-                    return true;
-                }
-            }
             return false;
         }
+    }
+    public async Task<bool> Create_Courses_SiteMap(string baseUrl)
+    {
+        try
+        {
+            //Step 1 = Set the header of the sitemap.xml file
+            var Courses_sitemap = Sitemap;
+            var Lessons_sitemap = Sitemap;
+            var Sections_sitemap = Sitemap;
+            //Step 2 = Get all the posts from the database
+            var courses = await UnitOfWork.Courses.GetAllAsync();
+            //Step 3 = Loop through all the posts and create a sitemap node for each one
+            List<SitemapNode> CourseNodes = new();
+            List<SitemapNode> LessonsNodes = new();
+            List<SitemapNode> SectionsNodes = new();
+            foreach (Course c in courses)
+            {
+                if (c.Status == (int)Constants.PostStatus.Published)
+                    CourseNodes.Add(await CreateSitemapNode<Course, PostAttachments>(c, hasFeatureImage: true, hasAttachement: false, baseUrl, $"{COURSES_LINK}/"));
+
+                var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Attachments", filter: x => x.CourseId == c.Id);
+                foreach (Lesson lesson in lessons)
+                {
+                    if (lesson.Status == (int)Constants.PostStatus.Published)
+                    {
+                        LessonsNodes.Add(await CreateSitemapNode<Lesson, LessonAttachments>(
+                            lesson, hasFeatureImage: true, hasAttachement: true,
+                            baseUrl, complementarySlug: $"{COURSES_LINK}/{c.Slug}/lesson/"));
+                    }
+                }
+                var sections = await UnitOfWork.Sections.GetAllAsync(filter: x => x.CourseId == c.Id);
+                foreach (Section section in sections)
+                {
+                    if (section.Status == (int)Constants.PostStatus.Published)
+                    {
+                        SectionsNodes.Add(await CreateSitemapNode<Section, LessonAttachments>(
+                        section, hasFeatureImage: true, hasAttachement: false,
+                        baseUrl, complementarySlug: $"{COURSES_LINK}/{c.Slug}/section/", false));
+                    }
+                }
+            }
+            //Step 4 = Add the sitemap nodes to the sitemap
+            foreach (SitemapNode node in CourseNodes)
+            {
+                Courses_sitemap += GenerateSitemapUrl(node);
+            }
+            foreach (SitemapNode node in LessonsNodes)
+            {
+                Lessons_sitemap += GenerateSitemapUrl(node);
+            }
+            foreach (SitemapNode node in SectionsNodes)
+            {
+                Sections_sitemap += GenerateSitemapUrl(node);
+            }
+            //Step 5 = Add the end tag of the sitemap
+            Courses_sitemap += SITEMAP_FOOTER;
+            Lessons_sitemap += SITEMAP_FOOTER;
+            Sections_sitemap += SITEMAP_FOOTER;
+            //Step 6 = Save the sitemap to the file system
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{COURSES_SITEMAP_FILE_NAME}"))
+            {
+                await writer.WriteAsync(Courses_sitemap);
+            }
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{LESSON_SITEMAP_FILE_NAME}"))
+            {
+                await writer.WriteAsync(Lessons_sitemap);
+            }
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{SECTIONS_SITEMAP_FILE_NAME}"))
+            {
+                await writer.WriteAsync(Sections_sitemap);
+            }
+            return true;
+        }
         catch (Exception ex)
         {
-            Log.Error("An error occurred while editing sitemap {Error} {StackTrace} {InnerException} {Source}",
+            Log.Error("An error occurred while creating sitemap {Error} {StackTrace} {InnerException} {Source}",
+                ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return false;
+        }
+    }
+
+    public async Task<bool> Create_Blog_Category_SiteMap(string baseUrl)
+    {
+        try
+        {
+            //Step 1 = Set the header of the sitemap.xml file
+            var Cats_sitemap = Sitemap;
+            //Step 2 = Get all the posts from the database
+            var Cats = await UnitOfWork.Categories.GetAllAsync();
+            //Step 3 = Loop through all the posts and create a sitemap node for each one
+            List<SitemapNode> Nodes = new();
+            foreach (Category cat in Cats)
+            {
+                Nodes.Add(await CreateSitemapNode<Category, PostAttachments>(cat, hasFeatureImage: false, hasAttachement: false, baseUrl, "blog/", false));
+            }
+            //Step 4 = Add the sitemap nodes to the sitemap
+            foreach (SitemapNode node in Nodes)
+            {
+                Cats_sitemap += GenerateSitemapUrl(node);
+            }
+            //Step 5 = Add the end tag of the sitemap
+            Cats_sitemap += SITEMAP_FOOTER;
+            //Step 6 = Save the sitemap to the file system
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{CAT_SITEMAP_FILE_NAME}"))
+            {
+                await writer.WriteAsync(Cats_sitemap);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while creating sitemap {Error} {StackTrace} {InnerException} {Source}",
+                ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
+            return false;
+        }
+    }
+    public async Task<bool> Create_Courses_Category_SiteMap(string baseUrl)
+    {
+        try
+        {
+            //Step 1 = Set the header of the sitemap.xml file
+            var Courses_Cats_sitemap = Sitemap;
+            //Step 2 = Get all the posts from the database
+            var courseCategories = await UnitOfWork.CourseCategories.GetAllAsync();
+            //Step 3 = Loop through all the posts and create a sitemap node for each one
+            List<SitemapNode> Nodes = new();
+            foreach (CourseCategory cat in courseCategories)
+            {
+                Nodes.Add(await CreateSitemapNode<CourseCategory, PostAttachments>(cat, hasFeatureImage: false, hasAttachement: false, baseUrl, $"{COURSES_LINK}/", false));
+            }
+            //Step 4 = Add the sitemap nodes to the sitemap
+            foreach (SitemapNode node in Nodes)
+            {
+                Courses_Cats_sitemap += GenerateSitemapUrl(node);
+            }
+            //Step 5 = Add the end tag of the sitemap
+            Courses_Cats_sitemap += SITEMAP_FOOTER;
+            //Step 6 = Save the sitemap to the file system
+            using (var writer = new StreamWriter($"{Env.WebRootPath}/{COURSES_CATS_SITEMAP_FILE_NAME}"))
+            {
+                await writer.WriteAsync(Courses_Cats_sitemap);
+            }
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Log.Error("An error occurred while creating sitemap {Error} {StackTrace} {InnerException} {Source}",
                 ex.Message, ex.StackTrace, ex.InnerException, ex.Source);
             return false;
         }
@@ -169,33 +305,49 @@ public class SitemapService : ISitemapService
         urlNode += "</url>";
         return urlNode;
     }
-    private async Task<SitemapNode> CreateSitemapNode(Post post, string baseUrl)
+    private async Task<SitemapNode> CreateSitemapNode<T, Att>(T Obj,
+     bool hasFeatureImage, bool hasAttachement, string baseUrl, string complementarySlug = "", bool LastModified = true)
     {
+        var type = Obj.GetType();
+        var lastmod = LastModified ? type.GetProperty("LastModified").GetValue(Obj) : new DateTime();
+        var loc = type.GetProperty("Slug").GetValue(Obj);
+        var isArabic = (bool)type.GetProperty("IsArabic").GetValue(Obj);
+
         SitemapNode node = new()
         {
-            LastModified = post.LasModified,
-            Loc = $"{baseUrl}/{post.Slug}",
+            LastModified = (DateTime)lastmod,
+            Loc = isArabic ? $"{baseUrl}/ar/{complementarySlug}{loc}" : $"{baseUrl}/{complementarySlug}{loc}",
             Images = new()
         };
-        foreach (var attachment in post.Attachments)
+        if (hasAttachement)
         {
-            attachment.Attachment = await UnitOfWork.Attachments.GetAsync(attachment.AttachmentId);
-            node.Images.Add(new ImageSitemapNode()
+            var images = type.GetProperty("Attachments").GetValue(Obj) as List<Att>;
+            foreach (var attachment in images)
             {
-                Loc = $"{baseUrl}{attachment.Attachment.FileUrl}",
-                Caption = attachment.Attachment.Caption,
-                Title = attachment.Attachment.Title
-            });
+                var type_attachment = attachment.GetType();
+                var Id = type_attachment.GetProperty("Id").GetValue(attachment);
+                var attac_fromDb = await UnitOfWork.Attachments.GetAsync((int)Id);
+                node.Images.Add(new ImageSitemapNode()
+                {
+                    Loc = $"{baseUrl}{attac_fromDb.FileUrl}",
+                    Caption = attac_fromDb.Caption,
+                    Title = attac_fromDb.Title
+                });
+            }
         }
-        var FeatureImage = await UnitOfWork.Attachments.GetFirstOrDefaultAsync(x => x.FileUrl == post.FeatureImageUrl);
-        if (FeatureImage != null)
+        if (hasFeatureImage)
         {
-            node.Images.Insert(0, new ImageSitemapNode()
+            var FeatureImageUrl = type.GetProperty("FeatureImageUrl").GetValue(Obj);
+            var FeatureImage = await UnitOfWork.Attachments.GetFirstOrDefaultAsync(x => x.FileUrl == (string)FeatureImageUrl);
+            if (FeatureImage != null)
             {
-                Loc = $"{baseUrl}{FeatureImage.FileUrl}",
-                Caption = FeatureImage.Caption,
-                Title = FeatureImage.Title
-            });
+                node.Images.Insert(0, new ImageSitemapNode()
+                {
+                    Loc = $"{baseUrl}{FeatureImage.FileUrl}",
+                    Caption = FeatureImage.Caption,
+                    Title = FeatureImage.Title
+                });
+            }
         }
         return node;
     }

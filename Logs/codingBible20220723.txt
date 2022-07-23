@@ -1,0 +1,619 @@
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:26:41 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 4908
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:26:56 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "434b0694-ab70-4e31-95e0-af2dad5309a0"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJCMTGKJO2L:00000005"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJCMTGKJO2L"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 4908
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:27:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 310
+   at CodingBible.Services.SitemapService.SitemapService.Create_Blog_Category_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 231"
+InnerException : null
+Source : "CodingBible"
+ActionId : "4d1b88a2-e98d-4b43-9204-bf22c605476d"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCMTGKJO2L:00000009"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCMTGKJO2L"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 4908
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:27:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Attachments' specified in string based include path 'Attachments'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'."
+StackTrace : "   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at CodingBible.UnitOfWork.Repository.ApplicationUserRepositoryAsync`1.GetAllAsync(Expression`1 filter, Func`2 orderBy, String includeProperties) in C:\1Projects\Codingbible\UnitOfWork\Repository\ApplicationUserRepositoryAsync.cs:line 50
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 149"
+InnerException : null
+Source : "Microsoft.EntityFrameworkCore"
+ActionId : "4d1b88a2-e98d-4b43-9204-bf22c605476d"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCMTGKJO2L:00000009"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCMTGKJO2L"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 4908
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:27:07 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 310
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_Category_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 266"
+InnerException : null
+Source : "CodingBible"
+ActionId : "4d1b88a2-e98d-4b43-9204-bf22c605476d"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCMTGKJO2L:00000009"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCMTGKJO2L"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 4908
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:33:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 11468
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:33:32 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 310
+   at CodingBible.Services.SitemapService.SitemapService.Create_Blog_Category_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 231"
+InnerException : null
+Source : "CodingBible"
+ActionId : "54d68f92-ba02-4ef5-9b1d-f05ed7ef85cf"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCN18I1G7S:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCN18I1G7S"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 11468
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:35:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "cba5c2e4-d374-4b22-93cc-f783bdc939be"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJCN18I1G7S:00000007"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJCN18I1G7S"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 11468
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:56:14 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 2556
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:56:19 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "An error was generated for warning 'Microsoft.EntityFrameworkCore.Query.InvalidIncludePathError': Unable to find navigation 'Attachments' specified in string based include path 'Attachments'. This exception can be suppressed or logged by passing event ID 'CoreEventId.InvalidIncludePathError' to the 'ConfigureWarnings' method in 'DbContext.OnConfiguring' or 'AddDbContext'."
+StackTrace : "   at Microsoft.EntityFrameworkCore.Diagnostics.EventDefinition`2.Log[TLoggerCategory](IDiagnosticsLogger`1 logger, TParam1 arg1, TParam2 arg2)
+   at Microsoft.EntityFrameworkCore.Diagnostics.CoreLoggerExtensions.InvalidIncludePathError(IDiagnosticsLogger`1 diagnostics, String navigationChain, String navigationName)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.ProcessInclude(NavigationExpansionExpression source, Expression expression, Boolean thenInclude, Boolean setLoaded)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at System.Linq.Expressions.MethodCallExpression.Accept(ExpressionVisitor visitor)
+   at System.Linq.Expressions.ExpressionVisitor.Visit(Expression node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.NavigationExpandingExpressionVisitor.Expand(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryTranslationPreprocessor.Process(Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at CodingBible.UnitOfWork.Repository.ApplicationUserRepositoryAsync`1.GetAllAsync(Expression`1 filter, Func`2 orderBy, String includeProperties) in C:\1Projects\Codingbible\UnitOfWork\Repository\ApplicationUserRepositoryAsync.cs:line 50
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 150"
+InnerException : null
+Source : "Microsoft.EntityFrameworkCore"
+ActionId : "94502891-d651-444e-8198-919b7455a2b5"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCNE04MMVV:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCNE04MMVV"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 2556
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:59:29 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 16:59:51 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 315
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 158"
+InnerException : null
+Source : "CodingBible"
+ActionId : "df6f9163-cb0d-4df5-8367-2bcae805ffe6"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCNFV88N7J:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCNFV88N7J"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:01:20 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "1201d54a-26d1-48af-a871-cdf60a1e5e92"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJCNFV88N7J:00000007"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJCNFV88N7J"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:01:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "413c41b1-2052-4e0f-935c-876f11d1a01d"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJCNFV88N7J:00000009"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJCNFV88N7J"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:02:24 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 315
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 158"
+InnerException : null
+Source : "CodingBible"
+ActionId : "df6f9163-cb0d-4df5-8367-2bcae805ffe6"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCNFV88N7J:0000000B"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCNFV88N7J"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:02:46 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 315
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 158"
+InnerException : null
+Source : "CodingBible"
+ActionId : "df6f9163-cb0d-4df5-8367-2bcae805ffe6"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCNFV88N7J:00000015"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCNFV88N7J"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6640
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:04:59 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 10608
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:05:14 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 312
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 165"
+InnerException : null
+Source : "CodingBible"
+ActionId : "9def04b5-2422-423c-b5d6-43b773081f28"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCNIVF9U76:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCNIVF9U76"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 10608
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:08:21 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 13868
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:10:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 6292
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:11:22 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 5932
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:18:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 8344
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:19:37 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 10716
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:19:39 +02:00 | Level - Error |
+----------------------------------------------------------------------
+elapsed : "70"
+parameters : ""
+commandType : Text
+commandTimeout : 30
+newLine : "
+"
+commandText : "DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Posts]') AND [c].[name] = N'LastModified');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [Posts] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [Posts] ADD DEFAULT '2022-07-23T17:18:43.1703483+02:00' FOR [LastModified];"
+EventId : { Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }
+SourceContext : "Microsoft.EntityFrameworkCore.Database.Command"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 10716
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:21:30 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 7576
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:21:58 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 9116
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:21:59 +02:00 | Level - Error |
+----------------------------------------------------------------------
+elapsed : "21"
+parameters : ""
+commandType : Text
+commandTimeout : 30
+newLine : "
+"
+commandText : "CREATE TABLE [AspNetRoles] (
+    [Id] int NOT NULL IDENTITY,
+    [RoleIcon] nvarchar(max) NULL,
+    [Handle] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);"
+EventId : { Id: 20102, Name: "Microsoft.EntityFrameworkCore.Database.Command.CommandError" }
+SourceContext : "Microsoft.EntityFrameworkCore.Database.Command"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 9116
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:27:48 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 10624
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:39:28 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 13740
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:41:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12280
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:41:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug, Boolean LastModified) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 312
+   at CodingBible.Services.SitemapService.SitemapService.Create_Blog_Category_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 233"
+InnerException : null
+Source : "CodingBible"
+ActionId : "2f03ed67-90f3-4646-9c42-5b87375866e0"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCO7C1R6TB:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCO7C1R6TB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12280
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:41:44 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug, Boolean LastModified) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 312
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_Category_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 268"
+InnerException : null
+Source : "CodingBible"
+ActionId : "2f03ed67-90f3-4646-9c42-5b87375866e0"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCO7C1R6TB:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCO7C1R6TB"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12280
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

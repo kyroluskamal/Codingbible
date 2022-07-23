@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using CodingBible.Services.FunctionalService;
 using CodingBible.Services.SitemapService;
-using CodingBible.Models.Posts;
-using Microsoft.AspNetCore.Cors;
 
 namespace CodingBible.Controllers.api.v1;
 
@@ -21,10 +18,18 @@ public class SitemapController : ControllerBase
         HttpContextAccessor = httpContextAccessor;
     }
 
-    [HttpGet(nameof(CreatePostSitemap))]
-    public async Task<string> CreatePostSitemap()
+    [HttpGet(nameof(CreateSitemap))]
+    public async Task<IActionResult> CreateSitemap()
     {
-        return await SitemapService.CreatePostSiteMap(BaseUrl);
+        try
+        {
+            var result = await SitemapService.CreateGeneralSitemap(BaseUrl);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
     // [HttpGet(nameof(UpdatePostSitemap))]
     // public IActionResult UpdatePostSitemap()

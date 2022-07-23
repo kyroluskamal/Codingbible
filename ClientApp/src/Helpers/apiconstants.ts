@@ -1,5 +1,11 @@
 const version = "v1";
 const controllers = {
+    Sitemap: {
+        name: "Sitemap",
+        Actions: {
+            CreateSitemap: "CreateSitemap"
+        }
+    },
     account: {
         name: "Account",
         Actions: {
@@ -195,7 +201,9 @@ export const CoursesController = {
     GetCoursesInCategoryBySlug: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCoursesInCategoryBySlug),
     GetCourseById: getApiUrl(version, controllers.Courses.name, controllers.Courses.Actions.GetCourseById),
 };
-
+export const SitemapController = {
+    CreateSitemap: getApiUrl(version, controllers.Sitemap.name, controllers.Sitemap.Actions.CreateSitemap),
+};
 function getApiUrl(version: string, controller: string, action: string): string
 {
     return `https://localhost:5001/api/${version}/${controller}/${action}`;

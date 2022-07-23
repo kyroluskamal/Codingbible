@@ -24,7 +24,7 @@ public class Lesson
     public int Status { get; set; }
     public string HtmlContent { get; set; }
     public DateTime DateCreated { get; set; }
-    public DateTime LasModified { get; set; }
+    public DateTime LastModified { get; set; }
     public string FeatureImageUrl { get; set; }
     public DateTime PublishedDate { get; set; }
     [ForeignKey(nameof(SectionId))]

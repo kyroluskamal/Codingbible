@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CodingBible.Migrations.ApplicationDb
 {
-    public partial class initial : Migration
+    public partial class initials : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,30 +83,6 @@ namespace CodingBible.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
-                    Level = table.Column<byte>(type: "tinyint", nullable: false),
-                    PostCount = table.Column<int>(type: "int", nullable: false),
-                    ParentKey = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Categories_Categories_ParentKey",
-                        column: x => x.ParentKey,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CourseCategories",
                 columns: table => new
                 {
@@ -119,7 +95,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     Level = table.Column<byte>(type: "tinyint", nullable: false),
                     CourseCount = table.Column<int>(type: "int", nullable: false),
                     ParentKey = table.Column<int>(type: "int", nullable: true),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,38 +131,100 @@ namespace CodingBible.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuItems",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Level = table.Column<byte>(type: "tinyint", nullable: false),
-                    OrderWithinParent = table.Column<int>(type: "int", nullable: false),
-                    ParentKey = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuItems", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MenuItems_MenuItems_ParentKey",
-                        column: x => x.ParentKey,
-                        principalTable: "MenuItems",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MenuLocations",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_MenuLocations", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_CourseCategories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_CourseCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_Courses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_Courses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_Lessons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_Lessons", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_Posts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_Posts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SlugMap_Sections",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnSlug = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArSlug = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SlugMap_Sections", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -345,10 +384,11 @@ namespace CodingBible.Migrations.ApplicationDb
                     CourseFeatures = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DifficultyLevel = table.Column<byte>(type: "tinyint", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(4243)),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(5258)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(206)),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(590)),
                     IntroductoryVideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AuthorId = table.Column<int>(type: "int", nullable: true)
+                    AuthorId = table.Column<int>(type: "int", nullable: true),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -357,6 +397,57 @@ namespace CodingBible.Migrations.ApplicationDb
                         name: "FK_Courses_AspNetUsers_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Menus",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MenuLocationsId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Menus", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Menus_MenuLocations_MenuLocationsId",
+                        column: x => x.MenuLocationsId,
+                        principalTable: "MenuLocations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
+                    Level = table.Column<byte>(type: "tinyint", nullable: false),
+                    PostCount = table.Column<int>(type: "int", nullable: false),
+                    ParentKey = table.Column<int>(type: "int", nullable: true),
+                    SlugMapId = table.Column<int>(type: "int", nullable: true),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Categories_Categories_ParentKey",
+                        column: x => x.ParentKey,
+                        principalTable: "Categories",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Categories_SlugMap_Categories_SlugMapId",
+                        column: x => x.SlugMapId,
+                        principalTable: "SlugMap_Categories",
                         principalColumn: "Id");
                 });
 
@@ -370,8 +461,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     Slug = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(2797)),
-                    LasModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 5, 28, 17, 5, 15, 775, DateTimeKind.Local).AddTicks(3233)),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(8616)),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(9126)),
                     PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Excerpt = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -379,8 +470,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     CommentStatus = table.Column<bool>(type: "bit", nullable: false),
                     CommentCount = table.Column<int>(type: "int", nullable: false),
                     FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EditFrequency = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "monthly"),
-                    Priority = table.Column<float>(type: "real", nullable: false, defaultValue: 0.5f)
+                    SlugMapId = table.Column<int>(type: "int", nullable: true),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -390,24 +481,10 @@ namespace CodingBible.Migrations.ApplicationDb
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Menus",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MenuLocationsId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menus", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Menus_MenuLocations_MenuLocationsId",
-                        column: x => x.MenuLocationsId,
-                        principalTable: "MenuLocations",
+                        name: "FK_Posts_SlugMap_Posts_SlugMapId",
+                        column: x => x.SlugMapId,
+                        principalTable: "SlugMap_Posts",
                         principalColumn: "Id");
                 });
 
@@ -443,6 +520,7 @@ namespace CodingBible.Migrations.ApplicationDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    NameSlugFragment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CourseId = table.Column<int>(type: "int", nullable: false),
@@ -454,7 +532,8 @@ namespace CodingBible.Migrations.ApplicationDb
                     IntroductoryVideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)0),
                     ParentKey = table.Column<int>(type: "int", nullable: true),
-                    ParentId = table.Column<int>(type: "int", nullable: true)
+                    ParentId = table.Column<int>(type: "int", nullable: true),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -493,6 +572,38 @@ namespace CodingBible.Migrations.ApplicationDb
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MenuItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EnName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EnUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Level = table.Column<byte>(type: "tinyint", nullable: false),
+                    OrderWithinParent = table.Column<int>(type: "int", nullable: false),
+                    OrderWithMenu = table.Column<int>(type: "int", nullable: false),
+                    ParentKey = table.Column<int>(type: "int", nullable: true),
+                    MenuId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MenuItems_MenuItems_ParentKey",
+                        column: x => x.ParentKey,
+                        principalTable: "MenuItems",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MenuItems_Menus_MenuId",
+                        column: x => x.MenuId,
+                        principalTable: "Menus",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -544,30 +655,6 @@ namespace CodingBible.Migrations.ApplicationDb
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuMenuItems",
-                columns: table => new
-                {
-                    MenuItemId = table.Column<int>(type: "int", nullable: false),
-                    MenuId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuMenuItems", x => new { x.MenuId, x.MenuItemId });
-                    table.ForeignKey(
-                        name: "FK_MenuMenuItems_MenuItems_MenuItemId",
-                        column: x => x.MenuItemId,
-                        principalTable: "MenuItems",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MenuMenuItems_Menus_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menus",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Lessons",
                 columns: table => new
                 {
@@ -575,14 +662,20 @@ namespace CodingBible.Migrations.ApplicationDb
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    NameSlugFragment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Slug = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false),
                     VedioUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OrderWithinSection = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)0),
                     HtmlContent = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    FeatureImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PublishedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SectionId = table.Column<int>(type: "int", nullable: false),
-                    CourseId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    IsArabic = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -591,6 +684,30 @@ namespace CodingBible.Migrations.ApplicationDb
                         name: "FK_Lessons_Sections_SectionId",
                         column: x => x.SectionId,
                         principalTable: "Sections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LessonAttachments",
+                columns: table => new
+                {
+                    LessonId = table.Column<int>(type: "int", nullable: false),
+                    AttachmentId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LessonAttachments", x => new { x.LessonId, x.AttachmentId });
+                    table.ForeignKey(
+                        name: "FK_LessonAttachments_Attachments_AttachmentId",
+                        column: x => x.AttachmentId,
+                        principalTable: "Attachments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_LessonAttachments_Lessons_LessonId",
+                        column: x => x.LessonId,
+                        principalTable: "Lessons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -646,6 +763,11 @@ namespace CodingBible.Migrations.ApplicationDb
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Categories_SlugMapId",
+                table: "Categories",
+                column: "SlugMapId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CourseCategories_Name",
                 table: "CourseCategories",
                 column: "Name",
@@ -687,9 +809,19 @@ namespace CodingBible.Migrations.ApplicationDb
                 column: "CourseCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_LessonAttachments_AttachmentId",
+                table: "LessonAttachments",
+                column: "AttachmentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Lessons_SectionId",
                 table: "Lessons",
                 column: "SectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItems_MenuId",
+                table: "MenuItems",
+                column: "MenuId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MenuItems_ParentKey",
@@ -697,14 +829,23 @@ namespace CodingBible.Migrations.ApplicationDb
                 column: "ParentKey");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuMenuItems_MenuItemId",
-                table: "MenuMenuItems",
-                column: "MenuItemId");
+                name: "IX_MenuLocations_Name",
+                table: "MenuLocations",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Menus_MenuLocationsId",
                 table: "Menus",
                 column: "MenuLocationsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Menus_Name",
+                table: "Menus",
+                column: "Name",
+                unique: true,
+                filter: "[Name] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostAttachments_AttachmentId",
@@ -721,6 +862,11 @@ namespace CodingBible.Migrations.ApplicationDb
                 table: "Posts",
                 column: "Slug",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_SlugMapId",
+                table: "Posts",
+                column: "SlugMapId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PostsCategories_CategoryId",
@@ -769,13 +915,13 @@ namespace CodingBible.Migrations.ApplicationDb
                 name: "CoursesPerCategories");
 
             migrationBuilder.DropTable(
-                name: "Lessons");
+                name: "LessonAttachments");
 
             migrationBuilder.DropTable(
                 name: "MailProviders");
 
             migrationBuilder.DropTable(
-                name: "MenuMenuItems");
+                name: "MenuItems");
 
             migrationBuilder.DropTable(
                 name: "PostAttachments");
@@ -787,16 +933,25 @@ namespace CodingBible.Migrations.ApplicationDb
                 name: "RolePermission");
 
             migrationBuilder.DropTable(
+                name: "SlugMap_CourseCategories");
+
+            migrationBuilder.DropTable(
+                name: "SlugMap_Courses");
+
+            migrationBuilder.DropTable(
+                name: "SlugMap_Lessons");
+
+            migrationBuilder.DropTable(
+                name: "SlugMap_Sections");
+
+            migrationBuilder.DropTable(
                 name: "StudentsPerCourses");
 
             migrationBuilder.DropTable(
                 name: "CourseCategories");
 
             migrationBuilder.DropTable(
-                name: "Sections");
-
-            migrationBuilder.DropTable(
-                name: "MenuItems");
+                name: "Lessons");
 
             migrationBuilder.DropTable(
                 name: "Menus");
@@ -814,10 +969,19 @@ namespace CodingBible.Migrations.ApplicationDb
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Courses");
+                name: "Sections");
 
             migrationBuilder.DropTable(
                 name: "MenuLocations");
+
+            migrationBuilder.DropTable(
+                name: "SlugMap_Categories");
+
+            migrationBuilder.DropTable(
+                name: "SlugMap_Posts");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

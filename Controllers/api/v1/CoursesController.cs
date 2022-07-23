@@ -1174,7 +1174,7 @@ public class CoursesController : ControllerBase
                     FeatureImageUrl = lesson.FeatureImageUrl,
                     SectionId = lesson.SectionId,
                     DateCreated = DateTime.Now,
-                    LasModified = DateTime.Now,
+                    LastModified = DateTime.Now,
                     IsArabic = lesson.IsArabic,
                     CourseId = lesson.CourseId,
                     OtherSlug = lesson.OtherSlug,
@@ -1254,7 +1254,7 @@ public class CoursesController : ControllerBase
                 getLesson.HtmlContent = lesson.HtmlContent;
                 getLesson.FeatureImageUrl = lesson.FeatureImageUrl;
                 getLesson.SectionId = lesson.SectionId;
-                getLesson.LasModified = DateTime.Now;
+                getLesson.LastModified = DateTime.Now;
                 getLesson.TempAttach = lesson.TempAttach;
                 getLesson.CourseId = lesson.CourseId;
                 getLesson.IsArabic = lesson.IsArabic;
@@ -1264,7 +1264,7 @@ public class CoursesController : ControllerBase
                 {
                     getLesson.PublishedDate = DateTime.Now;
                 }
-                getLesson.LasModified = DateTime.Now;
+                getLesson.LastModified = DateTime.Now;
                 getLesson.Attachments = lesson.Attachments;
                 UnitOfWork.Lessons.Update(getLesson);
                 if (getLesson.Attachments != null)

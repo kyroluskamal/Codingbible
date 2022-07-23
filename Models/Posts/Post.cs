@@ -18,7 +18,7 @@ namespace CodingBible.Models.Posts
         public int? AuthorId { get; set; }
         public virtual ApplicationUser Author { get; set; }
         public DateTime DateCreated { get; set; }
-        public DateTime LasModified { get; set; }
+        public DateTime LastModified { get; set; }
         public DateTime PublishedDate { get; set; }
         [Column(TypeName = "tinyint")]
         public int Status { get; set; }

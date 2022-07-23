@@ -529,7 +529,7 @@ namespace CodingBible.Services.FunctionalService
         //        {
         //            list.Add(new SitemapNode
         //            {
-        //                LastModified = post.LasModified,
+        //                LastModified = post.LastModified,
         //                Priority = post.Priority,
         //                Url = $"{HostNme}/{post.Slug}",
         //                Frequency = GetFrequencyValue(post.EditFrequency)
@@ -555,7 +555,7 @@ namespace CodingBible.Services.FunctionalService
         //        var Nodes = sitemap.LoadFromFile(Env.WebRootPath + "/sitemap.xml");
         //        Nodes.Add(new SitemapNode()
         //        {
-        //            LastModified = post.LasModified,
+        //            LastModified = post.LastModified,
         //            Priority = post.Priority,
         //            Url = $"{HostNme}/{post.Slug}",
         //            Frequency = GetFrequencyValue(post.EditFrequency)

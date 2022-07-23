@@ -52,5 +52,4 @@ public class Course
     public List<Section> Sections { get; set; }
     [NotMapped]
     public List<Lesson> Lessons { get; set; }
-
 }

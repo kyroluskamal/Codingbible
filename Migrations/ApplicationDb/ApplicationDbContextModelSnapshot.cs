@@ -171,7 +171,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 21, 3, 47, 16, 116, DateTimeKind.Local).AddTicks(1656));
+                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(206));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -197,7 +197,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 21, 3, 47, 16, 116, DateTimeKind.Local).AddTicks(2038));
+                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(590));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -347,7 +347,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<bool>("IsArabic")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LasModified")
+                    b.Property<DateTime>("LastModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
@@ -809,7 +809,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 21, 3, 47, 16, 115, DateTimeKind.Local).AddTicks(9887));
+                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(8616));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -830,10 +830,10 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<bool>("IsArabic")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("LasModified")
+                    b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 21, 3, 47, 16, 116, DateTimeKind.Local).AddTicks(468));
+                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(9126));
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");

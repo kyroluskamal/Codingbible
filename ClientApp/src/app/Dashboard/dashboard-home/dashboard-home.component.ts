@@ -12,6 +12,7 @@ import { CookieNames, css, NotificationMessage, sweetAlert } from 'src/Helpers/c
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { ExpansionPanel } from 'src/Interfaces/interfaces';
 import { ApplicationUser } from 'src/models.model';
+import { SitemapService } from 'src/Services/sitemap.service';
 import { Logout } from 'src/State/AuthState/auth.actions';
 import { selectIsLoggedIn, selectUser, selectUserRoles } from 'src/State/AuthState/auth.reducer';
 import { PinnedMenu } from 'src/State/DesignState/design.actions';
@@ -54,6 +55,7 @@ export class DashboardHomeComponent implements OnInit
   //Constructor............................................................................
   constructor(private location: Location, private title: Title,
     @Inject(DOCUMENT) private document: Document,
+    private sitemapService: SitemapService,
     private Notifications: NotificationsService, private mediaObserver: MediaObserver,
     private router: Router, private store: Store, private CookieService: CookieService)
   {
@@ -270,5 +272,11 @@ export class DashboardHomeComponent implements OnInit
       if (stickyNoteLesson)
         stickyNoteLesson.remove();
     }
+  }
+  UpdateSitemap()
+  {
+    this.sitemapService.CreateSitemap().subscribe(
+      (r) => { console.log(r); }
+    );
   }
 }

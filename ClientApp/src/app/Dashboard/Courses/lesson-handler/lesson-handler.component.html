@@ -417,7 +417,7 @@
                         <span>{{Today|date}}</span>
                     </span>
                     <span *ngIf="(LessonById|async) &&ActionType!=PostType.Add"><strong>Last modified: </strong>
-                        <span>{{(LessonById|async)?.lasModified|date}}</span>
+                        <span>{{(LessonById|async)?.lastModified|date}}</span>
                     </span>
                     <span *ngIf="(LessonById|async) &&ActionType!=PostType.Add"><strong>Published At: </strong>
                         <span>{{(LessonById|async)?.publishedDate|date}}</span>

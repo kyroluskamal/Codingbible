@@ -10,8 +10,6 @@ using CodingBible.UnitOfWork;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
-using CodingBible.Models.SlugMap;
-using System.Diagnostics;
 
 namespace CodingBible.Controllers.api.v1
 {
@@ -25,17 +23,15 @@ namespace CodingBible.Controllers.api.v1
         private ICookieServ CookierService { get; }
         private ApplicationUserManager UserManager { get; }
         private readonly IFunctionalService FunctionalService;
-        private readonly ISitemapService SitemapService;
         public PostsController(IUnitOfWork_ApplicationUser unitOfWork,
         IMapper mapper, ICookieServ cookierService, ApplicationUserManager userManager,
-        IFunctionalService functionalService, ISitemapService sitemapService)
+        IFunctionalService functionalService)
         {
             UnitOfWork = unitOfWork;
             Mapper = mapper;
             CookierService = cookierService;
             UserManager = userManager;
             FunctionalService = functionalService;
-            SitemapService = sitemapService;
         }
 
         /******************************************************************************
@@ -118,7 +114,7 @@ namespace CodingBible.Controllers.api.v1
                 var newPost = new Post();
                 newPost = Mapper.Map(Post, newPost);
                 newPost.DateCreated = DateTime.Now;
-                newPost.LasModified = DateTime.Now;
+                newPost.LastModified = DateTime.Now;
                 if (newPost.Status == (int)Constants.PostStatus.Published)
                 {
                     newPost.PublishedDate = DateTime.Now;
@@ -163,8 +159,6 @@ namespace CodingBible.Controllers.api.v1
                     var postToResturn = await UnitOfWork.Posts
                     .GetFirstOrDefaultAsync(x => x.Slug == Post.Slug, includeProperties: "Author,PostsCategories,Attachments");
                     postToResturn.Categories = Post.Categories;
-                    if (newPost.Status == (int)Constants.PostStatus.Published)
-                        await SitemapService.AddPostToSitemap(newPost, $"{Request.Scheme}://{Request.Host}");
                     await FunctionalService.UpdateOtherSlug(postToResturn);
                     return Ok(postToResturn);
                 }
@@ -193,7 +187,7 @@ namespace CodingBible.Controllers.api.v1
                 var oldSlug = getPost.Slug;
                 getPost.CommentStatus = Post.CommentStatus;
                 getPost.HtmlContent = Post.HtmlContent;
-                getPost.LasModified = DateTime.Now;
+                getPost.LastModified = DateTime.Now;
                 getPost.Description = Post.Description;
                 getPost.Excerpt = Post.Excerpt;
                 getPost.FeatureImageUrl = Post.FeatureImageUrl;
@@ -248,7 +242,6 @@ namespace CodingBible.Controllers.api.v1
                         await UnitOfWork.PostAttachments.AddRangeAsync(postAttachments.ToArray());
                     }
                     await FunctionalService.UpdateOtherSlug(getPost);
-                    await SitemapService.CreatePostSiteMap($"{Request.Scheme}://{Request.Host}");
                     return Ok(Constants.HttpResponses.Update_Sucess(getPost.Title, getPost));
                 }
                 return BadRequest(Constants.HttpResponses.Update_Failed(getPost.Title));
@@ -273,19 +266,6 @@ namespace CodingBible.Controllers.api.v1
                     getPost.Status = Post.Status;
                     UnitOfWork.Posts.Update(getPost);
                     var result = await UnitOfWork.SaveAsync();
-                    if (Post.Status == (int)Constants.PostStatus.Published)
-                    {
-                        if (!SitemapService.IsPostFoundInSitemap(Post.Slug))
-                        {
-                            await SitemapService.AddPostToSitemap(getPost, $"{Request.Scheme}://{Request.Host}");
-                        }
-                    }
-                    else if (Post.Status == (int)Constants.PostStatus.Draft)
-                    {
-                        if (SitemapService.IsPostFoundInSitemap(Post.Slug))
-                            await SitemapService.DeletePostFromSitemap(Post, $"{Request.Scheme}://{Request.Host}");
-                    }
-
                     if (result > 0)
                     {
                         await FunctionalService.UpdateOtherSlug(getPost);
@@ -347,8 +327,6 @@ namespace CodingBible.Controllers.api.v1
                 }
             }
             var result = await UnitOfWork.SaveAsync();
-            if (SitemapService.IsPostFoundInSitemap(getPost.Slug))
-                await SitemapService.DeletePostFromSitemap(getPost, $"{Request.Scheme}://{Request.Host}");
             if (result > 0)
             {
                 return Ok(Constants.HttpResponses.Delete_Sucess($"Post({getPost.Title})"));

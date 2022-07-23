@@ -343,7 +343,7 @@
                         <span>{{(postById|async)?.dateCreated|date}}</span>
                     </span>
                     <span *ngIf="(postById|async) &&Type!=PostType.Add"><strong>Last modified: </strong>
-                        <span>{{(postById|async)?.lasModified|date}}</span>
+                        <span>{{(postById|async)?.lastModified|date}}</span>
                     </span>
                     <span *ngIf="(postById|async) &&Type!=PostType.Add"><strong>Published At: </strong>
                         <span>{{(postById|async)?.publishedDate|date}}</span>
