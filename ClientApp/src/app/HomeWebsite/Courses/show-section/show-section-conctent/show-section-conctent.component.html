@@ -19,8 +19,8 @@
     <ng-template #notLoading>
         <ng-container *ngIf="currentCourse && currentSection else NotFound">
             <header class="coding-bible-card">
-                <page-title [title]="currentSection?.name!"
-                            [description]="currentSection?.description!"></page-title>
+                <page-title [title]="currentSection.name!"
+                            [description]="currentSection.description!"></page-title>
             </header>
             <img src="../../../../assets/img/horizontal.png"
                  class="noShadow"

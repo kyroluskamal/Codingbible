@@ -1,0 +1,10 @@
+<app-home-nav-menu></app-home-nav-menu>
+<basic-skeleton [Body]="Content"></basic-skeleton>
+<ng-template #Content>
+    <div class="coding-bible-card mh-50vh d-flex flex-column gap-5 align-items-center justify-content-center">
+        <h1 class="page-h1 text-primary">{{"Translation not ready"| translate}}</h1>
+        <p class="body-text">{{"We are working to get this translation as soon as possible." | translate}}</p>
+        <button (click)="goBack()"
+                class="btn btn-orange">{{"Back"| translate}}</button>
+    </div>
+</ng-template>

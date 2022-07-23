@@ -8,6 +8,7 @@ import { GetCourseCategoryBy_Slug_Success } from "./CourseCategory.actions";
 
 export const initialState: CourseCategoryState = adapter.CourseCategoryAdapter.getInitialState({
     ValidationErrors: [],
+    error: null,
 });
 // Creating reducer                        
 export const CourseCategoryReducer = createReducer(
@@ -32,7 +33,8 @@ export const CourseCategoryReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(GetCourseCategoryById_Success, (state, CourseCategory) => 
@@ -46,7 +48,8 @@ export const CourseCategoryReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(UpdateCourseCategory_Sucess, (state, res) =>
@@ -103,14 +106,16 @@ export const CourseCategoryReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(UpdateCourseCategory_Failed, (state, res) =>
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     }),
     on(LoadCourseCategorysSuccess, (state, { payload }) =>
@@ -125,7 +130,7 @@ export const CourseCategoryReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
         };
     }),
     on(dummyAction, (state) =>
@@ -140,7 +145,8 @@ export const CourseCategoryReducer = createReducer(
     {
         return {
             ...state,
-            ValidationErrors: res.validationErrors
+            ValidationErrors: res.validationErrors,
+            error: res.error
         };
     })
 );
@@ -186,6 +192,10 @@ export const selectCourseCategorysCount = createSelector(selectCourseCategorySta
 export const select_CourseCategorys_ValidationErrors = createSelector(
     selectCourseCategoryState,
     (state) => state.ValidationErrors!
+);
+export const select_CourseCategory_HttpResponseError = createSelector(
+    selectCourseCategoryState,
+    (state) => state.error
 );
 
 

@@ -53,7 +53,7 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
 
 @NgModule({
   declarations: [
-    AppComponent, NotFoundComponent
+    AppComponent
   ],
   imports: [
     CommonModule,

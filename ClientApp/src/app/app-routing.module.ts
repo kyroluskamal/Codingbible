@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
-import { DashboardRoutes } from 'src/Helpers/router-constants';
+import { DashboardRoutes, NOT_READY } from 'src/Helpers/router-constants';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { HomeComponent } from './HomeWebsite/home/home.component';
 export const routes: Routes = [
   {
     path: "", loadChildren: () => import('./HomeWebsite/home-website.module').then(m => m.HomeWebsiteModule),
@@ -12,7 +10,13 @@ export const routes: Routes = [
   { path: DashboardRoutes.Home, loadChildren: () => import('./Dashboard/dashboard.module').then(m => m.DashboardModule), canActivate: [AuthGuard] },
   { path: "account", loadChildren: () => import('./HomeWebsite/auth-module/auth-module.module').then(m => m.AuthModuleModule) },
   { path: 'ar', loadChildren: () => import('./arabic/arabic.module').then(m => m.ArabicModule) },
-  { path: "**", component: NotFoundComponent }
+  {
+    path: "**", async loadComponent()
+    {
+      const m = await import('./CommonComponents/not-found/not-found.component');
+      return m.NotFoundComponent;
+    },
+  }
 ];
 
 

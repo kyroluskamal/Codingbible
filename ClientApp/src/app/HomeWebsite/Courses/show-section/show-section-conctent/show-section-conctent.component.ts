@@ -3,8 +3,9 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, switchMap, tap } from 'rxjs';
-import { HomeRoutes } from 'src/Helpers/router-constants';
+import { HomeRoutes, NOT_READY } from 'src/Helpers/router-constants';
 import { Course, Section } from 'src/models.model';
+import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
 import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
 import { selectLang } from 'src/State/LangState/lang.reducer';
@@ -31,7 +32,7 @@ export class ShowSectionConctentComponent implements OnInit
   constructor(private store: Store,
     private breadcrumb: BreadcrumbService,
     private activatedRoute: ActivatedRoute,
-    private title: Title,
+    private titleAndMetaService: TitleAndMetaService,
     private router: Router) { }
 
   ngOnInit(): void
@@ -81,32 +82,43 @@ export class ShowSectionConctentComponent implements OnInit
           this.breadcrumb.set('@sectionHome', "Sections");
         if (r.course && r.section)
         {
-          this.title.setTitle(r.section.title + ' | ' + r.course.title);
+          this.titleAndMetaService.setSEO_Requirements(
+            `${r.section.title} | ${r.course.name}`,
+            r.section.description,
+            r.section.featureImageUrl,
+            HomeRoutes.Courses.Home + "/" + r.course.slug + '/section/' + r.section.slug, this.isArabic);
           this.breadcrumb.set("@courseSlug", r.course?.name!);
           this.breadcrumb.set("@sectionSlug", r.section?.name!);
           if (this.isArabic !== r.section?.isArabic && this.isArabic !== r.course?.isArabic)
           {
-            if (this.isArabic)
+            if (r.section.otherSlug)
             {
-              this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
-                HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+              if (this.isArabic)
+              {
+                this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
+                  HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+              }
+              else
+              {
+                this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
+                  HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+              }
             }
             else
             {
-              this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
-                HomeRoutes.Courses.Section, r.section?.otherSlug!]);
+              this.router.navigate(r.section?.isArabic ? [NOT_READY] : [`/ar/${NOT_READY}`]);
             }
           }
           this.loading = false;
         } else if (r.course && !r.section)
         {
-          this.title.setTitle(r.course.title);
+          this.titleAndMetaService.notFoundTitle(this.isArabic);
           this.breadcrumb.set("@courseSlug", r.course?.name!);
           this.loading = false;
         }
         if (r.error)
         {
-          this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+          this.titleAndMetaService.notFoundTitle(this.isArabic);
           this.loading = false;
         }
       }

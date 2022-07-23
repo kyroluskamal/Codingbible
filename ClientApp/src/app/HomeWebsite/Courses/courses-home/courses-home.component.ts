@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { combineLatest, map, Observable, Subscription, switchMap, tap } from 'rxjs';
+import { combineLatest, map, Observable, Subscription, switchMap, } from 'rxjs';
 import { BaseUrl, PostStatus } from 'src/Helpers/constants';
 import { Course } from 'src/models.model';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { LoadCourses } from 'src/State/CourseState/course.actions';
 import { selectAllCourses } from 'src/State/CourseState/course.reducer';
 import { selectLang } from 'src/State/LangState/lang.reducer';
@@ -22,9 +23,8 @@ export class CoursesHomeComponent implements OnInit, OnDestroy
   AllCoursesSubscription: Subscription = new Subscription();
   BaseUrl = BaseUrl;
   loading = true;
-  constructor(private store: Store,
-    private title: Title,
-    private router: Router) { }
+  constructor(private store: Store, private translate: TranslatePipe,
+    private titleAndMetaService: TitleAndMetaService) { }
   ngOnDestroy(): void
   {
     this.AllCoursesSubscription.unsubscribe();
@@ -39,7 +39,13 @@ export class CoursesHomeComponent implements OnInit, OnDestroy
     );
     this.AllCoursesSubscription = this.AllCourses$.subscribe(r =>
     {
-      this.title.setTitle(this.isArabic ? 'الدورات' : 'Courses');
+      this.titleAndMetaService.setSEO_Requirements(
+        this.isArabic ? 'الدورات التعليمية' : 'Courses',
+        this.translate.transform("AllCoursesPageDescription"),
+        '',
+        "courses",
+        this.isArabic
+      );
       this.loading = false;
     });
   }

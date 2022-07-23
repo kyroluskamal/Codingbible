@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, Subscription, switchMap, take, tap } from 'rxjs';
+import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';
 import { selectAllCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.reducer';
 import { selectLang } from 'src/State/LangState/lang.reducer';
@@ -39,7 +41,10 @@ export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
       take(2)
     )),
   );
-  constructor(private store: Store, private title: Title, private BreadCrumb: BreadcrumbService) { }
+  constructor(private store: Store,
+    private titleAndMeta: TitleAndMetaService,
+    private translate: TranslatePipe,
+    private BreadCrumb: BreadcrumbService) { }
   ngOnDestroy(): void
   {
     this.AllCategoriesSubscription.unsubscribe();
@@ -49,13 +54,13 @@ export class CourseCategoriesHomeComponent implements OnInit, OnDestroy
   {
     this.AllCategoriesSubscription = this.AllCategories$.subscribe(res =>
     {
-      if (res.isArabic)
-      {
-        this.title.setTitle('الاقسام');
-      } else
-      {
-        this.title.setTitle('Categories');
-      }
+      this.titleAndMeta.setSEO_Requirements(
+        res.isArabic ? 'تصنيفات الكورسات' : 'ِCourses Categories',
+        this.translate.transform("AllCategoriesDesc"),
+        '',
+        "/courses/categories",
+        res.isArabic
+      );
       this.Loading = false;
       if (res.isArabic)
       {

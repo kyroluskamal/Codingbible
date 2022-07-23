@@ -65,6 +65,7 @@ export interface CourseState extends EntityState<Course>, ValidationErrors
 }
 export interface CourseCategoryState extends EntityState<CourseCategory>, ValidationErrors
 {
+    error: HttpErrorResponse | null;
 }
 export interface CourseSectionsState extends EntityState<Section>, ValidationErrors
 {

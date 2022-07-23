@@ -5,9 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, map, of, Subscription, switchMap, tap } from 'rxjs';
 import { PostStatus } from 'src/Helpers/constants';
-import { HomeRoutes } from 'src/Helpers/router-constants';
+import { HomeRoutes, NOT_READY } from 'src/Helpers/router-constants';
 import { Course, Lesson, Section } from 'src/models.model';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
 import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
@@ -41,7 +42,7 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
     private breadcrumb: BreadcrumbService,
     private router: Router,
     private tree: TreeDataStructureService<Section>,
-    private title: Title,
+    private titleAndMeta: TitleAndMetaService,
     @Inject(DOCUMENT) private document: Document,
     private activatedRoute: ActivatedRoute) { }
   ngAfterViewChecked(): void
@@ -167,7 +168,10 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
           this.breadcrumb.set("@lessonHome", 'Lessons');
         if (r.lesson && r.course)
         {
-          this.title.setTitle(`${r.lesson.title}`);
+          this.titleAndMeta.setSEO_Requirements(
+            `${r.lesson.title} | ${r.course.name}`,
+            r.lesson.description,
+            r.lesson.featureImageUrl, HomeRoutes.Courses.Home + "/" + r.course.slug + '/lesson/' + r.lesson.slug, this.isArabic);
           this.tree.setData(r.course.sections);
 
           this.breadcrumb.set("@courseSlug", r.course?.name!);
@@ -175,15 +179,21 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
 
           if (this.isArabic !== r.lesson?.isArabic && this.isArabic !== r.course?.isArabic)
           {
-            if (this.isArabic)
+            if (r.lesson.otherSlug)
             {
-              this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
-                HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
-            }
-            else
+              if (this.isArabic)
+              {
+                this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r.course?.otherSlug!,
+                  HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
+              }
+              else
+              {
+                this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
+                  HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
+              }
+            } else
             {
-              this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!,
-                HomeRoutes.Courses.Lesson, r.lesson?.otherSlug!]);
+              this.router.navigate(r.lesson?.isArabic ? [NOT_READY] : [`/ar/${NOT_READY}`]);
             }
           }
           this.loading = false;
@@ -203,11 +213,11 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
         {
           this.breadcrumb.set("@courseSlug", r.course?.name!);
           this.loading = false;
-          this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+          this.titleAndMeta.notFoundTitle(this.isArabic);
         }
         if (r.error)
         {
-          this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+          this.titleAndMeta.notFoundTitle(this.isArabic);
           this.loading = false;
         }
       });

@@ -17,6 +17,7 @@ import { CourseCardPalceholderComponent } from 'src/SharedModules/course-card-pa
   imports: [
     CommonModule, SharedModuleForHomeModule, CourseCardPalceholderComponent,
     CoursesHomeRoutingModule, TranslatePipe, PageTitleComponent, CourseCardComponent
-  ]
+  ],
+  providers: [TranslatePipe]
 })
 export class CoursesHomeModule { }

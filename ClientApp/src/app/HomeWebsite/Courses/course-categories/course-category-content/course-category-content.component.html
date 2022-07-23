@@ -1,14 +1,32 @@
 <app-home-nav-menu [LocationName]="'courses'"></app-home-nav-menu>
 <basic-skeleton [Body]="Category"></basic-skeleton>
 <ng-template #Category>
-    <header class="coding-bible-card">
-        <page-title *ngIf="currentCourseCategory else placeHolder"
-                    [title]="currentCourseCategory?.name!"
-                    [description]="currentCourseCategory?.description!"></page-title>
-        <ng-template #placeHolder>
+    <ng-container *ngIf="loading else notLoading">
+        <header class="coding-bible-card">
             <page-title-placeholder></page-title-placeholder>
+        </header>
+        <course-card-palceholder></course-card-palceholder>
+        <course-card-palceholder></course-card-palceholder>
+    </ng-container>
+
+    <ng-template #notLoading>
+        <ng-container *ngIf="currentCourseCategory else NotFound">
+            <header class="coding-bible-card">
+                <page-title *ngIf="currentCourseCategory else placeHolder"
+                            [title]="currentCourseCategory.name!"
+                            [description]="currentCourseCategory.description!"></page-title>
+                <ng-template #placeHolder>
+                    <page-title-placeholder></page-title-placeholder>
+                </ng-template>
+            </header>
+            <course-card *ngFor="let c of CoursesInCategory"
+                         [Course]="c"></course-card>
+        </ng-container>
+        <ng-template #NotFound>
+            <not-found [title]="'Course not found'| translate"
+                       [body]="'The caategory you are looking for does not exist'| translate"
+                       [routerlink]="isArabic?['','ar',HomeRoutes.Courses.Home, HomeRoutes.Courses.Categories]:['',HomeRoutes.Courses.Home, HomeRoutes.Courses.Categories]"
+                       [buttonText]="'Back to categories'| translate"></not-found>
         </ng-template>
-    </header>
-    <course-card *ngFor="let c of (CourseCategoryBySlug|async)?.courses"
-                 [Course]="c"></course-card>
+    </ng-template>
 </ng-template>

@@ -21,7 +21,7 @@ export const AuthRoutes = {
     ResetPassword: "reset-password",
     emailConfirmation: "emailconfirmation",
 };
-
+export const NOT_READY = "not-ready";
 export const DashboardRoutes = {
     Home: "dashboard",
     Posts: {

@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable, Subscription, switchMap, tap, combineLatest, catchError, withLatestFrom } from 'rxjs';
 import { PostStatus } from 'src/Helpers/constants';
-import { HomeRoutes } from 'src/Helpers/router-constants';
+import { HomeRoutes, NOT_READY } from 'src/Helpers/router-constants';
 import { Course, Section } from 'src/models.model';
+import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { GetCourseBy_Slug } from 'src/State/CourseState/course.actions';
 import { selectCourseBySlug, select_Course_HttpResponseError } from 'src/State/CourseState/course.reducer';
@@ -38,7 +39,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
   @ViewChild("playlistContainer") playlistContainer: ElementRef<HTMLDivElement> = {} as ElementRef<HTMLDivElement>;
   constructor(private store: Store,
     private router: Router,
-    private title: Title,
+    private titleAndMeta: TitleAndMetaService,
     private breadcrumb: BreadcrumbService,
     private tree: TreeDataStructureService<Section>,
     private activatedRoute: ActivatedRoute) { }
@@ -86,17 +87,24 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
       this.CurrentCourse = r.course;
       if (r.course)
       {
-        this.title.setTitle(r.course.title);
+        this.titleAndMeta.setSEO_Requirements(r.course.title,
+          r.course.description, r.course.featureImageUrl, HomeRoutes.Courses.Home + "/" + r.course.slug, this.isArabic);
         this.breadcrumb.set("@courseSlug", this.CurrentCourse?.name!);
         if (this.isArabic !== r.course?.isArabic)
         {
-          if (this.isArabic)
+          if (r.course.isArabic)
           {
-            this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
-          }
-          else
+            if (this.isArabic)
+            {
+              this.router.navigate(['', 'ar', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
+            }
+            else
+            {
+              this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
+            }
+          } else
           {
-            this.router.navigate(['', HomeRoutes.Courses.Home, r?.course?.otherSlug!]);
+            this.router.navigate([NOT_READY]);
           }
         }
         this.tree.setData(r.sections);
@@ -105,7 +113,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         this.loading = false;
       } else if (r.error)
       {
-        this.title.setTitle(this.isArabic ? 'Not Found' : 'خطأ 404');
+        this.titleAndMeta.notFoundTitle(this.isArabic);
 
         this.loading = false;
       }

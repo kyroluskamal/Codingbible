@@ -11,6 +11,8 @@ import { CourseCategoriesCardComponent } from 'src/SharedModules/course-categori
 import { CourseCardComponent } from 'src/SharedModules/course-card/course-card.component';
 import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-place-holder/page-title-place-holder.component';
 import { CategoryCardPalceholderComponent } from 'src/SharedModules/category-card-palceholder/category-card-palceholder.component';
+import { CourseCardPalceholderComponent } from 'src/SharedModules/course-card-palceholder/course-card-palceholder.component';
+import { NotFoundBoxComponent } from 'src/SharedModules/not-found-box/not-found-box.component';
 
 
 @NgModule({
@@ -21,7 +23,7 @@ import { CategoryCardPalceholderComponent } from 'src/SharedModules/category-car
   imports: [
     CommonModule, SharedModuleForHomeModule, TranslatePipe, PageTitleComponent, PageTitlePlaceHolderComponent,
     CourseCategoriesRoutingModule, CourseCategoriesCardComponent, CourseCardComponent,
-    CategoryCardPalceholderComponent
+    CategoryCardPalceholderComponent, CourseCardPalceholderComponent, NotFoundBoxComponent
   ]
 })
 export class CourseCategoriesModule { }

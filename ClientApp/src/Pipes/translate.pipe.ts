@@ -109,6 +109,11 @@ export class TranslatePipe implements PipeTransform
       case 'Course is found': return 'تم العثور على الدورة';
       case 'Searcing for course': return 'بحث عن الدورة';
       case "Table of Contents": return "المحتوى";
+      case 'The caategory you are looking for does not exist': return 'التصنيف الذي تبحث عنها غير موجود';
+      case 'Back to categories': return 'العودة للتصنيفات';
+      case "Back": return "رجوع";
+      case "We are working to get this translation as soon as possible.": return "يعمل على ترجمة هذه الصفحة في أقرب وقت ممكن.";
+      case "Translation not ready": return "الترجمة غير متاحة";
       default: return value;
     }
   }

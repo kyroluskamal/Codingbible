@@ -29,7 +29,7 @@
                  alt="">
             <introductoy-video *ngIf="CurrentCourse.introductoryVideoUrl && CurrentCourse.introductoryVideoUrl?.split('watch?v=')![1]"
                                title="{{'Introduction to the course'| translate}}"
-                               [videoId]="CurrentCourse.introductoryVideoUrl?.split('watch?v=')![1]">
+                               [videoId]="CurrentCourse.introductoryVideoUrl.split('watch?v=')![1]">
             </introductoy-video>
             <description *ngIf="CurrentCourse.description"
                          title="{{'Course description'| translate}}"

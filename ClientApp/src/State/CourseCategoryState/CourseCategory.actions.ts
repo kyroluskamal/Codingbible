@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from "@angular/common/http";
 import { Update } from "@ngrx/entity";
 import { createAction, props } from "@ngrx/store";
 import { actionNames } from "src/Helpers/constants";
@@ -10,35 +11,35 @@ export const AddCourseCategory = createAction(actionNames.CourseCategoryActions.
 export const AddCourseCategory_Success = createAction(actionNames.CourseCategoryActions.ADD_COURSECATEGORY_Success,
     props<CourseCategory>());
 export const AddCourseCategory_Failed = createAction(actionNames.CourseCategoryActions.ADD_COURSECATEGORY_Failed,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
 export const GetCourseCategoryById = createAction(actionNames.CourseCategoryActions.GetCourseCategoryById,
     props<{ id: number; }>());
 export const GetCourseCategoryById_Success = createAction(actionNames.CourseCategoryActions.GetCourseCategoryById_Success,
     props<CourseCategory>());
 export const GetCourseCategoryById_Failed = createAction(actionNames.CourseCategoryActions.GetCourseCategoryById_Failed,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
 export const GetCourseCategoryBy_Slug = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug,
     props<{ slug: string; }>());
 export const GetCourseCategoryBy_Slug_Success = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug_Success,
     props<CourseCategory>());
 export const GetCourseCategoryBy_Slug_Failed = createAction(actionNames.CourseCategoryActions.GetCourseCategoryBy_Slug_Failed,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
 export const UpdateCourseCategory = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY,
     props<CourseCategory>());
 export const UpdateCourseCategory_Sucess = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY_Success,
     props<{ CourseCategory: CourseCategory; }>());
 export const UpdateCourseCategory_Failed = createAction(actionNames.CourseCategoryActions.UPDATE_COURSECATEGORY_Failed,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
 export const RemoveCourseCategory = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY,
     props<{ id: number; url: string; otherSlug: string; }>());
 export const RemoveCourseCategory_Success = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY_Success,
     props<{ id: number; otherSlug: string; }>());
 export const RemoveCourseCategory_Failed = createAction(actionNames.CourseCategoryActions.REMOVE_COURSECATEGORY_Failed,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
 export const LoadCourseCategorys = createAction(actionNames.CourseCategoryActions.LOAD_ALL_COURSECATEGORIES);
 export const LoadCourseCategorysSuccess = createAction(actionNames.CourseCategoryActions.LOAD_ALL_COURSECATEGORIES_SUCCESS,
     props<{ payload: CourseCategory[]; }>());
 export const SetValidationErrors = createAction(actionNames.CourseCategoryActions.Set_ValidationErrors,
     props<{ validationErrors: ModelStateErrors[]; }>());
 export const LoadCourseCategorysFail = createAction(actionNames.CourseCategoryActions.LOAD_ALL_COURSECATEGORIES_FAILED,
-    props<{ error: any; validationErrors: ModelStateErrors[]; }>());
+    props<{ error: HttpErrorResponse; validationErrors: ModelStateErrors[]; }>());
