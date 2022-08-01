@@ -1,15 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Update } from '@ngrx/entity';
 import { Store } from '@ngrx/store';
 import { BootstrapMoalComponent } from 'src/app/CommonComponents/bootstrap-modal/bootstrap-modal.component';
 import { ClientSideValidationService } from 'src/CommonServices/client-side-validation.service';
-import { SpinnerService } from 'src/CommonServices/spinner.service';
 import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-matcher';
 import { BaseUrl, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, validators } from 'src/Helpers/constants';
 import { Attachments } from 'src/models.model';
-import { MediaService } from 'src/Services/media.service';
 import { Add_ATTACHMENT, Add_ATTACHMENT_Success, LoadATTACHMENTSs, RemoveATTACHMENTS, SelectAttachment, UpdateATTACHMENTS } from 'src/State/Attachments/Attachments.actions';
 import { selectAllAttachment, SelectSelected_Attachment } from 'src/State/Attachments/Attachments.reducer';
 

@@ -151,12 +151,6 @@ export const CourseCategoryReducer = createReducer(
     })
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return CourseCategoryReducer(state, action);
-}
-
-
 export const selectCourseCategoryState = createFeatureSelector<CourseCategoryState>('courseCategory');
 
 export const selectCourseCategoryByID = (id: number) => createSelector(

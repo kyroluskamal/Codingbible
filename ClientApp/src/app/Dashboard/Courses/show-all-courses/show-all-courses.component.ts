@@ -81,7 +81,7 @@ export class ShowAllCoursesComponent implements OnInit
   }
   SetFeatureImage(attachment: Attachments | null)
   {
-    this.CourseToAddOrUpdate.featureImageUrl = attachment?.fileUrl!;
+    this.CourseToAddOrUpdate.featureImageUrl = attachment?.fileUrl_xl!;
   }
   removeFeatureImage()
   {

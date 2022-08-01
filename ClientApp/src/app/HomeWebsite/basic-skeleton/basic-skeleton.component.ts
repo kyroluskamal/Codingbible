@@ -7,7 +7,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 @Component({
   selector: 'basic-skeleton',
   templateUrl: './basic-skeleton.component.html',
-  styleUrls: ['./basic-skeleton.component.css']
+  styleUrls: ['./basic-skeleton.component.css'],
 })
 export class BasicSkeletonComponent implements OnInit
 {

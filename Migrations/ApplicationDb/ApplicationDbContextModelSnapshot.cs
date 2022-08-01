@@ -17,7 +17,7 @@ namespace CodingBible.Migrations.ApplicationDb
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -134,7 +134,13 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<string>("FileType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FileUrl")
+                    b.Property<string>("FileUrl_md_lg")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileUrl_sm")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileUrl_xl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Height")
@@ -171,7 +177,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(206));
+                        .HasDefaultValue(new DateTime(2022, 7, 29, 15, 4, 9, 220, DateTimeKind.Local).AddTicks(7529));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -197,7 +203,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 334, DateTimeKind.Local).AddTicks(590));
+                        .HasDefaultValue(new DateTime(2022, 7, 29, 15, 4, 9, 220, DateTimeKind.Local).AddTicks(7914));
 
                     b.Property<int>("Max_NumberOfStudents")
                         .HasColumnType("int");
@@ -809,7 +815,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(8616));
+                        .HasDefaultValue(new DateTime(2022, 7, 29, 15, 4, 9, 220, DateTimeKind.Local).AddTicks(5922));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -833,7 +839,7 @@ namespace CodingBible.Migrations.ApplicationDb
                     b.Property<DateTime>("LastModified")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 7, 23, 17, 21, 31, 333, DateTimeKind.Local).AddTicks(9126));
+                        .HasDefaultValue(new DateTime(2022, 7, 29, 15, 4, 9, 220, DateTimeKind.Local).AddTicks(6427));
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");

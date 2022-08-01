@@ -507,7 +507,7 @@
                         <i class="bi bi-image"></i>
                     </div>
                     <img *ngIf="lesson.featureImageUrl"
-                         [src]="lesson.featureImageUrl"
+                         [src]="lesson.featureImageUrl | UrlForScreen"
                          class="img-thumbnail border border-success"
                          alt="feature image">
                     <div class="validationDiv mb-2"

@@ -24,6 +24,7 @@ using System.Text;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using CodingBible.Services.SitemapService;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace CodingBible
 {
@@ -195,6 +196,12 @@ namespace CodingBible
                 options.Providers.Add<GzipCompressionProvider>();
                 options.Providers.Add<BrotliCompressionProvider>();
             });
+            services.AddImageSharp(
+                    options => options.OnBeforeSaveAsync = f =>
+                    {
+                    f.Image.Metadata.ExifProfile = null;
+                     return Task.CompletedTask;
+                        });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -267,17 +274,17 @@ namespace CodingBible
             // {
             //     spa.Options.SourcePath = "ClientApp";
 
-            //     //spa.UseSpaPrerendering(options =>
-            //     //{
-            //     //   //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
-            //     //   options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
-            //     //   options.ExcludeUrls = new[] { "/sockjs-node" };
-            //     //});
+            //      //spa.UseSpaPrerendering(options =>
+            //      //{
+            //      //   //options.BootModuleBuilder = env.IsDevelopment() ? new AngularCliBuilder(npmScript: "build:ssr") : null;
+            //      //   options.BootModulePath = $"{spa.Options.SourcePath}/dist/ClientApp/server/main.js";
+            //      //   options.ExcludeUrls = new[] { "/sockjs-node" };
+            //      //});
 
             //     if (env.IsDevelopment())
             //     {
             //         spa.UseAngularCliServer(npmScript: "start");
-            //         // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
+            //          // spa.UseProxyToSpaDevelopmentServer("http://localhost:4000");
             //     }
             // });
         }

@@ -14,6 +14,7 @@ export class MediaService
 
   SendImages(files: File[]): Observable<Attachments[]>
   {
+    console.log(files);
     const formData = new FormData();
     for (let file of files)
     {

@@ -117,7 +117,7 @@ export class ShowAllSectionsComponent implements OnInit
   }
   SetFeatureImage(attachment: Attachments | null)
   {
-    this.SectionToAddOrUpdate.featureImageUrl = attachment?.fileUrl!;
+    this.SectionToAddOrUpdate.featureImageUrl = attachment?.fileUrl_xl!;
   }
 
   SelectSection(event: Section)

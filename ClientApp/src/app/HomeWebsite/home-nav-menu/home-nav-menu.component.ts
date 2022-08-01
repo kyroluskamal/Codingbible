@@ -1,7 +1,7 @@
 import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Menu, MenuItem } from 'src/models.model';
@@ -13,6 +13,7 @@ import { selectLang } from 'src/State/LangState/lang.reducer';
 import { GetMenuByLocationName } from 'src/State/Menu/menu.actions';
 import { selectMenuByLocationName } from 'src/State/Menu/menu.reducer';
 import { AuthRoutes, DashboardRoutes } from '../../../Helpers/router-constants';
+import { NavChildsComponent } from './nav-childs/nav-childs.component';
 @Component({
   selector: 'app-home-nav-menu',
   templateUrl: './home-nav-menu.component.html',

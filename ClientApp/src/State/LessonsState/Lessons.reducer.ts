@@ -216,12 +216,6 @@ export const LessonsReducer = createReducer(
     }),
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return LessonsReducer(state, action);
-}
-
-
 export const selectLessonsState = createFeatureSelector<LessonsState>('lessons');
 
 export const selectLessonsByID = (id: number) => createSelector(

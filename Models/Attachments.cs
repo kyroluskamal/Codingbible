@@ -7,7 +7,9 @@ public class Attachments
 {
     public int Id { get; set; }
     public string FileName { get; set; }
-    public string FileUrl { get; set; }
+    public string FileUrl_xl { get; set; }
+    public string FileUrl_md_lg { get; set; }
+    public string FileUrl_sm { get; set; }
     public string ThumbnailUrl { get; set; }
     public string FileType { get; set; }
     public string FileExtension { get; set; }

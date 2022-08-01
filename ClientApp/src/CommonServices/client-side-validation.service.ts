@@ -60,22 +60,6 @@ export class ClientSideValidationService
         sweetAlert.ButtonText.OK, translatedMessage);
     return notUnique;
   }
-  isEqual(ObjectToCompare: any, ObjectToCompareWith: any): boolean
-  {
-    let keys = Object.keys(ObjectToCompare);
-    for (let k of keys)
-    {
-      if (k === "subdomain" || k === "Subdomain" || k === 'id' || k === "id") continue;
-      else
-      {
-        if (ObjectToCompare[k] !== ObjectToCompareWith[k])
-        {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
   isUpdated(object: any, formGroup: FormGroup): boolean
   {
     let objectKeys: string[] = Object.keys(object);

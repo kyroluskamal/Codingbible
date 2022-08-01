@@ -3,20 +3,6 @@ import { CookieNames } from "src/Helpers/constants";
 import { AuthState } from "../app.state";
 
 import { ForgetPasswordFailure, ForgetPasswordSuccess, IsInProgress, IsLoggedIn, LoginFailure, LoginSuccess, LogoutCancelled, LogoutConfirmed, RegisterFailure, RegisterSuccess, ResetPasswordFailure, ResetPasswordSuccess, SetValidationErrors } from "./auth.actions";
-
-
-// export function GetCookie(key: string)
-// {
-//     let cookie = document.cookie;
-//     let cookies: string[] = cookie.split(";");
-//     for (let c of cookies)
-//     {
-//         let keyValue: string[] = c.trim().split("=");
-//         if (keyValue[0] === key) return keyValue[1];
-//     }
-//     return "";
-// }
-// console.log("GetCookie(CookieNames.IsLoggedIn): " + GetCookie(CookieNames.loginStatus));
 export const initialState: AuthState = {
     user: null,
     loginError: null,

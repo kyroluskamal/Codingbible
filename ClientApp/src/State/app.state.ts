@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { EntityState } from "@ngrx/entity";
 import { ActionReducerMap } from "@ngrx/store";
 import { ModelStateErrors } from "src/Interfaces/interfaces";
-import { ApplicationUser, Attachments, Category, Course, CourseCategory, CoursesPerCategory, Lesson, Menu, Post, Section, SlugMap_Category, SlugMap_CourseCategory, SlugMap_Courses, SlugMap_Lessons, SlugMap_Posts, SlugMap_Sections } from "src/models.model";
+import { ApplicationUser, Attachments, Category, Course, CourseCategory, Lesson, Menu, Post, Section } from "src/models.model";
 import { AttachmentsReducer } from "./Attachments/Attachments.reducer";
 import { AuthReducer } from "./AuthState/auth.reducer";
 import { CategoryReducer } from "./CategoriesState/Category.reducer";

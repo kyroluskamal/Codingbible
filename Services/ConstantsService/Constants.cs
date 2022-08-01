@@ -26,7 +26,7 @@ namespace CodingBible.Services.ConstantsService
             public const string Participant = "Participant";
             public const string Reader = "Reader";
         }
-        public const string imageExtensions = "jpg, jpeg, png, gif, bmp, webp, tiff";
+        public const string imageExtensions = ".jpg, .jpeg, .png, .gif, .bmp, .webp, .tiff";
         public static class AppSettings
         {
             public const string Site = "localhost:5001";

@@ -139,11 +139,6 @@ export const CategoryReducer = createReducer(
     }),
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return CategoryReducer(state, action);
-}
-
 
 export const selectCategoryState = createFeatureSelector<CategoryState>('category');
 

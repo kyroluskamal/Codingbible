@@ -104,7 +104,7 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
             }
           } else
           {
-            this.router.navigate([NOT_READY]);
+            this.router.navigate(r.course?.isArabic ? [NOT_READY] : [`/ar/${NOT_READY}`]);
           }
         }
         this.tree.setData(r.sections);

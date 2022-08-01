@@ -23,6 +23,7 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 import { SharedModuleForCoursesModule } from 'src/app/Dashboard/Courses/shared-module-for-courses/shared-module-for-courses.module';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AppShellNoRenderDirective } from 'src/Directive/app-shell-no-render.directive';
 const Commponents = [
   LoginComponent, RegisterComponent,
   ResetPasswordComponent, ForgetPasswordComponent, EmailConfirmationComponent,
@@ -31,7 +32,7 @@ const Commponents = [
 
 @NgModule({
   declarations: [Commponents],
-  imports: [
+  imports: [AppShellNoRenderDirective,
     ReactiveFormsModule, MatInputModule, CommonModule, MatDialogModule,
     MatIconModule, MatCardModule, MatFormFieldModule, FormsModule, MatButtonModule,
     AuthModuleRoutingModule, SharedModuleForHomeModule, TooltipModule, MatProgressSpinnerModule

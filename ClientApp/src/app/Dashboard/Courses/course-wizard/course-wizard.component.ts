@@ -187,8 +187,8 @@ export class CourseWizardComponent implements OnInit
   //#region Step1: Course addition deletion functions
   SetFeatureImage(attachment: Attachments | null)
   {
-    this.FeatureImageUrl = attachment?.fileUrl!;
-    this.CourseForm.get(FormControlNames.courseForm.featureImageUrl)?.setValue(attachment?.fileUrl);
+    this.FeatureImageUrl = attachment?.fileUrl_xl!;
+    this.CourseForm.get(FormControlNames.courseForm.featureImageUrl)?.setValue(attachment?.fileUrl_xl);
   }
 
   removeFeatureImage()

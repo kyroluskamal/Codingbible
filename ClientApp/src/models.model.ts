@@ -102,7 +102,9 @@ export class Attachments
 {
     id: number = 0;
     fileName: string = "";
-    fileUrl: string = "";
+    fileUrl_xl: string = "";
+    fileUrl_md_lg: string = "";
+    fileUrl_sm: string = "";
     thumbnailUrl: string = "";
     fileType: string = "";
     fileExtension: string = "";

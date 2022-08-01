@@ -1,3 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
                 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'
-                xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'></urlset>
+                xmlns:image='http://www.google.com/schemas/sitemap-image/1.1'>
+            <url>
+                <loc>https://localhost:5001/courses/cs50-ap-introduction-to-computer-science-the-complete-version</loc>
+                <lastmod>2022-07-23</lastmod>
+        <image:image>
+<image:loc>https://localhost:5001/Uploads/2022/7/1)introduction-to-the-course600_Compressed.jpg</image:loc><image:caption>fffffffffffffffffffffffffffffffffsdfdsfsdfsdffffffff</image:caption><image:title>CS50AP - Harvard - University introduction-to-the-coursefsfsfs</image:title></image:image></url></urlset>

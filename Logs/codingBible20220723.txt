@@ -617,3 +617,575 @@ UserName : "kyrol"
 ProcessId : 12280
 ProcessName : "CodingBible"
 ---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:43:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:50:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "af7abe10-1b7d-483a-b242-3f87d5d7e7cf"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJCO8EDIU7N:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJCO8EDIU7N"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:50:25 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "cb45b214-eaca-4c9d-b54c-1df9ac5af0bb"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJCO8EDIU7N:00000005"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJCO8EDIU7N"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:50:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.AccountController.IsLoggedIn() in C:\1Projects\Codingbible\Controllers\api\v1\AccountController.cs:line 290"
+InnerException : null
+Source : "CodingBible"
+ActionId : "4b60623c-b603-442e-9cb3-22462c992510"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMJCO8EDIU7N:00000001"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMJCO8EDIU7N"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 17:50:25 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.AccountController.IsLoggedIn() in C:\1Projects\Codingbible\Controllers\api\v1\AccountController.cs:line 290"
+InnerException : null
+Source : "CodingBible"
+ActionId : "4b60623c-b603-442e-9cb3-22462c992510"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMJCO8EDIU7N:00000007"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMJCO8EDIU7N"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 18:47:42 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Controllers.api.v1.AccountController.IsLoggedIn() in C:\1Projects\Codingbible\Controllers\api\v1\AccountController.cs:line 290"
+InnerException : null
+Source : "CodingBible"
+ActionId : "4b60623c-b603-442e-9cb3-22462c992510"
+ActionName : "CodingBible.Controllers.api.v1.AccountController.IsLoggedIn (CodingBible)"
+RequestId : "0HMJCO8EDIU7P:00000001"
+RequestPath : "/api/v1/Account/IsLoggedIn"
+ConnectionId : "0HMJCO8EDIU7P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 18:50:50 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "13261394-471e-4993-aec2-547534c368aa"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.AddCourse (CodingBible)"
+RequestId : "0HMJCO8EDIU7P:00000021"
+RequestPath : "/api/v1/Courses/AddCourse"
+ConnectionId : "0HMJCO8EDIU7P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 18:53:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "10f5c748-caea-437a-b469-ac62aa7da34a"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.ChangStatus (CodingBible)"
+RequestId : "0HMJCO8EDIU7P:0000002F"
+RequestPath : "/api/v1/Courses/ChangStatus"
+ConnectionId : "0HMJCO8EDIU7P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 18:53:45 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug, Boolean LastModified) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 325
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 165"
+InnerException : null
+Source : "CodingBible"
+ActionId : "376b9eae-755f-4cbb-ae3f-cb63e6ab6d2f"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCO8EDIU7P:00000045"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCO8EDIU7P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 18:55:53 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug, Boolean LastModified) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 325
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 165"
+InnerException : null
+Source : "CodingBible"
+ActionId : "376b9eae-755f-4cbb-ae3f-cb63e6ab6d2f"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCO8EDIU7P:00000053"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCO8EDIU7P"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 3068
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:07:29 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 14496
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:20:23 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12688
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:22:44 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 7956
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:23:32 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "2f812d9f-d573-48a6-8876-4024d516c4a0"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ089CJ54:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ089CJ54"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 7956
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:23:32 +02:00 | Level - Error |
+----------------------------------------------------------------------
+Error : "Object reference not set to an instance of an object."
+StackTrace : "   at CodingBible.Services.SitemapService.SitemapService.CreateSitemapNode[T,Att](T Obj, Boolean hasFeatureImage, Boolean hasAttachement, String baseUrl, String complementarySlug, Boolean LastModified) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 326
+   at CodingBible.Services.SitemapService.SitemapService.Create_Courses_SiteMap(String baseUrl) in C:\1Projects\Codingbible\Services\SitemapService\SitemapService.cs:line 166"
+InnerException : null
+Source : "CodingBible"
+ActionId : "2f812d9f-d573-48a6-8876-4024d516c4a0"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ089CJ54:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ089CJ54"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 7956
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:25:39 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12404
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:26:18 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "945a5514-fb18-4167-8b17-1fd5cb8c8668"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ1PO5IGF:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ1PO5IGF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12404
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:26:18 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Attachments : 0
+ActionId : "945a5514-fb18-4167-8b17-1fd5cb8c8668"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ1PO5IGF:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ1PO5IGF"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12404
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:28:09 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 2740
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:28:16 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "b27964fd-21e3-4fda-863f-7089bd39c3df"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ2SSOK03:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ2SSOK03"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 2740
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:28:16 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Attachments : 0
+ActionId : "b27964fd-21e3-4fda-863f-7089bd39c3df"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQ2SSOK03:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQ2SSOK03"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 2740
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:30:37 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 8788
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:51:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "dfd279b8-e103-4c19-ade6-3bcb67796f20"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQFRKPTNJ:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQFRKPTNJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 8788
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:51:27 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Attachments : 0
+ActionId : "dfd279b8-e103-4c19-ade6-3bcb67796f20"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQFRKPTNJ:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQFRKPTNJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 8788
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:54:12 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:54:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "4e23d215-9c5f-4315-b4d9-682a73602e3e"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQHGOLAUJ:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQHGOLAUJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:54:26 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Attachments : 0
+ActionId : "4e23d215-9c5f-4315-b4d9-682a73602e3e"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQHGOLAUJ:00000001"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQHGOLAUJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:56:14 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Id : 0
+ActionId : "ae4cb4b6-3d5f-4575-84f8-0b61302c462d"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQHGOLAUJ:00000003"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQHGOLAUJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 19:56:14 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+Attachments : 0
+ActionId : "ae4cb4b6-3d5f-4575-84f8-0b61302c462d"
+ActionName : "CodingBible.Controllers.api.v1.SitemapController.CreateSitemap (CodingBible)"
+RequestId : "0HMJCQHGOLAUJ:00000003"
+RequestPath : "/api/v1/Sitemap/CreateSitemap"
+ConnectionId : "0HMJCQHGOLAUJ"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 20:50:34 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "a19200f9-e5a8-4490-8453-b2826c09648e"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetCourseBySlug (CodingBible)"
+RequestId : "0HMJCQHGOLAUL:00000003"
+RequestPath : "/api/v1/Courses/GetCourseBySlug/cs50-ap-introduction-to-computer-science-the-complete-version"
+ConnectionId : "0HMJCQHGOLAUL"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 20:52:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "ecec5656-d3c2-41c8-93af-909d439cb0f5"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJCQHGOLAUL:00000015"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJCQHGOLAUL"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 23/07/2022 20:52:40 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "240e90f4-4789-44ad-b39b-2328c6a1b607"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJCQHGOLAUL:00000019"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJCQHGOLAUL"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 12192
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

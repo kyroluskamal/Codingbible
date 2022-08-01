@@ -1,4 +1,4 @@
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -10,7 +10,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { AppReducers, AppState } from 'src/State/app.state';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { TokenInterceptor } from 'src/Interceptors/token.interceptor';
-import { NotFoundComponent } from './CommonComponents/not-found/not-found.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AuthEffects } from 'src/State/AuthState/auth.effects';
 import { UrlSerializer } from '@angular/router';
@@ -19,16 +18,13 @@ import { PostEffects } from 'src/State/PostState/post-effects';
 import { DialogHandlerService } from 'src/CommonServices/dialog-handler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CategoryEffects } from 'src/State/CategoriesState/Category.effects';
-import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
 import { CoursesEffects } from 'src/State/CourseState/Course.effects';
 import { CourseCategoryEffects } from 'src/State/CourseCategoryState/CourseCategory.effects';
 import { SectionsEffects } from 'src/State/SectionsState/sections.effects';
 import { LessonsEffects } from 'src/State/LessonsState/Lessons.effects';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
-import { MatDialogModule } from '@angular/material/dialog';
-import { CommonModule } from '@angular/common';
-import { MenuEffects } from 'src/State/Menu/menu.effects';
-
+import { MenuEffectHome } from 'src/State/Menu/menu.effects.home';
+import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
 export const enum MergeStrategy
 {
   OVERWRITE = 'overwrite',
@@ -39,7 +35,7 @@ export function localStorageSyncReducer(reducer: ActionReducer<AppState>): Actio
 {
   return localStorageSync({
     keys: [
-      { post: [] },
+
       { auth: ['user', 'roles', 'isLoggedIn'] },
       { design: ['pinned'] },
       { lang: ['isArabic'] },
@@ -56,20 +52,16 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     AppComponent
   ],
   imports: [
-    CommonModule,
     AppRoutingModule, HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    MatDialogModule,
-    BrowserTransferStateModule,
     BrowserAnimationsModule,
     SharedModuleForHomeModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
     EffectsModule.forRoot([PostEffects, AuthEffects, SectionsEffects,
-      LessonsEffects, MenuEffects,
+      LessonsEffects, MenuEffectHome,
       CategoryEffects, AttachmentsEffects,
       CoursesEffects, CourseCategoryEffects]),
     StoreDevtoolsModule.instrument({ logOnly: false }),
-    // NgrxUniversalRehydrateBrowserModule.forRoot({ stores: ['auth', 'post'] }),
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
       headerName: 'scfD1z5dp2',

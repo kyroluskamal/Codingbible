@@ -7,7 +7,7 @@ import { selectLang } from 'src/State/LangState/lang.reducer';
 @Component({
   selector: 'nav-childs',
   templateUrl: './nav-childs.component.html',
-  styleUrls: ['./nav-childs.component.css']
+  styleUrls: ['./nav-childs.component.css'],
 })
 export class NavChildsComponent implements OnInit, OnChanges
 {

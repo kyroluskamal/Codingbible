@@ -5,11 +5,12 @@ import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { BaseUrl } from 'src/Helpers/constants';
 import { RouterModule } from '@angular/router';
 import { HomeRoutes } from 'src/Helpers/router-constants';
+import { ImageUrlForScreen } from 'src/Pipes/ImageUrlForScreen.pipe';
 
 @Component({
   selector: 'course-card',
   standalone: true,
-  imports: [RouterModule, CommonModule, TranslatePipe],
+  imports: [RouterModule, CommonModule, TranslatePipe, ImageUrlForScreen],
   templateUrl: './course-card.component.html',
   styleUrls: ['./course-card.component.css']
 })

@@ -160,6 +160,7 @@ public class SitemapService : ISitemapService
                 var lessons = await UnitOfWork.Lessons.GetAllAsync(includeProperties: "Attachments", filter: x => x.CourseId == c.Id);
                 foreach (Lesson lesson in lessons)
                 {
+                    Log.Warning("Lesson {Id}", lesson.Attachments.Count);
                     if (lesson.Status == (int)Constants.PostStatus.Published)
                     {
                         LessonsNodes.Add(await CreateSitemapNode<Lesson, LessonAttachments>(
@@ -265,7 +266,7 @@ public class SitemapService : ISitemapService
             List<SitemapNode> Nodes = new();
             foreach (CourseCategory cat in courseCategories)
             {
-                Nodes.Add(await CreateSitemapNode<CourseCategory, PostAttachments>(cat, hasFeatureImage: false, hasAttachement: false, baseUrl, $"{COURSES_LINK}/", false));
+                Nodes.Add(await CreateSitemapNode<CourseCategory, PostAttachments>(cat, hasFeatureImage: false, hasAttachement: false, baseUrl, $"{COURSES_LINK}/categories/", false));
             }
             //Step 4 = Add the sitemap nodes to the sitemap
             foreach (SitemapNode node in Nodes)
@@ -293,7 +294,7 @@ public class SitemapService : ISitemapService
         string urlNode = @$"
             <url>
                 <loc>{node.Loc}</loc>
-                <lastmod>{node.LastModified}</lastmod>
+                <lastmod>{node.LastModified.ToString("yyyy-MM-dd")}</lastmod>
         ";
         foreach (ImageSitemapNode imageNode in node.Images)
         {
@@ -309,19 +310,20 @@ public class SitemapService : ISitemapService
      bool hasFeatureImage, bool hasAttachement, string baseUrl, string complementarySlug = "", bool LastModified = true)
     {
         var type = Obj.GetType();
-        var lastmod = LastModified ? type.GetProperty("LastModified").GetValue(Obj) : new DateTime();
+        var lastmod = LastModified ? ((DateTime)type.GetProperty("LastModified").GetValue(Obj)).Date : DateTime.Now.Date;
         var loc = type.GetProperty("Slug").GetValue(Obj);
         var isArabic = (bool)type.GetProperty("IsArabic").GetValue(Obj);
 
         SitemapNode node = new()
         {
-            LastModified = (DateTime)lastmod,
+            LastModified = lastmod,
             Loc = isArabic ? $"{baseUrl}/ar/{complementarySlug}{loc}" : $"{baseUrl}/{complementarySlug}{loc}",
             Images = new()
         };
         if (hasAttachement)
         {
-            var images = type.GetProperty("Attachments").GetValue(Obj) as List<Att>;
+            var images = (type.GetProperty("Attachments").GetValue(Obj) as ICollection<Att>).ToList();
+            Log.Warning("Attachments {Attachments}", images.Count);
             foreach (var attachment in images)
             {
                 var type_attachment = attachment.GetType();
@@ -329,7 +331,7 @@ public class SitemapService : ISitemapService
                 var attac_fromDb = await UnitOfWork.Attachments.GetAsync((int)Id);
                 node.Images.Add(new ImageSitemapNode()
                 {
-                    Loc = $"{baseUrl}{attac_fromDb.FileUrl}",
+                    Loc = $"{baseUrl}{attac_fromDb.FileUrl_xl}",
                     Caption = attac_fromDb.Caption,
                     Title = attac_fromDb.Title
                 });
@@ -338,12 +340,12 @@ public class SitemapService : ISitemapService
         if (hasFeatureImage)
         {
             var FeatureImageUrl = type.GetProperty("FeatureImageUrl").GetValue(Obj);
-            var FeatureImage = await UnitOfWork.Attachments.GetFirstOrDefaultAsync(x => x.FileUrl == (string)FeatureImageUrl);
+            var FeatureImage = await UnitOfWork.Attachments.GetFirstOrDefaultAsync(x => x.FileUrl_xl == (string)FeatureImageUrl);
             if (FeatureImage != null)
             {
                 node.Images.Insert(0, new ImageSitemapNode()
                 {
-                    Loc = $"{baseUrl}{FeatureImage.FileUrl}",
+                    Loc = $"{baseUrl}{FeatureImage.FileUrl_xl}",
                     Caption = FeatureImage.Caption,
                     Title = FeatureImage.Title
                 });

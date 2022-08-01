@@ -372,9 +372,9 @@ export class LessonHandlerComponent implements OnInit, AfterViewInit
   {
     if (event)
     {
-      let editedUrl = event.fileUrl.includes("http") ? event.fileUrl : `${this.BaseUrl}${event.fileUrl}`;
+      let editedUrl = event.fileUrl_xl.includes("http") ? event.fileUrl_xl : `${this.BaseUrl}${event.fileUrl_xl}`;
       this.lesson.featureImageUrl = editedUrl;
-      this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(event.fileUrl);
+      this.inputForm.get(FormControlNames.LessonForm.featureImageUrl)?.setValue(event.fileUrl_xl);
     }
   }
   removeFeatureImage()

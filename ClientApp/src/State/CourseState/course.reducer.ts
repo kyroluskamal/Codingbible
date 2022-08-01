@@ -159,11 +159,6 @@ export const CourseReducer = createReducer(
     }),
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return CourseReducer(state, action);
-}
-
 
 export const selectCourseState = createFeatureSelector<CourseState>('course');
 

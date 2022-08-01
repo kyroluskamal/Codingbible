@@ -4,6 +4,7 @@ import { MenusComponent } from './menus/menus.component';
 import { MenusRoutingModule } from './menus-routing.module';
 import { ShareComponentsforDashboardModule } from 'src/SharedModules/share-componentsfor-dashboard.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImageUrlForScreen } from 'src/Pipes/ImageUrlForScreen.pipe';
 
 
 @NgModule({

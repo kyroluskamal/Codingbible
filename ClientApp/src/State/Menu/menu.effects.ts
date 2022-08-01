@@ -11,12 +11,13 @@ import { NotificationMessage, sweetAlert } from "src/Helpers/constants";
 import { Menu } from "src/models.model";
 import { MenuService } from "src/Services/menu.service";
 import { AdditionIsComplete, AddMenu, AddMenu_Failed, AddMenu_Success, GetMenuByLocationName, GetMenuByLocationName_Failed, GetMenuByLocationName_Success, LoadMenus, LoadMenusFail, LoadMenusSuccess, RemoveMenu, RemoveMenuItem, RemoveMenuItem_Failed, RemoveMenuItem_Success, RemoveMenu_Failed, RemoveMenu_Success, SetMenuValidationErrors, UpdateIsCompleted, UpdateMenu, UpdateMenu_Failed, UpdateMenu_Sucess } from "./menu.actions";
+import { MenuEffectHome } from "./menu.effects.home";
 import { selectAll_Menus } from "./menu.reducer";
 
 @Injectable({
     providedIn: 'root'
 })
-export class MenuEffects
+export class MenuEffects extends MenuEffectHome
 {
 
     constructor(private actions$: Actions, private ServerResponse: ServerResponseHandelerService,
@@ -24,6 +25,7 @@ export class MenuEffects
         private MenuService: MenuService, private store: Store,
         private spinner: SpinnerService)
     {
+        super(actions$, MenuService);
     }
 
     AddMenu$ = createEffect(() =>
@@ -128,21 +130,6 @@ export class MenuEffects
                         this.store.dispatch(RemoveMenu_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) }));
                         return of(UpdateIsCompleted({ status: false }));
                     })
-                );
-            })
-        )
-    );
-    GetMenuByLocationName$ = createEffect(() =>
-        this.actions$.pipe(
-            ofType(GetMenuByLocationName),
-            switchMap((action) =>
-            {
-                return this.MenuService.GetMenuByLocationName(action.LocationName).pipe(
-                    map((r) =>
-                    {
-                        return GetMenuByLocationName_Success(r);
-                    }),
-                    catchError((e) => of(GetMenuByLocationName_Failed({ error: e, validationErrors: this.ServerErrorResponse.GetServerSideValidationErrors(e) })))
                 );
             })
         )

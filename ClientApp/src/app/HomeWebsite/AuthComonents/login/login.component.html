@@ -13,6 +13,7 @@
     <!-- <mat-card-subtitle>Sign in to our store</mat-card-subtitle> -->
 
     <form [formGroup]="loginForm"
+          *Shell_NoRender
           data-testid="loginForm"
           (submit)="Login()"
           (ngSubmit)="loginForm.valid">

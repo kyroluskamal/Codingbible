@@ -15,7 +15,7 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 @Component({
   selector: 'app-show-section-conctent',
   templateUrl: './show-section-conctent.component.html',
-  styleUrls: ['./show-section-conctent.component.css']
+  styleUrls: ['./show-section-conctent.component.css'],
 })
 export class ShowSectionConctentComponent implements OnInit
 {

@@ -10,6 +10,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FileSizePipe } from 'src/Pipes/file-size.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CodingBibleEditorComponent } from 'src/app/Dashboard/PostsInDashboard/editor/editor.component';
+import { ImageUrlForScreen } from 'src/Pipes/ImageUrlForScreen.pipe';
 const components = [MediaComponent, BootstrapMoalComponent,
   PostStatusPipe, FileSizePipe,
   CodingBibleEditorComponent,
@@ -18,8 +19,8 @@ const components = [MediaComponent, BootstrapMoalComponent,
 @NgModule({
   declarations: [components],
   imports: [
-    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule
+    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule, ImageUrlForScreen
   ],
-  exports: [components]
+  exports: [components, ImageUrlForScreen]
 })
 export class ShareComponentsforDashboardModule { }

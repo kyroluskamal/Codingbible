@@ -25,10 +25,11 @@
         <div class="col-12 col-md-3">
             <p class="h6 fw-bold">{{'Follow us'| translate}}</p>
             <ul class="d-flex flex-row gap-2">
-                <li><a [href]="(isArabic|async)?'https://www.facebook.com/codingbibleArabic':'https://www.facebook.com/codingbibleEnglish'"
+                <li><a name="facebook page"
+                       [href]="(isArabic|async)?'https://www.facebook.com/codingbibleArabic':'https://www.facebook.com/codingbibleEnglish'"
                        target="_blank"><i class="bi bi-facebook"></i></a>
                 </li>
-                <li><a
+                <li><a name="twitter page"
                        [href]="(isArabic|async)?'https://twitter.com/CodingbibleAr':'https://twitter.com/CodingBibleEN'"><i
                            class="bi bi-twitter"></i></a></li>
             </ul>

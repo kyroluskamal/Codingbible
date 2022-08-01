@@ -46,15 +46,19 @@ export class AttachmentsEffects
     AddAttachment$ = createEffect(() =>
         this.actions$.pipe(
             ofType(Add_ATTACHMENT),
-            withLatestFrom(this.store.select(SelectSelected_Attachment)),
-            exhaustMap(([action, selectedFile]) =>
+            exhaustMap(action =>
             {
                 return this.MediaService.SendImages(action.files).pipe(
                     map((r) =>
                     {
                         action.tempAttachments.forEach(e =>
                         {
-                            let index = r.findIndex(x => x.fileName == e.fileName);
+                            let index = r.findIndex(x => 
+                            {
+                                console.log("from response", x.fileName.replace(/\.[^.\s]+$/, ""));
+                                console.log("from Inside", e.fileName.replace(/\.[^.\s]+$/, ""));
+                                return x.fileName.replace(/\.[^.\s]+$/, "") == e.fileName.replace(/\.[^.\s]+$/, "");
+                            });
                             let temp: Attachments[] = [];
                             temp.push(r[index]);
                             withLatestFrom(this.store.select(SelectSelected_Attachment));

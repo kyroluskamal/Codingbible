@@ -20,8 +20,6 @@
     "module": "es2020",
     "types": ["node"],
     "lib": [
-      "es2017",
-      "es2018",
       "es2020",
       "dom"
     ]

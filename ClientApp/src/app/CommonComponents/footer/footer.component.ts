@@ -6,7 +6,7 @@ import { selectLang } from 'src/State/LangState/lang.reducer';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent implements OnInit
 {

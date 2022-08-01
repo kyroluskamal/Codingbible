@@ -333,7 +333,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
     }
     else
       vedioId = vedioLink.split("youtube.com/watch?v=");
-    vedioId = vedioId[vedioId.length - 1];
+    vedioId = vedioId[vedioId?.length - 1];
     this.widthOfVedio.setValue(this.VedioForm.get('width')?.value);
     if (this.selected_Vedio)
     {
@@ -390,7 +390,7 @@ export class CodingBibleEditorComponent implements OnInit, OnChanges
         return;
       }
       this.prepare_AnchorNode_and_FocusNode();
-      this.add_Image_ToView(event.fileName, event.fileUrl, event.altText, event.caption, event.id);
+      this.add_Image_ToView(event.fileName, event.fileUrl_xl, event.altText, event.caption, event.id);
     }
   }
   changeImageAligment(alignmentType: string)

@@ -7,6 +7,7 @@ import { combineLatest, map, of, Subscription, switchMap, tap } from 'rxjs';
 import { PostStatus } from 'src/Helpers/constants';
 import { HomeRoutes, NOT_READY } from 'src/Helpers/router-constants';
 import { Course, Lesson, Section } from 'src/models.model';
+import { ImageUrlForScreen } from 'src/Pipes/ImageUrlForScreen.pipe';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { TitleAndMetaService } from 'src/Services/title-and-meta.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
@@ -19,7 +20,8 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 @Component({
   selector: 'app-show-lesson-content',
   templateUrl: './show-lesson-content.component.html',
-  styleUrls: ['./show-lesson-content.component.css']
+  styleUrls: ['./show-lesson-content.component.css'],
+  providers: [ImageUrlForScreen]
 })
 export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewChecked
 {
@@ -41,6 +43,7 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
   constructor(private store: Store,
     private breadcrumb: BreadcrumbService,
     private router: Router,
+    private UrlForScreen: ImageUrlForScreen,
     private tree: TreeDataStructureService<Section>,
     private titleAndMeta: TitleAndMetaService,
     @Inject(DOCUMENT) private document: Document,
@@ -111,6 +114,17 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
           }
           );
         }
+      }
+    }
+
+
+    let getAllImages = content?.querySelectorAll('img');
+    if (getAllImages)
+    {
+      for (let i = 0; i < getAllImages.length; i++)
+      {
+        let img = (<HTMLImageElement>getAllImages[i]);
+        img.src = this.UrlForScreen.transform(img.src);
       }
     }
   }

@@ -371,9 +371,9 @@ export class PostHandlerComponent implements OnInit, OnChanges, AfterViewInit
   {
     if (event)
     {
-      let editedUrl = event.fileUrl.includes("http") ? event.fileUrl : `${this.BaseUrl}${event.fileUrl}`;
+      let editedUrl = event.fileUrl_xl.includes("http") ? event.fileUrl_xl : `${this.BaseUrl}${event.fileUrl_xl}`;
       this.post.featureImageUrl = editedUrl;
-      this.form.get(FormControlNames.postForm.featureImageUrl)?.setValue(event.fileUrl);
+      this.form.get(FormControlNames.postForm.featureImageUrl)?.setValue(event.fileUrl_xl);
     }
   }
   removeFeatureImage()

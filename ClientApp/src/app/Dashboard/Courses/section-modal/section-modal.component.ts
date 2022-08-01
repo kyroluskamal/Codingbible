@@ -131,9 +131,9 @@ export class SectionModalComponent implements OnInit, OnChanges
   }
   SetFeatureImage(attachment: Attachments | null)
   {
-    this.FeatureImageUrl = attachment?.fileUrl!;
+    this.FeatureImageUrl = attachment?.fileUrl_xl!;
     console.log(this.FeatureImageUrl);
-    this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(attachment?.fileUrl);
+    this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.setValue(attachment?.fileUrl_xl);
     console.log(this.SectionForm.get(FormControlNames.SectionForm.featureImageUrl)?.value);
   }
 

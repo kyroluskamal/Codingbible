@@ -7,6 +7,7 @@ import { CategoryHomeComponent } from './Category-home/category-home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { SharedModuleForCoursesModule } from '../../Courses/shared-module-for-courses/shared-module-for-courses.module';
 
 
 @NgModule({
@@ -15,9 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
     CategoryHomeComponent,
   ],
   imports: [
-    CommonModule, ReactiveFormsModule, FormsModule,
-    CategoriesRoutingModule, MatFormFieldModule, MatSelectModule,
-    ShareComponentsforDashboardModule
-  ]
+    CommonModule, ReactiveFormsModule, FormsModule, SharedModuleForCoursesModule,
+    CategoriesRoutingModule, MatFormFieldModule, MatSelectModule]
 })
 export class CategoriesModule { }

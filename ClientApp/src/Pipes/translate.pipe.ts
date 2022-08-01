@@ -112,7 +112,7 @@ export class TranslatePipe implements PipeTransform
       case 'The caategory you are looking for does not exist': return 'التصنيف الذي تبحث عنها غير موجود';
       case 'Back to categories': return 'العودة للتصنيفات';
       case "Back": return "رجوع";
-      case "We are working to get this translation as soon as possible.": return "يعمل على ترجمة هذه الصفحة في أقرب وقت ممكن.";
+      case "We are working to get this translation as soon as possible.": return "نعمل على ترجمة هذه الصفحة في أقرب وقت ممكن.";
       case "Translation not ready": return "الترجمة غير متاحة";
       default: return value;
     }

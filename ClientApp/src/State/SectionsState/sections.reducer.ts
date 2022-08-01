@@ -169,11 +169,6 @@ export const SectionsReducer = createReducer(
     }),
 );
 
-export function prticleReducer(state: any, action: Action)
-{
-    return SectionsReducer(state, action);
-}
-
 
 export const selectSectionsState = createFeatureSelector<SectionsState>('sections');
 
