@@ -73,7 +73,6 @@ export class ShowSectionConctentComponent implements OnInit
     ).subscribe(
       r =>
       {
-        console.log(r);
         this.currentCourse = r.course;
         this.currentSection = r.section;
         if (this.isArabic)

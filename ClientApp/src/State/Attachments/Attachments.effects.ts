@@ -55,8 +55,6 @@ export class AttachmentsEffects
                         {
                             let index = r.findIndex(x => 
                             {
-                                console.log("from response", x.fileName.replace(/\.[^.\s]+$/, ""));
-                                console.log("from Inside", e.fileName.replace(/\.[^.\s]+$/, ""));
                                 return x.fileName.replace(/\.[^.\s]+$/, "") == e.fileName.replace(/\.[^.\s]+$/, "");
                             });
                             let temp: Attachments[] = [];

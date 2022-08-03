@@ -731,7 +731,7 @@ export const CourseDifficultyLevel = {
     AllLevels: 6
 };
 export const titleSeparatorCharacter = "»";
-export const BaseUrl = "https://localhost:5001";
+export const BaseUrl = "http://34.72.61.195/";
 export const MenuItemType = {
     Custom: 1,
     Course: 2,

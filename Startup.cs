@@ -139,7 +139,7 @@ namespace CodingBible
                 options.Cookie.HttpOnly = false;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
-            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/browser");
+            // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/browser");
             /*---------------------------------------------------------------------------------------------------*/
             /*                                 JWT AUTHENTICATION SERVICE                                        */
             /*---------------------------------------------------------------------------------------------------*/
@@ -191,7 +191,7 @@ namespace CodingBible
                     "image/*"
                 };
 
-                options.EnableForHttps = true;
+                options.EnableForHttps = false;
                 options.MimeTypes = MimeTypes;
                 options.Providers.Add<GzipCompressionProvider>();
                 options.Providers.Add<BrotliCompressionProvider>();
@@ -199,9 +199,9 @@ namespace CodingBible
             services.AddImageSharp(
                     options => options.OnBeforeSaveAsync = f =>
                     {
-                    f.Image.Metadata.ExifProfile = null;
-                     return Task.CompletedTask;
-                        });
+                        f.Image.Metadata.ExifProfile = null;
+                        return Task.CompletedTask;
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -219,7 +219,7 @@ namespace CodingBible
 
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseImprovedHsts();
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseRouting();

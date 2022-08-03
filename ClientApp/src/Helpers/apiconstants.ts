@@ -206,5 +206,5 @@ export const SitemapController = {
 };
 function getApiUrl(version: string, controller: string, action: string): string
 {
-    return `https://localhost:5001/api/${version}/${controller}/${action}`;
+    return `/api/${version}/${controller}/${action}`;
 }

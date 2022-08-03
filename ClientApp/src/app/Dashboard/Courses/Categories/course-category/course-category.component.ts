@@ -62,7 +62,6 @@ export class CourseCategoryComponent implements OnInit
   }
   EditCategory(event: CourseCategory)
   {
-    console.log(event);
     this.CourseCategoryToUpdate = event;
     this.ActionType = PostType.Edit;
     this.Modal.Toggle();

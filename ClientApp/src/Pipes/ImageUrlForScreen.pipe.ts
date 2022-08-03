@@ -12,7 +12,6 @@ export class ImageUrlForScreen implements PipeTransform
     var regx = new RegExp("_xl");
     if (value.match(/_xl|_md|_sm/))
     {
-      console.log(this.checkScreenSize());
       return value.replace(/_xl|_md|_sm/, this.checkScreenSize());
     }
     return value;
@@ -22,7 +21,6 @@ export class ImageUrlForScreen implements PipeTransform
   checkScreenSize()
   {
     let innerWidth = window.innerWidth;
-    console.log(innerWidth);
     switch (true)
     {
       case innerWidth > 1280: return '_xl';

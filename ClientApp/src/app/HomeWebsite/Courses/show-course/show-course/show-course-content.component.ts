@@ -74,7 +74,6 @@ export class ShowCourseContentComponent implements OnInit, OnDestroy
         tap(
           sections =>
           {
-            console.log(sections);
             this.AllSections = sections.filter(section => section.status == PostStatus.Published);
           }
         )),

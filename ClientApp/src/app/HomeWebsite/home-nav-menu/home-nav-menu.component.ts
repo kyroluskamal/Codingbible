@@ -1,7 +1,6 @@
-import { Platform } from '@angular/cdk/platform';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
+import { Component, ElementRef, Inject, Input, OnChanges, OnInit, PLATFORM_ID, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { combineLatest, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { Menu, MenuItem } from 'src/models.model';

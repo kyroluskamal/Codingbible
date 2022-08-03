@@ -22,8 +22,7 @@ import { selectAllCourses, selectCourseByID } from 'src/State/CourseState/course
 import { selectPinned } from 'src/State/DesignState/design.reducer';
 import { AddLesson, ChangeStatus, GetLessonById, RemoveLesson, SetValidationErrors, UpdateLesson } from 'src/State/LessonsState/Lessons.actions';
 import { selectAllLessons, selectLessonBySlug, selectLessonsByID, select_Lessons_ValidationErrors } from 'src/State/LessonsState/Lessons.reducer';
-import { GetSectionsByCourseId, LoadSections } from 'src/State/SectionsState/sections.actions';
-import { selectAllSections, Select_Sections_ByCourseId } from 'src/State/SectionsState/sections.reducer';
+import { selectAllSections } from 'src/State/SectionsState/sections.reducer';
 
 @Component({
   selector: 'app-lesson-handler',

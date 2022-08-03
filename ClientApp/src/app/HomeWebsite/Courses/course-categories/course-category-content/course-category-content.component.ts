@@ -70,7 +70,6 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
               [this.coursePerCategoryService.GetCoursesInCategoryById(res[0]?.id!).pipe(
                 tap(coursesPerCategory =>
                 {
-                  console.log(coursesPerCategory);
                   if (coursesPerCategory.length > 0)
                   {
                     for (let coursePerCat of coursesPerCategory)
@@ -85,7 +84,7 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
                 catchError(err => { this.CoursesInCategory = []; return res; }),
                 map(x => res[0])
               ), this.store.select(select_CourseCategory_HttpResponseError)]).pipe(
-                map(x => { console.log(x); return { cat: res[0], error: x[1] }; })
+                map(x => { return { cat: res[0], error: x[1] }; })
               );
           }),
           map(res => res),
@@ -94,7 +93,6 @@ export class CourseCategoryContentComponent implements OnInit, OnDestroy
     ).subscribe(
       response =>
       {
-        console.log(response);
         if (response.cat)
         {
           this.currentCourseCategory = response.cat;

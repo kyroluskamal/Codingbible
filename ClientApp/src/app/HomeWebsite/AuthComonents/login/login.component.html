@@ -41,7 +41,8 @@
                        data-testid="email"
                        [errorStateMatcher]="customErrorStateMatcher"
                        [formControlName]="FormControlNames.authForm.email" />
-                <mat-icon matSuffix>email</mat-icon>
+                <i class="bi bi-envelope-fill fs-6"
+                   matSuffix></i>
 
                 <mat-error
                            *ngIf="loginForm.get(FormControlNames.authForm.email)?.hasError(FormValidationErrorsNames.pattern)">
@@ -75,14 +76,11 @@
                        [formControlName]="FormControlNames.authForm.password"
                        [minlength]="PASSWORD_MINLENGTH"
                        required />
-                <mat-icon matSuffix
-                          (click)="password.type===InputFieldTypes.password?
-                          password.type=InputFieldTypes.text:password.type===InputFieldTypes.text?
-                          password.type=InputFieldTypes.password:''">
-                    <span class="material-icons">
-                        {{password.type===InputFieldTypes.password?'visibility':'visibility_off'}}
-                    </span>
-                </mat-icon>
+                <i matSuffix
+                   (click)="password.type===InputFieldTypes.password?
+                       password.type=InputFieldTypes.text:password.type===InputFieldTypes.text?
+                       password.type=InputFieldTypes.password:''"
+                   [class]="password.type===InputFieldTypes.password?'bi bi-eye-fill fs-6':'bi bi-eye-slash-fill fs-6'"></i>
 
                 <mat-error
                            *ngIf="loginForm.get(FormControlNames.authForm.password)?.hasError(FormValidationErrorsNames.required)">
@@ -153,20 +151,18 @@
             </div>
             <!------------------------Mat-Dialog-actions--------------------------->
             <div>
-                <button mat-raised-button
-                        color="primary"
-                        dir="ltr"
+                <button dir="ltr"
                         [disabled]="loginForm.invalid || (loginForm.valid && (loading$ | async))"
-                        class="w-100 mt-3"
+                        class="w-100 mt-3 btn btn-primary"
                         data-testid="loginBtn"
                         aria-label="press to login"
                         (click)="Login()">
-                    <mat-icon>
-                        <mat-spinner diameter="20"
-                                     color="warn"
-                                     *ngIf="(loading$ | async)"></mat-spinner><span
-                              *ngIf="!(loading$ | async)">login</span>
-                    </mat-icon>
+                    <div class="spinner-border text-light fs-6"
+                         role="status"
+                         *ngIf="(loading$ | async)">
+                    </div>
+                    <i class="bi bi-box-arrow-in-right "
+                       *ngIf="!(loading$ | async)"></i>
                     {{(loginForm.valid || loginForm.invalid) && !(loading$ | async)?FormConstants.Login:''}}
                 </button>
             </div>

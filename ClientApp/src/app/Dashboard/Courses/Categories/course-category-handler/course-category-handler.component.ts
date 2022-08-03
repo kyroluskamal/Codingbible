@@ -49,7 +49,6 @@ export class CourseCategoryHandlerComponent implements OnInit, OnChanges
   }
   ngOnChanges(changes: SimpleChanges): void
   {
-    console.log(changes);
     if ("UpdateObject" in changes)
     {
       this.UpdateObject = changes["UpdateObject"].currentValue;

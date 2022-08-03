@@ -14,10 +14,10 @@
             <div class="d-flex justify-content-center align-items-center cursor-pointer"
                  style="min-height: 50px;">
                 <a [routerLink]="['']"
-                   class="text-decoration-none BusinessName dark-bg my-2"><img src="../../assets/LogoForDashBoard.svg"
+                   class="text-decoration-none BusinessName dark-bg my-2 mx-0"><img class="noShadow pe-2"
+                         src="../../../assets/img/For-dashboard.webp"
                          alt="logo"
-                         width="50px"
-                         height="35px"> Coding Bible</a>
+                         width="40px"> Coding Bible</a>
             </div>
             <div class="accordion WidthForSmallScreens"
                  id="accordionExample">
@@ -90,10 +90,7 @@
                      boundariesElement="window"
                      container="body"
                      (click)="PinSideNav();SideNav.toggle()">
-                    <mat-icon class="mat-18"><span class="material-icons-outlined">
-                            menu
-                        </span>
-                    </mat-icon>
+                    <i class="bi bi-list text-dark fs-4"></i>
                 </div>
                 <div class="cursor-pointer border-end h-100 d-flex align-items-center justify-content-center mw-50"
                      tooltip="Add"
@@ -110,7 +107,7 @@
                      [adaptivePosition]="true"
                      container="body"
                      (click)="UpdateSitemap()">
-                    <i class="bi bi-diagram-3-fill"></i>
+                    <i class="bi bi-diagram-3-fill fs-6"></i>
                 </div>
             </div>
             <!-- second Div -->
@@ -126,18 +123,15 @@
                      matRipple
                      container="body"
                      #FullscreenButton>
-                    <mat-icon><span class="material-icons-outlined">
-                            {{FullscreenEnabled?'fullscreen_exit':'fullscreen'}}
-                        </span></mat-icon>
+                    <i
+                       [class]="!FullscreenEnabled?'bi bi-fullscreen text-dark fs-4':'bi bi-fullscreen-exit text-dark fs-4'"></i>
                 </div>
                 <div class="bg-white cursor-pointer border-start h-100 d-flex align-items-center justify-content-center mw-50"
                      tooltip="see notifications"
                      boundariesElement="window"
                      matRipple
                      container="body">
-                    <mat-icon><span class="material-icons-outlined">
-                            notifications_active
-                        </span></mat-icon>
+                    <i class="bi bi-bell fs-4"> </i>
                 </div>
 
 

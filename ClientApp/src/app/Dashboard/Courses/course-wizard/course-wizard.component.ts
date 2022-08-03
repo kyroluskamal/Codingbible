@@ -11,7 +11,6 @@ import { BootstrapErrorStateMatcher } from 'src/Helpers/bootstrap-error-state-ma
 import { ArabicRegex, BaseUrl, CourseDifficultyLevel, FormControlNames, FormFieldsNames, FormValidationErrors, FormValidationErrorsNames, InputFieldTypes, PostStatus, PostType, sweetAlert, validators } from 'src/Helpers/constants';
 import { DashboardRoutes } from 'src/Helpers/router-constants';
 import { Attachments, Course, CourseCategory, Lesson, Section } from 'src/models.model';
-import { SlugMapService } from 'src/Services/slug-map.service';
 import { TreeDataStructureService } from 'src/Services/tree-data-structure.service';
 import { SelectAttachment } from 'src/State/Attachments/Attachments.actions';
 import { LoadCourseCategorys } from 'src/State/CourseCategoryState/CourseCategory.actions';

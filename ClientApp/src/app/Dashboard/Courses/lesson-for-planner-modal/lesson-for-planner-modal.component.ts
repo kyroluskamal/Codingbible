@@ -142,7 +142,6 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
   }
   onSectionChange()
   {
-    console.log(this.SelectedSectionId);
     if (this.SelectedSectionId > 0)
     {
       this.SelectedSection = this.selectedSections.filter(section => section.id === Number(this.SelectedSectionId))[0];
@@ -181,7 +180,6 @@ export class LessonForPlannerModalComponent implements OnInit, OnChanges
       ).sort((a, b) => a.orderWithinSection - b.orderWithinSection);
       if (selectedLessonsBySection.length > 0)
       {
-        console.log(selectedLessonsBySection[selectedLessonsBySection.length - 1]);
         lesson.orderWithinSection = selectedLessonsBySection[selectedLessonsBySection.length - 1].orderWithinSection + 1;
       } else
         lesson.orderWithinSection = 1;
