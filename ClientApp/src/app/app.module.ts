@@ -25,6 +25,7 @@ import { LessonsEffects } from 'src/State/LessonsState/Lessons.effects';
 import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-home.module';
 import { MenuEffectHome } from 'src/State/Menu/menu.effects.home';
 import { AttachmentsEffects } from 'src/State/Attachments/Attachments.effects';
+import { AdsenseModule } from 'ng2-adsense';
 export const enum MergeStrategy
 {
   OVERWRITE = 'overwrite',
@@ -55,16 +56,15 @@ export const metaReducers: Array<MetaReducer<AppState, any>> = [localStorageSync
     AppRoutingModule, HttpClientModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
-    SharedModuleForHomeModule,
     StoreModule.forRoot(AppReducers, { metaReducers }),
-    EffectsModule.forRoot([PostEffects, AuthEffects, SectionsEffects,
-      LessonsEffects, MenuEffectHome,
-      CategoryEffects, AttachmentsEffects,
-      CoursesEffects, CourseCategoryEffects]),
-    StoreDevtoolsModule.instrument({ logOnly: false }),
     HttpClientXsrfModule.withOptions({
       cookieName: 'XSRF-TOKEN',
       headerName: 'scfD1z5dp2',
+    }),
+
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

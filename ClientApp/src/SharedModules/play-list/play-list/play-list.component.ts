@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AdsenseModule } from 'ng2-adsense';
 import { combineLatest, map, Observable, Subscription, switchMap } from 'rxjs';
 import { PostStatus, PostType } from 'src/Helpers/constants';
 import { HomeRoutes } from 'src/Helpers/router-constants';

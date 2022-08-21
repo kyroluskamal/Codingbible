@@ -1,22 +1,7 @@
-/* div.dropdown>.dropdown-menu {    
-    display: inherit;
-    top: 95%;
-    right: 0;
-    z-index: -1;
-    transform: translateY(-110%);
-    visibility: hidden;
-    transition: transform .4s cubic-bezier(.25,.8,.25,1),visibility .4s cubic-bezier(.25,.8,.25,1);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    background: white;
-    box-shadow: 0 3px 1px -2px #0003, 0 2px 2px #00000024, 0 1px 5px #0000001f;
+.logo-width {
+    width: 40px;
 }
 
-div.dropdown>.dropdown-menu.show {
-    display: inherit;
-    transform: translateY(0);
-    visibility: visible;
-} */
 .navBarSahdow {
     box-shadow: var(--my-shadow)
 }
@@ -59,7 +44,8 @@ div.dropdown>.dropdown-menu.show {
     margin-right: .255em;
 }
 
-.nav-item {
+.nav-item,
+.accordion {
     font-family: var(--Nuito-font);
     font-weight: 700;
 }
@@ -110,4 +96,63 @@ header {
 
 [dir='rtl'] .dropdown-item span {
     direction: rtl !important;
+}
+
+.accordion-button,
+.accordion-item {
+    border-radius: 0 !important;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.accordion-item {
+    border: 0px !important;
+}
+
+.accordion-button {
+    color: white;
+    border-bottom: lightgray;
+}
+
+.accordion-button:not(.collapsed),
+a.accordion-button:hover,
+a.accordion-button:active {
+    color: lightgray !important;
+    background-color: black;
+}
+
+a.accordion-button:not(.collapsed)::after,
+a.accordion-button.collapsed::after {
+    width: 0;
+    height: 0;
+    background-image: none;
+    transform: none;
+    content: "";
+    display: inline-block;
+
+}
+
+a.accordion-button.collapsed::after {
+    margin-left: 0.255em;
+    vertical-align: 0.255em;
+    border-bottom: 0.3em solid;
+    border-left: 0.3em solid transparent;
+    border-top: 0;
+    border-right: 0.3em solid transparent;
+}
+
+a.accordion-button:not(.collapsed)::after {
+    border-top: 0.3em solid;
+    border-right: 0.3em solid transparent;
+    border-bottom: 0;
+    border-left: 0.3em solid transparent;
+}
+
+.accordion-body {
+    box-shadow: inset 0px 0px 4px 1px #8b8b8b;
+}
+
+a.accordion-button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }

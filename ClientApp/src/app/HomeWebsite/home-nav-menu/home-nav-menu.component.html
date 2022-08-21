@@ -1,12 +1,12 @@
 <header [dir]="(isArabic|async)?'rtl':'ltr'">
     <nav class="navbar navbar-expand-lg navbar-light p-0 navBarSahdow bg-white">
-        <div class="container-fluid px-5">
-            <div class=" d-md-block d-none">
+        <div class="container-fluid px-lg-5">
+            <div class=" d-lg-block d-none">
                 <div class="d-flex flex-row h-100 align-content-center gap-2">
-                    <div style="width: 40px;"
-                         class="d-flex align-items-lg-center">
-                        <img src="../../../assets/img/logo.svg"
+                    <div class="d-flex align-items-lg-center logo-width">
+                        <img src="../../../assets/img/logo.webp"
                              class="img-fluid noShadow"
+                             alt="website logo"
                              style>
                     </div>
                     <a class="navbar-brand fs-4"
@@ -14,12 +14,20 @@
                         <span class="fw-bold">C</span>oding <span class="fw-bold">B</span>ible</a>
                 </div>
             </div>
-            <div class="d-md-none d-block">
+            <div class="d-lg-none d-block">
                 <div class="d-flex flex-row h-100 align-content-center gap-2 ">
                     <a class="navbar-brand fs-4 m-0"
                        [routerLink]="(isArabic|async)?['','ar']:['']">
                         <span class="fw-bold">C</span>oding <span class="fw-bold">B</span>ible</a>
                 </div>
+            </div>
+            <div class="w-25 d-flex flex-row gap-1 justify-content-center d-lg-none d-flex">
+                <button #en
+                        [class]="!(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                        (click)="gotToEnglish()">En</button>
+                <button #ar
+                        [class]="(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                        (click)=" gotToArabic()">Ar</button>
             </div>
             <button class="navbar-toggler"
                     type="button"
@@ -30,69 +38,92 @@
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-between"
-                 id="navbarNavDropdown">
-                <div class="w-100 d-flex justify-content-center">
-                    <ul class="navbar-nav">
+            <div class="w-100 d-flex justify-content-center d-none d-lg-flex">
+                <ul class="navbar-nav">
+                    <li class="nav-item nav-item-roots cursor-pointer"
+                        [routerLink]="(isArabic|async)?['/ar']:['/']">
+                        <a class="nav-link "
+                           aria-current="page"
+                           [routerLink]="(isArabic|async)?['/ar']:['/']"
+                           [routerLinkActiveOptions]="{exact: true}"
+                           routerLinkActive="active">{{'Home'| translate}}</a>
+                    </li>
+                    <ng-container *ngFor="let m of (MenusItems|async)">
                         <li class="nav-item nav-item-roots cursor-pointer"
-                            [routerLink]="(isArabic|async)?['/ar']:['/']">
-                            <a class="nav-link "
-                               aria-current="page"
-                               [routerLink]="(isArabic|async)?['/ar']:['/']"
-                               [routerLinkActiveOptions]="{exact: true}"
-                               routerLinkActive="active">{{'Home'| translate}}</a>
+                            [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                            *ngIf="RootChildren(m).length === 0 else dorpdown">
+                            <a class="nav-link d-flex"
+                               [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                               routerLinkActive="active"
+                               [routerLinkActiveOptions]="{exact: true}">
+                                <span *ngIf="(isArabic|async)">{{m.arName}}</span>
+                                <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
+                            </a>
                         </li>
-                        <ng-container *ngFor="let m of (MenusItems|async)">
-                            <li class="nav-item nav-item-roots cursor-pointer"
+                        <ng-template #dorpdown>
+                            <li class="nav-item nav-item-roots dropdown cursor-pointer"
                                 [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
-                                *ngIf="RootChildren(m).length === 0 else dorpdown">
-                                <a class="nav-link d-flex"
+                                (mouseover)="dorpDownOpen(menu, parent)"
+                                (mouseleave)="dropDownCLose(menu,parent)">
+                                <a #parent
+                                   class="nav-link dropdown-toggle d-flex flex-row align-items-center"
+                                   role="button"
                                    [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
+                                   data-bs-toggle="dropdown"
                                    routerLinkActive="active"
-                                   [routerLinkActiveOptions]="{exact: true}">
+                                   [routerLinkActiveOptions]="{exact: true}"
+                                   aria-expanded="false">
+
                                     <span *ngIf="(isArabic|async)">{{m.arName}}</span>
                                     <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
                                 </a>
+                                <ul #menu
+                                    class="dropdown-menu"
+                                    aria-labelledby="navbarDropdownMenuLink">
+                                    <nav-childs *ngFor="let ch of RootChildren(m)"
+                                                [MenuItems]="this.selectedMenu?.menuItems!"
+                                                [MenuItemChild]="ch"></nav-childs>
+                                </ul>
                             </li>
-                            <ng-template #dorpdown>
-                                <li class="nav-item nav-item-roots dropdown cursor-pointer"
-                                    [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
-                                    (mouseover)="dorpDownOpen(menu, parent)"
-                                    (mouseleave)="dropDownCLose(menu,parent)">
-                                    <a #parent
-                                       class="nav-link dropdown-toggle d-flex flex-row align-items-center"
-                                       role="button"
-                                       [routerLink]="(isArabic|async)?['/ar/'+m.arUrl]:['/'+m.enUrl]"
-                                       data-bs-toggle="dropdown"
-                                       routerLinkActive="active"
-                                       [routerLinkActiveOptions]="{exact: true}"
-                                       aria-expanded="false">
+                        </ng-template>
+                    </ng-container>
 
-                                        <span *ngIf="(isArabic|async)">{{m.arName}}</span>
-                                        <span *ngIf="!(isArabic|async)">{{m.enName}}</span>
-                                    </a>
-                                    <ul #menu
-                                        class="dropdown-menu"
-                                        aria-labelledby="navbarDropdownMenuLink">
-                                        <nav-childs *ngFor="let ch of RootChildren(m)"
-                                                    [MenuItems]="this.selectedMenu?.menuItems!"
-                                                    [MenuItemChild]="ch"></nav-childs>
-                                    </ul>
-                                </li>
-                            </ng-template>
-                        </ng-container>
+                </ul>
+            </div>
+            <div class="w-25 d-flex flex-row gap-1 justify-content-center d-none d-lg-flex">
+                <button #en
+                        [class]="!(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                        (click)="gotToEnglish()">En</button>
+                <button #ar
+                        [class]="(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
+                        (click)=" gotToArabic()">Ar</button>
+            </div>
 
-                    </ul>
-                </div>
-                <div class="w-25 d-flex flex-row gap-1 justify-content-center">
-                    <button #en
-                            [class]="!(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
-                            (click)="gotToEnglish()">En</button>
-                    <button #ar
-                            [class]="(isArabic|async)?'buttonAction btn text-dark noShadow langBtn':'btn text-dark noShadow langBtn'"
-                            (click)=" gotToArabic()">Ar</button>
-                </div>
-
+        </div>
+        <div class="collapse navbar-collapse justify-content-between bg-dark"
+             id="navbarNavDropdown">
+            <div class="d-block d-lg-none">
+                <ul class="accordion list-unstyled p-0 mb-0"
+                    id="accordionMobile">
+                    <li class="accordion-item"
+                        [routerLink]="(isArabic|async)?['/ar']:['/']"
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{exact: true}">
+                        <div class="accordion-header noBefore">
+                            <a class="accordion-button noAfter collapsed"
+                               id="headingOne"
+                               type="button"
+                               [routerLink]="(isArabic|async)?['/ar']:['/']"
+                               [routerLinkActiveOptions]="{exact: true}"
+                               routerLinkActive="active">
+                                {{'Home'| translate}}
+                            </a>
+                        </div>
+                    </li>
+                    <nav-childs *ngFor="let m of (MenusItems|async)"
+                                [MenuItems]="this.selectedMenu?.menuItems!"
+                                [MenuItemChild]="m"></nav-childs>
+                </ul>
             </div>
         </div>
     </nav>

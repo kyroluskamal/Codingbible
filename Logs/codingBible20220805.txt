@@ -1,0 +1,85 @@
+----------------------------------------------------------------------
+Timestamp - 05/08/2022 01:14:28 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 11476
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/08/2022 01:23:21 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "ad0a902e-56e2-458f-8b9d-ec4c8e4e40ba"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJME14LQ4AG:00000007"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJME14LQ4AG"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 11476
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/08/2022 01:56:35 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 13212
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/08/2022 02:03:12 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "e1409c92-8302-4a8e-a72b-54232be4aa6f"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMJMEKJSKQPM:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMJMEKJSKQPM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 13212
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 05/08/2022 02:03:50 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "7410708c-5b27-40be-8fe2-a6caee7b7f32"
+ActionName : "CodingBible.Controllers.api.v1.CoursesController.GetAllCourses (CodingBible)"
+RequestId : "0HMJMEKJSKQPM:0000000F"
+RequestPath : "/api/v1/Courses/GetAllCourses"
+ConnectionId : "0HMJMEKJSKQPM"
+Application : "Coding Bible"
+MachineName : "DESKTOP-VNOQVQ4"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.7"
+UserName : "kyrol"
+ProcessId : 13212
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

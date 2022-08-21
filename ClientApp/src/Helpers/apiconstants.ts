@@ -1,3 +1,5 @@
+import { environment } from "src/environments/environment";
+
 const version = "v1";
 const controllers = {
     Sitemap: {
@@ -206,5 +208,6 @@ export const SitemapController = {
 };
 function getApiUrl(version: string, controller: string, action: string): string
 {
-    return `/api/${version}/${controller}/${action}`;
+    let baseUrl = environment.production ? "https://api.coding-bible.com" : "https://localhost:5001";
+    return `${baseUrl}/api/${version}/${controller}/${action}`;
 }

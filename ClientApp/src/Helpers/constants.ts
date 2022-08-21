@@ -1,5 +1,7 @@
+import { APP_BASE_HREF } from "@angular/common";
 import { Validators } from "@angular/forms";
 import { MatFormFieldAppearance } from "@angular/material/form-field";
+import { environment } from "src/environments/environment";
 import { CustomValidators } from "./custom-validators";
 
 export const FormConstants = {
@@ -731,7 +733,8 @@ export const CourseDifficultyLevel = {
     AllLevels: 6
 };
 export const titleSeparatorCharacter = "»";
-export const BaseUrl = "http://34.72.61.195/";
+// export const BaseUrl = "https://localhost:5001";
+export const BaseUrl = environment.production ? "" : "https://localhost:5001";
 export const MenuItemType = {
     Custom: 1,
     Course: 2,

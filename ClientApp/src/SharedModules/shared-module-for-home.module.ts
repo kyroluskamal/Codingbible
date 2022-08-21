@@ -8,6 +8,7 @@ import { NavChildsComponent } from 'src/app/HomeWebsite/home-nav-menu/nav-childs
 import { BasicSkeletonComponent } from 'src/app/HomeWebsite/basic-skeleton/basic-skeleton.component';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
+import { AdsenseModule } from "ng2-adsense";
 const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkeletonComponent,
 
   NavChildsComponent];
@@ -15,8 +16,10 @@ const Modules = [FooterComponent, HomeNavMenuComponent, HomeComponent, BasicSkel
 @NgModule({
   declarations: [Modules],
   imports: [
-    CommonModule, RouterModule, BreadcrumbModule, TranslatePipe
+    CommonModule, RouterModule, BreadcrumbModule, TranslatePipe, AdsenseModule.forRoot({
+      adClient: 'ca-pub-6664419901582400',
+    }),
   ],
-  exports: [Modules, CommonModule]
+  exports: [Modules, CommonModule, AdsenseModule]
 })
 export class SharedModuleForHomeModule { }

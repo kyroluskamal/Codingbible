@@ -54,9 +54,11 @@
                                    [videoId]="currentLesson.vedioUrl.split('watch?v=')![1]">
                 </youtube-container>
 
-                <img src="../../../../assets/img/horizontal.webp"
-                     class="noShadow img-fluid"
-                     alt="">
+                <ng2-adsense [adClient]="'ca-pub-6664419901582400'"
+                             [adSlot]="'4672303524'"
+                             [adFormat]="'auto'"
+                             [fullWidthResponsive]="true"
+                             [display]="'block'"></ng2-adsense>
                 <div class="d-flex flex-row justify-content-center py-3 gap-5">
                     <button class="btn noShadow"
                             [disabled]="currentLessonIndex<=0"

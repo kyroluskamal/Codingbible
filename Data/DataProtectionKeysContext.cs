@@ -15,5 +15,12 @@ namespace DataService
         }
 
         public DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<DataProtectionKey>()
+                .HasKey(x => x.Id);
+            base.OnModelCreating(builder);
+        }
     }
 }

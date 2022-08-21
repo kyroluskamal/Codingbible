@@ -1,6 +1,58 @@
-<span *ngIf="MenuItemChild">
-    <li *ngIf="Children(MenuItemChild).length===0 else dorpdown"
-        class="cursor-pointer nav-item"
+<span *ngIf="MenuItemChild"
+      class="d-inline-block d-md-none w-100">
+    <li class="accordion-item"
+        *ngIf="noOfChildren==0 else withchild">
+        <div class="accordion-header noBefore">
+            <a class="accordion-button noAfter collapsed"
+               [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
+                <span *ngIf="(isArabic$|async)">{{MenuItemChild.arName}}</span>
+                <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span>
+            </a>
+        </div>
+    </li>
+    <ng-template #withchild>
+        <ul class="accordion list-unstyled p-0"
+            [id]="'parent'+MenuItemChild.id">
+            <li class="accordion-item">
+                <div class="accordion-header">
+                    <a class="accordion-button collapsed justify-content-between"
+                       role="button"
+                       data-bs-toggle="collapse"
+                       [attr.data-bs-target]="'#menu'+MenuItemChild.id"
+                       routerLinkActive="active"
+                       [routerLinkActiveOptions]="{exact: true}"
+                       aria-expanded="false">
+                        <span *ngIf="(isArabic$|async)">{{MenuItemChild.arName}}</span>
+                        <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span>
+                    </a>
+                </div>
+                <ul class="list-unstyled p-0 accordion-collapse collapse"
+                    *ngIf="noOfChildren>0"
+                    [id]="'menu'+MenuItemChild.id"
+                    [attr.data-bs-parent]="'#parent'+MenuItemChild.id"
+                    aria-labelledby="navbarDropdownMenuLink">
+                    <div class="accordion-body py-0">
+                        <a class="accordion-button noAfter collapsed"
+                           [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
+                            <span *ngIf="(isArabic$|async)">{{MenuItemChild.arName}}</span>
+                            <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span>
+                        </a>
+                        <nav-childs *ngFor="let ch of Children(MenuItemChild)"
+                                    [MenuItems]="MenuItems!"
+                                    [MenuItemChild]="ch"></nav-childs>
+                    </div>
+                </ul>
+            </li>
+
+
+
+        </ul>
+    </ng-template>
+</span>
+<span *ngIf="MenuItemChild"
+      class="d-none d-md-inline-flex w-100">
+    <li *ngIf="noOfChildren===0 else dorpdown"
+        class="cursor-pointer nav-item w-100"
         [dir]="(isArabic$|async)?'rtl':'ltr'"
         [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
         <a [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]"
@@ -11,7 +63,7 @@
             <span *ngIf="!(isArabic$|async)">{{MenuItemChild.enName}}</span></a>
     </li>
     <ng-template #dorpdown>
-        <li class="nav-item dropdown cursor-pointer"
+        <li class="nav-item dropdown cursor-pointer w-100"
             [dir]="(isArabic$|async)?'rtl':'ltr'"
             [routerLink]="(isArabic$|async)?['/ar/'+MenuItemChild.arUrl]:['/'+MenuItemChild.enUrl]">
             <a #parent

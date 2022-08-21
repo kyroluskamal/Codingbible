@@ -32,22 +32,22 @@
             ],
             "optimization": {
               "scripts": true,
-              "styles": {
-                "minify": true,
-                "inlineCritical": false
+              "fonts": {
+                "inline": true
               },
-              "fonts": true
+              "styles": true
             },
             "statsJson": true,
             "namedChunks": false,
             "aot": true,
             "outputHashing": "all",
-            "sourceMap": true,
-            "extractLicenses": true,
-            "vendorChunk": false,
             "buildOptimizer": true,
+            "vendorChunk": false,
             "styles": [
               { "input": "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css","inject": true },
+              "src/assets/Fonts/Almarai/stylesheet.css",
+              "src/assets/Fonts/calibri/stylesheet.css",
+              "src/assets/Fonts/Noto_Sans_Arabic/stylesheet.css",
               {"input": "./src/styles.css", "inject": true},
               {"input": "./node_modules/ngx-spinner/animations/ball-scale-multiple.css", "inject": false},
               {"input": "./node_modules/bootstrap-icons/font/bootstrap-icons.css", "inject": true},
@@ -160,8 +160,7 @@
             "outputPath": "dist/server",
             "main": "server.ts",
             "tsConfig": "tsconfig.server.json",
-            "optimization": true,
-            "sourceMap": true
+            "optimization": true
           },
           "configurations": {
             "production": {

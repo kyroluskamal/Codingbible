@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { SafeUrlPipe } from 'src/Pipes/safe-url.pipe';
 import { VideoContainerComponent } from '../video-container/video-container.component';
+import { AdsenseModule } from 'ng2-adsense';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { VideoContainerComponent } from '../video-container/video-container.comp
     PlayListComponent, SectionChildHomeComponent
   ],
   imports: [
-    CommonModule, RouterModule, TranslatePipe, VideoContainerComponent
+    CommonModule, RouterModule, TranslatePipe, VideoContainerComponent, AdsenseModule
   ],
   exports: [PlayListComponent]
 })

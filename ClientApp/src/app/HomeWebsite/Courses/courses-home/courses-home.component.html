@@ -5,9 +5,11 @@
         <page-title title="{{'Courses'| translate}}"
                     description="{{'AllCoursesPageDescription'| translate}}"></page-title>
     </header>
-    <img src="../../../../assets/img/horizontal.webp"
-         class="noShadow"
-         alt="">
+    <ng2-adsense [adClient]="'ca-pub-6664419901582400'"
+                 [adSlot]="'1331253495'"
+                 [adFormat]="'auto'"
+                 [fullWidthResponsive]="true"
+                 [display]="'block'"></ng2-adsense>
     <ng-container *ngIf="!loading else placeholder">
         <course-card *ngFor="let c of (AllCourses$|async)"
                      [Course]="c"></course-card>

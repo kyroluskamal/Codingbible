@@ -13,6 +13,7 @@ export class NavChildsComponent implements OnInit, OnChanges
 {
   isArabic$ = this.store.select(selectLang);
   isArabic: boolean = false;
+  noOfChildren: number = 0;
   @Input() MenuItems: MenuItem[] = [];
   @Input() MenuItemChild: MenuItem | null = null;
   constructor(private tree: TreeDataStructureService<MenuItem>,
@@ -22,6 +23,7 @@ export class NavChildsComponent implements OnInit, OnChanges
     if ("MenuItems" in changes)
     {
       this.tree.setData(this.MenuItems);
+      this.noOfChildren = this.Children(this.MenuItemChild!).length;
     }
   }
 

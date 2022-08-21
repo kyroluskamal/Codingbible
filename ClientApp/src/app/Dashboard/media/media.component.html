@@ -48,7 +48,7 @@
                              class="img-fluid">
                     </ng-template>
                     <img *ngIf="f.thumbnailUrl!==''"
-                         [src]="BaseUrl+f.thumbnailUrl |UrlForScreen"
+                         [src]="BaseUrl+f.thumbnailUrl"
                          [alt]="f.altText"
                          [tooltip]="largeImage"
                          containerClass="imageToolTip"
@@ -80,7 +80,7 @@
                                 <span class=" text-white small text-wrap">{{(selectedFile$|async)?.fileName}}</span>
                             </span>
                             <img *ngIf="(selectedFile$|async)?.thumbnailUrl!==''"
-                                 [src]="BaseUrl+(selectedFile$|async)?.thumbnailUrl | UrlForScreen"
+                                 [src]="BaseUrl+(selectedFile$|async)?.thumbnailUrl"
                                  [alt]="(selectedFile$|async)?.altText"
                                  class="img-thumbnail">
                         </div>

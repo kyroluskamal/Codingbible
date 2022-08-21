@@ -23,10 +23,10 @@ global['localStorage'] = localStorage;
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express
 {
-  const compression = require('compression');
+  // const compression = require('compression');
   const expressStaticGzip = require("express-static-gzip");
   const server = express();
-  server.use(compression());
+  // server.use(compression());
 
 
   const distFolder = join(process.cwd(), 'dist/browser');
@@ -46,11 +46,10 @@ export function app(): express.Express
   server.set('views', distFolder);
 
   // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
+  // server.get('/api/**', (req, res) => { res.json(res); });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
     maxAge: '1y',
-
   }));
 
   // All regular routes use the Universal engine
@@ -70,7 +69,7 @@ function run(): void
   const server = app();
   server.listen(port, () =>
   {
-    console.log(`Node Express server listening on http://localhost:${port}`);
+
   });
 }
 

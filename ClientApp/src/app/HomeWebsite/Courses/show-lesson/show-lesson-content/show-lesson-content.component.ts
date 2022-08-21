@@ -78,7 +78,6 @@ export class ShowLessonContentComponent implements OnInit, OnDestroy, AfterViewC
           let a = this.document.createElement('a');
           if (header.tagName === 'H3' || header.tagName === 'H4' || header.tagName === 'H5' || header.tagName === 'H6')
           {
-            console.log(header.tagName.split('')[1]);
             a.setAttribute('class', this.isArabic ? `pe-${Number(header.tagName.split('')[1])}` : `ps-${Number(header.tagName.split('')[1])}`);
           }
           a.href = '#' + header.id;

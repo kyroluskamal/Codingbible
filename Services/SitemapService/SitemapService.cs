@@ -89,7 +89,7 @@ public class SitemapService : ISitemapService
                 </sitemap>";
             }
             sitMapOfSiteMAps += "</sitemapindex>";
-            using (var writer = new StreamWriter(Env.WebRootPath + "/sitemap.xml"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath("sitemap.xml")))
             {
                 await writer.WriteAsync(sitMapOfSiteMAps);
             }
@@ -125,7 +125,7 @@ public class SitemapService : ISitemapService
             //Step 5 = Add the end tag of the sitemap
             Post_sitemap += SITEMAP_FOOTER;
             //Step 6 = Save the sitemap to the file system
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{POST_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(POST_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Post_sitemap);
             }
@@ -197,15 +197,15 @@ public class SitemapService : ISitemapService
             Lessons_sitemap += SITEMAP_FOOTER;
             Sections_sitemap += SITEMAP_FOOTER;
             //Step 6 = Save the sitemap to the file system
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{COURSES_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(COURSES_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Courses_sitemap);
             }
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{LESSON_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(LESSON_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Lessons_sitemap);
             }
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{SECTIONS_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(SECTIONS_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Sections_sitemap);
             }
@@ -241,7 +241,7 @@ public class SitemapService : ISitemapService
             //Step 5 = Add the end tag of the sitemap
             Cats_sitemap += SITEMAP_FOOTER;
             //Step 6 = Save the sitemap to the file system
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{CAT_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(CAT_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Cats_sitemap);
             }
@@ -276,7 +276,7 @@ public class SitemapService : ISitemapService
             //Step 5 = Add the end tag of the sitemap
             Courses_Cats_sitemap += SITEMAP_FOOTER;
             //Step 6 = Save the sitemap to the file system
-            using (var writer = new StreamWriter($"{Env.WebRootPath}/{COURSES_CATS_SITEMAP_FILE_NAME}"))
+            using (var writer = new StreamWriter(GenerateSiteMapPath(COURSES_CATS_SITEMAP_FILE_NAME)))
             {
                 await writer.WriteAsync(Courses_Cats_sitemap);
             }
@@ -352,5 +352,10 @@ public class SitemapService : ISitemapService
             }
         }
         return node;
+    }
+
+    private string GenerateSiteMapPath(string sitemapName)
+    {
+        return Env.IsDevelopment() ? Path.Combine(Env.WebRootPath, sitemapName) : Path.Combine(Env.ContentRootPath, "..\\dist\\browser", sitemapName);
     }
 }

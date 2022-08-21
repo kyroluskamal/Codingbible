@@ -25,14 +25,21 @@ using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 using CodingBible.Services.SitemapService;
 using SixLabors.ImageSharp.Web.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication.Certificate;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.CookiePolicy;
+using System.Net;
 
 namespace CodingBible
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private IWebHostEnvironment Env { get; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Env = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,9 +48,24 @@ namespace CodingBible
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options => options.AddPolicy("ApiCorsPolicy", builder =>
-                builder.WithOrigins("http://localhost:4000").AllowAnyMethod().AllowAnyHeader().AllowCredentials()
+                builder.WithOrigins("http://localhost:4200", "https://coding-bible.com",
+                "https://api.coding-bible.com", "http://api.coding-bible.com",
+                "http://10.128.0.2", "https://10.128.0.2", "http://localhost", "https://localhost",
+                "http://coding-bible.com", "https://34.160.104.77", "http://34.160.104.77",
+                "http://localhost:4000", "https://localhost:5001", "http://localhost:5001"
+                 ).AllowAnyMethod().AllowAnyHeader().AllowCredentials()
             ));
-
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                options.ForwardLimit = 2;
+                options.KnownProxies.Add(IPAddress.Parse("127.0.10.1"));
+                options.KnownProxies.Add(IPAddress.Parse("35.188.16.245"));
+                options.KnownProxies.Add(IPAddress.Parse("34.160.104.77"));
+                options.AllowedHosts.Add("coding-bible.com:80");
+                options.AllowedHosts.Add("coding-bible.com:443");
+                options.AllowedHosts.Add("api.coding-bible.com");
+            });
             services.AddMvc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -90,7 +112,19 @@ namespace CodingBible
             services.AddTransient<ApplicationUserRoleStore>();
             services.AddTransient<ApplicationUserStore>();
             services.AddDbContext<DataProtectionKeysContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys")));
+                    {
+                        options.UseSqlServer(Configuration.GetConnectionString("DataProtectionKeys"),
+                        sql =>
+                        {
+                            sql.EnableRetryOnFailure(
+                                maxRetryCount: 10,
+                                maxRetryDelay: TimeSpan.FromSeconds(30),
+                                errorNumbersToAdd: null
+                            );
+                        });
+                        options.EnableDetailedErrors();
+                        options.EnableSensitiveDataLogging();
+                    });
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 );
@@ -108,7 +142,7 @@ namespace CodingBible
             services.AddAuthentication("Custom").AddScheme<CustomAuthenticationOptions, CustomAuthenticationHandler>("Custom", null);
 
             services.AddControllersWithViews();
-            services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
+            // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist");
             services.AddRazorPages();
             /*---------------------------------------------------------------------------------------------------*/
             /*                             Adding new Services                                                    */
@@ -135,8 +169,9 @@ namespace CodingBible
             {
                 options.HeaderName = "scfD1z5dp2";
                 options.Cookie.MaxAge = TimeSpan.FromDays(10);
-                options.Cookie.SameSite = SameSiteMode.None;
-                options.Cookie.HttpOnly = false;
+                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.HttpOnly = true;
+                options.Cookie.Domain = Env.IsDevelopment() ? "" : "coding-bible.com";
                 options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
             });
             // services.AddSpaStaticFiles(configuration => configuration.RootPath = "ClientApp/dist/browser");
@@ -216,19 +251,28 @@ namespace CodingBible
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            app.Use((context, next) =>
+            {
+                context.Request.Scheme = "http";
+                return next(context);
+            });
+            app.UseForwardedHeaders();
             // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-            app.UseImprovedHsts();
+            app.UseHsts();
             // app.UseHttpsRedirection();
             app.UseResponseCompression();
             app.UseStaticFiles();
-            app.UseRouting();
-            app.UseCors(policy =>
+            if (!env.IsDevelopment())
             {
-                policy.WithOrigins("http://localhost:4200", "http://localhost:4000", "https://localhost:5001")
-                .AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-                .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
-            });
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "..\\dist\\browser\\assets")),
+                    RequestPath = "/assets"
+                });
+            }
+            app.UseRouting();
+            app.UseCors("ApiCorsPolicy");
+            // app.UseAuthentication();
             app.UseAuthorization();
             app.Use(next => context =>
             {
@@ -242,6 +286,7 @@ namespace CodingBible
                             Secure = true,
                             IsEssential = true,
                             SameSite = SameSiteMode.None,
+                            Domain = env.IsDevelopment() ? "" : "coding-bible.com",
                             MaxAge = TimeSpan.FromDays(10)
                         });
                 }

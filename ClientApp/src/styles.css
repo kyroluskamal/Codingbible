@@ -1,27 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600&family=Fira+Code:wght@300;600;700&family=Noto+Naskh+Arabic&family=Nunito:wght@500;600;700;900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600&family=Fira+Code:wght@300;600;700&family=Noto+Naskh+Arabic&family=Nunito:wght@500;600;700;900&display=swap'); */
 /*'Almarai'*/
-@import url("./assets/Fonts/Almarai/stylesheet.css");
+/* @import url("./assets/Fonts/Almarai/stylesheet.css");
 /*'Noto Sans Arabic'*/
-@import url("./assets/Fonts/Noto_Sans_Arabic/stylesheet.css");
+/* @import url("./assets/Fonts/Noto_Sans_Arabic/stylesheet.css"); */
 /*'Calibri'*/
-@import url("./assets/Fonts/calibri/stylesheet.css");
+/* @import url("./assets/Fonts/calibri/stylesheet.css"); */
 /*'HacenCasablancaHeavy'*/
-@import url("./assets/Fonts/HacenCasablancaHeavy/stylesheet.css");
 
 :root {
   /*.....................................Fonts.........................*/
   --Almarai: "Almarai";
-  --Chewy: "Chewy";
-  --Fredoka: "Fredoka One";
-  --Jomhuria: "Jomhuria";
-  --Patrick: "Patrick Hand";
-  --Scheherazade: "Scheherazade New";
-  --Paytone: "Paytone One";
-  --Titan: "Titan One";
   --NotoSansArabic: "Noto Sans Arabic";
-  --Lalezar: "Lalezar";
   --Calibri: "Calibri";
-  --Hacen: "Hacen Casablanca";
   /*......................................colors..........................*/
   --sucessColor: #2dce89;
   --infoColor: #11cdef;
@@ -564,4 +554,18 @@ app-home-nav-menu {
   word-wrap: break-word;
   word-spacing: normal;
   white-space: normal !important;
+}
+
+.img-fluid {
+  height: unset !important;
+}
+
+.noAfter::after {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .display-none {
+    display: none !important;
+  }
 }

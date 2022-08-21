@@ -12,12 +12,15 @@ namespace CodingBible.Services.CookieService
         private readonly CookieOptions _cookieOptions;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IServiceProvider Provider;
+        private IWebHostEnvironment Env { get; }
 
-        public CookieServ(CookieOptions cookieOptions, IHttpContextAccessor httpContextAccessor, IServiceProvider provider)
+        public CookieServ(CookieOptions cookieOptions, IWebHostEnvironment env,
+         IHttpContextAccessor httpContextAccessor, IServiceProvider provider)
         {
             _cookieOptions = cookieOptions;
             _httpContextAccessor = httpContextAccessor;
             Provider = provider;
+            Env = env;
         }
 
         public string Get(string key)
@@ -25,7 +28,8 @@ namespace CodingBible.Services.CookieService
             return _httpContextAccessor.HttpContext.Request.Cookies[key];
         }
 
-        public void SetCookie(string key, string value, TimeSpan? expireTime, bool isSecure = true, bool isHttpOnly = true)
+        public void SetCookie(string key, string value, TimeSpan? expireTime,
+         bool isSecure = true, bool isHttpOnly = true)
         {
             if (expireTime.HasValue)
             {
@@ -34,6 +38,7 @@ namespace CodingBible.Services.CookieService
             _cookieOptions.Secure = isSecure;
             _cookieOptions.HttpOnly = isHttpOnly;
             _cookieOptions.IsEssential = true;
+            _cookieOptions.Domain = Env.IsDevelopment() ? "" : "coding-bible.com";
             _cookieOptions.SameSite = SameSiteMode.None;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
@@ -41,8 +46,8 @@ namespace CodingBible.Services.CookieService
         {
             _cookieOptions.Secure = isSecure;
             _cookieOptions.HttpOnly = isHttpOnly;
-            _cookieOptions.Domain = "";
-            _cookieOptions.Path = "/";
+            _cookieOptions.Domain = Env.IsDevelopment() ? "" : "coding-bible.com";
+            // _cookieOptions.Path = "/";
             _cookieOptions.SameSite = SameSiteMode.None;
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
@@ -55,9 +60,9 @@ namespace CodingBible.Services.CookieService
         {
             _cookieOptions.Secure = true;
             _cookieOptions.HttpOnly = true;
-            _cookieOptions.SameSite = SameSiteMode.Strict;
-            _cookieOptions.Domain = "";
-            _cookieOptions.Path = "/";
+            _cookieOptions.SameSite = SameSiteMode.None;
+            _cookieOptions.Domain = Env.IsDevelopment() ? "" : "coding-bible.com";
+            // _cookieOptions.Path = "/";
             _httpContextAccessor.HttpContext.Response.Cookies.Append(key, value, _cookieOptions);
         }
         public void DeleteAllCookies()
@@ -69,10 +74,32 @@ namespace CodingBible.Services.CookieService
             foreach (var key in cookiesToDelete)
             {
                 if (_httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(key))
+                {
                     _httpContextAccessor.HttpContext.Response.Cookies.Delete(key);
+                    _httpContextAccessor.HttpContext.Response.Cookies.Append(key, "", new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(-1),
+                        HttpOnly = false,
+                        SameSite = SameSiteMode.None,
+                        Domain = Env.IsDevelopment() ? "" : "coding-bible.com",
+                        Secure = true
+                    });
+                }
             }
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.loginStatus, "0", new CookieOptions() { HttpOnly = false, Secure = false });
-            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.refershTokenExpire, "0", new CookieOptions() { HttpOnly = false, Secure = false });
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.loginStatus, "0", new CookieOptions()
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,
+                Domain = Env.IsDevelopment() ? "" : "coding-bible.com",
+                Secure = true
+            });
+            _httpContextAccessor.HttpContext.Response.Cookies.Append(Constants.CookieName.refershTokenExpire, "0", new CookieOptions()
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,
+                Domain = Env.IsDevelopment() ? "" : "coding-bible.com",
+                Secure = true
+            });
         }
 
         public string GetUserIP()

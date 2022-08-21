@@ -106,9 +106,7 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
   }
   handleDropDowns()
   {
-
     let allDropDowns = this.document.querySelectorAll(".nav-item.dropdown");
-    console.log(allDropDowns);
     for (let i = 0; i < allDropDowns.length; i++)
     {
 
@@ -124,7 +122,6 @@ export class HomeNavMenuComponent implements OnInit, OnChanges
       });
       allDropDowns[i].addEventListener("mouseleave", () =>
       {
-        console.log("mouseleave");
         menu.classList.remove("show");
       });
 

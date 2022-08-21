@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit
     this.isArabic.subscribe(lang =>
     {
       this.TitleAndMetaService.setSEO_Requirements(this.translate.transform('Learn Computer Science and progrmming'),
-        this.translate.transform('firstSectionText'), '', window.location.origin, lang);
+        this.translate.transform('firstSectionText'), '/assets/img/learn-comuter-science-and-programming-2.webp', "", lang);
     });
   }
 

@@ -10,6 +10,7 @@ using CodingBible.Models.Posts;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using SixLabors.ImageSharp.Formats.Webp;
+using Microsoft.Extensions.Hosting;
 //using ImageProcessor;
 //using ImageProcessor.Plugins.WebP.Imaging.Formats;
 using Microsoft.AspNetCore.StaticFiles;
@@ -25,7 +26,8 @@ public class MediaController : ControllerBase
     private IUnitOfWork_ApplicationUser UnitOfWork { get; }
     private IFunctionalService FunctionalService { get; }
 
-    public MediaController(IWebHostEnvironment env, IFunctionalService functionalService, IUnitOfWork_ApplicationUser unitOfWork)
+    public MediaController(IWebHostEnvironment env,
+    IFunctionalService functionalService, IUnitOfWork_ApplicationUser unitOfWork)
     {
         Env = env;
         FunctionalService = functionalService;
@@ -45,7 +47,7 @@ public class MediaController : ControllerBase
                 return BadRequest("No files received from the upload");
             }
             var FolderPath = $"Uploads/{DateTime.Now.Year}/{DateTime.Now.Month}";
-            var filePath = Path.Combine(Env.WebRootPath, FolderPath);
+            var filePath = Env.IsDevelopment() ? Path.Combine(Env.WebRootPath, FolderPath) : Path.Combine(Env.ContentRootPath, "..\\dist\\browser\\assets", FolderPath);
             if (!Directory.Exists(filePath))
             {
                 Directory.CreateDirectory(filePath);
@@ -128,10 +130,10 @@ public class MediaController : ControllerBase
                     FileData.Add(new Attachments
                     {
                         FileName = finalFile.Name.Replace("_xl", ""),
-                        FileUrl_xl = "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_xl).Replace('\\', '/'),
-                        FileUrl_md_lg = "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_md_lg).Replace('\\', '/'),
-                        FileUrl_sm = "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_sm).Replace('\\', '/'),
-                        ThumbnailUrl = "/" + Path.GetRelativePath(Env.WebRootPath, WepbThumbnail_c).Replace('\\', '/'),
+                        FileUrl_xl = Env.IsDevelopment() ? "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_xl).Replace('\\', '/') : "/assets/" + FolderPath + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "_xl.webp",
+                        FileUrl_md_lg = Env.IsDevelopment() ? "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_md_lg).Replace('\\', '/') : "/assets/" + FolderPath + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "_md.webp",
+                        FileUrl_sm = Env.IsDevelopment() ? "/" + Path.GetRelativePath(Env.WebRootPath, WebPCompressed_sm).Replace('\\', '/') : "/assets/" + FolderPath + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "_sm.webp",
+                        ThumbnailUrl = Env.IsDevelopment() ? "/" + Path.GetRelativePath(Env.WebRootPath, WepbThumbnail_c).Replace('\\', '/') : "/assets/" + FolderPath + "/" + Path.GetFileNameWithoutExtension(file.FileName) + "_th.jpg",
                         FileType = contentType,
                         FileExtension = Path.GetExtension(finalFile.Name),
                         FileSize = finalFile.Length,
@@ -175,21 +177,28 @@ public class MediaController : ControllerBase
             {
                 return NotFound(Constants.HttpResponses.NotFound_ERROR_Response("File"));
             }
-            var relativePath = $"Uploads/{data.CreatedDate.Year}/{data.CreatedDate.Month}";
-            var originalFilePath = Path.Combine(Env.WebRootPath, relativePath + "/" + data.FileName);
-            var compressedFilePath = Path.Combine(Env.WebRootPath, relativePath + "/" + data.FileName.Split('.')[0] + "_Compressed." + data.FileExtension);
-            var thumbnailFilePath = Path.Combine(Env.WebRootPath, relativePath + "/" + data.FileName.Split('.')[0] + "_Compressed_Thumbnail." + data.FileExtension);
-            if (System.IO.File.Exists(originalFilePath))
+            var FolderPath = $"Uploads/{data.CreatedDate.Year}/{data.CreatedDate.Month}";
+            var filePath = Env.IsDevelopment() ? Path.Combine(Env.WebRootPath, FolderPath) : Path.Combine(Env.ContentRootPath, "..\\dist\\browser\\assets", FolderPath);
+            var GetFileNameWithoutExtension = Path.GetFileNameWithoutExtension(data.FileName);
+            var WebPCompressed_xl = Path.Combine(filePath, GetFileNameWithoutExtension + "_xl.webp");
+            var WebPCompressed_md_lg = Path.Combine(filePath, GetFileNameWithoutExtension + "_md.webp");
+            var WebPCompressed_sm = Path.Combine(filePath, GetFileNameWithoutExtension + "_sm.webp");
+            var WepbThumbnail_c = Path.Combine(filePath, GetFileNameWithoutExtension + "_th.jpg");
+            if (System.IO.File.Exists(WebPCompressed_xl))
             {
-                System.IO.File.Delete(originalFilePath);
+                System.IO.File.Delete(WebPCompressed_xl);
             }
-            if (System.IO.File.Exists(compressedFilePath))
+            if (System.IO.File.Exists(WebPCompressed_md_lg))
             {
-                System.IO.File.Delete(compressedFilePath);
+                System.IO.File.Delete(WebPCompressed_md_lg);
             }
-            if (System.IO.File.Exists(thumbnailFilePath))
+            if (System.IO.File.Exists(WebPCompressed_sm))
             {
-                System.IO.File.Delete(thumbnailFilePath);
+                System.IO.File.Delete(WebPCompressed_sm);
+            }
+            if (System.IO.File.Exists(WepbThumbnail_c))
+            {
+                System.IO.File.Delete(WepbThumbnail_c);
             }
 
             await UnitOfWork.Attachments.RemoveAsync(id);

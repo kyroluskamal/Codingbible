@@ -22,9 +22,11 @@
                 <page-title [title]="currentSection.name!"
                             [description]="currentSection.description!"></page-title>
             </header>
-            <img src="../../../../assets/img/horizontal.webp"
-                 class="noShadow"
-                 alt="">
+            <ng2-adsense [adClient]="'ca-pub-6664419901582400'"
+                         [adSlot]="'2263145493l'"
+                         [adFormat]="'auto'"
+                         [fullWidthResponsive]="true"
+                         [display]="'block'"></ng2-adsense>
             <introductoy-video *ngIf="currentSection.introductoryVideoUrl"
                                [videoId]="currentSection.introductoryVideoUrl.split('watch?v=')[1]"
                                [title]="'Introductory vedio'| translate">
