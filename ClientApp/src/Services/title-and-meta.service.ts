@@ -1,6 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { Meta, MetaDefinition, Title } from '@angular/platform-browser';
+import { BaseUrl } from 'src/Helpers/constants';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,8 @@ export class TitleAndMetaService
       { property: 'og:title', content: title },
       { property: 'og:type', content: "blog" },
       { property: 'og:description', content: description },
-      { property: 'og:image', content: window.location.origin + image },
-      { property: 'og:url', content: window.location.origin + '/' + url },
+      { property: 'og:image', content: BaseUrl + image },
+      { property: 'og:url', content: BaseUrl + '/' + url },
       { property: 'og:site_name', content: 'Coding Bible' },
     ];
     return faceBookMetaTags;
@@ -55,8 +56,8 @@ export class TitleAndMetaService
       { name: 'twitter:site', content: isArabic ? '@CodingbibleAr' : '@CodingBibleEN' },
       { name: 'twitter:title', content: title },
       { name: 'twitter:description', content: description },
-      { name: 'twitter:image', content: window.location.origin + image },
-      { name: 'twitter:url', content: window.location.origin + '/' + url },
+      { name: 'twitter:image', content: BaseUrl + image },
+      { name: 'twitter:url', content: BaseUrl + '/' + url },
     ];
     return twitterMetaTags;
   }

@@ -8,11 +8,11 @@ import { SharedModuleForHomeModule } from 'src/SharedModules/shared-module-for-h
 import { PageTitleComponent } from 'src/SharedModules/page-title/page-title.component';
 import { PageTitlePlaceHolderComponent } from 'src/SharedModules/page-title-place-holder/page-title-place-holder.component';
 import { IntroductoyVideoComponent } from 'src/SharedModules/introductoy-video/introductoy-video.component';
-import { WhatWillYouLearnComponent } from 'src/SharedModules/what-will-you-learn/what-will-you-learn.component';
 import { TranslatePipe } from 'src/Pipes/translate.pipe';
 import { PlayListModule } from 'src/SharedModules/play-list/play-list.module';
 import { NotFoundBoxComponent } from 'src/SharedModules/not-found-box/not-found-box.component';
 import { ShowAllLessonsOrSectionsComponent } from 'src/SharedModules/show-all-lessons-or-sections/show-all-lessons-or-sections.component';
+import { CourseTextToListComponent } from 'src/SharedModules/course-text-to-list/course-text-to-list.component';
 
 
 @NgModule({
@@ -22,7 +22,7 @@ import { ShowAllLessonsOrSectionsComponent } from 'src/SharedModules/show-all-le
   ],
   imports: [
     CommonModule, SharedModuleForHomeModule, PageTitleComponent, PageTitlePlaceHolderComponent,
-    ShowSectionRoutingModule, IntroductoyVideoComponent, WhatWillYouLearnComponent,
+    ShowSectionRoutingModule, IntroductoyVideoComponent, CourseTextToListComponent,
     TranslatePipe, PlayListModule, NotFoundBoxComponent, ShowAllLessonsOrSectionsComponent
   ]
 })

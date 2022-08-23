@@ -1,0 +1,28 @@
+----------------------------------------------------------------------
+Timestamp - 22/08/2022 00:02:15 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-3OSM8IQ"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.8"
+UserName : "kyrol"
+ProcessId : 9524
+ProcessName : "dotnet"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 22/08/2022 00:11:23 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-3OSM8IQ"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.8"
+UserName : "kyrol"
+ProcessId : 384
+ProcessName : "dotnet"
+---------------------------------------------------------------------------

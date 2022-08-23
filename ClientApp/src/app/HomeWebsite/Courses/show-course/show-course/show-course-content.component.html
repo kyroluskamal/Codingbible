@@ -38,25 +38,22 @@
                          [description]="CurrentCourse.description">
             </description>
 
-            <what-will-you-learn *ngIf="CurrentCourse.whatWillYouLearn"
-                                 [whatWillYouLearn]="CurrentCourse.whatWillYouLearn!"
-                                 title="{{'What will you learn in this course?'|translate}}">
-            </what-will-you-learn>
+            <course-text-to-list *ngIf="CurrentCourse.whatWillYouLearn"
+                                 [text]="CurrentCourse.whatWillYouLearn!"
+                                 title="{{'What will you learn in this course?'|translate}}"></course-text-to-list>
+            <course-text-to-list *ngIf="CurrentCourse.targetAudience"
+                                 [text]="CurrentCourse.targetAudience!"
+                                 title="{{'Target Audience'| translate}}"></course-text-to-list>
+            <course-text-to-list *ngIf="CurrentCourse.requirementsOrInstructions"
+                                 [text]="CurrentCourse.requirementsOrInstructions!"
+                                 title="{{'Course Requirements'|translate}}"></course-text-to-list>
+            <course-text-to-list *ngIf="CurrentCourse.courseFeatures"
+                                 [text]="CurrentCourse.courseFeatures!"
+                                 title="{{'Course Features'|translate}}"></course-text-to-list>
+            <course-text-to-list *ngIf="CurrentCourse.references"
+                                 [text]="CurrentCourse.references!"
+                                 title="{{'References'| translate}}"></course-text-to-list>
 
-            <target-audience *ngIf="CurrentCourse.targetAudience"
-                             title="{{'Target Audience'| translate}}"
-                             [targetAudience]="CurrentCourse.targetAudience!"
-                             [isArabic]="(isArabic$|async)!">
-            </target-audience>
-
-            <requirements *ngIf="CurrentCourse.requirementsOrInstructions"
-                          title="{{'Course Requirements'|translate}}"
-                          [requirementsOrInstructions]="CurrentCourse.requirementsOrInstructions!">
-            </requirements>
-            <course-features *ngIf="CurrentCourse.courseFeatures"
-                             title="{{'Course Features'|translate}}"
-                             [courseFeatures]="CurrentCourse.courseFeatures!">
-            </course-features>
             <playlist [AllSections]="AllSections"
                       [RootSections]="RootSections"
                       [CurrentCourse]="CurrentCourse"></playlist>

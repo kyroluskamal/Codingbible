@@ -187,6 +187,7 @@ export class Course
     coursesPerCategories: CoursesPerCategory[] = [];
     students: StudentsPerCourse[] = [];
     isArabic: boolean = false;
+    references: string = "";
     otherSlug: string | null = null;
     categoriesObject: CourseCategory[] = [];
     lessons: Lesson[] = [];

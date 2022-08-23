@@ -303,6 +303,7 @@ public class CoursesController : ControllerBase
                 courseToUpdate.FeatureImageUrl = course.FeatureImageUrl;
                 courseToUpdate.IntroductoryVideoUrl = course.IntroductoryVideoUrl;
                 courseToUpdate.OtherSlug = course.OtherSlug;
+                courseToUpdate.References = course.References;
                 UnitOfWork.Courses.Update(courseToUpdate);
                 Log.Warning("new Slug vs Old slug {bool}", !Equals(course.Slug, oldSlug));
                 Log.Warning("courseToUpdate.OtherSlug {Id} updated", courseToUpdate.OtherSlug);

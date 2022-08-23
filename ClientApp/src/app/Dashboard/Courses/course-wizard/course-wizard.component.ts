@@ -120,6 +120,7 @@ export class CourseWizardComponent implements OnInit
       [FormControlNames.courseForm.categories]: ['', [validators.required]],
       [FormControlNames.courseForm.isArabic]: [{ value: false, disabled: true }],
       [FormControlNames.courseForm.otherSlug]: [null, [validators.required]],
+      [FormControlNames.courseForm.references]: [''],
     });
     this.CourseCats.subscribe(cats =>
     {

@@ -2,15 +2,15 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'course-features',
+  selector: 'course-text-to-list',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './course-features.component.html',
-  styleUrls: ['./course-features.component.css']
+  templateUrl: './course-text-to-list.component.html',
+  styleUrls: ['./course-text-to-list.component.css']
 })
-export class CourseFeaturesComponent implements OnInit
+export class CourseTextToListComponent implements OnInit
 {
-  @Input() courseFeatures: string = '';
+  @Input() text: string = '';
   @Input() title: string = '';
   constructor() { }
 

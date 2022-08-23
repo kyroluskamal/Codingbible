@@ -511,7 +511,7 @@
                 *                          requirementsOrInstructions
                  **********************************************************************-->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-sm-6 col-12">
                         <div class="form-floating">
                             <textarea required
                                       class="textArea-no-resize"
@@ -533,6 +533,22 @@
                             <label
                                    [for]="FormControlNames.courseForm.requirementsOrInstructions">{{FormFieldsNames.Course.requirementsOrInstructions}}<sup
                                      class="text-danger">*</sup>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-12">
+                        <div class="form-floating">
+                            <textarea required
+                                      class="textArea-no-resize"
+                                      rows="5"
+                                      [formControlName]="FormControlNames.courseForm.references"
+                                      [class]="!errorState.isTouchedOrDirty(FormControlNames.courseForm.references, CourseForm)?'form-control':
+                                           errorState.isErrorState(FormControlNames.courseForm.references, CourseForm, form)?
+                                           'form-control is-invalid':'form-control is-valid'"
+                                      [id]="FormControlNames.courseForm.references"
+                                      [placeholder]="FormFieldsNames.Course.requirementsOrInstructions">
+                              </textarea>
+                            <label [for]="FormControlNames.courseForm.references">{{FormFieldsNames.Course.references}}
                             </label>
                         </div>
                     </div>

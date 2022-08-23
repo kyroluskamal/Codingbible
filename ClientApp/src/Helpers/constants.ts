@@ -170,6 +170,7 @@ export const FormControlNames = {
         categories: "categories",
         isArabic: "isArabic",
         otherSlug: "otherSlug",
+        references: "references",
     },
     courseCategoryForm: {
         name: "name",
@@ -274,6 +275,7 @@ export const FormFieldsNames = {
         difficultyLevel: "Difficulty Level",
         featureImageUrl: "Feature Image",
         introductoryVideoUrl: "Introductory Video Url",
+        references: "References",
     },
     Section: {
         name: "Name",
@@ -734,7 +736,7 @@ export const CourseDifficultyLevel = {
 };
 export const titleSeparatorCharacter = "»";
 // export const BaseUrl = "https://localhost:5001";
-export const BaseUrl = environment.production ? "" : "https://localhost:5001";
+export const BaseUrl = environment.production ? "https://coding-bible.com" : "https://localhost:5001";
 export const MenuItemType = {
     Custom: 1,
     Course: 2,

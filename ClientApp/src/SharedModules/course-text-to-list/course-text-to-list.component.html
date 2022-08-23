@@ -2,8 +2,9 @@
     <h2 class="d-flex">
         {{title}}</h2>
     <ul class="fs-5 text-justify">
-        <li *ngFor="let i of whatWillYouLearn.split('\n')">
-            <span *ngIf="i!=''">{{i}}</span>
+        <li *ngFor="let i of text.split('\n')">
+            <span *ngIf="i!=''"
+                  [innerHtml]="i"></span>
         </li>
     </ul>
 </section>

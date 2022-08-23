@@ -46,6 +46,7 @@ public class Course
     public ICollection<CoursesPerCategory> CoursesPerCategories { get; set; }
     public ICollection<StudentsPerCourse> Students { get; set; }
     public bool IsArabic { get; set; }
+    public string References { get; set; }
     [NotMapped]
     public string OtherSlug { get; set; }
     [NotMapped]

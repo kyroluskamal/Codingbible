@@ -31,10 +31,9 @@
                                [videoId]="currentSection.introductoryVideoUrl.split('watch?v=')[1]"
                                [title]="'Introductory vedio'| translate">
             </introductoy-video>
-            <what-will-you-learn *ngIf="currentSection.whatWillYouLearn"
-                                 [title]="'What will you learn in this section?'| translate"
-                                 [whatWillYouLearn]="currentSection.whatWillYouLearn">
-            </what-will-you-learn>
+            <course-text-to-list *ngIf="currentSection.whatWillYouLearn"
+                                 [text]="currentSection.whatWillYouLearn!"
+                                 title="{{'What will you learn in this course?'|translate}}"></course-text-to-list>
             <playlist [AllSections]="AllSections"
                       [CurrentCourse]="currentCourse"
                       [RootSections]="[currentSection]"></playlist>

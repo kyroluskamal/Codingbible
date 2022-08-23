@@ -114,6 +114,7 @@ export class TranslatePipe implements PipeTransform
       case "Back": return "رجوع";
       case "We are working to get this translation as soon as possible.": return "نعمل على ترجمة هذه الصفحة في أقرب وقت ممكن.";
       case "Translation not ready": return "الترجمة غير متاحة";
+      case "References": return "المراجع";
       default: return value;
     }
   }

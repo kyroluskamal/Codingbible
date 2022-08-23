@@ -30,14 +30,8 @@
               "src/assets",
               "src/manifest.webmanifest"
             ],
-            "optimization": {
-              "scripts": true,
-              "fonts": {
-                "inline": true
-              },
-              "styles": true
-            },
-            "statsJson": true,
+            "optimization": true,
+            "statsJson": false,
             "namedChunks": false,
             "aot": true,
             "outputHashing": "all",
@@ -49,7 +43,7 @@
               "src/assets/Fonts/calibri/stylesheet.css",
               "src/assets/Fonts/Noto_Sans_Arabic/stylesheet.css",
               {"input": "./src/styles.css", "inject": true},
-              {"input": "./node_modules/ngx-spinner/animations/ball-scale-multiple.css", "inject": false},
+              {"input": "./node_modules/ngx-spinner/animations/ball-scale-multiple.css", "inject": true},
               {"input": "./node_modules/bootstrap-icons/font/bootstrap-icons.css", "inject": true},
               { "input": "./node_modules/bootstrap/dist/css/bootstrap.min.css" ,"inject": true}
             ],
@@ -120,6 +114,7 @@
             "codeCoverage": true,
             "assets": [
               "src/favicon.ico",
+              "src/ads.txt",
               "src/assets",
               "src/manifest.webmanifest"
             ],
