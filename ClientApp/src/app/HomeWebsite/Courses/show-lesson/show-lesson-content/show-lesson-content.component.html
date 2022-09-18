@@ -27,15 +27,12 @@
                          [adFormat]="'auto'"
                          [fullWidthResponsive]="true"
                          [display]="'block'"></ng2-adsense>
-            <a [routerLink]=""
-               [fragment]="'fsdfsdf'">sfdfsdfsd</a>
-            <section class="coding-bible-card border border-2"
-                     id="toc">
-            </section>
-            <section class="coding-bible-card htmlConent"
-                     id="content"
-                     *ngIf="currentLesson?.htmlContent"
-                     [innerHtml]="currentLesson.htmlContent! |bypassStyle">
+            <section class="coding-bible-card lessonVideo"
+                     *ngIf="currentLesson?.vedioUrl">
+                <h2 class="d-flex">{{'Watch the video' | translate}}</h2>
+                <youtube-container *ngIf="currentLesson?.vedioUrl"
+                                   [videoId]="currentLesson.vedioUrl.split('watch?v=')![1]">
+                </youtube-container>
             </section>
             <section class="coding-bible-card d-flex flex-row flex-wrap justify-content-between">
                 <button class="btn btn-orange"
@@ -45,13 +42,25 @@
                         [disabled]="currentLessonIndex>=ArrangedLessons.length-1"
                         (click)="NextOrPrevious(1)">{{'Next lesson'| translate}}</button>
             </section>
-            <section class="coding-bible-card lessonVideo"
-                     *ngIf="currentLesson?.vedioUrl">
-                <h2 class="d-flex">{{'Watch the video' | translate}}</h2>
-                <youtube-container *ngIf="currentLesson?.vedioUrl"
-                                   [videoId]="currentLesson.vedioUrl.split('watch?v=')![1]">
-                </youtube-container>
+            <section class="coding-bible-card border border-2"
+                     *ngIf="currentLesson?.htmlContent"
+                     id="toc">
             </section>
+            <section class="coding-bible-card htmlConent"
+                     id="content"
+                     *ngIf="currentLesson?.htmlContent"
+                     [innerHtml]="currentLesson.htmlContent! |bypassStyle">
+            </section>
+            <section *ngIf="currentLesson?.htmlContent"
+                     class="coding-bible-card d-flex flex-row flex-wrap justify-content-between">
+                <button class="btn btn-orange"
+                        [disabled]="currentLessonIndex<=0"
+                        (click)="NextOrPrevious(-1)">{{'Previous lesson'| translate}}</button>
+                <button class="btn btn-orange"
+                        [disabled]="currentLessonIndex>=ArrangedLessons.length-1"
+                        (click)="NextOrPrevious(1)">{{'Next lesson'| translate}}</button>
+            </section>
+
         </ng-container>
         <ng-template #NotFound>
             <ng-container *ngIf="!currentCourse else CourseButLesson">

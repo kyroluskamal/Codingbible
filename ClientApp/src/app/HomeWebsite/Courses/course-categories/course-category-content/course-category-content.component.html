@@ -19,6 +19,11 @@
                     <page-title-placeholder></page-title-placeholder>
                 </ng-template>
             </header>
+            <ng2-adsense [adClient]="'ca-pub-6664419901582400'"
+                         [adSlot]="'1845795799'"
+                         [adFormat]="'auto'"
+                         [fullWidthResponsive]="true"
+                         [display]="'block'"></ng2-adsense>
             <course-card *ngFor="let c of CoursesInCategory"
                          [Course]="c"></course-card>
         </ng-container>

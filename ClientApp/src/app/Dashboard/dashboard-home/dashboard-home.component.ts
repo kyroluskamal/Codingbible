@@ -63,7 +63,7 @@ export class DashboardHomeComponent implements OnInit
     this.User = this.store.select(selectUser);
     this.IsLoggedIn = this.store.select(selectIsLoggedIn);
     this.UserRoles = this.store.select(selectUserRoles);
-
+    localStorage.getItem("order") ? `OrderStatusUrl?OrderId=${localStorage.getItem("order")}` : "FormURL";
     this.pinned$.subscribe(
       r =>
       {

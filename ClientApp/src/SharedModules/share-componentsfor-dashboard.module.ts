@@ -19,7 +19,7 @@ const components = [MediaComponent, BootstrapMoalComponent,
 @NgModule({
   declarations: [components],
   imports: [
-    CommonModule, NgxSpinnerModule, TooltipModule, ReactiveFormsModule, ImageUrlForScreen
+    CommonModule, NgxSpinnerModule.forRoot({ type: "ball-scale-multiple" }), TooltipModule, ReactiveFormsModule, ImageUrlForScreen
   ],
   exports: [components, ImageUrlForScreen]
 })

@@ -10,6 +10,11 @@
         <category-card-palceholder></category-card-palceholder>
     </ng-template>
     <ng-container *ngIf="!Loading else placeholder">
+        <ng2-adsense [adClient]="'ca-pub-6664419901582400'"
+                     [adSlot]="'9724285810'"
+                     [adFormat]="'auto'"
+                     [fullWidthResponsive]="true"
+                     [display]="'block'"></ng2-adsense>
         <course-categories-card *ngFor="let cat of (AllCategories$|async)?.cats"
                                 [Category]="cat"></course-categories-card>
     </ng-container>

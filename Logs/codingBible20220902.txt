@@ -1,0 +1,33 @@
+----------------------------------------------------------------------
+Timestamp - 02/09/2022 22:30:44 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 10400, Name: "Microsoft.EntityFrameworkCore.Infrastructure.SensitiveDataLoggingEnabledWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Model.Validation"
+Application : "Coding Bible"
+MachineName : "DESKTOP-3OSM8IQ"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.8"
+UserName : "kyrol"
+ProcessId : 9148
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------
+----------------------------------------------------------------------
+Timestamp - 02/09/2022 22:32:39 +02:00 | Level - Warning |
+----------------------------------------------------------------------
+EventId : { Id: 20504, Name: "Microsoft.EntityFrameworkCore.Query.MultipleCollectionIncludeWarning" }
+SourceContext : "Microsoft.EntityFrameworkCore.Query"
+ActionId : "b2c024d2-8376-47f0-849f-2aee359951d0"
+ActionName : "CodingBible.Controllers.api.v1.PostsController.GetPosts (CodingBible)"
+RequestId : "0HMKD48TRDTP7:00000003"
+RequestPath : "/api/v1/Posts/GetPosts"
+ConnectionId : "0HMKD48TRDTP7"
+Application : "Coding Bible"
+MachineName : "DESKTOP-3OSM8IQ"
+CurrentManagedThreadId : 1
+OSVersion : "Microsoft Windows NT 10.0.19044.0"
+Version : "6.0.8"
+UserName : "kyrol"
+ProcessId : 9148
+ProcessName : "CodingBible"
+---------------------------------------------------------------------------

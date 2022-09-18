@@ -8,7 +8,8 @@ const routes: Routes = [
   {
     path: HomeRoutes.Courses.Home, loadChildren: () => import('../HomeWebsite/Courses/courses-home.module').then(m => m.CoursesHomeModule),
     data: { breadcrumb: 'الدورات' },
-  }, {
+  },
+  {
     path: NOT_READY, async loadComponent()
     {
       const m = await import('../HomeWebsite/translation-not-ready/translation-not-ready.component');
